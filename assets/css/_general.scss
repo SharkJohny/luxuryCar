@@ -1,0 +1,23 @@
+.group:before,
+.group:after {
+    content: " ";
+    display: table;
+}
+
+.group:after {
+    clear: both;
+}
+
+.group {
+    *zoom: 1;
+}
+
+.menu {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+
+    li, a {
+        display: inline-block;
+    }
+}
