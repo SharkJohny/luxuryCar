@@ -1,0 +1,31 @@
+on: push
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      # Odstraní všechny console.log z JS souborů
+      - name: Remove all console.log from JS files
+        run: find . -type f -name "*.js" -exec sed -i '/console.log/d' {} +
+
+      # - name: 🔨 Build Project
+      #   run: |
+      #     npm install
+      #     npm run build
+
+      - name: SFTP Upload
+        uses: Dylan700/sftp-upload-action@latest
+        with:
+          server: ftp.myshoptet.com
+          username: git_444591
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: 22
+          uploads: |
+            ./ => eshopy/luxuryCar/
+          ignore: |
+            .git
+            node_modules
