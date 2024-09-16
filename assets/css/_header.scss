@@ -1,0 +1,251 @@
+/** 
+ * @Author: SharkJohny
+ * @Date: 2024-07-22 23:22:33 
+ * @Desc:  Change Header
+ */
+
+@media (min-width: 678px) {
+    .menu-helper {
+        top: 8px;
+    }
+    .top-navigation-menu {
+        display: none !important;
+    }
+    #navigation {
+        margin-top: 10px;
+    }
+    .top-navigation-contacts {
+        display: none !important;
+    }
+    .top-navigation-menu {
+        max-width: 40px;
+    }
+    .navigation-buttons {
+        position: absolute;
+        right: 150px;
+        top: -39px;
+    }
+    header#header {
+        z-index: 60;
+        position: relative;
+        background-color: rgba(51, 51, 51, 0.5);
+        .site-name {
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    .header-top {
+        height: 0;
+        padding: 0;
+    }
+    ul.top-navigation-bar-menu-helper {
+        transform: translateX(50%);
+        li {
+            min-width: 240px;
+        }
+    }
+    .top-navigation-menu-visible .top-navigation-bar {
+        z-index: 70;
+    }
+    .top-navigation-bar {
+        z-index: 50;
+        position: relative;
+        background-color: rgba(51, 51, 51, 0.5);
+        height: 48px;
+        border-bottom-color: transparent
+    }
+    .content-wrapper.homepage-box.before-carousel {
+        padding-top: 0;
+        margin-top: -92px;
+        .container {
+            width: unset;
+        }
+    }
+    .navigation-in {
+        background-color: transparent;
+        &>ul>li {
+            border-color: transparent;
+            &>a {
+                background-color: transparent;
+                color: var(--c-primary);
+                b {
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 18px;
+                    text-align: left;
+                }
+            }
+        }
+    }
+    .top-navigation-menu {
+        background: transparent;
+    }
+    .top-navigation-menu {
+        position: relative;
+        top: 10px;
+    }
+    .top-navigation-menu-trigger {
+        width: 66px;
+        &:before {
+            content: "\e914";
+            color: var(--c-primary);
+            font-size: 19px;
+            position: relative;
+            right: -14px;
+        }
+        &::after {
+            content: 'Více';
+            padding: 2px 0 0 10px;
+            color: var(--c-primary);
+            left: 5px;
+            position: relative;
+            top: 1px;
+        }
+    }
+    a.top-nav-button.top-nav-button-login.primary.login {
+        top: 13px;
+        font-size: 16px;
+        padding-right: 20px;
+        position: relative;
+        &:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-image: url(https://www.nasesojka.cz/user/documents/upload/assets/img/user.svg);
+            background-size: contain;
+            right: -5px;
+        }
+    }
+    .top-navigation-bar .dropdown button,
+    .top-navigation-bar a {
+        color: var(--color-primary);
+    }
+    .navigation-buttons>a[data-target=cart] i {
+        border-radius: 100%;
+        bottom: auto;
+        display: block;
+        font-size: 11px;
+        font-style: normal;
+        height: 17px;
+        left: unset;
+        color: #fff !important;
+        line-height: 11px;
+        padding: 3px;
+        position: absolute;
+        right: -22px;
+        top: 0;
+        width: 17px;
+        z-index: 10;
+        position: absolute;
+    }
+    .btn.cart-count:before,
+    a.btn.cart-count:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background-image: url(https://www.nasesojka.cz/user/documents/upload/assets/img/cart.svg);
+        background-size: contain;
+        right: -50px;
+        top: 2px;
+    }
+    .user-action-cart.popup-widget.cart-widget.loader-wrapper {
+        top: 39px;
+        left: 42%;
+        z-index: 600;
+    }
+    .navigation-buttons {
+        a.toggle-window[data-target="search"] {
+            background: transparent;
+            display: block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            &::before {
+                content: '';
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                background-image: url(https://www.nasesojka.cz/user/documents/upload/assets/img/search.svg);
+                background-size: contain;
+                right: 20px;
+                top: 0px;
+            }
+        }
+    }
+    .navigation-wrapper .search {
+        display: none;
+    }
+    .search-window-visible {
+        .navigation-wrapper .search {
+            display: block !important;
+            z-index: 50;
+            top: -42px;
+            position: absolute;
+            left: 50%;
+            min-width: 400px !important;
+            transform: translateX(-50%);
+        }
+        input.query-input.form-control.search-input.js-search-input {
+            border-color: var(--c-primary);
+            border-radius: 50px;
+        }
+        button.btn.btn-default {
+            background: var(--c-primary);
+            border-color: var(--c-primary);
+            border-radius: 0 20px 20px 0;
+        }
+    }
+    .navigation-in>ul>li.exp>a,
+    .navigation-in>ul>li>a:hover {
+        background-color: var(--c-primary);
+        color: white;
+    }
+}
+
+@media (max-width: 768px) {
+    .navigation-buttons {
+        a.toggle-window[data-target="search"] {
+            background: transparent;
+            display: block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: -5000px;
+            &::before {
+                content: '';
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                background-image: url(https://www.nasesojka.cz/user/documents/upload/assets/img/search.svg);
+                background-size: contain;
+                right: 20px;
+                top: 0px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .btn.cart-count:before,
+    a.btn.cart-count:before {
+        top: -8px;
+    }
+}
+
+@media (min-width: 768px) {
+    .fitted .navigation-in ul {
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .popup-widget.login-widget {
+        top: 21px;
+        z-index: 200;
+    }
+}
