@@ -3,3 +3,12 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
 }
+
+@media (min-width:768px) {
+    .modl-selector-wrap {
+        display: flex;
+        .surcharge-list {
+            margin-right: 20px;
+        }
+    }
+}
