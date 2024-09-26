@@ -1,8 +1,11 @@
 jQuery(document).ready(function($) {
-    intIndex()
+
     dinamicPictures()
     initHeader()
     initModelSelect()
+    intIndex()
+    initSignpost()
+    initProduct()
 });
 
 function intIndex() {
@@ -13,6 +16,17 @@ function intIndex() {
         move_slider_on_hover: true,
 
     });
+
+
+    $('.btn.choice-Model').on('click', function() {
+
+        const Brand = $('.surcharge-list.brands.dm-selector select').val()
+        const Model = $('.surcharge-list.models.dm-selector select').val()
+        const Year = $('.surcharge-list.years.dm-selector select').val()
+        console.log(Brand + ' ' + Model + ' ' + Year)
+        sessionStorage.setItem('model', Brand + ' ' + Model + ' ' + Year)
+        window.location.href = '/rozcestnik/'
+    })
 
 }
 
@@ -122,8 +136,9 @@ function initModelSelect() {
             </div>
         </div>
         `
+    const button = `<div class='btn choice-Model'>Zvolit model</div>`
 
-    $(znacka + model + rocnik + type).appendTo(choiceWrap)
+    $(znacka + model + rocnik + button).appendTo(choiceWrap)
 
     for (let i = 0; i < types.length; i++) {
         $("<option>" + types[i] + "</option>").appendTo(".type select")
@@ -156,4 +171,51 @@ function initModelSelect() {
             }
         }
     })
+}
+
+function initSignpost() {
+    const model = sessionStorage.getItem('model')
+    $('section#Model-selecte .model span').text(model)
+}
+
+
+function initProduct() {
+    priplatky()
+}
+
+function priplatky() {
+    if ($(".type-detail").length) {
+        $(".surcharge-list td option").each(function() {
+            var defoption = $(this).html()
+            let newtxt = defoption.replace(" +€0", '');
+            newtxt = newtxt.replace(" +0 Kč", '');
+            newtxt = newtxt.replace(" +0 €", '');
+            $(this).text(newtxt)
+        });
+
+        if ($("html[lang='cs']").length) {
+            $(".p-variants-block .surcharge-list:contains('Velikost boxu') option[data-index='0']").text("Zvolte velikost boxu")
+            $(".p-variants-block .surcharge-list:contains('Rozměr 2. Boxu') option[data-index='0']").text("Zvolte velikost 2.boxu")
+
+            $(".p-variants-block .surcharge-list:contains('Rozměr boxu') option[data-index='0']").text("Zvolte velikost boxu")
+            $(".p-variants-block .surcharge-list:contains('Velikost 2. Boxu') option[data-index='0']").text("Zvolte velikost 2.boxu")
+
+            $(".p-variants-block .surcharge-list:contains('Barva boxu') option[data-index='0']").text("Zvolte barvu boxu")
+            $(".p-variants-block .surcharge-list:contains('Barva 2. boxu') option[data-index='0']").text("Zvolte barvu 2.boxu")
+
+            $(".p-variants-block .surcharge-list:contains('Umístění volantu') option[data-index='0']").text("Prosím, vyberte umístění volantu")
+        }
+        if ($("html[lang='sk']").length) {
+            $(".p-variants-block .surcharge-list:contains('Veľkosť boxu') option[data-index='0']").text("Zvoľte veľkosť boxu")
+            $(".p-variants-block .surcharge-list:contains('Rozmer 2. Boxu') option[data-index='0']").text("Zvoľte veľkosť 2.boxu")
+
+            $(".p-variants-block .surcharge-list:contains('Rozmer boxu') option[data-index='0']").text("Zvoľte veľkosť boxu")
+            $(".p-variants-block .surcharge-list:contains('Veľkosť 2. Boxu') option[data-index='0']").text("Zvoľte veľkosť 2.boxu")
+
+            $(".p-variants-block .surcharge-list:contains('Farba boxu') option[data-index='0']").text("Zvoľte farbu boxu")
+            $(".p-variants-block .surcharge-list:contains('Farba 2. boxu') option[data-index='0']").text("Zvoľte farbu 2.boxu")
+
+            $(".p-variants-block .surcharge-list:contains('Umiestenie volantu') option[data-index='0']").text("Prosím,vyberte umiestnenie volantu")
+        }
+    }
 }

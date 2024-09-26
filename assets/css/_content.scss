@@ -93,3 +93,39 @@ section.text-block {
     visibility: visible;
     opacity: 1;
 }
+
+section#Model-selecte {
+    h2 {
+        font-size: 32px;
+        text-transform: uppercase;
+    }
+    .model {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 20px;
+    }
+}
+
+section#sets {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .set {
+        position: relative;
+        @media (min-width: 768px) {
+            width: calc(50% - 20px);
+            margin: 10px;
+        }
+    }
+    .set-name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 25px;
+        color: white;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+    }
+}

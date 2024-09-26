@@ -4,6 +4,16 @@
     border-top-color: rgba(0, 0, 0, 0);
 }
 
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn.choice-Model {
+    margin: 19px 0 0;
+    height: 36px;
+}
+
 @media (min-width:768px) {
     .modl-selector-wrap {
         display: flex;
