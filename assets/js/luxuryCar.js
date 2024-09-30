@@ -18,15 +18,6 @@ function intIndex() {
     });
 
 
-    $('.btn.choice-Model').on('click', function() {
-
-        const Brand = $('.surcharge-list.brands.dm-selector select').val()
-        const Model = $('.surcharge-list.models.dm-selector select').val()
-        const Year = $('.surcharge-list.years.dm-selector select').val()
-        console.log(Brand + ' ' + Model + ' ' + Year)
-        sessionStorage.setItem('model', Brand + ' ' + Model + ' ' + Year)
-        window.location.href = '/rozcestnik/'
-    })
 
 }
 
@@ -85,13 +76,20 @@ function initHeader() {
 
 
 function initModelSelect() {
+    let insertPosidion = '.in-index .content-wrapper.container:eq(1)'
+    if ($('.type-product')[0]) {
+        insertPosidion = '.overflow .model-select .h3'
+    }
+
     const section = $('<section>', {
         id: 'model-selector'
-    }).insertAfter('.in-index .content-wrapper.container:eq(1)')
+    }).insertAfter(insertPosidion)
     const container = $('<div>', {
         class: 'model-selector container',
     }).appendTo(section)
-    $('<h2>').text('Obchod pro tvoje Auto').appendTo(container)
+    if ($('.in-index')[0]) {
+        $('<h2>').text('Obchod pro tvoje Auto').appendTo(container)
+    }
     const choiceWrap = $('<div>').addClass('modl-selector-wrap').appendTo(container)
     const znacka = `
         <div class="surcharge-list brands dm-selector">
@@ -171,6 +169,22 @@ function initModelSelect() {
             }
         }
     })
+
+
+    $('.btn.choice-Model').on('click', function() {
+
+        const Brand = $('.surcharge-list.brands.dm-selector select').val()
+        const Model = $('.surcharge-list.models.dm-selector select').val()
+        const Year = $('.surcharge-list.years.dm-selector select').val()
+        console.log(Brand + ' ' + Model + ' ' + Year)
+        sessionStorage.setItem('model', Brand + ' ' + Model + ' ' + Year)
+
+        if ($('.in-index')[0]) {
+            window.location.href = '/rozcestnik/'
+        } else {
+            location.reload();
+        }
+    })
 }
 
 function initSignpost() {
@@ -180,7 +194,45 @@ function initSignpost() {
 
 
 function initProduct() {
+    const model = sessionStorage.getItem('model')
+
+    if (model != null) {
+        $('<div>', {
+            class: 'model',
+            text: 'Pro auto ' + model,
+
+        }).insertAfter('.availability-value')
+    } else {
+        const modelWrap = $('<div>', {
+            class: 'choice-model'
+        }).insertAfter('.availability-value')
+        $('<div>', {
+            class: 'button btn select-model',
+            text: 'Zvolte model',
+        }).appendTo(modelWrap)
+    }
+
+
     priplatky()
+
+    $('.button.btn.select-model').on('click', function() {
+        const overflow = $('<div>', {
+            class: 'overflow',
+            style: 'position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;'
+
+        }).appendTo('body')
+
+        const popup = $('<div>', {
+            class: 'model-select',
+            style: 'position: relative; background-color: #fff; padding: 20px;'
+        }).appendTo(overflow)
+
+        $('<div>', {
+            class: 'h3',
+            text: 'Vyberte model',
+        }).appendTo(popup)
+        initModelSelect()
+    })
 }
 
 function priplatky() {

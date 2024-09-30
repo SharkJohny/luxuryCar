@@ -1,2 +1,23 @@
+.type-product {
+    .model-selector.container {
+        width: auto;
+    }
+}
 
+.model {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
 
+.model-select {
+    .h3 {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+}
+
+.choice-model {
+    margin-bottom: 20px;
+}
