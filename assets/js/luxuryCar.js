@@ -6,10 +6,16 @@
         setupData = data
     })
 
+
+    const logoGoogle =
+        '<svg viewBox="0 0 512 512" height="18" width="18"><g fill="none" fill-rule="evenodd"><path d="M482.56 261.36c0-16.73-1.5-32.83-4.29-48.27H256v91.29h127.01c-5.47 29.5-22.1 54.49-47.09 71.23v59.21h76.27c44.63-41.09 70.37-101.59 70.37-173.46z" fill="#4285f4"></path><path d="M256 492c63.72 0 117.14-21.13 156.19-57.18l-76.27-59.21c-21.13 14.16-48.17 22.53-79.92 22.53-61.47 0-113.49-41.51-132.05-97.3H45.1v61.15c38.83 77.13 118.64 130.01 210.9 130.01z" fill="#34a853"></path><path d="M123.95 300.84c-4.72-14.16-7.4-29.29-7.4-44.84s2.68-30.68 7.4-44.84V150.01H45.1C29.12 181.87 20 217.92 20 256c0 38.08 9.12 74.13 25.1 105.99l78.85-61.15z" fill="#fbbc05"></path><path d="M256 113.86c34.65 0 65.76 11.91 90.22 35.29l67.69-67.69C373.03 43.39 319.61 20 256 20c-92.25 0-172.07 52.89-210.9 130.01l78.85 61.15c18.56-55.78 70.59-97.3 132.05-97.3z" fill="#ea4335"></path><path d="M20 20h472v472H20V20z"></path></g></svg>';
+
     jQuery(document).ready(function($) {
         setTimeout(function() {
             console.log(setupData)
             initModelSelect()
+            googleReviews()
+            createPopUp()
         }, 200)
         dinamicPictures()
         initHeader()
@@ -17,6 +23,7 @@
         intIndex()
         initSignpost()
         initProduct()
+
     });
 
     function intIndex() {
@@ -398,4 +405,142 @@
 
             }).appendTo(optionButton)
         })
+    }
+
+
+    function googleReviews() {
+        console.log('review')
+        $("<section/>")
+            .attr("id", "goggle-review-wrap")
+            .appendTo(".model-selector.container");
+
+        $("<section/>")
+            .attr("id", "goggle-review-wrap")
+            .insertBefore(".type-product footer");
+
+
+        // $(
+        //     '<div class="header-rewiew"><h3> Děkujeme za Vaše recenze</h3></div>'
+        // ).appendTo("#goggle-review-wrap");
+
+        const review = $("<div/>")
+            .addClass("review-row")
+            .appendTo("#goggle-review-wrap");
+
+        $(`<div class="ti-widget-container"> <a href="#dropdown" class="ti-header source-Google" data-subcontent="1" data-subcontent-target=".ti-dropdown-widget"> <div class="ti-small-logo"> <img src="https://cdn.trustindex.io/assets/platform/Google/logo.svg" loading="lazy" alt="Google"  height="25"> </div><div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div> <div class="ti-mob-row"> <span class="nowrap"><strong>` +
+            numberReviews + ` recenzí</strong></span> <span class="ti-arrow-down"></span> </div> </a> </div>`).appendTo(review);
+        $("<div/>").attr("id", "google-reviews").appendTo(review);
+
+        $(".js-navigation-container").insertAfter(".site-name");
+        $(".contact-box.no-image").clone().appendTo(".top-navigation-menu");
+
+        // $("<a/>")
+        //     .addClass("yelowText")
+        //     .attr("href", "#goggle-review-wrap")
+        //     .html(
+        //         `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
+        //         numberReviews +
+        //         ")</span>Hodnocení zákazníků"
+        //     )
+        //     .insertAfter(" .p-data-wrapper h1");
+
+        // $("<a/>")
+        //     .addClass("yelowText")
+        //     .attr("href", "#goggle-review-wrap")
+        //     .html(
+        //         `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
+        //         numberReviews +
+        //         ")</span>Hodnocení zákazníků"
+        //     )
+        //     .insertBefore(" .p-image");
+
+
+
+        // setTimeout(function() {
+        //     $(logoGoogle).appendTo(".review-item-long");
+        //     $("#google-reviews br").remove();
+
+        //     $("#google-reviews").slick({
+        //         dots: true,
+        //         centerMode: false,
+        //         infinite: true,
+        //         slidesToShow: 5,
+        //         slidesToScroll: 2,
+        //         autoplay: true,
+        //         autoplaySpeed: 8000,
+        //         arrows: false,
+
+        //         responsive: [{
+        //                 breakpoint: 1600,
+        //                 settings: {
+        //                     slidesToShow: 4,
+        //                     slidesToScroll: 1,
+        //                 },
+        //             },
+        //             {
+        //                 breakpoint: 1480,
+        //                 settings: {
+        //                     slidesToShow: 3,
+        //                     slidesToScroll: 1,
+        //                 },
+        //             },
+        //             {
+        //                 breakpoint: 1200,
+        //                 settings: {
+        //                     slidesToShow: 2,
+        //                     slidesToScroll: 1,
+        //                 },
+        //             },
+        //             {
+        //                 breakpoint: 800,
+        //                 settings: {
+        //                     slidesToShow: 1,
+        //                     slidesToScroll: 1,
+
+        //                     autoplay: false,
+        //                 },
+        //             },
+        //             // {
+        //             //     breakpoint: 350,
+        //             //     settings: {
+        //             //         slidesToShow: 1,
+        //             //         slidesToScroll: 1,
+        //             //     },
+        //             // },
+        //         ],
+        //     });
+        // }, 2500);
+    }
+
+    function createPopUp() {
+        $(`<div class="ti-dropdown-widget">
+        <div class="ti-dropdown-widget-inner">
+            <div class="ti-widget-container">
+                <div class="ti-popup-header">
+                    <a href="#" class="ti-close-lg"></a>
+                </div>
+                <div class="ti-reviews-container">
+                    <div class="ti-reviews-container-wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>`).appendTo('.model-selector.container');
+
+        if ($(".ti-reviews-container-wrapper").length == 0) {
+            return;
+        }
+
+        // Find a placeID via https://developers.google.com/places/place-id
+        $(".ti-reviews-container-wrapper").googlePlaces({
+            placeId: "ChIJcRYHIStjj4wRIHx41hbkAtc", // Zadej své Place ID
+            header: "", // HTML/text nad recenzemi
+            footer: `<a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" target="_blank" class="more-reviews-button">Show More Reviews</a>`, // Odkaz na více recenzí
+            maxRows: 5, // max. počet recenzí k zobrazení (Google API omezuje na 5)
+            minRating: 3, // minimální hodnocení recenzí
+            months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            textBreakLength: "90", // délka textu recenze
+            shortenNames: true, // zkrácení jmen
+            moreReviewsButtonLabel: 'Více recenzí',
+            showProfilePicture: true, // zobrazení profilové fotografie
+        });
     }

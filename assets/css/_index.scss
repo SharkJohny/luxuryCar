@@ -19,6 +19,91 @@ section#model-selector {
     background: #f6f6f6;
 }
 
+a.ti-header.source-Google {
+    display: flex;
+    background: white;
+    width: fit-content;
+    padding: 15px 20px 10px;
+    border-radius: 5px;
+    margin: 20px auto;
+    .ti-small-logo {
+        margin-right: 10px;
+        img {
+            height: 25px;
+        }
+    }
+    .ti-mob-row {
+        padding-top: 4px;
+    }
+}
+
+.review-stars {
+    margin-right: 10px;
+    padding-top: 5px;
+}
+
+.review-stars ul li i {
+    color: #f6ba05;
+    font-size: 1em;
+    font-style: normal;
+}
+
+.ti-dropdown-widget {
+    opacity: 1;
+    display: -ms-flexbox;
+    display: flex;
+    height: 450px;
+    position: absolute;
+    top: initial;
+    bottom: initial;
+    background: none;
+    text-align: left !important;
+    z-index: 999999;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ti-dropdown-widget-inner {
+    height: 100%;
+    padding: 40px 0px 20px 20px;
+    overflow: visible;
+    background-color: #ffffff !important;
+    position: relative;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.1), 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    &:before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent #ffffff transparent;
+    }
+}
+
+.ti-reviews-container-wrapper {
+    overflow: auto;
+    display: inherit;
+    margin: 0px !important;
+    margin-top: 0px !important;
+    padding-right: 20px;
+}
+
+.ti-widget-container {
+    margin-bottom: 0px;
+    height: 100%;
+    display: flex !important;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 1.4em;
+    overflow-y: scroll;
+}
+
 @media (min-width:768px) {
     .modl-selector-wrap {
         display: flex;
