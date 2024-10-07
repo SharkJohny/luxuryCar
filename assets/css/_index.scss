@@ -4,19 +4,25 @@
     border-top-color: rgba(0, 0, 0, 0);
 }
 
-h2 {
+.model-selector.container h2 {
+    font-size: 24px !important;
+    text-transform: uppercase;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .btn.choice-Model {
-    margin: 19px 0 0;
     height: 36px;
+}
+
+section#model-selector {
+    padding-bottom: 20px;
+    background: #f6f6f6;
 }
 
 @media (min-width:768px) {
     .modl-selector-wrap {
         display: flex;
+        justify-content: center;
         .surcharge-list {
             margin-right: 20px;
         }

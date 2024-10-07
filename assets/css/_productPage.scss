@@ -21,3 +21,96 @@
 .choice-model {
     margin-bottom: 20px;
 }
+
+.parameter-wrap {
+    background: #f6f6f6;
+    padding: 10px;
+    position: relative;
+    margin-bottom: 10px;
+    .order {
+        background: gold;
+        /* width: fit-content; */
+        padding: 13px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        color: black;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .h4.variant.name {
+        position: absolute;
+        left: 75px;
+        top: 15px;
+        font-size: 20px;
+        color: black;
+    }
+}
+
+.options-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .button.option-button {
+        width: 95px;
+        margin: 5px;
+        position: relative;
+        cursor: pointer;
+        .text {
+            position: absolute;
+            background: #333;
+            color: white;
+            bottom: 8px;
+            text-align: center;
+            font-size: 10px;
+            display: none;
+        }
+        &:hover {
+            .text {
+                display: block;
+            }
+        }
+    }
+}
+
+.btn.button-more {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #f6f6f6;
+    color: black;
+    border-color: white;
+}
+
+.pop-ower {
+    display: none;
+    background: rgba(0, 0, 0, 0.16);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 10000;
+}
+
+.pop-up-options {
+    background: white;
+    padding: 50px;
+    width: 80%;
+    margin: auto;
+    top: 20%;
+    position: relative;
+}
+
+.col-xs-12.col-lg-6.p-info-wrapper {
+    position: inherit;
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    font-size: 30px;
+    color: black;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
