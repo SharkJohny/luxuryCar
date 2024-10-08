@@ -104,6 +104,79 @@ a.ti-header.source-Google {
     overflow-y: scroll;
 }
 
+.ti-close-lg {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    right: 6px;
+    top: 6px;
+    border-radius: 50px;
+    display: block;
+    cursor: pointer;
+    pointer-events: visible !important;
+    color: #333;
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        border-radius: 2px;
+        width: 16px;
+        height: 3px;
+        top: 13px;
+        left: 7px;
+        background-color: #555;
+    }
+    &:before {
+        transform: rotate(45deg);
+    }
+    &:after {
+        transform: rotate(-45deg);
+    }
+}
+
+span.images-scrolling__counter.bold {
+    font-size: 30px;
+    color: black;
+    font-weight: 600;
+    padding-left: 55px;
+    position: relative;
+    &::before {
+        content: "";
+        width: 40px;
+        height: 4px;
+        background-color: #000;
+        position: absolute;
+        top: 18px;
+        left: 0;
+    }
+}
+
+.images-scrolling__content {
+    p.h1 {
+        font-size: 40px;
+        margin-top: 25px;
+        margin-bottom: 20px;
+        width: 70%;
+        font-weight: 600;
+    }
+    p {
+        font-size: 20px;
+        width: 70%;
+        color: black;
+    }
+}
+
+.text-gradient {
+    background-image: var(--gradient);
+    color: #0000;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
 @media (min-width:768px) {
     .modl-selector-wrap {
         display: flex;
