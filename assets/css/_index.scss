@@ -19,6 +19,23 @@ section#model-selector {
     background: #f6f6f6;
 }
 
+.content-wrapper.homepage-box.before-carousel {
+    .container {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        video {
+            width: 100%;
+            bottom: 200px;
+            position: relative;
+        }
+    }
+}
+
+div#addvideo {
+    max-height: 440px;
+}
+
 a.ti-header.source-Google {
     display: flex;
     background: white;
