@@ -11,3 +11,11 @@ serif;
 $color-text: white;
 $colors-background: #70e1ff;
 $colors-textmenu: white;
+.full-width {
+    position: relative;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: auto;
+    transform: translateX(-50%);
+}

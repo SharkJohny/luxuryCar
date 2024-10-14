@@ -36,7 +36,28 @@
 
         });
 
+        // Funkce pro přičítání čísel
+        function animateCountUp(element, targetNumber, duration) {
+            const $element = $(element);
+            $({ count: 0 }).animate({ count: targetNumber }, {
+                duration: duration,
+                easing: 'swing',
+                step: function(now) {
+                    $element.text(Math.floor(now));
+                },
+                complete: function() {
+                    $element.text(targetNumber); // Pro zajištění, že se zobrazí konečná hodnota
+                }
+            });
+        }
 
+        // Najde všechny vnořené <span>, kde se má měnit číslo
+        $('[count-up]').each(function() {
+            const $this = $(this).find('span[style*="text-align: end"]'); // Najde <span> obsahující číslo
+            const targetNumber = parseFloat($this.text().replace(',', '')); // Získá číslo z vnořeného <span>
+            const duration = parseFloat($(this).attr('count-up')) * 1000; // Převod na milisekundy
+            animateCountUp($this, targetNumber, duration); // Spuštění animace jen na číslo
+        });
 
     }
 
