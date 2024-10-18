@@ -126,3 +126,10 @@
         }
     }
 }
+
+.parameter-wrap {
+    display: none;
+    &.active {
+        display: block;
+    }
+}

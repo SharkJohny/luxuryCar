@@ -404,6 +404,10 @@
         const paramerer = $('<div>', {
             class: 'parameter-wrap parameter-' + parameterId
         }).appendTo(optPosition)
+        if (orders == 1) {
+            $('.navigatte-button').addClass('active')
+            $('.parameter-wrap').addClass('active')
+        }
         $('<div>', {
             class: 'order',
             text: orders
