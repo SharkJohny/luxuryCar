@@ -114,3 +114,15 @@
     transform: rotate(45deg);
     cursor: pointer;
 }
+
+.navidation-Wrap {
+    display: flex;
+    .navigatte-button {
+        background: #dde2e7;
+        margin-left: 2px;
+        padding: 2px 7px;
+        &.active {
+            background: antiquewhite;
+        }
+    }
+}

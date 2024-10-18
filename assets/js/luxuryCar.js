@@ -24,6 +24,7 @@
         initSignpost()
         initProduct()
 
+
     });
 
     function intIndex() {
@@ -283,10 +284,13 @@
 
     function priplatky() {
         if ($(".type-detail").length) {
-            const optionWrap = $('<div>', {
-                    id: 'options-wrap'
-                }).insertAfter('table.detail-parameters')
-                // $('table.detail-parameters').hide()
+            createPop()
+            $('<div>', {
+                class: 'navidation-Wrap'
+            }).appendTo('.ti-content-container')
+            $('<div>', { class: 'content-wrap' }).appendTo('.ti-content-container')
+
+
             let orders = 0
             $('.detail-parameters .variant-list select').each(function() {
                 orders += 1
@@ -354,7 +358,7 @@
         if (name == '') {
             name = $(position).parents('.surcharge-list').find('th').text().trim().replace('?', '')
         }
-        let optPosition = '#options-wrap'
+        let optPosition = '.content-wrap'
         if (orders == 4) {
 
             const wrapOwerflow = $('<div>', {
@@ -376,7 +380,14 @@
         if (orders > 3) {
             optPosition = '.pop-up-options'
         }
-
+        $('<div>', {
+            class: 'navigatte-button',
+            'data-option': 'option-' + orders,
+            text: orders
+        }).appendTo('.navidation-Wrap')
+        if (orders == 1) {
+            $('.navigatte-button').addClass('active')
+        }
 
         $('.btn.button-more').on('click', function() {
             $('.pop-ower').addClass('show')
