@@ -2,6 +2,12 @@
     .model-selector.container {
         width: auto;
     }
+    .ti-dropdown-widget-inner:before {
+        display: none;
+    }
+    .ti-dropdown-widget {
+        top: 10%;
+    }
 }
 
 .model {
@@ -52,10 +58,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     .button.option-button {
-        width: 95px;
+        width: 23%;
         margin: 5px;
         position: relative;
+        border: 2px solid transparent;
         cursor: pointer;
+        @media (max-width: 768px) {
+            width: 29%;
+        }
         .text {
             position: absolute;
             background: #333;
@@ -69,6 +79,9 @@
             .text {
                 display: block;
             }
+        }
+        &.active {
+            border: 2px solid green;
         }
     }
 }
@@ -117,6 +130,7 @@
 
 .navidation-Wrap {
     display: flex;
+    margin-bottom: 10px;
     .navigatte-button {
         background: #dde2e7;
         margin-left: 2px;
@@ -131,5 +145,66 @@
     display: none;
     &.active {
         display: block;
+    }
+}
+
+.navigatte-button {
+    background-size: cover !important;
+}
+
+.navigatte-button.class1.barva.parameterNav4 {
+    background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/plus.png);
+}
+
+.parameter-wrap.parameter-cars {
+    h5 {
+        text-align: center;
+        font-size: 20px;
+        color: black;
+    }
+    .parameter-cars.wheel-Position {
+        text-align: center;
+    }
+    .can-toggle.demo-rebrand-1 label {
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.type-detail .ti-dropdown-widget {
+    height: auto;
+}
+
+.parameter-wrap.upsale {
+    text-align: center;
+}
+
+.parameter-wrap h5 {
+    text-align: center;
+    font-size: 20px;
+    color: #000;
+}
+
+.button-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.parameter-wrap {
+    .btn.close,
+    .btn.upsale {
+        max-width: 300px;
+        margin: auto;
+        margin-bottom: 20px;
+        width: -webkit-fill-available;
+    }
+    .btn.close {
+        background: #e0e4e9;
+    }
+    .btn.upsale {
+        background: green;
+        color: white;
     }
 }
