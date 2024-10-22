@@ -236,6 +236,8 @@
 
 
     function initProduct() {
+
+        $('.benefitBanner.position--benefitProduct .benefitBanner__item').insertBefore('.col-xs-12.col-lg-6.p-info-wrapper')
         const model = sessionStorage.getItem('model')
 
         if (model != null) {
@@ -284,15 +286,26 @@
 
     function priplatky() {
         if ($(".type-detail").length) {
-            createPop()
+            // createPop()
+
+
             $('<div>', {
-                class: 'navidation-Wrap'
-            }).prependTo('.ti-popup-header')
-            $('<div>', { class: 'content-wrap' }).appendTo('.ti-content-container')
+                class: 'upsale-wrap'
+            }).insertAfter('.detail-parameters')
+            const upsaleText = $('<div>', { class: 'upsale-text' }).insertAfter('.detail-parameters')
+            $('<div>', { class: 'content-wrap' }).insertAfter('.detail-parameters')
+
+            $('<div>', { class: 'heder h2', text: 'Prikup boxy za zvyhodněnou cenu' }).appendTo(upsaleText)
+            $('<p>', { text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam quis nulla. Curabitur sagittis hendrerit ante. Fusce nibh. Nullam faucibus mi quis velit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna.' }).appendTo(upsaleText)
+            $('<div>', { class: 'btn button upsale', text: 'Koupit výhodně' }).appendTo(upsaleText)
+
+            $('.btn.button.upsale').on('click', function() {
+                $('.upsale-wrap').toggleClass('active')
+            })
 
             firstPage()
 
-            let orders = 0
+            let orders = 1
             $('.detail-parameters .variant-list select').each(function() {
                 orders += 1
                 const position = this
@@ -372,42 +385,42 @@
             })
         }
 
-        $('.parameter-wrap').swipe({
-            swipe: function(event, direction) {
-                if (direction === 'left') {
-                    // Přesuň se doprava
-                    const next = $(this).next('.parameter-wrap');
-                    if (next.length) {
-                        const currentNav = $('.navigatte-button.active');
-                        const nextNav = currentNav.next('.navigatte-button');
-                        $(this).removeClass('active').fadeOut(300, function() {
-                            next.fadeIn(300).addClass('active');
-                        });
-                        if (nextNav.length) {
-                            currentNav.removeClass('active');
-                            nextNav.addClass('active');
-                        }
-                    }
-                } else if (direction === 'right') {
-                    // Přesuň se doleva
-                    const prev = $(this).prev('.parameter-wrap');
-                    if (prev.length) {
-                        const currentNav = $('.navigatte-button.active');
-                        const prevNav = currentNav.prev('.navigatte-button');
-                        $(this).removeClass('active').fadeOut(300, function() {
-                            prev.fadeIn(300).addClass('active');
-                        });
-                        if (prevNav.length) {
-                            currentNav.removeClass('active');
-                            prevNav.addClass('active');
-                        }
-                    }
-                }
-            },
-            // Nastavení pouze pro swipe na ose X
-            allowPageScroll: "vertical",
-            threshold: 50 // Práh pro rozpoznání swipu
-        });
+        // $('.parameter-wrap').swipe({
+        //     swipe: function(event, direction) {
+        //         if (direction === 'left') {
+        //             // Přesuň se doprava
+        //             const next = $(this).next('.parameter-wrap');
+        //             if (next.length) {
+        //                 const currentNav = $('.navigatte-button.active');
+        //                 const nextNav = currentNav.next('.navigatte-button');
+        //                 $(this).removeClass('active').fadeOut(300, function() {
+        //                     next.fadeIn(300).addClass('active');
+        //                 });
+        //                 if (nextNav.length) {
+        //                     currentNav.removeClass('active');
+        //                     nextNav.addClass('active');
+        //                 }
+        //             }
+        //         } else if (direction === 'right') {
+        //             // Přesuň se doleva
+        //             const prev = $(this).prev('.parameter-wrap');
+        //             if (prev.length) {
+        //                 const currentNav = $('.navigatte-button.active');
+        //                 const prevNav = currentNav.prev('.navigatte-button');
+        //                 $(this).removeClass('active').fadeOut(300, function() {
+        //                     prev.fadeIn(300).addClass('active');
+        //                 });
+        //                 if (prevNav.length) {
+        //                     currentNav.removeClass('active');
+        //                     prevNav.addClass('active');
+        //                 }
+        //             }
+        //         }
+        //     },
+        //     // Nastavení pouze pro swipe na ose X
+        //     allowPageScroll: "vertical",
+        //     threshold: 50 // Práh pro rozpoznání swipu
+        // });
 
         // Nastavení prvního prvku jako aktivního
         // $('.parameter-wrap').first().addClass('active');
@@ -439,10 +452,10 @@
         const parameterId = $(position).attr('data-parameter-id')
             // console.log(parameterId)
         let optPosition = '.content-wrap'
-        if (orders == 2) {
+            // if (orders == 2) {
 
-            upsalePage(orders)
-        }
+        //     upsalePage(orders)
+        // }
         if (orders == 4) {
 
             const wrapOwerflow = $('<div>', {
@@ -461,8 +474,9 @@
             }).appendTo('#options-wrap')
 
         }
-        if (orders > 3) {
-            optPosition = '.pop-up-options'
+        if (orders > 2) {
+
+            optPosition = '.upsale-wrap'
         }
         if (orders <= 1) {
             $('<div>', {
@@ -494,10 +508,10 @@
         $('.navigatte-button:eq(0)').addClass('active')
             // $('.parameter-wrap').addClass('active')
 
-        // $('<div>', {
-        //     class: 'order',
-        //     text: orders
-        // }).appendTo(paramerer)
+        $('<div>', {
+            class: 'order',
+            text: orders
+        }).appendTo(paramerer)
         $('<h5>', {
             class: ' variant name',
             text: name
@@ -714,11 +728,13 @@
 
 
     function firstPage() {
-        $('<div>', {
+        const wrap = $('<div>', {
             class: 'navigatte-button class first',
             'data-option': 'option-0',
 
         }).appendTo('.navidation-Wrap')
+
+
         const wheelval = $('select.parameter-id-37.surcharge-parameter').val()
         let typeVal = $('select.parameter-id-22.surcharge-parameter').val()
 
@@ -730,6 +746,11 @@
             typeVal = 49
         }
         const pageWrap = $('<div>', { class: 'parameter-wrap parameter-cars active' }).appendTo('.content-wrap')
+        $('<div>', {
+            class: 'order',
+            text: '1'
+        }).appendTo(pageWrap)
+
         $('<h5>', {
             text: 'Upresnění vozu'
         }).appendTo(pageWrap)

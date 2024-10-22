@@ -141,13 +141,19 @@
     }
 }
 
-.parameter-wrap {
+.upsale-wrap {
     display: none;
     &.active {
         display: block;
     }
 }
 
+// .parameter-wrap {
+//     display: none;
+//     &.active {
+//         display: block;
+//     }
+// }
 .navigatte-button {
     background-size: cover !important;
 }
