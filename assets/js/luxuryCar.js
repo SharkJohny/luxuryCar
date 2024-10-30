@@ -4,6 +4,7 @@
     let setupData
     $.getJSON(downloadData, function(data) {
         setupData = data
+
     })
 
 
@@ -15,14 +16,14 @@
             // console.log(setupData)
             initModelSelect()
             googleReviews()
-
-        }, 200)
+            initProduct()
+        }, 400)
         dinamicPictures()
         initHeader()
 
         intIndex()
         initSignpost()
-        initProduct()
+
 
 
     });
@@ -51,15 +52,66 @@
                 }
             });
         }
-
-        // Najde všechny vnořené <span>, kde se má měnit číslo
-        $('[count-up]').each(function() {
-            const $this = $(this).find('span[style*="text-align: end"]'); // Najde <span> obsahující číslo
-            const targetNumber = parseFloat($this.text().replace(',', '')); // Získá číslo z vnořeného <span>
-            const duration = parseFloat($(this).attr('count-up')) * 1000; // Převod na milisekundy
-            animateCountUp($this, targetNumber, duration); // Spuštění animace jen na číslo
+        // Nastavení IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const $element = $(entry.target).find('span[style*="text-align: end"]');
+                    const targetNumber = parseFloat($element.text().replace(',', ''));
+                    const duration = parseFloat($(entry.target).attr('count-up')) * 1000;
+                    animateCountUp($element, targetNumber, duration);
+                    observer.unobserve(entry.target); // Odstraní pozorování, aby se animace nespustila znovu
+                }
+            });
         });
 
+        // Inicializace pozorování pro každý prvek s atributem count-up
+        $('[count-up]').each(function() {
+            observer.observe(this);
+        });
+        $('collection-list.collection-list').slick({
+            dots: true,
+            centerMode: false,
+            infinite: true,
+            slidesToShow: 2.5,
+            slidesToScroll: 2,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            arrows: true,
+
+            responsive: [{
+                    breakpoint: 1480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        arrows: true,
+                    },
+                },
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 3,
+                    },
+                },
+                {
+                    breakpoint: 770,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+
+                        autoplay: false,
+                    },
+                },
+                {
+                    breakpoint: 350,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    },
+                },
+            ],
+        });
     }
 
     function dinamicPictures() {
@@ -305,6 +357,8 @@
 
             firstPage()
 
+            const pairVariantList = JSON.parse(setupData.settings.pairVariantList);
+            const pairedOrders = {};
             let orders = 1
             $('.detail-parameters .variant-list select').each(function() {
                 orders += 1
@@ -312,15 +366,39 @@
                 createOptions(position, orders)
             })
             $('.detail-parameters .surcharge-list select').each(function() {
-                const id = $(this).attr('data-parameter-id')
+                const id = $(this).attr('data-parameter-id');
 
-                if (id == '37' || id == '22') return
-                console.log(id)
-                orders += 1
-                const position = this
-                createOptions(position, orders)
+                // Přeskočíme, pokud se jedná o ID 37 nebo 22
+                if (id == '37' || id == '22') return;
 
-            })
+                // Kontrola, zda je ID v párovacím seznamu
+                let sharedOrder = null;
+                pairVariantList.forEach(pair => {
+                    if (pair.includes(parseInt(id))) {
+                        sharedOrder = pair;
+                    }
+                });
+
+                if (sharedOrder) {
+                    // Pokud již existuje objednávka pro párované ID, použijeme ji
+                    if (pairedOrders[sharedOrder]) {
+                        orders = pairedOrders[sharedOrder];
+                    } else {
+                        // Pokud neexistuje, vytvoříme novou a uložíme
+                        orders += 1;
+                        pairedOrders[sharedOrder] = orders;
+                    }
+                } else {
+                    orders += 1;
+                }
+
+                console.log(id);
+                const position = this;
+
+                // Vytvoření možností pro aktuální prvek
+                createOptions(position, orders);
+                console.log(pairVariantList);
+            });
 
 
             $('.button.option-button').on('click', function() {
@@ -460,7 +538,7 @@
 
             const wrapOwerflow = $('<div>', {
                 class: 'pop-ower'
-            }).appendTo('#options-wrap')
+            }).appendTo('#options-wrap ')
             const popup = $('<div>', {
                 class: 'pop-up-options',
             }).appendTo(wrapOwerflow)
@@ -498,20 +576,22 @@
         })
 
         // console.log(name)
+        if (!$('.orders-' + orders)[0]) {
 
-
-        const paramerer = $('<div>', {
-            class: 'parameter-wrap parameter-' + parameterId,
-            'data-parameterId': parameterId
-        }).appendTo(optPosition)
+            $('<div>', {
+                class: 'parameter-wrap parameter-' + parameterId + ' orders-' + orders,
+                'data-parameterId': parameterId
+            }).appendTo(optPosition)
+            $('<div>', {
+                class: 'order',
+                text: orders
+            }).appendTo('.parameter-wrap.orders-' + orders)
+        }
 
         $('.navigatte-button:eq(0)').addClass('active')
             // $('.parameter-wrap').addClass('active')
+        const paramerer = '.parameter-wrap.orders-' + orders
 
-        $('<div>', {
-            class: 'order',
-            text: orders
-        }).appendTo(paramerer)
         $('<h5>', {
             class: ' variant name',
             text: name
@@ -549,7 +629,7 @@
         // console.log('review')
         $("<section/>")
             .attr("id", "goggle-review-wrap")
-            .appendTo(".model-selector.container");
+            .prependTo("footer");
 
         $("<section/>")
             .attr("id", "goggle-review-wrap")
@@ -560,20 +640,86 @@
         //     '<div class="header-rewiew"><h3> Děkujeme za Vaše recenze</h3></div>'
         // ).appendTo("#goggle-review-wrap");
 
+        // const review = $("<div/>")
+        //     .addClass("review-row")
+        //     .appendTo("#goggle-review-wrap");
+
+        // $(`<div class="ti-widget-container"> <a href="#dropdown" class="ti-header source-Google" data-subcontent="1" data-subcontent-target=".ti-dropdown-widget"> <div class="ti-small-logo"> <img src="https://cdn.trustindex.io/assets/platform/Google/logo.svg" loading="lazy" alt="Google"  height="25"> </div><div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div> <div class="ti-mob-row"> <span class="nowrap"><strong>` +
+        //     numberReviews + ` recenzí</strong></span> <span class="ti-arrow-down"></span> </div> </a> </div>`).appendTo(review);
+        // $("<div/>").attr("id", "google-reviews").appendTo(review);
+
+        // $(".js-navigation-container").insertAfter(".site-name");
+        // $(".contact-box.no-image").clone().appendTo(".top-navigation-menu");
+        // $('a.ti-header.source-Google').on('click', function() {
+        //     createPopUp()
+        // })
+        $(
+            '<div class="header-rewiew"><h3> Děkujeme za Vaše recenze</h3></div>'
+        ).appendTo("#goggle-review-wrap");
+
         const review = $("<div/>")
             .addClass("review-row")
             .appendTo("#goggle-review-wrap");
-
-        $(`<div class="ti-widget-container"> <a href="#dropdown" class="ti-header source-Google" data-subcontent="1" data-subcontent-target=".ti-dropdown-widget"> <div class="ti-small-logo"> <img src="https://cdn.trustindex.io/assets/platform/Google/logo.svg" loading="lazy" alt="Google"  height="25"> </div><div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div> <div class="ti-mob-row"> <span class="nowrap"><strong>` +
-            numberReviews + ` recenzí</strong></span> <span class="ti-arrow-down"></span> </div> </a> </div>`).appendTo(review);
+        $(
+            `<div class="grw-slider-header"><div class="grw-slider-header-inner"><div class="wp-google-place"><div class="wp-google-left"></div><div class="wp-google-right"><div class="wp-google-name"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" target="_blank" rel="nofollow noopener"><span>Luxury car</span></a></div><div><span class="wp-google-rating">5.0</span><span class="wp-google-stars"><span class="wp-stars"><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span></span></span></div><div class="wp-google-powered">Na základě <a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" style="font-weight: 600 !important;text-decoration: underline !important;" target="_blank">` +
+            numberReviews +
+            ` recenzí</a></div><div class="wp-google-powered"><img src="https://www.mojerky.cz/user/documents/upload/google.svg" alt="powered by Google" width="144" height="18" title="powered by Google"></div><div class="wp-google-wr"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" onclick="return rplg_leave_review_window.call(this)">Napsat recenzi</a></div></div></div></div></div>`
+        ).appendTo(review);
         $("<div/>").attr("id", "google-reviews").appendTo(review);
 
         $(".js-navigation-container").insertAfter(".site-name");
         $(".contact-box.no-image").clone().appendTo(".top-navigation-menu");
-        $('a.ti-header.source-Google').on('click', function() {
-            createPopUp()
-        })
 
+        $("<a/>")
+            .addClass("yelowText")
+            .attr("href", "#goggle-review-wrap")
+            .html(
+                `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
+                numberReviews +
+                ")</span>Hodnocení zákazníků"
+            )
+            .insertAfter(" .p-data-wrapper h1");
+
+        $("<a/>")
+            .addClass("yelowText")
+            .attr("href", "#goggle-review-wrap")
+            .html(
+                `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
+                numberReviews +
+                ")</span>Hodnocení zákazníků"
+            )
+            .insertBefore(" .p-image");
+
+        if ($("#google-reviews").length == 0) {
+            return;
+        }
+        // Find a placeID via https://developers.google.com/places/place-id
+        $("#google-reviews").googlePlaces({
+            placeId: "ChIJcRYHIStjj4wRIHx41hbkAtc",
+            // the following params are optional (default values)
+            header: "", // html/text over Reviews
+            footer: "", // html/text under Reviews block
+            maxRows: 5, // max 5 rows of reviews to be displayed
+            minRating: 3, // minimum rating of reviews to be displayed
+            months: [
+                "Jan",
+                "Feb",
+                "Mär",
+                "Apr",
+                "Mai",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Okt",
+                "Nov",
+                "Dez",
+            ],
+            textBreakLength: "90", // length before a review box is set to max width
+            shortenNames: true, // example: "Max Mustermann" -> "Max M."",
+
+            showProfilePicture: true,
+        });
     }
 
     function createPopUp() {
@@ -611,6 +757,60 @@
             $('.ti-dropdown-widget').remove()
         })
     }
+    setTimeout(function() {
+        $(logoGoogle).appendTo(".review-item-long");
+        $("#google-reviews br").remove();
+
+        $("#google-reviews").slick({
+            dots: true,
+            centerMode: false,
+            infinite: true,
+            slidesToShow: 5,
+            slidesToScroll: 2,
+            autoplay: true,
+            autoplaySpeed: 8000,
+            arrows: false,
+
+            responsive: [{
+                    breakpoint: 1600,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 1480,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 800,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+
+                        autoplay: false,
+                    },
+                },
+                // {
+                //     breakpoint: 350,
+                //     settings: {
+                //         slidesToShow: 1,
+                //         slidesToScroll: 1,
+                //     },
+                // },
+            ],
+        });
+    }, 2500);
 
 
     function createPop() {
