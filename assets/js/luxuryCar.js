@@ -112,6 +112,11 @@
                 },
             ],
         });
+
+        $('button.text-with-icon.group').on('click', function() {
+            $('.feature-chart__table-row').removeAttr('hidden').addClass('addHidden')
+
+        })
     }
 
     function dinamicPictures() {
