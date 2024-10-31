@@ -513,3 +513,56 @@ span.bold.fixT.skiptranslate.notranslate {
         grid: auto / auto-flow minmax(0, 1fr) auto;
     }
 }
+
+@media (max-width: 768px) {
+    .mobile-image {
+        margin-bottom: 30px;
+    }
+    .right-column {
+        display: none !important;
+    }
+    .left-column {
+        width: 100% !important;
+        padding-top: 20px !important;
+    }
+    section.text-block {
+        height: auto !important;
+    }
+    .feature-chart__table--multi-columns .feature-chart__table-row {
+        grid-template-columns: repeat(2, 150px);
+    }
+    .feature-chart__value {
+        grid-row: 2;
+    }
+    .images-scrolling__content p.h1 {
+        width: 100%;
+    }
+    .images-scrolling__content p {
+        font-size: 20px;
+        width: 100%;
+        color: #000;
+    }
+    .slick-prev {
+        left: -5px;
+    }
+    .slick-next {
+        right: -5px;
+    }
+    .homepage-box.welcome-wrapper {
+        padding: 0;
+    }
+    #goggle-review-wrap .review-row {
+        display: flex;
+        flex-direction: column;
+    }
+    #goggle-review-wrap .grw-slider-header {
+        width: 100%;
+    }
+    #goggle-review-wrap .grw-slider-header {
+        width: 100%;
+        margin-bottom: 48px;
+    }
+    div#addvideo {
+        max-height: 200px;
+    }
+}
