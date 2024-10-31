@@ -175,6 +175,9 @@
 
     function initModelSelect() {
         let insertPosidion = '.in-index .content-wrapper.container:eq(1)'
+        if ($('.mobile')[0]) {
+            insertPosidion = '.row.banners-row.has-text-banner'
+        }
         if ($('.type-product')[0]) {
             insertPosidion = '.overflow .model-select .h3'
         }
