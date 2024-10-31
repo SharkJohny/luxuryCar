@@ -458,6 +458,55 @@ span.images-scrolling__counter.bold {
     }
 }
 
+.bg-custom {
+    background: #f2f2f2;
+}
+
+.section-stack__main {
+    background: #f2f2f2;
+}
+
+.feature-chart__table-row {
+    --feature-chart-heading-width: 140px;
+    grid-template-columns: 140px repeat(2, minmax(140px, 1fr));
+    gap: 0.25rem 1.25rem;
+    min-width: min-content;
+    padding-block-start: 1rem;
+    padding-block-end: 1rem;
+    display: grid;
+}
+
+.feature-chart__heading.bold {
+    text-align: left !important;
+    width: 100%;
+    font-weight: 600;
+}
+
+.feature-chart__table.feature-chart__table--multi-columns.divide-y.scroll-area {
+    padding: 20px;
+}
+
+.feature-chart__value.prose.text-subdued {
+    width: 100%;
+}
+
+.image-header {
+    display: grid;
+}
+
+.feature-chart__table-row {
+    border-bottom: 1px solid #e0e4e9;
+}
+
+.feature-chart__table-row[hidden] {
+    display: none;
+}
+
+span.bold.fixT.skiptranslate.notranslate {
+    font-weight: 600;
+    margin-top: 29px;
+}
+
 @media screen and (min-width: 700px) {
     .impact-text {
         --impact-text-spacing: 2rem;
