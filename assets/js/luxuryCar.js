@@ -117,6 +117,10 @@
             $('.feature-chart__table-row').removeAttr('hidden').addClass('addHidden')
 
         })
+
+        $('.btn.more-pictures-button').on('click', function() {
+            $('.more-pictures').toggleClass('slow');
+        })
     }
 
     function dinamicPictures() {
@@ -637,7 +641,7 @@
         // console.log('review')
         $("<section/>")
             .attr("id", "goggle-review-wrap")
-            .prependTo("footer");
+            .insertAfter("section#model-selector");
 
         $("<section/>")
             .attr("id", "goggle-review-wrap")

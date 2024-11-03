@@ -8,6 +8,7 @@
     font-size: 24px !important;
     text-transform: uppercase;
     text-align: center;
+    color: $colors-golden;
 }
 
 .btn.choice-Model {
@@ -428,8 +429,8 @@ span.images-scrolling__counter.bold {
             }
         }
         .wp-google-wr a {
-            border-color: #ee9623 !important;
-            border: 2px solid #ee9623 !important;
+            border-color: $colors-golden !important;
+            border: 2px solid $colors-golden !important;
             border-radius: 5em !important;
             padding: 0.7em !important;
             padding-left: 1.3em !important;
@@ -449,7 +450,7 @@ span.images-scrolling__counter.bold {
             top: 30px;
             left: -19px;
             &:hover {
-                background-color: #ee9623;
+                background-color: $colors-golden;
             }
         }
     }
@@ -507,10 +508,46 @@ span.bold.fixT.skiptranslate.notranslate {
     margin-top: 29px;
 }
 
+.surcharge-list.years.dm-selector,
+.surcharge-list.models.dm-selector,
+.surcharge-list.brands.dm-selector {
+    select {
+        border-color: $colors-golden;
+        border-radius: 50px;
+    }
+}
+
+.feature-chart__toggle {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.more-pictures {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease-out;
+}
+
+section#model-selector {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.more-pictures.slow {
+    max-height: 1000px;
+    transition: all 0.5s ease-out;
+}
+
 @media screen and (min-width: 700px) {
     .impact-text {
         --impact-text-spacing: 2rem;
         grid: auto / auto-flow minmax(0, 1fr) auto;
+    }
+}
+
+@media (min-width:768px) {
+    .mobile-image {
+        display: none;
     }
 }
 
@@ -529,7 +566,7 @@ span.bold.fixT.skiptranslate.notranslate {
         height: auto !important;
     }
     .feature-chart__table--multi-columns .feature-chart__table-row {
-        grid-template-columns: repeat(2, 150px);
+        grid-template-columns: repeat(2, 160px);
     }
     .feature-chart__value {
         grid-row: 2;
@@ -564,5 +601,15 @@ span.bold.fixT.skiptranslate.notranslate {
     }
     div#addvideo {
         max-height: 200px;
+    }
+    .modl-selector-wrap {
+        text-align: center;
+        &>div {
+            margin-bottom: 10px;
+        }
+    }
+    .section-stack__main {
+        margin-left: -20px !important;
+        margin-right: -20px !important;
     }
 }
