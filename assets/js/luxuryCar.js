@@ -346,6 +346,57 @@
 
 
         $('select.parameter-id-38.surcharge-parameter').val('248').trigger('change');
+        const buttons = $('button.timeline__nav-item');
+        const prevButton = $('button[is="prev-button"]');
+        const nextButton = $('button[is="next-button"]');
+        let currentIndex = 0;
+
+        buttons.on('click', function() {
+            // Získání indexu tlačítka, které bylo kliknuto
+            const index = $(this).index();
+
+            // Přepnutí aktivní třídy
+            buttons.removeClass('active');
+            $(this).addClass('active');
+
+            // Přepnutí viditelnosti odpovídajícího slide
+            $('.timeline__slide').removeClass('is-selected').addClass('reveal-invisible').attr('style', 'opacity: 0; visibility: hidden; z-index: 0;');
+            $('.timeline__slide:eq(' + index + ')').addClass('is-selected').removeClass('reveal-invisible').attr('style', 'opacity: 1; visibility: visible; z-index: 1;');
+
+            // Aktualizace aktuálního indexu
+            currentIndex = index;
+
+            // Zobrazí zprávu s informací o tom, které tlačítko bylo kliknuto
+            console.log(`Kliknul jsi na tlačítko s indexem: ${index}`);
+        });
+
+        prevButton.on('click', function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                buttons.removeClass('active');
+                buttons.eq(currentIndex).addClass('active');
+
+                // Přepnutí viditelnosti odpovídajícího slide
+                $('.timeline__slide').removeClass('is-selected').addClass('reveal-invisible').attr('style', 'opacity: 0; visibility: hidden; z-index: 0;');
+                $('.timeline__slide:eq(' + currentIndex + ')').addClass('is-selected').removeClass('reveal-invisible').attr('style', 'opacity: 1; visibility: visible; z-index: 1;');
+
+                console.log(`Posunul jsi zpět na index: ${currentIndex}`);
+            }
+        });
+
+        nextButton.on('click', function() {
+            if (currentIndex < buttons.length - 1) {
+                currentIndex++;
+                buttons.removeClass('active');
+                buttons.eq(currentIndex).addClass('active');
+
+                // Přepnutí viditelnosti odpovídajícího slide
+                $('.timeline__slide').removeClass('is-selected').addClass('reveal-invisible').attr('style', 'opacity: 0; visibility: hidden; z-index: 0;');
+                $('.timeline__slide:eq(' + currentIndex + ')').addClass('is-selected').removeClass('reveal-invisible').attr('style', 'opacity: 1; visibility: visible; z-index: 1;');
+
+                console.log(`Posunul jsi dopředu na index: ${currentIndex}`);
+            }
+        });
     }
 
     function priplatky() {
