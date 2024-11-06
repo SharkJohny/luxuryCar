@@ -524,8 +524,16 @@ span.bold.fixT.skiptranslate.notranslate {
 
 .more-pictures {
     max-height: 0;
-    overflow: hidden;
+    overflow-x: hidden;
     transition: all 0.5s ease-out;
+}
+
+.welcome h1 {
+    display: none;
+}
+
+.more-pictures.slow {
+    overflow: visible;
 }
 
 section#model-selector {
@@ -534,8 +542,14 @@ section#model-selector {
 }
 
 .more-pictures.slow {
-    max-height: 1000px;
+    max-height: 1500px;
     transition: all 0.5s ease-out;
+}
+
+.hotspot {
+    h4 {
+        color: white;
+    }
 }
 
 @media screen and (min-width: 700px) {
