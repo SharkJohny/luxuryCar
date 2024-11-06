@@ -532,6 +532,11 @@ span.bold.fixT.skiptranslate.notranslate {
     display: none;
 }
 
+.image-container {
+    max-width: 1000px !important;
+    display: block !important;
+}
+
 .more-pictures.slow {
     overflow: visible;
 }
@@ -542,8 +547,8 @@ section#model-selector {
 }
 
 .more-pictures.slow {
-    max-height: 1500px;
-    transition: all 0.5s ease-out;
+    max-height: 3000px;
+    transition: all 0.10s ease-out;
 }
 
 .hotspot {
