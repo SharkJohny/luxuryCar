@@ -121,6 +121,18 @@
         $('.btn.more-pictures-button').on('click', function() {
             $('.more-pictures').toggleClass('slow');
         })
+
+        $('video').parent().click(function() {
+            if ($(this).children("video").get(0).paused) {
+                $(this).children("video").get(0).play();
+                $(this).children("video").addClass('active')
+                $(this).children(".playpause").fadeOut();
+            } else {
+                $(this).children("video").get(0).pause();
+                $(this).children(".playpause").fadeIn();
+                $(this).children("video").removeClass('active')
+            }
+        });
     }
 
     function dinamicPictures() {

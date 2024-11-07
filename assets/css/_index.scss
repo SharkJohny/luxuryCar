@@ -551,6 +551,68 @@ section#model-selector {
     transition: all 0.10s ease-out;
 }
 
+.customers-video {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 50px;
+    .customer-video {
+        width: calc(25% - 10px);
+        padding: 5px;
+        position: relative;
+        @media (max-width: 768px) {
+            width: calc(50% - 10px);
+        }
+        .text {
+            margin-top: 20px;
+        }
+    }
+}
+
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-timeline-container,
+video::-webkit-media-controls-time-remaining-display,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-timeline,
+video::-webkit-media-controls-current-time-displa,
+video::-webkit-media-controls-time-remaining-display,
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-toggle-closed-captions-button,
+video::-webkit-media-controls-volume-slider,
+video::-webkit-media-controls-toggle-closed-captions-button,
+video::-webkit-media-controls-timeline,
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
+video.active {
+    &::-webkit-media-controls-timeline-container {
+        display: block;
+    }
+}
+
+.customer-video {
+    video {
+        max-height: 470px;
+        margin: auto;
+    }
+}
+
+.playpause {
+    background-image: url(https://www.wecareabout.cz/user/documents/upload/Assets/play.png);
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin: auto;
+    background-size: contain;
+    background-position: center;
+}
+
 .hotspot {
     h4 {
         color: white;
