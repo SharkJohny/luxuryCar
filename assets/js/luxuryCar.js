@@ -73,7 +73,7 @@
             dots: true,
             centerMode: false,
             infinite: true,
-            slidesToShow: 2.5,
+            slidesToShow: 3,
             slidesToScroll: 2,
             autoplay: true,
             autoplaySpeed: 4000,
@@ -114,12 +114,33 @@
         });
 
         $('button.text-with-icon.group').on('click', function() {
-            $('.feature-chart__table-row').removeAttr('hidden').addClass('addHidden')
+            if (!$('button.text-with-icon.group.less')[0]) {
+                $('.feature-chart__table-row[hidden]').removeAttr('hidden').addClass('addHidden')
+                const less = $(this).attr('data-view-less')
+                $(this).addClass('less')
+                $(this).find('span.feature-chart__toggle-text.reversed-link').text(less)
+            } else {
+                const more = $(this).attr('data-view-more')
+                $('.feature-chart__table-row.addHidden').attr('hidden', true).removeClass('addHidden');
+                $(this).removeClass('less')
+                $(this).find('span.feature-chart__toggle-text.reversed-link').text(more)
+            }
 
         })
 
+
         $('.btn.more-pictures-button').on('click', function() {
             $('.more-pictures').toggleClass('slow');
+
+            if (!$('.btn.more-pictures-button.less')[0]) {
+                const less = $(this).attr('data-view-less')
+                $(this).text(less)
+                $(this).addClass('less')
+            } else {
+                const more = $(this).attr('data-view-more')
+                $(this).text(more)
+                $(this).removeClass('less')
+            }
         })
 
         $('video').parent().click(function() {
@@ -729,7 +750,7 @@
         //     createPopUp()
         // })
         $(
-            '<div class="header-rewiew"><h3> Děkujeme za Vaše recenze</h3></div>'
+            '<div class="header-rewiew"><h3> Ďakujeme za Vaše recenzie po slovensky</h3></div>'
         ).appendTo("#goggle-review-wrap");
 
         const review = $("<div/>")
@@ -738,7 +759,7 @@
         $(
             `<div class="grw-slider-header"><div class="grw-slider-header-inner"><div class="wp-google-place"><div class="wp-google-left"></div><div class="wp-google-right"><div class="wp-google-name"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" target="_blank" rel="nofollow noopener"><span>Luxury car</span></a></div><div><span class="wp-google-rating">5.0</span><span class="wp-google-stars"><span class="wp-stars"><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span></span></span></div><div class="wp-google-powered">Na základě <a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" style="font-weight: 600 !important;text-decoration: underline !important;" target="_blank">` +
             numberReviews +
-            ` recenzí</a></div><div class="wp-google-powered"><img src="https://www.mojerky.cz/user/documents/upload/google.svg" alt="powered by Google" width="144" height="18" title="powered by Google"></div><div class="wp-google-wr"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" onclick="return rplg_leave_review_window.call(this)">Napsat recenzi</a></div></div></div></div></div>`
+            ` recenzí</a></div><div class="wp-google-powered"><img src="https://www.mojerky.cz/user/documents/upload/google.svg" alt="powered by Google" width="144" height="18" title="powered by Google"></div><div class="wp-google-wr"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" onclick="return rplg_leave_review_window.call(this)">Napsat&nbsp;recenzi</a></div></div></div></div></div>`
         ).appendTo(review);
         $("<div/>").attr("id", "google-reviews").appendTo(review);
 
@@ -795,6 +816,61 @@
 
             showProfilePicture: true,
         });
+        const checkReviewsLoaded = setInterval(() => {
+            if ($(".review-header").length > 0) { // Pokud recenze byly přidány
+                clearInterval(checkReviewsLoaded); // Zastaví kontrolu po načtení
+
+                $("#google-reviews").slick({
+                    dots: true,
+                    centerMode: false,
+                    infinite: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 2,
+                    autoplay: true,
+                    autoplaySpeed: 8000,
+                    arrows: false,
+
+                    responsive: [{
+                            breakpoint: 1600,
+                            settings: {
+                                slidesToShow: 4,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 1480,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 1200,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 800,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+
+                                autoplay: false,
+                            },
+                        },
+                        // {
+                        //     breakpoint: 350,
+                        //     settings: {
+                        //         slidesToShow: 1,
+                        //         slidesToScroll: 1,
+                        //     },
+                        // },
+                    ],
+                });
+            }
+        }, 200); // Kontrola každých 200 ms
     }
 
     function createPopUp() {
@@ -816,75 +892,61 @@
         }
 
         // Find a placeID via https://developers.google.com/places/place-id
-        $(".ti-reviews-container-wrapper").googlePlaces({
-            placeId: "ChIJcRYHIStjj4wRIHx41hbkAtc", // Zadej své Place ID
-            header: "", // HTML/text nad recenzemi
-            footer: `<a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" target="_blank" class="more-reviews-button">Show More Reviews</a>`, // Odkaz na více recenzí
-            maxRows: 5, // max. počet recenzí k zobrazení (Google API omezuje na 5)
-            minRating: 3, // minimální hodnocení recenzí
-            months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            textBreakLength: "90", // délka textu recenze
-            shortenNames: true, // zkrácení jmen
-            moreReviewsButtonLabel: 'Více recenzí',
-            showProfilePicture: true, // zobrazení profilové fotografie
-        });
-        $('a.ti-close-lg').on('click', function() {
-            $('.ti-dropdown-widget').remove()
-        })
+
     }
     setTimeout(function() {
         $(logoGoogle).appendTo(".review-item-long");
         $("#google-reviews br").remove();
 
-        $("#google-reviews").slick({
-            dots: true,
-            centerMode: false,
-            infinite: true,
-            slidesToShow: 5,
-            slidesToScroll: 2,
-            autoplay: true,
-            autoplaySpeed: 8000,
-            arrows: false,
+        // $("#google-reviews").slick({
+        //     dots: true,
+        //     centerMode: false,
+        //     infinite: true,
+        //     slidesToShow: 5,
+        //     slidesToScroll: 2,
+        //     autoplay: true,
+        //     autoplaySpeed: 8000,
+        //     arrows: false,
 
-            responsive: [{
-                    breakpoint: 1600,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 1,
-                    },
-                },
-                {
-                    breakpoint: 1480,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 1,
-                    },
-                },
-                {
-                    breakpoint: 1200,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1,
-                    },
-                },
-                {
-                    breakpoint: 800,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
+        //     responsive: [{
+        //             breakpoint: 1600,
+        //             settings: {
+        //                 slidesToShow: 4,
+        //                 slidesToScroll: 1,
+        //             },
+        //         },
+        //         {
+        //             breakpoint: 1480,
+        //             settings: {
+        //                 slidesToShow: 3,
+        //                 slidesToScroll: 1,
+        //             },
+        //         },
+        //         {
+        //             breakpoint: 1200,
+        //             settings: {
+        //                 slidesToShow: 2,
+        //                 slidesToScroll: 1,
+        //             },
+        //         },
+        //         {
+        //             breakpoint: 800,
+        //             settings: {
+        //                 slidesToShow: 1,
+        //                 slidesToScroll: 1,
 
-                        autoplay: false,
-                    },
-                },
-                // {
-                //     breakpoint: 350,
-                //     settings: {
-                //         slidesToShow: 1,
-                //         slidesToScroll: 1,
-                //     },
-                // },
-            ],
-        });
+        //                 autoplay: false,
+        //             },
+        //         },
+        //         // {
+        //         //     breakpoint: 350,
+        //         //     settings: {
+        //         //         slidesToShow: 1,
+        //         //         slidesToScroll: 1,
+        //         //     },
+        //         // },
+        //     ],
+        // });
     }, 2500);
 
 
