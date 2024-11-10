@@ -148,6 +148,7 @@
             <div class='label'>` + cstm_type.at(0) + `</div>
             <div class='selector'>
                 <select required="required">
+
                     <option class='notselect'>` + cstm_type.at(1) + `</option>
                 </select>
             </div>
@@ -268,11 +269,15 @@
                 // $('table.detail-parameters').hide()
             let orders = 0
             $('.detail-parameters .variant-list select').each(function() {
+
                 orders += 1
                 const position = this
                 createOptions(position, orders)
             })
             $('.detail-parameters .surcharge-list select').each(function() {
+                const value = $(this).attr('data-parameter-id')
+                console.log(value)
+                if (value == 22) return
                 orders += 1
                 const position = this
                 createOptions(position, orders)

@@ -4,7 +4,7 @@
     let setupData
     $.getJSON(downloadData, function(data) {
         setupData = data
-
+        console.log(setupData.settings.carVariant.split(','))
     })
 
 
@@ -263,22 +263,25 @@
         `
 
         const type = `
-        <div class="surcharge-list type dm-selector">
-            <div class='label'>` + cstm_type.at(0) + `</div>
+        <div class="surcharge-list type-selector">
+           
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` + cstm_type.at(1) + `</option>
+                    <option class='notselect'>Typ auta</option>
                 </select>
             </div>
         </div>
         `
+
+
         const button = `<div class='btn choice-Model'>Zvolit model</div>`
 
-        $(znacka + model + rocnik + button).appendTo(choiceWrap)
+        $(znacka + model + rocnik + type + button).appendTo(choiceWrap)
+        $(setupData.settings.carVariant.split(',')).each(function() {
+            console.log(this)
+            const option = $('<option>').text(this).appendTo('.type-selector .selector select')
+        })
 
-        for (let i = 0; i < types.length; i++) {
-            $("<option>" + types[i] + "</option>").appendTo(".type select")
-        }
 
         const cars = setupData.cars;
 
@@ -315,8 +318,10 @@
             const Brand = $('.surcharge-list.brands.dm-selector select').val()
             const Model = $('.surcharge-list.models.dm-selector select').val()
             const Year = $('.surcharge-list.years.dm-selector select').val()
+            const type = $('.surcharge-list.type-selector select').val()
             console.log(Brand + ' ' + Model + ' ' + Year)
-            sessionStorage.setItem('model', Brand + ' ' + Model + ' ' + Year)
+            sessionStorage.setItem('model', Brand + ' ' + Model + ' ' + Year + ' ' + type)
+            sessionStorage.setItem('carType', type)
 
             if ($('.in-index')[0]) {
                 window.location.href = '/rozcestnik/'
@@ -455,8 +460,9 @@
 
             const pairVariantList = JSON.parse(setupData.settings.pairVariantList);
             const pairedOrders = {};
-            let orders = 1
+            let orders = 0
             $('.detail-parameters .variant-list select').each(function() {
+
                 orders += 1
                 const position = this
                 createOptions(position, orders)
@@ -648,7 +654,7 @@
             }).appendTo('#options-wrap')
 
         }
-        if (orders > 2) {
+        if (orders > 1) {
 
             optPosition = '.upsale-wrap'
         }
@@ -1079,18 +1085,27 @@
             $('select.parameter-id-37.surcharge-parameter').val(250)
         }
         if (typeVal == '') {
-            $('select.parameter-id-22.surcharge-parameter').val(49)
-            typeVal = 49
-        }
-        const pageWrap = $('<div>', { class: 'parameter-wrap parameter-cars active' }).appendTo('.content-wrap')
-        $('<div>', {
-            class: 'order',
-            text: '1'
-        }).appendTo(pageWrap)
+            const getModel = sessionStorage.getItem('carType')
+            console.log(getModel);
 
-        $('<h5>', {
-            text: 'Upresnění vozu'
-        }).appendTo(pageWrap)
+            // Najdeme příslušný element 'option' podle textu, získáme jeho hodnotu
+            const value = $('select.parameter-id-22.surcharge-parameter option').filter(function() {
+                return $(this).text().indexOf(getModel) !== -1;
+            }).val();
+
+            console.log(value);
+
+            // Nastavíme vybranou hodnotu do 'select' elementu
+            $('select.parameter-id-22.surcharge-parameter').val(value);
+            typeVal = value
+        }
+        const pageWrap = $('<div>', { class: 'position-wrap parameter-cars active' }).appendTo('.content-wrap')
+            // $('<div>', {
+            //     class: 'order',
+            //     text: '1'
+            // }).appendTo(pageWrap)
+
+
 
         const wheelWrao = $('<div>', {
             class: 'parameter-cars wheel-Position'
@@ -1115,42 +1130,42 @@
             }
         })
 
-        const typeWrap = $('<div>', {
-            class: 'parameter-cars type'
-        }).appendTo(pageWrap)
-        $('<div>', {
-            class: 'label type',
-            text: 'Typ vozu'
-        }).appendTo(typeWrap)
-        const typeOption = $('<div>', {
-            class: 'type-option-wrap'
-        }).appendTo(typeWrap)
-        $('select.parameter-id-22.surcharge-parameter option').each(function(n) {
-            if (n == 0) return
-            const val = $(this).val()
-            let text = $(this).text().replace('+0 Kč', '')
-            let textArr = text.split('+')
-            text = textArr[0]
-            let price = textArr[1]
-            if (price == undefined) {
-                price = ''
-            } else {
-                price = '+ ' + price
-            }
-            const button = $('<div>', {
-                class: 'type-option button',
-                'data-value': val,
-                html: text + '<span>' + price + '</span>',
-            }).appendTo(typeOption)
+        // const typeWrap = $('<div>', {
+        //     class: 'parameter-cars type'
+        // }).appendTo(pageWrap)
+        // $('<div>', {
+        //     class: 'label type',
+        //     text: 'Typ vozu'
+        // }).appendTo(typeWrap)
+        // const typeOption = $('<div>', {
+        //         class: 'type-option-wrap'
+        //     }).appendTo(typeWrap)
+        // $('select.parameter-id-22.surcharge-parameter option').each(function(n) {
+        //     if (n == 0) return
+        //     const val = $(this).val()
+        //     let text = $(this).text().replace('+0 Kč', '')
+        //     let textArr = text.split('+')
+        //     text = textArr[0]
+        //     let price = textArr[1]
+        //     if (price == undefined) {
+        //         price = ''
+        //     } else {
+        //         price = '+ ' + price
+        //     }
+        //     const button = $('<div>', {
+        //         class: 'type-option button',
+        //         'data-value': val,
+        //         html: text + '<span>' + price + '</span>',
+        //     }).appendTo(typeOption)
 
-            if (typeVal == val) {
-                $(button).addClass('active')
-            }
-            // if (n == 1) {
-            //     $(button).addClass('active')
-            // }
+        //     if (typeVal == val) {
+        //         $(button).addClass('active')
+        //     }
+        //     // if (n == 1) {
+        //     //     $(button).addClass('active')
+        //     // }
 
-        })
+        // })
         $('.type-option.button').on('click', function() {
             $(this).addClass('active').siblings().removeClass('active')
             const value = $(this).attr('data-value')

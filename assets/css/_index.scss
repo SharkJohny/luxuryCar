@@ -510,7 +510,8 @@ span.bold.fixT.skiptranslate.notranslate {
 
 .surcharge-list.years.dm-selector,
 .surcharge-list.models.dm-selector,
-.surcharge-list.brands.dm-selector {
+.surcharge-list.brands.dm-selector,
+.surcharge-list.type-selector {
     select {
         border-color: $colors-golden;
         border-radius: 50px;

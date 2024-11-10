@@ -215,6 +215,17 @@
     }
 }
 
+.position-wrap.parameter-cars.active {
+    .parameter-cars.wheel-Position {
+        display: flex;
+        justify-content: flex-end;
+        .label.wheel {
+            padding: 8px 20px;
+            margin: 0;
+        }
+    }
+}
+
 table.detail-parameters {
     display: none;
 }
