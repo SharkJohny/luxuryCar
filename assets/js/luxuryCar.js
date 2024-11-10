@@ -435,6 +435,23 @@
                 console.log(`Posunul jsi dopředu na index: ${currentIndex}`);
             }
         });
+
+        const wrap = $('<div>', {
+            class: 'thumbnails-wrap'
+        }).appendTo('.col-xs-12.col-lg-6.p-image-wrapper')
+        $('.p-thumbnails-inner>div>a').each(function(n) {
+            // Zobrazí každý druhý obrázek a navíc osmý obrázek
+            if (n % 2 !== 0 || n > 15) return; // Každý druhý a osmý (n = 7)
+            console.log(n)
+            const src = $(this).attr('href');
+            const image = $('<a>', {
+                class: 'thumbnail-image p-main-image cloud-zoom',
+                href: src,
+            }).appendTo(wrap);
+            $('<img>', {
+                src: src,
+            }).appendTo(image);
+        });
     }
 
     function priplatky() {
@@ -445,11 +462,11 @@
             $('<div>', {
                 class: 'upsale-wrap'
             }).insertAfter('.detail-parameters')
-            const upsaleText = $('<div>', { class: 'upsale-text' }).insertAfter('.detail-parameters')
+            const upsaleText = $('<div>', { class: 'upsale-text', style: 'background-image: url(https://cdn.myshoptet.com/usr/677818.myshoptet.com/user/documents/upload/assets/new/four.jpg)' }).insertAfter('.detail-parameters')
             $('<div>', { class: 'content-wrap' }).insertAfter('.detail-parameters')
 
-            $('<div>', { class: 'heder h2', text: 'Prikup boxy za zvyhodněnou cenu' }).appendTo(upsaleText)
-            $('<p>', { text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam quis nulla. Curabitur sagittis hendrerit ante. Fusce nibh. Nullam faucibus mi quis velit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna.' }).appendTo(upsaleText)
+            $('<div>', { class: 'heder h2', text: 'Prikup doplnky za zvyhodněnou cenu' }).appendTo(upsaleText)
+            $('<p>', { text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam quis nulla. Curabitur sagittis hendrerit ante. Fusce nibh. Nullam faucibus mi quis velit. ' }).appendTo(upsaleText)
             $('<div>', { class: 'btn button upsale', text: 'Koupit výhodně' }).appendTo(upsaleText)
 
             $('.btn.button.upsale').on('click', function() {
@@ -506,16 +523,26 @@
             $('.button.option-button').on('click', function() {
                 $('body').removeClass('disabled-add-to-cart')
                 const value = $(this).attr('data-value')
-                const vatiant = $(this).attr('data-variant')
+                const variant = $(this).attr('data-variant')
                 $(this).addClass('active').siblings().removeClass('active')
                 const parameterId = $(this).parents('.parameter-wrap').attr('data-parameterid')
                 const image = $(this).find('img').attr('src')
                 $('.navigatte-button.parameterNav' + parameterId).attr('style', ' background-image: url(' + image + ');')
                 console.log(parameterId)
-                    // console.log(value + '/' + vatiant)
-                $('.parameter-id-' + vatiant).val(value)
+                    // console.log(value + '/' + variant)
+                $('.parameter-id-' + variant).val(value)
 
                 shoptet.surcharges.updatePrices()
+                if (variant == 4) {
+                    const image = $(this).find('img').attr('src')
+                    console.log(image)
+                    $('.image-wrap').remove()
+                    const imageWrap = $('<div>', {
+                        class: 'image-wrap',
+                    }).appendTo('.parameter-wrap.parameter-4.orders-1')
+                    $('<img>', { src: image }).appendTo(imageWrap)
+
+                }
             })
 
             // $(".surcharge-list td option").each(function() {
