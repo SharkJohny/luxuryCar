@@ -635,6 +635,13 @@ video.active {
 }
 
 @media (max-width: 768px) {
+    .section-stack .collection-card__content-wrapper.text-custom.place-self-center.text-center {
+        position: absolute;
+        top: 25%;
+    }
+    #videoWrapper video {
+        height: 300px;
+    }
     .mobile-image {
         margin-bottom: 30px;
     }

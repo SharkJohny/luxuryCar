@@ -1,0 +1,37 @@
+.banner-wrap {
+    background: #e0e4e9;
+    padding: 10px;
+    margin-top: 20px;
+    .h3 {
+        margin: 0 auto 20px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    p {
+        text-align: center;
+    }
+    .timer-wrap {
+        text-align: center;
+        span {
+            margin-right: 10px;
+        }
+        span.countdown {
+            color: #aa8d58;
+            font-size: 18px;
+        }
+    }
+    a.btn {
+        display: block;
+        width: fit-content;
+        margin: 10px auto 20px;
+        &:hover {
+            background-color: #aa8d58;
+            color: #e0e4e9;
+        }
+    }
+    .description {
+        text-align: center;
+        font-size: 11px;
+    }
+}

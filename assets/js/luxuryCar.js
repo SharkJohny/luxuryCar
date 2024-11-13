@@ -23,7 +23,7 @@
 
         intIndex()
         initSignpost()
-
+        initCart()
 
 
     });
@@ -345,7 +345,7 @@
         if (model != null) {
             $('<div>', {
                 class: 'model',
-                text: 'Pro auto ' + model,
+                html: 'Pro auto <div class="button btn select-model">' + model + '</div>'
 
             }).insertAfter('.availability-value')
         } else {
@@ -850,15 +850,16 @@
             showProfilePicture: true,
         });
         const checkReviewsLoaded = setInterval(() => {
-            if ($(".review-header").length > 0) { // Pokud recenze byly přidány
-                clearInterval(checkReviewsLoaded); // Zastaví kontrolu po načtení
 
+            if ($(".review-header").length > 0) { // Pokud recenze byly přidány
+                // Zastaví kontrolu po načtení
+                clearInterval(checkReviewsLoaded);
                 $("#google-reviews").slick({
                     dots: true,
                     centerMode: false,
                     infinite: true,
-                    slidesToShow: 5,
-                    slidesToScroll: 2,
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
                     autoplay: true,
                     autoplaySpeed: 8000,
                     arrows: false,
@@ -903,7 +904,8 @@
                     ],
                 });
             }
-        }, 200); // Kontrola každých 200 ms
+        }, 200);
+        // Kontrola každých 200 ms
     }
 
     function createPopUp() {
@@ -1220,4 +1222,70 @@
         }).appendTo(pageWrap)
         $('<div>', { class: 'btn upsale', text: 'upsale' }).appendTo(buttonWrao)
         $('<div>', { class: 'btn close', text: 'Ukoncit konfigurator' }).appendTo(buttonWrao)
+    }
+
+    function initCart() {
+        if (!$('.id--9')[0]) return
+        const bannerWrap = $('<div>', {
+            class: 'banner-wrap'
+        }).insertBefore('table.cart-table')
+        $('<div>', {
+            class: 'h3',
+            text: 'Dokonalá ochrana pre váš kufor za EXTRÉMNE zvýodnenu cenu!'
+        }).appendTo(bannerWrap)
+        $('<p>', {
+            text: 'Len teraz môžete pridať luxusné autokoberce do kufra alebo úložné boxy za výrazne zvýhodnenú cenu. Chráňte kufor Vášho vozidla pred nečistotami a majte všetko na mieste!'
+        }).appendTo(bannerWrap)
+        const timer = $('<div>', {
+            class: 'timer-wrap'
+        }).appendTo(bannerWrap)
+        $('<span>', {
+            text: 'Špeciálna ponuka končí za'
+        }).appendTo(timer)
+
+        const countdownSpan = $('<span>', {
+            class: 'countdown',
+            text: ''
+        }).appendTo(timer);
+
+        $('<a>', {
+            class: 'btn',
+            text: 'Pridať so zľavou do objednávky!',
+            href: '#',
+        }).appendTo(bannerWrap)
+        $('<div>', {
+            class: 'description',
+            text: 'Túto ponuku získate len pri tejto objednávke. Nepremeškajte šancu získať doplnky za najlepšiu cenu!'
+        }).appendTo(bannerWrap)
+
+        // Získání aktuálního času odpočtu ze sessionStorage nebo nastavení 30 minut
+        let endTime = sessionStorage.getItem('timerEndTime');
+        if (!endTime || new Date(endTime) < new Date()) {
+            // Pokud není uložený čas nebo je již vypršel, nastavíme nový odpočet na 30 minut
+            endTime = new Date(new Date().getTime() + 30 * 60 * 1000);
+            sessionStorage.setItem('timerEndTime', endTime);
+        } else {
+            // Pokud je uložený čas platný, použijeme jej
+            endTime = new Date(endTime);
+        }
+
+        // Aktualizace odpočtu každou sekundu
+        function updateCountdown() {
+            const now = new Date();
+            const remainingTime = endTime - now;
+
+            if (remainingTime <= 0) {
+                countdownSpan.text('čas vypršel!');
+                clearInterval(countdownInterval);
+                sessionStorage.removeItem('timerEndTime');
+            } else {
+                const minutes = Math.floor((remainingTime / 1000 / 60) % 60);
+                const seconds = Math.floor((remainingTime / 1000) % 60);
+                countdownSpan.text(`${minutes} min ${seconds} sec`);
+            }
+        }
+
+        // Spustit aktualizaci odpočtu každou sekundu
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
     }
