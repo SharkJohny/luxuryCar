@@ -2,21 +2,18 @@
 $debug: false;
 /// typografy
 $font-size-baze: 100%;
-$font-family-sans: montserrat,
-sans-serif;
-$font-family-serif: big caslon,
-georgia,
-serif;
+$font-family-sans: montserrat, sans-serif;
+$font-family-serif: big caslon, georgia, serif;
 /// colors
 $color-text: white;
 $colors-background: #70e1ff;
 $colors-textmenu: white;
-$colors-golden:#aa8d58;
+$colors-golden: #aa8d58;
 .full-width {
-    position: relative;
-    top: 0;
-    left: 50%;
-    width: 100vw;
-    height: auto;
-    transform: translateX(-50%);
+  position: relative;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: auto;
+  transform: translateX(-50%);
 }

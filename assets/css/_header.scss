@@ -4,256 +4,299 @@
  * @Desc:  Change Header
  */
 
+.navigation-show {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  display: none;
+  color: var(--color-primary);
+  font-size: 16px;
+  cursor: pointer;
+}
+
 @media (min-width: 678px) {
-    .menu-helper {
-        top: 8px;
+  .menu-helper {
+    top: 8px;
+  }
+  .top-navigation-menu {
+    display: none !important;
+  }
+  #navigation {
+    margin-top: 10px;
+  }
+  .top-navigation-contacts {
+    display: none !important;
+  }
+  .top-navigation-menu {
+    max-width: 40px;
+  }
+  .navigation-buttons {
+    position: absolute;
+    right: 150px;
+    top: -39px;
+  }
+  header#header {
+    z-index: 60;
+    position: relative;
+    background-color: black;
+    .site-name {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border-radius: 0 0 10px 10px;
     }
-    .top-navigation-menu {
-        display: none !important;
+  }
+  .in-index header#header {
+    background-color: rgba(51, 51, 51, 0.5);
+  }
+  .header-top {
+    height: 0;
+    padding: 0;
+  }
+  ul.top-navigation-bar-menu-helper {
+    transform: translateX(50%);
+    li {
+      min-width: 240px;
     }
-    #navigation {
-        margin-top: 10px;
+  }
+  .top-navigation-menu-visible .top-navigation-bar {
+    z-index: 70;
+  }
+  .top-navigation-bar {
+    z-index: 50;
+    position: relative;
+    background-color: black;
+    height: 48px;
+    border-bottom-color: transparent;
+  }
+  .in-index .top-navigation-bar {
+    background-color: rgba(51, 51, 51, 0.5);
+  }
+  .content-wrapper.homepage-box.before-carousel {
+    padding-top: 0;
+    margin-top: -92px;
+    .container {
+      width: unset;
     }
-    .top-navigation-contacts {
-        display: none !important;
-    }
-    .top-navigation-menu {
-        max-width: 40px;
-    }
-    .navigation-buttons {
-        position: absolute;
-        right: 150px;
-        top: -39px;
-    }
-    header#header {
-        z-index: 60;
-        position: relative;
-        background-color: black;
-        .site-name {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 0 0 10px 10px;
-        }
-    }
-    .in-index header#header {
-        background-color: rgba(51, 51, 51, 0.5);
-    }
-    .header-top {
-        height: 0;
-        padding: 0;
-    }
-    ul.top-navigation-bar-menu-helper {
-        transform: translateX(50%);
-        li {
-            min-width: 240px;
-        }
-    }
-    .top-navigation-menu-visible .top-navigation-bar {
-        z-index: 70;
-    }
-    .top-navigation-bar {
-        z-index: 50;
-        position: relative;
-        background-color: black;
-        height: 48px;
-        border-bottom-color: transparent
-    }
-    .in-index .top-navigation-bar {
-        background-color: rgba(51, 51, 51, 0.5);
-    }
-    .content-wrapper.homepage-box.before-carousel {
-        padding-top: 0;
-        margin-top: -92px;
-        .container {
-            width: unset;
-        }
-    }
-    .navigation-in {
+  }
+  .navigation-in {
+    background-color: transparent;
+    & > ul > li {
+      border-color: transparent;
+      & > a {
         background-color: transparent;
-        &>ul>li {
-            border-color: transparent;
-            &>a {
-                background-color: transparent;
-                color: var(--c-primary);
-                b {
-                    font-size: 16px;
-                    font-weight: 500;
-                    line-height: 18px;
-                    text-align: left;
-                }
-            }
+        color: var(--c-primary);
+        b {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 18px;
+          text-align: left;
         }
+      }
     }
-    .top-navigation-menu {
-        background: transparent;
+  }
+  .top-navigation-menu {
+    background: transparent;
+  }
+  .top-navigation-menu {
+    position: relative;
+    top: 10px;
+  }
+  .top-navigation-menu-trigger {
+    width: 66px;
+    &:before {
+      content: "\e914";
+      color: var(--c-primary);
+      font-size: 19px;
+      position: relative;
+      right: -14px;
     }
-    .top-navigation-menu {
-        position: relative;
-        top: 10px;
+    &::after {
+      content: "Více";
+      padding: 2px 0 0 10px;
+      color: var(--c-primary);
+      left: 5px;
+      position: relative;
+      top: 1px;
     }
-    .top-navigation-menu-trigger {
-        width: 66px;
-        &:before {
-            content: "\e914";
-            color: var(--c-primary);
-            font-size: 19px;
-            position: relative;
-            right: -14px;
-        }
-        &::after {
-            content: 'Více';
-            padding: 2px 0 0 10px;
-            color: var(--c-primary);
-            left: 5px;
-            position: relative;
-            top: 1px;
-        }
+  }
+  a.top-nav-button.top-nav-button-login.primary.login {
+    top: 13px;
+    font-size: 16px;
+    padding-right: 20px;
+    position: relative;
+    &:after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/user.svg);
+      background-size: contain;
+      right: -5px;
     }
-    a.top-nav-button.top-nav-button-login.primary.login {
-        top: 13px;
-        font-size: 16px;
-        padding-right: 20px;
-        position: relative;
-        &:after {
-            content: '';
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/user.svg);
-            background-size: contain;
-            right: -5px;
-        }
-    }
-    .top-navigation-bar .dropdown button,
-    .top-navigation-bar a {
-        color: var(--color-primary);
-    }
-    .navigation-buttons>a[data-target=cart] i {
-        border-radius: 100%;
-        bottom: auto;
-        display: block;
-        font-size: 11px;
-        font-style: normal;
-        height: 17px;
-        left: unset;
-        color: #fff !important;
-        line-height: 11px;
-        padding: 3px;
-        position: absolute;
-        right: -22px;
-        top: 0;
-        width: 17px;
-        z-index: 10;
-        position: absolute;
-    }
-    .btn.cart-count:before,
-    a.btn.cart-count:before {
-        content: '';
+  }
+  .top-navigation-bar .dropdown button,
+  .top-navigation-bar a {
+    color: var(--color-primary);
+  }
+  .navigation-buttons > a[data-target="cart"] i {
+    border-radius: 100%;
+    bottom: auto;
+    display: block;
+    font-size: 11px;
+    font-style: normal;
+    height: 17px;
+    left: unset;
+    color: #fff !important;
+    line-height: 11px;
+    padding: 3px;
+    position: absolute;
+    right: -22px;
+    top: 0;
+    width: 17px;
+    z-index: 10;
+    position: absolute;
+  }
+  .btn.cart-count:before,
+  a.btn.cart-count:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/cart.svg);
+    background-size: contain;
+    right: -50px;
+    top: 2px;
+  }
+  .user-action-cart.popup-widget.cart-widget.loader-wrapper {
+    top: 39px;
+    left: 42%;
+    z-index: 600;
+  }
+  .navigation-buttons {
+    a.toggle-window[data-target="search"] {
+      background: transparent;
+      display: block;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      &::before {
+        content: "";
         width: 20px;
         height: 20px;
         position: absolute;
-        background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/cart.svg);
+        background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/searsh.svg);
         background-size: contain;
-        right: -50px;
-        top: 2px;
+        right: 20px;
+        top: 0px;
+      }
     }
-    .user-action-cart.popup-widget.cart-widget.loader-wrapper {
-        top: 39px;
-        left: 42%;
-        z-index: 600;
-    }
-    .navigation-buttons {
-        a.toggle-window[data-target="search"] {
-            background: transparent;
-            display: block;
-            position: relative;
-            width: 20px;
-            height: 20px;
-            &::before {
-                content: '';
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                background-image: url(https://677818.myshoptet.com/user/documents/upload/assets/searsh.svg);
-                background-size: contain;
-                right: 20px;
-                top: 0px;
-            }
-        }
-    }
+  }
+  .navigation-wrapper .search {
+    display: none;
+  }
+  .search-window-visible {
     .navigation-wrapper .search {
-        display: none;
+      display: block !important;
+      z-index: 50;
+      top: -42px;
+      position: absolute;
+      left: 50%;
+      min-width: 400px !important;
+      transform: translateX(-50%);
     }
-    .search-window-visible {
-        .navigation-wrapper .search {
-            display: block !important;
-            z-index: 50;
-            top: -42px;
-            position: absolute;
-            left: 50%;
-            min-width: 400px !important;
-            transform: translateX(-50%);
-        }
-        input.query-input.form-control.search-input.js-search-input {
-            border-color: var(--c-primary);
-            border-radius: 50px;
-        }
-        button.btn.btn-default {
-            background: var(--c-primary);
-            border-color: var(--c-primary);
-            border-radius: 0 20px 20px 0;
-        }
+    input.query-input.form-control.search-input.js-search-input {
+      border-color: var(--c-primary);
+      border-radius: 50px;
     }
-    .navigation-in>ul>li.exp>a,
-    .navigation-in>ul>li>a:hover {
-        background-color: var(--c-primary);
-        color: white;
+    button.btn.btn-default {
+      background: var(--c-primary);
+      border-color: var(--c-primary);
+      border-radius: 0 20px 20px 0;
     }
+  }
+  .navigation-in > ul > li.exp > a,
+  .navigation-in > ul > li > a:hover {
+    background-color: var(--c-primary);
+    color: white;
+  }
+
+  .scrolled {
+    .top-navigation-bar {
+      position: fixed;
+      top: 0px;
+      left: 0;
+      right: 0;
+      background-color: rgb(255 255 255);
+    }
+    header#header {
+      position: fixed;
+      top: 48px;
+      left: 0;
+      right: 0;
+    }
+    .menu-helper.jkTop.visible,
+    nav#navigation {
+      display: none;
+    }
+
+    .navigation-show {
+      display: block;
+    }
+  }
+}
+.showNav {
+  header#header {
+    background-color: rgb(255 255 255);
+  }
+  .menu-helper.jkTop.visible,
+  nav#navigation {
+    display: block !important;
+  }
 }
 
 @media (max-width: 768px) {
-    .navigation-buttons {
-        a.toggle-window[data-target="search"] {
-            background: transparent;
-            display: block;
-            position: relative;
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            left: -5000px;
-            &::before {
-                content: '';
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                background-image: url(https://www.nasesojka.cz/user/documents/upload/assets/img/search.svg);
-                background-size: contain;
-                right: 20px;
-                top: 0px;
-            }
-        }
+  .navigation-buttons {
+    a.toggle-window[data-target="search"] {
+      background: transparent;
+      display: block;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: -5000px;
+      &::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background-image: url(https://www.nasesojka.cz/user/documents/upload/assets/img/search.svg);
+        background-size: contain;
+        right: 20px;
+        top: 0px;
+      }
     }
+  }
 }
 
 @media (max-width: 1200px) {
-    .btn.cart-count:before,
-    a.btn.cart-count:before {
-        top: -8px;
-    }
+  .btn.cart-count:before,
+  a.btn.cart-count:before {
+    top: -8px;
+  }
 }
 
 @media (min-width: 768px) {
-    .fitted .navigation-in ul {
-        justify-content: center !important;
-    }
+  .fitted .navigation-in ul {
+    justify-content: center !important;
+  }
 }
 
 @media (min-width: 992px) {
-    .popup-widget.login-widget {
-        top: 21px;
-        z-index: 200;
-    }
+  .popup-widget.login-widget {
+    top: 21px;
+    z-index: 200;
+  }
 }
