@@ -621,11 +621,11 @@ section.foto-slider.slick-initialized.slick-slider.slick-dotted {
     color: white;
   }
 }
-
-.WidgetBackground__Content-sc-1ho7q3r-2.ciCnpO a {
-  display: none !important;
+.overall-wrapper #goggle-review-wrap {
+  a.hide {
+    display: none !important;
+  }
 }
-
 @media screen and (min-width: 700px) {
   .impact-text {
     --impact-text-spacing: 2rem;

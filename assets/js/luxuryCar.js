@@ -901,11 +901,11 @@ function googleReviews() {
     const targetElement = $('a:contains("Free Google Reviews widget")');
 
     if (targetElement.length) {
-      targetElement.remove(); // Odstranění elementu
+      targetElement.addClass("hide").remove(); // Odstranění elementu
       console.log("Element byl odstraněn:", targetElement);
     } else {
       // Zkontroluj znovu za 100 ms
-      setTimeout(waitForElementAndRemove, 100);
+      setTimeout(waitForElementAndRemove, 500);
     }
   }
 
