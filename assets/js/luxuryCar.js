@@ -886,131 +886,152 @@ function googleReviews() {
   // $('a.ti-header.source-Google').on('click', function() {
   //     createPopUp()
   // })
+
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJcRYHIStjj4wRIHx41hbkAtc&fields=name,rating,reviews&key=AIzaSyCeZU6zd0N8r7Uxu73NUIOhftj0OUGxcU4`;
   $(
     '<div class="header-rewiew"><h3> Ďakujeme za Vaše recenzie po slovensky</h3></div>'
   ).appendTo("#goggle-review-wrap");
 
-  const review = $("<div/>")
-    .addClass("review-row")
-    .appendTo("#goggle-review-wrap");
   $(
-    `<div class="grw-slider-header"><div class="grw-slider-header-inner"><div class="wp-google-place"><div class="wp-google-left"></div><div class="wp-google-right"><div class="wp-google-name"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" target="_blank" rel="nofollow noopener"><span>Luxury car</span></a></div><div><span class="wp-google-rating">5.0</span><span class="wp-google-stars"><span class="wp-stars"><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span></span></span></div><div class="wp-google-powered">Na základě <a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" style="font-weight: 600 !important;text-decoration: underline !important;" target="_blank">` +
-      numberReviews +
-      ` recenzí</a></div><div class="wp-google-powered"><img src="https://www.mojerky.cz/user/documents/upload/google.svg" alt="powered by Google" width="144" height="18" title="powered by Google"></div><div class="wp-google-wr"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" onclick="return rplg_leave_review_window.call(this)">Napsat&nbsp;recenzi</a></div></div></div></div></div>`
-  ).appendTo(review);
-  $("<div/>").attr("id", "google-reviews").appendTo(review);
+    `<div class="elfsight-app-0852ca33-abe7-4be3-8eb8-6bfa99b7bde9" data-elfsight-app-lazy></div>`
+  ).appendTo("#goggle-review-wrap");
+  $(`<script src="https://static.elfsight.com/platform/platform.js" async></script>
+`).appendTo("#goggle-review-wrap");
+  function waitForElementAndRemove() {
+    const targetElement = $('a:contains("Free Google Reviews widget")');
 
-  $(".js-navigation-container").insertAfter(".site-name");
-  $(".contact-box.no-image").clone().appendTo(".top-navigation-menu");
-
-  $("<a/>")
-    .addClass("yelowText")
-    .attr("href", "#goggle-review-wrap")
-    .html(
-      `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
-        numberReviews +
-        ")</span>Hodnocení zákazníků"
-    )
-    .insertAfter(" .p-data-wrapper h1");
-
-  $("<a/>")
-    .addClass("yelowText")
-    .attr("href", "#goggle-review-wrap")
-    .html(
-      `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
-        numberReviews +
-        ")</span>Hodnocení zákazníků"
-    )
-    .insertBefore(" .p-image");
-
-  if ($("#google-reviews").length == 0) {
-    return;
-  }
-  // Find a placeID via https://developers.google.com/places/place-id
-  $("#google-reviews").googlePlaces({
-    placeId: "ChIJcRYHIStjj4wRIHx41hbkAtc",
-    // the following params are optional (default values)
-    header: "", // html/text over Reviews
-    footer: "", // html/text under Reviews block
-    maxRows: 5, // max 5 rows of reviews to be displayed
-    minRating: 3, // minimum rating of reviews to be displayed
-    months: [
-      "Jan",
-      "Feb",
-      "Mär",
-      "Apr",
-      "Mai",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Dez",
-    ],
-    textBreakLength: "90", // length before a review box is set to max width
-    shortenNames: true, // example: "Max Mustermann" -> "Max M."",
-
-    showProfilePicture: true,
-  });
-  const checkReviewsLoaded = setInterval(() => {
-    if ($(".review-header").length > 0) {
-      // Pokud recenze byly přidány
-      // Zastaví kontrolu po načtení
-      clearInterval(checkReviewsLoaded);
-      $("#google-reviews").slick({
-        dots: true,
-        centerMode: false,
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 8000,
-        arrows: false,
-
-        responsive: [
-          {
-            breakpoint: 1600,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 1480,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 1200,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 800,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-
-              autoplay: false,
-            },
-          },
-          // {
-          //     breakpoint: 350,
-          //     settings: {
-          //         slidesToShow: 1,
-          //         slidesToScroll: 1,
-          //     },
-          // },
-        ],
-      });
+    if (targetElement.length) {
+      targetElement.remove(); // Odstranění elementu
+      console.log("Element byl odstraněn:", targetElement);
+    } else {
+      // Zkontroluj znovu za 100 ms
+      setTimeout(waitForElementAndRemove, 100);
     }
-  }, 200);
-  // Kontrola každých 200 ms
+  }
+
+  // Spuštění funkce
+  waitForElementAndRemove();
+  // const review = $("<div/>")
+  //   .addClass("review-row")
+  //   .appendTo("#goggle-review-wrap");
+  // $(
+  //   `<div class="grw-slider-header"><div class="grw-slider-header-inner"><div class="wp-google-place"><div class="wp-google-left"></div><div class="wp-google-right"><div class="wp-google-name"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" target="_blank" rel="nofollow noopener"><span>Luxury car</span></a></div><div><span class="wp-google-rating">5.0</span><span class="wp-google-stars"><span class="wp-stars"><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span><span class="wp-star"><svg width="17" height="17" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="#e7711b"></path></svg></span></span></span></div><div class="wp-google-powered">Na základě <a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" style="font-weight: 600 !important;text-decoration: underline !important;" target="_blank">` +
+  //     numberReviews +
+  //     ` recenzí</a></div><div class="wp-google-powered"><img src="https://www.mojerky.cz/user/documents/upload/google.svg" alt="powered by Google" width="144" height="18" title="powered by Google"></div><div class="wp-google-wr"><a href="https://search.google.com/local/reviews?placeid=ChIJcRYHIStjj4wRIHx41hbkAtc" onclick="return rplg_leave_review_window.call(this)">Napsat&nbsp;recenzi</a></div></div></div></div></div>`
+  // ).appendTo(review);
+  // $("<div/>").attr("id", "google-reviews").appendTo(review);
+
+  // $(".js-navigation-container").insertAfter(".site-name");
+  // $(".contact-box.no-image").clone().appendTo(".top-navigation-menu");
+
+  // $("<a/>")
+  //   .addClass("yelowText")
+  //   .attr("href", "#goggle-review-wrap")
+  //   .html(
+  //     `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
+  //       numberReviews +
+  //       ")</span>Hodnocení zákazníků"
+  //   )
+  //   .insertAfter(" .p-data-wrapper h1");
+
+  // $("<a/>")
+  //   .addClass("yelowText")
+  //   .attr("href", "#goggle-review-wrap")
+  //   .html(
+  //     `<div class="review-stars"><ul><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li><li><i class="star"></i></li></ul></div><span class="numreview">(` +
+  //       numberReviews +
+  //       ")</span>Hodnocení zákazníků"
+  //   )
+  //   .insertBefore(" .p-image");
+
+  // if ($("#google-reviews").length == 0) {
+  //   return;
+  // }
+  // // Find a placeID via https://developers.google.com/places/place-id
+  // $("#google-reviews").googlePlaces({
+  //   placeId: "ChIJcRYHIStjj4wRIHx41hbkAtc",
+  //   // the following params are optional (default values)
+  //   header: "", // html/text over Reviews
+  //   footer: "", // html/text under Reviews block
+  //   maxRows: 5, // max 5 rows of reviews to be displayed
+  //   minRating: 3, // minimum rating of reviews to be displayed
+  //   months: [
+  //     "Jan",
+  //     "Feb",
+  //     "Mär",
+  //     "Apr",
+  //     "Mai",
+  //     "Jun",
+  //     "Jul",
+  //     "Aug",
+  //     "Sep",
+  //     "Okt",
+  //     "Nov",
+  //     "Dez",
+  //   ],
+  //   textBreakLength: "90", // length before a review box is set to max width
+  //   shortenNames: true, // example: "Max Mustermann" -> "Max M."",
+
+  //   showProfilePicture: true,
+  // });
+  // const checkReviewsLoaded = setInterval(() => {
+  //   if ($(".review-header").length > 0) {
+  //     // Pokud recenze byly přidány
+  //     // Zastaví kontrolu po načtení
+  //     clearInterval(checkReviewsLoaded);
+  //     $("#google-reviews").slick({
+  //       dots: true,
+  //       centerMode: false,
+  //       infinite: true,
+  //       slidesToShow: 4,
+  //       slidesToScroll: 1,
+  //       autoplay: true,
+  //       autoplaySpeed: 8000,
+  //       arrows: false,
+
+  //       responsive: [
+  //         {
+  //           breakpoint: 1600,
+  //           settings: {
+  //             slidesToShow: 4,
+  //             slidesToScroll: 1,
+  //           },
+  //         },
+  //         {
+  //           breakpoint: 1480,
+  //           settings: {
+  //             slidesToShow: 3,
+  //             slidesToScroll: 1,
+  //           },
+  //         },
+  //         {
+  //           breakpoint: 1200,
+  //           settings: {
+  //             slidesToShow: 2,
+  //             slidesToScroll: 1,
+  //           },
+  //         },
+  //         {
+  //           breakpoint: 800,
+  //           settings: {
+  //             slidesToShow: 1,
+  //             slidesToScroll: 1,
+
+  //             autoplay: false,
+  //           },
+  //         },
+  //         // {
+  //         //     breakpoint: 350,
+  //         //     settings: {
+  //         //         slidesToShow: 1,
+  //         //         slidesToScroll: 1,
+  //         //     },
+  //         // },
+  //       ],
+  //     });
+  //   }
+  // }, 200);
+  // // Kontrola každých 200 ms
 }
 
 function createPopUp() {
