@@ -27,6 +27,19 @@
 .choice-model {
   margin-bottom: 20px;
 }
+.type-product {
+  section#model-selector {
+    padding-bottom: 20px;
+    background: #f6f6f600;
+  }
+  .surcharge-list select,
+  .variant-list select {
+    width: 120px;
+  }
+  .modl-selector-wrap .surcharge-list {
+    margin-right: 5px;
+  }
+}
 
 .parameter-wrap {
   background: #f6f6f6;
@@ -232,7 +245,7 @@
 .position-wrap.parameter-cars.active {
   .parameter-cars.wheel-Position {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     .label.wheel {
       padding: 8px 20px;
       margin: 0;
@@ -560,4 +573,42 @@ table.detail-parameters {
 }
 .ti-widget-container.upsale {
   overflow: auto;
+}
+
+.col-xs-12.col-lg-6.p-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  section#model-selector {
+    order: 1;
+  }
+  table.detail-parameters {
+    order: 2;
+  }
+  .content-wrap {
+    order: 3;
+  }
+  .upsale-text {
+    order: 4;
+  }
+  .p-final-price-wrapper {
+    order: 5;
+  }
+  .availability-value {
+    order: 6;
+  }
+  .add-to-cart {
+    order: 7;
+  }
+  .NoteDiv {
+    order: 8;
+  }
+  .p-short-description {
+    order: 9;
+  }
+  p[data-testid="productCardDescr"] {
+    order: 10;
+  }
+  .social-buttons-wrapper {
+    order: 11;
+  }
 }

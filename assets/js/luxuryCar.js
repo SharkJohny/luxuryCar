@@ -240,9 +240,12 @@ function initModelSelect() {
     insertPosidion = ".row.banners-row.has-text-banner";
   }
   if ($(".type-product")[0]) {
-    insertPosidion = ".overflow .model-select .h3";
+    insertPosidion = ".availability-value";
   }
-
+  const getBrand = sessionStorage.getItem("Brand");
+  const getModel = sessionStorage.getItem("Model");
+  const getYear = sessionStorage.getItem("Year");
+  const getCarType = sessionStorage.getItem("carType");
   const section = $("<section>", {
     id: "model-selector",
   }).insertAfter(insertPosidion);
@@ -318,6 +321,32 @@ function initModelSelect() {
       .appendTo(".type-selector .selector select");
   });
 
+  if (getBrand != "") {
+    console.log(getBrand);
+    $("<option>" + getBrand + "</option>").prependTo(
+      ".surcharge-list.brands.dm-selector select"
+    );
+    $(".surcharge-list.brands.dm-selector select").val(getBrand);
+  }
+  if (getModel != "") {
+    $("<option>" + getModel + "</option>").prependTo(
+      ".surcharge-list.models.dm-selector select"
+    );
+    $(".surcharge-list.models.dm-selector select").val(getModel);
+  }
+  if (getYear != "") {
+    $("<option>" + getYear + "</option>").prependTo(
+      ".surcharge-list.years.dm-selector select"
+    );
+    $(".surcharge-list.years.dm-selector select").val(getYear);
+  }
+  if (getCarType != "") {
+    $("<option>" + getCarType + "</option>").prependTo(
+      ".surcharge-list.type-selector select"
+    );
+    $(".surcharge-list.type-selector select").val(getCarType);
+  }
+
   const cars = setupData.cars;
 
   const numberOfBrands = Object.keys(cars).length;
@@ -359,6 +388,10 @@ function initModelSelect() {
       "model",
       Brand + " " + Model + " " + Year + " " + type
     );
+    sessionStorage.setItem("Brand", Brand);
+    sessionStorage.setItem("Model", Model);
+    sessionStorage.setItem("Year", Year);
+
     sessionStorage.setItem("carType", type);
 
     if ($(".in-index")[0]) {
@@ -380,20 +413,20 @@ function initProduct() {
   ).insertBefore(".col-xs-12.col-lg-6.p-info-wrapper");
   const model = sessionStorage.getItem("model");
 
-  if (model != null) {
-    $("<div>", {
-      class: "model",
-      html: 'Pro auto <div class="button btn select-model">' + model + "</div>",
-    }).insertAfter(".availability-value");
-  } else {
-    const modelWrap = $("<div>", {
-      class: "choice-model",
-    }).insertAfter(".availability-value");
-    $("<div>", {
-      class: "button btn select-model",
-      text: "Zvolte model",
-    }).appendTo(modelWrap);
-  }
+  // if (model != null) {
+  //   $("<div>", {
+  //     class: "model",
+  //     html: 'Pro auto <div class="button btn select-model">' + model + "</div>",
+  //   }).insertAfter(".availability-value");
+  // } else {
+  //   const modelWrap = $("<div>", {
+  //     class: "choice-model",
+  //   }).insertAfter(".availability-value");
+  //   $("<div>", {
+  //     class: "button btn select-model",
+  //     text: "Zvolte model",
+  //   }).appendTo(modelWrap);
+  // }
 
   priplatky();
 
@@ -863,11 +896,11 @@ function googleReviews() {
   // console.log('review')
   $("<section/>")
     .attr("id", "goggle-review-wrap")
-    .insertAfter("section#model-selector");
+    .insertAfter(".in-index section#model-selector");
 
-  $("<section/>")
-    .attr("id", "goggle-review-wrap")
-    .insertBefore(".type-product footer");
+  // $("<section/>")
+  //   .attr("id", "goggle-review-wrap")
+  //   .insertBefore(".type-product footer");
 
   // $(
   //     '<div class="header-rewiew"><h3> Děkujeme za Vaše recenze</h3></div>'
