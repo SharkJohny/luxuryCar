@@ -321,26 +321,26 @@ function initModelSelect() {
       .appendTo(".type-selector .selector select");
   });
 
-  if (getBrand != "") {
+  if (getBrand != null) {
     console.log(getBrand);
     $("<option>" + getBrand + "</option>").prependTo(
       ".surcharge-list.brands.dm-selector select"
     );
     $(".surcharge-list.brands.dm-selector select").val(getBrand);
   }
-  if (getModel != "") {
+  if (getModel != null) {
     $("<option>" + getModel + "</option>").prependTo(
       ".surcharge-list.models.dm-selector select"
     );
     $(".surcharge-list.models.dm-selector select").val(getModel);
   }
-  if (getYear != "") {
+  if (getYear != null) {
     $("<option>" + getYear + "</option>").prependTo(
       ".surcharge-list.years.dm-selector select"
     );
     $(".surcharge-list.years.dm-selector select").val(getYear);
   }
-  if (getCarType != "") {
+  if (getCarType != null) {
     $("<option>" + getCarType + "</option>").prependTo(
       ".surcharge-list.type-selector select"
     );
