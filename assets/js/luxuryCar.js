@@ -938,7 +938,7 @@ function googleReviews() {
       console.log("Element byl odstraněn:", targetElement);
     } else {
       // Zkontroluj znovu za 100 ms
-      setTimeout(waitForElementAndRemove, 500);
+      setTimeout(waitForElementAndRemove, 1000);
     }
   }
 
