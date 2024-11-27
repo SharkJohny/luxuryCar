@@ -115,6 +115,12 @@ section.text-block {
   opacity: 1;
 }
 
+.main-product {
+  .set {
+    width: 97% !important;
+  }
+}
+
 section#Model-selecte {
   h2 {
     font-size: 32px;
@@ -125,6 +131,12 @@ section#Model-selecte {
     margin-bottom: 40px;
     font-size: 20px;
   }
+}
+.order-product {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 section#sets {
@@ -148,5 +160,23 @@ section#sets {
     text-transform: uppercase;
     width: 100%;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-product {
+    .set {
+      width: 100% !important;
+    }
+  }
+  section#sets .set {
+    position: relative;
+    width: calc(50% - 10px);
+    padding: 5px;
+  }
+  .order-product {
+    .set-name {
+      font-size: 13px !important;
+    }
   }
 }
