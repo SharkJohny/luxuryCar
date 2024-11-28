@@ -44,7 +44,7 @@
       top: -50px;
       left: 50%;
       transform: translateX(-50%);
-      background: white;
+      background-color: rgb(242, 242, 242);
       border-radius: 0 0 10px 10px;
       padding: 0px 20px 5px;
     }
@@ -230,7 +230,7 @@
       top: 0px;
       left: 0;
       right: 0;
-      background-color: rgb(255 255 255);
+      background-color: rgb(242, 242, 242);
     }
     header#header {
       position: fixed;
@@ -279,6 +279,19 @@
         top: 0px;
       }
     }
+  }
+  .scrolled-down
+    body:not(.ordering-process):not(.search-window-visible)
+    #header
+    .cart-count,
+  .scrolled-down
+    body:not(.ordering-process):not(.search-window-visible)
+    #header
+    .site-name,
+  .scrolled-down
+    body:not(.ordering-process):not(.search-window-visible)
+    .top-navigation-bar {
+    transform: none;
   }
 }
 

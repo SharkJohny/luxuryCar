@@ -311,6 +311,10 @@ span.images-scrolling__counter.bold {
   max-width: unset;
 }
 
+.image-header img {
+  display: block;
+  margin: auto;
+}
 .image-container {
   margin-top: 50px;
 }
@@ -640,6 +644,12 @@ section.foto-slider.slick-initialized.slick-slider.slick-dotted {
 }
 
 @media (max-width: 768px) {
+  .modl-selector-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .section-stack
     .collection-card__content-wrapper.text-custom.place-self-center.text-center {
     position: absolute;
