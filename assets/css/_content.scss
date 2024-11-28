@@ -114,6 +114,10 @@ section.text-block {
   visibility: visible;
   opacity: 1;
 }
+.hotspot:focus .tooltips {
+  visibility: visible;
+  opacity: 1;
+}
 
 .main-product {
   .set {
