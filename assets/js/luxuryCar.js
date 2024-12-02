@@ -405,6 +405,15 @@ function initSignpost() {
 }
 
 function initProduct() {
+  if ($(".id-751")[0]) {
+    $(".benefitBanner__item").remove();
+  }
+  $(".p-detail-inner .p-detail-info").prependTo(
+    ".col-xs-12.col-lg-6.p-info-wrapper"
+  );
+  $(".p-detail-inner .p-detail-inner-header").prependTo(
+    ".col-xs-12.col-lg-6.p-info-wrapper"
+  );
   $(
     ".benefitBanner.position--benefitProduct .benefitBanner__item"
   ).insertBefore(".col-xs-12.col-lg-6.p-info-wrapper");
@@ -884,7 +893,7 @@ function createOptions(position, orders) {
         parameterId +
         "-" +
         value +
-        ".jpg?5",
+        ".jpg?7",
     }).appendTo(optionButton);
   });
 }

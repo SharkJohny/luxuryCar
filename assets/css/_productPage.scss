@@ -40,7 +40,16 @@
     margin-right: 5px;
   }
 }
-
+.row.product-top {
+  margin-top: 20px;
+}
+.p-detail-inner-header h1 {
+  margin-top: 0;
+  display: inline-block;
+}
+.p-detail-info {
+  margin-bottom: 40px;
+}
 .parameter-wrap {
   background: #f6f6f6;
   padding: 10px;
@@ -592,6 +601,9 @@ table.detail-parameters {
     order: 4;
   }
   .p-final-price-wrapper {
+    order: 5;
+  }
+  .upsale-wrap {
     order: 5;
   }
   .availability-value {
