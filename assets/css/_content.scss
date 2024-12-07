@@ -1,3 +1,32 @@
+.content-wrapper.container,
+.slick-list.draggable,
+.image-container,
+.scrollable-with-controls,
+.image-header,
+.pb-col-md-4 a,
+#pobo-all-content .widget-gallery a {
+  img {
+    border: 2px solid var(--color-primary);
+    border-radius: 13px;
+  }
+}
+
+.button.option-button img {
+  border-color: white;
+}
+.layers-info,
+.text-with-icons__item.snap-center {
+  img {
+    border: none !important;
+  }
+}
+
+.twentytwenty-wrapper.twentytwenty-horizontal {
+  border: 2px solid var(--color-primary);
+  border-radius: 13px;
+  overflow: hidden;
+}
+
 .container-slider {
   display: flex;
 }
@@ -65,15 +94,55 @@ section.text-block {
   display: block;
 }
 
+// .hotspot {
+//   position: absolute;
+//   width: 20px;
+//   height: 20px;
+//   background-color: red;
+//   border: 2px solid white;
+//   border-radius: 50%;
+//   cursor: pointer;
+//   transform: translate(-50%, -50%);
+// }
+
 .hotspot {
-  position: absolute;
   width: 20px;
   height: 20px;
-  background-color: red;
-  border: 2px solid white;
   border-radius: 50%;
-  cursor: pointer;
-  transform: translate(-50%, -50%);
+  background-color: var(--color-primary);
+  position: absolute;
+  &:before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    border: 2px solid var(--color-primary);
+    animation: anim-ripple 2s infinite;
+  }
+
+  &:after {
+    content: "+";
+    font-size: 14px;
+    color: white;
+    position: relative;
+    top: 1px;
+    left: 7px;
+  }
+  @keyframes anim-ripple {
+    from {
+      opacity: 1;
+      transform: scale3d(0.75, 0.75, 1);
+    }
+
+    to {
+      opacity: 0;
+      transform: scale3d(1.25, 1.25, 1);
+    }
+  }
 }
 
 .hotspot .tooltips {
@@ -110,7 +179,7 @@ section.text-block {
 
 /* Zobrazení bubliny při hoveru */
 
-.hotspot:hover .tooltips {
+.tooltips.show {
   visibility: visible;
   opacity: 1;
 }

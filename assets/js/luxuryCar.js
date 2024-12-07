@@ -164,6 +164,21 @@ function intIndex() {
         $(this).children("video").removeClass("active");
       }
     });
+
+  $(".hotspot").on("click", function () {
+    $(".tooltips").removeClass("show");
+    $(this).find(".tooltips").addClass("show");
+  });
+  $(document).on("click", function (e) {
+    // Check if clicked outside .hotspot and .tooltips
+    const $target = $(e.target);
+    if (
+      !$target.closest(".hotspot").length &&
+      !$target.closest(".tooltips").length
+    ) {
+      $(".tooltips").removeClass("show");
+    }
+  });
 }
 
 function dinamicPictures() {

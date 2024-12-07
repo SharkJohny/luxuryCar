@@ -4,16 +4,42 @@
  * @Desc:  Change Header
  */
 
+@media (min-width: 768px) {
+  .in-index #header .site-name a img {
+    position: absolute;
+    top: 100px;
+    max-height: 151px;
+    transition-property: top, max-height, height, width, max-width, transform;
+    transition-duration: 1s;
+    height: auto;
+    width: 190px !important;
+    max-width: 1000%;
+    transform: translateX(-50%);
+  }
+  .scrolled .in-index #header .site-name a img {
+    top: 8px;
+    left: 0px;
+    max-width: 49px;
+    height: auto;
+    transition-property: top, max-height, height, width, max-width, transform;
+    transition-duration: 1s;
+    transform: translateX(0%);
+  }
+}
+
 .navigation-show {
   position: absolute;
   top: 14px;
   left: 20px;
-  display: none;
+
   color: var(--color-primary);
   font-size: 16px;
   cursor: pointer;
 }
-
+.menu-helper.jkTop.visible,
+nav#navigation {
+  display: none;
+}
 @media (min-width: 678px) {
   .menu-helper {
     top: 8px;
@@ -237,10 +263,6 @@
       top: 48px;
       left: 0;
       right: 0;
-    }
-    .menu-helper.jkTop.visible,
-    nav#navigation {
-      display: none;
     }
 
     .navigation-show {

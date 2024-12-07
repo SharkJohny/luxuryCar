@@ -11,6 +11,11 @@
   color: $colors-golden;
 }
 
+div#videoWrapper {
+  position: relative;
+  top: -110px;
+}
+
 .btn.choice-Model {
   height: 36px;
 }
@@ -646,7 +651,7 @@ section.foto-slider.slick-initialized.slick-slider.slick-dotted {
 @media (max-width: 768px) {
   .modl-selector-wrap {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
   }
