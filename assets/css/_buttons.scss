@@ -1,16 +1,16 @@
 button.text-with-icon.group,
 .btn.choice-Model,
 .btn.more-pictures-button {
-    background: $colors-golden;
-    border-radius: 50px;
-    color: white;
-    border-color: $colors-golden;
-    box-shadow: none;
+  background: linear-gradient(to right, #aa910a, #c49b31);
+  border-radius: 50px;
+  color: white;
+  border-color: $colors-golden;
+  box-shadow: none;
 }
 
 .btn.more-pictures-button {
-    margin: auto;
-    display: block;
-    width: fit-content;
-    margin-top: 20px;
+  margin: auto;
+  display: block;
+  width: fit-content;
+  margin-top: 20px;
 }

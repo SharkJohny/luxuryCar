@@ -4,28 +4,28 @@
  * @Desc:  Change Header
  */
 
-@media (min-width: 768px) {
-  .in-index #header .site-name a img {
-    position: absolute;
-    top: 100px;
-    max-height: 151px;
-    transition-property: top, max-height, height, width, max-width, transform;
-    transition-duration: 1s;
-    height: auto;
-    width: 190px !important;
-    max-width: 1000%;
-    transform: translateX(-50%);
-  }
-  .scrolled .in-index #header .site-name a img {
-    top: 8px;
-    left: 0px;
-    max-width: 49px;
-    height: auto;
-    transition-property: top, max-height, height, width, max-width, transform;
-    transition-duration: 1s;
-    transform: translateX(0%);
-  }
-}
+// @media (min-width: 768px) {
+//   .in-index #header .site-name a img {
+//     position: absolute;
+//     top: 100px;
+//     max-height: 151px;
+//     transition-property: top, max-height, height, width, max-width, transform;
+//     transition-duration: 1s;
+//     height: auto;
+//     width: 190px !important;
+//     max-width: 1000%;
+//     transform: translateX(-50%);
+//   }
+//   .scrolled .in-index #header .site-name a img {
+//     top: 8px;
+//     left: 0px;
+//     max-width: 49px;
+//     height: auto;
+//     transition-property: top, max-height, height, width, max-width, transform;
+//     transition-duration: 1s;
+//     transform: translateX(0%);
+//   }
+// }
 
 .navigation-show {
   position: absolute;
@@ -39,6 +39,15 @@
 .menu-helper.jkTop.visible,
 nav#navigation {
   display: none;
+}
+
+#header .site-name a img {
+  display: block;
+  margin: 0 auto;
+  max-height: 100px;
+}
+header#header {
+  margin-bottom: 50px;
 }
 @media (min-width: 678px) {
   .menu-helper {
@@ -72,7 +81,7 @@ nav#navigation {
       transform: translateX(-50%);
       background-color: rgb(242, 242, 242);
       border-radius: 0 0 10px 10px;
-      padding: 0px 20px 5px;
+      padding: 0px 20px 10px;
     }
   }
   .in-index header#header {
@@ -279,7 +288,12 @@ nav#navigation {
     display: block !important;
   }
 }
-
+.container.breadcrumbs-wrapper {
+  display: none;
+}
+span.p-code {
+  display: none;
+}
 @media (max-width: 768px) {
   .navigation-buttons {
     a.toggle-window[data-target="search"] {

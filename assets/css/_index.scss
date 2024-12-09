@@ -8,7 +8,10 @@
   font-size: 24px !important;
   text-transform: uppercase;
   text-align: center;
-  color: $colors-golden;
+  color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(to right, #aa910a, #c49b31);
+  background-clip: text;
+  box-decoration-break: clone;
 }
 
 div#videoWrapper {
@@ -522,6 +525,7 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.type-selector {
   select {
     border-color: $colors-golden;
+
     border-radius: 50px;
   }
 }
