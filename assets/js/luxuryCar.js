@@ -52,9 +52,13 @@ function intIndex() {
       if (entry.isIntersecting) {
         const $element = $(entry.target).find('span[style*="text-align: end"]');
         const targetNumber = parseFloat($element.text().replace(",", ""));
-        const duration = parseFloat($(entry.target).attr("count-up")) * 1000;
-        animateCountUp($element, targetNumber, duration);
-        observer.unobserve(entry.target); // Odstraní pozorování, aby se animace nespustila znovu
+        console.log(targetNumber);
+        if (targetNumber > 0) {
+          console.log("assdsd");
+          const duration = parseFloat($(entry.target).attr("count-up")) * 1000;
+          animateCountUp($element, targetNumber, duration);
+          observer.unobserve(entry.target); // Odstraní pozorování, aby se animace nespustila znovu
+        }
       }
     });
   });

@@ -456,6 +456,26 @@ table.detail-parameters {
   svg.icon.icon-play-button {
     color: white;
   }
+
+  .section.section-blends.section-dubble.section-full {
+    margin-top: 50px;
+    .prose.break-all.place-self-center-start.text-start,
+    .prose.break-all.place-self-center-end {
+      margin: 30px 20px;
+    }
+    .media-with-text__content.bg-custom.text-custom {
+      background-color: white !important;
+    }
+    img {
+      border: none;
+      border-radius: 0;
+    }
+
+    .text-gradient {
+      color: unset !important;
+    }
+  }
+
   @media screen and (min-width: 700px) {
     .timeline__controls {
       --timeline-dot-size: 1.25rem;
@@ -491,6 +511,27 @@ table.detail-parameters {
       gap: 2.5rem;
       display: flex;
     }
+    .media-with-text__item {
+      display: flex;
+      flex-direction: row;
+    }
+    .media-with-text__content.bg-custom.text-custom {
+      width: 50%;
+    }
+    .media-with-text__media {
+      width: 50%;
+    }
+    .section.section-blends.section-dubble.section-full {
+      position: relative;
+      top: 0;
+      left: 50%;
+      width: 100vw;
+      height: auto;
+      transform: translateX(-50%);
+    }
+    .prose.break-all.place-self-center-end.text-end {
+      text-align: right;
+    }
   }
   @media screen and (max-width: 768px) {
     .timeline__buttons.md-max\:hidden {
@@ -502,7 +543,9 @@ table.detail-parameters {
     }
   }
 }
-
+div#description p span.text-gradient {
+  color: transparent !important;
+}
 .upsale-text,
 .banner-wrap.upsale {
   position: relative;
