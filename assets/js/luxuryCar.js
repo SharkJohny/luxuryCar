@@ -472,6 +472,7 @@ function createOptions(position, orders) {
   }
   let upsale = 1;
   if (shoptetData.product.id == 347) {
+    $(".benefitBanner__content").hide();
     upsale = 2;
   }
   if (orders > upsale) {
