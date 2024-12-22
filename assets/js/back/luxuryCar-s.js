@@ -1,5 +1,3 @@
-import { intIndex } from "./components/index.js";
-
 const timestamp = Date.now();
 
 const downloadData = "/user/documents/upload/data.json?" + timestamp;
@@ -24,62 +22,199 @@ jQuery(document).ready(function ($) {
   initCart();
 });
 
-/**
- * Dynamically updates an image based on the visible section on the screen.
- */
-function dynamicPictures() {
-  const sections = $(".text-block");
-  const dynamicImage = $("#dynamic-image");
-  const transitionDuration = 500; // Match this to the CSS transition duration
+function intIndex() {
+  setTimeout(function () {}, 4000);
+  $(".twentytwenty-container").twentytwenty({
+    before_label: "Předtím",
+    after_label: "Potom",
+  });
 
-  /**
-   * Updates the image based on the currently visible section.
-   */
-  function changeImage() {
-    let currentSection = null;
-
-    // Find the section currently in the middle of the viewport
-    for (let i = 0; i < sections.length; i++) {
-      const section = $(sections[i]);
-      const rect = sections[i].getBoundingClientRect();
-      const sectionTop = rect.top;
-      const sectionBottom = rect.bottom;
-
-      if (sectionTop <= window.innerHeight / 2 && sectionBottom >= window.innerHeight / 2) {
-        currentSection = section;
-        break;
+  // Funkce pro přičítání čísel
+  function animateCountUp(element, targetNumber, duration) {
+    const $element = $(element);
+    $({ count: 0 }).animate(
+      { count: targetNumber },
+      {
+        duration: duration,
+        easing: "swing",
+        step: function (now) {
+          $element.text(Math.floor(now));
+        },
+        complete: function () {
+          $element.text(targetNumber); // Pro zajištění, že se zobrazí konečná hodnota
+        },
       }
+    );
+  }
+  // Nastavení IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const $element = $(entry.target).find('span[style*="text-align: end"]');
+        const targetNumber = parseFloat($element.text().replace(",", ""));
+        console.log(targetNumber);
+        if (targetNumber > 0) {
+          console.log("assdsd");
+          const duration = parseFloat($(entry.target).attr("count-up")) * 1000;
+          animateCountUp($element, targetNumber, duration);
+          observer.unobserve(entry.target); // Odstraní pozorování, aby se animace nespustila znovu
+        }
+      }
+    });
+  });
+
+  // Inicializace pozorování pro každý prvek s atributem count-up
+  $("[count-up]").each(function () {
+    observer.observe(this);
+  });
+  $("collection-list.collection-list").slick({
+    dots: true,
+    centerMode: false,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: true,
+
+    responsive: [
+      {
+        breakpoint: 1480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          arrows: true,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 770,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+
+          autoplay: false,
+        },
+      },
+      {
+        breakpoint: 350,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  $("section.foto-slider").slick({
+    dots: true,
+    centerMode: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: true,
+  });
+
+  $("button.text-with-icon.group").on("click", function () {
+    if (!$("button.text-with-icon.group.less")[0]) {
+      $(".feature-chart__table-row[hidden]").removeAttr("hidden").addClass("addHidden");
+      const less = $(this).attr("data-view-less");
+      $(this).addClass("less");
+      $(this).find("span.feature-chart__toggle-text.reversed-link").text(less);
+    } else {
+      const more = $(this).attr("data-view-more");
+      $(".feature-chart__table-row.addHidden").attr("hidden", true).removeClass("addHidden");
+      $(this).removeClass("less");
+      $(this).find("span.feature-chart__toggle-text.reversed-link").text(more);
     }
+  });
+
+  $(".btn.more-pictures-button").on("click", function () {
+    $(".more-pictures").toggleClass("slow");
+
+    if (!$(".btn.more-pictures-button.less")[0]) {
+      const less = $(this).attr("data-view-less");
+      $(this).text(less);
+      $(this).addClass("less");
+    } else {
+      const more = $(this).attr("data-view-more");
+      $(this).text(more);
+      $(this).removeClass("less");
+    }
+  });
+
+  $("video")
+    .parent()
+    .click(function () {
+      if ($(this).children("video").get(0).paused) {
+        $(this).children("video").get(0).play();
+        $(this).children("video").addClass("active");
+        $(this).children(".playpause").fadeOut();
+      } else {
+        $(this).children("video").get(0).pause();
+        $(this).children(".playpause").fadeIn();
+        $(this).children("video").removeClass("active");
+      }
+    });
+
+  $(".hotspot").on("click", function () {
+    $(".tooltips").removeClass("show");
+    $(this).find(".tooltips").addClass("show");
+  });
+  $(document).on("click", function (e) {
+    // Check if clicked outside .hotspot and .tooltips
+    const $target = $(e.target);
+    if (!$target.closest(".hotspot").length && !$target.closest(".tooltips").length) {
+      $(".tooltips").removeClass("show");
+    }
+  });
+}
+
+function dinamicPictures() {
+  var sections = $(".text-block");
+  var dynamicImage = $("#dynamic-image");
+
+  function changeImage() {
+    var currentSection = null;
+
+    sections.each(function () {
+      var section = $(this);
+      var rect = this.getBoundingClientRect();
+      var sectionTop = rect.top;
+      var sectionBottom = rect.bottom;
+
+      // Kontrola, zda je sekce uprostřed obrazovky
+      if (sectionTop <= $(window).height() / 2 && sectionBottom >= $(window).height() / 2) {
+        currentSection = section;
+        return false; // Ukončíme each loop, protože jsme našli aktuální sekci
+      }
+    });
 
     if (currentSection) {
-      const newImageSrc = currentSection.data("picture");
+      var newImageSrc = currentSection.data("picture");
 
       if (dynamicImage.attr("src") !== newImageSrc) {
-        // Add transition effect
-        dynamicImage.addClass("transition-out");
+        // Přidání přechodového efektu
+        dynamicImage.css("opacity", 0);
 
-        setTimeout(() => {
-          dynamicImage.attr("src", newImageSrc).removeClass("transition-out").addClass("transition-in");
-
-          // Remove transition-in class after animation ends
-          setTimeout(() => {
-            dynamicImage.removeClass("transition-in");
-          }, transitionDuration);
-        }, transitionDuration);
+        setTimeout(function () {
+          dynamicImage.attr("src", newImageSrc);
+          dynamicImage.css("opacity", 1);
+        }, 500); // Doba trvání přechodu musí odpovídat CSS přechodu
       }
     }
   }
 
-  // Optimize scrolling event with throttle
-  let scrollTimeout = null;
-  $(window).on("scroll", () => {
-    if (scrollTimeout) {
-      clearTimeout(scrollTimeout);
-    }
-    scrollTimeout = setTimeout(changeImage, 100); // Adjust the debounce delay if necessary
-  });
-
-  changeImage(); // Run once on page load
+  $(window).on("scroll", changeImage);
+  changeImage(); // Inicializace při načtení stránky
 }
 
 function initHeader() {
@@ -392,8 +527,8 @@ function priplatky() {
       class: "upsale-text",
     }).insertAfter(".detail-parameters");
 
-    createUpsaleButton("https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg", "text", upsaleText);
-    $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
+    createUpsaleButton("/user/documents/upload/assets/new/base-p.jpg", "test", upsaleText);
+    // $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
 
     // $("<div>", {
     //   class: "heder h2",
@@ -403,16 +538,16 @@ function priplatky() {
     //   text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam quis nulla. Curabitur sagittis hendrerit ante. Fusce nibh. Nullam faucibus mi quis velit. ",
     // }).appendTo(upsaleText);
     // $("<div>", { class: "btn button upsale", text: "Koupit výhodně" }).appendTo(upsaleText);
-    $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
+    // $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
     // $(".btn.button.upsale").on("click", function () {
     //   $(".upsale-wrap").toggleClass("active");
     //   $("button.btn.btn-lg.btn-conversion.add-to-cart-button").removeClass("upsale");
     // });
-    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
-      createUpsalePopup();
-    });
+    // $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {
+    //   e.stopPropagation();
+    //   e.preventDefault();
+    //   createUpsalePopup();
+    // });
 
     firstPage();
 
@@ -460,6 +595,7 @@ function priplatky() {
     });
 
     $(".button.option-button").on("click", function () {
+      $(this).parents(".parameter-wrap").removeClass("goToAction");
       $("body").removeClass("disabled-add-to-cart");
       const value = $(this).attr("data-value");
       const variant = $(this).attr("data-variant");
@@ -480,6 +616,10 @@ function priplatky() {
           class: "image-wrap",
         }).appendTo(".parameter-wrap.parameter-4.orders-1");
         $("<img>", { src: image }).appendTo(imageWrap);
+      }
+      if (!$(".goToAction")[0]) {
+        console.log("goToAction");
+        $(".upsale-wrap").addClass("active");
       }
     });
 
@@ -1253,25 +1393,15 @@ function createUpsalePopup() {
   });
 }
 
-/**
- * Creates an upsale button with an image and text, and appends it to the specified position.
- *
- * @param {string} img - The URL of the image to be displayed on the button.
- * @param {string} text - The text to be displayed on the button.
- * @param {jQuery|HTMLElement} position - The element where the button will be appended.
- */
 function createUpsaleButton(img, text, position) {
-  if (!img || !text || !position) {
-    console.error("Invalid parameters passed to createUpsaleButton");
-    return;
-  }
-
-  const buttonHTML = `
-    <div class="upsale-button">
-      <img src="${img}" alt="${text}" />
-      <span>${text}</span>
-    </div>
-  `;
-
-  $(position).append(buttonHTML);
+  const button = $("<div>", {
+    class: "upsale-button",
+  }).appendTo(position);
+  $("<img>", {
+    src: img,
+    alt: text,
+  }).appendTo(button);
+  $("<span>", {
+    text: text,
+  }).appendTo(button);
 }

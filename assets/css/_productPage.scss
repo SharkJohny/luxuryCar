@@ -23,7 +23,14 @@
     margin-top: 20px;
   }
 }
-
+.wheel-Position {
+  input[type="checkbox"]:checked + label:before,
+  input[type="radio"]:checked + label:before,
+  input[type="checkbox"]:checked + label:after,
+  input[type="radio"]:checked + label:after {
+    display: none !important;
+  }
+}
 .choice-model {
   margin-bottom: 20px;
 }
@@ -474,6 +481,10 @@ table.detail-parameters {
     .text-gradient {
       color: unset !important;
     }
+  }
+
+  span.quantity {
+    display: none;
   }
 
   @media screen and (min-width: 700px) {
