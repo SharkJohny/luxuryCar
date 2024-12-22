@@ -193,6 +193,7 @@ table.detail-parameters {
   order: 4;
   margin-bottom: 20px;
   position: relative;
+  overflow: hidden;
   .upsale-button {
     position: relative;
     margin: 5px;
@@ -208,6 +209,7 @@ table.detail-parameters {
     }
   }
   &.showConf {
+    overflow: unset;
     .box-config {
       right: 0;
       left: 0;
