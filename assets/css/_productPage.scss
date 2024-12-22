@@ -9,7 +9,9 @@
     top: 10%;
   }
 }
-
+table.detail-parameters {
+  display: none;
+}
 .model {
   font-size: 20px;
   margin-bottom: 20px;
@@ -186,7 +188,70 @@
     display: block;
   }
 }
-
+.upsale-Banner {
+  display: flex;
+  order: 4;
+  margin-bottom: 20px;
+  position: relative;
+  .upsale-button {
+    position: relative;
+    margin: 5px;
+    cursor: pointer;
+    .text {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      top: 42%;
+      padding: 5px;
+      color: white;
+    }
+  }
+  &.showConf {
+    .box-config {
+      right: 0;
+      left: 0;
+      transition: 1s;
+    }
+  }
+  .box-config {
+    position: absolute;
+    top: 0;
+    left: 1500px;
+    right: -1500px;
+    background: #fff;
+    z-index: 500;
+    transition: 1s;
+    .label {
+      font-size: 20px;
+      text-align: center;
+      color: black;
+    }
+    .parameter-wrap {
+      display: flex;
+    }
+    h5.variant.name {
+      width: 110px;
+      font-size: 13px;
+      text-align: left;
+    }
+  }
+  .upsale-Banner {
+    overflow: hidden;
+  }
+  .order {
+    display: none;
+  }
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: -17px;
+    font-size: 44px;
+    color: #000;
+    transform: rotate(0deg);
+    cursor: pointer;
+  }
+}
 // .parameter-wrap {
 //     display: none;
 //     &.active {
@@ -271,9 +336,9 @@
   }
 }
 
-table.detail-parameters {
-  display: none;
-}
+// table.detail-parameters {
+//   display: none;
+// }
 
 .upsale-text {
   margin-bottom: 20px;
@@ -684,5 +749,10 @@ div#description p span.text-gradient {
 div#description {
   p span {
     color: black !important;
+  }
+}
+.upsale-button.active {
+  img {
+    border-color: green;
   }
 }
