@@ -487,7 +487,7 @@ function createOptions(position, orders) {
     }).appendTo(optionButton);
     $("<img>", {
       alt: `${parameterId}-${value}.jpg`,
-      src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?7`,
+      src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`,
     }).appendTo(optionButton);
   });
 }

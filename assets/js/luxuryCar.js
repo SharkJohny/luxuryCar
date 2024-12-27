@@ -527,7 +527,7 @@ function createOptions(position, orders) {
     }).appendTo(optionButton);
     $("<img>", {
       alt: `${parameterId}-${value}.jpg`,
-      src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?7`
+      src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`
     }).appendTo(optionButton);
   });
 }
@@ -785,4 +785,33 @@ function initCart() {
   }
   const countdownInterval = setInterval(updateCountdown, 1e3);
   updateCountdown();
+}
+function dinamicPictures() {
+  var sections = $(".text-block");
+  var dynamicImage = $("#dynamic-image");
+  function changeImage() {
+    var currentSection = null;
+    sections.each(function() {
+      var section = $(this);
+      var rect = this.getBoundingClientRect();
+      var sectionTop = rect.top;
+      var sectionBottom = rect.bottom;
+      if (sectionTop <= $(window).height() / 2 && sectionBottom >= $(window).height() / 2) {
+        currentSection = section;
+        return false;
+      }
+    });
+    if (currentSection) {
+      var newImageSrc = currentSection.data("picture");
+      if (dynamicImage.attr("src") !== newImageSrc) {
+        dynamicImage.css("opacity", 0);
+        setTimeout(function() {
+          dynamicImage.attr("src", newImageSrc);
+          dynamicImage.css("opacity", 1);
+        }, 500);
+      }
+    }
+  }
+  $(window).on("scroll", changeImage);
+  changeImage();
 }
