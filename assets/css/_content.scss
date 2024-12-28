@@ -253,3 +253,17 @@ section#sets {
     }
   }
 }
+
+.in-rozcestnik {
+  header {
+    h1 {
+      display: none;
+    }
+  }
+  .section.section-full.bg-custom.full-width {
+    margin: 50px 0;
+    .snap-center .prose p {
+      max-width: 520px;
+    }
+  }
+}
