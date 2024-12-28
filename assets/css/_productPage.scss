@@ -194,6 +194,10 @@ table.detail-parameters {
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
+  flex-direction: column;
+  .upsale-buttons {
+    display: flex;
+  }
   .upsale-button {
     position: relative;
     margin: 5px;
@@ -252,6 +256,12 @@ table.detail-parameters {
     color: #000;
     transform: rotate(0deg);
     cursor: pointer;
+  }
+
+  .countdown-wrap .label {
+    font-size: 15px;
+    text-align: center;
+    margin: 10px 0;
   }
 }
 // .parameter-wrap {

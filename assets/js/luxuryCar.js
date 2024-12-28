@@ -234,24 +234,29 @@ function priplatky() {
     const upsaleBanner = $("<div>", {
       class: "upsale-Banner"
     }).insertAfter(".detail-parameters");
+    $(upsaleBanner).hide();
+    condownMessage(upsaleBanner, 30, "Zv\xFDhodn\u011Bn\xE1 nab\xEDdka na p\u0159islu\u0161enstv\xED plat\xED je\u0161t\u011B: ");
+    const buttonWrap = $("<div>", {
+      class: "upsale-buttons"
+    }).appendTo(upsaleBanner);
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
       "autokoberce do kufra KLASIK",
-      upsaleBanner,
+      buttonWrap,
       "20-41",
       "radio"
     );
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/full-p.jpg",
       "LUXUSN\xC9 BOXY DO KUFRU NA MIERU",
-      upsaleBanner,
+      buttonWrap,
       "20-296",
       "radio"
     );
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
       "LUXUSN\xC9 BOXY DO KUFRU NA MIERU",
-      upsaleBanner,
+      buttonWrap,
       "conf",
       "config"
     );
@@ -319,7 +324,7 @@ function priplatky() {
       }
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
-        $(".upsale-wrap").addClass("active");
+        $(".upsale-Banner").show();
       }
     });
     if ($("html[lang='cs']").length) {
@@ -546,6 +551,33 @@ function createBoxConfig() {
   const configWrap = $("<div>", {
     class: "config-wrap"
   }).appendTo(wrap);
+}
+function condownMessage(position, time, text) {
+  const wrap = $("<div>", {
+    class: "countdown-wrap"
+  }).appendTo(position);
+  $("<div>", {
+    class: "label",
+    html: text + "<span></span>"
+  }).appendTo(wrap);
+  condown(time, ".countdown-wrap .label span");
+}
+function condown(time, selector) {
+  const endTime = (/* @__PURE__ */ new Date()).getTime() + time * 60 * 1e3;
+  function updateCountdown() {
+    const now = (/* @__PURE__ */ new Date()).getTime();
+    const remainingTime = endTime - now;
+    if (remainingTime <= 0) {
+      $(selector).text("\u010Das vypr\u0161el!");
+      clearInterval(countdownInterval);
+    } else {
+      const minutes = Math.floor(remainingTime / 1e3 / 60 % 60);
+      const seconds = Math.floor(remainingTime / 1e3 % 60);
+      $(selector).text(`${minutes} min ${seconds} sec`);
+    }
+  }
+  const countdownInterval = setInterval(updateCountdown, 1e3);
+  updateCountdown();
 }
 
 // assets/js/script.js

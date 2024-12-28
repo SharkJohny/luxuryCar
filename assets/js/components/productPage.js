@@ -115,28 +115,35 @@ function priplatky() {
     $("<div>", {
       class: "upsale-wrap",
     }).insertAfter(".detail-parameters");
+
     const upsaleBanner = $("<div>", {
       class: "upsale-Banner",
     }).insertAfter(".detail-parameters");
 
+    $(upsaleBanner).hide();
+    condownMessage(upsaleBanner, 30, "Zvýhodněná nabídka na přislušenství platí ještě: ");
+
+    const buttonWrap = $("<div>", {
+      class: "upsale-buttons",
+    }).appendTo(upsaleBanner);
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
       "autokoberce do kufra KLASIK",
-      upsaleBanner,
+      buttonWrap,
       "20-41",
       "radio"
     );
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/full-p.jpg",
       "LUXUSNÉ BOXY DO KUFRU NA MIERU",
-      upsaleBanner,
+      buttonWrap,
       "20-296",
       "radio"
     );
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
       "LUXUSNÉ BOXY DO KUFRU NA MIERU",
-      upsaleBanner,
+      buttonWrap,
       "conf",
       "config"
     );
@@ -214,7 +221,7 @@ function priplatky() {
       }
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
-        $(".upsale-wrap").addClass("active");
+        $(".upsale-Banner").show();
       }
     });
 
@@ -510,4 +517,38 @@ function createBoxConfig() {
   const configWrap = $("<div>", {
     class: "config-wrap",
   }).appendTo(wrap);
+}
+
+function condownMessage(position, time, text) {
+  const wrap = $("<div>", {
+    class: "countdown-wrap",
+  }).appendTo(position);
+
+  $("<div>", {
+    class: "label",
+    html: text + "<span></span>",
+  }).appendTo(wrap);
+
+  condown(time, ".countdown-wrap .label span");
+}
+
+function condown(time, selector) {
+  const endTime = new Date().getTime() + time * 60 * 1000; // Převod minut na milisekundy
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const remainingTime = endTime - now;
+
+    if (remainingTime <= 0) {
+      $(selector).text("čas vypršel!");
+      clearInterval(countdownInterval);
+    } else {
+      const minutes = Math.floor((remainingTime / 1000 / 60) % 60);
+      const seconds = Math.floor((remainingTime / 1000) % 60);
+      $(selector).text(`${minutes} min ${seconds} sec`);
+    }
+  }
+
+  const countdownInterval = setInterval(updateCountdown, 1000);
+  updateCountdown();
 }
