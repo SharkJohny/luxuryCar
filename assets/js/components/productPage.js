@@ -211,14 +211,15 @@ function priplatky() {
       $(".parameter-id-" + variant).val(value);
       shoptet.surcharges.updatePrices();
       if (variant == 4) {
-        const image2 = $(this).find("img").attr("src");
-        console.log(image2);
-        $(".image-wrap").remove();
-        const imageWrap = $("<div>", {
-          class: "image-wrap",
-        }).appendTo(".parameter-wrap.parameter-35.orders-1");
-        $("<img>", { src: image2 }).appendTo(imageWrap);
       }
+      const image2 = $(this).find("img").attr("src");
+      console.log(image2);
+      $(".image-wrap").remove();
+      const imageWrap = $("<div>", {
+        class: "image-wrap",
+      }).appendTo(".parameter-wrap.base-config");
+      $("<img>", { src: image2 }).appendTo(imageWrap);
+
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").show();
@@ -461,6 +462,7 @@ function createOptions(position, orders) {
     }).appendTo(optPosition);
     if (orders <= upsale) {
       $(wrap).addClass("goToAction");
+      $(wrap).addClass("base-config");
     }
     $("<div>", {
       class: "order",

@@ -314,14 +314,14 @@ function priplatky() {
       $(".parameter-id-" + variant).val(value);
       shoptet.surcharges.updatePrices();
       if (variant == 4) {
-        const image2 = $(this).find("img").attr("src");
-        console.log(image2);
-        $(".image-wrap").remove();
-        const imageWrap = $("<div>", {
-          class: "image-wrap"
-        }).appendTo(".parameter-wrap.parameter-35.orders-1");
-        $("<img>", { src: image2 }).appendTo(imageWrap);
       }
+      const image2 = $(this).find("img").attr("src");
+      console.log(image2);
+      $(".image-wrap").remove();
+      const imageWrap = $("<div>", {
+        class: "image-wrap"
+      }).appendTo(".parameter-wrap.base-config");
+      $("<img>", { src: image2 }).appendTo(imageWrap);
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").show();
@@ -502,6 +502,7 @@ function createOptions(position, orders) {
     }).appendTo(optPosition);
     if (orders <= upsale) {
       $(wrap).addClass("goToAction");
+      $(wrap).addClass("base-config");
     }
     $("<div>", {
       class: "order",
@@ -673,7 +674,11 @@ function initModelSelect2() {
         </div>
         `;
   const button = `<div class='btn choice-Model'>Zvolit model</div>`;
-  $(znacka + model + rocnik + type + button).appendTo(choiceWrap);
+  if ($(".in-index")[0]) {
+    $(znacka + model + rocnik + type + button).appendTo(choiceWrap);
+  } else {
+    $(znacka + model + rocnik + type).appendTo(choiceWrap);
+  }
   $(setupData2.settings.carVariant.split(",")).each(function() {
     console.log(this);
     const option = $("<option>").text(this).appendTo(".type-selector .selector select");
@@ -721,22 +726,26 @@ function initModelSelect2() {
     }
   });
   $(".btn.choice-Model").on("click", function() {
-    const Brand = $(".surcharge-list.brands.dm-selector select").val();
-    const Model = $(".surcharge-list.models.dm-selector select").val();
-    const Year = $(".surcharge-list.years.dm-selector select").val();
-    const type2 = $(".surcharge-list.type-selector select").val();
-    console.log(Brand + " " + Model + " " + Year);
-    sessionStorage.setItem("model", Brand + " " + Model + " " + Year + " " + type2);
-    sessionStorage.setItem("Brand", Brand);
-    sessionStorage.setItem("Model", Model);
-    sessionStorage.setItem("Year", Year);
-    sessionStorage.setItem("carType", type2);
-    if ($(".in-index")[0]) {
-      window.location.href = "/rozcestnik/";
-    } else {
-      location.reload();
-    }
+    saveModel();
   });
+  $(".surcharge-list").on("change", function() {
+    saveModel();
+  });
+}
+function saveModel() {
+  const Brand = $(".surcharge-list.brands.dm-selector select").val();
+  const Model = $(".surcharge-list.models.dm-selector select").val();
+  const Year = $(".surcharge-list.years.dm-selector select").val();
+  const type = $(".surcharge-list.type-selector select").val();
+  console.log(Brand + " " + Model + " " + Year);
+  sessionStorage.setItem("model", Brand + " " + Model + " " + Year + " " + type);
+  sessionStorage.setItem("Brand", Brand);
+  sessionStorage.setItem("Model", Model);
+  sessionStorage.setItem("Year", Year);
+  sessionStorage.setItem("carType", type);
+  if ($(".in-index")[0]) {
+    window.location.href = "/rozcestnik/";
+  }
 }
 function initSignpost() {
   const model = sessionStorage.getItem("model");
