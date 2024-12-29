@@ -9,9 +9,9 @@
     top: 10%;
   }
 }
-table.detail-parameters {
-  display: none;
-}
+// table.detail-parameters {
+//   display: none;
+// }
 .model {
   font-size: 20px;
   margin-bottom: 20px;
@@ -83,10 +83,15 @@ table.detail-parameters {
     color: black;
   }
 }
-h5.variant.name {
+
+.base-config h5.variant.name {
   position: absolute;
   top: 23px;
   left: 80px;
+}
+
+.upsale-buttons.boxs {
+  position: relative;
 }
 .options-wrap {
   display: flex;
@@ -772,5 +777,52 @@ div#description {
 .upsale-button.active {
   img {
     border-color: green;
+  }
+}
+.upsale-buttons.trunk {
+  min-height: 150px;
+  transition: 1s;
+  overflow: hidden;
+  .upsale-button.radio {
+    max-height: 500px;
+    transition: 1s;
+  }
+}
+.upsale-buttons.trunk.minimalize {
+  background: #80808024;
+  min-height: 40px;
+  transition: 1s;
+
+  .upsale-button.radio {
+    visibility: hidden;
+    width: 0;
+    .text {
+      color: transparent;
+    }
+  }
+  .upsale-button.radio {
+    max-height: 50px;
+    transition: 1s;
+  }
+  .upsale-button.radio.active {
+    width: 100%;
+    color: black;
+
+    visibility: visible;
+    img {
+      display: none;
+    }
+    .text {
+      position: static;
+
+      text-align: left;
+      color: black;
+    }
+  }
+}
+
+.box-config {
+  .image-wrap {
+    display: none;
   }
 }

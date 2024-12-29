@@ -237,8 +237,15 @@ function priplatky() {
     $(upsaleBanner).hide();
     condownMessage(upsaleBanner, 30, "Zv\xFDhodn\u011Bn\xE1 nab\xEDdka na p\u0159islu\u0161enstv\xED plat\xED je\u0161t\u011B: ");
     const buttonWrap = $("<div>", {
-      class: "upsale-buttons"
+      class: "upsale-buttons trunk"
     }).appendTo(upsaleBanner);
+    createUpsaleButton(
+      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
+      "nechci nic",
+      buttonWrap,
+      "20-44",
+      "radio"
+    );
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
       "autokoberce do kufra KLASIK",
@@ -253,11 +260,29 @@ function priplatky() {
       "20-296",
       "radio"
     );
+    const buttonWrapBox = $("<div>", {
+      class: "upsale-buttons boxs"
+    }).appendTo(upsaleBanner);
+    $(buttonWrapBox).hide();
+    createUpsaleButton(
+      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
+      "Nechci box",
+      buttonWrapBox,
+      "0",
+      "0"
+    );
     createUpsaleButton(
       "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
-      "LUXUSN\xC9 BOXY DO KUFRU NA MIERU",
-      buttonWrap,
-      "conf",
+      "LUXUSN\xC9 BOX DO KUFRU NA MIERU 1ks",
+      buttonWrapBox,
+      "conf1",
+      "config"
+    );
+    createUpsaleButton(
+      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
+      "LUXUSN\xC9 BOXY DO KUFRU NA MIERU 2ks",
+      buttonWrapBox,
+      "conf2",
       "config"
     );
     $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
@@ -320,7 +345,7 @@ function priplatky() {
       $(".image-wrap").remove();
       const imageWrap = $("<div>", {
         class: "image-wrap"
-      }).appendTo(".parameter-wrap.base-config");
+      }).appendTo(".parameter-wrap.parameter-" + parameterId);
       $("<img>", { src: image2 }).appendTo(imageWrap);
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
@@ -368,12 +393,26 @@ function createUpsaleButton(img, text, position, value, type) {
   `;
   const button = $(buttonHTML).appendTo(position);
 }
-$(document).on("click", ".upsale-button", function() {
+$(document).on("click", ".upsale-button", function(e) {
+  const trunk = $(this).closest(".upsale-buttons.trunk");
+  if (trunk.length) {
+    if (trunk.hasClass("minimalize")) {
+      e.stopPropagation();
+      trunk.removeClass("minimalize");
+    } else {
+      $(".upsale-buttons.boxs").show();
+      setTimeout(() => {
+        trunk.addClass("minimalize");
+      }, 200);
+    }
+  }
   const value = $(this).attr("value")?.split("-");
+  console.log(value);
   if (!value) {
     console.error("Atribut 'value' nen\xED dostupn\xFD!");
     return;
   }
+  $(".upsale-buttons.boxs .upsale-button").removeClass("active");
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
     $("select.surcharge-parameter.parameter-id-" + value[0]).val(0);
@@ -386,6 +425,11 @@ $(document).on("click", ".upsale-button", function() {
   }
   if ($(this).hasClass("config")) {
     $(this).parents(".upsale-Banner").addClass("showConf");
+  }
+  if (value[0] === "conf1") {
+    $(".parameter-wrap.parameter-29.orders-5").hide();
+  } else if (value[0] === "conf2") {
+    $(".parameter-wrap.parameter-29.orders-5").show();
   }
   setTimeout(() => {
     if (typeof shoptet !== "undefined" && shoptet.surcharges?.updatePrices) {
@@ -540,7 +584,7 @@ function createOptions(position, orders) {
 function createBoxConfig() {
   const wrap = $("<div>", {
     class: "box-config"
-  }).appendTo(".upsale-Banner");
+  }).appendTo(".upsale-buttons.boxs");
   $("<div>", {
     class: "label",
     text: "Konfigurace boxu"
