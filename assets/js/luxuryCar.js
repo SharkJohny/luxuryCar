@@ -319,7 +319,7 @@ function priplatky() {
         $(".image-wrap").remove();
         const imageWrap = $("<div>", {
           class: "image-wrap"
-        }).appendTo(".parameter-wrap.parameter-4.orders-1");
+        }).appendTo(".parameter-wrap.parameter-35.orders-1");
         $("<img>", { src: image2 }).appendTo(imageWrap);
       }
       if (!$(".goToAction")[0]) {

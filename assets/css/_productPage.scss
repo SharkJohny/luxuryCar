@@ -83,14 +83,18 @@ table.detail-parameters {
     color: black;
   }
 }
-
+h5.variant.name {
+  position: absolute;
+  top: 23px;
+  left: 80px;
+}
 .options-wrap {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   .button.option-button {
-    width: 75px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     margin: 5px;
     position: relative;
     border: 2px solid transparent;
@@ -126,7 +130,9 @@ table.detail-parameters {
     }
   }
 }
-
+span.quantity {
+  display: none;
+}
 .btn.button-more {
   width: 100%;
   margin-bottom: 20px;

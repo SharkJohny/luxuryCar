@@ -12,10 +12,10 @@ jobs:
       - name: Remove all console.log from JS files
         run: find . -type f -name "*.js" -exec sed -i '/console.log/d' {} +
 
-      # - name: 🔨 Build Project
-      #   run: |
-      #     npm install
-      #     npm run build
+      - name: 🔨 Build Project
+        run: |
+          npm install
+          npm run build
 
       - name: SFTP Upload
         uses: Dylan700/sftp-upload-action@latest
