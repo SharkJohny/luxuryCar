@@ -636,6 +636,30 @@ function condown(time, selector) {
   const countdownInterval = setInterval(updateCountdown, 1e3);
   updateCountdown();
 }
+function createUpsalePopup() {
+  createPop();
+  $(".ti-widget-container").addClass("upsale");
+  $("<div>", {
+    class: "h2",
+    text: "Iba teraz za zv\xFDhodnen\xFA cenu!"
+  }).appendTo(".ti-widget-container");
+  $("<div>", {
+    class: "description",
+    text: " Dopl\u0148te svoju objedn\xE1vku o kufrov\xE9 kober\u010Deky alebo \xFAlo\u017En\xE9 boxy s v\xFDraznou z\u013Eavou. Ponuka plat\xED len chv\xED\u013Eu!"
+  }).appendTo(".ti-widget-container");
+  $("<div>", {
+    class: "button btn open-upsale",
+    text: "Vyu\u017Ei\u0165 zv\xFDhodnen\xFA ponuku!"
+  }).appendTo(".ti-widget-container");
+  $("<div>", {
+    class: "prefix",
+    text: "Len po\u010Das tejto objedn\xE1vky m\xF4\u017Eete z\xEDska\u0165 kober\u010Deky do kufra alebo \xFAlo\u017En\xE9 boxy za extr\xE9mne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te a organizujte svoj kufor so \u0161t\xFDlom!"
+  }).appendTo(".ti-widget-container");
+  $(".button.btn.open-upsale").on("click", function() {
+    $(".overflow").remove();
+    $(".upsale-wrap").addClass("active");
+  });
+}
 
 // assets/js/script.js
 var setupData2;

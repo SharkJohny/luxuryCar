@@ -635,3 +635,28 @@ function condown(time, selector) {
   const countdownInterval = setInterval(updateCountdown, 1000);
   updateCountdown();
 }
+function createUpsalePopup() {
+  createPop();
+  $(".ti-widget-container").addClass("upsale");
+  $("<div>", {
+    class: "h2",
+    text: "Iba teraz za zvýhodnenú cenu!",
+  }).appendTo(".ti-widget-container");
+  $("<div>", {
+    class: "description",
+    text: " Doplňte svoju objednávku o kufrové koberčeky alebo úložné boxy s výraznou zľavou. Ponuka platí len chvíľu!",
+  }).appendTo(".ti-widget-container");
+  $("<div>", {
+    class: "button btn open-upsale",
+    text: "Využiť zvýhodnenú ponuku!",
+  }).appendTo(".ti-widget-container");
+  $("<div>", {
+    class: "prefix",
+    text: "Len počas tejto objednávky môžete získať koberčeky do kufra alebo úložné boxy za extrémne zvýhodnenú cenu. Chráňte a organizujte svoj kufor so štýlom!",
+  }).appendTo(".ti-widget-container");
+
+  $(".button.btn.open-upsale").on("click", function () {
+    $(".overflow").remove();
+    $(".upsale-wrap").addClass("active");
+  });
+}
