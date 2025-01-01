@@ -806,13 +806,13 @@ function initModelSelect2() {
     }
   });
   $(".btn.choice-Model").on("click", function() {
-    saveModel();
+    saveModel(true);
   });
   $(".surcharge-list").on("change", function() {
-    saveModel();
+    saveModel(false);
   });
 }
-function saveModel() {
+function saveModel(redirect) {
   const Brand = $(".surcharge-list.brands.dm-selector select").val();
   const Model = $(".surcharge-list.models.dm-selector select").val();
   const Year = $(".surcharge-list.years.dm-selector select").val();
@@ -823,7 +823,7 @@ function saveModel() {
   sessionStorage.setItem("Model", Model);
   sessionStorage.setItem("Year", Year);
   sessionStorage.setItem("carType", type);
-  if ($(".in-index")[0]) {
+  if ($(".in-index")[0] && redirect) {
     window.location.href = "/rozcestnik/";
   }
 }

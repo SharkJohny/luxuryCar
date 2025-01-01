@@ -235,14 +235,14 @@ function initModelSelect() {
   });
 
   $(".btn.choice-Model").on("click", function () {
-    saveModel();
+    saveModel(true);
   });
   $(".surcharge-list").on("change", function () {
-    saveModel();
+    saveModel(false);
   });
 }
 
-function saveModel() {
+function saveModel(redirect) {
   const Brand = $(".surcharge-list.brands.dm-selector select").val();
   const Model = $(".surcharge-list.models.dm-selector select").val();
   const Year = $(".surcharge-list.years.dm-selector select").val();
@@ -255,7 +255,7 @@ function saveModel() {
 
   sessionStorage.setItem("carType", type);
 
-  if ($(".in-index")[0]) {
+  if ($(".in-index")[0] && redirect) {
     window.location.href = "/rozcestnik/";
   }
 }
@@ -702,32 +702,6 @@ function initCart() {
   // Spustit aktualizaci odpočtu každou sekundu
   const countdownInterval = setInterval(updateCountdown, 1000);
   updateCountdown();
-}
-
-function createUpsalePopup() {
-  createPop();
-  $(".ti-widget-container").addClass("upsale");
-  $("<div>", {
-    class: "h2",
-    text: "Iba teraz za zvýhodnenú cenu!",
-  }).appendTo(".ti-widget-container");
-  $("<div>", {
-    class: "description",
-    text: " Doplňte svoju objednávku o kufrové koberčeky alebo úložné boxy s výraznou zľavou. Ponuka platí len chvíľu!",
-  }).appendTo(".ti-widget-container");
-  $("<div>", {
-    class: "button btn open-upsale",
-    text: "Využiť zvýhodnenú ponuku!",
-  }).appendTo(".ti-widget-container");
-  $("<div>", {
-    class: "prefix",
-    text: "Len počas tejto objednávky môžete získať koberčeky do kufra alebo úložné boxy za extrémne zvýhodnenú cenu. Chráňte a organizujte svoj kufor so štýlom!",
-  }).appendTo(".ti-widget-container");
-
-  $(".button.btn.open-upsale").on("click", function () {
-    $(".overflow").remove();
-    $(".upsale-wrap").addClass("active");
-  });
 }
 
 function dinamicPictures() {
