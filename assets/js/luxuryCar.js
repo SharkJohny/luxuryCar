@@ -774,6 +774,11 @@ function initModelSelect2() {
     if ($(this).val() === cstm_znacka.at(1)) {
       $(".models option:not(.notselect)").remove();
     } else {
+      $(".models option:not(.notselect)").remove();
+      const models_for_brand = setupData2.cars[$(this).val()];
+      for (let i = 0; i < models_for_brand.length; i++) {
+        $("<option>" + models_for_brand.at(i) + "</option>").appendTo(".models select");
+      }
     }
   });
   $(".btn.choice-Model").on("click", function() {
