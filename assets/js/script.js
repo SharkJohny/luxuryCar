@@ -226,11 +226,11 @@ function initModelSelect() {
     if ($(this).val() === cstm_znacka.at(1)) {
       $(".models option:not(.notselect)").remove();
     } else {
-      $(".models option:not(.notselect)").remove();
-      const models_for_brand = car_json.cars[$(this).val()];
-      for (let i = 0; i < models_for_brand.length; i++) {
-        $("<option>" + models_for_brand.at(i) + "</option>").appendTo(".models select");
-      }
+      // $(".models option:not(.notselect)").remove();
+      // const models_for_brand = car_json.cars[$(this).val()];
+      // for (let i = 0; i < models_for_brand.length; i++) {
+      //   $("<option>" + models_for_brand.at(i) + "</option>").appendTo(".models select");
+      // }
     }
   });
 
