@@ -97,8 +97,7 @@ a.ti-header.source-Google {
   position: relative;
   max-width: 700px;
   margin: auto;
-  box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.1),
-    0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.1), 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   &:before {
     content: "";
@@ -570,7 +569,7 @@ section#model-selector {
   flex-direction: row;
   margin-top: 50px;
   .customer-video {
-    width: calc(25% - 10px);
+    width: calc(50% - 10px);
     padding: 5px;
     position: relative;
     @media (max-width: 768px) {
@@ -606,7 +605,7 @@ video.active {
 
 .customer-video {
   video {
-    max-height: 470px;
+    max-height: 600px;
     margin: auto;
   }
 }
@@ -659,8 +658,7 @@ section.foto-slider.slick-initialized.slick-slider.slick-dotted {
     flex-wrap: wrap;
     justify-content: center;
   }
-  .section-stack
-    .collection-card__content-wrapper.text-custom.place-self-center.text-center {
+  .section-stack .collection-card__content-wrapper.text-custom.place-self-center.text-center {
     position: absolute;
     top: 25%;
   }

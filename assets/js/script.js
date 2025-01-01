@@ -4,7 +4,8 @@ import { initProduct } from "./components/productPage.js";
 let setupData;
 $.getJSON(optionData.downloadData, function (data) {
   setupData = data;
-  console.log(setupData.settings.carVariant.split(","));
+
+  console.log(setupData.settings);
   initModelSelect();
   googleReviews();
   initProduct();

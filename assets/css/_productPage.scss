@@ -9,9 +9,9 @@
     top: 10%;
   }
 }
-// table.detail-parameters {
-//   display: none;
-// }
+table.detail-parameters {
+  display: none;
+}
 .model {
   font-size: 20px;
   margin-bottom: 20px;
@@ -213,14 +213,23 @@ span.quantity {
     position: relative;
     margin: 5px;
     cursor: pointer;
+    .save,
+    .price,
     .text {
       position: absolute;
       top: 0;
       width: 100%;
       text-align: center;
-      top: 42%;
+      top: 30%;
       padding: 5px;
       color: white;
+    }
+    .price {
+      top: 50%;
+    }
+    .save {
+      top: unset !important;
+      bottom: 0;
     }
   }
   &.showConf {
@@ -779,34 +788,53 @@ div#description {
     border-color: green;
   }
 }
+.upsale-buttons.boxs,
 .upsale-buttons.trunk {
   min-height: 150px;
   transition: 1s;
-  overflow: hidden;
+
+  .upsale-button.\30,
+  .upsale-button.config,
   .upsale-button.radio {
     max-height: 500px;
     transition: 1s;
   }
 }
+.upsale-buttons.boxs.minimalize,
 .upsale-buttons.trunk.minimalize {
   background: #80808024;
   min-height: 40px;
   transition: 1s;
-
+  .upsale-button.\30,
+  .upsale-button.config,
   .upsale-button.radio {
     visibility: hidden;
     width: 0;
     .text {
       color: transparent;
     }
+    .save {
+      display: none;
+    }
+    .price {
+      color: black;
+      top: 0%;
+      text-align: right;
+    }
   }
+  .upsale-button.\30,
+  .upsale-button.config,
   .upsale-button.radio {
     max-height: 50px;
     transition: 1s;
+    margin: 0;
   }
+  .upsale-button.\30.active,
+  .upsale-button.config.active,
   .upsale-button.radio.active {
     width: 100%;
     color: black;
+    margin: 5px;
 
     visibility: visible;
     img {
