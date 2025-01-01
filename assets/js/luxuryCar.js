@@ -239,52 +239,40 @@ function priplatky() {
     const buttonWrap = $("<div>", {
       class: "upsale-buttons trunk"
     }).appendTo(upsaleBanner);
-    createUpsaleButton(
-      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
-      "nechci nic",
-      buttonWrap,
-      "20-44",
-      "radio"
-    );
-    createUpsaleButton(
-      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
-      "autokoberce do kufra KLASIK",
-      buttonWrap,
-      "20-41",
-      "radio"
-    );
-    createUpsaleButton(
-      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/full-p.jpg",
-      "LUXUSN\xC9 BOXY DO KUFRU NA MIERU",
-      buttonWrap,
-      "20-296",
-      "radio"
-    );
+    const carpetsText = setupData.settings.carpetsText.split(",");
+    const carpetsValue = setupData.settings.carpetsValue.split(",");
+    const carpetsImage = setupData.settings.carpetsImage.split(",");
+    const carpetsPrice = setupData.settings.carpetsPrice.split(",");
+    $(carpetsText).each(function(e) {
+      createUpsaleButton(
+        "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
+        this,
+        buttonWrap,
+        carpetsValue[e],
+        "radio",
+        carpetsPrice[e],
+        false
+      );
+    });
+    const boxsText = setupData.settings.boxsText.split(",");
+    const boxsValue = setupData.settings.boxsValue.split(",");
+    const boxsImage = setupData.settings.boxsImage.split(",");
+    const boxsPrice = setupData.settings.boxsPrice.split(",");
     const buttonWrapBox = $("<div>", {
       class: "upsale-buttons boxs"
     }).appendTo(upsaleBanner);
     $(buttonWrapBox).hide();
-    createUpsaleButton(
-      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/base-p.jpg",
-      "Nechci box",
-      buttonWrapBox,
-      "0",
-      "0"
-    );
-    createUpsaleButton(
-      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
-      "LUXUSN\xC9 BOX DO KUFRU NA MIERU 1ks",
-      buttonWrapBox,
-      "conf1",
-      "config"
-    );
-    createUpsaleButton(
-      "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
-      "LUXUSN\xC9 BOXY DO KUFRU NA MIERU 2ks",
-      buttonWrapBox,
-      "conf2",
-      "config"
-    );
+    $(boxsText).each(function(e) {
+      createUpsaleButton(
+        "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
+        this,
+        buttonWrapBox,
+        boxsValue[e],
+        "config",
+        boxsPrice[e],
+        true
+      );
+    });
     $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
     $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
     $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function(e) {
@@ -380,21 +368,33 @@ function priplatky() {
     });
   }
 }
-function createUpsaleButton(img, text, position, value, type) {
+function createUpsaleButton(img, text, position, value, type, price, prefix) {
   if (!img || !text || !position) {
     console.error("Invalid parameters passed to createUpsaleButton");
     return;
   }
+  console.log(price.split("/"));
+  const priceText = price.split("/");
   const buttonHTML = `
     <div class="upsale-button ${type}" value="${value}">
       <img src="${img}" alt="${text}" />
       <div class="text">${text}</div>
+      
     </div>
   `;
   const button = $(buttonHTML).appendTo(position);
+  if (priceText[0] == "0") return;
+  const save = priceText[1] - priceText[0];
+  let priceHTML = `<div class="price">${NumToPrice(priceText[0])}</div><div class="save">U\u0161et\u0159\xEDte ${NumToPrice(save)}</div>`;
+  if (prefix) {
+    priceHTML = `<div class="price">od ${NumToPrice(priceText[0])}</div><div class="save">U\u0161et\u0159\xEDte a\u017E ${NumToPrice(save)}</div>`;
+  }
+  $(priceHTML).appendTo(button);
 }
 $(document).on("click", ".upsale-button", function(e) {
+  $(".image-wrap").remove();
   const trunk = $(this).closest(".upsale-buttons.trunk");
+  const boxs = $(this).closest(".upsale-buttons.boxs");
   if (trunk.length) {
     if (trunk.hasClass("minimalize")) {
       e.stopPropagation();
@@ -405,6 +405,15 @@ $(document).on("click", ".upsale-button", function(e) {
         trunk.addClass("minimalize");
       }, 200);
     }
+  } else if (boxs.length) {
+    if (boxs.hasClass("minimalize")) {
+      e.stopPropagation();
+      boxs.removeClass("minimalize");
+      setTimeout(() => {
+        $(".upsale-Banner.showConf").removeClass("showConf");
+      }, 200);
+    } else {
+    }
   }
   const value = $(this).attr("value")?.split("-");
   console.log(value);
@@ -412,7 +421,9 @@ $(document).on("click", ".upsale-button", function(e) {
     console.error("Atribut 'value' nen\xED dostupn\xFD!");
     return;
   }
-  $(".upsale-buttons.boxs .upsale-button").removeClass("active");
+  if (boxs.length) {
+    $(".upsale-buttons.boxs .upsale-button").removeClass("active");
+  }
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
     $("select.surcharge-parameter.parameter-id-" + value[0]).val(0);
@@ -441,6 +452,7 @@ $(document).on("click", ".upsale-button", function(e) {
 });
 $(document).on("click", ".box-config .close-btn", function() {
   $(this).parents(".upsale-Banner").removeClass("showConf");
+  $(this).parents(".upsale-buttons").addClass("minimalize");
 });
 function firstPage() {
   const wrap = $("<div>", {
@@ -629,7 +641,7 @@ function condown(time, selector) {
 var setupData2;
 $.getJSON(optionData.downloadData, function(data) {
   setupData2 = data;
-  console.log(setupData2.settings.carVariant.split(","));
+  console.log(setupData2.settings);
   initModelSelect2();
   googleReviews();
   initProduct();
