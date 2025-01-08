@@ -238,6 +238,7 @@ span.quantity {
       right: 0;
       left: 0;
       transition: 1s;
+      padding-bottom: 50px;
     }
   }
   .box-config {
@@ -276,6 +277,14 @@ span.quantity {
     color: #000;
     transform: rotate(0deg);
     cursor: pointer;
+  }
+  .close-btn.return {
+    top: unset;
+    bottom: 5px;
+    font-size: 20px;
+    padding: 5px 10px;
+    background: green;
+    color: white;
   }
 
   .countdown-wrap .label {
@@ -807,7 +816,8 @@ div#description {
   transition: 1s;
   .upsale-button.\30,
   .upsale-button.config,
-  .upsale-button.radio {
+  .upsale-button.radio,
+  .upsale-button.none {
     visibility: hidden;
     width: 0;
     .text {
@@ -824,27 +834,39 @@ div#description {
   }
   .upsale-button.\30,
   .upsale-button.config,
+  .upsale-button.none,
   .upsale-button.radio {
-    max-height: 50px;
+    max-height: 75px;
     transition: 1s;
     margin: 0;
   }
   .upsale-button.\30.active,
+  .upsale-button.none.active,
   .upsale-button.config.active,
   .upsale-button.radio.active {
+    display: flex;
     width: 100%;
     color: black;
     margin: 5px;
 
     visibility: visible;
-    img {
-      display: none;
-    }
+    // img {
+    //   display: none;
+    // }
     .text {
       position: static;
-
       text-align: left;
-      color: black;
+      color: #000;
+      font-size: 16px;
+      padding: 24px 10px;
+    }
+    .price {
+      font-size: 16px;
+      padding: 25px 10px;
+    }
+    img {
+      border-color: transparent;
+      width: 60px;
     }
   }
 }
@@ -852,5 +874,33 @@ div#description {
 .box-config {
   .image-wrap {
     display: none;
+  }
+}
+.basic-description .section.section-blends.section-dubble.section-full {
+  .media-with-text__content.bg-custom.text-custom {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 1500px) {
+  .basic-description .section.section-blends.section-dubble.section-full {
+    p.h2 span {
+      font-size: 30px;
+    }
+    p {
+      font-size: 17px !important;
+    }
+  }
+}
+
+@media (min-width: 1800px) {
+  .basic-description .section.section-blends.section-dubble.section-full {
+    p.h2 span {
+      font-size: 35px;
+    }
+    p {
+      font-size: 20px !important;
+    }
   }
 }

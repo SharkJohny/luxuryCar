@@ -302,9 +302,13 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
   console.log(price.split("/"));
   const priceText = price.split("/");
+  let typeClass = type;
+  if (type == "config" && value == 0) {
+    typeClass = "none";
+  }
 
   const buttonHTML = `
-    <div class="upsale-button ${type}" value="${value}">
+    <div class="upsale-button ${typeClass}" value="${value}">
       <img src="${img}" alt="${text}" />
       <div class="text">${text}</div>
       
@@ -596,7 +600,10 @@ function createBoxConfig() {
     class: "close-btn",
     text: "-",
   }).appendTo(wrap);
-
+  $("<div>", {
+    class: "close-btn return",
+    text: "potvrdit",
+  }).appendTo(wrap);
   const configWrap = $("<div>", {
     class: "config-wrap",
   }).appendTo(wrap);
