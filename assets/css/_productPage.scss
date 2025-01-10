@@ -876,11 +876,37 @@ div#description {
     display: none;
   }
 }
+
+.button.option-button.text {
+  min-width: 90px;
+  text-align: center;
+}
+.button.option-button.text {
+  min-width: 90px;
+  text-align: center;
+  background: white;
+  height: auto;
+  .parm {
+    font-weight: 600;
+  }
+  &.active {
+    border-radius: 0;
+  }
+}
 .basic-description .section.section-blends.section-dubble.section-full {
   .media-with-text__content.bg-custom.text-custom {
     display: flex;
     align-content: center;
     align-items: center;
+  }
+}
+.margin-top-5 {
+  margin-top: 50px;
+}
+
+section.shopify-section.horiz-video.shopify-section--video {
+  video {
+    max-height: 800px;
   }
 }
 @media (min-width: 1500px) {

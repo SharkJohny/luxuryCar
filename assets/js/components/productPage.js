@@ -570,6 +570,8 @@ function createOptions(position, orders) {
     const value = $(this).val();
     if (value == "") return;
     const textOption = $(this).text();
+    const valueText = textOption.split("+");
+    const nameSplit = valueText[0].split(":");
     const optionButton = $("<div>", {
       class: "button option-button",
       "data-value": value,
@@ -579,10 +581,24 @@ function createOptions(position, orders) {
       text: textOption,
       class: "text",
     }).appendTo(optionButton);
-    $("<img>", {
-      alt: `${parameterId}-${value}.jpg`,
-      src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`,
-    }).appendTo(optionButton);
+    if (textOption.includes("cm")) {
+      $("<div>", {
+        class: "description",
+        html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`,
+      }).appendTo(optionButton);
+      $(optionButton).addClass("text");
+    } else if (textOption == "nechci +0 Kč") {
+      $("<div>", {
+        class: "description",
+        text: valueText[0],
+      }).appendTo(optionButton);
+      $(optionButton).addClass("text");
+    } else {
+      $("<img>", {
+        alt: `${parameterId}-${value}.jpg`,
+        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`,
+      }).appendTo(optionButton);
+    }
   });
 }
 
