@@ -119,30 +119,30 @@ function priplatky() {
     const upsaleBanner = $("<div>", {
       class: "upsale-Banner",
     }).insertAfter(".detail-parameters");
+    if ($(".parameter-id-20")[0]) {
+      $(upsaleBanner).hide();
+      condownMessage(upsaleBanner, 30, "Zvýhodněná nabídka na přislušenství platí ještě: ");
 
-    $(upsaleBanner).hide();
-    condownMessage(upsaleBanner, 30, "Zvýhodněná nabídka na přislušenství platí ještě: ");
+      const buttonWrap = $("<div>", {
+        class: "upsale-buttons trunk",
+      }).appendTo(upsaleBanner);
 
-    const buttonWrap = $("<div>", {
-      class: "upsale-buttons trunk",
-    }).appendTo(upsaleBanner);
-
-    const carpetsText = setupData.settings.carpetsText.split(",");
-    const carpetsValue = setupData.settings.carpetsValue.split(",");
-    const carpetsImage = setupData.settings.carpetsImage.split(",");
-    const carpetsPrice = setupData.settings.carpetsPrice.split(",");
-    $(carpetsText).each(function (e) {
-      createUpsaleButton(
-        "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
-        this,
-        buttonWrap,
-        carpetsValue[e],
-        "radio",
-        carpetsPrice[e],
-        false
-      );
-    });
-
+      const carpetsText = setupData.settings.carpetsText.split(",");
+      const carpetsValue = setupData.settings.carpetsValue.split(",");
+      const carpetsImage = setupData.settings.carpetsImage.split(",");
+      const carpetsPrice = setupData.settings.carpetsPrice.split(",");
+      $(carpetsText).each(function (e) {
+        createUpsaleButton(
+          "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
+          this,
+          buttonWrap,
+          carpetsValue[e],
+          "radio",
+          carpetsPrice[e],
+          false
+        );
+      });
+    }
     // createUpsaleButton(
     //   "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/boxy.jpg",
     //   "LUXUSNÉ BOXY DO KUFRU NA MIERU",
@@ -150,27 +150,29 @@ function priplatky() {
     //   "conf",
     //   "config"
     // );
-    const boxsText = setupData.settings.boxsText.split(",");
-    const boxsValue = setupData.settings.boxsValue.split(",");
-    const boxsImage = setupData.settings.boxsImage.split(",");
-    const boxsPrice = setupData.settings.boxsPrice.split(",");
+    if ($(".parameter-id-26")[0]) {
+      const boxsText = setupData.settings.boxsText.split(",");
+      const boxsValue = setupData.settings.boxsValue.split(",");
+      const boxsImage = setupData.settings.boxsImage.split(",");
+      const boxsPrice = setupData.settings.boxsPrice.split(",");
 
-    const buttonWrapBox = $("<div>", {
-      class: "upsale-buttons boxs",
-    }).appendTo(upsaleBanner);
-    $(buttonWrapBox).hide();
+      const buttonWrapBox = $("<div>", {
+        class: "upsale-buttons boxs",
+      }).appendTo(upsaleBanner);
+      $(buttonWrapBox).hide();
 
-    $(boxsText).each(function (e) {
-      createUpsaleButton(
-        "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
-        this,
-        buttonWrapBox,
-        boxsValue[e],
-        "config",
-        boxsPrice[e],
-        true
-      );
-    });
+      $(boxsText).each(function (e) {
+        createUpsaleButton(
+          "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
+          this,
+          buttonWrapBox,
+          boxsValue[e],
+          "config",
+          boxsPrice[e],
+          true
+        );
+      });
+    }
 
     $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
 
@@ -248,6 +250,9 @@ function priplatky() {
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").show();
+        if (!$(".parameter-id-20")[0]) {
+          $(".upsale-buttons.boxs").show();
+        }
       }
     });
 
@@ -519,7 +524,7 @@ function createOptions(position, orders) {
   }
 
   let upsale = 1;
-  if (shoptetData.product.id == 347) {
+  if (shoptetData.product.id == 347 || shoptetData.product.id == 356) {
     $(".benefitBanner__content").hide();
     upsale = 2;
   }
