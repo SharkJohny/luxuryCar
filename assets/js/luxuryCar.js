@@ -234,45 +234,49 @@ function priplatky() {
     const upsaleBanner = $("<div>", {
       class: "upsale-Banner"
     }).insertAfter(".detail-parameters");
-    $(upsaleBanner).hide();
-    condownMessage(upsaleBanner, 30, "Zv\xFDhodn\u011Bn\xE1 nab\xEDdka na p\u0159islu\u0161enstv\xED plat\xED je\u0161t\u011B: ");
-    const buttonWrap = $("<div>", {
-      class: "upsale-buttons trunk"
-    }).appendTo(upsaleBanner);
-    const carpetsText = setupData.settings.carpetsText.split(",");
-    const carpetsValue = setupData.settings.carpetsValue.split(",");
-    const carpetsImage = setupData.settings.carpetsImage.split(",");
-    const carpetsPrice = setupData.settings.carpetsPrice.split(",");
-    $(carpetsText).each(function(e) {
-      createUpsaleButton(
-        "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
-        this,
-        buttonWrap,
-        carpetsValue[e],
-        "radio",
-        carpetsPrice[e],
-        false
-      );
-    });
-    const boxsText = setupData.settings.boxsText.split(",");
-    const boxsValue = setupData.settings.boxsValue.split(",");
-    const boxsImage = setupData.settings.boxsImage.split(",");
-    const boxsPrice = setupData.settings.boxsPrice.split(",");
-    const buttonWrapBox = $("<div>", {
-      class: "upsale-buttons boxs"
-    }).appendTo(upsaleBanner);
-    $(buttonWrapBox).hide();
-    $(boxsText).each(function(e) {
-      createUpsaleButton(
-        "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
-        this,
-        buttonWrapBox,
-        boxsValue[e],
-        "config",
-        boxsPrice[e],
-        true
-      );
-    });
+    if ($(".parameter-id-20")[0]) {
+      $(upsaleBanner).hide();
+      condownMessage(upsaleBanner, 30, "Zv\xFDhodn\u011Bn\xE1 nab\xEDdka na p\u0159islu\u0161enstv\xED plat\xED je\u0161t\u011B: ");
+      const buttonWrap = $("<div>", {
+        class: "upsale-buttons trunk"
+      }).appendTo(upsaleBanner);
+      const carpetsText = setupData.settings.carpetsText.split(",");
+      const carpetsValue = setupData.settings.carpetsValue.split(",");
+      const carpetsImage = setupData.settings.carpetsImage.split(",");
+      const carpetsPrice = setupData.settings.carpetsPrice.split(",");
+      $(carpetsText).each(function(e) {
+        createUpsaleButton(
+          "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
+          this,
+          buttonWrap,
+          carpetsValue[e],
+          "radio",
+          carpetsPrice[e],
+          false
+        );
+      });
+    }
+    if ($(".parameter-id-26")[0]) {
+      const boxsText = setupData.settings.boxsText.split(",");
+      const boxsValue = setupData.settings.boxsValue.split(",");
+      const boxsImage = setupData.settings.boxsImage.split(",");
+      const boxsPrice = setupData.settings.boxsPrice.split(",");
+      const buttonWrapBox = $("<div>", {
+        class: "upsale-buttons boxs"
+      }).appendTo(upsaleBanner);
+      $(buttonWrapBox).hide();
+      $(boxsText).each(function(e) {
+        createUpsaleButton(
+          "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
+          this,
+          buttonWrapBox,
+          boxsValue[e],
+          "config",
+          boxsPrice[e],
+          true
+        );
+      });
+    }
     $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
     $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
     $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function(e) {
@@ -338,6 +342,9 @@ function priplatky() {
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").show();
+        if (!$(".parameter-id-20")[0]) {
+          $(".upsale-buttons.boxs").show();
+        }
       }
     });
     if ($("html[lang='cs']").length) {
@@ -375,8 +382,12 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
   console.log(price.split("/"));
   const priceText = price.split("/");
+  let typeClass = type;
+  if (type == "config" && value == 0) {
+    typeClass = "none";
+  }
   const buttonHTML = `
-    <div class="upsale-button ${type}" value="${value}">
+    <div class="upsale-button ${typeClass}" value="${value}">
       <img src="${img}" alt="${text}" />
       <div class="text">${text}</div>
       
@@ -532,7 +543,7 @@ function createOptions(position, orders) {
     }).appendTo("#options-wrap");
   }
   let upsale = 1;
-  if (shoptetData.product.id == 347) {
+  if (shoptetData.product.id == 347 || shoptetData.product.id == 356) {
     $(".benefitBanner__content").hide();
     upsale = 2;
   }
@@ -578,6 +589,8 @@ function createOptions(position, orders) {
     const value = $(this).val();
     if (value == "") return;
     const textOption = $(this).text();
+    const valueText = textOption.split("+");
+    const nameSplit = valueText[0].split(":");
     const optionButton = $("<div>", {
       class: "button option-button",
       "data-value": value,
@@ -587,10 +600,24 @@ function createOptions(position, orders) {
       text: textOption,
       class: "text"
     }).appendTo(optionButton);
-    $("<img>", {
-      alt: `${parameterId}-${value}.jpg`,
-      src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`
-    }).appendTo(optionButton);
+    if (textOption.includes("cm")) {
+      $("<div>", {
+        class: "description",
+        html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`
+      }).appendTo(optionButton);
+      $(optionButton).addClass("text");
+    } else if (textOption == "nechci +0 K\u010D") {
+      $("<div>", {
+        class: "description",
+        text: valueText[0]
+      }).appendTo(optionButton);
+      $(optionButton).addClass("text");
+    } else {
+      $("<img>", {
+        alt: `${parameterId}-${value}.jpg`,
+        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`
+      }).appendTo(optionButton);
+    }
   });
 }
 function createBoxConfig() {
@@ -604,6 +631,10 @@ function createBoxConfig() {
   $("<div>", {
     class: "close-btn",
     text: "-"
+  }).appendTo(wrap);
+  $("<div>", {
+    class: "close-btn return",
+    text: "potvrdit"
   }).appendTo(wrap);
   const configWrap = $("<div>", {
     class: "config-wrap"
