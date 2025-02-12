@@ -2,16 +2,15 @@
 var timestamp = Date.now();
 var optionData = {
   key: "value",
-  downloadData: "/user/documents/upload/data.json?" + timestamp
+  downloadData: "/user/documents/upload/data.json?" + timestamp,
 };
 
 // assets/js/components/index.js
 function intIndex() {
-  setTimeout(function() {
-  }, 4e3);
+  setTimeout(function () {}, 4e3);
   $(".twentytwenty-container").twentytwenty({
     before_label: "P\u0159edt\xEDm",
-    after_label: "Potom"
+    after_label: "Potom",
   });
   function animateCountUp(element, targetNumber, duration) {
     const $element = $(element);
@@ -20,12 +19,12 @@ function intIndex() {
       {
         duration,
         easing: "swing",
-        step: function(now) {
+        step: function (now) {
           $element.text(Math.floor(now));
         },
-        complete: function() {
+        complete: function () {
           $element.text(targetNumber);
-        }
+        },
       }
     );
   }
@@ -44,7 +43,7 @@ function intIndex() {
       }
     });
   });
-  $("[count-up]").each(function() {
+  $("[count-up]").each(function () {
     observer.observe(this);
   });
   $("collection-list.collection-list").slick({
@@ -62,32 +61,32 @@ function intIndex() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          arrows: true
-        }
+          arrows: true,
+        },
       },
       {
         breakpoint: 1200,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 3
-        }
+          slidesToScroll: 3,
+        },
       },
       {
         breakpoint: 770,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          autoplay: false
-        }
+          autoplay: false,
+        },
       },
       {
         breakpoint: 350,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   });
   $("section.foto-slider").slick({
     dots: true,
@@ -97,9 +96,9 @@ function intIndex() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4e3,
-    arrows: true
+    arrows: true,
   });
-  $("button.text-with-icon.group").on("click", function() {
+  $("button.text-with-icon.group").on("click", function () {
     if (!$("button.text-with-icon.group.less")[0]) {
       $(".feature-chart__table-row[hidden]").removeAttr("hidden").addClass("addHidden");
       const less = $(this).attr("data-view-less");
@@ -112,7 +111,7 @@ function intIndex() {
       $(this).find("span.feature-chart__toggle-text.reversed-link").text(more);
     }
   });
-  $(".btn.more-pictures-button").on("click", function() {
+  $(".btn.more-pictures-button").on("click", function () {
     $(".more-pictures").toggleClass("slow");
     if (!$(".btn.more-pictures-button.less")[0]) {
       const less = $(this).attr("data-view-less");
@@ -124,22 +123,24 @@ function intIndex() {
       $(this).removeClass("less");
     }
   });
-  $("video").parent().click(function() {
-    if ($(this).children("video").get(0).paused) {
-      $(this).children("video").get(0).play();
-      $(this).children("video").addClass("active");
-      $(this).children(".playpause").fadeOut();
-    } else {
-      $(this).children("video").get(0).pause();
-      $(this).children(".playpause").fadeIn();
-      $(this).children("video").removeClass("active");
-    }
-  });
-  $(".hotspot").on("click", function() {
+  $("video")
+    .parent()
+    .click(function () {
+      if ($(this).children("video").get(0).paused) {
+        $(this).children("video").get(0).play();
+        $(this).children("video").addClass("active");
+        $(this).children(".playpause").fadeOut();
+      } else {
+        $(this).children("video").get(0).pause();
+        $(this).children(".playpause").fadeIn();
+        $(this).children("video").removeClass("active");
+      }
+    });
+  $(".hotspot").on("click", function () {
     $(".tooltips").removeClass("show");
     $(this).find(".tooltips").addClass("show");
   });
-  $(document).on("click", function(e) {
+  $(document).on("click", function (e) {
     const $target = $(e.target);
     if (!$target.closest(".hotspot").length && !$target.closest(".tooltips").length) {
       $(".tooltips").removeClass("show");
@@ -149,7 +150,7 @@ function intIndex() {
 
 // assets/js/components/productPage.js
 var setupData;
-$.getJSON(optionData.downloadData, function(data) {
+$.getJSON(optionData.downloadData, function (data) {
   setupData = data;
 });
 function initProduct() {
@@ -161,18 +162,19 @@ function initProduct() {
   $(".benefitBanner.position--benefitProduct .benefitBanner__item").insertBefore(".col-xs-12.col-lg-6.p-info-wrapper");
   const model = sessionStorage.getItem("model");
   priplatky();
-  $(".button.btn.select-model").on("click", function() {
+  $(".button.btn.select-model").on("click", function () {
     const overflow = $("<div>", {
       class: "overflow",
-      style: "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;"
+      style:
+        "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;",
     }).appendTo("body");
     const popup = $("<div>", {
       class: "model-select",
-      style: "position: relative; background-color: #fff; padding: 20px;"
+      style: "position: relative; background-color: #fff; padding: 20px;",
     }).appendTo(overflow);
     $("<div>", {
       class: "h3",
-      text: "Vyberte model"
+      text: "Vyberte model",
     }).appendTo(popup);
     initModelSelect();
   });
@@ -181,70 +183,79 @@ function initProduct() {
   const prevButton = $('button[is="prev-button"]');
   const nextButton = $('button[is="next-button"]');
   let currentIndex = 0;
-  buttons.on("click", function() {
+  buttons.on("click", function () {
     const index = $(this).index();
     buttons.removeClass("active");
     $(this).addClass("active");
     $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
-    $(`.timeline__slide:eq(${index})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+    $(`.timeline__slide:eq(${index})`)
+      .addClass("is-selected")
+      .removeClass("reveal-invisible")
+      .attr("style", "opacity: 1; visibility: visible; z-index: 1;");
     currentIndex = index;
     console.log(`Kliknul jsi na tla\u010D\xEDtko s indexem: ${index}`);
   });
-  prevButton.on("click", function() {
+  prevButton.on("click", function () {
     if (currentIndex > 0) {
       currentIndex--;
       buttons.removeClass("active");
       buttons.eq(currentIndex).addClass("active");
       $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
-      $(`.timeline__slide:eq(${currentIndex})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+      $(`.timeline__slide:eq(${currentIndex})`)
+        .addClass("is-selected")
+        .removeClass("reveal-invisible")
+        .attr("style", "opacity: 1; visibility: visible; z-index: 1;");
       console.log(`Posunul jsi zp\u011Bt na index: ${currentIndex}`);
     }
   });
-  nextButton.on("click", function() {
+  nextButton.on("click", function () {
     if (currentIndex < buttons.length - 1) {
       currentIndex++;
       buttons.removeClass("active");
       buttons.eq(currentIndex).addClass("active");
       $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
-      $(`.timeline__slide:eq(${currentIndex})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+      $(`.timeline__slide:eq(${currentIndex})`)
+        .addClass("is-selected")
+        .removeClass("reveal-invisible")
+        .attr("style", "opacity: 1; visibility: visible; z-index: 1;");
       console.log(`Posunul jsi dop\u0159edu na index: ${currentIndex}`);
     }
   });
   const wrap = $("<div>", {
-    class: "thumbnails-wrap"
+    class: "thumbnails-wrap",
   }).appendTo(".col-xs-12.col-lg-6.p-image-wrapper");
-  $(".p-thumbnails-inner>div>a").each(function(n) {
+  $(".p-thumbnails-inner>div>a").each(function (n) {
     if (n % 2 !== 0 || n > 15) return;
     console.log(n);
     const src = $(this).attr("href");
     const image = $("<a>", {
       class: "thumbnail-image p-main-image cloud-zoom",
-      href: src
+      href: src,
     }).appendTo(wrap);
     $("<img>", {
-      src
+      src,
     }).appendTo(image);
   });
 }
 function priplatky() {
   if ($(".type-detail").length) {
     $("<div>", {
-      class: "upsale-wrap"
+      class: "upsale-wrap",
     }).insertAfter(".detail-parameters");
     const upsaleBanner = $("<div>", {
-      class: "upsale-Banner"
+      class: "upsale-Banner",
     }).insertAfter(".detail-parameters");
     if ($(".parameter-id-20")[0]) {
       $(upsaleBanner).hide();
       condownMessage(upsaleBanner, 30, "Zv\xFDhodn\u011Bn\xE1 nab\xEDdka na p\u0159islu\u0161enstv\xED plat\xED je\u0161t\u011B: ");
       const buttonWrap = $("<div>", {
-        class: "upsale-buttons trunk"
+        class: "upsale-buttons trunk",
       }).appendTo(upsaleBanner);
       const carpetsText = setupData.settings.carpetsText.split(",");
       const carpetsValue = setupData.settings.carpetsValue.split(",");
       const carpetsImage = setupData.settings.carpetsImage.split(",");
       const carpetsPrice = setupData.settings.carpetsPrice.split(",");
-      $(carpetsText).each(function(e) {
+      $(carpetsText).each(function (e) {
         createUpsaleButton(
           "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
           this,
@@ -262,10 +273,10 @@ function priplatky() {
       const boxsImage = setupData.settings.boxsImage.split(",");
       const boxsPrice = setupData.settings.boxsPrice.split(",");
       const buttonWrapBox = $("<div>", {
-        class: "upsale-buttons boxs"
+        class: "upsale-buttons boxs",
       }).appendTo(upsaleBanner);
       $(buttonWrapBox).hide();
-      $(boxsText).each(function(e) {
+      $(boxsText).each(function (e) {
         createUpsaleButton(
           "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
           this,
@@ -279,7 +290,7 @@ function priplatky() {
     }
     $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
     $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
-    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function(e) {
+    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {
       e.stopPropagation();
       e.preventDefault();
       createUpsalePopup();
@@ -289,12 +300,12 @@ function priplatky() {
     const pairedOrders = {};
     let orders = 0;
     createBoxConfig();
-    $(".detail-parameters .variant-list select").each(function() {
+    $(".detail-parameters .variant-list select").each(function () {
       orders += 1;
       const position = this;
       createOptions(position, orders);
     });
-    $(".detail-parameters .surcharge-list select").each(function() {
+    $(".detail-parameters .surcharge-list select").each(function () {
       const id = $(this).attr("data-parameter-id");
       if (id == "37" || id == "22" || id == "20") return;
       let sharedOrder = null;
@@ -318,7 +329,7 @@ function priplatky() {
       createOptions(position, orders);
       console.log(pairVariantList);
     });
-    $(".button.option-button").on("click", function() {
+    $(".button.option-button").on("click", function () {
       $(this).parents(".parameter-wrap").removeClass("goToAction");
       $("body").removeClass("disabled-add-to-cart");
       const value = $(this).attr("data-value");
@@ -336,7 +347,7 @@ function priplatky() {
       console.log(image2);
       $(".image-wrap").remove();
       const imageWrap = $("<div>", {
-        class: "image-wrap"
+        class: "image-wrap",
       }).appendTo(".parameter-wrap.parameter-" + parameterId);
       $("<img>", { src: image2 }).appendTo(imageWrap);
       if (!$(".goToAction")[0]) {
@@ -354,18 +365,22 @@ function priplatky() {
       $(".p-variants-block .surcharge-list:contains('Velikost 2. Boxu') option[data-index='0']").text("Zvolte velikost 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Barva boxu') option[data-index='0']").text("Zvolte barvu boxu");
       $(".p-variants-block .surcharge-list:contains('Barva 2. boxu') option[data-index='0']").text("Zvolte barvu 2.boxu");
-      $(".p-variants-block .surcharge-list:contains('Um\xEDst\u011Bn\xED volantu') option[data-index='0']").text("Pros\xEDm, vyberte um\xEDst\u011Bn\xED volantu");
+      $(".p-variants-block .surcharge-list:contains('Um\xEDst\u011Bn\xED volantu') option[data-index='0']").text(
+        "Pros\xEDm, vyberte um\xEDst\u011Bn\xED volantu"
+      );
     }
     if ($("html[lang='sk']").length) {
       $(".p-variants-block .surcharge-list:contains('Ve\u013Ekos\u0165 boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 boxu");
       $(".p-variants-block .surcharge-list:contains('Rozmer 2. Boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Rozmer boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 boxu");
-      $(".p-variants-block .surcharge-list:contains('Ve\u013Ekos\u0165 2. Boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 2.boxu");
+      $(".p-variants-block .surcharge-list:contains('Ve\u013Ekos\u0165 2. Boxu') option[data-index='0']").text(
+        "Zvo\u013Ete ve\u013Ekos\u0165 2.boxu"
+      );
       $(".p-variants-block .surcharge-list:contains('Farba boxu') option[data-index='0']").text("Zvo\u013Ete farbu boxu");
       $(".p-variants-block .surcharge-list:contains('Farba 2. boxu') option[data-index='0']").text("Zvo\u013Ete farbu 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Umiestenie volantu') option[data-index='0']").text("Pros\xEDm,vyberte umiestnenie volantu");
     }
-    $(".navigatte-button").on("click", function() {
+    $(".navigatte-button").on("click", function () {
       const option = $(this).attr("data-option").split("-");
       const optionName = option[1];
       $(".parameter-wrap").removeClass("active");
@@ -402,7 +417,7 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
   $(priceHTML).appendTo(button);
 }
-$(document).on("click", ".upsale-button", function(e) {
+$(document).on("click", ".upsale-button", function (e) {
   $(".image-wrap").remove();
   const trunk = $(this).closest(".upsale-buttons.trunk");
   const boxs = $(this).closest(".upsale-buttons.boxs");
@@ -461,14 +476,14 @@ $(document).on("click", ".upsale-button", function(e) {
     }
   }, 100);
 });
-$(document).on("click", ".box-config .close-btn", function() {
+$(document).on("click", ".box-config .close-btn", function () {
   $(this).parents(".upsale-Banner").removeClass("showConf");
   $(this).parents(".upsale-buttons").addClass("minimalize");
 });
 function firstPage() {
   const wrap = $("<div>", {
     class: "navigatte-button class first",
-    "data-option": "option-0"
+    "data-option": "option-0",
   }).appendTo(".navidation-Wrap");
   const wheelval = $("select.parameter-id-37.surcharge-parameter").val();
   let typeVal = $("select.parameter-id-22.surcharge-parameter").val();
@@ -478,22 +493,24 @@ function firstPage() {
   if (typeVal == "") {
     const getModel = sessionStorage.getItem("carType");
     console.log(getModel);
-    const value = $("select.parameter-id-22.surcharge-parameter option").filter(function() {
-      return $(this).text().indexOf(getModel) !== -1;
-    }).val();
+    const value = $("select.parameter-id-22.surcharge-parameter option")
+      .filter(function () {
+        return $(this).text().indexOf(getModel) !== -1;
+      })
+      .val();
     console.log(value);
     $("select.parameter-id-22.surcharge-parameter").val(value);
     typeVal = value;
   }
   const pageWrap = $("<div>", {
-    class: "position-wrap parameter-cars active"
+    class: "position-wrap parameter-cars active",
   }).appendTo(".content-wrap");
   const wheelWrao = $("<div>", {
-    class: "parameter-cars wheel-Position"
+    class: "parameter-cars wheel-Position",
   }).appendTo(pageWrap);
   $("<div>", {
     class: "label wheel",
-    text: "Pozice volantu"
+    text: "Pozice volantu",
   }).appendTo(wheelWrao);
   $(`<div class="can-toggle demo-rebrand-1 wheel-option ">
   <input id="d" type="checkbox" control-id="ControlID-4">
@@ -502,12 +519,12 @@ function firstPage() {
     <div class="can-toggle__label-text"></div>
   </label>
 </div>`).appendTo(wheelWrao);
-  $(".can-toggle.wheel-option").on("click", function() {
+  $(".can-toggle.wheel-option").on("click", function () {
     if ($(this).find("input").is(":checked")) {
       $("select.parameter-id-37.surcharge-parameter").val(253);
     }
   });
-  $(".type-option.button").on("click", function() {
+  $(".type-option.button").on("click", function () {
     $(this).addClass("active").siblings().removeClass("active");
     const value = $(this).attr("data-value");
     $("select.parameter-id-22.surcharge-parameter").val(value);
@@ -520,7 +537,14 @@ function createOptions(position, orders) {
     name = $(position).parents(".surcharge-list").find("th").text().trim().replace("?", "");
   }
   const createSlug = (text) => {
-    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-");
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
   };
   let slug = createSlug(name);
   const options = $(position).find("option");
@@ -528,18 +552,18 @@ function createOptions(position, orders) {
   let optPosition = ".content-wrap";
   if (orders == 4) {
     const wrapOwerflow = $("<div>", {
-      class: "pop-ower"
+      class: "pop-ower",
     }).appendTo("#options-wrap ");
     const popup = $("<div>", {
-      class: "pop-up-options"
+      class: "pop-up-options",
     }).appendTo(wrapOwerflow);
     $("<div>", {
       class: "close-btn",
-      text: "+"
+      text: "+",
     }).appendTo(popup);
     $("<div>", {
       class: "btn button-more",
-      text: "N\u011Bco nav\xEDc?"
+      text: "N\u011Bco nav\xEDc?",
     }).appendTo("#options-wrap");
   }
   let upsale = 1;
@@ -553,19 +577,19 @@ function createOptions(position, orders) {
   if (orders <= upsale) {
     $("<div>", {
       class: `navigatte-button class${orders} ${slug} parameterNav${parameterId}`,
-      "data-option": `option-${orders}`
+      "data-option": `option-${orders}`,
     }).appendTo(".navidation-Wrap");
   }
-  $(".btn.button-more").on("click", function() {
+  $(".btn.button-more").on("click", function () {
     $(".pop-ower").addClass("show");
   });
-  $(".close-btn").on("click", function() {
+  $(".close-btn").on("click", function () {
     $(".pop-ower").removeClass("show");
   });
   if (!$(`.orders-${orders}`)[0]) {
     const wrap = $("<div>", {
       class: `parameter-wrap parameter-${parameterId} orders-${orders}`,
-      "data-parameterId": parameterId
+      "data-parameterId": parameterId,
     }).appendTo(optPosition);
     if (orders <= upsale) {
       $(wrap).addClass("goToAction");
@@ -573,19 +597,19 @@ function createOptions(position, orders) {
     }
     $("<div>", {
       class: "order",
-      text: orders
+      text: orders,
     }).appendTo(`.parameter-wrap.orders-${orders}`);
   }
   $(".navigatte-button:eq(0)").addClass("active");
   const paramerer = `.parameter-wrap.orders-${orders}`;
   $("<h5>", {
     class: "variant name",
-    text: name
+    text: name,
   }).appendTo(paramerer);
   const optionsWrap = $("<div>", {
-    class: "options-wrap"
+    class: "options-wrap",
   }).appendTo(paramerer);
-  $(options).each(function() {
+  $(options).each(function () {
     const value = $(this).val();
     if (value == "") return;
     const textOption = $(this).text();
@@ -594,73 +618,73 @@ function createOptions(position, orders) {
     const optionButton = $("<div>", {
       class: "button option-button",
       "data-value": value,
-      "data-variant": parameterId
+      "data-variant": parameterId,
     }).appendTo(optionsWrap);
     $("<div>", {
       text: textOption,
-      class: "text"
+      class: "text",
     }).appendTo(optionButton);
     if (textOption.includes("cm")) {
       $("<div>", {
         class: "description",
-        html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`
+        html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`,
       }).appendTo(optionButton);
       $(optionButton).addClass("text");
     } else if (textOption == "nechci +0 K\u010D") {
       $("<div>", {
         class: "description",
-        text: valueText[0]
+        text: valueText[0],
       }).appendTo(optionButton);
       $(optionButton).addClass("text");
     } else {
       $("<img>", {
         alt: `${parameterId}-${value}.jpg`,
-        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`
+        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`,
       }).appendTo(optionButton);
     }
   });
 }
 function createBoxConfig() {
   const wrap = $("<div>", {
-    class: "box-config"
+    class: "box-config",
   }).appendTo(".upsale-buttons.boxs");
   $("<div>", {
     class: "label",
-    text: "Konfigurace boxu"
+    text: "Konfigurace boxu",
   }).appendTo(wrap);
   $("<div>", {
     class: "close-btn",
-    text: "-"
+    text: "-",
   }).appendTo(wrap);
   $("<div>", {
     class: "close-btn return",
-    text: "potvrdit"
+    text: "potvrdit",
   }).appendTo(wrap);
   const configWrap = $("<div>", {
-    class: "config-wrap"
+    class: "config-wrap",
   }).appendTo(wrap);
 }
 function condownMessage(position, time, text) {
   const wrap = $("<div>", {
-    class: "countdown-wrap"
+    class: "countdown-wrap",
   }).appendTo(position);
   $("<div>", {
     class: "label",
-    html: text + "<span></span>"
+    html: text + "<span></span>",
   }).appendTo(wrap);
   condown(time, ".countdown-wrap .label span");
 }
 function condown(time, selector) {
-  const endTime = (/* @__PURE__ */ new Date()).getTime() + time * 60 * 1e3;
+  const endTime = /* @__PURE__ */ new Date().getTime() + time * 60 * 1e3;
   function updateCountdown() {
-    const now = (/* @__PURE__ */ new Date()).getTime();
+    const now = /* @__PURE__ */ new Date().getTime();
     const remainingTime = endTime - now;
     if (remainingTime <= 0) {
       $(selector).text("\u010Das vypr\u0161el!");
       clearInterval(countdownInterval);
     } else {
-      const minutes = Math.floor(remainingTime / 1e3 / 60 % 60);
-      const seconds = Math.floor(remainingTime / 1e3 % 60);
+      const minutes = Math.floor((remainingTime / 1e3 / 60) % 60);
+      const seconds = Math.floor((remainingTime / 1e3) % 60);
       $(selector).text(`${minutes} min ${seconds} sec`);
     }
   }
@@ -672,21 +696,21 @@ function createUpsalePopup() {
   $(".ti-widget-container").addClass("upsale");
   $("<div>", {
     class: "h2",
-    text: "Iba teraz za zv\xFDhodnen\xFA cenu!"
+    text: "Iba teraz za zv\xFDhodnen\xFA cenu!",
   }).appendTo(".ti-widget-container");
   $("<div>", {
     class: "description",
-    text: " Dopl\u0148te svoju objedn\xE1vku o kufrov\xE9 kober\u010Deky alebo \xFAlo\u017En\xE9 boxy s v\xFDraznou z\u013Eavou. Ponuka plat\xED len chv\xED\u013Eu!"
+    text: " Dopl\u0148te svoju objedn\xE1vku o kufrov\xE9 kober\u010Deky alebo \xFAlo\u017En\xE9 boxy s v\xFDraznou z\u013Eavou. Ponuka plat\xED len chv\xED\u013Eu!",
   }).appendTo(".ti-widget-container");
   $("<div>", {
     class: "button btn open-upsale",
-    text: "Vyu\u017Ei\u0165 zv\xFDhodnen\xFA ponuku!"
+    text: "Vyu\u017Ei\u0165 zv\xFDhodnen\xFA ponuku!",
   }).appendTo(".ti-widget-container");
   $("<div>", {
     class: "prefix",
-    text: "Len po\u010Das tejto objedn\xE1vky m\xF4\u017Eete z\xEDska\u0165 kober\u010Deky do kufra alebo \xFAlo\u017En\xE9 boxy za extr\xE9mne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te a organizujte svoj kufor so \u0161t\xFDlom!"
+    text: "Len po\u010Das tejto objedn\xE1vky m\xF4\u017Eete z\xEDska\u0165 kober\u010Deky do kufra alebo \xFAlo\u017En\xE9 boxy za extr\xE9mne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te a organizujte svoj kufor so \u0161t\xFDlom!",
   }).appendTo(".ti-widget-container");
-  $(".button.btn.open-upsale").on("click", function() {
+  $(".button.btn.open-upsale").on("click", function () {
     $(".overflow").remove();
     $(".upsale-wrap").addClass("active");
   });
@@ -694,15 +718,16 @@ function createUpsalePopup() {
 
 // assets/js/script.js
 var setupData2;
-$.getJSON(optionData.downloadData, function(data) {
+$.getJSON(optionData.downloadData, function (data) {
   setupData2 = data;
   console.log(setupData2.settings);
   initModelSelect2();
   googleReviews();
   initProduct();
 });
-var logoGoogle = '<svg viewBox="0 0 512 512" height="18" width="18"><g fill="none" fill-rule="evenodd"><path d="M482.56 261.36c0-16.73-1.5-32.83-4.29-48.27H256v91.29h127.01c-5.47 29.5-22.1 54.49-47.09 71.23v59.21h76.27c44.63-41.09 70.37-101.59 70.37-173.46z" fill="#4285f4"></path><path d="M256 492c63.72 0 117.14-21.13 156.19-57.18l-76.27-59.21c-21.13 14.16-48.17 22.53-79.92 22.53-61.47 0-113.49-41.51-132.05-97.3H45.1v61.15c38.83 77.13 118.64 130.01 210.9 130.01z" fill="#34a853"></path><path d="M123.95 300.84c-4.72-14.16-7.4-29.29-7.4-44.84s2.68-30.68 7.4-44.84V150.01H45.1C29.12 181.87 20 217.92 20 256c0 38.08 9.12 74.13 25.1 105.99l78.85-61.15z" fill="#fbbc05"></path><path d="M256 113.86c34.65 0 65.76 11.91 90.22 35.29l67.69-67.69C373.03 43.39 319.61 20 256 20c-92.25 0-172.07 52.89-210.9 130.01l78.85 61.15c18.56-55.78 70.59-97.3 132.05-97.3z" fill="#ea4335"></path><path d="M20 20h472v472H20V20z"></path></g></svg>';
-jQuery(document).ready(function($2) {
+var logoGoogle =
+  '<svg viewBox="0 0 512 512" height="18" width="18"><g fill="none" fill-rule="evenodd"><path d="M482.56 261.36c0-16.73-1.5-32.83-4.29-48.27H256v91.29h127.01c-5.47 29.5-22.1 54.49-47.09 71.23v59.21h76.27c44.63-41.09 70.37-101.59 70.37-173.46z" fill="#4285f4"></path><path d="M256 492c63.72 0 117.14-21.13 156.19-57.18l-76.27-59.21c-21.13 14.16-48.17 22.53-79.92 22.53-61.47 0-113.49-41.51-132.05-97.3H45.1v61.15c38.83 77.13 118.64 130.01 210.9 130.01z" fill="#34a853"></path><path d="M123.95 300.84c-4.72-14.16-7.4-29.29-7.4-44.84s2.68-30.68 7.4-44.84V150.01H45.1C29.12 181.87 20 217.92 20 256c0 38.08 9.12 74.13 25.1 105.99l78.85-61.15z" fill="#fbbc05"></path><path d="M256 113.86c34.65 0 65.76 11.91 90.22 35.29l67.69-67.69C373.03 43.39 319.61 20 256 20c-92.25 0-172.07 52.89-210.9 130.01l78.85 61.15c18.56-55.78 70.59-97.3 132.05-97.3z" fill="#ea4335"></path><path d="M20 20h472v472H20V20z"></path></g></svg>';
+jQuery(document).ready(function ($2) {
   dinamicPictures();
   initHeader();
   intIndex();
@@ -716,9 +741,9 @@ function initHeader() {
   $('<a href="#" class="toggle-window" data-target="search" data-testid="linkSearchIcon"></a>').prependTo(".desktop  .navigation-buttons");
   $("<div>", {
     class: "navigation-show",
-    text: "E-shop"
+    text: "E-shop",
   }).appendTo(".top-navigation-bar");
-  $(".navigation-show").on("click", function() {
+  $(".navigation-show").on("click", function () {
     $("body").toggleClass("showNav");
   });
 }
@@ -735,41 +760,50 @@ function initModelSelect2() {
   const getYear = sessionStorage.getItem("Year");
   const getCarType = sessionStorage.getItem("carType");
   const section = $("<section>", {
-    id: "model-selector"
+    id: "model-selector",
   }).insertAfter(insertPosidion);
   const container = $("<div>", {
-    class: "model-selector container"
+    class: "model-selector container",
   }).appendTo(section);
   if ($(".in-index")[0]) {
-    $("<h2>").text("Obchod pro tvoje Auto").appendTo(container);
+    $("<h2>").text("zadajte údaje o vozidle").appendTo(container);
   }
   const choiceWrap = $("<div>").addClass("modl-selector-wrap").appendTo(container);
-  const znacka = `
+  const znacka =
+    `
         <div class="surcharge-list brands dm-selector">
             
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` + cstm_znacka[0] + `</option>
+                    <option class='notselect'>` +
+    cstm_znacka[0] +
+    `</option>
                 </select>
             </div>
         </div>
         `;
-  const model = `
+  const model =
+    `
         <div class="surcharge-list models dm-selector">
           
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` + cstm_model[0] + `</option>
+                    <option class='notselect'>` +
+    cstm_model[0] +
+    `</option>
                 </select>
             </div>
         </div>
         `;
-  const rocnik = `
+  const rocnik =
+    `
         <div class="surcharge-list years dm-selector">
             
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` + cstm_rocnik[0] + `</option>
+                    <option class='notselect'>` +
+    cstm_rocnik[0] +
+    `</option>
                 </select>
             </div>
         </div>
@@ -790,7 +824,7 @@ function initModelSelect2() {
   } else {
     $(znacka + model + rocnik + type).appendTo(choiceWrap);
   }
-  $(setupData2.settings.carVariant.split(",")).each(function() {
+  $(setupData2.settings.carVariant.split(",")).each(function () {
     console.log(this);
     const option = $("<option>").text(this).appendTo(".type-selector .selector select");
   });
@@ -825,7 +859,7 @@ function initModelSelect2() {
   const other_option = "<option>" + other + "</option>";
   $(other_option).appendTo(".type select");
   $(other_option).appendTo(".years select");
-  $(".brands select").on("change", function() {
+  $(".brands select").on("change", function () {
     if ($(this).val() === cstm_znacka.at(1)) {
       $(".models option:not(.notselect)").remove();
     } else {
@@ -836,10 +870,10 @@ function initModelSelect2() {
       }
     }
   });
-  $(".btn.choice-Model").on("click", function() {
+  $(".btn.choice-Model").on("click", function () {
     saveModel(true);
   });
-  $(".surcharge-list").on("change", function() {
+  $(".surcharge-list").on("change", function () {
     saveModel(false);
   });
 }
@@ -880,44 +914,44 @@ function googleReviews() {
   }
   waitForElementAndRemove();
 }
-setTimeout(function() {
+setTimeout(function () {
   $(logoGoogle).appendTo(".review-item-long");
   $("#google-reviews br").remove();
 }, 2500);
 function initCart() {
   if (!$(".id--9")[0]) return;
   const bannerWrap = $("<div>", {
-    class: "banner-wrap"
+    class: "banner-wrap",
   }).insertBefore("table.cart-table");
   $("<div>", {
     class: "h3",
-    text: "Dokonal\xE1 ochrana pre v\xE1\u0161 kufor za EXTR\xC9MNE zv\xFDodnenu cenu!"
+    text: "Dokonal\xE1 ochrana pre v\xE1\u0161 kufor za EXTR\xC9MNE zv\xFDodnenu cenu!",
   }).appendTo(bannerWrap);
   $("<p>", {
-    text: "Len teraz m\xF4\u017Eete prida\u0165 luxusn\xE9 autokoberce do kufra alebo \xFAlo\u017En\xE9 boxy za v\xFDrazne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te kufor V\xE1\u0161ho vozidla pred ne\u010Distotami a majte v\u0161etko na mieste!"
+    text: "Len teraz m\xF4\u017Eete prida\u0165 luxusn\xE9 autokoberce do kufra alebo \xFAlo\u017En\xE9 boxy za v\xFDrazne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te kufor V\xE1\u0161ho vozidla pred ne\u010Distotami a majte v\u0161etko na mieste!",
   }).appendTo(bannerWrap);
   const timer = $("<div>", {
-    class: "timer-wrap"
+    class: "timer-wrap",
   }).appendTo(bannerWrap);
   $("<span>", {
-    text: "\u0160peci\xE1lna ponuka kon\u010D\xED za"
+    text: "\u0160peci\xE1lna ponuka kon\u010D\xED za",
   }).appendTo(timer);
   const countdownSpan = $("<span>", {
     class: "countdown",
-    text: ""
+    text: "",
   }).appendTo(timer);
   $("<a>", {
     class: "btn",
     text: "Prida\u0165 so z\u013Eavou do objedn\xE1vky!",
-    href: "#"
+    href: "#",
   }).appendTo(bannerWrap);
   $("<div>", {
     class: "description",
-    text: "T\xFAto ponuku z\xEDskate len pri tejto objedn\xE1vke. Nepreme\u0161kajte \u0161ancu z\xEDska\u0165 doplnky za najlep\u0161iu cenu!"
+    text: "T\xFAto ponuku z\xEDskate len pri tejto objedn\xE1vke. Nepreme\u0161kajte \u0161ancu z\xEDska\u0165 doplnky za najlep\u0161iu cenu!",
   }).appendTo(bannerWrap);
   let endTime = sessionStorage.getItem("timerEndTime");
   if (!endTime || new Date(endTime) < /* @__PURE__ */ new Date()) {
-    endTime = new Date((/* @__PURE__ */ new Date()).getTime() + 30 * 60 * 1e3);
+    endTime = new Date(/* @__PURE__ */ new Date().getTime() + 30 * 60 * 1e3);
     sessionStorage.setItem("timerEndTime", endTime);
   } else {
     endTime = new Date(endTime);
@@ -930,8 +964,8 @@ function initCart() {
       clearInterval(countdownInterval);
       sessionStorage.removeItem("timerEndTime");
     } else {
-      const minutes = Math.floor(remainingTime / 1e3 / 60 % 60);
-      const seconds = Math.floor(remainingTime / 1e3 % 60);
+      const minutes = Math.floor((remainingTime / 1e3 / 60) % 60);
+      const seconds = Math.floor((remainingTime / 1e3) % 60);
       countdownSpan.text(`${minutes} min ${seconds} sec`);
     }
   }
@@ -943,7 +977,7 @@ function dinamicPictures() {
   var dynamicImage = $("#dynamic-image");
   function changeImage() {
     var currentSection = null;
-    sections.each(function() {
+    sections.each(function () {
       var section = $(this);
       var rect = this.getBoundingClientRect();
       var sectionTop = rect.top;
@@ -957,7 +991,7 @@ function dinamicPictures() {
       var newImageSrc = currentSection.data("picture");
       if (dynamicImage.attr("src") !== newImageSrc) {
         dynamicImage.css("opacity", 0);
-        setTimeout(function() {
+        setTimeout(function () {
           dynamicImage.attr("src", newImageSrc);
           dynamicImage.css("opacity", 1);
         }, 500);
