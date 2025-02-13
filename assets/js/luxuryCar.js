@@ -2,15 +2,16 @@
 var timestamp = Date.now();
 var optionData = {
   key: "value",
-  downloadData: "/user/documents/upload/data.json?" + timestamp,
+  downloadData: "/user/documents/upload/data.json?" + timestamp
 };
 
 // assets/js/components/index.js
 function intIndex() {
-  setTimeout(function () {}, 4e3);
+  setTimeout(function() {
+  }, 4e3);
   $(".twentytwenty-container").twentytwenty({
     before_label: "P\u0159edt\xEDm",
-    after_label: "Potom",
+    after_label: "Potom"
   });
   function animateCountUp(element, targetNumber, duration) {
     const $element = $(element);
@@ -19,12 +20,12 @@ function intIndex() {
       {
         duration,
         easing: "swing",
-        step: function (now) {
+        step: function(now) {
           $element.text(Math.floor(now));
         },
-        complete: function () {
+        complete: function() {
           $element.text(targetNumber);
-        },
+        }
       }
     );
   }
@@ -43,7 +44,7 @@ function intIndex() {
       }
     });
   });
-  $("[count-up]").each(function () {
+  $("[count-up]").each(function() {
     observer.observe(this);
   });
   $("collection-list.collection-list").slick({
@@ -61,32 +62,32 @@ function intIndex() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          arrows: true,
-        },
+          arrows: true
+        }
       },
       {
         breakpoint: 1200,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 3,
-        },
+          slidesToScroll: 3
+        }
       },
       {
         breakpoint: 770,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          autoplay: false,
-        },
+          autoplay: false
+        }
       },
       {
         breakpoint: 350,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+          slidesToScroll: 1
+        }
+      }
+    ]
   });
   $("section.foto-slider").slick({
     dots: true,
@@ -96,9 +97,9 @@ function intIndex() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4e3,
-    arrows: true,
+    arrows: true
   });
-  $("button.text-with-icon.group").on("click", function () {
+  $("button.text-with-icon.group").on("click", function() {
     if (!$("button.text-with-icon.group.less")[0]) {
       $(".feature-chart__table-row[hidden]").removeAttr("hidden").addClass("addHidden");
       const less = $(this).attr("data-view-less");
@@ -111,7 +112,7 @@ function intIndex() {
       $(this).find("span.feature-chart__toggle-text.reversed-link").text(more);
     }
   });
-  $(".btn.more-pictures-button").on("click", function () {
+  $(".btn.more-pictures-button").on("click", function() {
     $(".more-pictures").toggleClass("slow");
     if (!$(".btn.more-pictures-button.less")[0]) {
       const less = $(this).attr("data-view-less");
@@ -123,24 +124,22 @@ function intIndex() {
       $(this).removeClass("less");
     }
   });
-  $("video")
-    .parent()
-    .click(function () {
-      if ($(this).children("video").get(0).paused) {
-        $(this).children("video").get(0).play();
-        $(this).children("video").addClass("active");
-        $(this).children(".playpause").fadeOut();
-      } else {
-        $(this).children("video").get(0).pause();
-        $(this).children(".playpause").fadeIn();
-        $(this).children("video").removeClass("active");
-      }
-    });
-  $(".hotspot").on("click", function () {
+  $("video").parent().click(function() {
+    if ($(this).children("video").get(0).paused) {
+      $(this).children("video").get(0).play();
+      $(this).children("video").addClass("active");
+      $(this).children(".playpause").fadeOut();
+    } else {
+      $(this).children("video").get(0).pause();
+      $(this).children(".playpause").fadeIn();
+      $(this).children("video").removeClass("active");
+    }
+  });
+  $(".hotspot").on("click", function() {
     $(".tooltips").removeClass("show");
     $(this).find(".tooltips").addClass("show");
   });
-  $(document).on("click", function (e) {
+  $(document).on("click", function(e) {
     const $target = $(e.target);
     if (!$target.closest(".hotspot").length && !$target.closest(".tooltips").length) {
       $(".tooltips").removeClass("show");
@@ -150,7 +149,7 @@ function intIndex() {
 
 // assets/js/components/productPage.js
 var setupData;
-$.getJSON(optionData.downloadData, function (data) {
+$.getJSON(optionData.downloadData, function(data) {
   setupData = data;
 });
 function initProduct() {
@@ -162,19 +161,18 @@ function initProduct() {
   $(".benefitBanner.position--benefitProduct .benefitBanner__item").insertBefore(".col-xs-12.col-lg-6.p-info-wrapper");
   const model = sessionStorage.getItem("model");
   priplatky();
-  $(".button.btn.select-model").on("click", function () {
+  $(".button.btn.select-model").on("click", function() {
     const overflow = $("<div>", {
       class: "overflow",
-      style:
-        "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;",
+      style: "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;"
     }).appendTo("body");
     const popup = $("<div>", {
       class: "model-select",
-      style: "position: relative; background-color: #fff; padding: 20px;",
+      style: "position: relative; background-color: #fff; padding: 20px;"
     }).appendTo(overflow);
     $("<div>", {
       class: "h3",
-      text: "Vyberte model",
+      text: "Vyberte model"
     }).appendTo(popup);
     initModelSelect();
   });
@@ -183,79 +181,70 @@ function initProduct() {
   const prevButton = $('button[is="prev-button"]');
   const nextButton = $('button[is="next-button"]');
   let currentIndex = 0;
-  buttons.on("click", function () {
+  buttons.on("click", function() {
     const index = $(this).index();
     buttons.removeClass("active");
     $(this).addClass("active");
     $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
-    $(`.timeline__slide:eq(${index})`)
-      .addClass("is-selected")
-      .removeClass("reveal-invisible")
-      .attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+    $(`.timeline__slide:eq(${index})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
     currentIndex = index;
     console.log(`Kliknul jsi na tla\u010D\xEDtko s indexem: ${index}`);
   });
-  prevButton.on("click", function () {
+  prevButton.on("click", function() {
     if (currentIndex > 0) {
       currentIndex--;
       buttons.removeClass("active");
       buttons.eq(currentIndex).addClass("active");
       $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
-      $(`.timeline__slide:eq(${currentIndex})`)
-        .addClass("is-selected")
-        .removeClass("reveal-invisible")
-        .attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+      $(`.timeline__slide:eq(${currentIndex})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
       console.log(`Posunul jsi zp\u011Bt na index: ${currentIndex}`);
     }
   });
-  nextButton.on("click", function () {
+  nextButton.on("click", function() {
     if (currentIndex < buttons.length - 1) {
       currentIndex++;
       buttons.removeClass("active");
       buttons.eq(currentIndex).addClass("active");
       $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
-      $(`.timeline__slide:eq(${currentIndex})`)
-        .addClass("is-selected")
-        .removeClass("reveal-invisible")
-        .attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+      $(`.timeline__slide:eq(${currentIndex})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
       console.log(`Posunul jsi dop\u0159edu na index: ${currentIndex}`);
     }
   });
   const wrap = $("<div>", {
-    class: "thumbnails-wrap",
+    class: "thumbnails-wrap"
   }).appendTo(".col-xs-12.col-lg-6.p-image-wrapper");
-  $(".p-thumbnails-inner>div>a").each(function (n) {
+  $(".p-thumbnails-inner>div>a").each(function(n) {
     if (n % 2 !== 0 || n > 15) return;
     console.log(n);
     const src = $(this).attr("href");
     const image = $("<a>", {
       class: "thumbnail-image p-main-image cloud-zoom",
-      href: src,
+      href: src
     }).appendTo(wrap);
     $("<img>", {
-      src,
+      src
     }).appendTo(image);
   });
 }
 function priplatky() {
   if ($(".type-detail").length) {
     $("<div>", {
-      class: "upsale-wrap",
+      class: "upsale-wrap"
     }).insertAfter(".detail-parameters");
     const upsaleBanner = $("<div>", {
-      class: "upsale-Banner",
+      class: "upsale-Banner"
     }).insertAfter(".detail-parameters");
     if ($(".parameter-id-20")[0]) {
       $(upsaleBanner).hide();
       condownMessage(upsaleBanner, 30, "Zv\xFDhodn\u011Bn\xE1 nab\xEDdka na p\u0159islu\u0161enstv\xED plat\xED je\u0161t\u011B: ");
       const buttonWrap = $("<div>", {
-        class: "upsale-buttons trunk",
+        class: "upsale-buttons trunk"
       }).appendTo(upsaleBanner);
       const carpetsText = setupData.settings.carpetsText.split(",");
       const carpetsValue = setupData.settings.carpetsValue.split(",");
       const carpetsImage = setupData.settings.carpetsImage.split(",");
       const carpetsPrice = setupData.settings.carpetsPrice.split(",");
-      $(carpetsText).each(function (e) {
+      $(carpetsText).each(function(e) {
         createUpsaleButton(
           "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
           this,
@@ -273,10 +262,10 @@ function priplatky() {
       const boxsImage = setupData.settings.boxsImage.split(",");
       const boxsPrice = setupData.settings.boxsPrice.split(",");
       const buttonWrapBox = $("<div>", {
-        class: "upsale-buttons boxs",
+        class: "upsale-buttons boxs"
       }).appendTo(upsaleBanner);
       $(buttonWrapBox).hide();
-      $(boxsText).each(function (e) {
+      $(boxsText).each(function(e) {
         createUpsaleButton(
           "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
           this,
@@ -290,7 +279,7 @@ function priplatky() {
     }
     $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
     $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
-    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {
+    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function(e) {
       e.stopPropagation();
       e.preventDefault();
       createUpsalePopup();
@@ -300,12 +289,12 @@ function priplatky() {
     const pairedOrders = {};
     let orders = 0;
     createBoxConfig();
-    $(".detail-parameters .variant-list select").each(function () {
+    $(".detail-parameters .variant-list select").each(function() {
       orders += 1;
       const position = this;
       createOptions(position, orders);
     });
-    $(".detail-parameters .surcharge-list select").each(function () {
+    $(".detail-parameters .surcharge-list select").each(function() {
       const id = $(this).attr("data-parameter-id");
       if (id == "37" || id == "22" || id == "20") return;
       let sharedOrder = null;
@@ -329,7 +318,7 @@ function priplatky() {
       createOptions(position, orders);
       console.log(pairVariantList);
     });
-    $(".button.option-button").on("click", function () {
+    $(".button.option-button").on("click", function() {
       $(this).parents(".parameter-wrap").removeClass("goToAction");
       $("body").removeClass("disabled-add-to-cart");
       const value = $(this).attr("data-value");
@@ -347,7 +336,7 @@ function priplatky() {
       console.log(image2);
       $(".image-wrap").remove();
       const imageWrap = $("<div>", {
-        class: "image-wrap",
+        class: "image-wrap"
       }).appendTo(".parameter-wrap.parameter-" + parameterId);
       $("<img>", { src: image2 }).appendTo(imageWrap);
       if (!$(".goToAction")[0]) {
@@ -365,22 +354,18 @@ function priplatky() {
       $(".p-variants-block .surcharge-list:contains('Velikost 2. Boxu') option[data-index='0']").text("Zvolte velikost 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Barva boxu') option[data-index='0']").text("Zvolte barvu boxu");
       $(".p-variants-block .surcharge-list:contains('Barva 2. boxu') option[data-index='0']").text("Zvolte barvu 2.boxu");
-      $(".p-variants-block .surcharge-list:contains('Um\xEDst\u011Bn\xED volantu') option[data-index='0']").text(
-        "Pros\xEDm, vyberte um\xEDst\u011Bn\xED volantu"
-      );
+      $(".p-variants-block .surcharge-list:contains('Um\xEDst\u011Bn\xED volantu') option[data-index='0']").text("Pros\xEDm, vyberte um\xEDst\u011Bn\xED volantu");
     }
     if ($("html[lang='sk']").length) {
       $(".p-variants-block .surcharge-list:contains('Ve\u013Ekos\u0165 boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 boxu");
       $(".p-variants-block .surcharge-list:contains('Rozmer 2. Boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Rozmer boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 boxu");
-      $(".p-variants-block .surcharge-list:contains('Ve\u013Ekos\u0165 2. Boxu') option[data-index='0']").text(
-        "Zvo\u013Ete ve\u013Ekos\u0165 2.boxu"
-      );
+      $(".p-variants-block .surcharge-list:contains('Ve\u013Ekos\u0165 2. Boxu') option[data-index='0']").text("Zvo\u013Ete ve\u013Ekos\u0165 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Farba boxu') option[data-index='0']").text("Zvo\u013Ete farbu boxu");
       $(".p-variants-block .surcharge-list:contains('Farba 2. boxu') option[data-index='0']").text("Zvo\u013Ete farbu 2.boxu");
       $(".p-variants-block .surcharge-list:contains('Umiestenie volantu') option[data-index='0']").text("Pros\xEDm,vyberte umiestnenie volantu");
     }
-    $(".navigatte-button").on("click", function () {
+    $(".navigatte-button").on("click", function() {
       const option = $(this).attr("data-option").split("-");
       const optionName = option[1];
       $(".parameter-wrap").removeClass("active");
@@ -417,7 +402,7 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
   $(priceHTML).appendTo(button);
 }
-$(document).on("click", ".upsale-button", function (e) {
+$(document).on("click", ".upsale-button", function(e) {
   $(".image-wrap").remove();
   const trunk = $(this).closest(".upsale-buttons.trunk");
   const boxs = $(this).closest(".upsale-buttons.boxs");
@@ -476,14 +461,14 @@ $(document).on("click", ".upsale-button", function (e) {
     }
   }, 100);
 });
-$(document).on("click", ".box-config .close-btn", function () {
+$(document).on("click", ".box-config .close-btn", function() {
   $(this).parents(".upsale-Banner").removeClass("showConf");
   $(this).parents(".upsale-buttons").addClass("minimalize");
 });
 function firstPage() {
   const wrap = $("<div>", {
     class: "navigatte-button class first",
-    "data-option": "option-0",
+    "data-option": "option-0"
   }).appendTo(".navidation-Wrap");
   const wheelval = $("select.parameter-id-37.surcharge-parameter").val();
   let typeVal = $("select.parameter-id-22.surcharge-parameter").val();
@@ -493,24 +478,22 @@ function firstPage() {
   if (typeVal == "") {
     const getModel = sessionStorage.getItem("carType");
     console.log(getModel);
-    const value = $("select.parameter-id-22.surcharge-parameter option")
-      .filter(function () {
-        return $(this).text().indexOf(getModel) !== -1;
-      })
-      .val();
+    const value = $("select.parameter-id-22.surcharge-parameter option").filter(function() {
+      return $(this).text().indexOf(getModel) !== -1;
+    }).val();
     console.log(value);
     $("select.parameter-id-22.surcharge-parameter").val(value);
     typeVal = value;
   }
   const pageWrap = $("<div>", {
-    class: "position-wrap parameter-cars active",
+    class: "position-wrap parameter-cars active"
   }).appendTo(".content-wrap");
   const wheelWrao = $("<div>", {
-    class: "parameter-cars wheel-Position",
+    class: "parameter-cars wheel-Position"
   }).appendTo(pageWrap);
   $("<div>", {
     class: "label wheel",
-    text: "Pozice volantu",
+    text: "Pozice volantu"
   }).appendTo(wheelWrao);
   $(`<div class="can-toggle demo-rebrand-1 wheel-option ">
   <input id="d" type="checkbox" control-id="ControlID-4">
@@ -519,12 +502,12 @@ function firstPage() {
     <div class="can-toggle__label-text"></div>
   </label>
 </div>`).appendTo(wheelWrao);
-  $(".can-toggle.wheel-option").on("click", function () {
+  $(".can-toggle.wheel-option").on("click", function() {
     if ($(this).find("input").is(":checked")) {
       $("select.parameter-id-37.surcharge-parameter").val(253);
     }
   });
-  $(".type-option.button").on("click", function () {
+  $(".type-option.button").on("click", function() {
     $(this).addClass("active").siblings().removeClass("active");
     const value = $(this).attr("data-value");
     $("select.parameter-id-22.surcharge-parameter").val(value);
@@ -537,14 +520,7 @@ function createOptions(position, orders) {
     name = $(position).parents(".surcharge-list").find("th").text().trim().replace("?", "");
   }
   const createSlug = (text) => {
-    return text
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^\w\s-]/g, "")
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
+    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-");
   };
   let slug = createSlug(name);
   const options = $(position).find("option");
@@ -552,18 +528,18 @@ function createOptions(position, orders) {
   let optPosition = ".content-wrap";
   if (orders == 4) {
     const wrapOwerflow = $("<div>", {
-      class: "pop-ower",
+      class: "pop-ower"
     }).appendTo("#options-wrap ");
     const popup = $("<div>", {
-      class: "pop-up-options",
+      class: "pop-up-options"
     }).appendTo(wrapOwerflow);
     $("<div>", {
       class: "close-btn",
-      text: "+",
+      text: "+"
     }).appendTo(popup);
     $("<div>", {
       class: "btn button-more",
-      text: "N\u011Bco nav\xEDc?",
+      text: "N\u011Bco nav\xEDc?"
     }).appendTo("#options-wrap");
   }
   let upsale = 1;
@@ -577,19 +553,19 @@ function createOptions(position, orders) {
   if (orders <= upsale) {
     $("<div>", {
       class: `navigatte-button class${orders} ${slug} parameterNav${parameterId}`,
-      "data-option": `option-${orders}`,
+      "data-option": `option-${orders}`
     }).appendTo(".navidation-Wrap");
   }
-  $(".btn.button-more").on("click", function () {
+  $(".btn.button-more").on("click", function() {
     $(".pop-ower").addClass("show");
   });
-  $(".close-btn").on("click", function () {
+  $(".close-btn").on("click", function() {
     $(".pop-ower").removeClass("show");
   });
   if (!$(`.orders-${orders}`)[0]) {
     const wrap = $("<div>", {
       class: `parameter-wrap parameter-${parameterId} orders-${orders}`,
-      "data-parameterId": parameterId,
+      "data-parameterId": parameterId
     }).appendTo(optPosition);
     if (orders <= upsale) {
       $(wrap).addClass("goToAction");
@@ -597,19 +573,19 @@ function createOptions(position, orders) {
     }
     $("<div>", {
       class: "order",
-      text: orders,
+      text: orders
     }).appendTo(`.parameter-wrap.orders-${orders}`);
   }
   $(".navigatte-button:eq(0)").addClass("active");
   const paramerer = `.parameter-wrap.orders-${orders}`;
   $("<h5>", {
     class: "variant name",
-    text: name,
+    text: name
   }).appendTo(paramerer);
   const optionsWrap = $("<div>", {
-    class: "options-wrap",
+    class: "options-wrap"
   }).appendTo(paramerer);
-  $(options).each(function () {
+  $(options).each(function() {
     const value = $(this).val();
     if (value == "") return;
     const textOption = $(this).text();
@@ -618,73 +594,73 @@ function createOptions(position, orders) {
     const optionButton = $("<div>", {
       class: "button option-button",
       "data-value": value,
-      "data-variant": parameterId,
+      "data-variant": parameterId
     }).appendTo(optionsWrap);
     $("<div>", {
       text: textOption,
-      class: "text",
+      class: "text"
     }).appendTo(optionButton);
     if (textOption.includes("cm")) {
       $("<div>", {
         class: "description",
-        html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`,
+        html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`
       }).appendTo(optionButton);
       $(optionButton).addClass("text");
     } else if (textOption == "nechci +0 K\u010D") {
       $("<div>", {
         class: "description",
-        text: valueText[0],
+        text: valueText[0]
       }).appendTo(optionButton);
       $(optionButton).addClass("text");
     } else {
       $("<img>", {
         alt: `${parameterId}-${value}.jpg`,
-        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`,
+        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.jpg?8`
       }).appendTo(optionButton);
     }
   });
 }
 function createBoxConfig() {
   const wrap = $("<div>", {
-    class: "box-config",
+    class: "box-config"
   }).appendTo(".upsale-buttons.boxs");
   $("<div>", {
     class: "label",
-    text: "Konfigurace boxu",
+    text: "Konfigurace boxu"
   }).appendTo(wrap);
   $("<div>", {
     class: "close-btn",
-    text: "-",
+    text: "-"
   }).appendTo(wrap);
   $("<div>", {
     class: "close-btn return",
-    text: "potvrdit",
+    text: "potvrdit"
   }).appendTo(wrap);
   const configWrap = $("<div>", {
-    class: "config-wrap",
+    class: "config-wrap"
   }).appendTo(wrap);
 }
 function condownMessage(position, time, text) {
   const wrap = $("<div>", {
-    class: "countdown-wrap",
+    class: "countdown-wrap"
   }).appendTo(position);
   $("<div>", {
     class: "label",
-    html: text + "<span></span>",
+    html: text + "<span></span>"
   }).appendTo(wrap);
   condown(time, ".countdown-wrap .label span");
 }
 function condown(time, selector) {
-  const endTime = /* @__PURE__ */ new Date().getTime() + time * 60 * 1e3;
+  const endTime = (/* @__PURE__ */ new Date()).getTime() + time * 60 * 1e3;
   function updateCountdown() {
-    const now = /* @__PURE__ */ new Date().getTime();
+    const now = (/* @__PURE__ */ new Date()).getTime();
     const remainingTime = endTime - now;
     if (remainingTime <= 0) {
       $(selector).text("\u010Das vypr\u0161el!");
       clearInterval(countdownInterval);
     } else {
-      const minutes = Math.floor((remainingTime / 1e3 / 60) % 60);
-      const seconds = Math.floor((remainingTime / 1e3) % 60);
+      const minutes = Math.floor(remainingTime / 1e3 / 60 % 60);
+      const seconds = Math.floor(remainingTime / 1e3 % 60);
       $(selector).text(`${minutes} min ${seconds} sec`);
     }
   }
@@ -696,21 +672,21 @@ function createUpsalePopup() {
   $(".ti-widget-container").addClass("upsale");
   $("<div>", {
     class: "h2",
-    text: "Iba teraz za zv\xFDhodnen\xFA cenu!",
+    text: "Iba teraz za zv\xFDhodnen\xFA cenu!"
   }).appendTo(".ti-widget-container");
   $("<div>", {
     class: "description",
-    text: " Dopl\u0148te svoju objedn\xE1vku o kufrov\xE9 kober\u010Deky alebo \xFAlo\u017En\xE9 boxy s v\xFDraznou z\u013Eavou. Ponuka plat\xED len chv\xED\u013Eu!",
+    text: " Dopl\u0148te svoju objedn\xE1vku o kufrov\xE9 kober\u010Deky alebo \xFAlo\u017En\xE9 boxy s v\xFDraznou z\u013Eavou. Ponuka plat\xED len chv\xED\u013Eu!"
   }).appendTo(".ti-widget-container");
   $("<div>", {
     class: "button btn open-upsale",
-    text: "Vyu\u017Ei\u0165 zv\xFDhodnen\xFA ponuku!",
+    text: "Vyu\u017Ei\u0165 zv\xFDhodnen\xFA ponuku!"
   }).appendTo(".ti-widget-container");
   $("<div>", {
     class: "prefix",
-    text: "Len po\u010Das tejto objedn\xE1vky m\xF4\u017Eete z\xEDska\u0165 kober\u010Deky do kufra alebo \xFAlo\u017En\xE9 boxy za extr\xE9mne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te a organizujte svoj kufor so \u0161t\xFDlom!",
+    text: "Len po\u010Das tejto objedn\xE1vky m\xF4\u017Eete z\xEDska\u0165 kober\u010Deky do kufra alebo \xFAlo\u017En\xE9 boxy za extr\xE9mne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te a organizujte svoj kufor so \u0161t\xFDlom!"
   }).appendTo(".ti-widget-container");
-  $(".button.btn.open-upsale").on("click", function () {
+  $(".button.btn.open-upsale").on("click", function() {
     $(".overflow").remove();
     $(".upsale-wrap").addClass("active");
   });
@@ -718,17 +694,16 @@ function createUpsalePopup() {
 
 // assets/js/script.js
 var setupData2;
-$.getJSON(optionData.downloadData, function (data) {
+var googleRef = `<div class="HeaderContainer__Inner-sc-1532ffp-0 kfmkAH HeaderComponent__StyledHeader-sc-9lcg5s-0 ggCtvU es-header-container"><div class="HeaderInfoContainer__Info-sc-16jx15e-0 iXURJw HeaderStyle8__Info-sc-b1gtz-1 fYYhKJ es-header-info"><div class="HeaderRating__RatingContainer-sc-117jf4y-0 iTpmcQ HeaderStyle8__StyledHeaderRating-sc-b1gtz-0 brkxaF es-header-rating-container"><div class="Rating__Container-sc-bk54oq-0 izQGGt es-rating-container HeaderRating__Rating-sc-117jf4y-1 ieRgGM es-header-rating"><div class="RatingValue__Container-sc-fl6036-0 iCNeqx es-rating-value">4.9</div></div></div><div class="HeaderHeading__Container-sc-1fncda3-0 llhhPp es-header-heading-container"><div class="HeaderHeading__Text-sc-1fncda3-1 AGaFi es-header-heading-text">Google Recenzie</div></div><div class="HeaderRating__RatingContainer-sc-117jf4y-0 iTpmcQ es-header-rating-container"><div class="Rating__Container-sc-bk54oq-0 izQGGt es-rating-container HeaderRating__Rating-sc-117jf4y-1 ieRgGM es-header-rating"><div class="RatingBar__Container-sc-qimg51-0 eyLxdR es-rating-bar-container"><div class="RatingItemFilledSvg__Container-sc-14jss50-0 bBmSuk es-rating-item es-rating-stars-item-filled"><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Unfilled-sc-14jss50-2 bXVxrw cHATJH es-rating-item-unfilled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Filled-sc-14jss50-3 bXVxrw nUbNv es-rating-item-filled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div></div><div class="RatingItemFilledSvg__Container-sc-14jss50-0 bBmSuk es-rating-item es-rating-stars-item-filled"><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Unfilled-sc-14jss50-2 bXVxrw cHATJH es-rating-item-unfilled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Filled-sc-14jss50-3 bXVxrw nUbNv es-rating-item-filled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div></div><div class="RatingItemFilledSvg__Container-sc-14jss50-0 bBmSuk es-rating-item es-rating-stars-item-filled"><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Unfilled-sc-14jss50-2 bXVxrw cHATJH es-rating-item-unfilled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Filled-sc-14jss50-3 bXVxrw nUbNv es-rating-item-filled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div></div><div class="RatingItemFilledSvg__Container-sc-14jss50-0 bBmSuk es-rating-item es-rating-stars-item-filled"><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Unfilled-sc-14jss50-2 bXVxrw cHATJH es-rating-item-unfilled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Filled-sc-14jss50-3 bXVxrw nUbNv es-rating-item-filled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div></div><div class="RatingItemFilledSvg__Container-sc-14jss50-0 bBmSuk es-rating-item es-rating-stars-item-unfilled"><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Unfilled-sc-14jss50-2 bXVxrw cHATJH es-rating-item-unfilled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div><div class="RatingItemFilledSvg__ContainerAbsolute-sc-14jss50-1 RatingItemFilledSvg__Filled-sc-14jss50-3 bXVxrw fHHaSD es-rating-item-filled"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_3796_102578)"><path d="M6.82617 11.442L3.54617 13.166C3.46353 13.2093 3.3704 13.2287 3.27732 13.2219C3.18425 13.2151 3.09494 13.1824 3.0195 13.1274C2.94406 13.0725 2.8855 12.9975 2.85045 12.911C2.8154 12.8245 2.80526 12.7299 2.82117 12.638L3.44817 8.98798C3.46192 8.908 3.456 8.82587 3.43091 8.74869C3.40582 8.67151 3.36232 8.6016 3.30417 8.54499L0.650168 5.95899C0.583317 5.89388 0.53602 5.81136 0.51363 5.72076C0.491239 5.63017 0.494647 5.53512 0.52347 5.44637C0.552292 5.35761 0.605378 5.27869 0.676721 5.21854C0.748065 5.15838 0.834818 5.1194 0.927168 5.10599L4.59317 4.57299C4.67344 4.56146 4.7497 4.53059 4.81537 4.48303C4.88105 4.43547 4.93418 4.37265 4.97017 4.29999L6.61017 0.977985C6.65153 0.894518 6.7154 0.824266 6.79455 0.775151C6.87371 0.726037 6.96501 0.700012 7.05817 0.700012C7.15132 0.700012 7.24263 0.726037 7.32178 0.775151C7.40094 0.824266 7.4648 0.894518 7.50617 0.977985L9.14717 4.29899C9.18307 4.37152 9.23604 4.43426 9.30153 4.48182C9.36702 4.52937 9.44308 4.56031 9.52317 4.57199L13.1892 5.10499C13.2815 5.1184 13.3683 5.15738 13.4396 5.21754C13.511 5.27769 13.564 5.35661 13.5929 5.44537C13.6217 5.53412 13.6251 5.62917 13.6027 5.71976C13.5803 5.81036 13.533 5.89288 13.4662 5.95798L10.8132 8.54398C10.7552 8.60049 10.7118 8.67024 10.6867 8.74723C10.6616 8.82422 10.6556 8.90616 10.6692 8.98598L11.2962 12.637C11.3122 12.7291 11.3021 12.8238 11.267 12.9105C11.232 12.9971 11.1733 13.0722 11.0977 13.1272C11.0221 13.1822 10.9326 13.2149 10.8393 13.2215C10.7461 13.2282 10.6528 13.2086 10.5702 13.165L7.29117 11.441C7.21946 11.4033 7.13967 11.3836 7.05867 11.3836C6.97767 11.3836 6.89788 11.4033 6.82617 11.441V11.442Z" fill="none"></path></g><defs><clipPath id="clip0_3796_102578"><rect width="14" height="14" fill="white"></rect></clipPath></defs></svg></div></div></div></div><span class="HeaderRating__ReviewsCount-sc-117jf4y-2 kSLkip es-header-rating-reviews-count">(47)</span></div></div><div class="HeaderWriteReviewButton__Component-sc-a5mrro-0 kBskxl es-header-write-review-button-container"><button size="14" class="ButtonBase__ButtonContainer-sc-p43e7i-3 euBiGU HeaderWriteReviewButton__WriteReviewButton-sc-a5mrro-1 iqYjDs es-header-write-review-button" type="button" style="border-radius: 24px; border-color: rgba(0, 0, 0, 0); line-height: 1.32; color: rgb(255, 255, 255); font-family: inherit; font-weight: bold; font-size: 14px; font-style: normal; background-color: rgb(25, 123, 255); border-width: 2px;"><span class="ButtonBase__Overlay-sc-p43e7i-4 jhGZeV" style="padding: 8px 21px; border-radius: calc(22px); background-color: rgba(0, 0, 0, 0);"><span class="ButtonBase__Ellipsis-sc-p43e7i-5 dqiKFy">Ohodno\u0165te n\xE1s na Google</span></span></button></div></div>`;
+$.getJSON(optionData.downloadData, function(data) {
   setupData2 = data;
   console.log(setupData2.settings);
   initModelSelect2();
   googleReviews();
   initProduct();
 });
-var logoGoogle =
-  '<svg viewBox="0 0 512 512" height="18" width="18"><g fill="none" fill-rule="evenodd"><path d="M482.56 261.36c0-16.73-1.5-32.83-4.29-48.27H256v91.29h127.01c-5.47 29.5-22.1 54.49-47.09 71.23v59.21h76.27c44.63-41.09 70.37-101.59 70.37-173.46z" fill="#4285f4"></path><path d="M256 492c63.72 0 117.14-21.13 156.19-57.18l-76.27-59.21c-21.13 14.16-48.17 22.53-79.92 22.53-61.47 0-113.49-41.51-132.05-97.3H45.1v61.15c38.83 77.13 118.64 130.01 210.9 130.01z" fill="#34a853"></path><path d="M123.95 300.84c-4.72-14.16-7.4-29.29-7.4-44.84s2.68-30.68 7.4-44.84V150.01H45.1C29.12 181.87 20 217.92 20 256c0 38.08 9.12 74.13 25.1 105.99l78.85-61.15z" fill="#fbbc05"></path><path d="M256 113.86c34.65 0 65.76 11.91 90.22 35.29l67.69-67.69C373.03 43.39 319.61 20 256 20c-92.25 0-172.07 52.89-210.9 130.01l78.85 61.15c18.56-55.78 70.59-97.3 132.05-97.3z" fill="#ea4335"></path><path d="M20 20h472v472H20V20z"></path></g></svg>';
-jQuery(document).ready(function ($2) {
-  dinamicPictures();
+var logoGoogle = '<svg viewBox="0 0 512 512" height="18" width="18"><g fill="none" fill-rule="evenodd"><path d="M482.56 261.36c0-16.73-1.5-32.83-4.29-48.27H256v91.29h127.01c-5.47 29.5-22.1 54.49-47.09 71.23v59.21h76.27c44.63-41.09 70.37-101.59 70.37-173.46z" fill="#4285f4"></path><path d="M256 492c63.72 0 117.14-21.13 156.19-57.18l-76.27-59.21c-21.13 14.16-48.17 22.53-79.92 22.53-61.47 0-113.49-41.51-132.05-97.3H45.1v61.15c38.83 77.13 118.64 130.01 210.9 130.01z" fill="#34a853"></path><path d="M123.95 300.84c-4.72-14.16-7.4-29.29-7.4-44.84s2.68-30.68 7.4-44.84V150.01H45.1C29.12 181.87 20 217.92 20 256c0 38.08 9.12 74.13 25.1 105.99l78.85-61.15z" fill="#fbbc05"></path><path d="M256 113.86c34.65 0 65.76 11.91 90.22 35.29l67.69-67.69C373.03 43.39 319.61 20 256 20c-92.25 0-172.07 52.89-210.9 130.01l78.85 61.15c18.56-55.78 70.59-97.3 132.05-97.3z" fill="#ea4335"></path><path d="M20 20h472v472H20V20z"></path></g></svg>';
+jQuery(document).ready(function($2) {
   initHeader();
   intIndex();
   initSignpost();
@@ -741,9 +716,9 @@ function initHeader() {
   $('<a href="#" class="toggle-window" data-target="search" data-testid="linkSearchIcon"></a>').prependTo(".desktop  .navigation-buttons");
   $("<div>", {
     class: "navigation-show",
-    text: "E-shop",
+    text: "E-shop"
   }).appendTo(".top-navigation-bar");
-  $(".navigation-show").on("click", function () {
+  $(".navigation-show").on("click", function() {
     $("body").toggleClass("showNav");
   });
 }
@@ -760,50 +735,42 @@ function initModelSelect2() {
   const getYear = sessionStorage.getItem("Year");
   const getCarType = sessionStorage.getItem("carType");
   const section = $("<section>", {
-    id: "model-selector",
+    id: "model-selector"
   }).insertAfter(insertPosidion);
   const container = $("<div>", {
-    class: "model-selector container",
+    class: "model-selector container"
   }).appendTo(section);
   if ($(".in-index")[0]) {
-    $("<h2>").text("zadajte údaje o vozidle").appendTo(container);
+    $("<h2>").text("zadajte \xFAdaje o vozidle").appendTo(container);
+    $('<div class="prefix">a vytvorte si cenovo zv\xFDhodnen\xED set pod\u013Ea va\u0161\xEDch predst\xE1v</div>').appendTo(container);
   }
   const choiceWrap = $("<div>").addClass("modl-selector-wrap").appendTo(container);
-  const znacka =
-    `
+  const znacka = `
         <div class="surcharge-list brands dm-selector">
             
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` +
-    cstm_znacka[0] +
-    `</option>
+                    <option class='notselect'>` + cstm_znacka[0] + `</option>
                 </select>
             </div>
         </div>
         `;
-  const model =
-    `
+  const model = `
         <div class="surcharge-list models dm-selector">
           
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` +
-    cstm_model[0] +
-    `</option>
+                    <option class='notselect'>` + cstm_model[0] + `</option>
                 </select>
             </div>
         </div>
         `;
-  const rocnik =
-    `
+  const rocnik = `
         <div class="surcharge-list years dm-selector">
             
             <div class='selector'>
                 <select required="required">
-                    <option class='notselect'>` +
-    cstm_rocnik[0] +
-    `</option>
+                    <option class='notselect'>` + cstm_rocnik[0] + `</option>
                 </select>
             </div>
         </div>
@@ -824,7 +791,7 @@ function initModelSelect2() {
   } else {
     $(znacka + model + rocnik + type).appendTo(choiceWrap);
   }
-  $(setupData2.settings.carVariant.split(",")).each(function () {
+  $(setupData2.settings.carVariant.split(",")).each(function() {
     console.log(this);
     const option = $("<option>").text(this).appendTo(".type-selector .selector select");
   });
@@ -859,7 +826,7 @@ function initModelSelect2() {
   const other_option = "<option>" + other + "</option>";
   $(other_option).appendTo(".type select");
   $(other_option).appendTo(".years select");
-  $(".brands select").on("change", function () {
+  $(".brands select").on("change", function() {
     if ($(this).val() === cstm_znacka.at(1)) {
       $(".models option:not(.notselect)").remove();
     } else {
@@ -870,10 +837,10 @@ function initModelSelect2() {
       }
     }
   });
-  $(".btn.choice-Model").on("click", function () {
+  $(".btn.choice-Model").on("click", function() {
     saveModel(true);
   });
-  $(".surcharge-list").on("change", function () {
+  $(".surcharge-list").on("change", function() {
     saveModel(false);
   });
 }
@@ -897,61 +864,46 @@ function initSignpost() {
   $("section#Model-selecte .model span").text(model);
 }
 function googleReviews() {
-  $("<section/>").attr("id", "goggle-review-wrap").insertAfter(".in-index section#model-selector");
-  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJcRYHIStjj4wRIHx41hbkAtc&fields=name,rating,reviews&key=AIzaSyCeZU6zd0N8r7Uxu73NUIOhftj0OUGxcU4`;
-  $('<div class="header-rewiew"><h3> \u010Eakujeme za Va\u0161e recenzie po slovensky</h3></div>').appendTo("#goggle-review-wrap");
-  $(`<div class="elfsight-app-0852ca33-abe7-4be3-8eb8-6bfa99b7bde9" data-elfsight-app-lazy></div>`).appendTo("#goggle-review-wrap");
-  $(`<script src="https://static.elfsight.com/platform/platform.js" async><\/script>
-`).appendTo("#goggle-review-wrap");
-  function waitForElementAndRemove() {
-    const targetElement = $('a:contains("Free Google Reviews widget")');
-    if (targetElement.length) {
-      targetElement.addClass("hide").remove();
-      console.log("Element byl odstran\u011Bn:", targetElement);
-    } else {
-      setTimeout(waitForElementAndRemove, 1e3);
-    }
-  }
-  waitForElementAndRemove();
+  $("<section/>").attr("id", "goggle-review-wrap").html(googleRef).insertAfter(".in-index section#model-selector");
 }
-setTimeout(function () {
+setTimeout(function() {
   $(logoGoogle).appendTo(".review-item-long");
   $("#google-reviews br").remove();
 }, 2500);
 function initCart() {
   if (!$(".id--9")[0]) return;
   const bannerWrap = $("<div>", {
-    class: "banner-wrap",
+    class: "banner-wrap"
   }).insertBefore("table.cart-table");
   $("<div>", {
     class: "h3",
-    text: "Dokonal\xE1 ochrana pre v\xE1\u0161 kufor za EXTR\xC9MNE zv\xFDodnenu cenu!",
+    text: "Dokonal\xE1 ochrana pre v\xE1\u0161 kufor za EXTR\xC9MNE zv\xFDodnenu cenu!"
   }).appendTo(bannerWrap);
   $("<p>", {
-    text: "Len teraz m\xF4\u017Eete prida\u0165 luxusn\xE9 autokoberce do kufra alebo \xFAlo\u017En\xE9 boxy za v\xFDrazne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te kufor V\xE1\u0161ho vozidla pred ne\u010Distotami a majte v\u0161etko na mieste!",
+    text: "Len teraz m\xF4\u017Eete prida\u0165 luxusn\xE9 autokoberce do kufra alebo \xFAlo\u017En\xE9 boxy za v\xFDrazne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te kufor V\xE1\u0161ho vozidla pred ne\u010Distotami a majte v\u0161etko na mieste!"
   }).appendTo(bannerWrap);
   const timer = $("<div>", {
-    class: "timer-wrap",
+    class: "timer-wrap"
   }).appendTo(bannerWrap);
   $("<span>", {
-    text: "\u0160peci\xE1lna ponuka kon\u010D\xED za",
+    text: "\u0160peci\xE1lna ponuka kon\u010D\xED za"
   }).appendTo(timer);
   const countdownSpan = $("<span>", {
     class: "countdown",
-    text: "",
+    text: ""
   }).appendTo(timer);
   $("<a>", {
     class: "btn",
     text: "Prida\u0165 so z\u013Eavou do objedn\xE1vky!",
-    href: "#",
+    href: "#"
   }).appendTo(bannerWrap);
   $("<div>", {
     class: "description",
-    text: "T\xFAto ponuku z\xEDskate len pri tejto objedn\xE1vke. Nepreme\u0161kajte \u0161ancu z\xEDska\u0165 doplnky za najlep\u0161iu cenu!",
+    text: "T\xFAto ponuku z\xEDskate len pri tejto objedn\xE1vke. Nepreme\u0161kajte \u0161ancu z\xEDska\u0165 doplnky za najlep\u0161iu cenu!"
   }).appendTo(bannerWrap);
   let endTime = sessionStorage.getItem("timerEndTime");
   if (!endTime || new Date(endTime) < /* @__PURE__ */ new Date()) {
-    endTime = new Date(/* @__PURE__ */ new Date().getTime() + 30 * 60 * 1e3);
+    endTime = new Date((/* @__PURE__ */ new Date()).getTime() + 30 * 60 * 1e3);
     sessionStorage.setItem("timerEndTime", endTime);
   } else {
     endTime = new Date(endTime);
@@ -964,40 +916,11 @@ function initCart() {
       clearInterval(countdownInterval);
       sessionStorage.removeItem("timerEndTime");
     } else {
-      const minutes = Math.floor((remainingTime / 1e3 / 60) % 60);
-      const seconds = Math.floor((remainingTime / 1e3) % 60);
+      const minutes = Math.floor(remainingTime / 1e3 / 60 % 60);
+      const seconds = Math.floor(remainingTime / 1e3 % 60);
       countdownSpan.text(`${minutes} min ${seconds} sec`);
     }
   }
   const countdownInterval = setInterval(updateCountdown, 1e3);
   updateCountdown();
-}
-function dinamicPictures() {
-  var sections = $(".text-block");
-  var dynamicImage = $("#dynamic-image");
-  function changeImage() {
-    var currentSection = null;
-    sections.each(function () {
-      var section = $(this);
-      var rect = this.getBoundingClientRect();
-      var sectionTop = rect.top;
-      var sectionBottom = rect.bottom;
-      if (sectionTop <= $(window).height() / 2 && sectionBottom >= $(window).height() / 2) {
-        currentSection = section;
-        return false;
-      }
-    });
-    if (currentSection) {
-      var newImageSrc = currentSection.data("picture");
-      if (dynamicImage.attr("src") !== newImageSrc) {
-        dynamicImage.css("opacity", 0);
-        setTimeout(function () {
-          dynamicImage.attr("src", newImageSrc);
-          dynamicImage.css("opacity", 1);
-        }, 500);
-      }
-    }
-  }
-  $(window).on("scroll", changeImage);
-  changeImage();
 }
