@@ -1,0 +1,48 @@
+div#menu-widget {
+  position: fixed;
+  top: 48px;
+  left: 20px;
+  background-color: rgba(237, 237, 237, 1);
+  padding: 20px 0 0px 30px;
+  color: black;
+  .mebu-wrap {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+  }
+  .menu {
+    margin-right: 40px;
+    li.main a {
+      text-decoration: underline;
+      font-weight: 600;
+    }
+  }
+  .picture {
+    position: relative;
+    border-radius: 20px 0 0px 20px;
+    overflow: hidden;
+    max-width: 200px;
+    .title {
+      position: absolute;
+      bottom: 20px;
+      text-align: center;
+      left: 0;
+      right: 0;
+      background: #1a1a1ade;
+      color: white;
+      text-transform: uppercase;
+      padding: 5px 0;
+    }
+    .prefix {
+      font-size: 10px;
+    }
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: black;
+    text-transform: uppercase;
+  }
+}
