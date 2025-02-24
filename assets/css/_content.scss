@@ -5,12 +5,14 @@
 .image-header,
 .pb-col-md-4 a,
 #pobo-all-content .widget-gallery a {
-  img {
-    border: 2px solid var(--color-primary);
-    border-radius: 13px;
-  }
+  // img {
+  //   border: 5px solid var(--color-primary);
+  //   border-radius: 25px;
+  // }
 }
-
+.scrollable-with-controls {
+  margin-top: 30px;
+}
 .button.option-button img {
   border-color: white;
 }
@@ -83,9 +85,15 @@
   border-radius: 10px;
   overflow: hidden;
 }
+.image-container,
+.twentytwenty-wrapper.twentytwenty-horizontal,
+.mobile-image,
 .content-over-media.group.rounded-sm {
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
+  border: 5px solid var(--color-primary);
+  border-radius: 25px;
 }
 
 .main-image {
