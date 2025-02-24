@@ -1,3 +1,7 @@
+:root {
+  --gradient: linear-gradient(45deg, rgba(128, 130, 133, 1) 31%, rgba(208, 140, 60, 1) 100%);
+}
+
 .homepage-box {
   background-color: rgba(0, 0, 0, 0);
   border-bottom-color: rgba(0, 0, 0, 0);
@@ -268,7 +272,9 @@ span.images-scrolling__counter.bold {
       font-size: 20px;
     }
     p {
-      max-width: 220px;
+      max-width: 229px;
+      text-transform: uppercase;
+      color: black;
     }
   }
 }
@@ -811,5 +817,97 @@ section.foto-slider.slick-initialized.slick-slider.slick-dotted {
   .section-stack__main {
     margin-left: -20px !important;
     margin-right: -20px !important;
+  }
+}
+.sec-header {
+  margin-top: 50px;
+  background-image: var(--gradient);
+  color: var(--color-primary);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  font-size: 30px;
+  text-transform: uppercase;
+}
+.sec-prefix {
+  font-size: 15px;
+  color: black;
+  text-transform: uppercase;
+}
+.banners-wrap {
+  margin-top: 36px;
+  .banner.gold-border {
+    margin-bottom: 20px;
+  }
+}
+.gold-border {
+  position: relative;
+  border: 2px solid;
+  border-radius: 20px;
+  img {
+    border: none !important;
+
+    max-width: unset;
+    width: 100%;
+  }
+  a {
+    width: 100%;
+  }
+}
+.banner-prefix {
+  position: absolute;
+  top: 20px;
+  color: #fff;
+  padding: 5px 20px;
+  background-color: var(--color-primary);
+  text-transform: uppercase;
+  font-size: 20px;
+}
+.banner-header {
+  background: #000000a1;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+
+  min-height: 60px;
+  text-align: center;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: white;
+  padding-top: 8px;
+  p {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .flex {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+  }
+}
+section#models {
+  a.btn {
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50px;
+    padding: 6px 30px;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (min-width: 768px) {
+  .banners-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  .banner.gold-border {
+    width: calc(50% - 20px);
   }
 }
