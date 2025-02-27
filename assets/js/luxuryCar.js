@@ -89,15 +89,47 @@ function intIndex() {
       }
     ]
   });
-  $("section.foto-slider").slick({
+  $("section.foto-slider .image-slider").slick({
     dots: true,
     centerMode: false,
     infinite: true,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4e3,
-    arrows: true
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          arrows: true
+        }
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 3
+        }
+      },
+      {
+        breakpoint: 770,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          autoplay: false
+        }
+      },
+      {
+        breakpoint: 350,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   });
   $("button.text-with-icon.group").on("click", function() {
     if (!$("button.text-with-icon.group.less")[0]) {
@@ -160,6 +192,18 @@ function initProduct() {
   $(".p-detail-inner .p-detail-inner-header").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   $(".benefitBanner.position--benefitProduct .benefitBanner__item").insertBefore(".col-xs-12.col-lg-6.p-info-wrapper");
   const model = sessionStorage.getItem("model");
+  if (model) {
+    const modelInfo = $("<section>").attr("id", "model-info").insertBefore("section#model-selector");
+    $("section#model-selector").hide();
+    const infoWrap = $("<div>").addClass("model-info").appendTo(modelInfo);
+    $("<div>").addClass("header-info").text("Garancia kompatibility s Va\u0161\xEDm vozidlom").appendTo(infoWrap);
+    $("<div>").addClass("model-text").text(model).appendTo(infoWrap);
+    $("<div>").addClass("setup-model").text("Upravi\u0165").appendTo(modelInfo);
+    $(".setup-model").on("click", function() {
+      $("section#model-selector").show();
+      modelInfo.remove();
+    });
+  }
   priplatky();
   $(".button.btn.select-model").on("click", function() {
     const overflow = $("<div>", {
@@ -486,22 +530,43 @@ function firstPage() {
     typeVal = value;
   }
   const pageWrap = $("<div>", {
-    class: "position-wrap parameter-cars active"
+    class: "position-wrap parameter-cars parameter-wrap  base-config active"
   }).appendTo(".content-wrap");
+  $('<div class="order">1</div>').appendTo(pageWrap);
+  $('<h5 class="variant name">\u0160pecifik\xE1cia vozidla</h5>').appendTo(pageWrap);
   const wheelWrao = $("<div>", {
-    class: "parameter-cars wheel-Position"
+    class: "parameter-cars wheel-Position "
   }).appendTo(pageWrap);
   $("<div>", {
     class: "label wheel",
-    text: "Pozice volantu"
+    text: "poz\xEDcia volantu:"
   }).appendTo(wheelWrao);
-  $(`<div class="can-toggle demo-rebrand-1 wheel-option ">
-  <input id="d" type="checkbox" control-id="ControlID-4">
-  <label for="d">
-    <div class="can-toggle__switch" data-checked="Prav\xE1" data-unchecked="Lev\xE1"></div>
-    <div class="can-toggle__label-text"></div>
-  </label>
-</div>`).appendTo(wheelWrao);
+  const wheelOption = $("<div>", {
+    class: "option-wrap"
+  }).appendTo(wheelWrao);
+  $(
+    `<div class='button option-button active' data-value='left'><img src='https://689946.myshoptet.com/user/documents/upload/assets/image/Layer_left.png' alt='250.jpg'><div class='text'>V\u013Eavo</div></div>`
+  ).appendTo(wheelOption);
+  $(
+    `<div class='button option-button' data-value='right'><img src='https://689946.myshoptet.com/user/documents/upload/assets/image/Layer_right.png' alt='251.jpg'><div class='text'>Vpravo</div></div>`
+  ).appendTo(wheelOption);
+  const sitposition = $("<div>", {
+    class: "parameter-cars sit-Position"
+  }).appendTo(pageWrap);
+  $("<div>", {
+    class: "label sit",
+    text: "miest na sedenie:"
+  }).appendTo(sitposition);
+  const sitOption = $("<div>", {
+    class: "option-wrap"
+  }).appendTo(sitposition);
+  $(`<div class='button option-button active' data-value='pass-2'><div class='text'>2</div></div>`).appendTo(sitOption);
+  $(`<div class='button option-button' data-value='pass-4'><div class='text'>4</div></div>`).appendTo(sitOption);
+  $(`<div class='button option-button' data-value='pass-5'><div class='text'>5</div></div>`).appendTo(sitOption);
+  $(`<div class='button option-button' data-value='pass-6'><div class='text'>6</div></div>`).appendTo(sitOption);
+  $(`<div class='button option-button' data-value='pass-7'><div class='text'>7</div></div>`).appendTo(sitOption);
+  $(`<div class='button option-button' data-value='pass-8'><div class='text'>8</div></div>`).appendTo(sitOption);
+  $(`<div class='button option-button' data-value='pass-9'><div class='text'>9</div></div>`).appendTo(sitOption);
   $(".can-toggle.wheel-option").on("click", function() {
     if ($(this).find("input").is(":checked")) {
       $("select.parameter-id-37.surcharge-parameter").val(253);

@@ -88,15 +88,48 @@ export function intIndex() {
     ],
   });
 
-  $("section.foto-slider").slick({
+  $("section.foto-slider .image-slider").slick({
     dots: true,
     centerMode: false,
     infinite: true,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
     arrows: true,
+    responsive: [
+      {
+        breakpoint: 1480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          arrows: true,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 770,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+
+          autoplay: false,
+        },
+      },
+      {
+        breakpoint: 350,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   });
 
   $("button.text-with-icon.group").on("click", function () {

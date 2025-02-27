@@ -61,19 +61,25 @@ table.detail-parameters {
 }
 .parameter-wrap {
   background: #f6f6f6;
-  padding: 10px;
+
   position: relative;
   margin-bottom: 10px;
+  border-radius: 15px;
+  overflow: hidden;
   .order {
-    background: gold;
+    background: rgba(196, 155, 49, 1);
     /* width: fit-content; */
-    padding: 13px;
+    padding-left: 20px;
+    padding-top: 13px;
     text-align: center;
-    width: 50px;
+    width: 100%;
     height: 50px;
     color: black;
     font-size: 20px;
     font-weight: 600;
+    text-align: left;
+    color: white;
+    font-family: "Exo 2";
   }
   .h4.variant.name {
     position: absolute;
@@ -86,12 +92,44 @@ table.detail-parameters {
 
 .base-config h5.variant.name {
   position: absolute;
-  top: 23px;
-  left: 80px;
+  top: 16px;
+  left: 50px;
+  color: white;
+  text-transform: uppercase;
 }
 
 .upsale-buttons.boxs {
   position: relative;
+}
+.option-wrap {
+  display: flex;
+}
+.parameter-cars.sit-Position {
+  display: flex;
+}
+.parameter-cars {
+  .button.option-button {
+    background-color: gray;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    color: white;
+
+    min-width: 40px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    img {
+      max-height: 35px;
+    }
+    img + .text {
+      display: none;
+    }
+    &.active {
+      background-color: rgba(196, 155, 49, 1);
+      /* width: fit-content; */
+    }
+  }
 }
 .options-wrap {
   display: flex;
@@ -907,6 +945,58 @@ div#description {
 section.shopify-section.horiz-video.shopify-section--video {
   video {
     max-height: 800px;
+  }
+}
+
+section#model-info {
+  display: flex;
+  .setup-model {
+    padding: 9px 20px 9px;
+    background: gray;
+    color: #fff;
+    border-radius: 15px;
+    height: 42px;
+    font-size: 18px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    margin-top: 11px;
+    cursor: pointer;
+  }
+  .model-info {
+    border: 1px solid rgba(81, 140, 109, 1);
+    background: rgba(241, 253, 245, 1);
+
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 10px 20px 10px 70px;
+    margin-bottom: 30px;
+    position: relative;
+    &::before {
+      content: "\e913";
+      speak: none;
+      display: inline-block;
+      font-family: shoptet;
+      font-style: normal;
+      font-variant: normal;
+      font-weight: 400;
+      line-height: 0;
+      text-decoration: none;
+      text-transform: none;
+      vertical-align: middle;
+      font-size: 20px;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: rgba(81, 140, 109, 1);
+      color: white;
+      border-radius: 50%;
+      padding: 20px 10px;
+      left: 15px;
+    }
+    .header-info {
+      font-size: 17px;
+      font-weight: 600;
+    }
   }
 }
 @media (min-width: 1500px) {
