@@ -152,6 +152,10 @@ function priplatky() {
       }).appendTo(upsaleBanner);
       $(`<div class="order">${order}</div>`).appendTo(buttonWrap);
       $('<h5 class="variant name">Špecifikácia vozidla</h5>').appendTo(buttonWrap);
+      const parameterWrap = $("<div>", {
+        class: "parameter-cars",
+      }).appendTo(buttonWrap);
+
       const carpetsText = setupData.settings.carpetsText.split(",");
       const carpetsValue = setupData.settings.carpetsValue.split(",");
       const carpetsImage = setupData.settings.carpetsImage.split(",");
@@ -160,7 +164,7 @@ function priplatky() {
         createUpsaleButton(
           "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + carpetsImage[e],
           this,
-          buttonWrap,
+          parameterWrap,
           carpetsValue[e],
           "radio",
           carpetsPrice[e],
@@ -181,16 +185,21 @@ function priplatky() {
       const boxsImage = setupData.settings.boxsImage.split(",");
       const boxsPrice = setupData.settings.boxsPrice.split(",");
 
+      order += 1;
       const buttonWrapBox = $("<div>", {
-        class: "upsale-buttons boxs",
+        class: "upsale-buttons position-wrap parameter-cars parameter-wrap boxs",
       }).appendTo(upsaleBanner);
-      $(buttonWrapBox).hide();
+      $(`<div class="order">${order}</div>`).appendTo(buttonWrapBox);
+      $('<h5 class="variant name">boxy do kufra</h5>').appendTo(buttonWrapBox);
+      const parameterWrap2 = $("<div>", {
+        class: "parameter-cars",
+      }).appendTo(buttonWrapBox);
 
       $(boxsText).each(function (e) {
         createUpsaleButton(
           "https://cdn.myshoptet.com/usr/689946.myshoptet.com/user/documents/upload/assets/new/" + boxsImage[e],
           this,
-          buttonWrapBox,
+          parameterWrap2,
           boxsValue[e],
           "config",
           boxsPrice[e],
@@ -338,10 +347,10 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
 
   const buttonHTML = `
-    <div class="upsale-button ${typeClass}" value="${value}">
-      <img src="${img}" alt="${text}" />
-      <div class="text">${text}</div>
-      
+    <div class="upsale-button  ${typeClass}" value="${value}">
+      <img src="${img}?2" alt="${text}" />
+   
+      <div class="banner-header"><span>${text}</span>
     </div>
   `;
 
@@ -353,7 +362,8 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   if (prefix) {
     priceHTML = `<div class="price">od ${NumToPrice(priceText[0])}</div><div class="save">Ušetříte až ${NumToPrice(save)}</div>`;
   }
-  $(priceHTML).appendTo(button);
+  const positionadd = $(button).find(".banner-header");
+  $(priceHTML).appendTo(positionadd);
 }
 // Single event listener for .upsale-button
 $(document).on("click", ".upsale-button", function (e) {
@@ -695,7 +705,7 @@ function createOptions(position, orders) {
         html: `<span>${nameSplit[0]}</span><div class='price'>${valueText[1]}</div>`,
       }).appendTo(optionButton);
       $(optionButton).addClass("lines");
-    } else if (textOption == "nechci +0 Kč") {
+    } else if (textOption == "ŽIADNY +0 Kč") {
       $("<div>", {
         class: "description",
         text: valueText[0],
@@ -715,10 +725,8 @@ function createBoxConfig() {
     class: "box-config",
   }).appendTo(".upsale-buttons.boxs");
 
-  $("<div>", {
-    class: "label",
-    text: "Konfigurace boxu",
-  }).appendTo(wrap);
+  $('<div class="order">7</div>').appendTo(wrap);
+  $('<h5 class="variant name">FARBA</h5>').appendTo(wrap);
 
   $("<div>", {
     class: "close-btn",
