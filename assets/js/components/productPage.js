@@ -129,6 +129,8 @@ export function initProduct() {
  * Initializes the upsale section.
  */
 function priplatky() {
+  let order = 6;
+
   if ($(".type-detail").length) {
     $("<div>", {
       class: "upsale-wrap",
@@ -137,14 +139,19 @@ function priplatky() {
     const upsaleBanner = $("<div>", {
       class: "upsale-Banner",
     }).insertAfter(".detail-parameters");
+    const bannerWrap = $('<div class="updale-banner-info"></div>').appendTo(upsaleBanner);
+    $('<icon class="icon">!</icon>').appendTo(bannerWrap);
+    $('<div class="h4">').text("kúp viac za menej").appendTo(bannerWrap);
+    $("<span>").text("Využi našu akciovú ponuku set s autokobercami za výhodnú cenu").appendTo(bannerWrap);
     if ($(".parameter-id-20")[0]) {
-      $(upsaleBanner).hide();
-      condownMessage(upsaleBanner, 30, "Zvýhodněná nabídka na přislušenství platí ještě: ");
+      // $(upsaleBanner).hide();
+      // condownMessage(upsaleBanner, 30, "Zvýhodněná nabídka na přislušenství platí ještě: ");
 
       const buttonWrap = $("<div>", {
-        class: "upsale-buttons trunk",
+        class: "upsale-buttons position-wrap parameter-cars parameter-wrap trunk",
       }).appendTo(upsaleBanner);
-
+      $(`<div class="order">${order}</div>`).appendTo(buttonWrap);
+      $('<h5 class="variant name">Špecifikácia vozidla</h5>').appendTo(buttonWrap);
       const carpetsText = setupData.settings.carpetsText.split(",");
       const carpetsValue = setupData.settings.carpetsValue.split(",");
       const carpetsImage = setupData.settings.carpetsImage.split(",");
@@ -205,7 +212,7 @@ function priplatky() {
 
     const pairVariantList = JSON.parse(setupData.settings.pairVariantList);
     const pairedOrders = {};
-    let orders = 0;
+    let orders = 2;
 
     createBoxConfig();
 
@@ -514,6 +521,50 @@ function firstPage() {
     const value = $(this).attr("data-value");
     $("select.parameter-id-22.surcharge-parameter").val(value);
   });
+  ////// výběr vzoru
+
+  const patterns = $("<div>", {
+    class: "position-wrap parameter-cars parameter-wrap  base-config active",
+  }).appendTo(".content-wrap");
+  $('<div class="order">2</div>').appendTo(patterns);
+  $('<h5 class="variant name">vzor prešívania koberca</h5>').appendTo(patterns);
+
+  const patternsWrap = $("<div>", {
+    class: "parameter-cars patterns-wrap",
+  }).appendTo(patterns);
+  let diamondurl = $(".detail-parameters tr:contains('diamond') td").text();
+  let hexaurl = $(".detail-parameters tr:contains('hexa') td").text();
+  let stripeurl = $(".detail-parameters tr:contains('stripe') td").text();
+  console.log(diamondurl);
+  if (diamondurl == "active") {
+    diamondurl = "";
+  }
+  if (hexaurl == "active") {
+    hexaurl = "";
+  }
+  if (stripeurl == "active") {
+    stripeurl = "";
+  }
+
+  const diamond = $(
+    `<a href="${diamondurl}" class="button option-button active" data-value="pattern1"><img src="/user/documents/upload/assets/banners/diamont.jpg" alt="Pattern1.jpg"><div class="banner-header"> diamond LINE</div></a>`
+  ).appendTo(patternsWrap);
+  const hexa = $(
+    `<a href="${hexaurl}" class="button option-button " data-value="pattern1"><img src="/user/documents/upload/assets/banners/hesaline.jpg" alt="Pattern1.jpg"><div class="banner-header"> diamond LINE</div></a>`
+  ).appendTo(patternsWrap);
+  const stripe = $(
+    `<a href="${stripeurl}" class="button option-button " data-value="pattern1"><img src="/user/documents/upload/assets/banners/stripe-line.jpg" alt="Pattern1.jpg"><div class="banner-header"> diamond LINE</div></a>`
+  ).appendTo(patternsWrap);
+
+  if (diamondurl == "active") {
+    diamond.addClass("active");
+  }
+  if (hexaurl == "active") {
+    hexa.addClass("active");
+  }
+  if (stripeurl == "active") {
+    stripe.addClass("active");
+  }
 }
 
 /**
@@ -523,7 +574,7 @@ function firstPage() {
  * @param {number} orders - The order number.
  */
 function createOptions(position, orders) {
-  console.log(position);
+  console.log(orders);
   let name = $(position).parents(".variant-list").find("th").text().trim();
   if (name == "") {
     name = $(position).parents(".surcharge-list").find("th").text().trim().replace("?", "");
@@ -545,27 +596,28 @@ function createOptions(position, orders) {
   const parameterId = $(position).attr("data-parameter-id");
   let optPosition = ".content-wrap";
 
-  if (orders == 4) {
-    const wrapOwerflow = $("<div>", {
-      class: "pop-ower",
-    }).appendTo("#options-wrap ");
-    const popup = $("<div>", {
-      class: "pop-up-options",
-    }).appendTo(wrapOwerflow);
-    $("<div>", {
-      class: "close-btn",
-      text: "+",
-    }).appendTo(popup);
-    $("<div>", {
-      class: "btn button-more",
-      text: "Něco navíc?",
-    }).appendTo("#options-wrap");
-  }
+  // if (orders == 6) {
+  //   console.log("aaaaaaaaaaaaaaaaa");
+  //   const wrapOwerflow = $("<div>", {
+  //     class: "pop-ower",
+  //   }).appendTo(".content-wrap ");
+  //   const popup = $("<div>", {
+  //     class: "pop-up-options",
+  //   }).appendTo(wrapOwerflow);
+  //   $("<div>", {
+  //     class: "close-btn",
+  //     text: "+",
+  //   }).appendTo(popup);
+  //   $("<div>", {
+  //     class: "btn button-more",
+  //     text: "Něco navíc?",
+  //   }).appendTo("#options-wrap");
+  // }
 
-  let upsale = 1;
+  let upsale = 4;
   if (shoptetData.product.id == 347 || shoptetData.product.id == 356) {
     $(".benefitBanner__content").hide();
-    upsale = 2;
+    upsale = 5;
   }
   if (orders > upsale) {
     optPosition = ".config-wrap";
@@ -616,6 +668,7 @@ function createOptions(position, orders) {
     const textOption = $(this).text();
     const valueText = textOption.split("+");
     const nameSplit = valueText[0].split(":");
+
     const optionButton = $("<div>", {
       class: "button option-button",
       "data-value": value,
@@ -630,7 +683,18 @@ function createOptions(position, orders) {
         class: "description",
         html: `<span>${nameSplit[0]}</span><div class='parm'> ${nameSplit[1]}</div><div class='price'>${valueText[1]}</div>`,
       }).appendTo(optionButton);
+
       $(optionButton).addClass("text");
+    } else if (textOption.includes("rad")) {
+      $("<img>", {
+        alt: `${parameterId}-${value}.jpg`,
+        src: `/user/documents/upload/assets/variants/${parameterId}-${value}.png?8`,
+      }).appendTo(optionButton);
+      $("<div>", {
+        class: "banner-header",
+        html: `<span>${nameSplit[0]}</span><div class='price'>${valueText[1]}</div>`,
+      }).appendTo(optionButton);
+      $(optionButton).addClass("lines");
     } else if (textOption == "nechci +0 Kč") {
       $("<div>", {
         class: "description",

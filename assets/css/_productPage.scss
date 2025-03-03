@@ -135,6 +135,7 @@ table.detail-parameters {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 10px;
   .button.option-button {
     width: 50px;
     height: 50px;
@@ -931,6 +932,10 @@ div#description {
     border-radius: 0;
   }
 }
+
+.button.option-button.lines {
+  width: calc(33% - 10px);
+}
 .basic-description .section.section-blends.section-dubble.section-full {
   .media-with-text__content.bg-custom.text-custom {
     display: flex;
@@ -997,6 +1002,90 @@ section#model-info {
       font-size: 17px;
       font-weight: 600;
     }
+  }
+}
+
+.parameter-cars.patterns-wrap {
+  display: flex;
+  padding: 10px 10px 0;
+  a.button.option-button {
+    border: none !important;
+    width: 33%;
+    position: relative;
+    background: transparent;
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid transparent !important;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .banner-header {
+      bottom: 0px;
+      min-height: 40px;
+      font-weight: 400;
+      font-size: 16px;
+    }
+    &.active {
+      border: 4px solid rgba(196, 155, 49, 1) !important;
+    }
+  }
+}
+
+.button.option-button.lines {
+  height: unset;
+  background-color: rgba(128, 128, 128, 1);
+  border-radius: 15px;
+  overflow: hidden;
+  img {
+    max-height: 70px;
+    margin: auto;
+    margin-bottom: 50px;
+    display: block;
+  }
+  .banner-header {
+    bottom: 0;
+    font-size: 15px;
+    min-height: 30px;
+  }
+  .price {
+    color: #c49b31;
+  }
+  &.active {
+    background-color: rgba(196, 155, 49, 1);
+    border: none;
+    border-radius: 15px;
+  }
+}
+.parameter-wrap.parameter-44.orders-5.base-config {
+  .image-wrap {
+    display: none;
+  }
+}
+
+.updale-banner-info {
+  margin: 20px 0;
+  border: 2px solid rgba(196, 155, 49, 1);
+  border-radius: 15px;
+  padding: 15px 10px 15px 60px;
+  .h4 {
+    color: rgba(196, 155, 49, 1);
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+  }
+  span {
+    font-size: 20px;
+  }
+  icon.icon {
+    position: absolute;
+    left: 20px;
+    font-size: 57px;
+    font-weight: 800;
+    top: 24px;
+    color: rgba(196, 155, 49, 1);
   }
 }
 @media (min-width: 1500px) {
