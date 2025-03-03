@@ -433,6 +433,7 @@ function priplatky() {
   }
 }
 function createUpsaleButton(img, text, position, value, type, price, prefix) {
+  console.log("price", price);
   if (!img || !text || !position) {
     console.error("Invalid parameters passed to createUpsaleButton");
     return;
