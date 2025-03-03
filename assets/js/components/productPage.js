@@ -208,7 +208,7 @@ function priplatky() {
       });
     }
 
-    $("<div>", { class: "content-wrap" }).insertAfter(".detail-parameters");
+    $("<div>", { class: "content-wrap" }).insertAfter(".p-info-wrapper .detail-parameters");
 
     $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
     $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {

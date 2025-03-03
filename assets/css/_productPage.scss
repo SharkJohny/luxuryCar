@@ -1141,6 +1141,9 @@ section#model-info {
     color: rgba(196, 155, 49, 1);
   }
 }
+.extended-description {
+  display: none;
+}
 @media (min-width: 1500px) {
   .basic-description .section.section-blends.section-dubble.section-full {
     p.h2 span {
@@ -1171,5 +1174,33 @@ section#model-info {
     p {
       font-size: 20px !important;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .option-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .parameter-cars.patterns-wrap {
+    flex-wrap: wrap;
+  }
+  .parameter-cars.patterns-wrap a.button.option-button {
+    width: 100%;
+  }
+  .parameter-cars.patterns-wrap a.button.option-button {
+    border-radius: 32px;
+  }
+  .button.option-button.lines {
+    width: 100%;
+  }
+  .upsale-Banner .upsale-button {
+    width: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .upsale-Banner .upsale-buttons .parameter-cars {
+    flex-wrap: wrap;
   }
 }
