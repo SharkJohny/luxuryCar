@@ -438,8 +438,11 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
     console.error("Invalid parameters passed to createUpsaleButton");
     return;
   }
-  console.log(price.split("/"));
-  const priceText = price.split("/");
+  let priceText;
+  if (price) {
+    console.log(price.split("/"));
+    priceText = price.split("/");
+  }
   let typeClass = type;
   if (type == "config" && value == 0) {
     typeClass = "none";
