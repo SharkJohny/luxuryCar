@@ -434,15 +434,12 @@ function priplatky() {
 }
 function createUpsaleButton(img, text, position, value, type, price, prefix) {
   console.log("price", price);
-  if (!img || !text || !position) {
+  if (!img || !text || !position || !price) {
     console.error("Invalid parameters passed to createUpsaleButton");
     return;
   }
-  let priceText;
-  if (price) {
-    console.log(price.split("/"));
-    priceText = price.split("/");
-  }
+  console.log(price.split("/"));
+  let priceText = price.split("/");
   let typeClass = type;
   if (type == "config" && value == 0) {
     typeClass = "none";
