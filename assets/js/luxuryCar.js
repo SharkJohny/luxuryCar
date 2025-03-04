@@ -283,7 +283,7 @@ function priplatky() {
     $('<icon class="icon">!</icon>').appendTo(bannerWrap);
     $('<div class="h4">').text("k\xFAp viac za menej").appendTo(bannerWrap);
     $("<span>").text("Vyu\u017Ei na\u0161u akciov\xFA ponuku set s autokobercami za v\xFDhodn\xFA cenu").appendTo(bannerWrap);
-    if ($(".parameter-id-20")[0]) {
+    if ($(".parameter-id-89")[0]) {
       const buttonWrap = $("<div>", {
         class: "upsale-buttons position-wrap parameter-cars parameter-wrap trunk"
       }).appendTo(upsaleBanner);
@@ -308,7 +308,7 @@ function priplatky() {
         );
       });
     }
-    if ($(".parameter-id-26")[0]) {
+    if ($(".parameter-id-95")[0]) {
       const boxsText = setupData.settings.boxsText.split(",");
       const boxsValue = setupData.settings.boxsValue.split(",");
       const boxsImage = setupData.settings.boxsImage.split(",");
@@ -353,7 +353,7 @@ function priplatky() {
     });
     $(".detail-parameters .surcharge-list select").each(function() {
       const id = $(this).attr("data-parameter-id");
-      if (id == "37" || id == "22" || id == "20") return;
+      if (id == "37" || id == "22" || id == "89") return;
       let sharedOrder = null;
       pairVariantList.forEach((pair) => {
         if (pair.includes(parseInt(id))) {
@@ -399,7 +399,7 @@ function priplatky() {
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").show();
-        if (!$(".parameter-id-20")[0]) {
+        if (!$(".parameter-id-89")[0]) {
           $(".upsale-buttons.boxs").show();
         }
       }
@@ -646,7 +646,7 @@ function createOptions(position, orders) {
   const parameterId = $(position).attr("data-parameter-id");
   let optPosition = ".content-wrap";
   let upsale = 4;
-  if (shoptetData.product.id == 347 || shoptetData.product.id == 356) {
+  if (shoptetData.product.id == 3011 || shoptetData.product.id == 356) {
     $(".benefitBanner__content").hide();
     upsale = 5;
   }
