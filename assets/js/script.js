@@ -9,9 +9,9 @@ $.getJSON(optionData.downloadData, function (data) {
   setupData = data;
 
   console.log(setupData.settings);
-  initModelSelect();
-  googleReviews();
-  initProduct();
+  initModelSelect(setupData);
+  googleReviews(setupData);
+  initProduct(setupData);
 });
 
 const logoGoogle =

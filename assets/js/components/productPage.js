@@ -1,18 +1,7 @@
-import { optionData } from "../option.js";
-let setupData;
-$.getJSON(optionData.downloadData, function (data) {
-  setupData = data;
-
-  if (!setupData) {
-    location.reload();
-    return;
-  }
-});
-
 /**
  * Initializes the product page.
  */
-export function initProduct() {
+export function initProduct(setupData) {
   if ($(".id-751")[0]) {
     $(".benefitBanner__item").remove();
   }
@@ -39,7 +28,7 @@ export function initProduct() {
     // );
   }
 
-  priplatky();
+  priplatky(setupData);
 
   $(".button.btn.select-model").on("click", function () {
     const overflow = $("<div>", {
@@ -133,7 +122,7 @@ export function initProduct() {
 /**
  * Initializes the upsale section.
  */
-function priplatky() {
+function priplatky(setupData) {
   let order = 6;
 
   if ($(".type-detail").length) {
