@@ -2,6 +2,11 @@ import { optionData } from "../option.js";
 let setupData;
 $.getJSON(optionData.downloadData, function (data) {
   setupData = data;
+
+  if (!setupData) {
+    location.reload();
+    return;
+  }
 });
 
 /**

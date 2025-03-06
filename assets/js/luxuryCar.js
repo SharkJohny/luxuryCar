@@ -183,6 +183,10 @@ function intIndex() {
 var setupData;
 $.getJSON(optionData.downloadData, function(data) {
   setupData = data;
+  if (!setupData) {
+    location.reload();
+    return;
+  }
 });
 function initProduct() {
   if ($(".id-751")[0]) {
