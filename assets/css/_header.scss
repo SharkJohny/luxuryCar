@@ -27,14 +27,37 @@
 //   }
 // }
 
+a.top-nav-button.top-nav-button-login.primary.login.toggle-window {
+  display: none;
+}
+
 .navigation-show {
   position: absolute;
   top: 14px;
   left: 20px;
-
+  font-size: 0;
   color: var(--color-primary);
-  font-size: 16px;
+
   cursor: pointer;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url(https://704436.myshoptet.com/user/documents/upload/assets/image/menu.svg);
+    background-size: cover;
+  }
+}
+a.btn.btn-icon.toggle-window.cart-count {
+  font-size: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 30px;
+    background-image: url(https://704436.myshoptet.com/user/documents/upload/assets/image/cart.svg);
+    background-size: cover;
+  }
 }
 .menu-helper.jkTop.visible,
 nav#navigation {
@@ -67,7 +90,7 @@ header#header {
   }
   .navigation-buttons {
     position: absolute;
-    right: 150px;
+    right: 0px;
     top: -39px;
   }
   header#header {
@@ -104,7 +127,7 @@ header#header {
     z-index: 50;
     position: relative;
     background-color: white;
-    height: 48px;
+    height: 60px;
     border-bottom-color: transparent;
   }
   .in-index .top-navigation-bar {
@@ -268,7 +291,12 @@ header#header {
       top: 0px;
       left: 0;
       right: 0;
-      background-color: rgb(242, 242, 242);
+      background-color: black;
+    }
+    @media (min-width: 768px) {
+      .cart-count {
+        top: 0px !important;
+      }
     }
     header#header {
       position: fixed;
@@ -459,6 +487,9 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU {
 @media (min-width: 768px) {
   .fitted .navigation-in ul {
     justify-content: center !important;
+  }
+  #header .cart-count {
+    top: -12px;
   }
 }
 

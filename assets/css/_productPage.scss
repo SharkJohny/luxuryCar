@@ -1,12 +1,73 @@
 .type-product {
+  p[data-testid="productCardDescr"],
+  .ti-dropdown-widget-inner:before,
+  .p-detail-info,
+  span.parameter-dependent.default-variant,
+  .social-buttons-wrapper {
+    display: none;
+  }
+
   .model-selector.container {
     width: auto;
   }
-  .ti-dropdown-widget-inner:before {
-    display: none;
+
+  span.calculated-price {
+    color: var(--color-primary);
   }
   .ti-dropdown-widget {
     top: 10%;
+  }
+  button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale {
+    position: absolute;
+    right: 0;
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+
+    bottom: 43px;
+  }
+}
+
+.col-xs-12.col-lg-6.p-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  section#model-selector {
+    order: 1;
+  }
+  table.detail-parameters {
+    order: 2;
+  }
+  .content-wrap {
+    order: 3;
+  }
+  .upsale-text {
+    order: 4;
+  }
+  .p-final-price-wrapper {
+    order: 5;
+    margin-bottom: 0;
+  }
+  .upsale-wrap {
+    order: 5;
+  }
+  .availability-value {
+    order: 6;
+  }
+  .add-to-cart {
+    order: 7;
+  }
+  .NoteDiv {
+    order: 8;
+  }
+  .p-short-description {
+    order: 9;
+  }
+  p[data-testid="productCardDescr"] {
+    order: 10;
+  }
+  .social-buttons-wrapper {
+    order: 11;
   }
 }
 table.detail-parameters {
@@ -203,10 +264,6 @@ span.quantity {
   margin: auto;
   top: 20%;
   position: relative;
-}
-
-.col-xs-12.col-lg-6.p-info-wrapper {
-  position: inherit;
 }
 
 .close-btn {
@@ -873,47 +930,6 @@ div#description p span.text-gradient {
 }
 .ti-widget-container.upsale {
   overflow: auto;
-}
-
-.col-xs-12.col-lg-6.p-info-wrapper {
-  display: flex;
-  flex-direction: column;
-  section#model-selector {
-    order: 1;
-  }
-  table.detail-parameters {
-    order: 2;
-  }
-  .content-wrap {
-    order: 3;
-  }
-  .upsale-text {
-    order: 4;
-  }
-  .p-final-price-wrapper {
-    order: 5;
-  }
-  .upsale-wrap {
-    order: 5;
-  }
-  .availability-value {
-    order: 6;
-  }
-  .add-to-cart {
-    order: 7;
-  }
-  .NoteDiv {
-    order: 8;
-  }
-  .p-short-description {
-    order: 9;
-  }
-  p[data-testid="productCardDescr"] {
-    order: 10;
-  }
-  .social-buttons-wrapper {
-    order: 11;
-  }
 }
 
 div#description {

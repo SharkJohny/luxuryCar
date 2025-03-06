@@ -85,17 +85,19 @@
   border-radius: 10px;
   overflow: hidden;
 }
-.media-with-text__media,
+div#wrap img,
+a.thumbnail-image.p-main-image.cloud-zoom img,
+.media-with-text__media img,
 .slick-slide .image img,
 .image-container,
 .twentytwenty-wrapper.twentytwenty-horizontal,
 .mobile-image,
 .content-over-media.group.rounded-sm {
-  overflow: hidden;
-  border-radius: 10px;
-  position: relative;
-  border: 5px solid var(--color-primary);
-  border-radius: 25px;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  position: relative !important;
+  border: 5px solid var(--color-primary) !important;
+  border-radius: 25px !important;
 }
 
 .main-image {
