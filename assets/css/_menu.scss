@@ -46,3 +46,9 @@ div#menu-widget {
     text-transform: uppercase;
   }
 }
+
+@media (max-width: 768px) {
+  div#menu-widget {
+    left: 0px;
+  }
+}

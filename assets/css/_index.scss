@@ -212,14 +212,16 @@ span.images-scrolling__counter.bold {
 }
 
 .text-gradient {
-  background-image: var(--gradient);
-  color: #0000;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  -webkit-background-clip: text;
-  background-clip: text;
+  // background-image: var(--gradient);
+  color: var(--color-primary);
+  // -webkit-box-decoration-break: clone;
+  // box-decoration-break: clone;
+  // -webkit-background-clip: text;
+  // background-clip: text;
 }
-
+span.shape-diamond.shape--lg.place-self-center {
+  visibility: hidden;
+}
 @media (min-width: 768px) {
   .modl-selector-wrap {
     display: flex;
@@ -738,7 +740,7 @@ section#section1 {
   .footer-banner section {
     margin-left: -30px !important;
     margin-right: -30px;
-    padding: 20px !important;
+    padding: 40px !important;
   }
   .footer-banner section#section5 .images-scrolling__content,
   .footer-banner section#section3 .images-scrolling__content,
@@ -759,8 +761,8 @@ section#section1 {
     justify-content: center;
   }
   .section-stack .collection-card__content-wrapper.text-custom.place-self-center.text-center {
-    position: absolute;
     top: 25%;
+    position: static;
   }
   #videoWrapper video {
     height: 300px;
@@ -827,6 +829,57 @@ section#section1 {
     margin-left: -20px !important;
     margin-right: -20px !important;
   }
+
+  .feature-chart__table-row {
+    position: relative;
+  }
+  .feature-chart__heading.bold {
+    display: none;
+  }
+  .header .feature-chart__heading.bold {
+    position: absolute;
+    top: -100px;
+    max-width: 300px;
+    display: block;
+  }
+  .feature-chart__value.prose.text-subdued {
+    margin: 0 8px;
+  }
+
+  section#shopify-section-template--17290810851560__feature-chart {
+    overflow: hidden;
+  }
+  .content-wrapper.container .row {
+    overflow: hidden;
+  }
+  section#goggle-review-wrap {
+    margin-top: 25px;
+  }
+  .section.section-blends.section-full {
+    .scrollable-with-controls {
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+    .section-stack .content-over-media.group.rounded-sm {
+      margin: 5px;
+    }
+  }
+  .banner-header {
+    font-size: 14px;
+  }
+  .banner-header p {
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+  .homepage-box.welcome-wrapper {
+    margin-top: -1px;
+  }
+  .content-wrapper-in {
+    background: white;
+  }
+  .feature-chart__table-row.header {
+    padding-top: 200px;
+  }
 }
 
 .p-detail-inner-header h1,
@@ -867,6 +920,7 @@ h2.divider,
   border-radius: 20px;
   border: 5px solid var(--color-primary);
   border-radius: 30px;
+  min-height: unset;
   img {
     border: none !important;
 
