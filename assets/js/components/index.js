@@ -1,9 +1,10 @@
 export function intIndex() {
-  setTimeout(function () {}, 4000);
-  $(".twentytwenty-container").twentytwenty({
-    before_label: "Předtím",
-    after_label: "Potom",
-  });
+  setTimeout(function () {
+    $(".twentytwenty-container").twentytwenty({
+      before_label: "Předtím",
+      after_label: "Potom",
+    });
+  }, 200);
 
   // Funkce pro přičítání čísel
   function animateCountUp(element, targetNumber, duration) {

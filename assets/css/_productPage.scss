@@ -548,9 +548,7 @@ span.quantity {
     font-weight: 600;
     // margin-block: 50px;
   }
-  span.shape-diamond.shape--lg.place-self-center {
-    display: none;
-  }
+
   .impact-text {
     gap: minmax(0, 1fr) auto;
     align-items: start;
@@ -845,7 +843,7 @@ span.quantity {
   }
 }
 div#description p span.text-gradient {
-  color: transparent !important;
+  color: var(--color-primary) !important;
 }
 .upsale-text,
 .banner-wrap.upsale {
@@ -1260,5 +1258,84 @@ section#model-info {
   }
   .upsale-Banner .upsale-buttons .parameter-cars {
     flex-wrap: wrap;
+  }
+  .col-xs-12.col-lg-6.p-info-wrapper .availability-value {
+    order: 1;
+  }
+  section#model-info {
+    display: flex;
+    flex-direction: column;
+  }
+  .setup-model {
+    width: fit-content;
+    margin: auto;
+  }
+  section#model-info .model-info {
+    margin-bottom: 10px;
+  }
+  .type-product button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale {
+    right: 21px;
+
+    bottom: 24px;
+  }
+  .snap-center .prose p {
+    max-width: unset;
+  }
+  .basic-description .impact-text {
+    flex-direction: column;
+  }
+  .section.section-full.bg-custom.full-width {
+    .snap-center {
+      margin-bottom: 25px;
+    }
+  }
+  .media-with-text__item.full-width {
+    .container {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+  .type-product .twentytwenty-wrap.full-width {
+    .section-info h3 {
+      margin-top: 0;
+    }
+  }
+  .basic-description .layers-info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .basic-description .layers-info .image-container {
+    width: 100%;
+    margin: 20px 0 0;
+  }
+  .basic-description {
+    .container-slider {
+      margin-left: -50px;
+      margin-right: -50px;
+    }
+  }
+  .text-block {
+    padding: 50px 30px;
+  }
+  section#section7 .images-scrolling__content,
+  section#section5 .images-scrolling__content,
+  section#section3 .images-scrolling__content,
+  section#section1 .images-scrolling__content {
+    text-align: left;
+  }
+  section#section7 span.images-scrolling__counter.bold,
+  section#section5 span.images-scrolling__counter.bold,
+  section#section3 span.images-scrolling__counter.bold,
+  section#section1 span.images-scrolling__counter.bold {
+    padding-right: 0;
+  }
+  section#section7 span.images-scrolling__counter.bold::before,
+  section#section5 span.images-scrolling__counter.bold::before,
+  section#section3 span.images-scrolling__counter.bold::before,
+  section#section1 span.images-scrolling__counter.bold::before {
+    top: 18px;
+    left: 0px;
+    right: unset;
   }
 }

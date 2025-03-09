@@ -8,11 +8,11 @@ var optionData = {
 // assets/js/components/index.js
 function intIndex() {
   setTimeout(function() {
-  }, 4e3);
-  $(".twentytwenty-container").twentytwenty({
-    before_label: "P\u0159edt\xEDm",
-    after_label: "Potom"
-  });
+    $(".twentytwenty-container").twentytwenty({
+      before_label: "P\u0159edt\xEDm",
+      after_label: "Potom"
+    });
+  }, 200);
   function animateCountUp(element, targetNumber, duration) {
     const $element = $(element);
     $({ count: 0 }).animate(
