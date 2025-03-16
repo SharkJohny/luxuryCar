@@ -102,21 +102,21 @@ export function initProduct(setupData) {
     }
   });
 
-  const wrap = $("<div>", {
-    class: "thumbnails-wrap",
-  }).appendTo(".col-xs-12.col-lg-6.p-image-wrapper");
-  $(".p-thumbnails-inner>div>a").each(function (n) {
-    if (n % 2 !== 0 || n > 15) return;
-    console.log(n);
-    const src = $(this).attr("href");
-    const image = $("<a>", {
-      class: "thumbnail-image p-main-image cloud-zoom",
-      href: src,
-    }).appendTo(wrap);
-    $("<img>", {
-      src,
-    }).appendTo(image);
-  });
+  // const wrap = $("<div>", {
+  //   class: "thumbnails-wrap",
+  // }).appendTo(".col-xs-12.col-lg-6.p-image-wrapper");
+  // $(".p-thumbnails-inner>div>a").each(function (n) {
+  //   if (n % 2 !== 0 || n > 15) return;
+  //   console.log(n);
+  //   const src = $(this).attr("href");
+  //   const image = $("<a>", {
+  //     class: "thumbnail-image p-main-image cloud-zoom",
+  //     href: src,
+  //   }).appendTo(wrap);
+  //   $("<img>", {
+  //     src,
+  //   }).appendTo(image);
+  // });
 }
 
 /**

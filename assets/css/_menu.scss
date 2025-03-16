@@ -1,7 +1,7 @@
 div#menu-widget {
-  position: fixed;
-  top: 48px;
-  left: 20px;
+  position: absolute;
+  top: 58px;
+
   background-color: rgba(237, 237, 237, 1);
   padding: 20px 0 0px 30px;
   color: black;
@@ -11,10 +11,14 @@ div#menu-widget {
     justify-content: space-between;
   }
   .menu {
-    margin-right: 40px;
+    margin-right: 80px;
+    text-align: left;
     li.main a {
       text-decoration: underline;
       font-weight: 600;
+    }
+    ul {
+      padding-left: 0;
     }
   }
   .picture {

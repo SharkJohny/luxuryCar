@@ -95,8 +95,9 @@ function initHeader() {
   $("<div>", {
     class: "navigation-show",
     text: "E-shop",
-  }).appendTo(".top-navigation-bar");
+  }).appendTo(".top-navigation-bar .container");
 
+  $("div#menu-widget").appendTo(".top-navigation-bar .container");
   $(".navigation-show").on("click", function () {
     $("body").toggleClass("showNav");
   });
@@ -280,7 +281,7 @@ function googleReviews() {
 
   const google = $("<section/>").attr("id", "goggle-review-wrap").html(googleRef);
   if ($(".mobile")[0]) {
-    google.insertAfter(".in-index .twentytwenty-wrapper");
+    google.insertAfter(".in-index .row.banners-content.body-banners");
   } else {
     google.insertAfter(".in-index section#model-selector");
   }
