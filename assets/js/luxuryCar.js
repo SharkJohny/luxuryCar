@@ -250,21 +250,6 @@ function initProduct(setupData2) {
       console.log(`Posunul jsi dop\u0159edu na index: ${currentIndex}`);
     }
   });
-  const wrap = $("<div>", {
-    class: "thumbnails-wrap"
-  }).appendTo(".col-xs-12.col-lg-6.p-image-wrapper");
-  $(".p-thumbnails-inner>div>a").each(function(n) {
-    if (n % 2 !== 0 || n > 15) return;
-    console.log(n);
-    const src = $(this).attr("href");
-    const image = $("<a>", {
-      class: "thumbnail-image p-main-image cloud-zoom",
-      href: src
-    }).appendTo(wrap);
-    $("<img>", {
-      src
-    }).appendTo(image);
-  });
 }
 function priplatky(setupData2) {
   let order = 6;
@@ -797,7 +782,8 @@ function initHeader() {
   $("<div>", {
     class: "navigation-show",
     text: "E-shop"
-  }).appendTo(".top-navigation-bar");
+  }).appendTo(".top-navigation-bar .container");
+  $("div#menu-widget").appendTo(".top-navigation-bar .container");
   $(".navigation-show").on("click", function() {
     $("body").toggleClass("showNav");
   });
@@ -951,7 +937,7 @@ function initSignpost() {
 function googleReviews() {
   const google = $("<section/>").attr("id", "goggle-review-wrap").html(googleRef);
   if ($(".mobile")[0]) {
-    google.insertAfter(".in-index .twentytwenty-wrapper");
+    google.insertAfter(".in-index .row.banners-content.body-banners");
   } else {
     google.insertAfter(".in-index section#model-selector");
   }
