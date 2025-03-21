@@ -1261,11 +1261,26 @@ a.p-thumbnail {
     width: 100%;
   }
   .upsale-Banner .upsale-button {
-    width: 90%;
+    width: 32%;
 
     margin-left: auto;
     margin-right: auto;
+    .price {
+      font-size: 10px;
+    }
+    .save {
+      font-size: 10px;
+      top: -12px !important;
+    }
+    .banner-header {
+      padding-top: 13px;
+    }
   }
+
+  .upsale-Banner .upsale-buttons .parameter-cars .banner-header {
+    font-size: 11px;
+  }
+
   .upsale-Banner .upsale-buttons .parameter-cars {
     flex-wrap: wrap;
   }
@@ -1296,6 +1311,7 @@ a.p-thumbnail {
   }
   .section.section-full.bg-custom.full-width {
     .snap-center {
+      margin: auto;
       margin-bottom: 25px;
     }
   }
@@ -1371,7 +1387,7 @@ a.p-thumbnail {
     border-radius: 15px;
   }
   .options-wrap .button.option-button {
-    width: 8%;
+    width: 11%;
     height: auto;
   }
   .orders-5 {
@@ -1407,5 +1423,45 @@ a.p-thumbnail {
   }
   .parameter-wrap h5 {
     font-size: 14px;
+  }
+  .basic-description h2.h3 {
+    font-size: 18px;
+  }
+
+  .type-product {
+    .section.section-blends.section-full,
+    section#models {
+      padding: 0px 0px !important;
+    }
+    .basic-description .text-with-icons__item.snap-center {
+      padding: 10px;
+
+      text-align: center;
+    }
+    .text-with-icons {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .text-with-icons__item.snap-center {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+    }
+    .snap-center .prose p {
+      max-width: 300px !important;
+    }
+    .basic-description .text-with-icons__item.snap-center {
+      padding: 10px;
+
+      text-align: center;
+    }
+  }
+  .image-container {
+    overflow: inherit !important;
+    img {
+      border-radius: 20px;
+    }
   }
 }
