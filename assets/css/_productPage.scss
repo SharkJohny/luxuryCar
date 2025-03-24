@@ -1,3 +1,9 @@
+.parameter-wrap.parameter-110 {
+  .image-wrap {
+    display: none !important;
+  }
+}
+
 .type-product {
   p[data-testid="productCardDescr"],
   .ti-dropdown-widget-inner:before,
@@ -231,7 +237,7 @@ table.detail-parameters {
     }
     &.active {
       border: 3px solid #c49b31;
-      border-radius: 20px;
+      border-radius: 50%;
     }
   }
 }

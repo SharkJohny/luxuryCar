@@ -316,12 +316,6 @@ function priplatky(setupData2) {
       });
     }
     $("<div>", { class: "content-wrap" }).insertAfter(".p-info-wrapper .detail-parameters");
-    $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
-    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      createUpsalePopup();
-    });
     firstPage();
     const pairVariantList = JSON.parse(setupData2.settings.pairVariantList);
     const pairedOrders = {};
@@ -375,10 +369,11 @@ function priplatky(setupData2) {
       $(".image-wrap").remove();
       const imageWrap = $("<div>", {
         class: "image-wrap"
-      }).appendTo(".parameter-wrap.parameter-" + parameterId);
+      }).appendTo(".parameter-wrap.parameter-" + parameterId).fadeIn(1e3);
       $("<img>", { src: image2 }).appendTo(imageWrap);
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
+        $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
         if (!$(".parameter-id-89")[0]) {
           $(".upsale-buttons.boxs").show();
@@ -441,6 +436,7 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
   const positionadd = $(button).find(".banner-header");
   $(priceHTML).appendTo(positionadd);
+  $(".upsale-Banner").hide();
 }
 $(document).on("click", ".upsale-button", function(e) {
   $(".image-wrap").remove();
@@ -731,30 +727,6 @@ function createBoxConfig() {
   const configWrap = $("<div>", {
     class: "config-wrap"
   }).appendTo(wrap);
-}
-function createUpsalePopup() {
-  createPop();
-  $(".ti-widget-container").addClass("upsale");
-  $("<div>", {
-    class: "h2",
-    text: "Iba teraz za zv\xFDhodnen\xFA cenu!"
-  }).appendTo(".ti-widget-container");
-  $("<div>", {
-    class: "description",
-    text: " Dopl\u0148te svoju objedn\xE1vku o kufrov\xE9 kober\u010Deky alebo \xFAlo\u017En\xE9 boxy s v\xFDraznou z\u013Eavou. Ponuka plat\xED len chv\xED\u013Eu!"
-  }).appendTo(".ti-widget-container");
-  $("<div>", {
-    class: "button btn open-upsale",
-    text: "Vyu\u017Ei\u0165 zv\xFDhodnen\xFA ponuku!"
-  }).appendTo(".ti-widget-container");
-  $("<div>", {
-    class: "prefix",
-    text: "Len po\u010Das tejto objedn\xE1vky m\xF4\u017Eete z\xEDska\u0165 kober\u010Deky do kufra alebo \xFAlo\u017En\xE9 boxy za extr\xE9mne zv\xFDhodnen\xFA cenu. Chr\xE1\u0148te a organizujte svoj kufor so \u0161t\xFDlom!"
-  }).appendTo(".ti-widget-container");
-  $(".button.btn.open-upsale").on("click", function() {
-    $(".overflow").remove();
-    $(".upsale-wrap").addClass("active");
-  });
 }
 
 // assets/js/script.js

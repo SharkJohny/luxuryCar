@@ -709,6 +709,24 @@ section#section1 {
   justify-content: center;
 }
 
+.feature-chart__value.prose.text-subdued.center {
+  background: #d6d6d645;
+  padding: 10px 20px;
+}
+.feature-chart__value.prose.text-subdued.center.top {
+  background: #d6d6d645;
+  border-radius: 25px 25px 0 0;
+}
+.feature-chart__table-row,
+.feature-chart__table-row.header {
+  padding: 0;
+}
+.feature-chart__heading.bold {
+  padding: 10px 0;
+}
+.feature-chart__value.prose.text-subdued {
+  padding: 10px 0;
+}
 @media screen and (min-width: 700px) {
   section#section6,
   section#section4,

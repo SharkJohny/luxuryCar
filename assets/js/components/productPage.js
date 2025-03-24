@@ -204,12 +204,12 @@ function priplatky(setupData) {
 
     $("<div>", { class: "content-wrap" }).insertAfter(".p-info-wrapper .detail-parameters");
 
-    $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
-    $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
-      createUpsalePopup();
-    });
+    // $("button.btn.btn-lg.btn-conversion.add-to-cart-button").addClass("upsale");
+    // $(".add-to-cart").on("click", "button.btn.btn-lg.btn-conversion.add-to-cart-button.upsale", function (e) {
+    //   e.stopPropagation();
+    //   e.preventDefault();
+    //   createUpsalePopup();
+    // });
 
     firstPage();
 
@@ -269,14 +269,21 @@ function priplatky(setupData) {
       }
       const image2 = $(this).find("img").attr("src");
       console.log(image2);
+
       $(".image-wrap").remove();
+
       const imageWrap = $("<div>", {
         class: "image-wrap",
-      }).appendTo(".parameter-wrap.parameter-" + parameterId);
+      })
+        .appendTo(".parameter-wrap.parameter-" + parameterId)
+        .fadeIn(1000);
       $("<img>", { src: image2 }).appendTo(imageWrap);
 
       if (!$(".goToAction")[0]) {
         console.log("goToAction");
+
+        $(".upsale-Banner").fadeIn(400);
+
         $(".upsale-Banner").show();
         if (!$(".parameter-id-89")[0]) {
           $(".upsale-buttons.boxs").show();
@@ -360,6 +367,7 @@ function createUpsaleButton(img, text, position, value, type, price, prefix) {
   }
   const positionadd = $(button).find(".banner-header");
   $(priceHTML).appendTo(positionadd);
+  $(".upsale-Banner").hide();
 }
 // Single event listener for .upsale-button
 $(document).on("click", ".upsale-button", function (e) {
