@@ -132,6 +132,7 @@ function intIndex() {
     ]
   });
   $("button.text-with-icon.group").on("click", function() {
+    $("section#comparison").toggleClass("show-more");
     if (!$("button.text-with-icon.group.less")[0]) {
       $(".feature-chart__table-row[hidden]").removeAttr("hidden").addClass("addHidden");
       const less = $(this).attr("data-view-less");

@@ -1016,13 +1016,27 @@ section#section1 {
   div#menu-widget .picture .title {
     bottom: 5px !important;
   }
+
+  .hotspot[style="top: 24%; left: 82%;"] {
+    .tooltips {
+      left: -53%;
+    }
+  }
+  .snap-center h2.impact-text__text.heading.break-all {
+    margin-top: 20px;
+  }
+  .section.section-full.bg-custom.full-width .snap-center {
+    margin: auto;
+    margin-bottom: 0px !important;
+  }
 }
 
 .p-detail-inner-header h1,
 .justify-self-center h3,
 .section-info h3,
 h2.divider,
-.sec-header {
+.sec-header,
+#comparison h2 {
   margin-top: 50px;
   background-image: var(--gradient);
   color: var(--color-primary);
@@ -1031,7 +1045,7 @@ h2.divider,
   -webkit-background-clip: text;
   background-clip: text;
   text-align: left;
-  font-size: 30px;
+  font-size: 40px;
   text-transform: uppercase;
 }
 .justify-self-center h3 {
@@ -1147,5 +1161,105 @@ section#models a.btn {
 
   .image {
     padding: 5px;
+  }
+}
+
+/// comparison
+section#comparison {
+  padding-top: 40px;
+  .flex {
+    margin-bottom: 40px;
+    & > div {
+      width: 33%;
+      padding: 20px;
+    }
+  }
+  .center,
+  .right {
+    .top {
+      padding: 20px;
+      img {
+        display: block;
+        margin: auto;
+        margin-bottom: 20px;
+      }
+    }
+    .row {
+      padding: 0 20px;
+    }
+  }
+  .center {
+    box-shadow: #8e8e8e 1px 1px 26px;
+    border-radius: 30px;
+  }
+  .top {
+    border-bottom: 1px solid rgba(237, 237, 237, 1);
+
+    height: 385px;
+    p,
+    span {
+      font-size: 17px;
+      padding-right: 40px;
+    }
+  }
+  .row {
+    border-bottom: 1px solid rgba(237, 237, 237, 1);
+    height: 70px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+  .row.header {
+    font-weight: 600;
+  }
+  h2 {
+    margin-top: 0;
+  }
+  .row.more {
+    display: none !important;
+  }
+  &.show-more {
+    .row.more {
+      display: flex !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .flex > div {
+      width: 50%;
+    }
+    .row.header {
+      display: none !important;
+    }
+    .left {
+      width: 100% !important;
+      .top {
+        border-bottom: none;
+      }
+    }
+    .flex {
+      flex-wrap: wrap;
+    }
+    .center,
+    .right {
+      padding: 10px !important;
+      .top {
+        padding: 0px;
+        height: 240px;
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+    .row.header.more {
+      display: none !important;
+    }
+    .row {
+      font-size: 14px;
+      padding: 0 !important;
+      height: 80px;
+    }
+    .center {
+      border-radius: 15px;
+    }
   }
 }
