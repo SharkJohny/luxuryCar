@@ -285,6 +285,11 @@ function priplatky(setupData) {
         $(".upsale-Banner").fadeIn(400);
 
         $(".upsale-Banner").show();
+        $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
+
+        if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
+          $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").show();
+        }
         if (!$(".parameter-id-89")[0]) {
           $(".upsale-buttons.boxs").show();
         }

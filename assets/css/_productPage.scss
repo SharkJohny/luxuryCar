@@ -1295,7 +1295,7 @@ a.p-thumbnail {
   }
   section#model-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
   .setup-model {
     width: fit-content;
@@ -1469,5 +1469,44 @@ a.p-thumbnail {
     img {
       border-radius: 20px;
     }
+  }
+
+  .parameter-cars.sit-Position {
+    .button.option-button {
+      padding: 0 !important;
+      min-width: 28px;
+      height: 32px;
+    }
+  }
+  section#model-info .model-info::before {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 15px 8px;
+    left: 15px;
+    font-size: 15px;
+  }
+  .availability-value {
+    font-size: 12px;
+    margin-bottom: 19px;
+  }
+  section#model-info .model-info .header-info {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  section#model-info .setup-model {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .basic-description .text-with-icons__item.snap-center {
+    padding: 10px;
+    width: 50%;
+    text-align: center;
+  }
+}
+
+.upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs {
+  .image-wrap {
+    display: none !important;
   }
 }
