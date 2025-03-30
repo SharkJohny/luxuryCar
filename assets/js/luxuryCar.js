@@ -12,7 +12,7 @@ function intIndex() {
       before_label: "P\u0159edt\xEDm",
       after_label: "Potom"
     });
-  }, 200);
+  }, 400);
   function animateCountUp(element, targetNumber, duration) {
     const $element = $(element);
     $({ count: 0 }).animate(
