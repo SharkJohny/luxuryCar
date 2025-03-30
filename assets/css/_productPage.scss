@@ -542,8 +542,11 @@ span.quantity {
   }
   .text-with-icons__item.snap-center {
     padding: 10px;
-    width: 100%;
+    width: 50%;
     text-align: center;
+    @media (min-width: 990px) {
+      width: 20%;
+    }
   }
   & > h3 {
     display: none;
@@ -586,7 +589,7 @@ span.quantity {
     font-weight: 600;
   }
   .twentytwenty-wrap {
-    padding: 50px 0;
+    padding: 0px 0;
   }
   .media-with-text__item {
     padding: 30px 0;
@@ -604,6 +607,8 @@ span.quantity {
   @media (min-width: 768px) {
     .text-with-icons {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .twentytwenty-wrap {
       display: flex;
@@ -614,8 +619,8 @@ span.quantity {
       overflow: hidden;
     }
     .section-info {
-      width: 30%;
-      font-size: 15px;
+      width: 40%;
+      font-size: 17px;
     }
   }
   .layers-info {
@@ -771,6 +776,7 @@ span.quantity {
   .layers-info {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     .image-container {
       width: 49%;
@@ -1343,12 +1349,12 @@ a.p-thumbnail {
   }
   .basic-description {
     .container-slider {
-      margin-left: -50px;
-      margin-right: -50px;
+      // margin-left: -50px;
+      // margin-right: -50px;
     }
   }
   .text-block {
-    padding: 50px 30px;
+    padding: 50px 0px;
   }
   section#section7 .images-scrolling__content,
   section#section5 .images-scrolling__content,
@@ -1500,13 +1506,31 @@ a.p-thumbnail {
   }
   .basic-description .text-with-icons__item.snap-center {
     padding: 10px;
-    width: 50%;
+
     text-align: center;
+  }
+  .description-inner {
+    padding: 0;
+  }
+  .media-with-text__item.full-width .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .section.section-full.bg-custom.icons-package {
+    .text-with-icons__item {
+      width: 100%;
+    }
   }
 }
 
 .upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs {
   .image-wrap {
     display: none !important;
+  }
+}
+.type-product {
+  .image-container {
+    margin-bottom: 0 !important;
   }
 }

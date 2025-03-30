@@ -90,11 +90,10 @@ div#wrap img,
 a.thumbnail-image.p-main-image.cloud-zoom img,
 .media-with-text__media img,
 .slick-slide .image img,
-.image-container,
+.image-container img,
 .twentytwenty-wrapper.twentytwenty-horizontal,
-.mobile-image,
+.mobile-image img,
 .content-over-media.group.rounded-sm {
-  overflow: hidden !important;
   border-radius: 10px !important;
   position: relative !important;
   border: 3px solid var(--color-primary) !important;

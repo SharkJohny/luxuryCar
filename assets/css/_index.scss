@@ -284,6 +284,8 @@ span.shape-diamond.shape--lg.place-self-center {
       max-width: 229px;
       text-transform: uppercase;
       color: black;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
@@ -947,7 +949,7 @@ section#section1 {
   section#section3,
   section#section1 {
     background-color: transparent;
-    padding: 50px;
+    padding: 0px;
   }
   .footer-banners {
     margin-top: 0px;
@@ -1045,7 +1047,7 @@ h2.divider,
   -webkit-background-clip: text;
   background-clip: text;
   text-align: left;
-  font-size: 40px;
+  font-size: 40px !important;
   text-transform: uppercase;
 }
 .justify-self-center h3 {

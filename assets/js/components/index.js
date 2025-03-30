@@ -4,7 +4,7 @@ export function intIndex() {
       before_label: "Předtím",
       after_label: "Potom",
     });
-  }, 200);
+  }, 400);
 
   // Funkce pro přičítání čísel
   function animateCountUp(element, targetNumber, duration) {
