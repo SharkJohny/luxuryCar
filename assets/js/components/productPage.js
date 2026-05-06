@@ -485,7 +485,7 @@ function priplatky(setupData, texts) {
             scrollToStep($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
-            }, 2000);
+            }, 2500);
             return;
           }
         }
@@ -613,7 +613,7 @@ function priplatky(setupData, texts) {
       if (!isWrapSelectionValid(currentWrap)) {
         // krátká vizuální zpětná vazba
         currentWrap.addClass("selection-required");
-        setTimeout(() => currentWrap.removeClass("selection-required"), 1200);
+        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return; // nepokračuj dál
       }
 

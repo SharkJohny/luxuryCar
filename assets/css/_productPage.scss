@@ -1696,6 +1696,14 @@ section#model-info {
   border: 2px solid red;
   border-radius: 10px;
 }
+.selection-required {
+  border: 2px solid #d92323 !important;
+  box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
+}
+.position-wrap.selection-required .order,
+.parameter-wrap.selection-required .order {
+  background: linear-gradient(135deg, #d92323, #9f1717) !important;
+}
 // Surcharge riadky (tr) sa nedajú orámovať standardne – outlinujeme select
 // dovnútra a žltý label vľavo, aby user videl konkrétny chýbajúci dropdown.
 tr.surcharge-list.errorToCart,
@@ -2664,6 +2672,10 @@ a.p-thumbnail {
 }
 .parameter-wrap.errorToCart {
   border-color: red;
+}
+.position-wrap.selection-required,
+.parameter-wrap.selection-required {
+  border-color: #d92323 !important;
 }
 
 // Šipky pre akordeon position-wrap a parameter-wrap elementy
