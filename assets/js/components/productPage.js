@@ -504,6 +504,9 @@ function priplatky(setupData, texts) {
 
     // Funkcionalita pro tlačítko "Přejít k dalšímu kroku"
     function isWrapSelectionValid($wrap) {
+      if ($wrap.hasClass("boxs")) return true;
+      if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+
       let hasSelectable = false;
       let valid = false;
 

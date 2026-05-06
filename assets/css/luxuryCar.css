@@ -6759,3 +6759,48 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
+
+/* ─────────────────────────────────────────────────────────── */
+/* SEO Fáza A — Fix #3: Visible H1 styling                     */
+/* Pridané runtime cez seo-runtime.js: nahradí sr-only H1 za   */
+/* viditeľný value-prop H1 s class="lcd-hero-h1".              */
+/* ─────────────────────────────────────────────────────────── */
+h1.lcd-hero-h1,
+.lcd-hero-h1 {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 1.5rem auto 1rem !important;
+  padding: 0 1rem;
+  clip: auto !important;
+  overflow: visible !important;
+  font-family: "Exo 2", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  text-align: center;
+  max-width: 56ch;
+  letter-spacing: -0.01em;
+  color: #c49b31;
+}
+
+@media (max-width: 600px) {
+  h1.lcd-hero-h1,
+  .lcd-hero-h1 {
+    margin: 1rem auto 0.75rem !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/* Konfigurator fix — rovnaká šírka všetkých 4 dropdownov     */
+/* Pôvodné pravidlo (riadok 3232-3236) pokrýva len .dm-selector*/
+/* takže brand/model/year dostanú 150px ale type-selector      */
+/* (Coupe) expanduje na 289px. Pridávame width na .type-selector*/
+/* aby sa zarovnalo s ostatnými.                                */
+/* ─────────────────────────────────────────────────────────── */
+.type-product .surcharge-list.type-selector .selector select,
+.type-product .surcharge-list.type-selector > select {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+}
