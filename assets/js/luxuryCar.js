@@ -28523,6 +28523,28 @@ function resetBoxConfigDefaults() {
     }
   });
 }
+function setBoxConfigVisibleCount(visibleCount) {
+  const count = Math.max(1, Math.min(Number(visibleCount) || 1, 3));
+  $(".box-config .amount-button").removeClass("active");
+  $(".box-config .amount-button").filter(function() {
+    return $(this).text().trim().startsWith(String(count));
+  }).addClass("active");
+  $(".box-config .parameter-wrap.parameter-sizes").each(function(index) {
+    const $wrap = $(this);
+    const shouldShow = index < count;
+    if (shouldShow) {
+      $wrap.show();
+      return;
+    }
+    $wrap.hide();
+    $wrap.find(".button.option-button.text").removeClass("active");
+    $wrap.find("input[type='radio'], input[type='checkbox']").prop("checked", false);
+    const paramId = $wrap.attr("data-parameterId");
+    if (paramId) {
+      $(`select.parameter-id-${paramId}.surcharge-parameter`).val(0);
+    }
+  });
+}
 $(document).on("click", ".close-btn.close", function() {
   $(this).parents(".upsale-Banner").removeClass("showConf");
   $("select.parameter-id-" + boxy + ".surcharge-parameter").val(0);
@@ -28847,6 +28869,7 @@ function updateUpsale($this, event) {
       const allBoxIds = domBoxIds.length ? domBoxIds : typeof boxsParameterIds !== "undefined" && Array.isArray(boxsParameterIds) && boxsParameterIds.length ? boxsParameterIds.map(Number).filter((id) => id !== Number(boxy)) : [Number(box1), Number(box2)];
       let soloId = allBoxIds.includes(104) ? 104 : allBoxIds.includes(78) ? 78 : allBoxIds[0];
       if (value[0] === "conf1") {
+        setBoxConfigVisibleCount(1);
         allBoxIds.forEach((id) => {
           if (Number(id) === Number(soloId)) {
             $(`.box-config .parameter-wrap.parameter-${id}`).show();
@@ -28881,6 +28904,7 @@ function updateUpsale($this, event) {
         $soloPriceEl.attr("data-price", soloPrice);
         if ($soloPriceEl.length) $soloPriceEl.text(soloPrice > 0 ? NumToPrice(soloPrice) : "0 K\u010D");
       } else {
+        setBoxConfigVisibleCount(2);
         allBoxIds.forEach((id) => $(`.box-config .parameter-wrap.parameter-${id}`).hide());
         $(`.box-config .parameter-wrap.parameter-104`).hide();
         $(`.box-config .parameter-wrap.parameter-78`).hide();
