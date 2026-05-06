@@ -64,6 +64,7 @@ export function validation(texts) {
 function validateProductConfig() {
   const $errors = $();
   let $first = null;
+  const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
 
   function add($el) {
     if (!$el || !$el.length) return;
@@ -76,6 +77,8 @@ function validateProductConfig() {
   //    musia mať aktívny výber, ak obsahujú selectable element.
   $(".parameter-wrap:visible").each(function () {
     const $wrap = $(this);
+    if ($wrap.hasClass("boxs")) return;
+    if ($wrap.closest(".box-config").length && !isBoxConfigSelected) return;
     if (!isWrapValid($wrap)) add($wrap);
   });
 
@@ -103,6 +106,7 @@ function validateProductConfig() {
   $(".upsale-buttons:visible").each(function () {
     const $group = $(this);
     if (!$group.find(".upsale-button").length) return;
+    if ($group.hasClass("boxs")) return;
     if (!$group.find(".upsale-button.active").not(".none").length) {
       add($group);
     }
@@ -142,6 +146,9 @@ function validateProductConfig() {
  * element (info wrap), ALEBO ak má aspoň jeden aktívny.
  */
 function isWrapValid($wrap) {
+  if ($wrap.hasClass("boxs")) return true;
+  if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+
   let hasSelectable = false;
   let valid = false;
 
@@ -151,7 +158,7 @@ function isWrapValid($wrap) {
   }
   if ($wrap.find(".upsale-button").length) {
     hasSelectable = true;
-    if ($wrap.find(".upsale-button.active").not(".none").length) valid = true;
+    if ($wrap.find(".upsale-button.active").length) valid = true;
   }
   if ($wrap.find("select.surcharge-parameter").length) {
     hasSelectable = true;

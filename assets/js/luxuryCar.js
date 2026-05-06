@@ -26303,7 +26303,7 @@ function Configurator() {
           color: opt.price > 0 ? "#2E1810" : "#888"
         } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene")
       );
-    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 325 250\r\n                Q 390 185 505 170 L 680 170\r\n                Q 745 170 810 220 L 840 245\r\n                Q 860 255 900 255\r\n                Q 940 255 960 245 L 990 220\r\n                Q 1055 170 1120 170 L 1295 170\r\n                Q 1410 185 1475 250\r\n                Q 1510 290 1515 365 L 1555 865\r\n                Q 1560 950 1490 1005\r\n                Q 1445 1040 1330 1040 L 470 1040\r\n                Q 355 1040 310 1005\r\n                Q 240 950 245 865 L 285 365\r\n                Q 290 290 325 250 Z\r\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 720 182\r\n                Q 785 240 785 330 Q 790 375 835 390\r\n                L 965 390\r\n                Q 1010 375 1015 330 Q 1015 240 1080 182\r\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
+    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
       {
         x: "350",
@@ -28100,6 +28100,8 @@ function priplatky(setupData2, texts) {
       });
       return array;
     }, isWrapSelectionValid = function($wrap) {
+      if ($wrap.hasClass("boxs")) return true;
+      if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
       let hasSelectable = false;
       let valid = false;
       if ($wrap.find(".option-button").length) {
@@ -29563,6 +29565,7 @@ function validation(texts) {
 function validateProductConfig() {
   const $errors = $();
   let $first = null;
+  const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
   function add($el) {
     if (!$el || !$el.length) return;
     $el.addClass("errorToCart");
@@ -29571,6 +29574,8 @@ function validateProductConfig() {
   }
   $(".parameter-wrap:visible").each(function() {
     const $wrap = $(this);
+    if ($wrap.hasClass("boxs")) return;
+    if ($wrap.closest(".box-config").length && !isBoxConfigSelected) return;
     if (!isWrapValid($wrap)) add($wrap);
   });
   $("select.surcharge-parameter[required]:visible").each(function() {
@@ -29585,6 +29590,7 @@ function validateProductConfig() {
   $(".upsale-buttons:visible").each(function() {
     const $group = $(this);
     if (!$group.find(".upsale-button").length) return;
+    if ($group.hasClass("boxs")) return;
     if (!$group.find(".upsale-button.active").not(".none").length) {
       add($group);
     }
@@ -29611,6 +29617,8 @@ function validateProductConfig() {
   return $first === null;
 }
 function isWrapValid($wrap) {
+  if ($wrap.hasClass("boxs")) return true;
+  if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
   let hasSelectable = false;
   let valid = false;
   if ($wrap.find(".option-button").length) {
@@ -29619,7 +29627,7 @@ function isWrapValid($wrap) {
   }
   if ($wrap.find(".upsale-button").length) {
     hasSelectable = true;
-    if ($wrap.find(".upsale-button.active").not(".none").length) valid = true;
+    if ($wrap.find(".upsale-button.active").length) valid = true;
   }
   if ($wrap.find("select.surcharge-parameter").length) {
     hasSelectable = true;
