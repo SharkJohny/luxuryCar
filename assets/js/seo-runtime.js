@@ -239,9 +239,13 @@
   injectLink("alternate", { hreflang: "x-default", href: baseSk + path });
 
   // ─────────────────────────────────────────────────
-  // Fix #3 — Visible H1 (replace sr-only text + reveal)
-  // Cieľ: nahradiť generické "Vitajte v našom obchode" /
-  // "Vítejte v našem obchodě" za value-prop H1 s brand-keywordom.
+  // Fix #3 — H1 text replace (sr-only zachované)
+  // Pôvodný H1 "Vitajte v našom obchode" / "Vítejte v našem obchodě" je
+  // generic + nezaujímavý pre Google. Replace na value-prop text.
+  // ⚠️ Pôvodne sme robili reveal cez .lcd-hero-h1 ale výsledok bol
+  // biely pruh nad hero obrázkom (na PC bez textu, na mobile zlatý
+  // text) ktorý vizuálne ruší. Preto necháme sr-only — Google číta
+  // value-prop, používateľ neuvidí žiadny biely pruh.
   // ─────────────────────────────────────────────────
   document.addEventListener("DOMContentLoaded", function () {
     if (!isHomepage) return; // Iba homepage
@@ -259,8 +263,8 @@
         /Vítejte v našem obchodě/i.test(t)
       ) {
         h1.textContent = newText;
-        h1.classList.remove("sr-only");
-        h1.classList.add("lcd-hero-h1");
+        // sr-only ZACHOVANÉ — žiadny biely pruh nad hero
+        // Google + screen readers čítajú value-prop H1 normálne
       }
     });
   });
