@@ -1402,7 +1402,7 @@ var require_react_development = __commonJS({
             }
           }
         }
-        function checkPropTypes(typeSpecs, values, location, componentName, element) {
+        function checkPropTypes(typeSpecs, values, location2, componentName, element) {
           {
             var has = Function.call.bind(hasOwnProperty);
             for (var typeSpecName in typeSpecs) {
@@ -1410,23 +1410,23 @@ var require_react_development = __commonJS({
                 var error$1 = void 0;
                 try {
                   if (typeof typeSpecs[typeSpecName] !== "function") {
-                    var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                    var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                     err.name = "Invariant Violation";
                     throw err;
                   }
-                  error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                  error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
                 } catch (ex) {
                   error$1 = ex;
                 }
                 if (error$1 && !(error$1 instanceof Error)) {
                   setCurrentlyValidatingElement(element);
-                  error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                  error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location2, typeSpecName, typeof error$1);
                   setCurrentlyValidatingElement(null);
                 }
                 if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
                   loggedTypeFailures[error$1.message] = true;
                   setCurrentlyValidatingElement(element);
-                  error("Failed %s type: %s", location, error$1.message);
+                  error("Failed %s type: %s", location2, error$1.message);
                   setCurrentlyValidatingElement(null);
                 }
               }
@@ -10803,7 +10803,7 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function checkPropTypes(typeSpecs, values, location, componentName, element) {
+        function checkPropTypes(typeSpecs, values, location2, componentName, element) {
           {
             var has2 = Function.call.bind(hasOwnProperty);
             for (var typeSpecName in typeSpecs) {
@@ -10811,23 +10811,23 @@ var require_react_dom_development = __commonJS({
                 var error$1 = void 0;
                 try {
                   if (typeof typeSpecs[typeSpecName] !== "function") {
-                    var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                    var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                     err.name = "Invariant Violation";
                     throw err;
                   }
-                  error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                  error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
                 } catch (ex) {
                   error$1 = ex;
                 }
                 if (error$1 && !(error$1 instanceof Error)) {
                   setCurrentlyValidatingElement(element);
-                  error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                  error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location2, typeSpecName, typeof error$1);
                   setCurrentlyValidatingElement(null);
                 }
                 if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
                   loggedTypeFailures[error$1.message] = true;
                   setCurrentlyValidatingElement(element);
-                  error("Failed %s type: %s", location, error$1.message);
+                  error("Failed %s type: %s", location2, error$1.message);
                   setCurrentlyValidatingElement(null);
                 }
               }
@@ -29857,6 +29857,207 @@ function initContactForm() {
     true
   );
 }
+
+// assets/js/seo-runtime.js
+(function seoRuntime() {
+  "use strict";
+  const host = location.hostname.replace(/^www\./, "");
+  const isSk = host === "luxurycardesign.sk";
+  const isCz = host === "luxurycardesign.cz";
+  if (!isSk && !isCz) return;
+  const lang2 = isSk ? "sk-SK" : "cs-CZ";
+  const otherLang = isSk ? "cs-CZ" : "sk-SK";
+  const otherHost = isSk ? "luxurycardesign.cz" : "luxurycardesign.sk";
+  const baseSk = "https://www.luxurycardesign.sk";
+  const baseCz = "https://www.luxurycardesign.cz";
+  const isHomepage = location.pathname === "/" || location.pathname === "/index.php";
+  const head = document.head || document.getElementsByTagName("head")[0];
+  function injectJsonLd(id, payload) {
+    if (document.getElementById(id)) return;
+    if (Array.from(document.querySelectorAll('script[type="application/ld+json"]')).some(
+      (s) => {
+        try {
+          return JSON.parse(s.textContent)["@type"] === payload["@type"];
+        } catch {
+          return false;
+        }
+      }
+    ))
+      return;
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = id;
+    script.textContent = JSON.stringify(payload);
+    head.appendChild(script);
+  }
+  function injectLink(rel, attrs) {
+    const exists = Array.from(
+      document.querySelectorAll(`link[rel="${rel}"]`)
+    ).some(
+      (l) => Object.entries(attrs).every(([k, v]) => l.getAttribute(k) === v)
+    );
+    if (exists) return;
+    const link = document.createElement("link");
+    link.rel = rel;
+    Object.entries(attrs).forEach(([k, v]) => link.setAttribute(k, v));
+    head.appendChild(link);
+  }
+  const orgCommon = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Luxury Car Design",
+    legalName: "Luxury Car Design, s.r.o.",
+    foundingDate: "2023-10-10",
+    telephone: "+421903660720",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "\u0160kolsk\xFD dvor 12/10",
+      addressLocality: "\u017Dilina-Byt\u010Dica",
+      postalCode: "010 09",
+      addressCountry: "SK"
+    },
+    vatID: "SK2122088243",
+    sameAs: [
+      "https://www.facebook.com/luxurycardes",
+      "https://www.instagram.com/luxury_car_design_official",
+      "https://www.tiktok.com/@luxurycardesign",
+      "https://www.youtube.com/@Luxury_Car_Design"
+    ]
+  };
+  if (isSk) {
+    injectJsonLd("seo-jsonld-organization", {
+      ...orgCommon,
+      url: baseSk,
+      logo: {
+        "@type": "ImageObject",
+        url: "https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/logos/logo-web-png-v2.png",
+        width: 300,
+        height: 60
+      },
+      description: "Luxusn\xE9 autokoberce na mieru pre pr\xE9miov\xE9 vozidl\xE1. \u0160ijeme z pr\xE9miov\xE9ho Dragon Skin materi\xE1lu cez 3D laserov\xE9 skenovanie pre 2912+ modelov \xE1ut.",
+      email: "info@luxurycardesign.sk",
+      sameAs: [...orgCommon.sameAs, baseCz]
+    });
+    injectJsonLd("seo-jsonld-website", {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Luxury Car Design",
+      url: baseSk,
+      description: "Luxusn\xE9 autokoberce na mieru pre v\u0161etky modely vozidiel \u2014 DragonSkin Diamond Line, Stripe Line, Hexa Line.",
+      inLanguage: "sk-SK",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${baseSk}/vyhladavanie/?string={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    });
+    if (isHomepage) {
+      injectJsonLd("seo-jsonld-localbusiness", {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Luxury Car Design",
+        image: "https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/front_images/ogImage/hp.jpg",
+        url: baseSk,
+        telephone: "+421903660720",
+        email: "info@luxurycardesign.sk",
+        address: orgCommon.address,
+        priceRange: "\u20AC\u20AC\u20AC",
+        currenciesAccepted: "EUR",
+        paymentAccepted: "Credit Card, Bank Transfer",
+        areaServed: { "@type": "Country", name: "Slovakia" },
+        sameAs: [
+          "https://www.facebook.com/luxurycardes",
+          "https://www.instagram.com/luxury_car_design_official"
+        ]
+      });
+    }
+  } else {
+    injectJsonLd("seo-jsonld-organization", {
+      ...orgCommon,
+      url: baseCz,
+      logo: {
+        "@type": "ImageObject",
+        url: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/logos/logo-web-png-v2.png",
+        width: 300,
+        height: 60
+      },
+      description: "Luxusn\xED autokoberce na m\xEDru pro pr\xE9miov\xE1 vozidla. \u0160ijeme z pr\xE9miov\xE9ho Dragon Skin materi\xE1lu p\u0159es 3D laserov\xE9 skenov\xE1n\xED pro 2912+ model\u016F aut.",
+      email: "info@luxurycardesign.cz",
+      areaServed: [
+        { "@type": "Country", name: "Czech Republic" },
+        { "@type": "Country", name: "Slovakia" }
+      ],
+      sameAs: [...orgCommon.sameAs, baseSk]
+    });
+    injectJsonLd("seo-jsonld-website", {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Luxury Car Design",
+      url: baseCz,
+      description: "Luxusn\xED autokoberce na m\xEDru pro v\u0161echny modely vozidel \u2014 DragonSkin Diamond Line, Stripe Line, Hexa Line.",
+      inLanguage: "cs-CZ",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${baseCz}/vyhledavani/?string={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    });
+    if (isHomepage) {
+      injectJsonLd("seo-jsonld-localbusiness", {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Luxury Car Design",
+        image: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/front_images/ogImage/hp.jpg",
+        url: baseCz,
+        telephone: "+421903660720",
+        email: "info@luxurycardesign.cz",
+        address: orgCommon.address,
+        priceRange: "K\u010D K\u010D K\u010D",
+        currenciesAccepted: "CZK",
+        paymentAccepted: "Credit Card, Bank Transfer",
+        areaServed: [
+          { "@type": "Country", name: "Czech Republic" },
+          { "@type": "Country", name: "Slovakia" }
+        ]
+      });
+    }
+  }
+  const path = location.pathname + location.search;
+  injectLink("alternate", { hreflang: "sk-SK", href: baseSk + path });
+  injectLink("alternate", { hreflang: "cs-CZ", href: baseCz + path });
+  injectLink("alternate", { hreflang: "x-default", href: baseSk + path });
+  document.addEventListener("DOMContentLoaded", function() {
+    if (!isHomepage) return;
+    const h1List = document.querySelectorAll("h1");
+    const newText = isSk ? "Luxusn\xE9 autokoberce DragonSkin \u2014 na mieru pre va\u0161e auto" : "Luxusn\xED autokoberce DragonSkin \u2014 na m\xEDru pro va\u0161e auto";
+    h1List.forEach((h1) => {
+      const t = h1.textContent.trim();
+      if (/Vitajte v našom obchode/i.test(t) || /Vítejte v našem obchodě/i.test(t)) {
+        h1.textContent = newText;
+      }
+    });
+  });
+  try {
+    if (!window.hj) {
+      window.hj = function() {
+      };
+      window.hj.q = window.hj.q || [];
+    }
+  } catch (e) {
+  }
+  try {
+    if (document.body && getComputedStyle(document.body).display === "none") {
+      document.body.style.display = "";
+    }
+  } catch (e) {
+  }
+})();
 
 // assets/js/main.js
 var setupData;
