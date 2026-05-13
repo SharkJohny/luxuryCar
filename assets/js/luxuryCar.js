@@ -28044,6 +28044,8 @@ function initProduct(setupData2, texts) {
     childList: true,
     subtree: true
   });
+  setTimeout(() => calculateStandartPrice(0), 600);
+  setTimeout(() => calculateStandartPrice(0), 1500);
 }
 function priplatky(setupData2, texts) {
   if (!$(".type-detail").length) return;
@@ -28744,10 +28746,24 @@ function createpopup(texts) {
 function calculateStandartPrice(diference2) {
   setTimeout(() => {
   }, 1e3);
-  const price2 = Number(
+  let price2 = Number(
     $(".p-final-price-wrapper span.calculated-price:eq(0)").text().replace(/[^0-9]/g, "")
   );
-  let newStandartPrice = Math.round(price2 * 1.6);
+  if (!price2 || price2 <= 0) {
+    const metaPrice = Number($('meta[itemprop="price"]').attr("content"));
+    if (Number.isFinite(metaPrice) && metaPrice > 0) {
+      price2 = metaPrice;
+    } else {
+      const holderPrice = Number($(".price-final-holder").attr("data-price"));
+      if (Number.isFinite(holderPrice) && holderPrice > 0) {
+        price2 = holderPrice;
+      } else {
+        const finalText = $(".p-final-price-wrapper .price-final span, .price-final span").first().text().replace(/[^0-9]/g, "");
+        if (finalText) price2 = Number(finalText);
+      }
+    }
+  }
+  let newStandartPrice = Math.ceil(price2 * 1.6 / 10) * 10;
   $(".upsale-button.active").each(function() {
     const priceText = $(this).find(".save").attr("data-save");
     if (priceText) {

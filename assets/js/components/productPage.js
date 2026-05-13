@@ -278,6 +278,13 @@ export function initProduct(setupData, texts) {
     childList: true,
     subtree: true,
   });
+
+  // RRP recalc na page-load: bez tohto volania renderuje Shoptet natívnu
+  // recommendedPrice z admin field-u (často nesprávnu — napr. 490 € pri
+  // aktuálnej 550 €). Volanie zabezpečí že doporučená cena = current * 1.6
+  // zaokrúhlené nahor na 10 už pri prvom render-e, nie až po prvom klike.
+  setTimeout(() => calculateStandartPrice(0), 600);
+  setTimeout(() => calculateStandartPrice(0), 1500);
 }
 
 /**
@@ -1269,16 +1276,34 @@ function calculateStandartPrice(diference) {
   setTimeout(() => {}, 1000);
   console.log(diference);
 
-  const price = Number(
+  // Primárny selector — calculated-price (po user interakcii v konfigurátore)
+  let price = Number(
     $(".p-final-price-wrapper span.calculated-price:eq(0)")
       .text()
       .replace(/[^0-9]/g, ""),
   );
 
+  // Fallback pre page-load fázu, kedy .calculated-price ešte nie je naplnené.
+  // Skús: meta[itemprop=price] → .price-final-holder data-price → .price-final span
+  if (!price || price <= 0) {
+    const metaPrice = Number($('meta[itemprop="price"]').attr("content"));
+    if (Number.isFinite(metaPrice) && metaPrice > 0) {
+      price = metaPrice;
+    } else {
+      const holderPrice = Number($(".price-final-holder").attr("data-price"));
+      if (Number.isFinite(holderPrice) && holderPrice > 0) {
+        price = holderPrice;
+      } else {
+        const finalText = $(".p-final-price-wrapper .price-final span, .price-final span").first().text().replace(/[^0-9]/g, "");
+        if (finalText) price = Number(finalText);
+      }
+    }
+  }
+
   console.log("price", price);
 
   // Vypočítej novou standard cenu jako aktuální cena + 60%
-  let newStandartPrice = Math.round(price * 1.6); // price + 60%
+  let newStandartPrice = Math.ceil((price * 1.6) / 10) * 10; // price * 1.6, zaokrúhlené nahor na desiatky
 
   console.log("price", price, "newStandartPrice (price + 60%)", newStandartPrice);
 
