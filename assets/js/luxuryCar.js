@@ -30119,6 +30119,50 @@ function initContactForm() {
   }
 })();
 
+// assets/js/configurator-enhance.js
+(function configuratorEnhance() {
+  "use strict";
+  function markBestsellers() {
+    let marked = 0;
+    document.querySelectorAll(".parameter-cars.sit-Position .option-wrap .option-button").forEach((btn) => {
+      const dv = btn.getAttribute("data-value");
+      const txt = (btn.textContent || "").trim();
+      if (dv === "pass-5" || txt === "5") {
+        if (!btn.classList.contains("lcd-bestseller")) {
+          btn.classList.add("lcd-bestseller");
+          marked++;
+        }
+      }
+    });
+    document.querySelectorAll(".parameter-78 .button.option-button, .parameter-wrap.parameter-78 .button.option-button").forEach((btn) => {
+      const img = btn.querySelector("img");
+      const src = img ? img.getAttribute("src") || "" : "";
+      if (/cierna-farba-sitia-cervena/i.test(src)) {
+        if (!btn.classList.contains("lcd-bestseller")) {
+          btn.classList.add("lcd-bestseller");
+          marked++;
+        }
+      }
+    });
+    return marked;
+  }
+  function run() {
+    let tries = 0;
+    const iv = setInterval(() => {
+      tries++;
+      const marked = markBestsellers();
+      if (marked > 0 && tries > 3 || tries > 15) {
+        clearInterval(iv);
+      }
+    }, 600);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+
 // assets/js/main.js
 var setupData;
 $.getJSON(optionData.downloadData, function(data) {

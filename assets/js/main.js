@@ -10,6 +10,7 @@ import { validation } from "./functions/validation.js";
 import { initLivePrice } from "./functions/livePrice.js";
 import { initContactForm } from "./components/contactForm.js";
 import "./seo-runtime.js"; // SEO Fáza A — runtime inject (JSON-LD, hreflang, H1, etc.)
+import "./configurator-enhance.js"; // Konfigurátor — best-seller badge na možnostiach
 
 let setupData;
 
