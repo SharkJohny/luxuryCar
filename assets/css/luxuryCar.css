@@ -6897,6 +6897,7 @@ section#model-selector {
 .trunk .upsale-button img,
 .boxs .upsale-button img {
   border-radius: 10px;
+  margin-right: 0 !important;
 }
 
 /* ── Krok 5 / 6 — text v kartách: vycentrovaný, väčší, krajší ── */
@@ -6921,20 +6922,29 @@ section#model-selector {
 }
 .trunk .upsale-button .banner-header .price,
 .boxs .upsale-button .banner-header .price {
-  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 24px;
   font-weight: 800;
   color: #C49B31;
 }
 .trunk .upsale-button .banner-header .price .price-recommended,
 .boxs .upsale-button .banner-header .price .price-recommended {
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
   font-weight: 500;
-  margin-left: 5px;
+  text-decoration: line-through;
+  margin-left: 0;
+}
+.trunk .upsale-button .banner-header .price .price-recommended::before,
+.boxs .upsale-button .banner-header .price .price-recommended::before {
+  content: "cena bez setu: ";
 }
 .trunk .upsale-button .save,
 .boxs .upsale-button .save {
-  align-self: center;
+  display: none !important;
 }
 
 /* ── "Ušetríte X €" — zlatý pill ── */
