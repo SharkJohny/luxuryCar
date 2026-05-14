@@ -285,6 +285,15 @@ export function initProduct(setupData, texts) {
   // zaokrúhlené nahor na 10 už pri prvom render-e, nie až po prvom klike.
   setTimeout(() => calculateStandartPrice(0), 600);
   setTimeout(() => calculateStandartPrice(0), 1500);
+
+  // RRP recalc pri KAŽDEJ zmene ceny — livePrice.js vystavuje
+  // LuxuryCarPriceRecalculated s detail.total (base + všetky príplatky:
+  // rohož, boxy, TYP). Tým je doporučená cena vždy = aktuálny total × 1.6,
+  // teda aj keď zákazník pridá rohož do kufra alebo boxy.
+  document.addEventListener("LuxuryCarPriceRecalculated", function (e) {
+    const total = e && e.detail && e.detail.total;
+    calculateStandartPrice(0, total);
+  });
 }
 
 /**
@@ -1298,19 +1307,34 @@ function createpopup(texts) {
     .appendTo("head");
 }
 
-function calculateStandartPrice(diference) {
+function calculateStandartPrice(diference, explicitPrice) {
   setTimeout(() => {}, 1000);
   console.log(diference);
 
-  // Primárny selector — calculated-price (po user interakcii v konfigurátore)
-  let price = Number(
-    $(".p-final-price-wrapper span.calculated-price:eq(0)")
-      .text()
-      .replace(/[^0-9]/g, ""),
-  );
+  // 0) Explicitný total — odovzdaný z LuxuryCarPriceRecalculated eventu
+  //    (livePrice.js počíta total = base + všetky surcharge príplatky:
+  //    rohož do kufra, boxy, TYP...). Per Michalov spec: doporučená cena =
+  //    to čo sa počíta v konfigurátore × 1.6 — teda VRÁTANE príplatkov.
+  let price = Number(explicitPrice);
 
-  // Fallback pre page-load fázu, kedy .calculated-price ešte nie je naplnené.
-  // Skús: meta[itemprop=price] → .price-final-holder data-price → .price-final span
+  // 1) .price-final-holder text — livePrice.js sem zapisuje total vrátane
+  //    príplatkov. Najspoľahlivejší zdroj aktuálnej zobrazenej ceny.
+  if (!price || price <= 0) {
+    const holderText = $(".price-final-holder").first().text().replace(/[^0-9]/g, "");
+    if (holderText) price = Number(holderText);
+  }
+
+  // 2) calculated-price (po user interakcii v konfigurátore)
+  if (!price || price <= 0) {
+    price = Number(
+      $(".p-final-price-wrapper span.calculated-price:eq(0)")
+        .text()
+        .replace(/[^0-9]/g, ""),
+    );
+  }
+
+  // 3) Fallback pre page-load fázu: meta[itemprop=price] → .price-final-holder
+  //    data-price → .price-final span
   if (!price || price <= 0) {
     const metaPrice = Number($('meta[itemprop="price"]').attr("content"));
     if (Number.isFinite(metaPrice) && metaPrice > 0) {
