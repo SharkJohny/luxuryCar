@@ -6932,15 +6932,15 @@ section#model-selector {
 }
 .trunk .upsale-button .banner-header .price .price-recommended,
 .boxs .upsale-button .banner-header .price .price-recommended {
-  font-size: 13px;
-  color: #999;
-  font-weight: 500;
+  font-size: 15px;
+  color: #6b6b6b;
+  font-weight: 600;
   text-decoration: line-through;
   margin-left: 0;
 }
 .trunk .upsale-button .banner-header .price .price-recommended::before,
 .boxs .upsale-button .banner-header .price .price-recommended::before {
-  content: "cena bez setu: ";
+  content: "cena mimo setu: ";
 }
 .trunk .upsale-button .save,
 .boxs .upsale-button .save {
@@ -7019,15 +7019,15 @@ span.price-recommended {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: linear-gradient(135deg, #C49B31, #A8893A);
-  color: #1A1A1A;
+  background: linear-gradient(135deg, #1A1A1A, #000);
+  color: #C49B31;
   font-family: "Exo 2", sans-serif;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.5px;
   padding: 5px 13px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
   z-index: 6;
   pointer-events: none;
   white-space: nowrap;
@@ -7042,20 +7042,21 @@ span.price-recommended {
   content: "NAJOBJEDNÁVANEJŠIE";
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 8px;
   transform: translateY(-50%);
-  background: linear-gradient(135deg, #C49B31, #A8893A);
-  color: #1A1A1A;
+  background: linear-gradient(135deg, #1A1A1A, #000);
+  color: #C49B31;
   font-family: "Exo 2", sans-serif;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.5px;
   padding: 5px 12px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
   z-index: 6;
   pointer-events: none;
   white-space: nowrap;
+  max-width: 60%;
 }
 
 /* ═══ MOBIL (≤767px) — kompatibilita ═══ */
