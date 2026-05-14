@@ -28316,6 +28316,20 @@ function priplatky(setupData2, texts) {
         proceedToCartFromStep();
         return;
       }
+      if (currentWrap.hasClass("trunk")) {
+        const $boxs = $(".upsale-buttons.boxs").first();
+        if ($boxs.length) {
+          currentWrap.removeClass("active");
+          openNextAccordion($boxs);
+          setTimeout(() => {
+            scrollToStep($boxs);
+          }, 600);
+          setTimeout(() => {
+            updateButtonTexts2();
+          }, 50);
+          return;
+        }
+      }
       const allWraps = getNavigableWraps();
       const currentIndex = allWraps.index(currentWrap);
       if (currentIndex < allWraps.length - 1) {
@@ -28438,6 +28452,9 @@ function priplatky(setupData2, texts) {
 }
 function openNextAccordion($next) {
   $next.addClass("active");
+  if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
+    $next.show();
+  }
 }
 $(document).on("click", ".upsale-button", function(e) {
   updateUpsale(this, e);

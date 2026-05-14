@@ -630,6 +630,25 @@ function priplatky(setupData, texts) {
         return;
       }
 
+      // K5 (trunk) -> K6 (boxs): explicitny prechod. V DOM su duplicitne
+      // trunk/boxs wrapy (conf1/conf2), takze getNavigableWraps().index()+1
+      // moze ukazat na nespravny (skryty) wrap. Riesime cielene - z trunk
+      // vzdy otvorime prvy boxs wrap. Funguje aj ked v K5 nic nie je vybrane.
+      if (currentWrap.hasClass("trunk")) {
+        const $boxs = $(".upsale-buttons.boxs").first();
+        if ($boxs.length) {
+          currentWrap.removeClass("active");
+          openNextAccordion($boxs);
+          setTimeout(() => {
+            scrollToStep($boxs);
+          }, 600);
+          setTimeout(() => {
+            updateButtonTexts();
+          }, 50);
+          return;
+        }
+      }
+
       const allWraps = getNavigableWraps();
       const currentIndex = allWraps.index(currentWrap);
 
@@ -846,6 +865,13 @@ function priplatky(setupData, texts) {
 // Otevře akordeon bez scrollování
 function openNextAccordion($next) {
   $next.addClass("active");
+  // Boxs/trunk wrapy su default display:none (skryte cez .hide() v auto-postup
+  // logike). Samotne addClass("active") ich nezviditelni - treba explicitne
+  // .show(). Bez tohto sa K6 (boxy) neotvori ked zakaznik v K5 (rohoz) nic
+  // nevyberie a klikne "Prejst na dalsi krok".
+  if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
+    $next.show();
+  }
 }
 
 // Single event listener for .upsale-button
