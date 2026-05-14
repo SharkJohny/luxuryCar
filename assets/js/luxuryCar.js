@@ -30122,8 +30122,14 @@ function initContactForm() {
 // assets/js/configurator-enhance.js
 (function configuratorEnhance() {
   "use strict";
+  var isCz = /\.cz$/.test(location.hostname.replace(/^www\./, ""));
+  function parsePrice(s) {
+    s = (s || "").replace(/[^\d,.\s]/g, "").trim();
+    s = s.replace(/\s/g, "").replace(",", ".");
+    var n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  }
   function markBestsellers() {
-    let marked = 0;
     document.querySelectorAll(
       ".parameter-85 .option-button, .parameter-wrap.parameter-85 .option-button"
     ).forEach(function(btn) {
@@ -30132,32 +30138,71 @@ function initContactForm() {
       var isSecondRow = dv === "589" || /prv[ýy]\s*a\s*druh[ýy]\s*rad/.test(txt) && !/tret/.test(txt);
       if (isSecondRow && !btn.classList.contains("lcd-najobjednavanejsie")) {
         btn.classList.add("lcd-najobjednavanejsie");
-        marked++;
       }
     });
     document.querySelectorAll(".trunk .upsale-button").forEach(function(card) {
       var txt = (card.textContent || "").toLowerCase();
       if (/klasik/.test(txt) && !card.classList.contains("lcd-bestseller")) {
         card.classList.add("lcd-bestseller");
-        marked++;
       }
     });
     document.querySelectorAll(".boxs .upsale-button").forEach(function(card) {
       var txt = (card.textContent || "").toLowerCase().replace(/\s+/g, " ");
       if (/2\s*x\s*box/.test(txt) && !card.classList.contains("lcd-bestseller")) {
         card.classList.add("lcd-bestseller");
-        marked++;
       }
     });
-    return marked;
+  }
+  function fixBoxSoloPrices() {
+    document.querySelectorAll(".boxs .upsale-button .price-recommended").forEach(function(el) {
+      if (el.getAttribute("data-lcd-solo-fixed")) return;
+      var rec = parseFloat(
+        (el.getAttribute("data-recommended") || "").replace(",", ".")
+      );
+      if (!rec || isNaN(rec)) return;
+      el.textContent = Math.round(rec / 1.6) + " \u20AC";
+      el.setAttribute("data-lcd-solo-fixed", "1");
+    });
+  }
+  function addSetSavingsLine() {
+    var wrap = document.querySelector(".p-final-price-wrapper");
+    if (!wrap) return;
+    var recSpan = wrap.querySelector(".price-standard > span:not(.price-save)");
+    var actHolder = wrap.querySelector(".price-final-holder");
+    if (!recSpan || !actHolder) return;
+    var recommended = parsePrice(recSpan.textContent);
+    var actual = parsePrice(
+      actHolder.getAttribute("data-price") || actHolder.textContent
+    );
+    var savings = Math.round(recommended - actual);
+    var line = wrap.querySelector(".lcd-set-savings");
+    if (savings <= 0) {
+      if (line) line.style.display = "none";
+      return;
+    }
+    if (!line) {
+      line = document.createElement("div");
+      line.className = "lcd-set-savings";
+      wrap.appendChild(line);
+    }
+    line.style.display = "";
+    line.textContent = isCz ? "D\xEDky vytvo\u0159en\xE9mu setu u\u0161et\u0159\xEDte " + savings + " \u20AC" : "V\u010Faka vytvoren\xE9mu setu u\u0161etr\xEDte " + savings + " \u20AC";
+  }
+  function tick() {
+    markBestsellers();
+    fixBoxSoloPrices();
+    addSetSavingsLine();
   }
   function run() {
     var tries = 0;
     var iv = setInterval(function() {
       tries++;
-      markBestsellers();
-      if (tries > 20) clearInterval(iv);
+      tick();
+      if (tries > 40) clearInterval(iv);
     }, 600);
+    document.addEventListener("LuxuryCarPriceRecalculated", function() {
+      setTimeout(addSetSavingsLine, 50);
+    });
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", run);
