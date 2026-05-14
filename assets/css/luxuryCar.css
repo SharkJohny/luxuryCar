@@ -6891,8 +6891,8 @@ section#model-selector {
 }
 .trunk .upsale-button.active,
 .boxs .upsale-button.active {
-  border-color: #C49B31;
-  box-shadow: 0 4px 18px rgba(196, 155, 49, 0.32);
+  border: 3px solid #C49B31 !important;
+  box-shadow: 0 0 0 2px rgba(196, 155, 49, 0.3), 0 6px 22px rgba(196, 155, 49, 0.42) !important;
 }
 .trunk .upsale-button img,
 .boxs .upsale-button img {
