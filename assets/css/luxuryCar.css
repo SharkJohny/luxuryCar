@@ -6953,22 +6953,9 @@ section#model-selector {
 .boxs .upsale-button .banner-header .price .price-recommended::before {
   content: "cena mimo setu: ";
 }
-.trunk .upsale-button .save {
-  display: none !important;
-}
+.trunk .upsale-button .save,
 .boxs .upsale-button .save {
-  display: inline-block !important;
-  background: linear-gradient(135deg, #4caf50, #388e3c) !important;
-  color: #ffffff !important;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.2px;
-  padding: 5px 14px;
-  border-radius: 20px;
-  margin-top: 4px;
-  align-self: center;
-  text-transform: none;
-  box-shadow: none !important;
+  display: none !important;
 }
 
 /* ── "Ušetríte X €" — zlatý pill ── */
