@@ -6795,13 +6795,18 @@ section#model-selector {
 }
 
 /* ═══════════════════════════════════════════════════════════════ */
-/* KONFIGURÁTOR — grafické okrášlenie v2 (2026-05-14)              */
-/* Po feedbacku: tlačidlá späť zelené (revert PR #16), badge len    */
-/* krok 4/5/6, okrášlené karty + orámovaný obsah krokov 5/6 + box.  */
-/* Brand: zlatá #C49B31, hover #A8893A, čierna #1A1A1A, Exo 2.      */
+/* KONFIGURÁTOR — okrášlenie v3 (2026-05-14)                       */
+/* Po feedbacku: zlatý podtón na KAŽDOM kroku akordeonu, badge      */
+/* VNÚTRI karty (karty majú overflow:hidden — preto sa orezával),  */
+/* box-config čistý rám + karty pod panelom schované.              */
+/* ŽIADNE overflow zmeny na .parameter-wrap (to bola chyba v2).    */
 /* ═══════════════════════════════════════════════════════════════ */
 
-/* ── Kroky — viac vzduchu, jemný zlatý aktívny stav ── */
+/* ── Zlatý podtón — každý krok akordeonu, od hlavičky po tlačidlo ── */
+.parameter-wrap,
+.position-wrap {
+  background: linear-gradient(180deg, #fffdf8, #faf6ec);
+}
 .parameter-wrap {
   margin-bottom: 12px;
 }
@@ -6810,14 +6815,14 @@ section#model-selector {
   box-shadow: 0 2px 14px rgba(196, 155, 49, 0.12);
 }
 
-/* ── Krok 4 (rozloženie kobercov) — z holých riadkov pekné karty ── */
+/* ── Krok 4 (rozloženie kobercov) — možnosti ako karty ── */
 .parameter-85 .option-button,
 .parameter-wrap.parameter-85 .option-button {
   position: relative;
   border: 2px solid #ece6d6;
   border-radius: 14px;
   padding: 10px 14px;
-  margin: 14px 0;
+  margin: 16px 0;
   background: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -6835,26 +6840,19 @@ section#model-selector {
   border-radius: 8px;
 }
 
-/* ── Krok 5 / 6 — orámovaný obsah namiesto "Word textu" ── */
+/* ── Krok 5 / 6 — upsale karty (rohož / boxy) ── */
 .trunk > .parameter-cars,
 .boxs > .parameter-cars {
-  background: linear-gradient(180deg, #fffdf8, #faf6ec);
-  border: 1px solid #ece6d6;
-  border-radius: 16px;
-  padding: 18px 16px;
-  margin: 10px 0;
+  padding: 14px;
   gap: 14px;
 }
-/* upsale karty rohož / boxy — kartový vzhľad + hover lift */
 .trunk .upsale-button,
 .boxs .upsale-button {
   position: relative;
   border: 2px solid #ece6d6;
   border-radius: 14px;
   background: #fff;
-  padding: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  overflow: visible;
 }
 .trunk .upsale-button:hover,
 .boxs .upsale-button:hover {
@@ -6888,16 +6886,14 @@ section#model-selector {
   box-shadow: 0 2px 8px rgba(196, 155, 49, 0.3);
 }
 
-/* ── Krok 6 — box konfigurátor panel krajší ── */
+/* ── Krok 6 — box konfigurátor: čistý rám + karty pod ním schované ── */
 .box-config {
-  background: linear-gradient(180deg, #fffdf8, #f7f1e3);
-  border: 1.5px solid #C49B31;
+  background: #fffdf8;
+  border: 2px solid #C49B31;
   border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 .box-config .variant.name {
-  color: #1A1A1A;
   font-family: "Exo 2", sans-serif;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -6907,6 +6903,10 @@ section#model-selector {
   color: #1A1A1A;
   font-weight: 800;
   border-radius: 22px;
+}
+/* Keď je box konfigurátor otvorený, karty pod ním schovaj (žiadny presvit) */
+.upsale-Banner.showConf .boxs > .parameter-cars {
+  visibility: hidden;
 }
 
 /* ── RRP — prečiarknutá doporučená cena jemnejšia ── */
@@ -6926,48 +6926,47 @@ span.price-recommended {
   font-size: 14px;
 }
 
-/* ── Badge: BESTSELLER (krok 5 / 6) ── */
+/* ── Badge BESTSELLER (krok 5 / 6) — VNÚTRI karty, pravý horný roh ── */
 .lcd-bestseller {
   position: relative;
 }
 .lcd-bestseller::after {
   content: "BESTSELLER";
   position: absolute;
-  top: -11px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 8px;
+  right: 8px;
   background: linear-gradient(135deg, #C49B31, #A8893A);
   color: #1A1A1A;
   font-family: "Exo 2", sans-serif;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.6px;
-  padding: 3px 12px;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
+  padding: 4px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   z-index: 6;
   pointer-events: none;
   white-space: nowrap;
 }
 
-/* ── Badge: NAJOBJEDNÁVANEJŠIE (krok 4) ── */
+/* ── Badge NAJOBJEDNÁVANEJŠIE (krok 4) — VNÚTRI karty, pravý horný roh ── */
 .lcd-najobjednavanejsie {
   position: relative;
 }
 .lcd-najobjednavanejsie::after {
   content: "NAJOBJEDNÁVANEJŠIE";
   position: absolute;
-  top: -11px;
-  left: 16px;
+  top: 8px;
+  right: 8px;
   background: linear-gradient(135deg, #C49B31, #A8893A);
   color: #1A1A1A;
   font-family: "Exo 2", sans-serif;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  padding: 3px 10px;
-  border-radius: 11px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  padding: 4px 9px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 6;
   pointer-events: none;
   white-space: nowrap;
