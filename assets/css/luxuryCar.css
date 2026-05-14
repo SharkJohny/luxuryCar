@@ -6795,54 +6795,13 @@ section#model-selector {
 }
 
 /* ═══════════════════════════════════════════════════════════════ */
-/* KONFIGURÁTOR — grafické okrášlenie (Fáza 3-5, 2026-05-08)        */
-/* Brand: zlatá #C49B31, hover #A8893A, čierna #1A1A1A, béžová      */
-/* #E0D5B8. Cieľ: luxury feel, preč so zelenými tlačidlami.         */
+/* KONFIGURÁTOR — grafické okrášlenie v2 (2026-05-14)              */
+/* Po feedbacku: tlačidlá späť zelené (revert PR #16), badge len    */
+/* krok 4/5/6, okrášlené karty + orámovaný obsah krokov 5/6 + box.  */
+/* Brand: zlatá #C49B31, hover #A8893A, čierna #1A1A1A, Exo 2.      */
 /* ═══════════════════════════════════════════════════════════════ */
 
-/* ── Fáza 3: tlačidlá "Prejsť k ďalšiemu kroku" / "Prejsť do košíka" ── */
-/* Pôvodné zelené (#4caf50) nepatria k luxury brandu — meníme na brand zlatú */
-.position-wrap .next-step-button,
-.parameter-wrap .next-step-button {
-  background: linear-gradient(135deg, #C49B31, #A8893A) !important;
-  color: #1A1A1A !important;
-  box-shadow: 0 4px 16px rgba(196, 155, 49, 0.35) !important;
-  font-weight: 800 !important;
-}
-.position-wrap .next-step-button:hover,
-.parameter-wrap .next-step-button:hover {
-  background: linear-gradient(135deg, #d4ab41, #b8993a) !important;
-  box-shadow: 0 6px 24px rgba(196, 155, 49, 0.5) !important;
-}
-.position-wrap .next-step-button.finish-button,
-.parameter-wrap .next-step-button.finish-button {
-  background: linear-gradient(135deg, #1A1A1A, #000) !important;
-  color: #C49B31 !important;
-  border: 1.5px solid #C49B31 !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
-}
-.position-wrap .next-step-button.finish-button:hover,
-.parameter-wrap .next-step-button.finish-button:hover {
-  background: linear-gradient(135deg, #2a2a2a, #111) !important;
-  box-shadow: 0 6px 24px rgba(196, 155, 49, 0.4) !important;
-}
-
-/* "Pridať do košíka" — hlavné CTA na luxury čiernu so zlatým rámom */
-.type-product button.btn.btn-lg.btn-conversion.add-to-cart-button {
-  background: linear-gradient(135deg, #1A1A1A, #000) !important;
-  color: #C49B31 !important;
-  border: 1.5px solid #C49B31 !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.5px;
-  transition: all 0.25s ease;
-}
-.type-product button.btn.btn-lg.btn-conversion.add-to-cart-button:hover {
-  background: linear-gradient(135deg, #C49B31, #A8893A) !important;
-  color: #1A1A1A !important;
-  box-shadow: 0 6px 22px rgba(196, 155, 49, 0.45) !important;
-}
-
-/* ── Fáza 3: kroky — viac vzduchu, jemnejší aktívny stav ── */
+/* ── Kroky — viac vzduchu, jemný zlatý aktívny stav ── */
 .parameter-wrap {
   margin-bottom: 12px;
 }
@@ -6850,27 +6809,76 @@ section#model-selector {
   border: 2px solid #C49B31;
   box-shadow: 0 2px 14px rgba(196, 155, 49, 0.12);
 }
-.parameter-wrap .order {
-  background: linear-gradient(135deg, #C49B31, #A8893A);
+
+/* ── Krok 4 (rozloženie kobercov) — z holých riadkov pekné karty ── */
+.parameter-85 .option-button,
+.parameter-wrap.parameter-85 .option-button {
+  position: relative;
+  border: 2px solid #ece6d6;
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin: 14px 0;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.parameter-85 .option-button:hover {
+  border-color: #C49B31;
+  box-shadow: 0 4px 16px rgba(196, 155, 49, 0.18);
+  transform: translateY(-2px);
+}
+.parameter-85 .option-button.active {
+  border-color: #C49B31;
+  background: linear-gradient(135deg, #fffdf6, #fbf3dd);
+  box-shadow: 0 4px 16px rgba(196, 155, 49, 0.25);
+}
+.parameter-85 .option-button img {
+  border-radius: 8px;
+}
+.parameter-85,
+.parameter-wrap.parameter-85,
+.parameter-85 .option-wrap {
+  overflow: visible;
 }
 
-/* ── Fáza 3: upsale karty (rohož / boxy) — jemný hover lift ── */
-.upsale-Banner .upsale-button {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  border: 2px solid transparent;
-  border-radius: 14px;
+/* ── Krok 5 / 6 — orámovaný obsah namiesto "Word textu" ── */
+.trunk > .parameter-cars,
+.boxs > .parameter-cars {
+  background: linear-gradient(180deg, #fffdf8, #faf6ec);
+  border: 1px solid #ece6d6;
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin: 10px 0;
+  gap: 14px;
 }
-.upsale-Banner .upsale-button:hover {
+/* upsale karty rohož / boxy — kartový vzhľad + hover lift */
+.trunk .upsale-button,
+.boxs .upsale-button {
+  position: relative;
+  border: 2px solid #ece6d6;
+  border-radius: 14px;
+  background: #fff;
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: visible;
+}
+.trunk .upsale-button:hover,
+.boxs .upsale-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-}
-.upsale-Banner .upsale-button.active {
   border-color: #C49B31;
-  box-shadow: 0 4px 18px rgba(196, 155, 49, 0.3);
+}
+.trunk .upsale-button.active,
+.boxs .upsale-button.active {
+  border-color: #C49B31;
+  box-shadow: 0 4px 18px rgba(196, 155, 49, 0.32);
+}
+.trunk .upsale-button img,
+.boxs .upsale-button img {
+  border-radius: 10px;
 }
 
-/* ── Fáza 4: zvýraznenie set zliav — "Ušetríte X €" výrazný badge ── */
-.upsale-Banner .upsale-button .save,
+/* ── "Ušetríte X €" — výrazný zlatý pill (set zľavy) ── */
+.upsale-button .save,
 .save[data-save] {
   display: inline-block;
   background: linear-gradient(135deg, #C49B31, #A8893A);
@@ -6884,14 +6892,35 @@ section#model-selector {
   margin-top: 6px;
   box-shadow: 0 2px 8px rgba(196, 155, 49, 0.3);
 }
-/* Prečiarknutá doporučená cena — jemnejšia, menšia, aby vynikla aktuálna */
+
+/* ── Krok 6 — box konfigurátor panel krajší ── */
+.box-config {
+  background: linear-gradient(180deg, #fffdf8, #f7f1e3);
+  border: 1.5px solid #C49B31;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+.box-config .variant.name {
+  color: #1A1A1A;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.box-config .close-btn.return {
+  background: linear-gradient(135deg, #C49B31, #A8893A);
+  color: #1A1A1A;
+  font-weight: 800;
+  border-radius: 22px;
+}
+
+/* ── RRP — prečiarknutá doporučená cena jemnejšia ── */
 .price-recommended,
 span.price-recommended {
   color: #999;
   font-size: 0.82em;
   font-weight: 500;
 }
-/* "Ušetríte" v RRP riadku pod cenou — výrazný zlatý */
 .p-final-price-wrapper .price-save {
   display: inline-block;
   background: #C49B31;
@@ -6902,33 +6931,49 @@ span.price-recommended {
   font-size: 14px;
 }
 
-/* ── Fáza 5: best-seller badge na možnostiach ── */
+/* ── Badge: BESTSELLER (krok 5 / 6) ── */
 .lcd-bestseller {
   position: relative;
 }
 .lcd-bestseller::after {
   content: "BESTSELLER";
   position: absolute;
-  top: -8px;
-  right: -6px;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #C49B31, #A8893A);
+  color: #1A1A1A;
+  font-family: "Exo 2", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  padding: 3px 12px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
+  z-index: 6;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── Badge: NAJOBJEDNÁVANEJŠIE (krok 4) ── */
+.lcd-najobjednavanejsie {
+  position: relative;
+}
+.lcd-najobjednavanejsie::after {
+  content: "NAJOBJEDNÁVANEJŠIE";
+  position: absolute;
+  top: -11px;
+  left: 16px;
   background: linear-gradient(135deg, #C49B31, #A8893A);
   color: #1A1A1A;
   font-family: "Exo 2", sans-serif;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  padding: 3px 8px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  z-index: 5;
+  padding: 3px 10px;
+  border-radius: 11px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  z-index: 6;
   pointer-events: none;
   white-space: nowrap;
-}
-/* Best-seller na malých tlačidlách (miesta na sedenie) — menší badge */
-.amount-button.lcd-bestseller::after,
-.button.lcd-bestseller.text-only::after {
-  font-size: 8px;
-  padding: 2px 6px;
-  top: -7px;
-  right: -8px;
 }
