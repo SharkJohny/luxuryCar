@@ -6878,9 +6878,9 @@ section#model-selector {
 .trunk .upsale-button,
 .boxs .upsale-button {
   position: relative;
-  border: 2px solid #ece6d6;
-  border-radius: 14px;
-  background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%);
+  border: 2px solid #ece6d6 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .trunk .upsale-button:hover,
