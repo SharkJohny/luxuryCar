@@ -28764,18 +28764,31 @@ function createpopup(texts) {
   `
   ).appendTo("head");
 }
+function lcdParsePrice(raw) {
+  if (raw == null) return 0;
+  let t = String(raw).replace(/[^\d.,\s]/g, "").trim();
+  if (!t) return 0;
+  t = t.replace(/\s+/g, "");
+  const lastComma = t.lastIndexOf(",");
+  const lastDot = t.lastIndexOf(".");
+  const decPos = Math.max(lastComma, lastDot);
+  if (decPos > -1 && t.length - decPos <= 3) {
+    t = t.slice(0, decPos);
+  }
+  t = t.replace(/[^\d]/g, "");
+  const n = Number(t);
+  return Number.isFinite(n) ? n : 0;
+}
 function calculateStandartPrice(diference2, explicitPrice) {
   setTimeout(() => {
   }, 1e3);
   let price2 = Number(explicitPrice);
+  if (!Number.isFinite(price2) || price2 <= 0) price2 = 0;
   if (!price2 || price2 <= 0) {
-    const holderText = $(".price-final-holder").first().text().replace(/[^0-9]/g, "");
-    if (holderText) price2 = Number(holderText);
+    price2 = lcdParsePrice($(".price-final-holder").first().text());
   }
   if (!price2 || price2 <= 0) {
-    price2 = Number(
-      $(".p-final-price-wrapper span.calculated-price:eq(0)").text().replace(/[^0-9]/g, "")
-    );
+    price2 = lcdParsePrice($(".p-final-price-wrapper span.calculated-price:eq(0)").text());
   }
   if (!price2 || price2 <= 0) {
     const metaPrice = Number($('meta[itemprop="price"]').attr("content"));
@@ -28786,8 +28799,7 @@ function calculateStandartPrice(diference2, explicitPrice) {
       if (Number.isFinite(holderPrice) && holderPrice > 0) {
         price2 = holderPrice;
       } else {
-        const finalText = $(".p-final-price-wrapper .price-final span, .price-final span").first().text().replace(/[^0-9]/g, "");
-        if (finalText) price2 = Number(finalText);
+        price2 = lcdParsePrice($(".p-final-price-wrapper .price-final span, .price-final span").first().text());
       }
     }
   }

@@ -1307,6 +1307,28 @@ function createpopup(texts) {
     .appendTo("head");
 }
 
+// Bezpečné parsovanie ceny zo zobrazeného textu. SK/CZ formát:
+// medzera = tisícový separátor, čiarka = desatinný separátor.
+// "€ 371,00" -> 371   |   "1 250,00 €" -> 1250
+// (Pôvodné replace(/[^0-9]/g,"") zlepilo "371,00" na "37100" a RRP
+//  vyletela na 59 360 € — to tento parser opravuje.)
+function lcdParsePrice(raw) {
+  if (raw == null) return 0;
+  let t = String(raw).replace(/[^\d.,\s]/g, "").trim();
+  if (!t) return 0;
+  t = t.replace(/\s+/g, ""); // odstráň tisícové medzery
+  // posledná čiarka alebo bodka = desatinný oddeľovač -> odsekneme desatiny
+  const lastComma = t.lastIndexOf(",");
+  const lastDot = t.lastIndexOf(".");
+  const decPos = Math.max(lastComma, lastDot);
+  if (decPos > -1 && t.length - decPos <= 3) {
+    t = t.slice(0, decPos);
+  }
+  t = t.replace(/[^\d]/g, "");
+  const n = Number(t);
+  return Number.isFinite(n) ? n : 0;
+}
+
 function calculateStandartPrice(diference, explicitPrice) {
   setTimeout(() => {}, 1000);
   console.log(diference);
@@ -1316,21 +1338,17 @@ function calculateStandartPrice(diference, explicitPrice) {
   //    rohož do kufra, boxy, TYP...). Per Michalov spec: doporučená cena =
   //    to čo sa počíta v konfigurátore × 1.6 — teda VRÁTANE príplatkov.
   let price = Number(explicitPrice);
+  if (!Number.isFinite(price) || price <= 0) price = 0;
 
   // 1) .price-final-holder text — livePrice.js sem zapisuje total vrátane
   //    príplatkov. Najspoľahlivejší zdroj aktuálnej zobrazenej ceny.
   if (!price || price <= 0) {
-    const holderText = $(".price-final-holder").first().text().replace(/[^0-9]/g, "");
-    if (holderText) price = Number(holderText);
+    price = lcdParsePrice($(".price-final-holder").first().text());
   }
 
   // 2) calculated-price (po user interakcii v konfigurátore)
   if (!price || price <= 0) {
-    price = Number(
-      $(".p-final-price-wrapper span.calculated-price:eq(0)")
-        .text()
-        .replace(/[^0-9]/g, ""),
-    );
+    price = lcdParsePrice($(".p-final-price-wrapper span.calculated-price:eq(0)").text());
   }
 
   // 3) Fallback pre page-load fázu: meta[itemprop=price] → .price-final-holder
@@ -1344,8 +1362,7 @@ function calculateStandartPrice(diference, explicitPrice) {
       if (Number.isFinite(holderPrice) && holderPrice > 0) {
         price = holderPrice;
       } else {
-        const finalText = $(".p-final-price-wrapper .price-final span, .price-final span").first().text().replace(/[^0-9]/g, "");
-        if (finalText) price = Number(finalText);
+        price = lcdParsePrice($(".p-final-price-wrapper .price-final span, .price-final span").first().text());
       }
     }
   }
