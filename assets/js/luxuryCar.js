@@ -28046,6 +28046,10 @@ function initProduct(setupData2, texts) {
   });
   setTimeout(() => calculateStandartPrice(0), 600);
   setTimeout(() => calculateStandartPrice(0), 1500);
+  document.addEventListener("LuxuryCarPriceRecalculated", function(e) {
+    const total = e && e.detail && e.detail.total;
+    calculateStandartPrice(0, total);
+  });
 }
 function priplatky(setupData2, texts) {
   if (!$(".type-detail").length) return;
@@ -28760,12 +28764,19 @@ function createpopup(texts) {
   `
   ).appendTo("head");
 }
-function calculateStandartPrice(diference2) {
+function calculateStandartPrice(diference2, explicitPrice) {
   setTimeout(() => {
   }, 1e3);
-  let price2 = Number(
-    $(".p-final-price-wrapper span.calculated-price:eq(0)").text().replace(/[^0-9]/g, "")
-  );
+  let price2 = Number(explicitPrice);
+  if (!price2 || price2 <= 0) {
+    const holderText = $(".price-final-holder").first().text().replace(/[^0-9]/g, "");
+    if (holderText) price2 = Number(holderText);
+  }
+  if (!price2 || price2 <= 0) {
+    price2 = Number(
+      $(".p-final-price-wrapper span.calculated-price:eq(0)").text().replace(/[^0-9]/g, "")
+    );
+  }
   if (!price2 || price2 <= 0) {
     const metaPrice = Number($('meta[itemprop="price"]').attr("content"));
     if (Number.isFinite(metaPrice) && metaPrice > 0) {
