@@ -7188,26 +7188,15 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   }
 }
 
-/* ═══ MOBIL — swatch zvacseny +15% + ciste pozadie (Bug 5+6, 2026-05-15) ═══ */
+/* ═══ MOBIL — K6 FARBA BOXOV swatch +15% (CIELENE, fix regresie 2026-05-15) ═══ */
+/* SCOPE: LEN parameter-91 (SK Farba boxov) a parameter-63 (CZ Barva boxů).
+   NEAPLIKUJE SA na K2/K3 (1.vrstvy/2.vrstvy), K4 (rozloženie), K6 velkosti boxov. */
 @media (max-width: 768px) {
-  /* Bug 5 — swatch z 29% na 33% sirky (+13.8%), zmenseny margin */
-  .options-wrap .button.option-button {
+  .parameter-wrap.parameter-91 .options-wrap .button.option-button,
+  .parameter-91 .options-wrap .button.option-button,
+  .parameter-wrap.parameter-63 .options-wrap .button.option-button,
+  .parameter-63 .options-wrap .button.option-button {
     width: 31% !important;
     margin: 4px 1% !important;
-    height: auto;
-    background: #ffffff !important;
-  }
-  /* Bug 6 — img clean biele pozadie, full width, no broken alt fallback */
-  .options-wrap .button.option-button img {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: #ffffff;
-    object-fit: cover;
-  }
-  /* Bug 6 — wrap padding mensi, ziadne sive halo */
-  .options-wrap {
-    padding: 6px !important;
-    background: transparent !important;
   }
 }
