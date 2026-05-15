@@ -7196,8 +7196,8 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   .parameter-91 .options-wrap .button.option-button,
   .parameter-wrap.parameter-63 .options-wrap .button.option-button,
   .parameter-63 .options-wrap .button.option-button {
-    width: 22% !important;
-    margin: 4px 1% !important;
+    width: 18% !important;
+    margin: 2px 0.5% !important;
     height: auto !important;
     min-height: 0 !important;
     padding: 0 !important;
@@ -7212,4 +7212,41 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     height: auto;
     max-height: none !important;
   }
+  /* K6 farba — tight grid, tesny row-gap medzi radmi (5 per row) */
+  .parameter-wrap.parameter-91 .options-wrap,
+  .parameter-91 .options-wrap,
+  .parameter-wrap.parameter-63 .options-wrap,
+  .parameter-63 .options-wrap {
+    gap: 2px;
+    row-gap: 2px;
+    padding: 4px;
+  }
+}
+
+
+/* ═══ FAJKA UPROSTRED — všetky swatchy v konfigurátore (Michal req 2026-05-15) ═══ */
+.options-wrap .button.option-button.active::before,
+.options-wrap .button.option-button.active:before,
+.upsale-buttons .options-wrap .button.option-button.active::before,
+.upsale-buttons .options-wrap .button.option-button.active:before,
+.box-config .options-wrap .button.option-button.active::before,
+.box-config .options-wrap .button.option-button.active:before,
+.upsale-Banner .box-config .button.option-button.active::before,
+.upsale-Banner .box-config .button.option-button.active:before {
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-size: 24px !important;
+  color: #c5a44e !important;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.7),
+               0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  line-height: 1 !important;
 }
