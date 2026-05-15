@@ -7155,3 +7155,37 @@ html[lang="cs"] .lcd-bestseller::after {
 html[lang="cs"] .lcd-najobjednavanejsie::after {
   content: "NEJOBJEDNÁVANĚJŠÍ" !important;
 }
+
+
+/* ═══ MOBIL — swatch tooltip suppression (Bug 4 fix, 2026-05-15) ═══ */
+/* Na mobile/touch device sa hover sticky → tooltip blokuje vyber okolitych
+   farieb. Na hover: none (touch) ALEBO uzkom mobile viewporte tooltip
+   skryjeme, namiesto neho silnejsi vizualny indikator vyberu (zlaty border
+   + zvyraznena fajka na .active). */
+@media (hover: none), (max-width: 768px) {
+  .options-wrap .button.option-button .text,
+  .options-wrap .button.option-button:hover .text {
+    display: none !important;
+  }
+  /* Posilneny indikator vybranej farby — zlaty rim + soft halo */
+  .options-wrap .button.option-button.active {
+    border: 2px solid #c5a44e !important;
+    box-shadow: 0 0 0 3px rgba(197, 164, 78, 0.25),
+                0 2px 8px rgba(197, 164, 78, 0.45) !important;
+  }
+  /* Fajka (\e913 Shoptet checkmark) viditelnejsia na ulubovolnej farbe */
+  .options-wrap .button.option-button.active::before {
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: #c5a44e !important;
+    font-size: 20px !important;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
