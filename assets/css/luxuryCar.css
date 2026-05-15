@@ -7250,3 +7250,30 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
                0 1px 3px rgba(0, 0, 0, 0.5) !important;
   line-height: 1 !important;
 }
+
+
+/* ═══ K6 farba — tesný zlatý border priamo na img (Michal req 2026-05-15) ═══ */
+/* Default .options-wrap .button.option-button má border: 3px solid transparent
+   + .button.option-button img { border-color: white } = pri active state vznika
+   gap medzi img a kartou. Fix: outline priamo na img s negativnym offsetom. */
+.parameter-wrap.parameter-91 .options-wrap .button.option-button img,
+.parameter-91 .options-wrap .button.option-button img,
+.parameter-wrap.parameter-63 .options-wrap .button.option-button img,
+.parameter-63 .options-wrap .button.option-button img {
+  border: none !important;
+  border-radius: 10px !important;
+}
+.parameter-wrap.parameter-91 .options-wrap .button.option-button.active,
+.parameter-91 .options-wrap .button.option-button.active,
+.parameter-wrap.parameter-63 .options-wrap .button.option-button.active,
+.parameter-63 .options-wrap .button.option-button.active {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+.parameter-wrap.parameter-91 .options-wrap .button.option-button.active img,
+.parameter-91 .options-wrap .button.option-button.active img,
+.parameter-wrap.parameter-63 .options-wrap .button.option-button.active img,
+.parameter-63 .options-wrap .button.option-button.active img {
+  outline: 3px solid #c5a44e !important;
+  outline-offset: -3px !important;
+}
