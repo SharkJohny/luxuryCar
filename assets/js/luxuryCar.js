@@ -24270,14 +24270,30 @@ function createOptions(position, orders) {
       const raw = String($firstWithPrice.attr("data-surcharge-final-price") || $firstWithPrice.attr("data-surcharge-additional-price") || "0");
       basePrice2 = Number(raw.replace(/[^0-9]/g, ""));
     }
+    var lcdMain = $('<div class="lcd-price-main"></div>').appendTo(priceWrap);
     if (!header.includes("box")) {
-      $('<span class="text">Cena boxu</span>').appendTo(priceWrap);
+      $('<span class="text">Cena boxu:</span>').appendTo(lcdMain);
     }
-    $("<div>", {
+    $("<span>", {
       class: "price price-standart",
       text: basePrice2 > 0 ? NumToPrice(basePrice2) : "0 K\u010D",
       "data-price": basePrice2
-    }).appendTo(priceWrap);
+    }).appendTo(lcdMain);
+    if (basePrice2 > 0) {
+      var rrp = Math.ceil(basePrice2 * 1.6 / 10) * 10;
+      var meta = document.querySelector('meta[itemprop="priceCurrency"]');
+      var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
+      var lang2 = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+      var sym = code === "CZK" || lang2.indexOf("cs") === 0 ? "K\u010D" : "\u20AC";
+      var loc = code === "CZK" || lang2.indexOf("cs") === 0 ? "cs-CZ" : "sk-SK";
+      var rrpFmt;
+      try {
+        rrpFmt = rrp.toLocaleString(loc) + " " + sym;
+      } catch (e) {
+        rrpFmt = rrp + " " + sym;
+      }
+      $('<div class="lcd-price-rrp">cena bez setu: <strong>' + rrpFmt + "</strong></div>").appendTo(priceWrap);
+    }
   }
   amountChoser(position, priceWrap);
   const optionsWrap = $("<div>", {

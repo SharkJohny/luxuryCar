@@ -7333,3 +7333,109 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .box-config .options-wrap .button.option-button.text.active .price {
   color: #ffffff !important;
 }
+
+
+/* ═══ K6 FARBA — fajka FLEX CENTER (3rd attempt, 2026-05-15) ═══ */
+/* Predošlé pokusy s transform: translate(-50%, -50%) nezabrali na K6 farba
+   (Michal stále vidí fajku v rohu). Skúšame radikálny prístup — pseudo
+   element zaberá CELÚ kartu a vnútorne centruje content cez flex. */
+.parameter-wrap.parameter-91 .options-wrap .button.option-button.active::before,
+.parameter-91 .options-wrap .button.option-button.active::before,
+.parameter-wrap.parameter-91 .options-wrap .button.option-button.active:before,
+.parameter-91 .options-wrap .button.option-button.active:before,
+.parameter-wrap.parameter-63 .options-wrap .button.option-button.active::before,
+.parameter-63 .options-wrap .button.option-button.active::before,
+.parameter-wrap.parameter-63 .options-wrap .button.option-button.active:before,
+.parameter-63 .options-wrap .button.option-button.active:before {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-size: 28px !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9),
+               0 1px 4px rgba(0, 0, 0, 0.8),
+               0 0 2px rgba(0, 0, 0, 1) !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+}
+/* Skry ::after ak ho Shoptet pridá ako fajku */
+.parameter-wrap.parameter-91 .options-wrap .button.option-button.active::after,
+.parameter-91 .options-wrap .button.option-button.active::after,
+.parameter-wrap.parameter-63 .options-wrap .button.option-button.active::after,
+.parameter-63 .options-wrap .button.option-button.active::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* ═══ K6 FARBA — gap natesno medzi radmi (Michal teória: skryté pozadie) ═══ */
+@media (max-width: 768px) {
+  .parameter-wrap.parameter-91 .options-wrap,
+  .parameter-91 .options-wrap,
+  .parameter-wrap.parameter-63 .options-wrap,
+  .parameter-63 .options-wrap {
+    gap: 0 !important;
+    row-gap: 0 !important;
+    padding: 2px !important;
+    background: transparent !important;
+  }
+  /* Option-button mensia margin-bottom + min-height 0 + line-height reset */
+  .parameter-wrap.parameter-91 .options-wrap .button.option-button,
+  .parameter-91 .options-wrap .button.option-button,
+  .parameter-wrap.parameter-63 .options-wrap .button.option-button,
+  .parameter-63 .options-wrap .button.option-button {
+    margin: 1px 0.5% !important;
+    min-height: 0 !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+  }
+}
+
+/* ═══ K6 cena boxu — combined label + RRP layout (Michal req) ═══ */
+.box-config .name-wrap .price-wrap {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+.box-config .name-wrap .price-wrap .lcd-price-main {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.box-config .name-wrap .price-wrap .lcd-price-main .price-standart {
+  color: #c49b30 !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  text-align: left !important;
+  margin: 0 !important;
+}
+.box-config .name-wrap .price-wrap .lcd-price-rrp {
+  font-size: 13px;
+  color: #888;
+  text-align: right;
+  white-space: nowrap;
+}
+.box-config .name-wrap .price-wrap .lcd-price-rrp strong {
+  text-decoration: line-through;
+  color: #999;
+  font-weight: 500;
+}
