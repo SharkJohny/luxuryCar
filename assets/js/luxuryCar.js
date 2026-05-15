@@ -30146,14 +30146,29 @@ function initContactForm() {
       }
     });
   }
+  function getCurrencyInfo() {
+    var meta = document.querySelector('meta[itemprop="priceCurrency"]');
+    var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
+    var lang2 = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+    if (code === "CZK" || lang2.indexOf("cs") === 0) {
+      return { symbol: "K\u010D", locale: "cs-CZ" };
+    }
+    return { symbol: "\u20AC", locale: "sk-SK" };
+  }
   function fixBoxSoloPrices() {
+    var cur = getCurrencyInfo();
     document.querySelectorAll(".boxs .upsale-button .price-recommended").forEach(function(el) {
       if (el.getAttribute("data-lcd-solo-fixed")) return;
       var rec = parseFloat(
         (el.getAttribute("data-recommended") || "").replace(",", ".")
       );
       if (!rec || isNaN(rec)) return;
-      el.textContent = Math.round(rec / 1.6) + " \u20AC";
+      var solo = Math.round(rec / 1.6);
+      try {
+        el.textContent = solo.toLocaleString(cur.locale) + " " + cur.symbol;
+      } catch (e) {
+        el.textContent = solo + " " + cur.symbol;
+      }
       el.setAttribute("data-lcd-solo-fixed", "1");
     });
   }

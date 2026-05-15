@@ -45,8 +45,21 @@
     });
   }
 
+  // Detekcia meny — Shoptet priceCurrency meta + html[lang] fallback
+  function getCurrencyInfo() {
+    var meta = document.querySelector('meta[itemprop="priceCurrency"]');
+    var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
+    var lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+    if (code === "CZK" || lang.indexOf("cs") === 0) {
+      return { symbol: "Kč", locale: "cs-CZ" };
+    }
+    return { symbol: "€", locale: "sk-SK" };
+  }
+
   // Box "cena mimo setu" = data-recommended / 1.6 (skutočná solo cena)
+  // Mena: CZK na luxurycardesign.cz, EUR na luxurycardesign.sk
   function fixBoxSoloPrices() {
+    var cur = getCurrencyInfo();
     document
       .querySelectorAll(".boxs .upsale-button .price-recommended")
       .forEach(function (el) {
@@ -55,7 +68,12 @@
           (el.getAttribute("data-recommended") || "").replace(",", ".")
         );
         if (!rec || isNaN(rec)) return;
-        el.textContent = Math.round(rec / 1.6) + " €";
+        var solo = Math.round(rec / 1.6);
+        try {
+          el.textContent = solo.toLocaleString(cur.locale) + " " + cur.symbol;
+        } catch (e) {
+          el.textContent = solo + " " + cur.symbol;
+        }
         el.setAttribute("data-lcd-solo-fixed", "1");
       });
   }
