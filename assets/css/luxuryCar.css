@@ -6702,7 +6702,8 @@ section#model-selector {
   margin-right: 0px;
 }
 
-.parameter-85 .image-wrap {
+.parameter-85 .image-wrap,
+  .parameter-57 .image-wrap {
   display: none !important;
 }
 
@@ -6833,7 +6834,9 @@ section#model-selector {
 
 /* ── Selection karty — jemný gradient namiesto plochej bielej ── */
 .parameter-85 .option-button,
-.parameter-wrap.parameter-85 .option-button {
+  .parameter-57 .option-button,
+  .parameter-wrap.parameter-85 .option-button,
+  .parameter-wrap.parameter-57 .option-button {
   position: relative;
   box-sizing: border-box;
   max-width: 100%;
@@ -6844,37 +6847,48 @@ section#model-selector {
   background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.parameter-85 .option-button:hover {
+.parameter-85 .option-button:hover,
+  .parameter-57 .option-button:hover {
   border-color: #C49B31;
   box-shadow: 0 2px 10px rgba(196, 155, 49, 0.2);
 }
-.parameter-85 .option-button.active {
+.parameter-85 .option-button.active,
+  .parameter-57 .option-button.active {
   border-color: #C49B31;
   background: linear-gradient(135deg, #fffdf6, #fbf3dd);
   box-shadow: 0 2px 10px rgba(196, 155, 49, 0.28);
 }
 .parameter-85 .option-button:hover,
-.parameter-85 .option-button.active,
-.parameter-wrap.parameter-85 .option-button:hover,
-.parameter-wrap.parameter-85 .option-button.active {
+  .parameter-57 .option-button:hover,
+  .parameter-85 .option-button.active,
+  .parameter-57 .option-button.active,
+  .parameter-wrap.parameter-85 .option-button:hover,
+  .parameter-wrap.parameter-57 .option-button:hover,
+  .parameter-wrap.parameter-85 .option-button.active,
+  .parameter-wrap.parameter-57 .option-button.active {
   transform: none !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
   width: auto !important;
   max-width: 100% !important;
 }
-.parameter-85 .option-button img {
+.parameter-85 .option-button img,
+  .parameter-57 .option-button img {
   border-radius: 8px;
 }
 
 /* ── Krok 4 — väčšie, čitateľnejšie texty ── */
 .parameter-85 .option-button .radio-text,
-.parameter-wrap.parameter-85 .option-button .radio-text {
+  .parameter-57 .option-button .radio-text,
+  .parameter-wrap.parameter-85 .option-button .radio-text,
+  .parameter-wrap.parameter-57 .option-button .radio-text {
   font-size: 17px;
   font-weight: 600;
 }
 .parameter-85 .option-button .radio-price,
-.parameter-wrap.parameter-85 .option-button .radio-price {
+  .parameter-57 .option-button .radio-price,
+  .parameter-wrap.parameter-85 .option-button .radio-price,
+  .parameter-wrap.parameter-57 .option-button .radio-price {
   font-size: 17px;
   font-weight: 800;
   color: #C49B31;
@@ -7070,28 +7084,52 @@ span.price-recommended {
   max-width: 60%;
 }
 
-/* ═══ MOBIL (≤767px) — kompatibilita ═══ */
-@media (max-width: 767px) {
+/* ═══ MOBIL (≤768px) — badge NEPREKRÝVA obsah (fix v6, 2026-05-15) ═══ */
+@media (max-width: 768px) {
   /* Krok 0 — vzory ostávajú v rade, len menšie medzery */
   .patterns-wrap {
     gap: 6px;
   }
-  /* Krok 4 — badge menší, bližšie k okraju aby neprekrýval obrázok */
+  /* Krok 4 — option-button: rezervovať priestor hore pre badge, NIE vertikálny stred (SK + CZ) */
+  .parameter-85 .option-button.lcd-najobjednavanejsie,
+  .parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie,
+  .parameter-57 .option-button.lcd-najobjednavanejsie,
+  .parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie {
+    padding-top: 26px !important;
+  }
   .lcd-najobjednavanejsie::after {
-    font-size: 8px;
-    padding: 3px 7px;
-    right: 6px;
+    top: 4px !important;
+    right: 4px !important;
+    transform: none !important;
+    font-size: 9px !important;
+    padding: 3px 8px !important;
+    max-width: calc(100% - 8px) !important;
+    line-height: 1.2 !important;
+    border-radius: 6px !important;
     letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  /* Krok 5/6 — upsale-button: rezervovať priestor hore, badge mimo obrázku */
+  .trunk .upsale-button.lcd-bestseller,
+  .boxs .upsale-button.lcd-bestseller {
+    padding-top: 28px !important;
   }
   .lcd-bestseller::after {
-    font-size: 8px;
-    padding: 3px 7px;
-    right: 6px;
+    top: 4px !important;
+    right: 4px !important;
+    font-size: 9px !important;
+    padding: 3px 8px !important;
+    max-width: calc(100% - 8px) !important;
+    line-height: 1.2 !important;
+    border-radius: 6px !important;
     letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   }
-  /* Krok 4 — texty o niečo menšie ako na desktope, stále čitateľné */
+  /* Krok 4 — texty o niečo menšie ako na desktope, stále čitateľné (SK + CZ) */
   .parameter-85 .option-button .radio-text,
-  .parameter-85 .option-button .radio-price {
+  .parameter-85 .option-button .radio-price,
+  .parameter-57 .option-button .radio-text,
+  .parameter-57 .option-button .radio-price {
     font-size: 15px;
   }
   /* Krok 5/6 — cena menšia aby sa zmestila */

@@ -13,10 +13,11 @@
   "use strict";
 
   function markBestsellers() {
-    // Krok 4 — "prvý a druhý rad" (data-value 589)
+    // Krok 4 — "prvý a druhý rad" (SK parameter-85, CZ parameter-57)
     document
       .querySelectorAll(
-        ".parameter-85 .option-button, .parameter-wrap.parameter-85 .option-button"
+        ".parameter-85 .option-button, .parameter-wrap.parameter-85 .option-button, " +
+        ".parameter-57 .option-button, .parameter-wrap.parameter-57 .option-button"
       )
       .forEach(function (btn) {
         var dv = btn.getAttribute("data-value");

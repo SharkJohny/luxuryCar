@@ -30124,7 +30124,7 @@ function initContactForm() {
   "use strict";
   function markBestsellers() {
     document.querySelectorAll(
-      ".parameter-85 .option-button, .parameter-wrap.parameter-85 .option-button"
+      ".parameter-85 .option-button, .parameter-wrap.parameter-85 .option-button, .parameter-57 .option-button, .parameter-wrap.parameter-57 .option-button"
     ).forEach(function(btn) {
       var dv = btn.getAttribute("data-value");
       var txt = (btn.textContent || "").toLowerCase();
