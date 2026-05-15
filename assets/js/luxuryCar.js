@@ -24280,7 +24280,25 @@ function createOptions(position, orders) {
       "data-price": basePrice2
     }).appendTo(lcdMain);
     if (basePrice2 > 0) {
-      var rrp = Math.ceil(basePrice2 * 1.6 / 10) * 10;
+      var rrp = 0;
+      var $boxs = $(".upsale-Banner .boxs .upsale-button, .upsale-buttons.boxs .upsale-button");
+      var $oneBox = $boxs.filter(function() {
+        var t = $(this).find(".banner-header span").text() || "";
+        return /(^|\s)1\s*[x×]\s*box(\s|$)/i.test(t.replace(/\s+/g, " ").trim());
+      }).first();
+      if (!$oneBox.length) {
+        $oneBox = $boxs.first();
+      }
+      if ($oneBox.length) {
+        var $rec = $oneBox.find(".price-recommended").first();
+        var recVal = parseFloat(($rec.attr("data-recommended") || "").replace(",", "."));
+        if (!isNaN(recVal) && recVal > 0) {
+          rrp = recVal;
+        }
+      }
+      if (!rrp) {
+        rrp = Math.ceil(basePrice2 * 1.6 / 10) * 10;
+      }
       var meta = document.querySelector('meta[itemprop="priceCurrency"]');
       var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
       var lang2 = (document.documentElement.getAttribute("lang") || "").toLowerCase();
@@ -24288,11 +24306,12 @@ function createOptions(position, orders) {
       var loc = code === "CZK" || lang2.indexOf("cs") === 0 ? "cs-CZ" : "sk-SK";
       var rrpFmt;
       try {
-        rrpFmt = rrp.toLocaleString(loc) + " " + sym;
+        rrpFmt = Math.round(rrp).toLocaleString(loc) + " " + sym;
       } catch (e) {
-        rrpFmt = rrp + " " + sym;
+        rrpFmt = Math.round(rrp) + " " + sym;
       }
-      $('<div class="lcd-price-rrp">cena bez setu: <strong>' + rrpFmt + "</strong></div>").appendTo(priceWrap);
+      var $rrpEl = $('<div class="lcd-price-rrp" data-rrp-base="' + rrp + '">cena bez setu: <strong>' + rrpFmt + "</strong></div>");
+      $rrpEl.appendTo(priceWrap);
     }
   }
   amountChoser(position, priceWrap);

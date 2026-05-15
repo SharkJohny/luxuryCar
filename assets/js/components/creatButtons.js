@@ -260,18 +260,42 @@ export function createOptions(position, orders) {
       text: basePrice > 0 ? NumToPrice(basePrice) : "0 Kč",
       "data-price": basePrice,
     }).appendTo(lcdMain);
-    // RRP = basePrice × 1.6 zaokrúhlené nahor na 10. Detekcia meny z page.
+    // RRP — citaj z parent box akordeon karty (.boxs .upsale-button.active
+    // .price-recommended[data-recommended=...]) aby sa zhodovala s tym, co
+    // vidi zakaznik v akordeone. Fallback na basePrice × 1.6 ak nedostupne.
     if (basePrice > 0) {
-      var rrp = Math.ceil((basePrice * 1.6) / 10) * 10;
+      var rrp = 0;
+      // Per-box RRP: prefer 1x BOX karta (lebo per-box cena = RRP pre jeden box).
+      // 2x BOX karta ma RRP × 2, comeoot zobrazovat per-box.
+      var $boxs = $(".upsale-Banner .boxs .upsale-button, .upsale-buttons.boxs .upsale-button");
+      var $oneBox = $boxs.filter(function () {
+        var t = $(this).find(".banner-header span").text() || "";
+        return /(^|\s)1\s*[x×]\s*box(\s|$)/i.test(t.replace(/\s+/g, " ").trim());
+      }).first();
+      if (!$oneBox.length) {
+        $oneBox = $boxs.first(); // fallback — predpokladame poradie 1x → 2x
+      }
+      if ($oneBox.length) {
+        var $rec = $oneBox.find(".price-recommended").first();
+        var recVal = parseFloat(($rec.attr("data-recommended") || "").replace(",", "."));
+        if (!isNaN(recVal) && recVal > 0) {
+          rrp = recVal;
+        }
+      }
+      if (!rrp) {
+        rrp = Math.ceil((basePrice * 1.6) / 10) * 10;
+      }
       var meta = document.querySelector('meta[itemprop="priceCurrency"]');
       var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
       var lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
       var sym = (code === "CZK" || lang.indexOf("cs") === 0) ? "Kč" : "€";
       var loc = (code === "CZK" || lang.indexOf("cs") === 0) ? "cs-CZ" : "sk-SK";
       var rrpFmt;
-      try { rrpFmt = rrp.toLocaleString(loc) + " " + sym; }
-      catch (e) { rrpFmt = rrp + " " + sym; }
-      $('<div class="lcd-price-rrp">cena bez setu: <strong>' + rrpFmt + '</strong></div>').appendTo(priceWrap);
+      try { rrpFmt = Math.round(rrp).toLocaleString(loc) + " " + sym; }
+      catch (e) { rrpFmt = Math.round(rrp) + " " + sym; }
+      var $rrpEl = $('<div class="lcd-price-rrp" data-rrp-base="' + rrp +
+                     '">cena bez setu: <strong>' + rrpFmt + '</strong></div>');
+      $rrpEl.appendTo(priceWrap);
     }
   }
 
