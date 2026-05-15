@@ -22,9 +22,11 @@
       .forEach(function (btn) {
         var dv = btn.getAttribute("data-value");
         var txt = (btn.textContent || "").toLowerCase();
+        // SK: "prvý a druhý rad", CZ: "první a druhá řada"
         var isSecondRow =
           dv === "589" ||
-          (/prv[ýy]\s*a\s*druh[ýy]\s*rad/.test(txt) && !/tret/.test(txt));
+          (/prv\S*\s*a\s*druh\S*\s*ř?ad/i.test(txt) &&
+            !/tret|třet/i.test(txt));
         if (isSecondRow && !btn.classList.contains("lcd-najobjednavanejsie")) {
           btn.classList.add("lcd-najobjednavanejsie");
         }

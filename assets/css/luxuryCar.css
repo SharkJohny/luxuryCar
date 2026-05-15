@@ -7146,3 +7146,12 @@ span.price-recommended {
     padding: 10px 10px !important;
   }
 }
+
+
+/* ═══ CZ jazyk — badge text v češtine (fix v7, 2026-05-15) ═══ */
+html[lang="cs"] .lcd-bestseller::after {
+  content: "NEJOBJEDNÁVANĚJŠÍ" !important;
+}
+html[lang="cs"] .lcd-najobjednavanejsie::after {
+  content: "NEJOBJEDNÁVANĚJŠÍ" !important;
+}
