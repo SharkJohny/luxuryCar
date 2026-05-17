@@ -1703,9 +1703,11 @@ $("body").on("click", ".button.option-button", function (e) {
       }
 
       if ($nextWrap) {
+        // Michal req: zatvor aktualny krok pred otvorenim dalsieho
+        $currentWrap.removeClass("active");
         openNextAccordion($nextWrap);
-        // Michal req: po openNextAccordion zoscrollovat tak aby bol dalsi
-        // krok vycentrovany v strede obrazovky (rovnako ako pri tlacidle).
+        // Po openNextAccordion zoscrollovat tak aby bol dalsi
+        // krok vycentrovany v strede obrazovky.
         setTimeout(() => {
           scrollToStep($nextWrap);
         }, 200);

@@ -29043,6 +29043,7 @@ $("body").on("click", ".button.option-button", function(e) {
         }
       }
       if ($nextWrap) {
+        $currentWrap.removeClass("active");
         openNextAccordion($nextWrap);
         setTimeout(() => {
           scrollToStep($nextWrap);
