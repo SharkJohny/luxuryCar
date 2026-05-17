@@ -7439,3 +7439,71 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   color: #999;
   font-weight: 500;
 }
+
+
+/* ═══ K4 — redesign layout ako K5 (img left, text right) — Michal req 2026-05-15 ═══ */
+/* Aktualne K4 ma img napravo, text napred. Michal chce K5-style: img vlavo
+   + text/cena vpravo. Pri resize sa badge nepresunie spravne — flex reorder
+   rieshi oboje. */
+@media (max-width: 768px) {
+  .parameter-85 .button.option-button.radio-row label.radio-label,
+  .parameter-57 .button.option-button.radio-row label.radio-label,
+  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label,
+  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    padding: 6px 8px;
+  }
+  /* IMG vlavo (order 1) */
+  .parameter-85 .button.option-button.radio-row label.radio-label img,
+  .parameter-57 .button.option-button.radio-row label.radio-label img,
+  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label img,
+  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label img {
+    order: 1 !important;
+    width: 35% !important;
+    max-width: 110px;
+    height: auto !important;
+    flex-shrink: 0;
+    border-radius: 6px;
+  }
+  /* Text vpravo (order 2) */
+  .parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
+  .parameter-57 .button.option-button.radio-row label.radio-label span.radio-text,
+  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
+  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text {
+    order: 2 !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    font-size: 15px !important;
+    font-weight: 600;
+    text-align: left;
+    padding: 0;
+  }
+  /* Cena vpravo (order 3) */
+  .parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
+  .parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price,
+  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
+  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price {
+    order: 3 !important;
+    width: auto !important;
+    flex-shrink: 0;
+    font-size: 15px !important;
+    font-weight: 800;
+    color: #c49b30;
+    margin-left: auto;
+    padding-right: 4px;
+  }
+  /* Badge "NAJOBJEDNÁVANEJŠIE" — pravy horny roh ako K5 (uz aplikovane,
+     uistim sa pre K4 box-sizing). Card ma vyhradeny priestor cez padding-top. */
+  .parameter-85 .option-button.lcd-najobjednavanejsie,
+  .parameter-57 .option-button.lcd-najobjednavanejsie,
+  .parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie,
+  .parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie {
+    padding-top: 28px !important;
+    position: relative;
+    overflow: hidden;
+  }
+}

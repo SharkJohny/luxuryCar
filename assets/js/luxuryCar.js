@@ -29029,10 +29029,10 @@ $("body").on("click", ".button.option-button", function(e) {
   }, 200);
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
   const orderNum = parseInt($currentWrap.find(".order").first().text());
-  const isStep0or1 = orderNum === 0 || orderNum === 1;
+  const isManualStep = orderNum >= 0 && orderNum <= 3;
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
-  if (hasNextBtn && !isStep0or1 && !isInBoxConfig) {
+  if (hasNextBtn && !isManualStep && !isInBoxConfig) {
     setTimeout(() => {
       const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
       const contentIndex = allContentWraps.index($currentWrap);
@@ -30559,6 +30559,73 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+(function() {
+  "use strict";
+  if (window.__lcdAutoScroll) return;
+  window.__lcdAutoScroll = true;
+  window.__lcdScrollLog = [];
+  function getStepHeaderText(stepEl) {
+    if (!stepEl) return "";
+    var orderTxt = (stepEl.querySelector(".order") || {}).textContent || "";
+    var t = (stepEl.textContent || "").trim();
+    if (orderTxt && t.indexOf(orderTxt) === 0) t = t.slice(orderTxt.length).trim();
+    return t.slice(0, 60).toLowerCase();
+  }
+  function isColorLayerStep(stepEl) {
+    return /^(farba|barva)\s+\d/i.test(getStepHeaderText(stepEl));
+  }
+  function findNextVisibleStep(curr) {
+    if (!curr) return null;
+    var all = Array.prototype.slice.call(
+      document.querySelectorAll(".parameter-wrap, .upsale-button.config, .box-config")
+    );
+    var i = all.indexOf(curr);
+    if (i === -1) return null;
+    for (var j = i + 1; j < all.length; j++) {
+      if (all[j].offsetParent !== null) return all[j];
+    }
+    return document.querySelector('button[type="submit"], .add-to-cart-button') || null;
+  }
+  function smoothScrollTo(el) {
+    if (!el) return;
+    var fixedHdr = document.querySelector(".plugin-fixed-header");
+    var navBar = document.querySelector(".top-navigation-bar");
+    var hdr = document.querySelector("header");
+    var headerOffset = fixedHdr && fixedHdr.offsetHeight || navBar && navBar.offsetHeight || hdr && hdr.offsetHeight || 80;
+    var rect = el.getBoundingClientRect();
+    window.scrollTo({
+      top: window.scrollY + rect.top - headerOffset - 12,
+      behavior: "smooth"
+    });
+    window.__lcdScrollLog.push("scrolled -> " + (el.className || el.tagName).slice(0, 40));
+  }
+  function scheduleScroll(stepContainer) {
+    setTimeout(function() {
+      var next = findNextVisibleStep(stepContainer);
+      smoothScrollTo(next);
+    }, 550);
+  }
+  document.addEventListener("click", function(e) {
+    var btn = e.target.closest(".option-button, .upsale-button");
+    if (!btn) return;
+    if (btn.closest(".box-config")) return;
+    var step = btn.closest(".parameter-wrap, .upsale-button.config, .upsale-button.radio");
+    if (!step) return;
+    if (isColorLayerStep(step)) {
+      window.__lcdScrollLog.push("skip color step");
+      return;
+    }
+    scheduleScroll(step);
+  });
+  document.addEventListener("click", function(e) {
+    var btn = e.target.closest(
+      '.box-config .close-btn, .box-config [class*="confirm"], .box-config [class*="potvrd"]'
+    );
+    if (!btn) return;
+    if (!/potvrd/i.test(btn.textContent || "")) return;
+    scheduleScroll(btn.closest(".box-config"));
+  });
+})();
 /*! Bundled license information:
 
 react/cjs/react.development.js:
