@@ -1700,25 +1700,18 @@ $("body").on("click", ".button.option-button", function (e) {
       // (vratane .upsale-buttons.trunk/boxs ktore su mimo .content-wrap) — bez tejto
       // logiky K4 (posledny v content-wrap) by neslo na K5/K6.
       // Fallback: ak getNavigableWraps neexistuje, pouzi povodnu logiku.
+      // INLINE selektor — getNavigableWraps() je v IIFE scope, undefined globalne.
+      // Pouzivame priamo $('.position-wrap, .parameter-wrap').filter aby zahrnia
+      // aj K5 (.upsale-buttons.trunk) a K6 (.upsale-buttons.boxs) ktore su mimo
+      // .content-wrap (preto .content-wrap.children('.parameter-wrap') by ich
+      // nezahrnula).
       let $nextWrap = null;
-      if (typeof getNavigableWraps === "function") {
-        const allWraps = getNavigableWraps();
-        const idx = allWraps.index($currentWrap);
-        if (idx >= 0 && idx < allWraps.length - 1) {
-          $nextWrap = allWraps.eq(idx + 1);
-        }
-      } else {
-        const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
-        const contentIndex = allContentWraps.index($currentWrap);
-        if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
-          $nextWrap = allContentWraps.eq(contentIndex + 1);
-        } else if (contentIndex === -1) {
-          const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
-          const sibIndex = $siblings.index($currentWrap);
-          if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
-            $nextWrap = $siblings.eq(sibIndex + 1);
-          }
-        }
+      const allWrapsInline = $('.position-wrap, .parameter-wrap').filter(function () {
+        return !$(this).closest('.box-config').length;
+      });
+      const idxInline = allWrapsInline.index($currentWrap);
+      if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
+        $nextWrap = allWrapsInline.eq(idxInline + 1);
       }
 
       if ($nextWrap) {
