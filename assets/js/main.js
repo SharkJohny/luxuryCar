@@ -1068,19 +1068,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function smoothScrollTo(el) {
     if (!el) return;
-    var fixedHdr = document.querySelector('.plugin-fixed-header');
-    var navBar = document.querySelector('.top-navigation-bar');
-    var hdr = document.querySelector('header');
-    var headerOffset =
-      (fixedHdr && fixedHdr.offsetHeight) ||
-      (navBar && navBar.offsetHeight) ||
-      (hdr && hdr.offsetHeight) ||
-      80;
+    // Michal req 2026-05-17: vycentrovat element vo viewporte na vysku
     var rect = el.getBoundingClientRect();
-    window.scrollTo({
-      top: window.scrollY + rect.top - headerOffset - 12,
-      behavior: 'smooth'
-    });
+    var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+    var elH = el.offsetHeight || rect.height || 0;
+    var top;
+    if (elH > viewportH * 0.8) {
+      // Velky element → scroll na vrch s offsetom (header)
+      var fixedHdr = document.querySelector('.plugin-fixed-header');
+      var navBar = document.querySelector('.top-navigation-bar');
+      var hdr = document.querySelector('header');
+      var headerOffset =
+        (fixedHdr && fixedHdr.offsetHeight) ||
+        (navBar && navBar.offsetHeight) ||
+        (hdr && hdr.offsetHeight) ||
+        80;
+      top = window.scrollY + rect.top - headerOffset - 12;
+    } else {
+      // Vycentruj
+      top = window.scrollY + rect.top - (viewportH - elH) / 2;
+    }
+    if (top < 0) top = 0;
+    window.scrollTo({ top: top, behavior: 'smooth' });
     window.__lcdScrollLog.push('scrolled -> ' + (el.className || el.tagName).slice(0, 40));
   }
 
