@@ -28498,7 +28498,11 @@ $(document).on("click", ".upsale-button", function(e) {
     setTimeout(() => {
       const $boxs = $(".upsale-buttons.boxs");
       if ($boxs.is(":visible")) {
+        $trunk.removeClass("active");
         openNextAccordion($boxs);
+        setTimeout(() => {
+          if (typeof scrollToStep === "function") scrollToStep($boxs);
+        }, 250);
       }
     }, 600);
   }

@@ -883,13 +883,17 @@ $(document).on("click", ".upsale-button", function (e) {
   // Check if the clicked element is within .upsale-buttons.trunk
   updateUpsale(this, e);
 
-  // Po výběru koberce: otevři boxs sekci
+  // Po výběru koberce: otevři boxs sekci + zatvor trunk (Michal req)
   const $trunk = $(this).closest(".upsale-buttons.trunk");
   if ($trunk.length && !$(this).hasClass("none")) {
     setTimeout(() => {
       const $boxs = $(".upsale-buttons.boxs");
       if ($boxs.is(":visible")) {
+        $trunk.removeClass("active"); // zatvor K5
         openNextAccordion($boxs);
+        setTimeout(() => {
+          if (typeof scrollToStep === "function") scrollToStep($boxs);
+        }, 250);
       }
     }, 600);
   }
