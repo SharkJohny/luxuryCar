@@ -30574,6 +30574,16 @@ document.addEventListener("DOMContentLoaded", function() {
   function isColorLayerStep(stepEl) {
     return /^(farba|barva)\s+\d/i.test(getStepHeaderText(stepEl));
   }
+  function isManualStep(stepEl) {
+    if (!stepEl) return false;
+    if (isColorLayerStep(stepEl)) return true;
+    var orderEl = stepEl.querySelector(".order");
+    if (orderEl) {
+      var n = parseInt((orderEl.textContent || "").trim(), 10);
+      if (!isNaN(n) && n >= 0 && n <= 3) return true;
+    }
+    return false;
+  }
   function findNextVisibleStep(curr) {
     if (!curr) return null;
     var all = Array.prototype.slice.call(
@@ -30611,8 +30621,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (btn.closest(".box-config")) return;
     var step = btn.closest(".parameter-wrap, .upsale-button.config, .upsale-button.radio");
     if (!step) return;
-    if (isColorLayerStep(step)) {
-      window.__lcdScrollLog.push("skip color step");
+    if (isManualStep(step)) {
+      window.__lcdScrollLog.push("skip manual step (0-3)");
       return;
     }
     scheduleScroll(step);
