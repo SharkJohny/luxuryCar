@@ -1040,15 +1040,15 @@ document.addEventListener("DOMContentLoaded", function () {
     return /^(farba|barva)\s+\d/i.test(getStepHeaderText(stepEl));
   }
 
-  // Krok 0-3 = manualne (vzor, specifikacia vozidla, farba 1, farba 2)
-  // Krok 4-6 = auto-scroll po kliku — Michal req 2026-05-17
+  // Krok 1-3 = manualne (specifikacia vozidla, farba 1, farba 2)
+  // Krok 0, 4-6 = auto-scroll po kliku — Michal req 2026-05-17
   function isManualStep(stepEl) {
     if (!stepEl) return false;
     if (isColorLayerStep(stepEl)) return true;
     var orderEl = stepEl.querySelector('.order');
     if (orderEl) {
       var n = parseInt((orderEl.textContent || '').trim(), 10);
-      if (!isNaN(n) && n >= 0 && n <= 3) return true;
+      if (!isNaN(n) && n >= 1 && n <= 3) return true;
     }
     return false;
   }
@@ -1107,8 +1107,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (btn.closest('.box-config')) return;
     var step = btn.closest('.parameter-wrap, .upsale-button.config, .upsale-button.radio');
     if (!step) return;
-    // Auto-scroll pre vsetky kroky (Michal req 2026-05-17)
-    // Predtym sa skipovali kroky 0-3 — teraz idu vsetky.
+    // Auto-scroll: kroky 0, 4, 5, 6 idu auto.
+    // Kroky 1, 2, 3 — manual cez tlacidlo 'Prejst k dalsiemu kroku' (Michal req).
+    if (isManualStep(step)) {
+      window.__lcdScrollLog.push('skip manual step (1-3)');
+      return;
+    }
     scheduleScroll(step);
   });
 
