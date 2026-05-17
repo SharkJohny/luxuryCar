@@ -7563,3 +7563,48 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   opacity: 0;
   pointer-events: none;
 }
+
+
+/* ═══ Accordion collapse — non-active parameter-wrap content skryt ═══ */
+/* Michal req 2026-05-18: '4 krok sa po vybere stale nezatvori je otvoreny'.
+   Default Shoptet vsetky kroky otvorene; .active class len meni border.
+   Pridavame collapse: non-active = max-height 0 (animovany). */
+.parameter-wrap > .options-wrap,
+.parameter-wrap > .next-step-button {
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+.parameter-wrap:not(.active) > .options-wrap,
+.parameter-wrap:not(.active) > .next-step-button {
+  max-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+}
+.parameter-wrap.active > .options-wrap,
+.parameter-wrap.active > .next-step-button {
+  max-height: 4000px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ═══ Radio bullet skry vsade v K4 stronger (Michal req — 'gulicka prec') ═══ */
+.parameter-85 .button.option-button.radio-row input[type="radio"],
+.parameter-57 .button.option-button.radio-row input[type="radio"],
+.parameter-wrap.parameter-85 .button.option-button.radio-row input[type="radio"],
+.parameter-wrap.parameter-57 .button.option-button.radio-row input[type="radio"],
+.parameter-85 .options-wrap input[type="radio"],
+.parameter-57 .options-wrap input[type="radio"],
+.parameter-wrap.parameter-85 .options-wrap input[type="radio"],
+.parameter-wrap.parameter-57 .options-wrap input[type="radio"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
