@@ -7441,13 +7441,9 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 }
 
 
-/* ═══ K4 — VERTIKALNY layout ako K5 (img HORE, text DOLE) — Michal req 2026-05-17 ═══ */
-/* Michal poslal screenshot kroku 5 ako vzor. Krok 4 ma byt:
-   - vrchol karty: VELKY obrazok rozlozenia kobercov (full width karty)
-   - pod nim: nazov bold + cena oranzova
-   - badge NAJOBJEDNAVANEJSIE: top-right roh karty (responsive position)
-   - karty pod sebou v stlpci (1 per row, full width)
-   - Funguje na vsetkych viewportoch (375, 768, 1280, 1920) */
+/* ═══ K4 — HORIZONTALNY layout (img LAVO, text PRAVO) — Michal req 2026-05-17 ═══ */
+/* Michal: 'obrazok ma byt na lavej strane a text na pravo, gulicka co je
+   vybrate tam vobec nemusi byt, zjednot dizajn'. Karty pod sebou v stlpci. */
 .parameter-85 .options-wrap,
 .parameter-57 .options-wrap,
 .parameter-wrap.parameter-85 .options-wrap,
@@ -7457,6 +7453,7 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   gap: 12px;
   padding: 10px;
 }
+/* Karty pod sebou v stlpci, ale vnutorny layout label = HORIZONTALNY row. */
 .parameter-85 .button.option-button.radio-row,
 .parameter-57 .button.option-button.radio-row,
 .parameter-wrap.parameter-85 .button.option-button.radio-row,
@@ -7475,55 +7472,60 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label,
 .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label {
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: row !important;
   align-items: center !important;
-  gap: 8px !important;
+  gap: 14px !important;
   width: 100% !important;
   padding: 0 !important;
+  flex-wrap: wrap;
 }
-/* IMG HORE (order 1) — velky, full karty width */
+/* IMG VLAVO (order 1) — ~35% sirky karty */
 .parameter-85 .button.option-button.radio-row label.radio-label img,
 .parameter-57 .button.option-button.radio-row label.radio-label img,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label img,
 .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label img {
   order: 1 !important;
-  width: 100% !important;
-  max-width: 320px !important;
+  width: 35% !important;
+  max-width: 140px !important;
+  min-width: 90px;
   height: auto !important;
   border-radius: 8px;
   display: block;
-  margin: 0 auto;
+  margin: 0;
+  flex-shrink: 0;
 }
-/* Text DOLE — bold nadpis (order 2) */
+/* Text VPRAVO — bold nadpis (order 2) */
 .parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
 .parameter-57 .button.option-button.radio-row label.radio-label span.radio-text,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
 .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text {
   order: 2 !important;
-  width: 100% !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
   font-size: 17px !important;
   font-weight: 700 !important;
-  text-align: center !important;
+  text-align: left !important;
   text-transform: uppercase;
   color: #1a1a1a;
   margin: 0 !important;
   padding: 0 !important;
   display: block !important;
 }
-/* Cena oranzova (order 3) */
+/* Cena oranzova (order 3) — vpravo */
 .parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
 .parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
 .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price {
   order: 3 !important;
-  width: 100% !important;
-  text-align: center !important;
-  font-size: 20px !important;
+  width: auto !important;
+  text-align: right !important;
+  font-size: 18px !important;
   font-weight: 800 !important;
   color: #c49b30 !important;
   margin: 0 !important;
   padding: 0 !important;
   display: block !important;
+  flex-shrink: 0;
 }
 /* Badge NAJOBJEDNAVANEJSIE — responsive top-right roh karty */
 .parameter-85 .option-button.lcd-najobjednavanejsie,

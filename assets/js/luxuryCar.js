@@ -29028,11 +29028,9 @@ $("body").on("click", ".button.option-button", function(e) {
     }
   }, 200);
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const orderNum = parseInt($currentWrap.find(".order").first().text());
-  const isManualStep = orderNum >= 0 && orderNum <= 3;
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
-  if (hasNextBtn && !isManualStep && !isInBoxConfig) {
+  if (hasNextBtn && !isInBoxConfig) {
     setTimeout(() => {
       const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
       const contentIndex = allContentWraps.index($currentWrap);
@@ -30621,10 +30619,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (btn.closest(".box-config")) return;
     var step = btn.closest(".parameter-wrap, .upsale-button.config, .upsale-button.radio");
     if (!step) return;
-    if (isManualStep(step)) {
-      window.__lcdScrollLog.push("skip manual step (0-3)");
-      return;
-    }
     scheduleScroll(step);
   });
   document.addEventListener("click", function(e) {

@@ -1098,10 +1098,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (btn.closest('.box-config')) return;
     var step = btn.closest('.parameter-wrap, .upsale-button.config, .upsale-button.radio');
     if (!step) return;
-    if (isManualStep(step)) {
-      window.__lcdScrollLog.push('skip manual step (0-3)');
-      return;
-    }
+    // Auto-scroll pre vsetky kroky (Michal req 2026-05-17)
+    // Predtym sa skipovali kroky 0-3 — teraz idu vsetky.
     scheduleScroll(step);
   });
 

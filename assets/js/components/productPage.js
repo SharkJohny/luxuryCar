@@ -1680,14 +1680,12 @@ $("body").on("click", ".button.option-button", function (e) {
     }
   }, 200);
 
-  // Auto-postup len pre krok 4-6. Krok 0, 1, 2, 3 manual (button) — Michal req
+  // Auto-postup pre VSETKY kroky 0-6 — Michal req 2026-05-17 (scroll vsade)
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const orderNum = parseInt($currentWrap.find(".order").first().text());
-  const isManualStep = orderNum >= 0 && orderNum <= 3;
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
 
-  if (hasNextBtn && !isManualStep && !isInBoxConfig) {
+  if (hasNextBtn && !isInBoxConfig) {
     // Hledáme next wrap se zpožděním 400ms — dáme čas Shoptetu přidat nové dynamické kroky do DOM
     setTimeout(() => {
       const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
