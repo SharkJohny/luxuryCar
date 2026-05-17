@@ -1707,14 +1707,25 @@ $("body").on("click", ".button.option-button", function (e) {
       }
 
       if ($nextWrap) {
-        // Michal req: zatvor aktualny krok pred otvorenim dalsieho
+        // Michal req: zatvor aktualny krok pred otvorenim dalsieho.
+        // 1) removeClass active 2) slideUp content (zalozne ak CSS collapse
+        // nefunguje na tomto wrapperi) 3) force-close vsetky parameter-wrap
+        // s .active okrem $nextWrap.
         $currentWrap.removeClass("active");
+        $currentWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+        // Force-close vsetkych ostatnych .parameter-wrap.active (okrem next).
+        $(".parameter-wrap.active, .position-wrap.active")
+          .not($nextWrap)
+          .not($currentWrap)
+          .removeClass("active")
+          .each(function () {
+            $(this).find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+          });
         openNextAccordion($nextWrap);
-        // Po openNextAccordion zoscrollovat tak aby bol dalsi
-        // krok vycentrovany v strede obrazovky.
+        $nextWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideDown(350);
         setTimeout(() => {
           scrollToStep($nextWrap);
-        }, 200);
+        }, 400);
       } else if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").fadeIn(400);

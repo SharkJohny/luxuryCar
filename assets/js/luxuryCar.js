@@ -29048,10 +29048,15 @@ $("body").on("click", ".button.option-button", function(e) {
       }
       if ($nextWrap) {
         $currentWrap.removeClass("active");
+        $currentWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+        $(".parameter-wrap.active, .position-wrap.active").not($nextWrap).not($currentWrap).removeClass("active").each(function() {
+          $(this).find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+        });
         openNextAccordion($nextWrap);
+        $nextWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideDown(350);
         setTimeout(() => {
           scrollToStep($nextWrap);
-        }, 200);
+        }, 400);
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();

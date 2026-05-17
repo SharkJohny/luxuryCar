@@ -7616,3 +7616,25 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   position: absolute !important;
   pointer-events: none !important;
 }
+
+
+/* ═══ K4 — DEFINITIVE radio bullet hide (Michal req 2026-05-18) ═══ */
+/* Predoshle hide cez input[type=radio] nestaci — pravdepodobne bullet je
+   render-ovany cez ::before na label alebo cez Shoptet vlastny pseudo. */
+.parameter-85 .button.option-button.radio-row::before,
+.parameter-85 .button.option-button.radio-row label.radio-label::before,
+.parameter-85 .button.option-button.radio-row label::before,
+.parameter-57 .button.option-button.radio-row::before,
+.parameter-57 .button.option-button.radio-row label.radio-label::before,
+.parameter-57 .button.option-button.radio-row label::before,
+.parameter-wrap.parameter-85 .button.option-button.radio-row::before,
+.parameter-wrap.parameter-85 .button.option-button.radio-row label::before,
+.parameter-wrap.parameter-57 .button.option-button.radio-row::before,
+.parameter-wrap.parameter-57 .button.option-button.radio-row label::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
