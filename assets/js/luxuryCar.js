@@ -29028,8 +29028,8 @@ $("body").on("click", ".button.option-button", function(e) {
     }
   }, 200);
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const orderNum = parseInt($currentWrap.find(".order").first().text());
-  const isManualStep = orderNum >= 1 && orderNum <= 3;
+  const stepName = ($currentWrap.find(".variant.name, h5").first().text() || "").toLowerCase().trim();
+  const isManualStep = /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(stepName);
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
   if (hasNextBtn && !isManualStep && !isInBoxConfig) {
@@ -30594,13 +30594,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   function isManualStep(stepEl) {
     if (!stepEl) return false;
-    if (isColorLayerStep(stepEl)) return true;
-    var orderEl = stepEl.querySelector(".order");
-    if (orderEl) {
-      var n = parseInt((orderEl.textContent || "").trim(), 10);
-      if (!isNaN(n) && n >= 1 && n <= 3) return true;
-    }
-    return false;
+    var name = "";
+    var nameEl = stepEl.querySelector(".variant.name, h5");
+    if (nameEl) name = (nameEl.textContent || "").toLowerCase().trim();
+    return /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(name);
   }
   function findNextVisibleStep(curr) {
     if (!curr) return null;

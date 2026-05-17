@@ -1040,17 +1040,14 @@ document.addEventListener("DOMContentLoaded", function () {
     return /^(farba|barva)\s+\d/i.test(getStepHeaderText(stepEl));
   }
 
-  // Krok 1-3 = manualne (specifikacia vozidla, farba 1, farba 2)
-  // Krok 0, 4-6 = auto-scroll po kliku — Michal req 2026-05-17
+  // Manual kroky detegovane cez NAZOV (robustnejsie nez orderNum).
+  // Diamond-Line nema farba 2.vrstvy → rozlozenie ma order=3, ale je AUTO.
   function isManualStep(stepEl) {
     if (!stepEl) return false;
-    if (isColorLayerStep(stepEl)) return true;
-    var orderEl = stepEl.querySelector('.order');
-    if (orderEl) {
-      var n = parseInt((orderEl.textContent || '').trim(), 10);
-      if (!isNaN(n) && n >= 1 && n <= 3) return true;
-    }
-    return false;
+    var name = '';
+    var nameEl = stepEl.querySelector('.variant.name, h5');
+    if (nameEl) name = (nameEl.textContent || '').toLowerCase().trim();
+    return /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(name);
   }
 
   function findNextVisibleStep(curr) {

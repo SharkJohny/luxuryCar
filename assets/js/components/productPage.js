@@ -1683,8 +1683,13 @@ $("body").on("click", ".button.option-button", function (e) {
   // Kroky 1, 2, 3 (specifikacia, farba 1, farba 2) — manual cez tlacidlo
   // 'Prejst k dalsiemu kroku' — Michal req 2026-05-17.
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const orderNum = parseInt($currentWrap.find(".order").first().text());
-  const isManualStep = orderNum >= 1 && orderNum <= 3;
+  // isManualStep — detegovany cez NAZOV kroku, nie cez orderNum.
+  // (Diamond-Line nema farba 2.vrstvy → rozlozenie kobercov ma order=3,
+  // co by zlozite blokovalo auto-postup. Robustnejsie cez nazov.)
+  // Manual: vzor presivania, specifikacia vozidla, farba 1/2.vrstvy.
+  const stepName = ($currentWrap.find(".variant.name, h5").first().text() || "")
+    .toLowerCase().trim();
+  const isManualStep = /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(stepName);
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
 
