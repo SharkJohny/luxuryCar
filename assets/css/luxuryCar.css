@@ -7441,69 +7441,123 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 }
 
 
-/* ═══ K4 — redesign layout ako K5 (img left, text right) — Michal req 2026-05-15 ═══ */
-/* Aktualne K4 ma img napravo, text napred. Michal chce K5-style: img vlavo
-   + text/cena vpravo. Pri resize sa badge nepresunie spravne — flex reorder
-   rieshi oboje. */
-@media (max-width: 768px) {
-  .parameter-85 .button.option-button.radio-row label.radio-label,
-  .parameter-57 .button.option-button.radio-row label.radio-label,
-  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label,
-  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-    width: 100% !important;
-    padding: 6px 8px;
-  }
-  /* IMG vlavo (order 1) */
-  .parameter-85 .button.option-button.radio-row label.radio-label img,
-  .parameter-57 .button.option-button.radio-row label.radio-label img,
-  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label img,
-  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label img {
-    order: 1 !important;
-    width: 35% !important;
-    max-width: 110px;
-    height: auto !important;
-    flex-shrink: 0;
-    border-radius: 6px;
-  }
-  /* Text vpravo (order 2) */
-  .parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
-  .parameter-57 .button.option-button.radio-row label.radio-label span.radio-text,
-  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
-  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text {
-    order: 2 !important;
-    flex: 1 1 auto !important;
-    width: auto !important;
-    font-size: 15px !important;
-    font-weight: 600;
-    text-align: left;
-    padding: 0;
-  }
-  /* Cena vpravo (order 3) */
-  .parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
-  .parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price,
-  .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
-  .parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price {
-    order: 3 !important;
-    width: auto !important;
-    flex-shrink: 0;
-    font-size: 15px !important;
-    font-weight: 800;
-    color: #c49b30;
-    margin-left: auto;
-    padding-right: 4px;
-  }
-  /* Badge "NAJOBJEDNÁVANEJŠIE" — pravy horny roh ako K5 (uz aplikovane,
-     uistim sa pre K4 box-sizing). Card ma vyhradeny priestor cez padding-top. */
-  .parameter-85 .option-button.lcd-najobjednavanejsie,
-  .parameter-57 .option-button.lcd-najobjednavanejsie,
-  .parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie,
-  .parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie {
-    padding-top: 28px !important;
-    position: relative;
-    overflow: hidden;
-  }
+/* ═══ K4 — VERTIKALNY layout ako K5 (img HORE, text DOLE) — Michal req 2026-05-17 ═══ */
+/* Michal poslal screenshot kroku 5 ako vzor. Krok 4 ma byt:
+   - vrchol karty: VELKY obrazok rozlozenia kobercov (full width karty)
+   - pod nim: nazov bold + cena oranzova
+   - badge NAJOBJEDNAVANEJSIE: top-right roh karty (responsive position)
+   - karty pod sebou v stlpci (1 per row, full width)
+   - Funguje na vsetkych viewportoch (375, 768, 1280, 1920) */
+.parameter-85 .options-wrap,
+.parameter-57 .options-wrap,
+.parameter-wrap.parameter-85 .options-wrap,
+.parameter-wrap.parameter-57 .options-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px;
+  padding: 10px;
+}
+.parameter-85 .button.option-button.radio-row,
+.parameter-57 .button.option-button.radio-row,
+.parameter-wrap.parameter-85 .button.option-button.radio-row,
+.parameter-wrap.parameter-57 .button.option-button.radio-row {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  position: relative !important;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%);
+  border-radius: 12px !important;
+  padding: 14px !important;
+}
+.parameter-85 .button.option-button.radio-row label.radio-label,
+.parameter-57 .button.option-button.radio-row label.radio-label,
+.parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label,
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+/* IMG HORE (order 1) — velky, full karty width */
+.parameter-85 .button.option-button.radio-row label.radio-label img,
+.parameter-57 .button.option-button.radio-row label.radio-label img,
+.parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label img,
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label img {
+  order: 1 !important;
+  width: 100% !important;
+  max-width: 320px !important;
+  height: auto !important;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+/* Text DOLE — bold nadpis (order 2) */
+.parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
+.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text,
+.parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text {
+  order: 2 !important;
+  width: 100% !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+/* Cena oranzova (order 3) */
+.parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
+.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price,
+.parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price {
+  order: 3 !important;
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #c49b30 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+/* Badge NAJOBJEDNAVANEJSIE — responsive top-right roh karty */
+.parameter-85 .option-button.lcd-najobjednavanejsie,
+.parameter-57 .option-button.lcd-najobjednavanejsie,
+.parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie,
+.parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie {
+  position: relative !important;
+  padding-top: 38px !important;
+}
+.parameter-85 .option-button.lcd-najobjednavanejsie::after,
+.parameter-57 .option-button.lcd-najobjednavanejsie::after,
+.parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie::after,
+.parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie::after {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+}
+/* Aktivny stav — zlaty border */
+.parameter-85 .button.option-button.radio-row.active,
+.parameter-57 .button.option-button.radio-row.active,
+.parameter-wrap.parameter-85 .button.option-button.radio-row.active,
+.parameter-wrap.parameter-57 .button.option-button.radio-row.active {
+  border: 2px solid #c49b30 !important;
+  box-shadow: 0 4px 12px rgba(196, 155, 49, 0.3) !important;
+}
+/* Skry radio input bullet — vizualne stací border karty */
+.parameter-85 .button.option-button.radio-row input[type="radio"],
+.parameter-57 .button.option-button.radio-row input[type="radio"],
+.parameter-wrap.parameter-85 .button.option-button.radio-row input[type="radio"],
+.parameter-wrap.parameter-57 .button.option-button.radio-row input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
