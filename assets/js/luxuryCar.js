@@ -28134,7 +28134,7 @@ function priplatky(setupData2, texts) {
         if ($wrap.find("input[type='radio']:checked, input[type='checkbox']:checked").length) valid = true;
       }
       return !hasSelectable || valid;
-    }, getNavigableWraps = function() {
+    }, getNavigableWraps2 = function() {
       return $(".position-wrap, .parameter-wrap").filter(function() {
         return !$(this).closest(".box-config").length;
       });
@@ -28173,7 +28173,7 @@ function priplatky(setupData2, texts) {
       }
       $(".position-wrap, .parameter-wrap").removeClass("active");
     }, addNextStepButtons = function() {
-      const allWraps = getNavigableWraps();
+      const allWraps = getNavigableWraps2();
       allWraps.each(function(index) {
         const $wrap = $(this);
         if ($wrap.find(".next-step-button").length > 0) {
@@ -28189,7 +28189,7 @@ function priplatky(setupData2, texts) {
         }).appendTo($wrap);
       });
     }, updateButtonTexts2 = function() {
-      const allWraps = getNavigableWraps();
+      const allWraps = getNavigableWraps2();
       allWraps.each(function(index) {
         const $wrap = $(this);
         const $button = $wrap.find(".next-step-button");
@@ -28365,7 +28365,7 @@ function priplatky(setupData2, texts) {
           return;
         }
       }
-      const allWraps = getNavigableWraps();
+      const allWraps = getNavigableWraps2();
       const currentIndex = allWraps.index(currentWrap);
       if (currentIndex < allWraps.length - 1) {
         const nextWrap = allWraps.eq(currentIndex + 1);
@@ -29034,16 +29034,24 @@ $("body").on("click", ".button.option-button", function(e) {
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
   if (hasNextBtn && !isManualStep && !isInBoxConfig) {
     setTimeout(() => {
-      const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
-      const contentIndex = allContentWraps.index($currentWrap);
       let $nextWrap = null;
-      if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
-        $nextWrap = allContentWraps.eq(contentIndex + 1);
-      } else if (contentIndex === -1) {
-        const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
-        const sibIndex = $siblings.index($currentWrap);
-        if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
-          $nextWrap = $siblings.eq(sibIndex + 1);
+      if (typeof getNavigableWraps === "function") {
+        const allWraps = getNavigableWraps();
+        const idx = allWraps.index($currentWrap);
+        if (idx >= 0 && idx < allWraps.length - 1) {
+          $nextWrap = allWraps.eq(idx + 1);
+        }
+      } else {
+        const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
+        const contentIndex = allContentWraps.index($currentWrap);
+        if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
+          $nextWrap = allContentWraps.eq(contentIndex + 1);
+        } else if (contentIndex === -1) {
+          const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
+          const sibIndex = $siblings.index($currentWrap);
+          if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
+            $nextWrap = $siblings.eq(sibIndex + 1);
+          }
         }
       }
       if ($nextWrap) {

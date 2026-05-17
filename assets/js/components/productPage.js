@@ -1696,18 +1696,28 @@ $("body").on("click", ".button.option-button", function (e) {
   if (hasNextBtn && !isManualStep && !isInBoxConfig) {
     // Hledáme next wrap se zpožděním 400ms — dáme čas Shoptetu přidat nové dynamické kroky do DOM
     setTimeout(() => {
-      const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
-      const contentIndex = allContentWraps.index($currentWrap);
-
+      // Pouzivame getNavigableWraps() ktora zahrnia VSETKY .position-wrap/.parameter-wrap
+      // (vratane .upsale-buttons.trunk/boxs ktore su mimo .content-wrap) — bez tejto
+      // logiky K4 (posledny v content-wrap) by neslo na K5/K6.
+      // Fallback: ak getNavigableWraps neexistuje, pouzi povodnu logiku.
       let $nextWrap = null;
-      if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
-        $nextWrap = allContentWraps.eq(contentIndex + 1);
-      } else if (contentIndex === -1) {
-        // Dynamicky přidaný wrap mimo content-wrap — hledej next sibling v tom samém parentu
-        const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
-        const sibIndex = $siblings.index($currentWrap);
-        if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
-          $nextWrap = $siblings.eq(sibIndex + 1);
+      if (typeof getNavigableWraps === "function") {
+        const allWraps = getNavigableWraps();
+        const idx = allWraps.index($currentWrap);
+        if (idx >= 0 && idx < allWraps.length - 1) {
+          $nextWrap = allWraps.eq(idx + 1);
+        }
+      } else {
+        const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
+        const contentIndex = allContentWraps.index($currentWrap);
+        if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
+          $nextWrap = allContentWraps.eq(contentIndex + 1);
+        } else if (contentIndex === -1) {
+          const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
+          const sibIndex = $siblings.index($currentWrap);
+          if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
+            $nextWrap = $siblings.eq(sibIndex + 1);
+          }
         }
       }
 
