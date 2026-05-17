@@ -1722,25 +1722,45 @@ $("body").on("click", ".button.option-button", function (e) {
       }
 
       if ($nextWrap) {
-        // Michal req: zatvor aktualny krok pred otvorenim dalsieho.
-        // 1) removeClass active 2) slideUp content (zalozne ak CSS collapse
-        // nefunguje na tomto wrapperi) 3) force-close vsetky parameter-wrap
-        // s .active okrem $nextWrap.
-        $currentWrap.removeClass("active");
-        $currentWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+        // Michal req 2026-05-18: K4 sa stale neuzatvaralo - root cause:
+        // ina cast Shoptetu/inh handler znova addne .active na K4 po
+        // mojom removeClass. Fix: force-close cez inline style + double
+        // setTimeout aby zostal zatvoreny.
+        function forceCloseWrap($w) {
+          $w.removeClass("active");
+          $w.find("> .options-wrap").each(function() {
+            this.style.maxHeight = "0px";
+            this.style.overflow = "hidden";
+            this.style.opacity = "0";
+            this.style.padding = "0";
+          });
+          $w.find("> .next-step-button").hide();
+        }
+        forceCloseWrap($currentWrap);
         // Force-close vsetkych ostatnych .parameter-wrap.active (okrem next).
         $(".parameter-wrap.active, .position-wrap.active")
           .not($nextWrap)
           .not($currentWrap)
-          .removeClass("active")
           .each(function () {
-            $(this).find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+            forceCloseWrap($(this));
           });
         openNextAccordion($nextWrap);
-        $nextWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideDown(350);
+        // Reset inline styles na nextWrap aby sa otvoril
+        $nextWrap.find("> .options-wrap").each(function() {
+          this.style.maxHeight = "";
+          this.style.overflow = "";
+          this.style.opacity = "";
+          this.style.padding = "";
+        });
+        $nextWrap.find("> .next-step-button").show();
+        // Double-tap force close po 100ms (pre pripad ze iny handler addne .active)
         setTimeout(() => {
+          forceCloseWrap($currentWrap);
+        }, 100);
+        setTimeout(() => {
+          forceCloseWrap($currentWrap);  // tretí tap pre istotu
           scrollToStep($nextWrap);
-        }, 400);
+        }, 500);
       } else if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").fadeIn(400);

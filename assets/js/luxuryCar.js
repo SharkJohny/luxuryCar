@@ -29055,16 +29055,35 @@ $("body").on("click", ".button.option-button", function(e) {
         }
       }
       if ($nextWrap) {
-        $currentWrap.removeClass("active");
-        $currentWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
-        $(".parameter-wrap.active, .position-wrap.active").not($nextWrap).not($currentWrap).removeClass("active").each(function() {
-          $(this).find("> .options-wrap, > .next-step-button").stop(true, true).slideUp(350);
+        let forceCloseWrap = function($w) {
+          $w.removeClass("active");
+          $w.find("> .options-wrap").each(function() {
+            this.style.maxHeight = "0px";
+            this.style.overflow = "hidden";
+            this.style.opacity = "0";
+            this.style.padding = "0";
+          });
+          $w.find("> .next-step-button").hide();
+        };
+        forceCloseWrap($currentWrap);
+        $(".parameter-wrap.active, .position-wrap.active").not($nextWrap).not($currentWrap).each(function() {
+          forceCloseWrap($(this));
         });
         openNextAccordion($nextWrap);
-        $nextWrap.find("> .options-wrap, > .next-step-button").stop(true, true).slideDown(350);
+        $nextWrap.find("> .options-wrap").each(function() {
+          this.style.maxHeight = "";
+          this.style.overflow = "";
+          this.style.opacity = "";
+          this.style.padding = "";
+        });
+        $nextWrap.find("> .next-step-button").show();
         setTimeout(() => {
+          forceCloseWrap($currentWrap);
+        }, 100);
+        setTimeout(() => {
+          forceCloseWrap($currentWrap);
           scrollToStep($nextWrap);
-        }, 400);
+        }, 500);
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
