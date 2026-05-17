@@ -28148,7 +28148,7 @@ function priplatky(setupData2, texts) {
         return isLast ? "Dokon\u010Di\u0165 konfigur\xE1ciu" : "Prejs\u0165 k \u010Fal\u0161iemu kroku";
       }
       return isLast ? "Dokon\u010Dit konfiguraci" : "P\u0159ej\xEDt k dal\u0161\xEDmu kroku";
-    }, scrollToStep = function($wrap) {
+    }, scrollToStep2 = function($wrap) {
       if (!$wrap.length) return;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
       const wrapTop = $wrap.offset().top;
@@ -28325,7 +28325,7 @@ function priplatky(setupData2, texts) {
             }
           }
           if ($firstInvalid) {
-            scrollToStep($firstInvalid);
+            scrollToStep2($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
             }, 2500);
@@ -28357,7 +28357,7 @@ function priplatky(setupData2, texts) {
           currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
-            scrollToStep($boxs);
+            scrollToStep2($boxs);
           }, 600);
           setTimeout(() => {
             updateButtonTexts2();
@@ -28372,7 +28372,7 @@ function priplatky(setupData2, texts) {
         currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep(nextWrap);
+          scrollToStep2(nextWrap);
         }, 600);
       } else {
         allWraps.removeClass("active");
@@ -29044,21 +29044,33 @@ $("body").on("click", ".button.option-button", function(e) {
       }
       if ($nextWrap) {
         openNextAccordion($nextWrap);
+        setTimeout(() => {
+          scrollToStep($nextWrap);
+        }, 200);
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
         $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
+        let $targetWrap = null;
         if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
+          $targetWrap = $boxs;
         } else {
-          openNextAccordion($(".upsale-buttons.trunk"));
+          $targetWrap = $(".upsale-buttons.trunk");
+          openNextAccordion($targetWrap);
         }
         if (!$(".parameter-id-" + koberce)[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
+          $targetWrap = $boxs;
+        }
+        if ($targetWrap && $targetWrap.length) {
+          setTimeout(() => {
+            scrollToStep($targetWrap);
+          }, 250);
         }
       }
     }, 400);

@@ -1704,23 +1704,38 @@ $("body").on("click", ".button.option-button", function (e) {
 
       if ($nextWrap) {
         openNextAccordion($nextWrap);
+        // Michal req: po openNextAccordion zoscrollovat tak aby bol dalsi
+        // krok vycentrovany v strede obrazovky (rovnako ako pri tlacidle).
+        setTimeout(() => {
+          scrollToStep($nextWrap);
+        }, 200);
       } else if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
         $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
 
+        let $targetWrap = null;
         if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
+          $targetWrap = $boxs;
         } else {
-          openNextAccordion($(".upsale-buttons.trunk"));
+          $targetWrap = $(".upsale-buttons.trunk");
+          openNextAccordion($targetWrap);
         }
         if (!$(".parameter-id-" + koberce)[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
+          $targetWrap = $boxs;
+        }
+        // Scroll na cielovy wrap (vycentrovat)
+        if ($targetWrap && $targetWrap.length) {
+          setTimeout(() => {
+            scrollToStep($targetWrap);
+          }, 250);
         }
       }
     }, 400);
