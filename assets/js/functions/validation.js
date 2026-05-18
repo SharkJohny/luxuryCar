@@ -125,13 +125,37 @@ function validateProductConfig() {
       $boxConfig.css("display", "");
     }
 
-    // 4) Scroll na prvú chybu (100 px ofset od horného okraja).
+    // 3b) Otvor prvy nevyplneny akordeon (Michal req: chronologicky prvy).
+    var $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    if (!$accordion.length) {
+      $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
+    }
+    if ($accordion.length && !$accordion.hasClass("active")) {
+      $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function () {
+        if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
+          $(this).removeClass("active");
+        }
+      });
+      $accordion.addClass("active");
+    }
+
+    // 4) Scroll na chybu VYCENTROVAT v strede viewportu (kompatibilne s kazdym
+    // rozlisenim). 450ms delay aby akordeon stihol expand-nut.
     setTimeout(function () {
-      const top = $first.offset() && $first.offset().top;
-      if (top != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+      var $target = $accordion && $accordion.length ? $accordion : $first;
+      if (!$target || !$target.length || !$target.offset()) return;
+      var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      var wrapTop = $target.offset().top;
+      var wrapH = $target.outerHeight() || 0;
+      var tgt;
+      if (wrapH > viewportH * 0.8) {
+        tgt = wrapTop - 80;
+      } else {
+        tgt = wrapTop - (viewportH - wrapH) / 2;
       }
-    }, 50);
+      tgt = Math.max(0, tgt);
+      $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
+    }, 450);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
     setTimeout(function () {
