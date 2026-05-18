@@ -7703,3 +7703,47 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     display: none !important;
   }
 }
+
+
+/* ═══ K4 — AGRESÍVNE skry radio bullet/krúzok (Michal screenshot 2026-05-18) ═══ */
+/* Vsetky mozne elementy ktore mozu rendrovat kruh/bullet v K4 option-button */
+.parameter-85 .button.option-button input,
+.parameter-85 .button.option-button input[type="radio"],
+.parameter-85 .button.option-button input[type="checkbox"],
+.parameter-85 .button.option-button label::before,
+.parameter-85 .button.option-button label::after,
+.parameter-85 .button.option-button label.radio-label::before,
+.parameter-85 .button.option-button label.radio-label::after,
+.parameter-85 .button.option-button.active::after,
+.parameter-85 .button.option-button.radio-row::before,
+.parameter-85 .button.option-button.radio-row::after,
+.parameter-57 .button.option-button input,
+.parameter-57 .button.option-button input[type="radio"],
+.parameter-57 .button.option-button input[type="checkbox"],
+.parameter-57 .button.option-button label::before,
+.parameter-57 .button.option-button label::after,
+.parameter-57 .button.option-button label.radio-label::before,
+.parameter-57 .button.option-button label.radio-label::after,
+.parameter-57 .button.option-button.active::after,
+.parameter-57 .button.option-button.radio-row::before,
+.parameter-57 .button.option-button.radio-row::after,
+.parameter-wrap.parameter-85 .button.option-button input,
+.parameter-wrap.parameter-85 .button.option-button label::before,
+.parameter-wrap.parameter-85 .button.option-button label::after,
+.parameter-wrap.parameter-85 .button.option-button.active::after,
+.parameter-wrap.parameter-57 .button.option-button input,
+.parameter-wrap.parameter-57 .button.option-button label::before,
+.parameter-wrap.parameter-57 .button.option-button label::after,
+.parameter-wrap.parameter-57 .button.option-button.active::after {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  content: none !important;
+  background: transparent !important;
+  border: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+}
