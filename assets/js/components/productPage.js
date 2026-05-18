@@ -1971,41 +1971,56 @@ function mountTruckConfigurator() {
 
 
 // Michal req 2026-05-18: klik na header (.order) zatvoreneho parameter-wrap
-// → znova otvorit (toggle). Pre pripad ze pouzivatel chce upravit predchadzajuci
-// krok po vybere.
-$(document).on("click", ".parameter-wrap > .order, .position-wrap > .order", function (e) {
-  const $wrap = $(this).parent();
-  if ($wrap.closest(".box-config").length) return; // skip box-config children
-  
-  if ($wrap.hasClass("active")) {
-    // Toggle off — zatvor
-    $wrap.removeClass("active");
-    $wrap.find("> .options-wrap").each(function () {
-      this.style.maxHeight = "0px";
-      this.style.opacity = "0";
-      this.style.padding = "0";
-    });
-    $wrap.find("> .next-step-button").hide();
-  } else {
-    // Toggle on — otvor + zatvor ostatne
-    $(".parameter-wrap.active, .position-wrap.active").not($wrap).each(function () {
-      const $other = $(this);
-      $other.removeClass("active");
-      $other.find("> .options-wrap").each(function () {
+// → znova otvorit (toggle). stopImmediatePropagation aby Shoptet handler
+// neprepísal náš stav.
+// Registered cez native capture phase + delegation manually (vyhrá nad jQuery .on).
+(function () {
+  document.addEventListener("click", function (e) {
+    const orderEl = e.target.closest(".order");
+    if (!orderEl) return;
+    const wrap = orderEl.parentElement;
+    if (!wrap) return;
+    if (!wrap.classList.contains("parameter-wrap") && !wrap.classList.contains("position-wrap")) return;
+    if (wrap.closest(".box-config")) return;
+    // Skip ak orderEl nie je direct child wrap (mohol by byť nested)
+    if (orderEl.parentElement !== wrap) return;
+    
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    
+    const $wrap = window.$(wrap);
+    const isActive = wrap.classList.contains("active");
+    
+    if (isActive) {
+      // Toggle off
+      wrap.classList.remove("active");
+      $wrap.find("> .options-wrap").each(function () {
         this.style.maxHeight = "0px";
         this.style.opacity = "0";
+        this.style.padding = "0";
       });
-    });
-    $wrap.addClass("active");
-    // Reset inline styles (otvor)
-    $wrap.find("> .options-wrap").each(function () {
-      this.style.maxHeight = "";
-      this.style.opacity = "";
-      this.style.padding = "";
-    });
-    $wrap.find("> .next-step-button").show();
-    setTimeout(() => {
-      if (typeof scrollToStep === "function") scrollToStep($wrap);
-    }, 200);
-  }
-});
+      $wrap.find("> .next-step-button").hide();
+    } else {
+      // Toggle on
+      document.querySelectorAll(".parameter-wrap.active, .position-wrap.active").forEach(function (other) {
+        if (other !== wrap) {
+          other.classList.remove("active");
+          other.querySelectorAll(":scope > .options-wrap").forEach(function (ow) {
+            ow.style.maxHeight = "0px";
+            ow.style.opacity = "0";
+          });
+        }
+      });
+      wrap.classList.add("active");
+      $wrap.find("> .options-wrap").each(function () {
+        this.style.maxHeight = "";
+        this.style.opacity = "";
+        this.style.padding = "";
+      });
+      $wrap.find("> .next-step-button").show();
+      setTimeout(() => {
+        if (typeof scrollToStep === "function") scrollToStep($wrap);
+      }, 250);
+    }
+  }, true); // ← capture phase (vyhrá nad bubble)
+})();
