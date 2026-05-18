@@ -125,6 +125,22 @@ function validateProductConfig() {
       $boxConfig.css("display", "");
     }
 
+    // 3b) Otvor prvy nevyplneny akordeon (position-wrap / parameter-wrap).
+    // Klient: ked je akordeon zatvoreny a chyba mu vyber, user nevidi.
+    // Pri validacii otvorime prvy nevalidny akordeon (chronologicky prvy).
+    var $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    if (!$accordion.length) {
+      $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
+    }
+    if ($accordion.length && !$accordion.hasClass("active")) {
+      $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function () {
+        if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
+          $(this).removeClass("active");
+        }
+      });
+      $accordion.addClass("active");
+    }
+
     // 4) Scroll na prvú chybu (100 px ofset od horného okraja).
     setTimeout(function () {
       const top = $first.offset() && $first.offset().top;

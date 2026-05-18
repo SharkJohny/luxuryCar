@@ -4517,6 +4517,18 @@ section#model-info .setup-model {
   border-radius: 10px;
 }
 
+/* Silnejsi override pre .errorToCart vo vnutri .box-config — bez !important */
+/* je prepisany cez .box-config .parameter-wrap (vyssia specificita). */
+.parameter-wrap.errorToCart,
+.position-wrap.errorToCart,
+.box-config .parameter-wrap.errorToCart,
+.upsale-Banner .box-config .parameter-wrap.errorToCart,
+.config-wrap .parameter-wrap.errorToCart {
+  border: 2px solid #d92323 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
+}
+
 .selection-required {
   border: 2px solid #d92323 !important;
   box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
