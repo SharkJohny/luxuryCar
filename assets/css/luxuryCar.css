@@ -7835,3 +7835,92 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     padding: 10px !important;
   }
 }
+
+
+/* ═══ UNIVERZÁLNY RESPONSIVE FORCE — Michal screenshot 2026-05-18 (verejný web ~989px) ═══ */
+/* Pri zmenšenom okne (mobile/tablet/narrow desktop) MUSÍ byť obrázok HORE,
+   konfigurátor POD ním. Title v normal flow, žiadne absolute pos cez galériu.
+   Použivame body.type-product prefix pre vyssiu specificity a override Shoptet
+   default CSS bez ohladu na load order. */
+@media (max-width: 1399px) {
+  body.type-product .row.product-top,
+  body.type-product .p-detail-inner > .row {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+  }
+  body.type-product .row.product-top > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    float: none !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  /* Galéria sekcia (carousel + thumbs) — VŽDY HORE */
+  body.type-product .row.product-top > .col-xs-12.col-lg-6:not(.p-info-wrapper),
+  body.type-product .row.product-top > .col-xs-12:not(.p-info-wrapper) {
+    order: 1 !important;
+    margin-bottom: 30px !important;
+  }
+  /* Info wrapper — VŽDY DOLE, FULL WIDTH, AUTO HEIGHT */
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper,
+  body.type-product .p-info-wrapper {
+    order: 2 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin-top: 20px !important;
+    padding-top: 15px !important;
+    flex: 0 0 100% !important;
+  }
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper:not(.active),
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper.active {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  /* Shimmer placeholder — uplne preč pri responsive */
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper:not(.active)::before,
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper.active::before,
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper::before {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+  /* Title h1 — VŽDY normal flow, NIKDY absolute, čitateľný */
+  body.type-product .col-xs-12.col-lg-6.p-info-wrapper h1,
+  body.type-product .p-detail-inner-header h1,
+  body.type-product .p-detail-inner h1 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
+    margin: 15px 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    color: #c5a44e !important;
+    background: transparent !important;
+    width: 100% !important;
+    font-size: 24px !important;
+  }
+  /* p-detail-inner force flex column */
+  body.type-product .p-detail-inner,
+  body.type-product .p-detail {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  /* Galéria carousel container — auto height */
+  body.type-product .col-xs-12:not(.p-info-wrapper),
+  body.type-product .product-top .col-xs-12:not(.p-info-wrapper) {
+    height: auto !important;
+    max-height: none !important;
+  }
+}
