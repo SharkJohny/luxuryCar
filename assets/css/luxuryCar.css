@@ -7638,3 +7638,23 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   width: 0 !important;
   height: 0 !important;
 }
+
+
+/* ═══ K4 — skry ::before kruh aj na .active (Michal req 2026-05-18) ═══ */
+/* Radio-row option-button v K4 (rozlozenie kobercov) ma .active::before
+   pseudo z Shoptet base CSS — zlaty kruh checkmark. Michal: ked je
+   vybrana moznost, krúžok sa objavi — chce to prec. */
+.parameter-85 .button.option-button.radio-row.active::before,
+.parameter-85 .button.option-button.radio-row.active:before,
+.parameter-57 .button.option-button.radio-row.active::before,
+.parameter-57 .button.option-button.radio-row.active:before,
+.parameter-wrap.parameter-85 .button.option-button.radio-row.active::before,
+.parameter-wrap.parameter-85 .button.option-button.radio-row.active:before,
+.parameter-wrap.parameter-57 .button.option-button.radio-row.active::before,
+.parameter-wrap.parameter-57 .button.option-button.radio-row.active:before {
+  display: none !important;
+  content: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
