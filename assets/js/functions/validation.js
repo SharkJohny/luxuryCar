@@ -64,7 +64,6 @@ export function validation(texts) {
 function validateProductConfig() {
   const $errors = $();
   let $first = null;
-  const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
 
   function add($el) {
     if (!$el || !$el.length) return;
@@ -77,9 +76,6 @@ function validateProductConfig() {
   //    musia mať aktívny výber, ak obsahujú selectable element.
   $(".parameter-wrap:visible").each(function () {
     const $wrap = $(this);
-    if ($wrap.hasClass("boxs")) return;
-    if ($wrap.hasClass("trunk")) return;
-    if ($wrap.closest(".box-config").length && !isBoxConfigSelected) return;
     if (!isWrapValid($wrap)) add($wrap);
   });
 
@@ -107,8 +103,6 @@ function validateProductConfig() {
   $(".upsale-buttons:visible").each(function () {
     const $group = $(this);
     if (!$group.find(".upsale-button").length) return;
-    if ($group.hasClass("boxs")) return;
-    if ($group.hasClass("trunk")) return;
     if (!$group.find(".upsale-button.active").not(".none").length) {
       add($group);
     }
@@ -123,6 +117,24 @@ function validateProductConfig() {
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
+    }
+
+    // 3b) Otvor prvý nevyplnený akordeon (position-wrap / parameter-wrap).
+    //     Klient: keď je akordeon zatvorený a chýba mu výber, user nevie čo
+    //     má doplniť. Pri validácii vždy otvoríme prvý nevalidný akordeon.
+    let $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    if (!$accordion.length) {
+      $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
+    }
+    if ($accordion.length && !$accordion.hasClass("active")) {
+      // Zatvor ostatné top-level akordeony (mimo box-config, aby sme nelámali
+      // K6 box konfigurátor).
+      $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function () {
+        if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
+          $(this).removeClass("active");
+        }
+      });
+      $accordion.addClass("active");
     }
 
     // 4) Scroll na prvú chybu (100 px ofset od horného okraja).
@@ -148,10 +160,6 @@ function validateProductConfig() {
  * element (info wrap), ALEBO ak má aspoň jeden aktívny.
  */
 function isWrapValid($wrap) {
-  if ($wrap.hasClass("boxs")) return true;
-  if ($wrap.hasClass("trunk")) return true;
-  if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
-
   let hasSelectable = false;
   let valid = false;
 
@@ -161,7 +169,7 @@ function isWrapValid($wrap) {
   }
   if ($wrap.find(".upsale-button").length) {
     hasSelectable = true;
-    if ($wrap.find(".upsale-button.active").length) valid = true;
+    if ($wrap.find(".upsale-button.active").not(".none").length) valid = true;
   }
   if ($wrap.find("select.surcharge-parameter").length) {
     hasSelectable = true;

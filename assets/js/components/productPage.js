@@ -578,23 +578,28 @@ function priplatky(setupData, texts) {
     function scrollToStep($wrap) {
       if (!$wrap.length) return;
 
-      // Michal req 2026-05-17: VZDY scroll + element VYCENTROVAT na vysku
-      // vo viewporte (podla rozmeru obrazovky).
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
       const wrapTop = $wrap.offset().top;
-      const wrapHeight = $wrap.outerHeight() || 0;
 
-      // Ak element vyssi nez 80% viewportu — scroll na vrch s 80px offsetom.
-      // Inak vycentruj v strede viewportu na vysku.
-      let targetScrollTop;
-      if (wrapHeight > viewportHeight * 0.8) {
-        targetScrollTop = wrapTop - 80;
-      } else {
-        targetScrollTop = wrapTop - (viewportHeight - wrapHeight) / 2;
+      if (window.matchMedia("(min-width: 992px)").matches) {
+        const rect = $wrap[0].getBoundingClientRect();
+        const comfortableTop = 120;
+        const comfortableBottom = viewportHeight * 0.72;
+
+        if (rect.top >= comfortableTop && rect.top <= comfortableBottom) {
+          return;
+        }
+
+        const wrapHeight = Math.min($wrap.outerHeight() || 0, viewportHeight * 0.7);
+        const targetScrollTop = Math.max(0, wrapTop - Math.max((viewportHeight - wrapHeight) / 2, 120));
+
+        $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 400);
+        return;
       }
-      targetScrollTop = Math.max(0, targetScrollTop);
 
-      $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);
+      $("html, body")
+        .stop(true)
+        .animate({ scrollTop: Math.max(wrapTop - 80, 0) }, 400);
     }
 
     function proceedToCartFromStep() {
@@ -782,6 +787,13 @@ function priplatky(setupData, texts) {
     }
     createBoxConfig();
 
+    // Klient: defaultne skry "Velikost" wrapy v box-config — zobrazia sa až po
+    // výbere conf1/conf2. Bez tohto sa Velikost 1+2+Solo zobrazia naraz aj keď
+    // user ešte nič nevybral.
+    setTimeout(function () {
+      if (typeof resetBoxConfigDefaults === "function") resetBoxConfigDefaults();
+    }, 100);
+
     $(".detail-parameters .variant-list select").each(function () {
       orders += 1;
       const position = this;
@@ -871,18 +883,10 @@ function openNextAccordion($next) {
   $next.addClass("active");
   // Boxs/trunk wrapy su default display:none (skryte cez .hide() v auto-postup
   // logike). Samotne addClass("active") ich nezviditelni - treba explicitne
-  // .show(). Plus parent .upsale-Banner je tiez default hidden — bez .show()
-  // by trunk/boxs neboli viditelne ani po addClass active.
+  // .show(). Bez tohto sa K6 (boxy) neotvori ked zakaznik v K5 (rohoz) nic
+  // nevyberie a klikne "Prejst na dalsi krok".
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
-    $(".upsale-Banner").show();
-    // Pre nepouzite duplicate instancie (conf1/conf2) skry ostatne trunk/boxs
-    var nextEl = $next[0];
-    $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function () {
-      if (this !== nextEl && !this.classList.contains("active")) {
-        this.style.display = "none";
-      }
-    });
   }
 }
 
@@ -891,23 +895,32 @@ $(document).on("click", ".upsale-button", function (e) {
   // Check if the clicked element is within .upsale-buttons.trunk
   updateUpsale(this, e);
 
-  // Po výběru koberce: otevři boxs sekci + zatvor trunk (Michal req)
+  // Po výběru koberce: otevři boxs sekci
   const $trunk = $(this).closest(".upsale-buttons.trunk");
   if ($trunk.length && !$(this).hasClass("none")) {
     setTimeout(() => {
       const $boxs = $(".upsale-buttons.boxs");
       if ($boxs.is(":visible")) {
-        $trunk.removeClass("active"); // zatvor K5
         openNextAccordion($boxs);
-        setTimeout(() => {
-          if (typeof scrollToStep === "function") scrollToStep($boxs);
-        }, 250);
       }
     }, 600);
   }
 });
 
 function resetBoxConfigDefaults() {
+  // Klient: „neviem prečo sa zobrazuje výber veľkosti 3 boxov keď si môže vybrať
+  // buď 2 alebo 1 box". Pri reset / pred výberom conf1/conf2 skryjeme všetky
+  // box-size parameter wraps (parameter-66/69/78/104 v CZ; .parameter-sizes
+  // class v SK). Zobrazia sa až po výbere conf1 (solo) alebo conf2 (box1+2).
+  // Cielime cez h5 text (Velikost / Veľkosť / Velokost) — funguje univerzálne
+  // bez ohľadu na ID parameter wrapu.
+  $(".box-config .parameter-wrap").each(function () {
+    const txt = ($(this).find("h5").first().text() || "").toLowerCase().trim();
+    if (/^vel[ioe]kos[tť]/.test(txt)) {
+      $(this).hide();
+    }
+  });
+
   // reset amount buttons to default (2 ks)
   const $amountButtons = $(".box-config .amount-button");
   if ($amountButtons.length) {
@@ -1687,108 +1700,50 @@ $("body").on("click", ".button.option-button", function (e) {
     }
   }, 200);
 
-  // Auto-postup: kroky 0, 4, 5, 6 po kliku na moznost.
-  // Kroky 1, 2, 3 (specifikacia, farba 1, farba 2) — manual cez tlacidlo
-  // 'Prejst k dalsiemu kroku' — Michal req 2026-05-17.
+  // Auto-postup pro všechny wrappy s next-step-button kromě kroku 0 a 1
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  // isManualStep — detegovany cez NAZOV kroku, nie cez orderNum.
-  // (Diamond-Line nema farba 2.vrstvy → rozlozenie kobercov ma order=3,
-  // co by zlozite blokovalo auto-postup. Robustnejsie cez nazov.)
-  // Manual: vzor presivania, specifikacia vozidla, farba 1/2.vrstvy.
-  const stepName = ($currentWrap.find(".variant.name, h5").first().text() || "")
-    .toLowerCase().trim();
-  const isManualStep = /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(stepName);
+  const orderNum = parseInt($currentWrap.find(".order").first().text());
+  const isStep0or1 = orderNum === 0 || orderNum === 1;
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
 
-  if (hasNextBtn && !isManualStep && !isInBoxConfig) {
+  if (hasNextBtn && !isStep0or1 && !isInBoxConfig) {
     // Hledáme next wrap se zpožděním 400ms — dáme čas Shoptetu přidat nové dynamické kroky do DOM
     setTimeout(() => {
-      // Pouzivame getNavigableWraps() ktora zahrnia VSETKY .position-wrap/.parameter-wrap
-      // (vratane .upsale-buttons.trunk/boxs ktore su mimo .content-wrap) — bez tejto
-      // logiky K4 (posledny v content-wrap) by neslo na K5/K6.
-      // Fallback: ak getNavigableWraps neexistuje, pouzi povodnu logiku.
-      // INLINE selektor — getNavigableWraps() je v IIFE scope, undefined globalne.
-      // Pouzivame priamo $('.position-wrap, .parameter-wrap').filter aby zahrnia
-      // aj K5 (.upsale-buttons.trunk) a K6 (.upsale-buttons.boxs) ktore su mimo
-      // .content-wrap (preto .content-wrap.children('.parameter-wrap') by ich
-      // nezahrnula).
+      const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
+      const contentIndex = allContentWraps.index($currentWrap);
+
       let $nextWrap = null;
-      const allWrapsInline = $('.position-wrap, .parameter-wrap').filter(function () {
-        return !$(this).closest('.box-config').length;
-      });
-      const idxInline = allWrapsInline.index($currentWrap);
-      if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
-        $nextWrap = allWrapsInline.eq(idxInline + 1);
+      if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
+        $nextWrap = allContentWraps.eq(contentIndex + 1);
+      } else if (contentIndex === -1) {
+        // Dynamicky přidaný wrap mimo content-wrap — hledej next sibling v tom samém parentu
+        const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
+        const sibIndex = $siblings.index($currentWrap);
+        if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
+          $nextWrap = $siblings.eq(sibIndex + 1);
+        }
       }
 
       if ($nextWrap) {
-        // Michal req 2026-05-18: K4 sa stale neuzatvaralo - root cause:
-        // ina cast Shoptetu/inh handler znova addne .active na K4 po
-        // mojom removeClass. Fix: force-close cez inline style + double
-        // setTimeout aby zostal zatvoreny.
-        function forceCloseWrap($w) {
-          $w.removeClass("active");
-          $w.find("> .options-wrap").each(function() {
-            this.style.maxHeight = "0px";
-            this.style.overflow = "hidden";
-            this.style.opacity = "0";
-            this.style.padding = "0";
-          });
-          $w.find("> .next-step-button").hide();
-        }
-        forceCloseWrap($currentWrap);
-        // Force-close vsetkych ostatnych .parameter-wrap.active (okrem next).
-        $(".parameter-wrap.active, .position-wrap.active")
-          .not($nextWrap)
-          .not($currentWrap)
-          .each(function () {
-            forceCloseWrap($(this));
-          });
         openNextAccordion($nextWrap);
-        // Reset inline styles na nextWrap aby sa otvoril
-        $nextWrap.find("> .options-wrap").each(function() {
-          this.style.maxHeight = "";
-          this.style.overflow = "";
-          this.style.opacity = "";
-          this.style.padding = "";
-        });
-        $nextWrap.find("> .next-step-button").show();
-        // Double-tap force close po 100ms (pre pripad ze iny handler addne .active)
-        setTimeout(() => {
-          forceCloseWrap($currentWrap);
-        }, 100);
-        setTimeout(() => {
-          forceCloseWrap($currentWrap);  // tretí tap pre istotu
-          scrollToStep($nextWrap);
-        }, 500);
       } else if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
         $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
 
-        let $targetWrap = null;
         if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
-          $targetWrap = $boxs;
         } else {
-          $targetWrap = $(".upsale-buttons.trunk");
-          openNextAccordion($targetWrap);
+          openNextAccordion($(".upsale-buttons.trunk"));
         }
         if (!$(".parameter-id-" + koberce)[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
-          $targetWrap = $boxs;
-        }
-        // Scroll na cielovy wrap (vycentrovat)
-        if ($targetWrap && $targetWrap.length) {
-          setTimeout(() => {
-            scrollToStep($targetWrap);
-          }, 250);
         }
       }
     }, 400);
@@ -1968,59 +1923,3 @@ function mountTruckConfigurator() {
     if (++tries > 40) clearInterval(iv);
   }, 100);
 }
-
-
-// Michal req 2026-05-18: klik na header (.order) zatvoreneho parameter-wrap
-// → znova otvorit (toggle). stopImmediatePropagation aby Shoptet handler
-// neprepísal náš stav.
-// Registered cez native capture phase + delegation manually (vyhrá nad jQuery .on).
-(function () {
-  document.addEventListener("click", function (e) {
-    const orderEl = e.target.closest(".order");
-    if (!orderEl) return;
-    const wrap = orderEl.parentElement;
-    if (!wrap) return;
-    if (!wrap.classList.contains("parameter-wrap") && !wrap.classList.contains("position-wrap")) return;
-    if (wrap.closest(".box-config")) return;
-    // Skip ak orderEl nie je direct child wrap (mohol by byť nested)
-    if (orderEl.parentElement !== wrap) return;
-    
-    e.stopImmediatePropagation();
-    e.preventDefault();
-    
-    const $wrap = window.$(wrap);
-    const isActive = wrap.classList.contains("active");
-    
-    if (isActive) {
-      // Toggle off
-      wrap.classList.remove("active");
-      $wrap.find("> .options-wrap").each(function () {
-        this.style.maxHeight = "0px";
-        this.style.opacity = "0";
-        this.style.padding = "0";
-      });
-      $wrap.find("> .next-step-button").hide();
-    } else {
-      // Toggle on
-      document.querySelectorAll(".parameter-wrap.active, .position-wrap.active").forEach(function (other) {
-        if (other !== wrap) {
-          other.classList.remove("active");
-          other.querySelectorAll(":scope > .options-wrap").forEach(function (ow) {
-            ow.style.maxHeight = "0px";
-            ow.style.opacity = "0";
-          });
-        }
-      });
-      wrap.classList.add("active");
-      $wrap.find("> .options-wrap").each(function () {
-        this.style.maxHeight = "";
-        this.style.opacity = "";
-        this.style.padding = "";
-      });
-      $wrap.find("> .next-step-button").show();
-      setTimeout(() => {
-        if (typeof scrollToStep === "function") scrollToStep($wrap);
-      }, 250);
-    }
-  }, true); // ← capture phase (vyhrá nad bubble)
-})();

@@ -28148,19 +28148,23 @@ function priplatky(setupData2, texts) {
         return isLast ? "Dokon\u010Di\u0165 konfigur\xE1ciu" : "Prejs\u0165 k \u010Fal\u0161iemu kroku";
       }
       return isLast ? "Dokon\u010Dit konfiguraci" : "P\u0159ej\xEDt k dal\u0161\xEDmu kroku";
-    }, scrollToStep2 = function($wrap) {
+    }, scrollToStep = function($wrap) {
       if (!$wrap.length) return;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
       const wrapTop = $wrap.offset().top;
-      const wrapHeight = $wrap.outerHeight() || 0;
-      let targetScrollTop;
-      if (wrapHeight > viewportHeight * 0.8) {
-        targetScrollTop = wrapTop - 80;
-      } else {
-        targetScrollTop = wrapTop - (viewportHeight - wrapHeight) / 2;
+      if (window.matchMedia("(min-width: 992px)").matches) {
+        const rect = $wrap[0].getBoundingClientRect();
+        const comfortableTop = 120;
+        const comfortableBottom = viewportHeight * 0.72;
+        if (rect.top >= comfortableTop && rect.top <= comfortableBottom) {
+          return;
+        }
+        const wrapHeight = Math.min($wrap.outerHeight() || 0, viewportHeight * 0.7);
+        const targetScrollTop = Math.max(0, wrapTop - Math.max((viewportHeight - wrapHeight) / 2, 120));
+        $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 400);
+        return;
       }
-      targetScrollTop = Math.max(0, targetScrollTop);
-      $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);
+      $("html, body").stop(true).animate({ scrollTop: Math.max(wrapTop - 80, 0) }, 400);
     }, proceedToCartFromStep = function() {
       const $addToCartButton = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function() {
         const style = window.getComputedStyle(this);
@@ -28325,7 +28329,7 @@ function priplatky(setupData2, texts) {
             }
           }
           if ($firstInvalid) {
-            scrollToStep2($firstInvalid);
+            scrollToStep($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
             }, 2500);
@@ -28357,7 +28361,7 @@ function priplatky(setupData2, texts) {
           currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
-            scrollToStep2($boxs);
+            scrollToStep($boxs);
           }, 600);
           setTimeout(() => {
             updateButtonTexts2();
@@ -28372,7 +28376,7 @@ function priplatky(setupData2, texts) {
         currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep2(nextWrap);
+          scrollToStep(nextWrap);
         }, 600);
       } else {
         allWraps.removeClass("active");
@@ -28422,6 +28426,9 @@ function priplatky(setupData2, texts) {
       createOptions("box", orders);
     }
     createBoxConfig();
+    setTimeout(function() {
+      if (typeof resetBoxConfigDefaults === "function") resetBoxConfigDefaults();
+    }, 100);
     $(".detail-parameters .variant-list select").each(function() {
       orders += 1;
       const position = this;
@@ -28489,13 +28496,6 @@ function openNextAccordion($next) {
   $next.addClass("active");
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
-    $(".upsale-Banner").show();
-    var nextEl = $next[0];
-    $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function() {
-      if (this !== nextEl && !this.classList.contains("active")) {
-        this.style.display = "none";
-      }
-    });
   }
 }
 $(document).on("click", ".upsale-button", function(e) {
@@ -28505,16 +28505,18 @@ $(document).on("click", ".upsale-button", function(e) {
     setTimeout(() => {
       const $boxs = $(".upsale-buttons.boxs");
       if ($boxs.is(":visible")) {
-        $trunk.removeClass("active");
         openNextAccordion($boxs);
-        setTimeout(() => {
-          if (typeof scrollToStep === "function") scrollToStep($boxs);
-        }, 250);
       }
     }, 600);
   }
 });
 function resetBoxConfigDefaults() {
+  $(".box-config .parameter-wrap").each(function() {
+    const txt = ($(this).find("h5").first().text() || "").toLowerCase().trim();
+    if (/^vel[ioe]kos[tť]/.test(txt)) {
+      $(this).hide();
+    }
+  });
   const $amountButtons = $(".box-config .amount-button");
   if ($amountButtons.length) {
     $amountButtons.removeClass("active");
@@ -29035,74 +29037,41 @@ $("body").on("click", ".button.option-button", function(e) {
     }
   }, 200);
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const stepName = ($currentWrap.find(".variant.name, h5").first().text() || "").toLowerCase().trim();
-  const isManualStep = /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(stepName);
+  const orderNum = parseInt($currentWrap.find(".order").first().text());
+  const isStep0or1 = orderNum === 0 || orderNum === 1;
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
-  if (hasNextBtn && !isManualStep && !isInBoxConfig) {
+  if (hasNextBtn && !isStep0or1 && !isInBoxConfig) {
     setTimeout(() => {
+      const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
+      const contentIndex = allContentWraps.index($currentWrap);
       let $nextWrap = null;
-      const allWrapsInline = $(".position-wrap, .parameter-wrap").filter(function() {
-        return !$(this).closest(".box-config").length;
-      });
-      const idxInline = allWrapsInline.index($currentWrap);
-      if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
-        $nextWrap = allWrapsInline.eq(idxInline + 1);
+      if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
+        $nextWrap = allContentWraps.eq(contentIndex + 1);
+      } else if (contentIndex === -1) {
+        const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
+        const sibIndex = $siblings.index($currentWrap);
+        if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
+          $nextWrap = $siblings.eq(sibIndex + 1);
+        }
       }
       if ($nextWrap) {
-        let forceCloseWrap = function($w) {
-          $w.removeClass("active");
-          $w.find("> .options-wrap").each(function() {
-            this.style.maxHeight = "0px";
-            this.style.overflow = "hidden";
-            this.style.opacity = "0";
-            this.style.padding = "0";
-          });
-          $w.find("> .next-step-button").hide();
-        };
-        forceCloseWrap($currentWrap);
-        $(".parameter-wrap.active, .position-wrap.active").not($nextWrap).not($currentWrap).each(function() {
-          forceCloseWrap($(this));
-        });
         openNextAccordion($nextWrap);
-        $nextWrap.find("> .options-wrap").each(function() {
-          this.style.maxHeight = "";
-          this.style.overflow = "";
-          this.style.opacity = "";
-          this.style.padding = "";
-        });
-        $nextWrap.find("> .next-step-button").show();
-        setTimeout(() => {
-          forceCloseWrap($currentWrap);
-        }, 100);
-        setTimeout(() => {
-          forceCloseWrap($currentWrap);
-          scrollToStep($nextWrap);
-        }, 500);
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
         $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
-        let $targetWrap = null;
         if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
-          $targetWrap = $boxs;
         } else {
-          $targetWrap = $(".upsale-buttons.trunk");
-          openNextAccordion($targetWrap);
+          openNextAccordion($(".upsale-buttons.trunk"));
         }
         if (!$(".parameter-id-" + koberce)[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
-          $targetWrap = $boxs;
-        }
-        if ($targetWrap && $targetWrap.length) {
-          setTimeout(() => {
-            scrollToStep($targetWrap);
-          }, 250);
         }
       }
     }, 400);
@@ -29182,50 +29151,6 @@ function mountTruckConfigurator() {
     if (++tries > 40) clearInterval(iv);
   }, 100);
 }
-(function() {
-  document.addEventListener("click", function(e) {
-    const orderEl = e.target.closest(".order");
-    if (!orderEl) return;
-    const wrap = orderEl.parentElement;
-    if (!wrap) return;
-    if (!wrap.classList.contains("parameter-wrap") && !wrap.classList.contains("position-wrap")) return;
-    if (wrap.closest(".box-config")) return;
-    if (orderEl.parentElement !== wrap) return;
-    e.stopImmediatePropagation();
-    e.preventDefault();
-    const $wrap = window.$(wrap);
-    const isActive = wrap.classList.contains("active");
-    if (isActive) {
-      wrap.classList.remove("active");
-      $wrap.find("> .options-wrap").each(function() {
-        this.style.maxHeight = "0px";
-        this.style.opacity = "0";
-        this.style.padding = "0";
-      });
-      $wrap.find("> .next-step-button").hide();
-    } else {
-      document.querySelectorAll(".parameter-wrap.active, .position-wrap.active").forEach(function(other) {
-        if (other !== wrap) {
-          other.classList.remove("active");
-          other.querySelectorAll(":scope > .options-wrap").forEach(function(ow) {
-            ow.style.maxHeight = "0px";
-            ow.style.opacity = "0";
-          });
-        }
-      });
-      wrap.classList.add("active");
-      $wrap.find("> .options-wrap").each(function() {
-        this.style.maxHeight = "";
-        this.style.opacity = "";
-        this.style.padding = "";
-      });
-      $wrap.find("> .next-step-button").show();
-      setTimeout(() => {
-        if (typeof scrollToStep === "function") scrollToStep($wrap);
-      }, 250);
-    }
-  }, true);
-})();
 
 // assets/js/functions/stickyphotos.js
 document.addEventListener("DOMContentLoaded", function() {
@@ -29675,7 +29600,6 @@ function validation(texts) {
 function validateProductConfig() {
   const $errors = $();
   let $first = null;
-  const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
   function add($el) {
     if (!$el || !$el.length) return;
     $el.addClass("errorToCart");
@@ -29684,9 +29608,6 @@ function validateProductConfig() {
   }
   $(".parameter-wrap:visible").each(function() {
     const $wrap = $(this);
-    if ($wrap.hasClass("boxs")) return;
-    if ($wrap.hasClass("trunk")) return;
-    if ($wrap.closest(".box-config").length && !isBoxConfigSelected) return;
     if (!isWrapValid($wrap)) add($wrap);
   });
   $("select.surcharge-parameter[required]:visible").each(function() {
@@ -29701,8 +29622,6 @@ function validateProductConfig() {
   $(".upsale-buttons:visible").each(function() {
     const $group = $(this);
     if (!$group.find(".upsale-button").length) return;
-    if ($group.hasClass("boxs")) return;
-    if ($group.hasClass("trunk")) return;
     if (!$group.find(".upsale-button.active").not(".none").length) {
       add($group);
     }
@@ -29715,6 +29634,18 @@ function validateProductConfig() {
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
+    }
+    let $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    if (!$accordion.length) {
+      $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
+    }
+    if ($accordion.length && !$accordion.hasClass("active")) {
+      $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function() {
+        if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
+          $(this).removeClass("active");
+        }
+      });
+      $accordion.addClass("active");
     }
     setTimeout(function() {
       const top = $first.offset() && $first.offset().top;
@@ -29729,9 +29660,6 @@ function validateProductConfig() {
   return $first === null;
 }
 function isWrapValid($wrap) {
-  if ($wrap.hasClass("boxs")) return true;
-  if ($wrap.hasClass("trunk")) return true;
-  if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
   let hasSelectable = false;
   let valid = false;
   if ($wrap.find(".option-button").length) {
@@ -29740,7 +29668,7 @@ function isWrapValid($wrap) {
   }
   if ($wrap.find(".upsale-button").length) {
     hasSelectable = true;
-    if ($wrap.find(".upsale-button.active").length) valid = true;
+    if ($wrap.find(".upsale-button.active").not(".none").length) valid = true;
   }
   if ($wrap.find("select.surcharge-parameter").length) {
     hasSelectable = true;
