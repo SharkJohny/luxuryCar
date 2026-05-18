@@ -29678,12 +29678,28 @@ function validation(texts) {
     $(this).parents(".upsale-Banner").removeClass("showConf");
   });
   $(document).on("click", ".errorToCart .option-button, .errorToCart .upsale-button, .errorToCart .button.option-button", function() {
-    $(this).closest(".errorToCart").removeClass("errorToCart");
+    const $w = $(this).closest(".errorToCart");
+    $w.removeClass("errorToCart");
+    setTimeout(function() {
+      if (typeof window.lcdRevalidate === "function") window.lcdRevalidate();
+    }, 300);
   });
   $(document).on("change", ".errorToCart select.surcharge-parameter, .errorToCart input[type='radio'], .errorToCart input[type='checkbox']", function() {
     const $w = $(this).closest(".errorToCart");
     const v = $(this).val();
-    if (v && v !== "0" && v !== "") $w.removeClass("errorToCart");
+    if (v && v !== "0" && v !== "") {
+      $w.removeClass("errorToCart");
+      setTimeout(function() {
+        if (typeof window.lcdRevalidate === "function") window.lcdRevalidate();
+      }, 300);
+    }
+  });
+  $(document).on("change", "#model-selector select", function() {
+    setTimeout(function() {
+      if ($(".errorToCart").length && typeof window.lcdRevalidate === "function") {
+        window.lcdRevalidate();
+      }
+    }, 500);
   });
   $(".content-wrap").on("click", function(event) {
     if ($(event.target).closest(".modl-selector-wrap").length) {
@@ -29707,11 +29723,13 @@ function validateProductConfig() {
   const $errors = $();
   let $first = null;
   const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
+  $(".errorToCart").removeClass("errorToCart");
   function add($el) {
     if (!$el || !$el.length) return;
+    if ($first) return;
     $el.addClass("errorToCart");
     $errors.push.apply($errors, $el.toArray());
-    if (!$first) $first = $el;
+    $first = $el;
   }
   const productName = ($("h1").text() || "").toLowerCase();
   const isBoxProduct = productName.includes("box") || productName.includes("boxy");
@@ -29789,6 +29807,15 @@ function validateProductConfig() {
     }, 2500);
   }
   return $first === null;
+}
+if (typeof window !== "undefined") {
+  window.lcdRevalidate = function() {
+    try {
+      return validateProductConfig();
+    } catch (e) {
+      return null;
+    }
+  };
 }
 function isWrapValid($wrap) {
   if ($wrap.hasClass("boxs")) return true;

@@ -32,13 +32,35 @@ export function validation(texts) {
   // jeho .errorToCart class hneď (bez kliku na "do košíka" znova).
   // Bind sa raz, aplikuje na všetky budúce zmeny v configurator-e.
   $(document).on("click", ".errorToCart .option-button, .errorToCart .upsale-button, .errorToCart .button.option-button", function () {
-    $(this).closest(".errorToCart").removeClass("errorToCart");
+    const $w = $(this).closest(".errorToCart");
+    $w.removeClass("errorToCart");
+    // V5: po vyplneni wrapu spusti revalidate ktora oznaci a otvori dalsiu
+    // chybu (sekvencny walkthrough). Delay 300ms aby Shoptet stihol update
+    // active state.
+    setTimeout(function () {
+      if (typeof window.lcdRevalidate === "function") window.lcdRevalidate();
+    }, 300);
   });
   $(document).on("change", ".errorToCart select.surcharge-parameter, .errorToCart input[type='radio'], .errorToCart input[type='checkbox']", function () {
     const $w = $(this).closest(".errorToCart");
-    // Iba ak sa hodnota zmenila na nieco platné
     const v = $(this).val();
-    if (v && v !== "0" && v !== "") $w.removeClass("errorToCart");
+    if (v && v !== "0" && v !== "") {
+      $w.removeClass("errorToCart");
+      setTimeout(function () {
+        if (typeof window.lcdRevalidate === "function") window.lcdRevalidate();
+      }, 300);
+    }
+  });
+
+  // V5: pri zmene auto selectu (znacka/model/rok/typ) revaliduj — ak chyba
+  // K1 ako $first, oznaci ho a pri auto-clear sa otvori dalsia chyba.
+  $(document).on("change", "#model-selector select", function () {
+    setTimeout(function () {
+      // iba ak nejaka .errorToCart existuje aktualne
+      if ($(".errorToCart").length && typeof window.lcdRevalidate === "function") {
+        window.lcdRevalidate();
+      }
+    }, 500);
   });
 
   $(".content-wrap").on("click", function (event) {
@@ -79,11 +101,18 @@ function validateProductConfig() {
   let $first = null;
   const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
 
+  // V5 SINGLE-ERROR mode: iba prvy chronologicky chybny wrap dostane .errorToCart.
+  // Klient: "len mi ich zvýrazní červeným ale neotvorí ich chronologicky jedn
+  // po druhom" — chce sekvenčný walkthrough.
+  // Najprv vycisti vsetky stare errorToCart (z predoshlej validacie).
+  $(".errorToCart").removeClass("errorToCart");
+
   function add($el) {
     if (!$el || !$el.length) return;
+    if ($first) return; // V5: iba prvy error, ostatne ignoruj
     $el.addClass("errorToCart");
     $errors.push.apply($errors, $el.toArray());
-    if (!$first) $first = $el;
+    $first = $el;
   }
 
   // 0) K1 SPECIFIKACE VOZIDLA — značka/model/rok/typ auta.
@@ -201,6 +230,14 @@ function validateProductConfig() {
   }
 
   return $first === null;
+}
+
+// V5 sekvencny walkthrough: expose validateProductConfig globalne aby ju
+// auto-clear handler mohol zavolat (presunie sa do dalsej chyby).
+if (typeof window !== "undefined") {
+  window.lcdRevalidate = function () {
+    try { return validateProductConfig(); } catch (e) { return null; }
+  };
 }
 
 /**
