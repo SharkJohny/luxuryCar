@@ -130,12 +130,23 @@ function validateProductConfig() {
     if (!$accordion.length) {
       $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
     }
-    if ($accordion.length && !$accordion.hasClass("active")) {
+    if ($accordion.length) {
+      // Zatvor ostatne akordeony mimo box-config
       $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function () {
         if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
           $(this).removeClass("active");
         }
       });
+      // Michal req 2026-05-18: keď user manuálne zatvoril akordeon, forceCloseWrap
+      // nastavi inline style max-height:0 na options-wrap. addClass active sam
+      // o sebe to neresetuje, takze obsah zostal skryty. Resetneme inline styly.
+      $accordion.find("> .options-wrap").each(function () {
+        this.style.maxHeight = "";
+        this.style.overflow = "";
+        this.style.opacity = "";
+        this.style.padding = "";
+      });
+      $accordion.find("> .next-step-button").show();
       $accordion.addClass("active");
     }
 
