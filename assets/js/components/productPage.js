@@ -623,14 +623,23 @@ function priplatky(setupData, texts) {
 
       // Pokud v aktuálním okně jsou výběrné ovládací prvky, vyžadujeme, aby byl proveden výběr
       if (!isWrapSelectionValid(currentWrap)) {
-        // V5 pattern: vizuálna spätná väzba + scroll na chybu po 450ms
-        // (aby akordeon stihol expand-núť ak by sa nahodou zavrel).
+        // V5 pattern: vizuálna spätná väzba + scroll VYCENTROVAŤ na chybu.
+        // 450ms delay aby akordeon stihol expand-núť. Vycentrované v strede
+        // viewportu (kompatibilné s každým rozlíšením).
         currentWrap.addClass("selection-required");
         setTimeout(function () {
-          const top = currentWrap.offset() && currentWrap.offset().top;
-          if (top != null) {
-            $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+          if (!currentWrap.offset()) return;
+          const viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+          const wrapTop = currentWrap.offset().top;
+          const wrapH = currentWrap.outerHeight() || 0;
+          let target;
+          if (wrapH > viewportH * 0.8) {
+            target = wrapTop - 80;
+          } else {
+            target = wrapTop - (viewportH - wrapH) / 2;
           }
+          target = Math.max(0, target);
+          $("html, body").stop(true).animate({ scrollTop: target }, 500);
         }, 450);
         setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return; // nepokračuj dál
