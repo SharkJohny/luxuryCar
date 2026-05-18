@@ -871,10 +871,18 @@ function openNextAccordion($next) {
   $next.addClass("active");
   // Boxs/trunk wrapy su default display:none (skryte cez .hide() v auto-postup
   // logike). Samotne addClass("active") ich nezviditelni - treba explicitne
-  // .show(). Bez tohto sa K6 (boxy) neotvori ked zakaznik v K5 (rohoz) nic
-  // nevyberie a klikne "Prejst na dalsi krok".
+  // .show(). Plus parent .upsale-Banner je tiez default hidden — bez .show()
+  // by trunk/boxs neboli viditelne ani po addClass active.
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
+    $(".upsale-Banner").show();
+    // Pre nepouzite duplicate instancie (conf1/conf2) skry ostatne trunk/boxs
+    var nextEl = $next[0];
+    $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function () {
+      if (this !== nextEl && !this.classList.contains("active")) {
+        this.style.display = "none";
+      }
+    });
   }
 }
 

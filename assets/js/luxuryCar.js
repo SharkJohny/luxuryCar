@@ -28489,6 +28489,13 @@ function openNextAccordion($next) {
   $next.addClass("active");
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
+    $(".upsale-Banner").show();
+    var nextEl = $next[0];
+    $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function() {
+      if (this !== nextEl && !this.classList.contains("active")) {
+        this.style.display = "none";
+      }
+    });
   }
 }
 $(document).on("click", ".upsale-button", function(e) {
