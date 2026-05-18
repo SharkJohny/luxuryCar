@@ -28,6 +28,19 @@ export function validation(texts) {
     $(this).parents(".upsale-Banner").removeClass("showConf");
   });
 
+  // V5 PATTERN: AUTO-CLEAR — keď user vyplní wrap ktorý mal error, zmaž
+  // jeho .errorToCart class hneď (bez kliku na "do košíka" znova).
+  // Bind sa raz, aplikuje na všetky budúce zmeny v configurator-e.
+  $(document).on("click", ".errorToCart .option-button, .errorToCart .upsale-button, .errorToCart .button.option-button", function () {
+    $(this).closest(".errorToCart").removeClass("errorToCart");
+  });
+  $(document).on("change", ".errorToCart select.surcharge-parameter, .errorToCart input[type='radio'], .errorToCart input[type='checkbox']", function () {
+    const $w = $(this).closest(".errorToCart");
+    // Iba ak sa hodnota zmenila na nieco platné
+    const v = $(this).val();
+    if (v && v !== "0" && v !== "") $w.removeClass("errorToCart");
+  });
+
   $(".content-wrap").on("click", function (event) {
     if ($(event.target).closest(".modl-selector-wrap").length) {
       return;
@@ -141,13 +154,15 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
 
-    // 4) Scroll na prvú chybu (100 px ofset od horného okraja).
+    // 4) Scroll na prvú chybu — V5 pattern: čakaj 450ms aby akordeon stihol
+    // expand-núť, **potom** skroluj. Bez tohto sa skroluje na zatvorený wrap.
     setTimeout(function () {
-      const top = $first.offset() && $first.offset().top;
+      const $target = $first.is(":visible") ? $first : $accordion;
+      const top = $target && $target.length ? $target.offset().top : null;
       if (top != null) {
         $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
       }
-    }, 50);
+    }, 450);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
     setTimeout(function () {

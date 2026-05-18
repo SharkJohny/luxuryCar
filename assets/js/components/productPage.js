@@ -623,8 +623,15 @@ function priplatky(setupData, texts) {
 
       // Pokud v aktuálním okně jsou výběrné ovládací prvky, vyžadujeme, aby byl proveden výběr
       if (!isWrapSelectionValid(currentWrap)) {
-        // krátká vizuální zpětná vazba
+        // V5 pattern: vizuálna spätná väzba + scroll na chybu po 450ms
+        // (aby akordeon stihol expand-núť ak by sa nahodou zavrel).
         currentWrap.addClass("selection-required");
+        setTimeout(function () {
+          const top = currentWrap.offset() && currentWrap.offset().top;
+          if (top != null) {
+            $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+          }
+        }, 450);
         setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return; // nepokračuj dál
       }
