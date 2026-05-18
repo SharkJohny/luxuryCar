@@ -28345,10 +28345,18 @@ function priplatky(setupData2, texts) {
       if (!isWrapSelectionValid(currentWrap)) {
         currentWrap.addClass("selection-required");
         setTimeout(function() {
-          const top = currentWrap.offset() && currentWrap.offset().top;
-          if (top != null) {
-            $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+          if (!currentWrap.offset()) return;
+          const viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+          const wrapTop = currentWrap.offset().top;
+          const wrapH = currentWrap.outerHeight() || 0;
+          let target;
+          if (wrapH > viewportH * 0.8) {
+            target = wrapTop - 80;
+          } else {
+            target = wrapTop - (viewportH - wrapH) / 2;
           }
+          target = Math.max(0, target);
+          $("html, body").stop(true).animate({ scrollTop: target }, 500);
         }, 450);
         setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return;
@@ -29705,6 +29713,16 @@ function validateProductConfig() {
     $errors.push.apply($errors, $el.toArray());
     if (!$first) $first = $el;
   }
+  const productName = ($("h1").text() || "").toLowerCase();
+  const isBoxProduct = productName.includes("box") || productName.includes("boxy");
+  if (!isBoxProduct) {
+    const _model = sessionStorage.getItem("model") || "";
+    const isModelMissing = !_model || _model.includes("Zna\u010Dka null") || _model.includes("Rok v\xFDroby") || _model.includes("Typ auta") || _model.trim() === "Model" || /^zna\u010dka\s*null/i.test(_model.trim());
+    if (isModelMissing) {
+      const $k1 = $(".position-wrap.parameter-cars.base-config, .position-wrap.parameter-cars.parameter-wrap").filter(":visible").first();
+      if ($k1.length) add($k1);
+    }
+  }
   $(".parameter-wrap:visible").each(function() {
     const $wrap = $(this);
     if ($wrap.hasClass("boxs")) return;
@@ -29752,11 +29770,19 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
     setTimeout(function() {
-      const $target = $first.is(":visible") ? $first : $accordion;
-      const top = $target && $target.length ? $target.offset().top : null;
-      if (top != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+      const $target = $first.is(":visible") ? $first : $accordion && $accordion.length ? $accordion : $first;
+      if (!$target || !$target.length) return;
+      const viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      const wrapTop = $target.offset() ? $target.offset().top : 0;
+      const wrapH = $target.outerHeight() || 0;
+      let target;
+      if (wrapH > viewportH * 0.8) {
+        target = wrapTop - 80;
+      } else {
+        target = wrapTop - (viewportH - wrapH) / 2;
       }
+      target = Math.max(0, target);
+      $("html, body").stop(true).animate({ scrollTop: target }, 500);
     }, 450);
     setTimeout(function() {
       $(".errorToCart").removeClass("errorToCart");

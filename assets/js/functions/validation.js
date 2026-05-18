@@ -86,6 +86,26 @@ function validateProductConfig() {
     if (!$first) $first = $el;
   }
 
+  // 0) K1 SPECIFIKACE VOZIDLA — značka/model/rok/typ auta.
+  //    Klient: na Elite Diamond Line (kampaňová URL) "Pridať do košíka" bez
+  //    výberu auta nevolalo validáciu — K1 parameter-cars wrap nemá option-button
+  //    ani upsale-button, len Shoptet selecty. Cielime cez sessionStorage 'model'.
+  const productName = ($("h1").text() || "").toLowerCase();
+  const isBoxProduct = productName.includes("box") || productName.includes("boxy");
+  if (!isBoxProduct) {
+    const _model = sessionStorage.getItem("model") || "";
+    const isModelMissing = !_model ||
+      _model.includes("Zna\u010dka null") ||
+      _model.includes("Rok v\u00fdroby") ||
+      _model.includes("Typ auta") ||
+      _model.trim() === "Model" ||
+      /^zna\u010dka\s*null/i.test(_model.trim());
+    if (isModelMissing) {
+      const $k1 = $(".position-wrap.parameter-cars.base-config, .position-wrap.parameter-cars.parameter-wrap").filter(":visible").first();
+      if ($k1.length) add($k1);
+    }
+  }
+
   // 1) Všetky viditeľné `.parameter-wrap` – akordeon kroky aj box-config
   //    musia mať aktívny výber, ak obsahujú selectable element.
   $(".parameter-wrap:visible").each(function () {
@@ -155,13 +175,23 @@ function validateProductConfig() {
     }
 
     // 4) Scroll na prvú chybu — V5 pattern: čakaj 450ms aby akordeon stihol
-    // expand-núť, **potom** skroluj. Bez tohto sa skroluje na zatvorený wrap.
+    // expand-núť, **potom** skroluj. VYCENTRUJ element v strede viewportu na
+    // výšku (kompatibilné s každým rozlíšením). Ak element vyšší než 80% viewportu,
+    // scroll na vrch s 80px offsetom.
     setTimeout(function () {
-      const $target = $first.is(":visible") ? $first : $accordion;
-      const top = $target && $target.length ? $target.offset().top : null;
-      if (top != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+      const $target = $first.is(":visible") ? $first : ($accordion && $accordion.length ? $accordion : $first);
+      if (!$target || !$target.length) return;
+      const viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      const wrapTop = $target.offset() ? $target.offset().top : 0;
+      const wrapH = $target.outerHeight() || 0;
+      let target;
+      if (wrapH > viewportH * 0.8) {
+        target = wrapTop - 80;
+      } else {
+        target = wrapTop - (viewportH - wrapH) / 2;
       }
+      target = Math.max(0, target);
+      $("html, body").stop(true).animate({ scrollTop: target }, 500);
     }, 450);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
