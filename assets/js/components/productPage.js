@@ -782,6 +782,11 @@ function priplatky(setupData, texts) {
     }
     createBoxConfig();
 
+    // Klient: defaultne skry "Velikost" wraps v box-config az do vyberu conf1/conf2.
+    setTimeout(function () {
+      if (typeof resetBoxConfigDefaults === "function") resetBoxConfigDefaults();
+    }, 100);
+
     $(".detail-parameters .variant-list select").each(function () {
       orders += 1;
       const position = this;
@@ -908,6 +913,15 @@ $(document).on("click", ".upsale-button", function (e) {
 });
 
 function resetBoxConfigDefaults() {
+  // Klient: skry "Velikost" wrapy v box-config pred vyberom conf1/conf2.
+  // Cielime cez h5 text (Velikost / Velkost / Velokost).
+  $(".box-config .parameter-wrap").each(function () {
+    const txt = ($(this).find("h5").first().text() || "").toLowerCase().trim();
+    if (/^vel[ioe]kos[t\u0165]/.test(txt)) {
+      $(this).hide();
+    }
+  });
+
   // reset amount buttons to default (2 ks)
   const $amountButtons = $(".box-config .amount-button");
   if ($amountButtons.length) {

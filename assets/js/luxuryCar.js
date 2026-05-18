@@ -28422,6 +28422,9 @@ function priplatky(setupData2, texts) {
       createOptions("box", orders);
     }
     createBoxConfig();
+    setTimeout(function() {
+      if (typeof resetBoxConfigDefaults === "function") resetBoxConfigDefaults();
+    }, 100);
     $(".detail-parameters .variant-list select").each(function() {
       orders += 1;
       const position = this;
@@ -28515,6 +28518,12 @@ $(document).on("click", ".upsale-button", function(e) {
   }
 });
 function resetBoxConfigDefaults() {
+  $(".box-config .parameter-wrap").each(function() {
+    const txt = ($(this).find("h5").first().text() || "").toLowerCase().trim();
+    if (/^vel[ioe]kos[t\u0165]/.test(txt)) {
+      $(this).hide();
+    }
+  });
   const $amountButtons = $(".box-config .amount-button");
   if ($amountButtons.length) {
     $amountButtons.removeClass("active");
@@ -29715,6 +29724,18 @@ function validateProductConfig() {
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
+    }
+    var $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    if (!$accordion.length) {
+      $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
+    }
+    if ($accordion.length && !$accordion.hasClass("active")) {
+      $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function() {
+        if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
+          $(this).removeClass("active");
+        }
+      });
+      $accordion.addClass("active");
     }
     setTimeout(function() {
       const top = $first.offset() && $first.offset().top;
