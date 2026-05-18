@@ -28152,19 +28152,15 @@ function priplatky(setupData2, texts) {
       if (!$wrap.length) return;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
       const wrapTop = $wrap.offset().top;
-      if (window.matchMedia("(min-width: 992px)").matches) {
-        const rect = $wrap[0].getBoundingClientRect();
-        const comfortableTop = 120;
-        const comfortableBottom = viewportHeight * 0.72;
-        if (rect.top >= comfortableTop && rect.top <= comfortableBottom) {
-          return;
-        }
-        const wrapHeight = Math.min($wrap.outerHeight() || 0, viewportHeight * 0.7);
-        const targetScrollTop = Math.max(0, wrapTop - Math.max((viewportHeight - wrapHeight) / 2, 120));
-        $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 400);
-        return;
+      const wrapHeight = $wrap.outerHeight() || 0;
+      let targetScrollTop;
+      if (wrapHeight > viewportHeight * 0.8) {
+        targetScrollTop = wrapTop - 80;
+      } else {
+        targetScrollTop = wrapTop - (viewportHeight - wrapHeight) / 2;
       }
-      $("html, body").stop(true).animate({ scrollTop: Math.max(wrapTop - 80, 0) }, 400);
+      targetScrollTop = Math.max(0, targetScrollTop);
+      $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);
     }, proceedToCartFromStep = function() {
       const $addToCartButton = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function() {
         const style = window.getComputedStyle(this);
