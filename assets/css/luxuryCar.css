@@ -4517,6 +4517,18 @@ section#model-info .setup-model {
   border-radius: 10px;
 }
 
+/* Michal req 2026-05-18: aj otvoreny (active) akordeon s errorToCart musi mat
+   cervene oramovanie. .parameter-wrap.active (specificita 0,2,0) prepisuje
+   .errorToCart (0,1,0) — preto pridavame kombinovany selektor s !important. */
+.parameter-wrap.active.errorToCart,
+.position-wrap.active.errorToCart,
+.parameter-wrap.errorToCart.active,
+.position-wrap.errorToCart.active {
+  border: 2px solid #d92323 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
+}
+
 .selection-required {
   border: 2px solid #d92323 !important;
   box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
