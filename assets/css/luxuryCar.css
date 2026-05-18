@@ -7747,3 +7747,91 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   left: -9999px !important;
   pointer-events: none !important;
 }
+
+
+/* ═══ ROBUSTNÝ RESPONSIVE LAYOUT — vsetky breakpointy (Michal req 2026-05-18) ═══ */
+/* Konfigurator NESMIE prekryvat galeriu obrazku PRI ZIADNEJ sirke okna.
+   Mobile (<768px): single column natural.
+   Tablet (768-1199px): force single column stacking.
+   Desktop narrow (1200-1399px): bezpecnostny stacking ak je still narrow.
+   Desktop wide (>=1400px): side-by-side natural. */
+
+/* TABLET + narrow desktop — force single column */
+@media (max-width: 1399px) {
+  /* Cely product top row → vertical stack, gallery left → top */
+  .row.product-top {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+  }
+  .row.product-top > .col-xs-12,
+  .row.product-top > .col-lg-6 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    float: none !important;
+  }
+  
+  /* Galéria sekcia (image gallery) MUSI byt prva */
+  .row.product-top > .col-xs-12.col-lg-6:not(.p-info-wrapper) {
+    order: 1 !important;
+  }
+  /* Info wrapper MUSI byt druha (POD galériou) */
+  .col-xs-12.col-lg-6.p-info-wrapper {
+    order: 2 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin-top: 30px !important;
+    padding-top: 20px !important;
+  }
+  .col-xs-12.col-lg-6.p-info-wrapper:not(.active),
+  .col-xs-12.col-lg-6.p-info-wrapper.active {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  /* Shimmer skry pri responsive */
+  .col-xs-12.col-lg-6.p-info-wrapper:not(.active)::before,
+  .col-xs-12.col-lg-6.p-info-wrapper.active::before {
+    display: none !important;
+    content: none !important;
+  }
+  /* Title h1 — normal flow, NIKDY position absolute */
+  .col-xs-12.col-lg-6.p-info-wrapper h1,
+  .p-detail-inner-header h1 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
+    margin: 20px 0 !important;
+    display: block !important;
+    color: #c5a44e !important;
+    background: transparent !important;
+  }
+  /* Galéria image area — auto height */
+  .col-xs-12.col-lg-6:not(.p-info-wrapper) {
+    height: auto !important;
+    max-height: none !important;
+  }
+  /* p-detail-inner — zabranit overlap */
+  .p-detail-inner {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* MOBILE specifically (<768px) — najprisnejsi single column */
+@media (max-width: 767px) {
+  .row.product-top {
+    margin-top: 0 !important;
+  }
+  .col-xs-12.col-lg-6.p-info-wrapper {
+    margin-top: 15px !important;
+    padding: 10px !important;
+  }
+}
