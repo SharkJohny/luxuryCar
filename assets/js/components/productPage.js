@@ -578,20 +578,17 @@ function priplatky(setupData, texts) {
     function scrollToStep($wrap) {
       if (!$wrap.length) return;
 
-      // Michal req 2026-05-17: VZDY scroll + element VYCENTROVAT na vysku
-      // vo viewporte (podla rozmeru obrazovky).
+      // Michal req 2026-05-18: vsetky kroky aj K5/K6 (vysoke wrappy s banner)
+      // — scroll cieli HEADER akordeona (.order/h5), nie cely wrap. Header
+      // vycentrujeme vertikalne na stred viewportu. Tym sa K5/K6 neumiestnia
+      // pri vrchu, ale ich nadpis je presne v strede obrazovky.
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-      const wrapTop = $wrap.offset().top;
-      const wrapHeight = $wrap.outerHeight() || 0;
-
-      // Ak element vyssi nez 80% viewportu — scroll na vrch s 80px offsetom.
-      // Inak vycentruj v strede viewportu na vysku.
-      let targetScrollTop;
-      if (wrapHeight > viewportHeight * 0.8) {
-        targetScrollTop = wrapTop - 80;
-      } else {
-        targetScrollTop = wrapTop - (viewportHeight - wrapHeight) / 2;
-      }
+      const $header = $wrap.find("> .order, > h5").first();
+      const targetEl = $header.length ? $header[0] : $wrap[0];
+      const rect = targetEl.getBoundingClientRect();
+      const elTop = window.scrollY + rect.top;
+      const elH = targetEl.offsetHeight || 50;
+      let targetScrollTop = elTop - (viewportHeight - elH) / 2;
       targetScrollTop = Math.max(0, targetScrollTop);
 
       $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);

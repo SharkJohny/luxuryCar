@@ -150,20 +150,19 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
 
-    // 4) Scroll na chybu VYCENTROVAT v strede viewportu (kompatibilne s kazdym
-    // rozlisenim). 450ms delay aby akordeon stihol expand-nut.
+    // 4) Scroll: HEADER akordeona vycentrovany na stred viewportu (vyriesil
+    // K5/K6 ktore boli moc vysoko pri scrolle - vysoke kvoli banner+box-config).
     setTimeout(function () {
       var $target = $accordion && $accordion.length ? $accordion : $first;
-      if (!$target || !$target.length || !$target.offset()) return;
+      if (!$target || !$target.length) return;
+      var $header = $target.find("> .order, > h5").first();
+      var targetEl = $header.length ? $header[0] : $target[0];
+      if (!targetEl) return;
       var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-      var wrapTop = $target.offset().top;
-      var wrapH = $target.outerHeight() || 0;
-      var tgt;
-      if (wrapH > viewportH * 0.8) {
-        tgt = wrapTop - 80;
-      } else {
-        tgt = wrapTop - (viewportH - wrapH) / 2;
-      }
+      var rect = targetEl.getBoundingClientRect();
+      var elTop = window.scrollY + rect.top;
+      var elH = targetEl.offsetHeight || 50;
+      var tgt = elTop - (viewportH - elH) / 2;
       tgt = Math.max(0, tgt);
       $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
     }, 450);

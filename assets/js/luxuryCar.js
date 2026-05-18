@@ -28151,14 +28151,12 @@ function priplatky(setupData2, texts) {
     }, scrollToStep2 = function($wrap) {
       if (!$wrap.length) return;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-      const wrapTop = $wrap.offset().top;
-      const wrapHeight = $wrap.outerHeight() || 0;
-      let targetScrollTop;
-      if (wrapHeight > viewportHeight * 0.8) {
-        targetScrollTop = wrapTop - 80;
-      } else {
-        targetScrollTop = wrapTop - (viewportHeight - wrapHeight) / 2;
-      }
+      const $header = $wrap.find("> .order, > h5").first();
+      const targetEl = $header.length ? $header[0] : $wrap[0];
+      const rect = targetEl.getBoundingClientRect();
+      const elTop = window.scrollY + rect.top;
+      const elH = targetEl.offsetHeight || 50;
+      let targetScrollTop = elTop - (viewportHeight - elH) / 2;
       targetScrollTop = Math.max(0, targetScrollTop);
       $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);
     }, proceedToCartFromStep = function() {
@@ -29737,16 +29735,15 @@ function validateProductConfig() {
     }
     setTimeout(function() {
       var $target = $accordion && $accordion.length ? $accordion : $first;
-      if (!$target || !$target.length || !$target.offset()) return;
+      if (!$target || !$target.length) return;
+      var $header = $target.find("> .order, > h5").first();
+      var targetEl = $header.length ? $header[0] : $target[0];
+      if (!targetEl) return;
       var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-      var wrapTop = $target.offset().top;
-      var wrapH = $target.outerHeight() || 0;
-      var tgt;
-      if (wrapH > viewportH * 0.8) {
-        tgt = wrapTop - 80;
-      } else {
-        tgt = wrapTop - (viewportH - wrapH) / 2;
-      }
+      var rect = targetEl.getBoundingClientRect();
+      var elTop = window.scrollY + rect.top;
+      var elH = targetEl.offsetHeight || 50;
+      var tgt = elTop - (viewportH - elH) / 2;
       tgt = Math.max(0, tgt);
       $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
     }, 450);
