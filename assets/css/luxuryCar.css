@@ -7658,3 +7658,48 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   height: 0 !important;
   background: transparent !important;
 }
+
+
+/* ═══ RESPONSIVE LAYOUT FIX — Michal req 2026-05-18 ═══ */
+/* Bug: pri zmenšenom okne (tablet range 768-1199px) konfigurátor a title
+   pretekajú cez produktový obrázok. Root cause:
+   - .col-xs-12.col-lg-6.p-info-wrapper:not(.active) má height: 2000px
+     (loading shimmer placeholder).
+   - .row.product-top má flex layout side-by-side ktorý pri tablet
+     šírke nesprávne vyrenderuje. */
+@media (max-width: 1199px) {
+  /* Force full-width column stacking — galéria HORE, info dole */
+  .row.product-top {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .row.product-top > .col-xs-12.col-lg-6 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+  /* Reset forced height + clearance medzi galériou a info */
+  .col-xs-12.col-lg-6.p-info-wrapper,
+  .col-xs-12.col-lg-6.p-info-wrapper:not(.active),
+  .col-xs-12.col-lg-6.p-info-wrapper.active {
+    height: auto !important;
+    min-height: 0 !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin-top: 30px;
+  }
+  /* H1 title má byť v normal flow (žiadne absolute pos cez obrázok) */
+  .col-xs-12.col-lg-6.p-info-wrapper h1 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    color: #c5a44e !important;
+    z-index: 1;
+  }
+  /* Reset shimmer placeholder — pri tablet sa už nemá zobrazovať cez content */
+  .col-xs-12.col-lg-6.p-info-wrapper:not(.active)::before {
+    display: none !important;
+  }
+}
