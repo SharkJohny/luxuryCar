@@ -1968,3 +1968,44 @@ function mountTruckConfigurator() {
     if (++tries > 40) clearInterval(iv);
   }, 100);
 }
+
+
+// Michal req 2026-05-18: klik na header (.order) zatvoreneho parameter-wrap
+// → znova otvorit (toggle). Pre pripad ze pouzivatel chce upravit predchadzajuci
+// krok po vybere.
+$(document).on("click", ".parameter-wrap > .order, .position-wrap > .order", function (e) {
+  const $wrap = $(this).parent();
+  if ($wrap.closest(".box-config").length) return; // skip box-config children
+  
+  if ($wrap.hasClass("active")) {
+    // Toggle off — zatvor
+    $wrap.removeClass("active");
+    $wrap.find("> .options-wrap").each(function () {
+      this.style.maxHeight = "0px";
+      this.style.opacity = "0";
+      this.style.padding = "0";
+    });
+    $wrap.find("> .next-step-button").hide();
+  } else {
+    // Toggle on — otvor + zatvor ostatne
+    $(".parameter-wrap.active, .position-wrap.active").not($wrap).each(function () {
+      const $other = $(this);
+      $other.removeClass("active");
+      $other.find("> .options-wrap").each(function () {
+        this.style.maxHeight = "0px";
+        this.style.opacity = "0";
+      });
+    });
+    $wrap.addClass("active");
+    // Reset inline styles (otvor)
+    $wrap.find("> .options-wrap").each(function () {
+      this.style.maxHeight = "";
+      this.style.opacity = "";
+      this.style.padding = "";
+    });
+    $wrap.find("> .next-step-button").show();
+    setTimeout(() => {
+      if (typeof scrollToStep === "function") scrollToStep($wrap);
+    }, 200);
+  }
+});
