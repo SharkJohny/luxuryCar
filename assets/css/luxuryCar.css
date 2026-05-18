@@ -4517,6 +4517,29 @@ section#model-info .setup-model {
   border-radius: 10px;
 }
 
+/* Silnejší override — pre .parameter-wrap vnútri .box-config (Velikost 1/2/Solo)
+   CSS .box-config .parameter-wrap (specifita 0,2,0) prebíja .errorToCart (0,1,0).
+   Preto !important + viac selektorov pre všetky kontexty. */
+.parameter-wrap.errorToCart,
+.position-wrap.errorToCart,
+.box-config .parameter-wrap.errorToCart,
+.upsale-Banner .box-config .parameter-wrap.errorToCart,
+.config-wrap .parameter-wrap.errorToCart {
+  border: 2px solid #d92323 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
+}
+
+.selection-required {
+  border: 2px solid #d92323 !important;
+  box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.16) !important;
+}
+
+.position-wrap.selection-required .order,
+.parameter-wrap.selection-required .order {
+  background: linear-gradient(135deg, #d92323, #9f1717) !important;
+}
+
 tr.surcharge-list.errorToCart,
 .surcharge-list.errorToCart,
 .variant-list.errorToCart {
@@ -5403,6 +5426,11 @@ a.p-thumbnail {
 
 .parameter-wrap.errorToCart {
   border-color: red;
+}
+
+.position-wrap.selection-required,
+.parameter-wrap.selection-required {
+  border-color: #d92323 !important;
 }
 
 .position-wrap .order,
@@ -6758,4 +6786,338 @@ section#model-selector {
 }
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
+}
+/* ─────────────────────────────────────────────────────────── */
+/* SEO Fáza A — Fix #3: H1 text replace cez seo-runtime.js     */
+/* sr-only zachované — žiadny biely pruh nad hero obrázkom.    */
+/* (Pôvodné .lcd-hero-h1 styling odstránené 2026-05-08 po      */
+/*  feedbacku že vytvára vizuálne ruchú medzeru pred hero.)    */
+/* ─────────────────────────────────────────────────────────── */
+
+/* Konfigurator fix — rovnaká šírka všetkých 4 dropdownov     */
+/* Pôvodné pravidlo (riadok 3232-3236) pokrýva len .dm-selector*/
+/* takže brand/model/year dostanú 150px ale type-selector      */
+/* (Coupe) expanduje na 289px. Pridávame width na .type-selector*/
+/* aby sa zarovnalo s ostatnými.                                */
+/* ─────────────────────────────────────────────────────────── */
+.type-product .surcharge-list.type-selector .selector select,
+.type-product .surcharge-list.type-selector > select {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* KONFIGURÁTOR — okrášlenie v4 (2026-05-14)                       */
+/* Zlatý podtón všade, badge "NAJOBJEDNÁVANEJŠIE", karty v jemnom   */
+/* gradiente, krok 0 vzory v jednom rade, box-config zjednotený,    */
+/* väčšie texty, mobil-kompatibilné (media query nižšie).          */
+/* ═══════════════════════════════════════════════════════════════ */
+
+/* ── Zlatý podtón — každý krok akordeonu ── */
+.parameter-wrap,
+.position-wrap,
+.parameter-wrap.active,
+.position-wrap.active {
+  background: linear-gradient(180deg, #fffdf8, #faf6ec) !important;
+}
+.parameter-wrap {
+  margin-bottom: 12px;
+}
+.parameter-wrap.active {
+  border: 2px solid #C49B31;
+  box-shadow: 0 2px 14px rgba(196, 155, 49, 0.12);
+}
+
+/* ── Krok 0 — vzory prešívania VŠETKY V JEDNOM RADE ── */
+.patterns-wrap {
+  flex-wrap: nowrap !important;
+  gap: 12px;
+  align-items: stretch;
+}
+.patterns-wrap .option-button {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.patterns-wrap .option-button img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Selection karty — jemný gradient namiesto plochej bielej ── */
+.parameter-85 .option-button,
+.parameter-wrap.parameter-85 .option-button {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 2px solid #ece6d6;
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin: 16px 0;
+  background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.parameter-85 .option-button:hover {
+  border-color: #C49B31;
+  box-shadow: 0 2px 10px rgba(196, 155, 49, 0.2);
+}
+.parameter-85 .option-button.active {
+  border-color: #C49B31;
+  background: linear-gradient(135deg, #fffdf6, #fbf3dd);
+  box-shadow: 0 2px 10px rgba(196, 155, 49, 0.28);
+}
+.parameter-85 .option-button:hover,
+.parameter-85 .option-button.active,
+.parameter-wrap.parameter-85 .option-button:hover,
+.parameter-wrap.parameter-85 .option-button.active {
+  transform: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+.parameter-85 .option-button img {
+  border-radius: 8px;
+}
+
+/* ── Krok 4 — väčšie, čitateľnejšie texty ── */
+.parameter-85 .option-button .radio-text,
+.parameter-wrap.parameter-85 .option-button .radio-text {
+  font-size: 17px;
+  font-weight: 600;
+}
+.parameter-85 .option-button .radio-price,
+.parameter-wrap.parameter-85 .option-button .radio-price {
+  font-size: 17px;
+  font-weight: 800;
+  color: #C49B31;
+}
+
+/* ── Krok 5 / 6 — upsale karty v gradiente ── */
+.trunk > .parameter-cars,
+.boxs > .parameter-cars {
+  padding: 14px;
+  gap: 14px;
+}
+.trunk .upsale-button,
+.boxs .upsale-button {
+  position: relative;
+  border: 2px solid #ece6d6 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.trunk .upsale-button:hover,
+.boxs .upsale-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  border-color: #C49B31;
+}
+.trunk .upsale-button.active,
+.boxs .upsale-button.active {
+  border: 3px solid #C49B31 !important;
+  box-shadow: 0 0 0 2px rgba(196, 155, 49, 0.3), 0 6px 22px rgba(196, 155, 49, 0.42) !important;
+}
+.trunk .upsale-button img,
+.boxs .upsale-button img {
+  border-radius: 10px;
+  margin-right: 0 !important;
+}
+
+/* ── Krok 5 / 6 — text v kartách: vycentrovaný, väčší, krajší ── */
+.trunk .upsale-button .banner-header,
+.boxs .upsale-button .banner-header {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-align: center;
+}
+.trunk .upsale-button .banner-header > span,
+.boxs .upsale-button .banner-header > span {
+  font-family: "Exo 2", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1A1A1A;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.trunk .upsale-button .banner-header .price,
+.boxs .upsale-button .banner-header .price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #C49B31;
+}
+.trunk .upsale-button .banner-header .price .price-recommended,
+.boxs .upsale-button .banner-header .price .price-recommended {
+  font-size: 15px;
+  color: #6b6b6b;
+  font-weight: 600;
+  text-decoration: line-through;
+  margin-left: 0;
+}
+.trunk .upsale-button .banner-header .price .price-recommended::before,
+.boxs .upsale-button .banner-header .price .price-recommended::before {
+  content: "cena mimo setu: ";
+}
+.trunk .upsale-button .save,
+.boxs .upsale-button .save {
+  display: none !important;
+}
+
+/* ── "Ušetríte X €" — zlatý pill ── */
+.upsale-button .save,
+.save[data-save] {
+  display: inline-block;
+  background: linear-gradient(135deg, #C49B31, #A8893A);
+  color: #1A1A1A;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  box-shadow: 0 2px 8px rgba(196, 155, 49, 0.3);
+}
+
+/* ── Krok 6 — box konfigurátor: čistý rám ── */
+.box-config {
+  background: #fffdf8;
+  border: 2px solid #C49B31;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+.box-config .variant.name {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.box-config .close-btn.return {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: #fff;
+  font-weight: 800;
+  border-radius: 22px;
+}
+.upsale-Banner.showConf .boxs > .parameter-cars {
+  visibility: hidden;
+}
+/* Box-config sekcie — FARBA aj VEĽKOSTI rovnaké orámovanie (zjednotené) */
+.box-config .config-wrap > .parameter-wrap {
+  border: 1px solid #ece6d6 !important;
+  border-radius: 12px !important;
+  background: linear-gradient(160deg, #ffffff 0%, #f7f1e3 100%) !important;
+  padding: 14px 16px !important;
+  margin: 0 0 12px !important;
+}
+
+/* ── RRP — prečiarknutá doporučená cena jemnejšia ── */
+.price-recommended,
+span.price-recommended {
+  color: #999;
+  font-size: 0.82em;
+  font-weight: 500;
+}
+.p-final-price-wrapper .price-save {
+  display: inline-block;
+  background: #C49B31;
+  color: #1A1A1A;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+/* ── Badge "NAJOBJEDNÁVANEJŠIE" — krok 5 / 6 (pravý horný roh) ── */
+.lcd-bestseller {
+  position: relative;
+}
+.lcd-bestseller::after {
+  content: "NAJOBJEDNÁVANEJŠIE";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: #ffffff;
+  font-family: "Exo 2", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 5px 13px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  z-index: 6;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── Badge "NAJOBJEDNÁVANEJŠIE" — krok 4 (na výšku na stred, ── */
+/* vodorovne v priestore medzi obrázkom a koncom karty) ── */
+.lcd-najobjednavanejsie {
+  position: relative;
+}
+.lcd-najobjednavanejsie::after {
+  content: "NAJOBJEDNÁVANEJŠIE";
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: #ffffff;
+  font-family: "Exo 2", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  z-index: 6;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 60%;
+}
+
+/* ═══ MOBIL (≤767px) — kompatibilita ═══ */
+@media (max-width: 767px) {
+  /* Krok 0 — vzory ostávajú v rade, len menšie medzery */
+  .patterns-wrap {
+    gap: 6px;
+  }
+  /* Krok 4 — badge menší, bližšie k okraju aby neprekrýval obrázok */
+  .lcd-najobjednavanejsie::after {
+    font-size: 8px;
+    padding: 3px 7px;
+    right: 6px;
+    letter-spacing: 0.3px;
+  }
+  .lcd-bestseller::after {
+    font-size: 8px;
+    padding: 3px 7px;
+    right: 6px;
+    letter-spacing: 0.3px;
+  }
+  /* Krok 4 — texty o niečo menšie ako na desktope, stále čitateľné */
+  .parameter-85 .option-button .radio-text,
+  .parameter-85 .option-button .radio-price {
+    font-size: 15px;
+  }
+  /* Krok 5/6 — cena menšia aby sa zmestila */
+  .trunk .upsale-button .banner-header > span,
+  .boxs .upsale-button .banner-header > span {
+    font-size: 15px;
+  }
+  .trunk .upsale-button .banner-header .price,
+  .boxs .upsale-button .banner-header .price {
+    font-size: 18px;
+  }
+  /* Box-config sekcie — menší padding na mobile */
+  .box-config .config-wrap > .parameter-wrap {
+    padding: 10px 10px !important;
+  }
 }

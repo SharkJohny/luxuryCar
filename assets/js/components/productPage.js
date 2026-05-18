@@ -278,6 +278,22 @@ export function initProduct(setupData, texts) {
     childList: true,
     subtree: true,
   });
+
+  // RRP recalc na page-load: bez tohto volania renderuje Shoptet natívnu
+  // recommendedPrice z admin field-u (často nesprávnu — napr. 490 € pri
+  // aktuálnej 550 €). Volanie zabezpečí že doporučená cena = current * 1.6
+  // zaokrúhlené nahor na 10 už pri prvom render-e, nie až po prvom klike.
+  setTimeout(() => calculateStandartPrice(0), 600);
+  setTimeout(() => calculateStandartPrice(0), 1500);
+
+  // RRP recalc pri KAŽDEJ zmene ceny — livePrice.js vystavuje
+  // LuxuryCarPriceRecalculated s detail.total (base + všetky príplatky:
+  // rohož, boxy, TYP). Tým je doporučená cena vždy = aktuálny total × 1.6,
+  // teda aj keď zákazník pridá rohož do kufra alebo boxy.
+  document.addEventListener("LuxuryCarPriceRecalculated", function (e) {
+    const total = e && e.detail && e.detail.total;
+    calculateStandartPrice(0, total);
+  });
 }
 
 /**
@@ -485,7 +501,7 @@ function priplatky(setupData, texts) {
             scrollToStep($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
-            }, 2000);
+            }, 2500);
             return;
           }
         }
@@ -504,6 +520,10 @@ function priplatky(setupData, texts) {
 
     // Funkcionalita pro tlačítko "Přejít k dalšímu kroku"
     function isWrapSelectionValid($wrap) {
+      if ($wrap.hasClass("boxs")) return true;
+      if ($wrap.hasClass("trunk")) return true;
+      if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+
       let hasSelectable = false;
       let valid = false;
 
@@ -610,13 +630,32 @@ function priplatky(setupData, texts) {
       if (!isWrapSelectionValid(currentWrap)) {
         // krátká vizuální zpětná vazba
         currentWrap.addClass("selection-required");
-        setTimeout(() => currentWrap.removeClass("selection-required"), 1200);
+        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return; // nepokračuj dál
       }
 
       if (isCartStepWrap(currentWrap)) {
         proceedToCartFromStep();
         return;
+      }
+
+      // K5 (trunk) -> K6 (boxs): explicitny prechod. V DOM su duplicitne
+      // trunk/boxs wrapy (conf1/conf2), takze getNavigableWraps().index()+1
+      // moze ukazat na nespravny (skryty) wrap. Riesime cielene - z trunk
+      // vzdy otvorime prvy boxs wrap. Funguje aj ked v K5 nic nie je vybrane.
+      if (currentWrap.hasClass("trunk")) {
+        const $boxs = $(".upsale-buttons.boxs").first();
+        if ($boxs.length) {
+          currentWrap.removeClass("active");
+          openNextAccordion($boxs);
+          setTimeout(() => {
+            scrollToStep($boxs);
+          }, 600);
+          setTimeout(() => {
+            updateButtonTexts();
+          }, 50);
+          return;
+        }
       }
 
       const allWraps = getNavigableWraps();
@@ -748,6 +787,13 @@ function priplatky(setupData, texts) {
     }
     createBoxConfig();
 
+    // Klient: defaultne skry "Velikost" wrapy v box-config — zobrazia sa až po
+    // výbere conf1/conf2. Bez tohto sa Velikost 1+2+Solo zobrazia naraz aj keď
+    // user ešte nič nevybral.
+    setTimeout(function () {
+      if (typeof resetBoxConfigDefaults === "function") resetBoxConfigDefaults();
+    }, 100);
+
     $(".detail-parameters .variant-list select").each(function () {
       orders += 1;
       const position = this;
@@ -835,6 +881,13 @@ function priplatky(setupData, texts) {
 // Otevře akordeon bez scrollování
 function openNextAccordion($next) {
   $next.addClass("active");
+  // Boxs/trunk wrapy su default display:none (skryte cez .hide() v auto-postup
+  // logike). Samotne addClass("active") ich nezviditelni - treba explicitne
+  // .show(). Bez tohto sa K6 (boxy) neotvori ked zakaznik v K5 (rohoz) nic
+  // nevyberie a klikne "Prejst na dalsi krok".
+  if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
+    $next.show();
+  }
 }
 
 // Single event listener for .upsale-button
@@ -855,6 +908,19 @@ $(document).on("click", ".upsale-button", function (e) {
 });
 
 function resetBoxConfigDefaults() {
+  // Klient: „neviem prečo sa zobrazuje výber veľkosti 3 boxov keď si môže vybrať
+  // buď 2 alebo 1 box". Pri reset / pred výberom conf1/conf2 skryjeme všetky
+  // box-size parameter wraps (parameter-66/69/78/104 v CZ; .parameter-sizes
+  // class v SK). Zobrazia sa až po výbere conf1 (solo) alebo conf2 (box1+2).
+  // Cielime cez h5 text (Velikost / Veľkosť / Velokost) — funguje univerzálne
+  // bez ohľadu na ID parameter wrapu.
+  $(".box-config .parameter-wrap").each(function () {
+    const txt = ($(this).find("h5").first().text() || "").toLowerCase().trim();
+    if (/^vel[ioe]kos[tť]/.test(txt)) {
+      $(this).hide();
+    }
+  });
+
   // reset amount buttons to default (2 ks)
   const $amountButtons = $(".box-config .amount-button");
   if ($amountButtons.length) {
@@ -899,6 +965,36 @@ function resetBoxConfigDefaults() {
     const paramId = $wrap.attr("data-parameterId");
     if (paramId) {
       $("select.parameter-id-" + paramId + ".surcharge-parameter").val("");
+    }
+  });
+}
+
+function setBoxConfigVisibleCount(visibleCount) {
+  const count = Math.max(1, Math.min(Number(visibleCount) || 1, 3));
+
+  $(".box-config .amount-button").removeClass("active");
+  $(".box-config .amount-button")
+    .filter(function () {
+      return $(this).text().trim().startsWith(String(count));
+    })
+    .addClass("active");
+
+  $(".box-config .parameter-wrap.parameter-sizes").each(function (index) {
+    const $wrap = $(this);
+    const shouldShow = index < count;
+
+    if (shouldShow) {
+      $wrap.show();
+      return;
+    }
+
+    $wrap.hide();
+    $wrap.find(".button.option-button.text").removeClass("active");
+    $wrap.find("input[type='radio'], input[type='checkbox']").prop("checked", false);
+
+    const paramId = $wrap.attr("data-parameterId");
+    if (paramId) {
+      $(`select.parameter-id-${paramId}.surcharge-parameter`).val(0);
     }
   });
 }
@@ -1231,20 +1327,70 @@ function createpopup(texts) {
     .appendTo("head");
 }
 
-function calculateStandartPrice(diference) {
+// Bezpečné parsovanie ceny zo zobrazeného textu. SK/CZ formát:
+// medzera = tisícový separátor, čiarka = desatinný separátor.
+// "€ 371,00" -> 371   |   "1 250,00 €" -> 1250
+// (Pôvodné replace(/[^0-9]/g,"") zlepilo "371,00" na "37100" a RRP
+//  vyletela na 59 360 € — to tento parser opravuje.)
+function lcdParsePrice(raw) {
+  if (raw == null) return 0;
+  let t = String(raw).replace(/[^\d.,\s]/g, "").trim();
+  if (!t) return 0;
+  t = t.replace(/\s+/g, ""); // odstráň tisícové medzery
+  // posledná čiarka alebo bodka = desatinný oddeľovač -> odsekneme desatiny
+  const lastComma = t.lastIndexOf(",");
+  const lastDot = t.lastIndexOf(".");
+  const decPos = Math.max(lastComma, lastDot);
+  if (decPos > -1 && t.length - decPos <= 3) {
+    t = t.slice(0, decPos);
+  }
+  t = t.replace(/[^\d]/g, "");
+  const n = Number(t);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function calculateStandartPrice(diference, explicitPrice) {
   setTimeout(() => {}, 1000);
   console.log(diference);
 
-  const price = Number(
-    $(".p-final-price-wrapper span.calculated-price:eq(0)")
-      .text()
-      .replace(/[^0-9]/g, ""),
-  );
+  // 0) Explicitný total — odovzdaný z LuxuryCarPriceRecalculated eventu
+  //    (livePrice.js počíta total = base + všetky surcharge príplatky:
+  //    rohož do kufra, boxy, TYP...). Per Michalov spec: doporučená cena =
+  //    to čo sa počíta v konfigurátore × 1.6 — teda VRÁTANE príplatkov.
+  let price = Number(explicitPrice);
+  if (!Number.isFinite(price) || price <= 0) price = 0;
+
+  // 1) .price-final-holder text — livePrice.js sem zapisuje total vrátane
+  //    príplatkov. Najspoľahlivejší zdroj aktuálnej zobrazenej ceny.
+  if (!price || price <= 0) {
+    price = lcdParsePrice($(".price-final-holder").first().text());
+  }
+
+  // 2) calculated-price (po user interakcii v konfigurátore)
+  if (!price || price <= 0) {
+    price = lcdParsePrice($(".p-final-price-wrapper span.calculated-price:eq(0)").text());
+  }
+
+  // 3) Fallback pre page-load fázu: meta[itemprop=price] → .price-final-holder
+  //    data-price → .price-final span
+  if (!price || price <= 0) {
+    const metaPrice = Number($('meta[itemprop="price"]').attr("content"));
+    if (Number.isFinite(metaPrice) && metaPrice > 0) {
+      price = metaPrice;
+    } else {
+      const holderPrice = Number($(".price-final-holder").attr("data-price"));
+      if (Number.isFinite(holderPrice) && holderPrice > 0) {
+        price = holderPrice;
+      } else {
+        price = lcdParsePrice($(".p-final-price-wrapper .price-final span, .price-final span").first().text());
+      }
+    }
+  }
 
   console.log("price", price);
 
   // Vypočítej novou standard cenu jako aktuální cena + 60%
-  let newStandartPrice = Math.round(price * 1.6); // price + 60%
+  let newStandartPrice = Math.ceil((price * 1.6) / 10) * 10; // price * 1.6, zaokrúhlené nahor na desiatky
 
   console.log("price", price, "newStandartPrice (price + 60%)", newStandartPrice);
 
@@ -1395,6 +1541,8 @@ function updateUpsale($this, event) {
       let soloId = allBoxIds.includes(104) ? 104 : allBoxIds.includes(78) ? 78 : allBoxIds[0];
 
       if (value[0] === "conf1") {
+        setBoxConfigVisibleCount(1);
+
         // show only soloId, hide other box params
         allBoxIds.forEach((id) => {
           if (Number(id) === Number(soloId)) {
@@ -1437,6 +1585,8 @@ function updateUpsale($this, event) {
         $soloPriceEl.attr("data-price", soloPrice);
         if ($soloPriceEl.length) $soloPriceEl.text(soloPrice > 0 ? NumToPrice(soloPrice) : "0 Kč");
       } else {
+        setBoxConfigVisibleCount(2);
+
         // conf2: show box1 and box2, hide other box params (including solo)
         allBoxIds.forEach((id) => $(`.box-config .parameter-wrap.parameter-${id}`).hide());
         // explicitly hide solo parameter ids to be safe
