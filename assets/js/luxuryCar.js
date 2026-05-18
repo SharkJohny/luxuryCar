@@ -28344,6 +28344,12 @@ function priplatky(setupData2, texts) {
       const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
       if (!isWrapSelectionValid(currentWrap)) {
         currentWrap.addClass("selection-required");
+        setTimeout(function() {
+          const top = currentWrap.offset() && currentWrap.offset().top;
+          if (top != null) {
+            $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
+          }
+        }, 450);
         setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return;
       }
@@ -29663,6 +29669,14 @@ function validation(texts) {
     if (!optionTest()) return;
     $(this).parents(".upsale-Banner").removeClass("showConf");
   });
+  $(document).on("click", ".errorToCart .option-button, .errorToCart .upsale-button, .errorToCart .button.option-button", function() {
+    $(this).closest(".errorToCart").removeClass("errorToCart");
+  });
+  $(document).on("change", ".errorToCart select.surcharge-parameter, .errorToCart input[type='radio'], .errorToCart input[type='checkbox']", function() {
+    const $w = $(this).closest(".errorToCart");
+    const v = $(this).val();
+    if (v && v !== "0" && v !== "") $w.removeClass("errorToCart");
+  });
   $(".content-wrap").on("click", function(event) {
     if ($(event.target).closest(".modl-selector-wrap").length) {
       return;
@@ -29738,11 +29752,12 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
     setTimeout(function() {
-      const top = $first.offset() && $first.offset().top;
+      const $target = $first.is(":visible") ? $first : $accordion;
+      const top = $target && $target.length ? $target.offset().top : null;
       if (top != null) {
         $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
       }
-    }, 50);
+    }, 450);
     setTimeout(function() {
       $(".errorToCart").removeClass("errorToCart");
     }, 2500);
