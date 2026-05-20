@@ -2,6 +2,21 @@ export function initCart(texts) {
   console.log("Initializing cart with texts:", texts);
   console.log("Cart initialized");
   changeDescription();
+
+  // Michal req 2026-05-18: po zmene/zmazani produktu v kosiku Shoptet AJAX-om
+  // prekresli obsah — span.main-link-surcharges sa vyrenderuje surovy a
+  // changeDescription() (formator priplatkovych parametrov) sa uz nespusti,
+  // co rozhodi format. Riesenie: po ShoptetCartUpdated evente spravit reload.
+  // ShoptetCartUpdated sa emituje IBA pri AJAX zmene kosika (nie pri page load),
+  // takze reload je bezpecny — guard flag pre istotu proti loop-u.
+  if (!window.__lcdCartReloadBound) {
+    window.__lcdCartReloadBound = true;
+    document.addEventListener("ShoptetCartUpdated", function () {
+      if (window.__lcdCartReloading) return;
+      window.__lcdCartReloading = true;
+      location.reload();
+    });
+  }
   if ($(".id--9")[0]) {
     $(".cart-content.summary-wrapper").appendTo("div#cart-wrapper .col-md-8");
     $(".p-label:contains(Cena za m. j.)").text("Cena za set");

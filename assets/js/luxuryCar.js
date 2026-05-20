@@ -29557,6 +29557,14 @@ function initVideoPlayAgain() {
 // assets/js/components/cart.js
 function initCart(texts) {
   changeDescription();
+  if (!window.__lcdCartReloadBound) {
+    window.__lcdCartReloadBound = true;
+    document.addEventListener("ShoptetCartUpdated", function() {
+      if (window.__lcdCartReloading) return;
+      window.__lcdCartReloading = true;
+      location.reload();
+    });
+  }
   if ($(".id--9")[0]) {
     $(".cart-content.summary-wrapper").appendTo("div#cart-wrapper .col-md-8");
     $(".p-label:contains(Cena za m. j.)").text("Cena za set");
