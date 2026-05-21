@@ -28491,10 +28491,20 @@ function openNextAccordion($next) {
     $next.show();
     $(".upsale-Banner").show();
     var nextEl = $next[0];
+    var firstTrunk = $(".upsale-Banner .upsale-buttons.trunk")[0] || null;
+    var firstBoxs = $(".upsale-Banner .upsale-buttons.boxs")[0] || null;
     $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function() {
-      if (this !== nextEl && !this.classList.contains("active")) {
-        this.style.display = "none";
+      if (this === nextEl) return;
+      if (this === firstTrunk) {
+        this.style.display = "";
+        this.classList.remove("active");
+        return;
       }
+      if (this === firstBoxs) {
+        this.style.display = "";
+        return;
+      }
+      this.style.display = "none";
     });
   }
 }
