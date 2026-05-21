@@ -590,11 +590,16 @@ function priplatky(setupData, texts) {
       let tries = 0;
       function lcdFinalScroll() {
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-        const headerEl =
-          document.querySelector(".plugin-fixed-header") ||
-          document.querySelector(".top-navigation-bar") ||
-          document.querySelector("header");
-        const headerH = headerEl ? headerEl.offsetHeight : 0;
+        // Detekcia vysky header-menu. .plugin-fixed-header ma casto
+        // offsetHeight 0 (placeholder) — preskocime ho a vezmeme prvy
+        // element s realnou vyskou (> 20px). Fallback 90.
+        let headerH = 0;
+        const headerSelectors = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
+        for (let hi = 0; hi < headerSelectors.length; hi++) {
+          const he = document.querySelector(headerSelectors[hi]);
+          if (he && he.offsetHeight > 20) { headerH = he.offsetHeight; break; }
+        }
+        if (!headerH) headerH = 90;
         const rect = targetEl.getBoundingClientRect();
         const desiredTop = headerH + viewportHeight * 0.2;
         const delta = rect.top - desiredTop;
