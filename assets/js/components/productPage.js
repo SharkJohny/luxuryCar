@@ -601,7 +601,7 @@ function priplatky(setupData, texts) {
         }
         if (!headerH) headerH = 90;
         const rect = targetEl.getBoundingClientRect();
-        const desiredTop = headerH + viewportHeight * 0.2;
+        const desiredTop = headerH + viewportHeight * 0.1;
         const delta = rect.top - desiredTop;
         const newScroll = Math.max(0, window.scrollY + delta);
         window.scrollTo({ top: newScroll, behavior: "smooth" });

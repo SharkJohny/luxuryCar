@@ -187,7 +187,7 @@ function validateProductConfig() {
         }
         if (!headerH) headerH = 90;
         var rect = targetEl.getBoundingClientRect();
-        var delta = rect.top - (headerH + viewportH * 0.2);
+        var delta = rect.top - (headerH + viewportH * 0.1);
         var newScroll = Math.max(0, window.scrollY + delta);
         window.scrollTo({ top: newScroll, behavior: "smooth" });
       }
