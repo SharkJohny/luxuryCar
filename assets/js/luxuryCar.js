@@ -28158,8 +28158,16 @@ function priplatky(setupData2, texts) {
       let tries = 0;
       function lcdFinalScroll() {
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-        const headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
-        const headerH = headerEl ? headerEl.offsetHeight : 0;
+        let headerH = 0;
+        const headerSelectors = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
+        for (let hi = 0; hi < headerSelectors.length; hi++) {
+          const he = document.querySelector(headerSelectors[hi]);
+          if (he && he.offsetHeight > 20) {
+            headerH = he.offsetHeight;
+            break;
+          }
+        }
+        if (!headerH) headerH = 90;
         const rect = targetEl.getBoundingClientRect();
         const desiredTop = headerH + viewportHeight * 0.2;
         const delta = rect.top - desiredTop;
@@ -29798,8 +29806,16 @@ function validateProductConfig() {
       var lastAbsTop = null, stableFrames = 0, tries = 0;
       function finalScroll() {
         var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-        var headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
-        var headerH = headerEl ? headerEl.offsetHeight : 0;
+        var headerH = 0;
+        var headerSelectors = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
+        for (var hi = 0; hi < headerSelectors.length; hi++) {
+          var he = document.querySelector(headerSelectors[hi]);
+          if (he && he.offsetHeight > 20) {
+            headerH = he.offsetHeight;
+            break;
+          }
+        }
+        if (!headerH) headerH = 90;
         var rect = targetEl.getBoundingClientRect();
         var delta = rect.top - (headerH + viewportH * 0.2);
         var newScroll = Math.max(0, window.scrollY + delta);
