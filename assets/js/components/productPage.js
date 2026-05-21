@@ -577,16 +577,18 @@ function priplatky(setupData, texts) {
 
     function scrollToStep($wrap) {
       if (!$wrap.length) return;
-
       // Michal req 2026-05-18: scroll tak aby HEADER kroku bol 20% vysky
-      // obrazovky pod fixnym header-menu. DVOJFAZOVY scroll — kedze K5/K6
-      // collapse/expand transition (0.4s) posuva layout, prvy scroll moze
-      // trafit docasnu poziciu. Druha faza po 750ms (po dobehnuti vsetkych
-      // transitionov) doladi podla skutocnej pozicie elementu.
-      function doScroll() {
-        const $header = $wrap.find("> .order, > h5").first();
-        const targetEl = $header.length ? $header[0] : $wrap[0];
-        if (!targetEl) return;
+      // obrazovky pod fixnym header-menu. K5/K6 collapse/expand transition
+      // posuva layout — preto cakame cez requestAnimationFrame loop kym sa
+      // ABSOLUTNA pozicia headeru USTALI (3 framy rovnaka), az POTOM scroll.
+      // Tym scroll vzdy trafi finalnu poziciu bez ohladu na transition.
+      const $header = $wrap.find("> .order, > h5").first();
+      const targetEl = $header.length ? $header[0] : $wrap[0];
+      if (!targetEl) return;
+      let lastAbsTop = null;
+      let stableFrames = 0;
+      let tries = 0;
+      function lcdFinalScroll() {
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
         const headerEl =
           document.querySelector(".plugin-fixed-header") ||
@@ -594,15 +596,28 @@ function priplatky(setupData, texts) {
           document.querySelector("header");
         const headerH = headerEl ? headerEl.offsetHeight : 0;
         const rect = targetEl.getBoundingClientRect();
-        // rect.top je relativne k viewportu. Chceme aby element bol na pozicii
-        // headerH + 20% viewportu. delta = kolko este treba odscrollovat.
         const desiredTop = headerH + viewportHeight * 0.2;
         const delta = rect.top - desiredTop;
         const newScroll = Math.max(0, window.scrollY + delta);
         $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
       }
-      doScroll();                       // 1. faza — hruby scroll
-      setTimeout(doScroll, 750);        // 2. faza — doladenie po ustaleni layoutu
+      function lcdTick() {
+        tries++;
+        const absTop = window.scrollY + targetEl.getBoundingClientRect().top;
+        if (lastAbsTop !== null && Math.abs(absTop - lastAbsTop) < 1) {
+          stableFrames++;
+        } else {
+          stableFrames = 0;
+        }
+        lastAbsTop = absTop;
+        // 3 framy bez zmeny = layout ustaleny. tries > 90 (~1.5s) = fallback.
+        if (stableFrames >= 3 || tries > 90) {
+          lcdFinalScroll();
+        } else {
+          requestAnimationFrame(lcdTick);
+        }
+      }
+      requestAnimationFrame(lcdTick);
     }
 
     function proceedToCartFromStep() {
