@@ -26,6 +26,24 @@ export function validation(texts) {
   $(document).on("click", ".close-btn.return", function () {
     if (!optionTest()) return;
     $(this).parents(".upsale-Banner").removeClass("showConf");
+    // Michal req 2026-05-18: po potvrdeni box-config scroll tak aby CENA +
+    // tlacidlo "Pridat do kosika" boli na SPODKU obrazovky.
+    setTimeout(function () {
+      var $cart = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function () {
+        var s = window.getComputedStyle(this);
+        return s.display !== "none" && s.visibility !== "hidden" && this.offsetParent !== null;
+      }).first();
+      var $price = $(".p-final-price-wrapper").first();
+      var $anchor = $cart.length ? $cart : $price;
+      if (!$anchor || !$anchor.length) return;
+      var el = $anchor[0];
+      var rect = el.getBoundingClientRect();
+      var viewportH = window.innerHeight || 0;
+      // spodok anchor elementu ~40px nad spodkom viewportu
+      var delta = rect.bottom - (viewportH - 40);
+      var newScroll = Math.max(0, window.scrollY + delta);
+      $("html, body").stop(true).animate({ scrollTop: newScroll }, 500);
+    }, 600);
   });
 
   $(".content-wrap").on("click", function (event) {
@@ -150,28 +168,38 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
 
-    // 4) Scroll: HEADER akordeona na 20% vysky obrazovky pod header-menu.
-    //    DVOJFAZOVY — doladenie po ustaleni layoutu (accordion expand 0.4s).
-    function lcdValScroll() {
+    // 4) Scroll: HEADER akordeona 20% pod header-menu — rAF loop caka kym
+    //    sa absolutna pozicia headeru USTALI (3 framy), az potom scroll.
+    (function () {
       var $target = $accordion && $accordion.length ? $accordion : $first;
       if (!$target || !$target.length) return;
-      var $header = $target.find("> .order, > h5").first();
-      var targetEl = $header.length ? $header[0] : $target[0];
+      var $h = $target.find("> .order, > h5").first();
+      var targetEl = $h.length ? $h[0] : $target[0];
       if (!targetEl) return;
-      var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-      var headerEl =
-        document.querySelector(".plugin-fixed-header") ||
-        document.querySelector(".top-navigation-bar") ||
-        document.querySelector("header");
-      var headerH = headerEl ? headerEl.offsetHeight : 0;
-      var rect = targetEl.getBoundingClientRect();
-      var desiredTop = headerH + viewportH * 0.2;
-      var delta = rect.top - desiredTop;
-      var newScroll = Math.max(0, window.scrollY + delta);
-      $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
-    }
-    setTimeout(lcdValScroll, 450);
-    setTimeout(lcdValScroll, 1100);
+      var lastAbsTop = null, stableFrames = 0, tries = 0;
+      function finalScroll() {
+        var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+        var headerEl =
+          document.querySelector(".plugin-fixed-header") ||
+          document.querySelector(".top-navigation-bar") ||
+          document.querySelector("header");
+        var headerH = headerEl ? headerEl.offsetHeight : 0;
+        var rect = targetEl.getBoundingClientRect();
+        var delta = rect.top - (headerH + viewportH * 0.2);
+        var newScroll = Math.max(0, window.scrollY + delta);
+        $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
+      }
+      function tick() {
+        tries++;
+        var absTop = window.scrollY + targetEl.getBoundingClientRect().top;
+        if (lastAbsTop !== null && Math.abs(absTop - lastAbsTop) < 1) stableFrames++;
+        else stableFrames = 0;
+        lastAbsTop = absTop;
+        if (stableFrames >= 3 || tries > 90) finalScroll();
+        else requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
 
     // 5) Po 2.5 s zhoď červené orámovanie.
     setTimeout(function () {
