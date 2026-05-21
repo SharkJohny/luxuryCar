@@ -150,8 +150,7 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
 
-    // 4) Scroll: HEADER akordeona vycentrovany na stred viewportu (vyriesil
-    // K5/K6 ktore boli moc vysoko pri scrolle - vysoke kvoli banner+box-config).
+    // 4) Scroll: HEADER akordeona na 20% vysky obrazovky pod header-menu.
     setTimeout(function () {
       var $target = $accordion && $accordion.length ? $accordion : $first;
       if (!$target || !$target.length) return;
@@ -159,10 +158,14 @@ function validateProductConfig() {
       var targetEl = $header.length ? $header[0] : $target[0];
       if (!targetEl) return;
       var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      var headerEl =
+        document.querySelector(".plugin-fixed-header") ||
+        document.querySelector(".top-navigation-bar") ||
+        document.querySelector("header");
+      var headerH = headerEl ? headerEl.offsetHeight : 0;
       var rect = targetEl.getBoundingClientRect();
       var elTop = window.scrollY + rect.top;
-      var elH = targetEl.offsetHeight || 50;
-      var tgt = elTop - (viewportH - elH) / 2;
+      var tgt = elTop - (headerH + viewportH * 0.2);
       tgt = Math.max(0, tgt);
       $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
     }, 450);

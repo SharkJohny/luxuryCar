@@ -2442,12 +2442,19 @@ a.gold-border.collection-card.shadow {
   width: calc(33% - 20px) !important;
 }
 
-.btn.choice-Model,
 .btn.more-pictures-button {
   background: linear-gradient(to right, #aa910a, #c49b31);
   border-radius: 50px;
   color: white;
   border-color: #c49b31;
+  box-shadow: none;
+}
+/* Michal req 2026-05-18: tlacidlo "Zvolit model" na homepage zelene */
+.btn.choice-Model {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-radius: 50px;
+  color: white;
+  border-color: #388e3c;
   box-shadow: none;
 }
 
