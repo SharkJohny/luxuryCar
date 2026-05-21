@@ -28519,7 +28519,7 @@ $(document).on("click", ".upsale-button", function(e) {
         openNextAccordion($boxs);
         setTimeout(() => {
           if (typeof scrollToStep === "function") scrollToStep($boxs);
-        }, 250);
+        }, 600);
       }
     }, 600);
   }
@@ -29112,7 +29112,7 @@ $("body").on("click", ".button.option-button", function(e) {
         if ($targetWrap && $targetWrap.length) {
           setTimeout(() => {
             scrollToStep($targetWrap);
-          }, 250);
+          }, 600);
         }
       }
     }, 400);
@@ -29232,7 +29232,7 @@ function mountTruckConfigurator() {
       $wrap.find("> .next-step-button").show();
       setTimeout(() => {
         if (typeof scrollToStep === "function") scrollToStep($wrap);
-      }, 250);
+      }, 600);
     }
   }, true);
 })();
