@@ -578,17 +578,22 @@ function priplatky(setupData, texts) {
     function scrollToStep($wrap) {
       if (!$wrap.length) return;
 
-      // Michal req 2026-05-18: vsetky kroky aj K5/K6 (vysoke wrappy s banner)
-      // — scroll cieli HEADER akordeona (.order/h5), nie cely wrap. Header
-      // vycentrujeme vertikalne na stred viewportu. Tym sa K5/K6 neumiestnia
-      // pri vrchu, ale ich nadpis je presne v strede obrazovky.
+      // Michal req 2026-05-18: scroll tak aby HEADER kroku bol 20% vysky
+      // obrazovky pod fixnym header-menu. Zistime realne rozlisenie viewportu
+      // a vysku header-menu, kombinujeme. Funguje na kazdom rozliseni.
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const headerEl =
+        document.querySelector(".plugin-fixed-header") ||
+        document.querySelector(".top-navigation-bar") ||
+        document.querySelector("header");
+      const headerH = headerEl ? headerEl.offsetHeight : 0;
       const $header = $wrap.find("> .order, > h5").first();
       const targetEl = $header.length ? $header[0] : $wrap[0];
       const rect = targetEl.getBoundingClientRect();
       const elTop = window.scrollY + rect.top;
-      const elH = targetEl.offsetHeight || 50;
-      let targetScrollTop = elTop - (viewportHeight - elH) / 2;
+      // Cielova pozicia headeru kroku = headerH + 20% viewportu od vrchu.
+      const desiredOffset = headerH + viewportHeight * 0.2;
+      let targetScrollTop = elTop - desiredOffset;
       targetScrollTop = Math.max(0, targetScrollTop);
 
       $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);

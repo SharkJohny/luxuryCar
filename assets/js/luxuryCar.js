@@ -28151,12 +28151,14 @@ function priplatky(setupData2, texts) {
     }, scrollToStep2 = function($wrap) {
       if (!$wrap.length) return;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
+      const headerH = headerEl ? headerEl.offsetHeight : 0;
       const $header = $wrap.find("> .order, > h5").first();
       const targetEl = $header.length ? $header[0] : $wrap[0];
       const rect = targetEl.getBoundingClientRect();
       const elTop = window.scrollY + rect.top;
-      const elH = targetEl.offsetHeight || 50;
-      let targetScrollTop = elTop - (viewportHeight - elH) / 2;
+      const desiredOffset = headerH + viewportHeight * 0.2;
+      let targetScrollTop = elTop - desiredOffset;
       targetScrollTop = Math.max(0, targetScrollTop);
       $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);
     }, proceedToCartFromStep = function() {
@@ -29748,10 +29750,11 @@ function validateProductConfig() {
       var targetEl = $header.length ? $header[0] : $target[0];
       if (!targetEl) return;
       var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      var headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
+      var headerH = headerEl ? headerEl.offsetHeight : 0;
       var rect = targetEl.getBoundingClientRect();
       var elTop = window.scrollY + rect.top;
-      var elH = targetEl.offsetHeight || 50;
-      var tgt = elTop - (viewportH - elH) / 2;
+      var tgt = elTop - (headerH + viewportH * 0.2);
       tgt = Math.max(0, tgt);
       $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
     }, 450);
