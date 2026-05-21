@@ -42,7 +42,7 @@ export function validation(texts) {
       // spodok anchor elementu ~40px nad spodkom viewportu
       var delta = rect.bottom - (viewportH - 40);
       var newScroll = Math.max(0, window.scrollY + delta);
-      $("html, body").stop(true).animate({ scrollTop: newScroll }, 500);
+      window.scrollTo({ top: newScroll, behavior: "smooth" });
     }, 600);
   });
 
@@ -187,7 +187,7 @@ function validateProductConfig() {
         var rect = targetEl.getBoundingClientRect();
         var delta = rect.top - (headerH + viewportH * 0.2);
         var newScroll = Math.max(0, window.scrollY + delta);
-        $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
+        window.scrollTo({ top: newScroll, behavior: "smooth" });
       }
       function tick() {
         tries++;
@@ -422,7 +422,7 @@ function optionTest() {
     setTimeout(() => {
       const offsetTop = $err.offset() && $err.offset().top;
       if (offsetTop != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(offsetTop - 100, 0) }, 400);
+        window.scrollTo({ top: Math.max(offsetTop - 100, 0), behavior: "smooth" });
       }
     }, 50);
 
