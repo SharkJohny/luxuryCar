@@ -28519,7 +28519,7 @@ $(document).on("click", ".upsale-button", function(e) {
         openNextAccordion($boxs);
         setTimeout(() => {
           if (typeof scrollToStep === "function") scrollToStep($boxs);
-        }, 250);
+        }, 600);
       }
     }, 600);
   }
@@ -29112,7 +29112,7 @@ $("body").on("click", ".button.option-button", function(e) {
         if ($targetWrap && $targetWrap.length) {
           setTimeout(() => {
             scrollToStep($targetWrap);
-          }, 250);
+          }, 600);
         }
       }
     }, 400);
@@ -29232,7 +29232,7 @@ function mountTruckConfigurator() {
       $wrap.find("> .next-step-button").show();
       setTimeout(() => {
         if (typeof scrollToStep === "function") scrollToStep($wrap);
-      }, 250);
+      }, 600);
     }
   }, true);
 })();
@@ -30769,51 +30769,3 @@ document.addEventListener("DOMContentLoaded", function() {
     scheduleScroll(btn.closest(".box-config"));
   });
 })();
-/*! Bundled license information:
-
-react/cjs/react.development.js:
-  (**
-   * @license React
-   * react.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-scheduler/cjs/scheduler.development.js:
-  (**
-   * @license React
-   * scheduler.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-react-dom/cjs/react-dom.development.js:
-  (**
-   * @license React
-   * react-dom.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-  (**
-   * Checks if an event is supported in the current execution environment.
-   *
-   * NOTE: This will not work correctly for non-generic events such as `change`,
-   * `reset`, `load`, `error`, and `select`.
-   *
-   * Borrows from Modernizr.
-   *
-   * @param {string} eventNameSuffix Event name, e.g. "click".
-   * @return {boolean} True if the event is supported.
-   * @internal
-   * @license Modernizr 3.0.0pre (Custom Build) | MIT
-   *)
-*/
