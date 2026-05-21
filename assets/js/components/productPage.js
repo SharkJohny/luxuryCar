@@ -878,12 +878,25 @@ function openNextAccordion($next) {
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
     $(".upsale-Banner").show();
-    // Pre nepouzite duplicate instancie (conf1/conf2) skry ostatne trunk/boxs
+    // Michal req 2026-05-18: K5 (trunk) mizol pri otvoreni K6. Predtym sa
+    // skryli VSETKY neaktivne trunk/boxs. Teraz skryjeme IBA duplicitne
+    // instancie (conf1/conf2 = 2. a dalsie) — prvy trunk (K5) a prvy boxs
+    // (K6) nechame vzdy viditelne v zozname akordeonov.
     var nextEl = $next[0];
+    var firstTrunk = $(".upsale-Banner .upsale-buttons.trunk")[0] || null;
+    var firstBoxs = $(".upsale-Banner .upsale-buttons.boxs")[0] || null;
     $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function () {
-      if (this !== nextEl && !this.classList.contains("active")) {
-        this.style.display = "none";
+      if (this === nextEl) return;          // aktivny krok — necháme
+      if (this === firstTrunk) {            // hlavny K5 trunk — viditelny, len zatvoreny
+        this.style.display = "";
+        this.classList.remove("active");
+        return;
       }
+      if (this === firstBoxs) {             // hlavny K6 boxs — viditelny
+        this.style.display = "";
+        return;
+      }
+      this.style.display = "none";          // duplikat conf1/conf2 — skry
     });
   }
 }
