@@ -50,7 +50,7 @@ export function initContactForm() {
         $("#lc-phone-wrapper").addClass("lc-phone-invalid");
         document.getElementById("lcPhone").focus();
         const top = $("#lc-phone-wrapper").offset().top - 120;
-        $("html, body").animate({ scrollTop: top }, 300);
+        window.scrollTo({ top: top, behavior: "smooth" });
         return;
       }
       const $message = $form.find('textarea[name="message"]');

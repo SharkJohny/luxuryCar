@@ -599,7 +599,7 @@ function priplatky(setupData, texts) {
         const desiredTop = headerH + viewportHeight * 0.2;
         const delta = rect.top - desiredTop;
         const newScroll = Math.max(0, window.scrollY + delta);
-        $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
+        window.scrollTo({ top: newScroll, behavior: "smooth" });
       }
       function lcdTick() {
         tries++;
