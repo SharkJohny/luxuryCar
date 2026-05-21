@@ -28394,6 +28394,21 @@ function priplatky(setupData2, texts) {
           return;
         }
       }
+      const $contentSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+      if ($contentSteps.length && $contentSteps.last()[0] === currentWrap[0]) {
+        const $trunk = $(".upsale-buttons.trunk").first();
+        if ($trunk.length) {
+          currentWrap.removeClass("active");
+          openNextAccordion($trunk);
+          setTimeout(() => {
+            scrollToStep2($trunk);
+          }, 700);
+          setTimeout(() => {
+            updateButtonTexts2();
+          }, 50);
+          return;
+        }
+      }
       const allWraps = getNavigableWraps();
       const currentIndex = allWraps.index(currentWrap);
       if (currentIndex < allWraps.length - 1) {
@@ -29081,12 +29096,19 @@ $("body").on("click", ".button.option-button", function(e) {
   if (hasNextBtn && !isManualStep && !isInBoxConfig) {
     setTimeout(() => {
       let $nextWrap = null;
-      const allWrapsInline = $(".position-wrap, .parameter-wrap").filter(function() {
-        return !$(this).closest(".box-config").length;
-      });
-      const idxInline = allWrapsInline.index($currentWrap);
-      if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
-        $nextWrap = allWrapsInline.eq(idxInline + 1);
+      const $contentStepsAP = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+      if ($contentStepsAP.length && $contentStepsAP.last()[0] === $currentWrap[0]) {
+        const $trunkAP = $(".upsale-buttons.trunk").first();
+        if ($trunkAP.length) $nextWrap = $trunkAP;
+      }
+      if (!$nextWrap) {
+        const allWrapsInline = $(".position-wrap, .parameter-wrap").filter(function() {
+          return !$(this).closest(".box-config").length;
+        });
+        const idxInline = allWrapsInline.index($currentWrap);
+        if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
+          $nextWrap = allWrapsInline.eq(idxInline + 1);
+        }
       }
       if ($nextWrap) {
         let forceCloseWrap = function($w) {

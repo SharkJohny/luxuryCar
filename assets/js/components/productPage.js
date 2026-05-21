@@ -681,6 +681,22 @@ function priplatky(setupData, texts) {
         }
       }
 
+      // Michal req 2026-05-18: K4 (posledny krok v .content-wrap) -> K5 (trunk).
+      // index+1 v zozname obsahujucom duplicitne trunk/boxs ukazoval na skryty
+      // duplikat -> scrollToStep dostal skryty element (rect 0/0) -> scroll
+      // nefungoval. Riesime explicitne ako K5->K6.
+      const $contentSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+      if ($contentSteps.length && $contentSteps.last()[0] === currentWrap[0]) {
+        const $trunk = $(".upsale-buttons.trunk").first();
+        if ($trunk.length) {
+          currentWrap.removeClass("active");
+          openNextAccordion($trunk);
+          setTimeout(() => { scrollToStep($trunk); }, 700);
+          setTimeout(() => { updateButtonTexts(); }, 50);
+          return;
+        }
+      }
+
       const allWraps = getNavigableWraps();
       const currentIndex = allWraps.index(currentWrap);
 
@@ -1755,12 +1771,21 @@ $("body").on("click", ".button.option-button", function (e) {
       // .content-wrap (preto .content-wrap.children('.parameter-wrap') by ich
       // nezahrnula).
       let $nextWrap = null;
-      const allWrapsInline = $('.position-wrap, .parameter-wrap').filter(function () {
-        return !$(this).closest('.box-config').length;
-      });
-      const idxInline = allWrapsInline.index($currentWrap);
-      if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
-        $nextWrap = allWrapsInline.eq(idxInline + 1);
+      // Michal req 2026-05-18: K4 (posledny krok v .content-wrap) -> K5 (trunk)
+      // explicitne — index+1 by trafil skryty duplikat trunk/boxs.
+      const $contentStepsAP = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+      if ($contentStepsAP.length && $contentStepsAP.last()[0] === $currentWrap[0]) {
+        const $trunkAP = $(".upsale-buttons.trunk").first();
+        if ($trunkAP.length) $nextWrap = $trunkAP;
+      }
+      if (!$nextWrap) {
+        const allWrapsInline = $('.position-wrap, .parameter-wrap').filter(function () {
+          return !$(this).closest('.box-config').length;
+        });
+        const idxInline = allWrapsInline.index($currentWrap);
+        if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
+          $nextWrap = allWrapsInline.eq(idxInline + 1);
+        }
       }
 
       if ($nextWrap) {
