@@ -151,7 +151,8 @@ function validateProductConfig() {
     }
 
     // 4) Scroll: HEADER akordeona na 20% vysky obrazovky pod header-menu.
-    setTimeout(function () {
+    //    DVOJFAZOVY — doladenie po ustaleni layoutu (accordion expand 0.4s).
+    function lcdValScroll() {
       var $target = $accordion && $accordion.length ? $accordion : $first;
       if (!$target || !$target.length) return;
       var $header = $target.find("> .order, > h5").first();
@@ -164,11 +165,13 @@ function validateProductConfig() {
         document.querySelector("header");
       var headerH = headerEl ? headerEl.offsetHeight : 0;
       var rect = targetEl.getBoundingClientRect();
-      var elTop = window.scrollY + rect.top;
-      var tgt = elTop - (headerH + viewportH * 0.2);
-      tgt = Math.max(0, tgt);
-      $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
-    }, 450);
+      var desiredTop = headerH + viewportH * 0.2;
+      var delta = rect.top - desiredTop;
+      var newScroll = Math.max(0, window.scrollY + delta);
+      $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
+    }
+    setTimeout(lcdValScroll, 450);
+    setTimeout(lcdValScroll, 1100);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
     setTimeout(function () {

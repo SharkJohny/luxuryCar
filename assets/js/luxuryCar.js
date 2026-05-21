@@ -28150,17 +28150,21 @@ function priplatky(setupData2, texts) {
       return isLast ? "Dokon\u010Dit konfiguraci" : "P\u0159ej\xEDt k dal\u0161\xEDmu kroku";
     }, scrollToStep2 = function($wrap) {
       if (!$wrap.length) return;
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-      const headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
-      const headerH = headerEl ? headerEl.offsetHeight : 0;
-      const $header = $wrap.find("> .order, > h5").first();
-      const targetEl = $header.length ? $header[0] : $wrap[0];
-      const rect = targetEl.getBoundingClientRect();
-      const elTop = window.scrollY + rect.top;
-      const desiredOffset = headerH + viewportHeight * 0.2;
-      let targetScrollTop = elTop - desiredOffset;
-      targetScrollTop = Math.max(0, targetScrollTop);
-      $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 500);
+      function doScroll() {
+        const $header = $wrap.find("> .order, > h5").first();
+        const targetEl = $header.length ? $header[0] : $wrap[0];
+        if (!targetEl) return;
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+        const headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
+        const headerH = headerEl ? headerEl.offsetHeight : 0;
+        const rect = targetEl.getBoundingClientRect();
+        const desiredTop = headerH + viewportHeight * 0.2;
+        const delta = rect.top - desiredTop;
+        const newScroll = Math.max(0, window.scrollY + delta);
+        $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
+      }
+      doScroll();
+      setTimeout(doScroll, 750);
     }, proceedToCartFromStep = function() {
       const $addToCartButton = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function() {
         const style = window.getComputedStyle(this);
@@ -29726,6 +29730,21 @@ function validateProductConfig() {
     }
   });
   if ($first) {
+    let lcdValScroll = function() {
+      var $target = $accordion && $accordion.length ? $accordion : $first;
+      if (!$target || !$target.length) return;
+      var $header = $target.find("> .order, > h5").first();
+      var targetEl = $header.length ? $header[0] : $target[0];
+      if (!targetEl) return;
+      var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      var headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
+      var headerH = headerEl ? headerEl.offsetHeight : 0;
+      var rect = targetEl.getBoundingClientRect();
+      var desiredTop = headerH + viewportH * 0.2;
+      var delta = rect.top - desiredTop;
+      var newScroll = Math.max(0, window.scrollY + delta);
+      $("html, body").stop(true).animate({ scrollTop: newScroll }, 400);
+    };
     const $banner = $first.closest(".upsale-Banner");
     if ($banner.length && !$banner.hasClass("showConf")) {
       $banner.addClass("showConf");
@@ -29753,21 +29772,8 @@ function validateProductConfig() {
       $accordion.find("> .next-step-button").show();
       $accordion.addClass("active");
     }
-    setTimeout(function() {
-      var $target = $accordion && $accordion.length ? $accordion : $first;
-      if (!$target || !$target.length) return;
-      var $header = $target.find("> .order, > h5").first();
-      var targetEl = $header.length ? $header[0] : $target[0];
-      if (!targetEl) return;
-      var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-      var headerEl = document.querySelector(".plugin-fixed-header") || document.querySelector(".top-navigation-bar") || document.querySelector("header");
-      var headerH = headerEl ? headerEl.offsetHeight : 0;
-      var rect = targetEl.getBoundingClientRect();
-      var elTop = window.scrollY + rect.top;
-      var tgt = elTop - (headerH + viewportH * 0.2);
-      tgt = Math.max(0, tgt);
-      $("html, body").stop(true).animate({ scrollTop: tgt }, 500);
-    }, 450);
+    setTimeout(lcdValScroll, 450);
+    setTimeout(lcdValScroll, 1100);
     setTimeout(function() {
       $(".errorToCart").removeClass("errorToCart");
     }, 2500);
