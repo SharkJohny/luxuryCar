@@ -515,6 +515,19 @@ function lcdVideos() {
 
   function placeWidget() {
     if ($(".lcd-videos-widget").length) return true;
+    if ($(".in-index")[0]) {
+      var $h = $(".sec-header").filter(function () {
+        return /vyroben.{0,4}koberce do kufr/i.test($(this).text().replace(/\s+/g, " "));
+      }).first();
+      if ($h.length) {
+        var $sec = $h.closest("section");
+        if ($sec.length) {
+          $('<div class="lcd-videos-widget"></div>').insertBefore($sec);
+          return true;
+        }
+      }
+      return false;
+    }
     if ($(".type-product")[0]) {
       var $mat = $(".basic-description .layers-info-wrap").first();
       if ($mat.length) {
