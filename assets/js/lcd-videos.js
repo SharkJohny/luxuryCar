@@ -28,15 +28,15 @@
   var CONFIG = {
     apiKey: 'AIzaSyC1oohVIKqPPcxL3rZKZ_ZPKLoWS9CbRgQ',
     playlistId: 'PL5uNhg-LR1do0MIzDRJGM4d-2Kj1uLwxU',
-    maxFetch: 200,                       /* koľko položiek max ťahať z API */
+    maxFetch: 500,                       /* koľko položiek max ťahať z API */
     cacheHours: 12                       /* ako dlho držať dáta v cache */
   };
 
   var DEFAULTS = {
     title: 'Realita luxusných autokobercov',
-    subtitle: 'Pozrite sa, ako naše autokoberce vyzerajú a fungujú v reálnych autách',
+    subtitle: 'Pozrite sa, ako naše autokoberce vyzerajú a fungujú v praxi',
     text: '',
-    limit: 24
+    limit: 300
   };
 
   /* Záložný zoznam — použije sa, len keď YouTube API nie je dostupné
@@ -334,7 +334,7 @@
     function pad() {
       var c = track.querySelector('.lcdv-card');
       if (!c) return;
-      var p = 6;
+      var p = Math.max(6, Math.round(track.clientWidth / 2 - c.offsetWidth / 2));
       track.style.paddingLeft = track.style.paddingRight = p + 'px';
     }
     /* zvýrazni kartu najbližšie k stredu */

@@ -529,6 +529,14 @@ function lcdVideos() {
       return false;
     }
     if ($(".type-product")[0]) {
+      if (/box/i.test($("h1").first().text())) {
+        var $rev = $(".lcd-reviews-widget").first();
+        if ($rev.length) {
+          $('<div class="lcd-videos-widget"></div>').insertAfter($rev);
+          return true;
+        }
+        return false;
+      }
       var $mat = $(".basic-description .layers-info-wrap").first();
       if ($mat.length) {
         $('<div class="lcd-videos-widget"></div>').insertAfter($mat);
@@ -551,8 +559,13 @@ function lcdVideos() {
   (function tryPlace() {
     tries++;
     if (placeWidget()) { loadScript(); return; }
-    if (tries >= 25) return;
-    setTimeout(tryPlace, 300);
+    if (tries < 25) { setTimeout(tryPlace, 300); return; }
+    if (typeof MutationObserver === "function" && document.body) {
+      var mo = new MutationObserver(function () {
+        if (placeWidget()) { loadScript(); mo.disconnect(); }
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+    }
   })();
 }
 
