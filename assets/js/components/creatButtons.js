@@ -511,15 +511,10 @@ function createOptionButtons(options, parameterId, optionsWrap, isBoxParam = fal
       }
       let label;
     } else if (textOption.includes("rad") || textOption.includes("řada")) {
-      // Vytvoř radio input
-      $("<input>", {
-        type: "radio",
-        id: `radio-${parameterId}-${value}`,
-        name: `parameter-${parameterId}`,
-        value: value,
-      }).appendTo(optionButton);
+      // BEZ radio inputu - Michal: ziadne bodky pri kroku 4. Vyber riesi
+      // klik na cely .option-button (radio bola aj tak vizualne skryta).
 
-      // Vytvoř label pro radio
+      // Label pro moznost rozlozenia
       $("<label>", {
         for: `radio-${parameterId}-${value}`,
         class: "radio-label",

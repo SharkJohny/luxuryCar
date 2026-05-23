@@ -24477,12 +24477,6 @@ function createOptionButtons(options, parameterId, optionsWrap, isBoxParam = fal
       }
       let label;
     } else if (textOption.includes("rad") || textOption.includes("\u0159ada")) {
-      $("<input>", {
-        type: "radio",
-        id: `radio-${parameterId}-${value}`,
-        name: `parameter-${parameterId}`,
-        value
-      }).appendTo(optionButton);
       $("<label>", {
         for: `radio-${parameterId}-${value}`,
         class: "radio-label",
