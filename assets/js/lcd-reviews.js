@@ -129,6 +129,10 @@
     '.lcdr-lb-next{right:18px;top:50%;transform:translateY(-50%);}',
     '.lcdr-lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);',
     'color:#fff;font-size:13px;background:rgba(0,0,0,.45);padding:5px 13px;border-radius:20px;}',
+    '.lcdr-cta{margin:32px auto 0;display:flex;justify-content:center;}',
+    '.lcdr-cta a{display:inline-flex;align-items:center;gap:9px;background:var(--lcdr-gold);color:#fff;font-weight:700;font-size:15px;text-decoration:none;padding:14px 30px;border-radius:10px;transition:filter .15s,transform .15s;}',
+    '.lcdr-cta a:hover{filter:brightness(1.08);transform:translateY(-1px);}',
+    '.lcdr-cta a svg{width:18px;height:18px;}',
     '@media(prefers-reduced-motion:reduce){.lcdr-track{scroll-behavior:auto;}.lcdr-lb,.lcdr-arrow{transition:none;}}'
   ].join('');
 
@@ -140,6 +144,7 @@
     chevR: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     extlink: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10v10M19 5L8 16"/></svg>',
+    write: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
     verified: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#c49b31"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     google: '<svg viewBox="0 0 24 24">' +
       '<path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.55-5.17 3.55-8.87z"/>' +
@@ -468,12 +473,12 @@
           prev: 'Predchádzajúce recenzie', next: 'Ďalšie recenzie', list: 'Recenzie zákazníkov',
           loading: 'Načítavam recenzie…', zoom: 'Zväčšiť fotku ',
           ratingAria: 'Hodnotenie', avg: 'priemerné hodnotenie',
-          rev1: 'recenzia', rev2: 'recenzie', rev5: 'recenzií' },
+          rev1: 'recenzia', rev2: 'recenzie', rev5: 'recenzií', writeReview: 'Napíšte nám recenziu' },
     cz: { readMore: 'Číst více', verified: 'Ověřená recenze', gReview: 'Recenze z Google',
           prev: 'Předchozí recenze', next: 'Další recenze', list: 'Recenze zákazníků',
           loading: 'Načítám recenze…', zoom: 'Zvětšit fotku ',
           ratingAria: 'Hodnocení', avg: 'průměrné hodnocení',
-          rev1: 'recenze', rev2: 'recenze', rev5: 'recenzí' }
+          rev1: 'recenze', rev2: 'recenze', rev5: 'recenzí', writeReview: 'Napište nám recenzi' }
   };
   function tr(cfg) {
     return (cfg && (cfg.lang === 'cz' || cfg.lang === 'cs')) ? I18N.cz : I18N.sk;
@@ -591,7 +596,22 @@
 
       host.appendChild(buildHeader(data.place, cfg));
       host.appendChild(buildCarousel(list, cfg));
+      host.appendChild(buildReviewBtn(cfg));
     });
+  }
+
+  /* --------------------------------------------------------- CTA tlacidlo --- */
+  function buildReviewBtn(cfg) {
+    var wrap = el('div', { class: 'lcdr-cta' });
+    var href = cfg.placeUrl;
+    if (!href) return wrap;
+    wrap.appendChild(el('a', {
+      href: href, target: '_blank', rel: 'noopener noreferrer nofollow'
+    }, [
+      el('span', { html: ICON.write, 'aria-hidden': 'true' }),
+      tr(cfg).writeReview
+    ]));
+    return wrap;
   }
 
   /* --------------------------------------------------------------- init --- */
