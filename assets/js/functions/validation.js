@@ -140,7 +140,7 @@ function validateProductConfig() {
 
     // 4) Scroll na prvú chybu - zdielany LCD scroll engine.
     setTimeout(function () {
-      lcdScrollToStep($first);
+      lcdScrollToStep($first, { center: true });
     }, 50);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
@@ -358,7 +358,7 @@ function optionTest() {
 
     // Scroll na první chybějící krok - zdielany LCD scroll engine.
     setTimeout(() => {
-      lcdScrollToStep($err);
+      lcdScrollToStep($err, { center: true });
     }, 50);
 
     setTimeout(() => {

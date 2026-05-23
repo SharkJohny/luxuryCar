@@ -27897,11 +27897,12 @@ function lcdGetHeaderOffset() {
   }
   return maxBottom;
 }
-function lcdScrollToStep(target) {
+function lcdScrollToStep(target, opts) {
   var el = target;
   if (el && el.jquery) el = el.get(0);
   if (!el || typeof el.getBoundingClientRect !== "function") return;
   var GAP = 16;
+  var center = !!(opts && opts.center);
   var lastTop = null;
   var stableFrames = 0;
   var frames = 0;
@@ -27919,6 +27920,17 @@ function lcdScrollToStep(target) {
       window.scrollTo(0, top);
     }
   }
+  function desiredViewportTop() {
+    var headerH = lcdGetHeaderOffset();
+    if (center) {
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      var elH = el.getBoundingClientRect().height || 0;
+      var avail = vh - headerH;
+      if (elH >= avail - 20) return headerH + GAP;
+      return headerH + (avail - elH) / 2;
+    }
+    return headerH + GAP;
+  }
   function correctAfterSettle() {
     var lastY = null;
     var sf = 0;
@@ -27930,11 +27942,10 @@ function lcdScrollToStep(target) {
       else sf = 0;
       lastY = y;
       if (sf >= 6 || f > 200) {
-        var headerH = lcdGetHeaderOffset();
         var have = el.getBoundingClientRect().top;
-        var want = headerH + GAP;
+        var want = desiredViewportTop();
         if (Math.abs(have - want) > 38) {
-          nativeScroll(pageY() + have - headerH - GAP);
+          nativeScroll(pageY() + have - want);
         }
       } else {
         requestAnimationFrame(watch);
@@ -27943,8 +27954,7 @@ function lcdScrollToStep(target) {
     requestAnimationFrame(watch);
   }
   function performScroll() {
-    var headerH = lcdGetHeaderOffset();
-    nativeScroll(absTop() - headerH - GAP);
+    nativeScroll(absTop() - desiredViewportTop());
     correctAfterSettle();
   }
   function tick() {
@@ -29736,7 +29746,7 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
     setTimeout(function() {
-      lcdScrollToStep($first);
+      lcdScrollToStep($first, { center: true });
     }, 50);
     setTimeout(function() {
       $(".errorToCart").removeClass("errorToCart");
@@ -29828,7 +29838,7 @@ function optionTest() {
       $boxConfig.css("display", "");
     }
     setTimeout(() => {
-      lcdScrollToStep($err);
+      lcdScrollToStep($err, { center: true });
     }, 50);
     setTimeout(() => {
       $(".config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");

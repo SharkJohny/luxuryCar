@@ -1,29 +1,13 @@
 /**
- * LCD SCROLL ENGINE - kompletny rebuild 2026-05-23
- * -------------------------------------------------
- * Jediny scroll mechanizmus pre konfigurator (kroky K0-K6).
- *
- * Princip:
- *  1. Volajuci otvori novy akordeon a zavola lcdScrollToStep s PREDOSLYM
- *     (prave dokoncenym) krokom - aby ho zakaznik videl hore zatvoreny
- *     a novy krok otvoreny pod nim.
- *  2. Engine pocka v requestAnimationFrame slucke kym sa layout USTALI.
- *  3. Potom RAZ cisto naskroluje tak, aby hlavicka kroku bola tesne pod
- *     fixnym header-menu (vratane loga).
- *  4. Po dojazde scrollu spravi jednu korekciu.
- *
- * Preco window.scrollTo a nie jQuery .animate(scrollTop):
- *  Na tomto Shoptet shope jQuery .animate so strankou nehybe. Funguje
- *  VYHRADNE nativne window.scrollTo.
+ * LCD SCROLL ENGINE - rebuild 2026-05-23
+ * Jediny scroll mechanizmus konfiguratora.
+ *  - default: hlavicka kroku tesne pod fixny header-menu (postup K0-K6)
+ *  - opts.center: krok vycentrovany na vysku viewportu (validacia chyb)
+ * Pouziva nativne window.scrollTo (jQuery .animate na tomto Shoptete nehybe).
  */
 
-/**
- * Vyska realne pripnuteho header-menu vratane loga - kolko px zhora
- * prekryva obsah. Ak header nie je pripnuty hore, vrati 0.
- */
+/** Vyska realne pripnuteho header-menu vratane loga. */
 export function lcdGetHeaderOffset() {
-  // Header pasmo + LOGO. Logo visi nizsie nez tmavy header pruh - preto
-  // ho treba zaratat, inak logo prekryje nazov kroku.
   var selectors = [
     ".plugin-fixed-header",
     ".header-fixed",
@@ -70,14 +54,17 @@ export function lcdGetHeaderOffset() {
 }
 
 /**
- * Naskroluje na dany krok tak, aby jeho hlavicka bola tesne pod header-menu.
+ * Naskroluje na dany krok.
+ * @param {Element|jQuery} target
+ * @param {{center?:boolean}} [opts] - center: vycentruj na vysku viewportu
  */
-export function lcdScrollToStep(target) {
+export function lcdScrollToStep(target, opts) {
   var el = target;
   if (el && el.jquery) el = el.get(0);
   if (!el || typeof el.getBoundingClientRect !== "function") return;
 
   var GAP = 16;
+  var center = !!(opts && opts.center);
   var lastTop = null;
   var stableFrames = 0;
   var frames = 0;
@@ -99,6 +86,20 @@ export function lcdScrollToStep(target) {
     }
   }
 
+  // Pozadovana pozicia horneho okraja kroku vo viewporte.
+  function desiredViewportTop() {
+    var headerH = lcdGetHeaderOffset();
+    if (center) {
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      var elH = el.getBoundingClientRect().height || 0;
+      var avail = vh - headerH;
+      // Ak je krok privelky na vycentrovanie - zarovnaj tesne pod header.
+      if (elH >= avail - 20) return headerH + GAP;
+      return headerH + (avail - elH) / 2;
+    }
+    return headerH + GAP;
+  }
+
   function correctAfterSettle() {
     var lastY = null;
     var sf = 0;
@@ -110,11 +111,10 @@ export function lcdScrollToStep(target) {
       else sf = 0;
       lastY = y;
       if (sf >= 6 || f > 200) {
-        var headerH = lcdGetHeaderOffset();
         var have = el.getBoundingClientRect().top;
-        var want = headerH + GAP;
+        var want = desiredViewportTop();
         if (Math.abs(have - want) > 38) {
-          nativeScroll(pageY() + have - headerH - GAP);
+          nativeScroll(pageY() + have - want);
         }
       } else {
         requestAnimationFrame(watch);
@@ -124,8 +124,7 @@ export function lcdScrollToStep(target) {
   }
 
   function performScroll() {
-    var headerH = lcdGetHeaderOffset();
-    nativeScroll(absTop() - headerH - GAP);
+    nativeScroll(absTop() - desiredViewportTop());
     correctAfterSettle();
   }
 
@@ -144,10 +143,7 @@ export function lcdScrollToStep(target) {
   requestAnimationFrame(tick);
 }
 
-/**
- * Stabilne oznacenie krokov atributom data-lcd-step.
- * Poradie: kroky v content-wrap, potom trunk, potom boxs.
- */
+/** Stabilne oznacenie krokov atributom data-lcd-step. */
 export function lcdTagSteps() {
   var steps = [];
   var contentSteps = document.querySelectorAll(
