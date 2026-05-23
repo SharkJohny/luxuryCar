@@ -7186,3 +7186,39 @@ header.header,
   transform: translateX(-50%);
   background: #ededed;
 }
+
+
+/* === Widget ZLOZENIE MATERIALU - oprava prekrytia textu a obrazku === */
+.basic-description .layers-info-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.basic-description .layers-info-wrap .layers-text {
+  position: static !important;
+  width: auto;
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+.basic-description .layers-info-wrap .image-container {
+  flex: 1 1 480px;
+  width: auto;
+  margin: 0;
+  min-width: 0;
+}
+.basic-description .layers-info-wrap .image-container img {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .basic-description .layers-info-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .basic-description .layers-info-wrap .layers-text,
+  .basic-description .layers-info-wrap .image-container {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}

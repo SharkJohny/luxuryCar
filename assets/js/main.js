@@ -443,9 +443,9 @@ function googleReviews(setupData, texts) {
   $("#goggle-review-wrap, .google-reviews").remove();
 
   function makeWidget() {
-    var title = (texts && texts.google_review)
-      ? texts.google_review
-      : (lang === "cz" ? "Co \u0159\u00EDkaj\u00ED na\u0161i z\u00E1kazn\u00EDci" : "\u010Co hovoria na\u0161i z\u00E1kazn\u00EDci");
+    var title = (lang === "cz")
+      ? "Co \u0159\u00EDkaj\u00ED na\u0161i z\u00E1kazn\u00EDci"
+      : "\u010Co hovoria na\u0161i z\u00E1kazn\u00EDci";
     return $('<div class="lcd-reviews-widget"></div>')
       .attr("data-title", title)
       .attr("data-lang", lang)
