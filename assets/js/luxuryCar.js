@@ -29631,6 +29631,12 @@ function changeDescription() {
     $("<li  >").text("Model: " + getModel).appendTo(model);
     $("<li>").text("Rok: " + getYear).appendTo(model);
     $("<li>").text("Typ: " + getCarType).appendTo(model);
+    var $row = $(this).closest("tr").length ? $(this).closest("tr") : $(this).parents().eq(4);
+    var rowText = ($row.text() || "").replace(/\s+/g, " ");
+    var m1 = rowText.match(/farba\s*1\.?\s*vrstvy\s*:\s*([^,]+?)(?:,\s*farba\s*2|,|\s*Značka|$)/i);
+    var m2 = rowText.match(/farba\s*2\.?\s*vrstvy\s*:\s*([^,]+?)(?:\s*Značka|,|$)/i);
+    if (m1) $("<li>").text("Farba 1. vrstvy: " + m1[1].trim()).appendTo(model);
+    if (m2) $("<li>").text("Farba 2. vrstvy: " + m2[1].trim()).appendTo(model);
     $("<span>").html(newText).appendTo(setup);
     $(this).html(infowrap);
   });
