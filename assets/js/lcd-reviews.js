@@ -348,13 +348,13 @@
     card.appendChild(el('div', { class: 'lcdr-card-top' }, [
       av, meta,
       el('span', { class: 'lcdr-gmark', html: ICON.google,
-        'aria-hidden': 'true', title: 'Recenzia z Google' })
+        'aria-hidden': 'true', title: tr(cfg).gReview })
     ]));
 
     card.appendChild(el('div', { class: 'lcdr-stars-row' }, [
       starRow(r.rating),
       el('span', { class: 'lcdr-verified', html: ICON.verified,
-        'aria-hidden': 'true', title: 'Overená recenzia' })
+        'aria-hidden': 'true', title: tr(cfg).verified })
     ]));
 
     card.appendChild(el('p', { class: 'lcdr-text', text: truncate(r.text, cfg.sentences, cfg.maxChars) }));
@@ -365,7 +365,7 @@
       var prow = el('div', { class: 'lcdr-photos' });
       photos.slice(0, SHOW).forEach(function (p, i) {
         var btn = el('button', { class: 'lcdr-thumb', type: 'button',
-          'aria-label': 'Zväčšiť fotku ' + (i + 1) });
+          'aria-label': tr(cfg).zoom + (i + 1) });
         btn.appendChild(el('img', { src: p, alt: 'Fotka od zákazníka', loading: 'lazy' }));
         if (i === SHOW - 1 && photos.length > SHOW) {
           btn.appendChild(el('span', { class: 'lcdr-thumb-more',
@@ -383,7 +383,7 @@
         class: 'lcdr-more', href: href, target: '_blank',
         rel: 'noopener noreferrer nofollow'
       }, [
-        'Čítať viac',
+        tr(cfg).readMore,
         el('span', { html: ICON.extlink, 'aria-hidden': 'true' })
       ]));
     }
@@ -394,13 +394,13 @@
   function buildCarousel(reviews, cfg) {
     var vp = el('div', { class: 'lcdr-viewport' });
     var track = el('div', { class: 'lcdr-track', role: 'list',
-      tabindex: '0', 'aria-label': 'Recenzie zákazníkov' });
+      tabindex: '0', 'aria-label': tr(cfg).list });
     reviews.forEach(function (r) { track.appendChild(buildCard(r, cfg)); });
 
     var prev = el('button', { class: 'lcdr-arrow lcdr-arrow--prev', type: 'button',
-      'aria-label': 'Predchádzajúce recenzie', html: ICON.chevL });
+      'aria-label': tr(cfg).prev, html: ICON.chevL });
     var next = el('button', { class: 'lcdr-arrow lcdr-arrow--next', type: 'button',
-      'aria-label': 'Ďalšie recenzie', html: ICON.chevR });
+      'aria-label': tr(cfg).next, html: ICON.chevR });
     vp.appendChild(prev);
     vp.appendChild(track);
     vp.appendChild(next);
@@ -462,6 +462,23 @@
   }
 
   /* ------------------------------------------------------------- hlavička --- */
+  /* ----------------------------------------------------------- preklady --- */
+  var I18N = {
+    sk: { readMore: 'Čítať viac', verified: 'Overená recenzia', gReview: 'Recenzia z Google',
+          prev: 'Predchádzajúce recenzie', next: 'Ďalšie recenzie', list: 'Recenzie zákazníkov',
+          loading: 'Načítavam recenzie…', zoom: 'Zväčšiť fotku ',
+          ratingAria: 'Hodnotenie', avg: 'priemerné hodnotenie',
+          rev1: 'recenzia', rev2: 'recenzie', rev5: 'recenzií' },
+    cz: { readMore: 'Číst více', verified: 'Ověřená recenze', gReview: 'Recenze z Google',
+          prev: 'Předchozí recenze', next: 'Další recenze', list: 'Recenze zákazníků',
+          loading: 'Načítám recenze…', zoom: 'Zvětšit fotku ',
+          ratingAria: 'Hodnocení', avg: 'průměrné hodnocení',
+          rev1: 'recenze', rev2: 'recenze', rev5: 'recenzí' }
+  };
+  function tr(cfg) {
+    return (cfg && (cfg.lang === 'cz' || cfg.lang === 'cs')) ? I18N.cz : I18N.sk;
+  }
+
   function buildHeader(place, cfg) {
     var head = el('div', { class: 'lcdr-head' });
     head.appendChild(el('h3', { class: 'lcdr-title', text: cfg.title }));
@@ -475,10 +492,10 @@
       var rt = Number(place.rating).toFixed(1).replace('.', ',');
       var sub = place.totalReviews
         ? place.totalReviews + ' ' +
-          plural(place.totalReviews, 'recenzia', 'recenzie', 'recenzií')
-        : 'priemerné hodnotenie';
+          plural(place.totalReviews, tr(cfg).rev1, tr(cfg).rev2, tr(cfg).rev5)
+        : tr(cfg).avg;
       var badge = el('div', { class: 'lcdr-gbadge', role: 'img',
-        'aria-label': 'Hodnotenie ' + rt + ' z 5 na Google' }, [
+        'aria-label': tr(cfg).ratingAria + ' ' + rt + ' z 5 na Google' }, [
         el('div', { class: 'lcdr-gbadge-left' }, [
           el('span', { class: 'lcdr-gbadge-score', text: rt }),
           ss
@@ -544,7 +561,7 @@
     };
 
     host.textContent = '';
-    host.appendChild(el('div', { class: 'lcdr-state', text: 'Načítavam recenzie…' }));
+    host.appendChild(el('div', { class: 'lcdr-state', text: tr(cfg).loading }));
 
     getData(host, function (err, data) {
       host.textContent = '';
