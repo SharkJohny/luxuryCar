@@ -30627,6 +30627,12 @@ function googleReviews(setupData2, texts) {
         }
         return false;
       }
+      var $pct = $(".impact-text").first();
+      if ($pct.length) {
+        var $pctSec = $pct.closest(".section, section");
+        makeWidget().insertBefore($pctSec.length ? $pctSec : $pct);
+        return true;
+      }
       var $sec = $(".images-scrolling__counter").first().closest("section");
       if ($sec.length) {
         makeWidget().insertBefore($sec);

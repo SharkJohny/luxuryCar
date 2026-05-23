@@ -469,6 +469,12 @@ function googleReviews(setupData, texts) {
         if ($pi.length) { makeWidget().prependTo($pi); return true; }
         return false;
       }
+      var $pct = $(".impact-text").first();
+      if ($pct.length) {
+        var $pctSec = $pct.closest(".section, section");
+        makeWidget().insertBefore($pctSec.length ? $pctSec : $pct);
+        return true;
+      }
       var $sec = $(".images-scrolling__counter").first().closest("section");
       if ($sec.length) { makeWidget().insertBefore($sec); return true; }
       var $d2 = $("div.basic-description").first();
