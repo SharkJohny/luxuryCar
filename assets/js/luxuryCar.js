@@ -30335,6 +30335,7 @@ $.getJSON(optionData.downloadData, function(data) {
   initProduct(setupData, texts);
   initModelSelect2(texts, setupData);
   googleReviews(setupData, texts);
+  lcdVideos();
   addNote();
   validation(texts);
   initLivePrice();
@@ -30664,6 +30665,39 @@ function googleReviews(setupData2, texts) {
   (function tryPlace() {
     tries++;
     if (placeWidget() || tries >= 25) return;
+    setTimeout(tryPlace, 300);
+  })();
+}
+function lcdVideos() {
+  var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
+  var VV = "1";
+  function placeWidget() {
+    if ($(".lcd-videos-widget").length) return true;
+    if ($(".type-product")[0]) {
+      var $mat = $(".basic-description .layers-info-wrap").first();
+      if ($mat.length) {
+        $('<div class="lcd-videos-widget"></div>').insertAfter($mat);
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+  function loadScript() {
+    if (window.__lcdVideosScriptsInjected) return;
+    window.__lcdVideosScriptsInjected = true;
+    var v = document.createElement("script");
+    v.src = base + "lcd-videos.js?v=" + VV;
+    document.body.appendChild(v);
+  }
+  var tries = 0;
+  (function tryPlace() {
+    tries++;
+    if (placeWidget()) {
+      loadScript();
+      return;
+    }
+    if (tries >= 25) return;
     setTimeout(tryPlace, 300);
   })();
 }
