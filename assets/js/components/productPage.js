@@ -880,14 +880,17 @@ $(document).on("click", ".upsale-button", function (e) {
   // Check if the clicked element is within .upsale-buttons.trunk
   updateUpsale(this, e);
 
-  // Po výběru koberce: otevři boxs sekci
+  // Po vybere koberca do kufra (K5): zavri K5, otvor K6 a naskroluj nan.
   const $trunk = $(this).closest(".upsale-buttons.trunk");
-  if ($trunk.length && !$(this).hasClass("none")) {
+  if ($trunk.length) {
     setTimeout(() => {
-      const $boxs = $(".upsale-buttons.boxs");
-      if ($boxs.is(":visible")) {
-        openNextAccordion($boxs);
-      }
+      const $boxs = $(".upsale-buttons.boxs").first();
+      $boxs.show();
+      $trunk.removeClass("active");
+      openNextAccordion($boxs);
+      setTimeout(function () {
+        if (typeof lcdScrollToStep === "function") lcdScrollToStep($boxs);
+      }, 350);
     }, 600);
   }
 });

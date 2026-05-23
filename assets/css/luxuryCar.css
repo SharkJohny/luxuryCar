@@ -7127,3 +7127,37 @@ span.price-recommended {
 .options-wrap.radio-wrap .button.option-button input[type="radio"] {
   display: none !important;
 }
+
+/* Krok 4 (.radio-wrap): vyrazne viditelny vybrany option - ako kroky 5/6. */
+.options-wrap.radio-wrap .button.option-button {
+  position: relative;
+}
+.options-wrap.radio-wrap .button.option-button.active {
+  border: 2px solid #c5a44e !important;
+  background: #fdf8ec !important;
+}
+.options-wrap.radio-wrap .button.option-button.active::after {
+  content: "\2713";
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background: linear-gradient(135deg, #c5a44e, #a8893a);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 2;
+}
+/* K6 box-config je position:absolute; z-index:500 a pri scrollovani
+   prekryval fixny header-menu. Fixny header musi ostat vzdy navrchu. */
+#header,
+.plugin-fixed-header,
+.header-fixed,
+header.header,
+.top-navigation-bar {
+  z-index: 9000 !important;
+}
