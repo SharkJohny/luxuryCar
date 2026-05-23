@@ -28416,20 +28416,20 @@ function priplatky(setupData2, texts) {
     $(document).on("click", ".next-step-button", function(e) {
       e.preventDefault();
       e.stopPropagation();
-      const currentWrap2 = $(this).closest(".position-wrap, .parameter-wrap");
-      if (!isWrapSelectionValid(currentWrap2)) {
-        currentWrap2.addClass("selection-required");
-        setTimeout(() => currentWrap2.removeClass("selection-required"), 2500);
+      const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
+      if (!isWrapSelectionValid(currentWrap)) {
+        currentWrap.addClass("selection-required");
+        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return;
       }
-      if (isCartStepWrap(currentWrap2)) {
+      if (isCartStepWrap(currentWrap)) {
         proceedToCartFromStep();
         return;
       }
-      if (currentWrap2.hasClass("trunk")) {
+      if (currentWrap.hasClass("trunk")) {
         const $boxs = $(".upsale-buttons.boxs").first();
         if ($boxs.length) {
-          currentWrap2.removeClass("active");
+          currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
             scrollToStep($boxs);
@@ -28441,13 +28441,13 @@ function priplatky(setupData2, texts) {
         }
       }
       const allWraps = getNavigableWraps();
-      const currentIndex = allWraps.index(currentWrap2);
+      const currentIndex = allWraps.index(currentWrap);
       if (currentIndex < allWraps.length - 1) {
         const nextWrap = allWraps.eq(currentIndex + 1);
-        currentWrap2.removeClass("active");
+        currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep(nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs") ? nextWrap : currentWrap2);
+          scrollToStep(nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs") ? nextWrap : currentWrap);
         }, 600);
       } else {
         allWraps.removeClass("active");
@@ -29137,7 +29137,7 @@ $("body").on("click", ".button.option-button", function(e) {
       } else if (contentIndex >= 0 && contentIndex === allContentWraps.length - 1) {
         $(".upsale-Banner").fadeIn(400).show();
         $(".upsale-buttons.boxs").first().show();
-        currentWrap.removeClass("active");
+        $currentWrap.removeClass("active");
         const $trunkW = $(".upsale-buttons.trunk").first();
         if ($trunkW.length) {
           openNextAccordion($trunkW);

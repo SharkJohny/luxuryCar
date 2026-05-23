@@ -1720,7 +1720,7 @@ $("body").on("click", ".button.option-button", function (e) {
         // zobraz K5/K6 banner, zavri K4, otvor K5 a naskroluj nan.
         $(".upsale-Banner").fadeIn(400).show();
         $(".upsale-buttons.boxs").first().show();
-        currentWrap.removeClass("active");
+        $currentWrap.removeClass("active");
         const $trunkW = $(".upsale-buttons.trunk").first();
         if ($trunkW.length) {
           openNextAccordion($trunkW);
