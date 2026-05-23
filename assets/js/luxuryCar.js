@@ -28422,20 +28422,20 @@ function priplatky(setupData2, texts) {
     $(document).on("click", ".next-step-button", function(e) {
       e.preventDefault();
       e.stopPropagation();
-      const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-      if (!isWrapSelectionValid(currentWrap)) {
-        currentWrap.addClass("selection-required");
-        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
+      const currentWrap2 = $(this).closest(".position-wrap, .parameter-wrap");
+      if (!isWrapSelectionValid(currentWrap2)) {
+        currentWrap2.addClass("selection-required");
+        setTimeout(() => currentWrap2.removeClass("selection-required"), 2500);
         return;
       }
-      if (isCartStepWrap(currentWrap)) {
+      if (isCartStepWrap(currentWrap2)) {
         proceedToCartFromStep();
         return;
       }
-      if (currentWrap.hasClass("trunk")) {
+      if (currentWrap2.hasClass("trunk")) {
         const $boxs = $(".upsale-buttons.boxs").first();
         if ($boxs.length) {
-          currentWrap.removeClass("active");
+          currentWrap2.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
             scrollToStep($boxs);
@@ -28447,13 +28447,13 @@ function priplatky(setupData2, texts) {
         }
       }
       const allWraps = getNavigableWraps();
-      const currentIndex = allWraps.index(currentWrap);
+      const currentIndex = allWraps.index(currentWrap2);
       if (currentIndex < allWraps.length - 1) {
         const nextWrap = allWraps.eq(currentIndex + 1);
-        currentWrap.removeClass("active");
+        currentWrap2.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep(nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs") ? nextWrap : currentWrap);
+          scrollToStep(nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs") ? nextWrap : currentWrap2);
         }, 600);
       } else {
         allWraps.removeClass("active");
@@ -29138,8 +29138,16 @@ $("body").on("click", ".button.option-button", function(e) {
       if ($nextWrap) {
         openNextAccordion($nextWrap);
       } else if (contentIndex >= 0 && contentIndex === allContentWraps.length - 1) {
-        const $k4Btn = $currentWrap.find(".next-step-button").first();
-        if ($k4Btn.length) $k4Btn.trigger("click");
+        $(".upsale-Banner").fadeIn(400).show();
+        $(".upsale-buttons.boxs").first().show();
+        currentWrap.removeClass("active");
+        const $trunkW = $(".upsale-buttons.trunk").first();
+        if ($trunkW.length) {
+          openNextAccordion($trunkW);
+          setTimeout(function() {
+            if (typeof lcdScrollToStep === "function") lcdScrollToStep($trunkW);
+          }, 350);
+        }
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
