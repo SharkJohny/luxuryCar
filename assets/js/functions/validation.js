@@ -1,4 +1,5 @@
 import { showUpsalePopup } from "../components/UpsalePopup.js";
+import { lcdScrollToStep } from "./scrollEngine.js";
 
 export function validation(texts) {
   $("button.btn.btn-lg.btn-conversion.add-to-cart-button").on("click", function (e) {
@@ -137,12 +138,9 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
 
-    // 4) Scroll na prvú chybu (100 px ofset od horného okraja).
+    // 4) Scroll na prvú chybu - zdielany LCD scroll engine.
     setTimeout(function () {
-      const top = $first.offset() && $first.offset().top;
-      if (top != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
-      }
+      lcdScrollToStep($first);
     }, 50);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
@@ -358,12 +356,9 @@ function optionTest() {
       $boxConfig.css("display", "");
     }
 
-    // Scroll na první chybějící (s 100px ofsetem od horního okraje viewportu)
+    // Scroll na první chybějící krok - zdielany LCD scroll engine.
     setTimeout(() => {
-      const offsetTop = $err.offset() && $err.offset().top;
-      if (offsetTop != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(offsetTop - 100, 0) }, 400);
-      }
+      lcdScrollToStep($err);
     }, 50);
 
     setTimeout(() => {

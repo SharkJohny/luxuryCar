@@ -23,7 +23,7 @@ jobs:
       - name: 🔨 Build Project
         run: |
           yarn install
-          yarn esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --drop:console
+          yarn esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --drop:console --legal-comments=none
           echo "{\"v\":\"${{ steps.version.outputs.sha }}\"}" > assets/js/version.json
 
       - name: SFTP Upload
@@ -37,4 +37,4 @@ jobs:
             ./assets/ => eshopy/luxuryCar/assets/
           ignore: |
             .git
-            node_modules
+   

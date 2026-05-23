@@ -27858,6 +27858,123 @@ function renderTruckConfigurator(element) {
   return true;
 }
 
+// assets/js/functions/scrollEngine.js
+function lcdGetHeaderOffset() {
+  var selectors = [
+    ".plugin-fixed-header",
+    ".header-fixed",
+    "#header",
+    "header.header",
+    ".top-navigation-bar",
+    "header"
+  ];
+  var maxBottom = 0;
+  var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+  for (var s = 0; s < selectors.length; s++) {
+    var nodes;
+    try {
+      nodes = document.querySelectorAll(selectors[s]);
+    } catch (err) {
+      continue;
+    }
+    for (var n = 0; n < nodes.length; n++) {
+      var el = nodes[n];
+      if (!el || !el.offsetHeight) continue;
+      var cs = window.getComputedStyle(el);
+      if (cs.position !== "fixed" && cs.position !== "sticky") continue;
+      if (cs.visibility === "hidden" || cs.display === "none") continue;
+      if (parseFloat(cs.opacity || "1") < 0.1) continue;
+      var r = el.getBoundingClientRect();
+      if (r.height < 8) continue;
+      if (r.top <= 10 && r.bottom > maxBottom && r.bottom < viewportH * 0.6) {
+        maxBottom = r.bottom;
+      }
+    }
+  }
+  return maxBottom;
+}
+function lcdScrollToStep(target) {
+  var el = target;
+  if (el && el.jquery) el = el.get(0);
+  if (!el || typeof el.getBoundingClientRect !== "function") return;
+  var GAP = 14;
+  var lastTop = null;
+  var stableFrames = 0;
+  var frames = 0;
+  function pageY() {
+    return window.pageYOffset || document.documentElement.scrollTop || 0;
+  }
+  function absTop() {
+    return pageY() + el.getBoundingClientRect().top;
+  }
+  function nativeScroll(top) {
+    top = Math.max(0, Math.round(top));
+    try {
+      window.scrollTo({ top, behavior: "smooth" });
+    } catch (err) {
+      window.scrollTo(0, top);
+    }
+  }
+  function correctAfterSettle() {
+    var lastY = null;
+    var sf = 0;
+    var f = 0;
+    function watch() {
+      f++;
+      var y = pageY();
+      if (lastY !== null && Math.abs(y - lastY) < 0.6) sf++;
+      else sf = 0;
+      lastY = y;
+      if (sf >= 6 || f > 200) {
+        var headerH = lcdGetHeaderOffset();
+        var have = el.getBoundingClientRect().top;
+        var want = headerH + GAP;
+        if (Math.abs(have - want) > 38) {
+          nativeScroll(pageY() + have - headerH - GAP);
+        }
+      } else {
+        requestAnimationFrame(watch);
+      }
+    }
+    requestAnimationFrame(watch);
+  }
+  function performScroll() {
+    var headerH = lcdGetHeaderOffset();
+    nativeScroll(absTop() - headerH - GAP);
+    correctAfterSettle();
+  }
+  function tick() {
+    frames++;
+    var t = absTop();
+    if (lastTop !== null && Math.abs(t - lastTop) < 0.6) stableFrames++;
+    else stableFrames = 0;
+    lastTop = t;
+    if (stableFrames >= 5 || frames > 150) {
+      performScroll();
+    } else {
+      requestAnimationFrame(tick);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+function lcdTagSteps() {
+  var steps = [];
+  var contentSteps = document.querySelectorAll(
+    ".content-wrap > .position-wrap, .content-wrap > .parameter-wrap"
+  );
+  for (var i = 0; i < contentSteps.length; i++) {
+    steps.push(contentSteps[i]);
+  }
+  var trunk = document.querySelector(".upsale-buttons.trunk");
+  if (trunk) steps.push(trunk);
+  var boxs = document.querySelector(".upsale-buttons.boxs");
+  if (boxs) steps.push(boxs);
+  for (var j = 0; j < steps.length; j++) {
+    steps[j].setAttribute("data-lcd-step", String(j));
+  }
+  return steps;
+}
+
 // assets/js/components/productPage.js
 window.addEventListener(
   "error",
@@ -28114,22 +28231,7 @@ function priplatky(setupData2, texts) {
       }
       return isLast ? "Dokon\u010Dit konfiguraci" : "P\u0159ej\xEDt k dal\u0161\xEDmu kroku";
     }, scrollToStep = function($wrap) {
-      if (!$wrap.length) return;
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-      const wrapTop = $wrap.offset().top;
-      if (window.matchMedia("(min-width: 992px)").matches) {
-        const rect = $wrap[0].getBoundingClientRect();
-        const comfortableTop = 120;
-        const comfortableBottom = viewportHeight * 0.72;
-        if (rect.top >= comfortableTop && rect.top <= comfortableBottom) {
-          return;
-        }
-        const wrapHeight = Math.min($wrap.outerHeight() || 0, viewportHeight * 0.7);
-        const targetScrollTop = Math.max(0, wrapTop - Math.max((viewportHeight - wrapHeight) / 2, 120));
-        $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 400);
-        return;
-      }
-      $("html, body").stop(true).animate({ scrollTop: Math.max(wrapTop - 80, 0) }, 400);
+      lcdScrollToStep($wrap);
     }, proceedToCartFromStep = function() {
       const $addToCartButton = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function() {
         const style = window.getComputedStyle(this);
@@ -28365,6 +28467,7 @@ function priplatky(setupData2, texts) {
         setTimeout(() => {
           addNextStepButtons();
           updateButtonTexts2();
+          lcdTagSteps();
         }, 400);
       }
     });
@@ -28382,6 +28485,7 @@ function priplatky(setupData2, texts) {
     setTimeout(() => {
       addNextStepButtons();
       updateButtonTexts2();
+      lcdTagSteps();
     }, 100);
     const pairVariantList = JSON.parse(setupData2.settings.pairVariantList);
     const pairedOrders = {};
@@ -28455,6 +28559,7 @@ function priplatky(setupData2, texts) {
     const contentStepCount = $(".content-wrap").children(".position-wrap, .parameter-wrap").length;
     $(".upsale-buttons.trunk .order").text(contentStepCount);
     $(".upsale-buttons.boxs .order").text(contentStepCount + 1);
+    lcdTagSteps();
   }
 }
 function openNextAccordion($next) {
@@ -29613,10 +29718,7 @@ function validateProductConfig() {
       $accordion.addClass("active");
     }
     setTimeout(function() {
-      const top = $first.offset() && $first.offset().top;
-      if (top != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(top - 100, 0) }, 400);
-      }
+      lcdScrollToStep($first);
     }, 50);
     setTimeout(function() {
       $(".errorToCart").removeClass("errorToCart");
@@ -29708,10 +29810,7 @@ function optionTest() {
       $boxConfig.css("display", "");
     }
     setTimeout(() => {
-      const offsetTop = $err.offset() && $err.offset().top;
-      if (offsetTop != null) {
-        $("html, body").stop(true).animate({ scrollTop: Math.max(offsetTop - 100, 0) }, 400);
-      }
+      lcdScrollToStep($err);
     }, 50);
     setTimeout(() => {
       $(".config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");
@@ -30521,51 +30620,3 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
-/*! Bundled license information:
-
-react/cjs/react.development.js:
-  (**
-   * @license React
-   * react.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-scheduler/cjs/scheduler.development.js:
-  (**
-   * @license React
-   * scheduler.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-react-dom/cjs/react-dom.development.js:
-  (**
-   * @license React
-   * react-dom.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-  (**
-   * Checks if an event is supported in the current execution environment.
-   *
-   * NOTE: This will not work correctly for non-generic events such as `change`,
-   * `reset`, `load`, `error`, and `select`.
-   *
-   * Borrows from Modernizr.
-   *
-   * @param {string} eventNameSuffix Event name, e.g. "click".
-   * @return {boolean} True if the event is supported.
-   * @internal
-   * @license Modernizr 3.0.0pre (Custom Build) | MIT
-   *)
-*/

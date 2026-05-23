@@ -1,6 +1,7 @@
 import { showUpsalePopup } from "./UpsalePopup.js";
 import { createUpsaleButton, createOptions, createBoxConfig } from "./creatButtons.js";
 import { renderTruckConfigurator } from "../truck-konfigurator/index.jsx";
+import { lcdScrollToStep, lcdTagSteps } from "../functions/scrollEngine.js";
 
 window.addEventListener(
   "error",
@@ -575,31 +576,12 @@ function priplatky(setupData, texts) {
       return isLast ? "Dokončit konfiguraci" : "Přejít k dalšímu kroku";
     }
 
+    // Scroll na krok - deleguje na zdielany LCD scroll engine
+    // (functions/scrollEngine.js). Caka na ustalenie layoutu po accordion
+    // animacii, potom naskroluje tak aby cislo + nazov kroku boli viditelne
+    // tesne pod fixnym header-menu.
     function scrollToStep($wrap) {
-      if (!$wrap.length) return;
-
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-      const wrapTop = $wrap.offset().top;
-
-      if (window.matchMedia("(min-width: 992px)").matches) {
-        const rect = $wrap[0].getBoundingClientRect();
-        const comfortableTop = 120;
-        const comfortableBottom = viewportHeight * 0.72;
-
-        if (rect.top >= comfortableTop && rect.top <= comfortableBottom) {
-          return;
-        }
-
-        const wrapHeight = Math.min($wrap.outerHeight() || 0, viewportHeight * 0.7);
-        const targetScrollTop = Math.max(0, wrapTop - Math.max((viewportHeight - wrapHeight) / 2, 120));
-
-        $("html, body").stop(true).animate({ scrollTop: targetScrollTop }, 400);
-        return;
-      }
-
-      $("html, body")
-        .stop(true)
-        .animate({ scrollTop: Math.max(wrapTop - 80, 0) }, 400);
+      lcdScrollToStep($wrap);
     }
 
     function proceedToCartFromStep() {
@@ -752,6 +734,7 @@ function priplatky(setupData, texts) {
           console.log("Přidání tlačítek---------");
           addNextStepButtons();
           updateButtonTexts(); // Aktualizuj texty po přidání nových elementů
+          lcdTagSteps(); // preznac kroky stabilnym data-lcd-step
         }, 400); // Malé zpoždění pro jistotu
       }
     });
@@ -775,6 +758,7 @@ function priplatky(setupData, texts) {
     setTimeout(() => {
       addNextStepButtons();
       updateButtonTexts();
+      lcdTagSteps(); // stabilne oznacenie krokov pre scroll engine
     }, 100);
 
     const pairVariantList = JSON.parse(setupData.settings.pairVariantList);
@@ -875,6 +859,7 @@ function priplatky(setupData, texts) {
     const contentStepCount = $(".content-wrap").children(".position-wrap, .parameter-wrap").length;
     $(".upsale-buttons.trunk .order").text(contentStepCount);
     $(".upsale-buttons.boxs .order").text(contentStepCount + 1);
+    lcdTagSteps(); // stabilne oznacenie krokov po dorobeni cisel poradia
   }
 }
 
