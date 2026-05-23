@@ -111,10 +111,12 @@ function validateProductConfig() {
 
   // 3) Aktivuj zatvorené nadradené paneli, aby user videl chybu.
   if ($first) {
-    const $banner = $first.closest(".upsale-Banner");
-    if ($banner.length && !$banner.hasClass("showConf")) {
-      $banner.addClass("showConf");
-    }
+    // NEPRIDÁVAJ showConf na box `.upsale-Banner`. `showConf` znamená
+    // „config (1/2 boxy) je vybratý". Pridať ho bez aktívneho conf-tlačidla
+    // rozsynchronizuje krok K6: box-config (Farba boxov) sa zobrazí, ale
+    // conf-tlačidlá „1 box / 2 boxy" dostanú cez CSS visibility:hidden a
+    // `updateUpsale` (conf2 vetva) sa nikdy nespustí → Velikost 1./2. boxu
+    // ostanú display:none. Box-krok korektne otvorí accordion logika nižšie.
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
@@ -347,11 +349,9 @@ function optionTest() {
     const $err = firstErrorElement;
 
     // Ak parent .box-config je zatvorený (display:none), otvoríme ho.
+    // showConf zámerne NEpridávame — viď validateProductConfig (desync K6:
+    // showConf bez aktívneho conf-tlačidla skryje conf-tlačidlá a veľkosti).
     const $boxConfig = $err.closest(".box-config");
-    const $upsaleBanner = $err.closest(".upsale-Banner");
-    if ($upsaleBanner.length && !$upsaleBanner.hasClass("showConf")) {
-      $upsaleBanner.addClass("showConf");
-    }
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
     }
