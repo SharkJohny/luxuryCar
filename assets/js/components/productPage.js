@@ -631,7 +631,7 @@ function priplatky(setupData, texts) {
           currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
-            scrollToStep(currentWrap);
+            scrollToStep($boxs);
           }, 600);
           setTimeout(() => {
             updateButtonTexts();
@@ -650,7 +650,7 @@ function priplatky(setupData, texts) {
         currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep(currentWrap);
+          scrollToStep((nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs")) ? nextWrap : currentWrap);
         }, 600);
 
         console.log("Přechod k dalšímu kroku:", nextWrap.find(".variant.name, h5").first().text() || "Unnamed");

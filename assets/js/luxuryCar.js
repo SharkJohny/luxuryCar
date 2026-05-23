@@ -28438,7 +28438,7 @@ function priplatky(setupData2, texts) {
           currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
-            scrollToStep(currentWrap);
+            scrollToStep($boxs);
           }, 600);
           setTimeout(() => {
             updateButtonTexts2();
@@ -28453,7 +28453,7 @@ function priplatky(setupData2, texts) {
         currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep(currentWrap);
+          scrollToStep(nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs") ? nextWrap : currentWrap);
         }, 600);
       } else {
         allWraps.removeClass("active");
