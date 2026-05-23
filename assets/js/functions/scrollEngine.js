@@ -4,24 +4,26 @@
  * Jediny scroll mechanizmus pre konfigurator (kroky K0-K6).
  *
  * Princip:
- *  1. Volajuci otvori novy akordeon (openNextAccordion) a zavola lcdScrollToStep.
- *  2. Engine pocka v requestAnimationFrame slucke kym sa layout USTALI
- *     (accordion collapse/expand animacia dobehne) - nehada fixny timeout.
- *  3. Potom RAZ cisto naskroluje tak, aby hlavicka kroku (zlaty pruh s cislom
- *     a nazvom kroku) bola viditelna tesne pod fixnym header-menu.
- *  4. Po dojazde scrollu spravi jednu korekciu (header sa pri scrolle moze
- *     zmensit, obrazky v kroku sa mozu donacitat).
+ *  1. Volajuci otvori novy akordeon a zavola lcdScrollToStep s PREDOSLYM
+ *     (prave dokoncenym) krokom - aby ho zakaznik videl hore zatvoreny
+ *     a novy krok otvoreny pod nim.
+ *  2. Engine pocka v requestAnimationFrame slucke kym sa layout USTALI.
+ *  3. Potom RAZ cisto naskroluje tak, aby hlavicka kroku bola tesne pod
+ *     fixnym header-menu (vratane loga).
+ *  4. Po dojazde scrollu spravi jednu korekciu.
  *
- * Preco window.scrollTo a nie jQuery .animate({scrollTop}):
- *  Na tomto Shoptet shope jQuery .animate({scrollTop}) so strankou nehybe.
- *  Funguje VYHRADNE nativne window.scrollTo.
+ * Preco window.scrollTo a nie jQuery .animate(scrollTop):
+ *  Na tomto Shoptet shope jQuery .animate so strankou nehybe. Funguje
+ *  VYHRADNE nativne window.scrollTo.
  */
 
 /**
- * Vyska realne pripnuteho (position: fixed / sticky) header-menu - kolko px
- * zhora prekryva obsah. Ak header nie je pripnuty hore, vrati 0.
+ * Vyska realne pripnuteho header-menu vratane loga - kolko px zhora
+ * prekryva obsah. Ak header nie je pripnuty hore, vrati 0.
  */
 export function lcdGetHeaderOffset() {
+  // Header pasmo + LOGO. Logo visi nizsie nez tmavy header pruh - preto
+  // ho treba zaratat, inak logo prekryje nazov kroku.
   var selectors = [
     ".plugin-fixed-header",
     ".header-fixed",
@@ -29,6 +31,11 @@ export function lcdGetHeaderOffset() {
     "header.header",
     ".top-navigation-bar",
     "header",
+    "#header .site-name",
+    ".site-name",
+    "#logo",
+    ".header-logo",
+    ".logo",
   ];
   var maxBottom = 0;
   var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
@@ -44,32 +51,33 @@ export function lcdGetHeaderOffset() {
       var el = nodes[n];
       if (!el || !el.offsetHeight) continue;
       var cs = window.getComputedStyle(el);
-      if (cs.position !== "fixed" && cs.position !== "sticky") continue;
       if (cs.visibility === "hidden" || cs.display === "none") continue;
       if (parseFloat(cs.opacity || "1") < 0.1) continue;
       var r = el.getBoundingClientRect();
-      if (r.height < 8) continue;
-      // Len elementy realne pripnute o horny okraj a nie privelke.
-      if (r.top <= 10 && r.bottom > maxBottom && r.bottom < viewportH * 0.6) {
+      if (r.height < 8 || r.width < 8) continue;
+      var isFixed = cs.position === "fixed" || cs.position === "sticky";
+      var pinnedAtTop = r.top >= -8 && r.top <= 24;
+      if (!isFixed && !pinnedAtTop) continue;
+      if (r.bottom > maxBottom && r.bottom < viewportH * 0.45) {
         maxBottom = r.bottom;
       }
     }
+  }
+  if (maxBottom < 40 && (window.pageYOffset || 0) > 50) {
+    maxBottom = 90;
   }
   return maxBottom;
 }
 
 /**
  * Naskroluje na dany krok tak, aby jeho hlavicka bola tesne pod header-menu.
- * @param {Element|jQuery} target - akordeon kroku (.position-wrap / .parameter-wrap)
  */
 export function lcdScrollToStep(target) {
   var el = target;
   if (el && el.jquery) el = el.get(0);
   if (!el || typeof el.getBoundingClientRect !== "function") return;
 
-  // Medzera pod headerom - aby bol zlaty pruh s cislom kroku jasne vidno.
-  var GAP = 14;
-
+  var GAP = 16;
   var lastTop = null;
   var stableFrames = 0;
   var frames = 0;
@@ -91,7 +99,6 @@ export function lcdScrollToStep(target) {
     }
   }
 
-  // Po dojazde scrollu over a pripadne doprav (1x).
   function correctAfterSettle() {
     var lastY = null;
     var sf = 0;
@@ -122,14 +129,12 @@ export function lcdScrollToStep(target) {
     correctAfterSettle();
   }
 
-  // Cakaj kym sa absolutna pozicia kroku ustali (accordion animacia dobehne).
   function tick() {
     frames++;
     var t = absTop();
     if (lastTop !== null && Math.abs(t - lastTop) < 0.6) stableFrames++;
     else stableFrames = 0;
     lastTop = t;
-    // Ustalene (5 frameov bez pohybu) ALEBO poistka po ~2.5 s.
     if (stableFrames >= 5 || frames > 150) {
       performScroll();
     } else {
@@ -140,27 +145,21 @@ export function lcdScrollToStep(target) {
 }
 
 /**
- * Stabilne oznacenie krokov atributom data-lcd-step="0,1,2,...".
- * Poradie: vsetky kroky v .content-wrap (K0-K4), potom trunk (K5), potom
- * boxs (K6). Umoznuje scroll engine-u aj navigacii jednoznacne adresovat krok.
- * @returns {Element[]} pole krokov v poradi
+ * Stabilne oznacenie krokov atributom data-lcd-step.
+ * Poradie: kroky v content-wrap, potom trunk, potom boxs.
  */
 export function lcdTagSteps() {
   var steps = [];
-
   var contentSteps = document.querySelectorAll(
     ".content-wrap > .position-wrap, .content-wrap > .parameter-wrap"
   );
   for (var i = 0; i < contentSteps.length; i++) {
     steps.push(contentSteps[i]);
   }
-
   var trunk = document.querySelector(".upsale-buttons.trunk");
   if (trunk) steps.push(trunk);
-
   var boxs = document.querySelector(".upsale-buttons.boxs");
   if (boxs) steps.push(boxs);
-
   for (var j = 0; j < steps.length; j++) {
     steps[j].setAttribute("data-lcd-step", String(j));
   }

@@ -27866,7 +27866,12 @@ function lcdGetHeaderOffset() {
     "#header",
     "header.header",
     ".top-navigation-bar",
-    "header"
+    "header",
+    "#header .site-name",
+    ".site-name",
+    "#logo",
+    ".header-logo",
+    ".logo"
   ];
   var maxBottom = 0;
   var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
@@ -27881,15 +27886,20 @@ function lcdGetHeaderOffset() {
       var el = nodes[n];
       if (!el || !el.offsetHeight) continue;
       var cs = window.getComputedStyle(el);
-      if (cs.position !== "fixed" && cs.position !== "sticky") continue;
       if (cs.visibility === "hidden" || cs.display === "none") continue;
       if (parseFloat(cs.opacity || "1") < 0.1) continue;
       var r = el.getBoundingClientRect();
-      if (r.height < 8) continue;
-      if (r.top <= 10 && r.bottom > maxBottom && r.bottom < viewportH * 0.6) {
+      if (r.height < 8 || r.width < 8) continue;
+      var isFixed = cs.position === "fixed" || cs.position === "sticky";
+      var pinnedAtTop = r.top >= -8 && r.top <= 24;
+      if (!isFixed && !pinnedAtTop) continue;
+      if (r.bottom > maxBottom && r.bottom < viewportH * 0.45) {
         maxBottom = r.bottom;
       }
     }
+  }
+  if (maxBottom < 40 && (window.pageYOffset || 0) > 50) {
+    maxBottom = 90;
   }
   return maxBottom;
 }
@@ -27897,7 +27907,7 @@ function lcdScrollToStep(target) {
   var el = target;
   if (el && el.jquery) el = el.get(0);
   if (!el || typeof el.getBoundingClientRect !== "function") return;
-  var GAP = 14;
+  var GAP = 16;
   var lastTop = null;
   var stableFrames = 0;
   var frames = 0;
@@ -28428,7 +28438,7 @@ function priplatky(setupData2, texts) {
           currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
-            scrollToStep($boxs);
+            scrollToStep(currentWrap);
           }, 600);
           setTimeout(() => {
             updateButtonTexts2();
@@ -28443,7 +28453,7 @@ function priplatky(setupData2, texts) {
         currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep(nextWrap);
+          scrollToStep(currentWrap);
         }, 600);
       } else {
         allWraps.removeClass("active");
