@@ -29137,6 +29137,9 @@ $("body").on("click", ".button.option-button", function(e) {
       }
       if ($nextWrap) {
         openNextAccordion($nextWrap);
+      } else if (contentIndex >= 0 && contentIndex === allContentWraps.length - 1) {
+        const $k4Btn = $currentWrap.find(".next-step-button").first();
+        if ($k4Btn.length) $k4Btn.trigger("click");
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();

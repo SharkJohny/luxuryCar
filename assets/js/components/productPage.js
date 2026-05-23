@@ -1712,6 +1712,12 @@ $("body").on("click", ".button.option-button", function (e) {
 
       if ($nextWrap) {
         openNextAccordion($nextWrap);
+      } else if (contentIndex >= 0 && contentIndex === allContentWraps.length - 1) {
+        // Krok 4 (posledny krok v content-wrap): po vybere moznosti sa hned
+        // zatvori a prejde na krok 5 - cez jeho next-step tlacidlo (zavrie
+        // K4, otvori K5 a naskroluje na K5).
+        const $k4Btn = $currentWrap.find(".next-step-button").first();
+        if ($k4Btn.length) $k4Btn.trigger("click");
       } else if (!$(".goToAction")[0]) {
         console.log("goToAction");
         $(".upsale-Banner").fadeIn(400);

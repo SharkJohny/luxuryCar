@@ -7121,3 +7121,9 @@ span.price-recommended {
     padding: 10px 10px !important;
   }
 }
+
+/* Krok 4 (rozlozenie kobercov, .radio-wrap): skry nativny radio bullet -
+   zjednoteny vzhlad s krokmi 5/6 (karty bez bodky). */
+.options-wrap.radio-wrap .button.option-button input[type="radio"] {
+  display: none !important;
+}
