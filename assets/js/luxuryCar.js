@@ -30642,8 +30642,8 @@ function googleReviews(setupData2, texts) {
     return false;
   }
   function loadScripts() {
-    if (window.__lcdReviewsLoaded) return;
-    window.__lcdReviewsLoaded = true;
+    if (window.__lcdReviewsScriptsInjected) return;
+    window.__lcdReviewsScriptsInjected = true;
     var d = document.createElement("script");
     d.src = base + "reviews-data.js?v=" + WV;
     d.onload = function() {
