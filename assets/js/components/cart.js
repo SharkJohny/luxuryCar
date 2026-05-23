@@ -7,6 +7,21 @@ export function initCart(texts) {
     $(".p-label:contains(Cena za m. j.)").text("Cena za set");
 
     chechCupon(texts);
+
+    // Auto-refresh po zmene/zmazani polozky v kosiku. Shoptet po AJAX
+    // update prerenderuje polozky raw textom a changeDescription()
+    // formatovanie sa straca - cisty reload to opravi.
+    if (!window.__lcdCartReloadBound) {
+      window.__lcdCartReloadBound = true;
+      var lcdCartReady = false;
+      setTimeout(function () { lcdCartReady = true; }, 1500);
+      document.addEventListener("ShoptetCartUpdated", function () {
+        if (!lcdCartReady || window.__lcdCartReloading) return;
+        window.__lcdCartReloading = true;
+        location.reload();
+      });
+    }
+
     document.addEventListener("ShoptetDOMContentLoaded", function () {
       chechCupon(texts);
       $(".cart-content.summary-wrapper").appendTo("div#cart-wrapper .col-md-8");

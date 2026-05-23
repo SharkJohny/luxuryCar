@@ -29586,6 +29586,18 @@ function initCart(texts) {
     $(".cart-content.summary-wrapper").appendTo("div#cart-wrapper .col-md-8");
     $(".p-label:contains(Cena za m. j.)").text("Cena za set");
     chechCupon(texts);
+    if (!window.__lcdCartReloadBound) {
+      window.__lcdCartReloadBound = true;
+      var lcdCartReady = false;
+      setTimeout(function() {
+        lcdCartReady = true;
+      }, 1500);
+      document.addEventListener("ShoptetCartUpdated", function() {
+        if (!lcdCartReady || window.__lcdCartReloading) return;
+        window.__lcdCartReloading = true;
+        location.reload();
+      });
+    }
     document.addEventListener("ShoptetDOMContentLoaded", function() {
       chechCupon(texts);
       $(".cart-content.summary-wrapper").appendTo("div#cart-wrapper .col-md-8");
@@ -29732,10 +29744,6 @@ function validateProductConfig() {
     }
   });
   if ($first) {
-    const $banner = $first.closest(".upsale-Banner");
-    if ($banner.length && !$banner.hasClass("showConf")) {
-      $banner.addClass("showConf");
-    }
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
@@ -29837,10 +29845,6 @@ function optionTest() {
   if (!allSelected && firstErrorElement) {
     const $err = firstErrorElement;
     const $boxConfig = $err.closest(".box-config");
-    const $upsaleBanner = $err.closest(".upsale-Banner");
-    if ($upsaleBanner.length && !$upsaleBanner.hasClass("showConf")) {
-      $upsaleBanner.addClass("showConf");
-    }
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
     }
