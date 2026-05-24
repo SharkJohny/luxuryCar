@@ -28183,9 +28183,15 @@ function priplatky(setupData2, texts) {
           }
         }
         if (!headerH) headerH = 90;
-        const rect = targetEl.getBoundingClientRect();
-        const desiredTop = headerH + viewportHeight * 0.1;
-        const delta = rect.top - desiredTop;
+        var availH = viewportHeight - headerH;
+        var wrapRect = $wrap[0].getBoundingClientRect();
+        var headerRect = targetEl.getBoundingClientRect();
+        var delta;
+        if (wrapRect.height > 0 && wrapRect.height <= availH) {
+          delta = wrapRect.top - (headerH + (availH - wrapRect.height) / 2);
+        } else {
+          delta = headerRect.top - (headerH + 20);
+        }
         const newScroll = Math.max(0, window.scrollY + delta);
         window.scrollTo({ top: newScroll, behavior: "smooth" });
       }
@@ -28364,10 +28370,11 @@ function priplatky(setupData2, texts) {
           for (let i = 0; i < clickedIndex; i++) {
             const $wrap = allWraps.eq(i);
             if (!isWrapSelectionValid($wrap)) {
-              $wrap.addClass("selection-required");
-              if (!$firstInvalid) $firstInvalid = $wrap;
+              $firstInvalid = $wrap;
+              break;
             }
           }
+          if ($firstInvalid) $firstInvalid.addClass("selection-required");
           if ($firstInvalid) {
             $(".position-wrap, .parameter-wrap").removeClass("active");
             $firstInvalid.addClass("active");
@@ -28400,9 +28407,29 @@ function priplatky(setupData2, texts) {
       e.preventDefault();
       e.stopPropagation();
       const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-      if (!isWrapSelectionValid(currentWrap)) {
-        currentWrap.addClass("selection-required");
-        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
+      var $navSeq = getNavigableWraps();
+      var curSeqIdx = $navSeq.index(currentWrap);
+      var $seqInvalid = null;
+      for (var si = 0; si <= curSeqIdx && si < $navSeq.length; si++) {
+        if (!isWrapSelectionValid($navSeq.eq(si))) {
+          $seqInvalid = $navSeq.eq(si);
+          break;
+        }
+      }
+      if ($seqInvalid && $seqInvalid.length) {
+        $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
+        $seqInvalid.addClass("active").addClass("selection-required");
+        $seqInvalid.find("> .options-wrap").each(function() {
+          this.style.maxHeight = "";
+          this.style.overflow = "";
+          this.style.opacity = "";
+          this.style.padding = "";
+        });
+        var $si = $seqInvalid;
+        setTimeout(function() {
+          $si.removeClass("selection-required");
+        }, 2500);
+        scrollToStep2($seqInvalid);
         return;
       }
       if (isCartStepWrap(currentWrap)) {
@@ -29809,6 +29836,27 @@ function validation(texts) {
   });
 }
 function validateProductConfig() {
+  var $seqSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+  var $seqBad = null;
+  $seqSteps.each(function() {
+    if ($seqBad) return;
+    if (!isWrapValid($(this))) $seqBad = $(this);
+  });
+  if ($seqBad) {
+    $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
+    $seqBad.addClass("active").addClass("errorToCart");
+    $seqBad.find("> .options-wrap").each(function() {
+      this.style.maxHeight = "";
+      this.style.overflow = "";
+      this.style.opacity = "";
+      this.style.padding = "";
+    });
+    lcdCenterScrollToStep($seqBad);
+    setTimeout(function() {
+      $(".errorToCart").removeClass("errorToCart");
+    }, 2500);
+    return false;
+  }
   const $errors = $();
   let $first = null;
   const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
@@ -29916,6 +29964,11 @@ function isWrapValid($wrap) {
   if ($wrap.hasClass("boxs")) return true;
   if ($wrap.hasClass("trunk")) return true;
   if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+  if ($wrap.find(".wheel-Position").length) {
+    var lcdM = sessionStorage.getItem("model");
+    var lcdMissing = !lcdM || lcdM.indexOf("Zna\u010Dka") > -1 || lcdM.trim() === "Model" || lcdM.indexOf("Rok v\xFDroby") > -1 || lcdM.indexOf("Typ auta") > -1;
+    if (lcdMissing) return false;
+  }
   let hasSelectable = false;
   let valid = false;
   if ($wrap.find(".option-button").length) {
@@ -30092,6 +30145,45 @@ function createpopup2(texts) {
     }
   `
   ).appendTo("head");
+}
+function lcdCenterScrollToStep($wrap) {
+  if (!$wrap || !$wrap.length) return;
+  var el = $wrap[0];
+  var lastTop = null;
+  var stable = 0;
+  var tries = 0;
+  function finalScroll() {
+    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    var headerH = 0;
+    var sels = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
+    for (var i = 0; i < sels.length; i++) {
+      var he = document.querySelector(sels[i]);
+      if (he && he.offsetHeight > 20) {
+        headerH = he.offsetHeight;
+        break;
+      }
+    }
+    if (!headerH) headerH = 90;
+    var availH = vh - headerH;
+    var r = el.getBoundingClientRect();
+    var delta;
+    if (r.height > 0 && r.height <= availH) {
+      delta = r.top - (headerH + (availH - r.height) / 2);
+    } else {
+      delta = r.top - (headerH + 20);
+    }
+    window.scrollTo({ top: Math.max(0, window.scrollY + delta), behavior: "smooth" });
+  }
+  function tick() {
+    tries++;
+    var t = window.scrollY + el.getBoundingClientRect().top;
+    if (lastTop !== null && Math.abs(t - lastTop) < 1) stable++;
+    else stable = 0;
+    lastTop = t;
+    if (stable >= 3 || tries > 90) finalScroll();
+    else requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 }
 
 // assets/js/functions/livePrice.js

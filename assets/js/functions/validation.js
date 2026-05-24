@@ -80,6 +80,31 @@ export function validation(texts) {
  * produkt který není nakonfigurovaný do piče". Vrátené naspäť.
  */
 function validateProductConfig() {
+  // Sekvencna validacia akordeon krokov (Michal req): validuj postupne od
+  // prveho kroku; prvy neplatny krok otvor + vycentruj na stred a STOP —
+  // dalsie kroky sa uz nekontroluju ani neoznacuju.
+  var $seqSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+  var $seqBad = null;
+  $seqSteps.each(function () {
+    if ($seqBad) return;
+    if (!isWrapValid($(this))) $seqBad = $(this);
+  });
+  if ($seqBad) {
+    $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
+    $seqBad.addClass("active").addClass("errorToCart");
+    $seqBad.find("> .options-wrap").each(function () {
+      this.style.maxHeight = "";
+      this.style.overflow = "";
+      this.style.opacity = "";
+      this.style.padding = "";
+    });
+    lcdCenterScrollToStep($seqBad);
+    setTimeout(function () {
+      $(".errorToCart").removeClass("errorToCart");
+    }, 2500);
+    return false;
+  }
+
   const $errors = $();
   let $first = null;
   const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
@@ -221,6 +246,19 @@ function isWrapValid($wrap) {
   if ($wrap.hasClass("boxs")) return true;
   if ($wrap.hasClass("trunk")) return true;
   if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+
+  // Krok "Specifikace vozidla" (obsahuje EU/UK volant) vyzaduje aj vybranu
+  // znacku/model/rok auta.
+  if ($wrap.find(".wheel-Position").length) {
+    var lcdM = sessionStorage.getItem("model");
+    var lcdMissing =
+      !lcdM ||
+      lcdM.indexOf("Zna\u010Dka") > -1 ||
+      lcdM.trim() === "Model" ||
+      lcdM.indexOf("Rok v\u00FDroby") > -1 ||
+      lcdM.indexOf("Typ auta") > -1;
+    if (lcdMissing) return false;
+  }
 
   let hasSelectable = false;
   let valid = false;
@@ -528,4 +566,47 @@ function createpopup(texts) {
   `,
     )
     .appendTo("head");
+}
+
+
+/**
+ * Vycentruje krok na STRED obrazovky (v priestore pod fixnym header-menu).
+ * Caka cez requestAnimationFrame loop kym sa layout USTALI (3 framy), az
+ * potom scrolluje — aby trafil finalnu poziciu aj pocas open/close animacie.
+ */
+function lcdCenterScrollToStep($wrap) {
+  if (!$wrap || !$wrap.length) return;
+  var el = $wrap[0];
+  var lastTop = null;
+  var stable = 0;
+  var tries = 0;
+  function finalScroll() {
+    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    var headerH = 0;
+    var sels = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
+    for (var i = 0; i < sels.length; i++) {
+      var he = document.querySelector(sels[i]);
+      if (he && he.offsetHeight > 20) { headerH = he.offsetHeight; break; }
+    }
+    if (!headerH) headerH = 90;
+    var availH = vh - headerH;
+    var r = el.getBoundingClientRect();
+    var delta;
+    if (r.height > 0 && r.height <= availH) {
+      delta = r.top - (headerH + (availH - r.height) / 2);
+    } else {
+      delta = r.top - (headerH + 20);
+    }
+    window.scrollTo({ top: Math.max(0, window.scrollY + delta), behavior: "smooth" });
+  }
+  function tick() {
+    tries++;
+    var t = window.scrollY + el.getBoundingClientRect().top;
+    if (lastTop !== null && Math.abs(t - lastTop) < 1) stable++;
+    else stable = 0;
+    lastTop = t;
+    if (stable >= 3 || tries > 90) finalScroll();
+    else requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 }

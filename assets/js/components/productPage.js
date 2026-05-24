@@ -512,10 +512,11 @@ function priplatky(setupData, texts) {
           for (let i = 0; i < clickedIndex; i++) {
             const $wrap = allWraps.eq(i);
             if (!isWrapSelectionValid($wrap)) {
-              $wrap.addClass("selection-required");
-              if (!$firstInvalid) $firstInvalid = $wrap;
+              $firstInvalid = $wrap;
+              break;
             }
           }
+          if ($firstInvalid) $firstInvalid.addClass("selection-required");
           if ($firstInvalid) {
             // Otvor prvy nevyplneny krok (aj ked je zatvoreny), aby ho user
             // videl, a zoskroluj nan. Ostatne zostanu cervene tiez.
@@ -651,9 +652,18 @@ function priplatky(setupData, texts) {
           if (he && he.offsetHeight > 20) { headerH = he.offsetHeight; break; }
         }
         if (!headerH) headerH = 90;
-        const rect = targetEl.getBoundingClientRect();
-        const desiredTop = headerH + viewportHeight * 0.1;
-        const delta = rect.top - desiredTop;
+        // Michal req: krok vycentrovat na STRED obrazovky (v priestore pod
+        // fixnym header-menu). Ak je krok vyssi ako viewport, hlavicku daj
+        // kusok pod menu.
+        var availH = viewportHeight - headerH;
+        var wrapRect = $wrap[0].getBoundingClientRect();
+        var headerRect = targetEl.getBoundingClientRect();
+        var delta;
+        if (wrapRect.height > 0 && wrapRect.height <= availH) {
+          delta = wrapRect.top - (headerH + (availH - wrapRect.height) / 2);
+        } else {
+          delta = headerRect.top - (headerH + 20);
+        }
         const newScroll = Math.max(0, window.scrollY + delta);
         window.scrollTo({ top: newScroll, behavior: "smooth" });
       }
@@ -701,11 +711,31 @@ function priplatky(setupData, texts) {
       const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
 
       // Pokud v aktuálním okně jsou výběrné ovládací prvky, vyžadujeme, aby byl proveden výběr
-      if (!isWrapSelectionValid(currentWrap)) {
-        // krátká vizuální zpětná vazba
-        currentWrap.addClass("selection-required");
-        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
-        return; // nepokračuj dál
+      // Sekvencna validacia: skontroluj kroky od zaciatku po aktualny.
+      // Prvy neplatny krok -> otvor + vycentruj ten, STOP. Dalsie kroky sa
+      // nekontroluju ani neoznacuju (Michal req).
+      var $navSeq = getNavigableWraps();
+      var curSeqIdx = $navSeq.index(currentWrap);
+      var $seqInvalid = null;
+      for (var si = 0; si <= curSeqIdx && si < $navSeq.length; si++) {
+        if (!isWrapSelectionValid($navSeq.eq(si))) {
+          $seqInvalid = $navSeq.eq(si);
+          break;
+        }
+      }
+      if ($seqInvalid && $seqInvalid.length) {
+        $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
+        $seqInvalid.addClass("active").addClass("selection-required");
+        $seqInvalid.find("> .options-wrap").each(function () {
+          this.style.maxHeight = "";
+          this.style.overflow = "";
+          this.style.opacity = "";
+          this.style.padding = "";
+        });
+        var $si = $seqInvalid;
+        setTimeout(function () { $si.removeClass("selection-required"); }, 2500);
+        scrollToStep($seqInvalid);
+        return; // nepokracuj dalej
       }
 
       if (isCartStepWrap(currentWrap)) {
