@@ -44,6 +44,65 @@
     });
   }
 
+  // ── Vybrana FARBA ako inline text pod swatchmi (nahradza tmavy tooltip).
+  // Tmavy hover tooltip (.text) sa na mobile zasekol a prekryval obsah.
+  // Tu citame vybrany swatch a vykreslime obycajny text pod .options-wrap.
+  function isColorParameter(wrap) {
+    // farebne kroky maju swatche s textom "Farba ..." a NIE su .noText box ve-
+    // -likosti. Detegujeme podla obsahu .text v moznostiach.
+    if (wrap.classList.contains("noText")) return false;
+    var opt = wrap.querySelector(".option-button .text");
+    if (!opt) return false;
+    return /farba/i.test(opt.textContent || "");
+  }
+
+  function renderColorPick() {
+    document
+      .querySelectorAll(".options-wrap")
+      .forEach(function (ow) {
+        var wrap = ow.closest(".parameter-wrap, .position-wrap") || ow.parentElement;
+        if (!wrap || !isColorParameter(wrap)) return;
+
+        var active = ow.querySelector(".option-button.active");
+        // najdi / vytvor riadok s vybranou farbou hned za .options-wrap
+        var pick = wrap.querySelector(":scope > .lcd-color-pick");
+        if (!pick) {
+          pick = document.createElement("div");
+          pick.className = "lcd-color-pick";
+          ow.insertAdjacentElement("afterend", pick);
+        }
+
+        if (!active) { pick.style.display = "none"; return; }
+
+        var raw = ((active.querySelector(".text") || {}).textContent || "").trim();
+        if (!raw) { pick.style.display = "none"; return; }
+
+        // odsekni cenovy priplatok (napr. "+€0", "+5 €", "+ 5,00 Kč")
+        var priceMatch = raw.match(/\+\s*[€$]?\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?/i);
+        var price = priceMatch ? priceMatch[0].replace(/\s+/g, " ").trim() : "";
+        var label = raw.replace(/\+\s*[€$]?\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?/i, "").trim();
+        label = label.replace(/\s*\/\s*$/, "").trim();
+
+        // box cena vedla farby (ak ide o farbu boxov a box-config ma cenu)
+        var boxPrice = "";
+        var boxCfg = wrap.closest(".box-config");
+        if (boxCfg) {
+          var bp = boxCfg.querySelector(".price-recommended[data-lcd-solo-fixed], .config-wrap .price .price-final, .config-wrap [itemprop='price']");
+          if (bp) boxPrice = (bp.textContent || "").trim();
+        }
+
+        var html = '<span class="lcd-color-pick-val">' + label + "</span>";
+        if (price && !/\+\s*[€$]?\s*0+([.,]0+)?/.test(price)) {
+          html += '<span class="lcd-color-pick-price">' + price + "</span>";
+        }
+        if (boxPrice) {
+          html += '<span class="lcd-color-pick-price">' + boxPrice + "</span>";
+        }
+        pick.innerHTML = html;
+        pick.style.display = "flex";
+      });
+  }
+
   // Box "cena mimo setu" = data-recommended / 1.6 (skutočná solo cena)
   function fixBoxSoloPrices() {
     document
@@ -65,8 +124,17 @@
       tries++;
       markBestsellers();
       fixBoxSoloPrices();
+      renderColorPick();
       if (tries > 40) clearInterval(iv);
     }, 600);
+    // okamzita aktualizacia vybranej farby po kliku na swatch
+    // (interval po 24s prestane bezat, klik musi fungovat aj potom)
+    document.addEventListener("click", function (e) {
+      if (e.target && e.target.closest && e.target.closest(".option-button")) {
+        setTimeout(renderColorPick, 60);
+        setTimeout(renderColorPick, 250);
+      }
+    });
   }
 
   if (document.readyState === "loading") {

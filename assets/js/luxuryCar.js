@@ -30296,6 +30296,53 @@ function initContactForm() {
       }
     });
   }
+  function isColorParameter(wrap) {
+    if (wrap.classList.contains("noText")) return false;
+    var opt = wrap.querySelector(".option-button .text");
+    if (!opt) return false;
+    return /farba/i.test(opt.textContent || "");
+  }
+  function renderColorPick() {
+    document.querySelectorAll(".options-wrap").forEach(function(ow) {
+      var wrap = ow.closest(".parameter-wrap, .position-wrap") || ow.parentElement;
+      if (!wrap || !isColorParameter(wrap)) return;
+      var active = ow.querySelector(".option-button.active");
+      var pick = wrap.querySelector(":scope > .lcd-color-pick");
+      if (!pick) {
+        pick = document.createElement("div");
+        pick.className = "lcd-color-pick";
+        ow.insertAdjacentElement("afterend", pick);
+      }
+      if (!active) {
+        pick.style.display = "none";
+        return;
+      }
+      var raw = ((active.querySelector(".text") || {}).textContent || "").trim();
+      if (!raw) {
+        pick.style.display = "none";
+        return;
+      }
+      var priceMatch = raw.match(/\+\s*[€$]?\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?/i);
+      var price2 = priceMatch ? priceMatch[0].replace(/\s+/g, " ").trim() : "";
+      var label = raw.replace(/\+\s*[€$]?\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?/i, "").trim();
+      label = label.replace(/\s*\/\s*$/, "").trim();
+      var boxPrice = "";
+      var boxCfg = wrap.closest(".box-config");
+      if (boxCfg) {
+        var bp = boxCfg.querySelector(".price-recommended[data-lcd-solo-fixed], .config-wrap .price .price-final, .config-wrap [itemprop='price']");
+        if (bp) boxPrice = (bp.textContent || "").trim();
+      }
+      var html = '<span class="lcd-color-pick-val">' + label + "</span>";
+      if (price2 && !/\+\s*[€$]?\s*0+([.,]0+)?/.test(price2)) {
+        html += '<span class="lcd-color-pick-price">' + price2 + "</span>";
+      }
+      if (boxPrice) {
+        html += '<span class="lcd-color-pick-price">' + boxPrice + "</span>";
+      }
+      pick.innerHTML = html;
+      pick.style.display = "flex";
+    });
+  }
   function fixBoxSoloPrices() {
     document.querySelectorAll(".boxs .upsale-button .price-recommended").forEach(function(el) {
       if (el.getAttribute("data-lcd-solo-fixed")) return;
@@ -30313,8 +30360,15 @@ function initContactForm() {
       tries++;
       markBestsellers();
       fixBoxSoloPrices();
+      renderColorPick();
       if (tries > 40) clearInterval(iv);
     }, 600);
+    document.addEventListener("click", function(e) {
+      if (e.target && e.target.closest && e.target.closest(".option-button")) {
+        setTimeout(renderColorPick, 60);
+        setTimeout(renderColorPick, 250);
+      }
+    });
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", run);
@@ -30604,15 +30658,20 @@ function googleReviews(setupData2, texts) {
     return $('<div class="lcd-reviews-widget"></div>').attr("data-title", title).attr("data-lang", lang2).attr("data-limit", "30").attr("data-min-rating", "4");
   }
   function placeWidget() {
-    if ($(".lcd-reviews-widget").length) return true;
     if ($(".in-index")[0]) {
       var $ms = $(".in-index section#model-selector");
-      if ($ms.length) {
+      if (!$ms.length) return false;
+      var $rev = $(".lcd-reviews-widget");
+      if (!$rev.length) {
         makeWidget().insertAfter($ms);
         return true;
       }
-      return false;
+      if (!$ms.next().is($rev)) {
+        $rev.first().insertAfter($ms);
+      }
+      return true;
     }
+    if ($(".lcd-reviews-widget").length) return true;
     if ($(".type-product")[0]) {
       var isBox = /box/i.test($("h1").first().text());
       if (isBox) {
@@ -30661,10 +30720,18 @@ function googleReviews(setupData2, texts) {
     document.body.appendChild(d);
   }
   loadScripts();
-  var tries = 0;
+  var tries = 0, extra = 0;
   (function tryPlace() {
     tries++;
-    if (placeWidget() || tries >= 25) return;
+    var placed = placeWidget();
+    if (placed) {
+      if ($(".in-index")[0] && extra < 6) {
+        extra++;
+        setTimeout(tryPlace, 300);
+      }
+      return;
+    }
+    if (tries >= 25) return;
     setTimeout(tryPlace, 300);
   })();
 }

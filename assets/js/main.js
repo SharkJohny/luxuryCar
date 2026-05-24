@@ -455,12 +455,19 @@ function googleReviews(setupData, texts) {
   }
 
   function placeWidget() {
-    if ($(".lcd-reviews-widget").length) return true;
     if ($(".in-index")[0]) {
+      // Homepage: widget MUSI byt hned za model-selectorom (desktop aj mobil).
+      // Na mobile sa model-selector vklada cez prependTo do banners-row,
+      // co moze widget premiestnit pred neho - preto poradie vzdy preveruj.
       var $ms = $(".in-index section#model-selector");
-      if ($ms.length) { makeWidget().insertAfter($ms); return true; }
-      return false;
+      if (!$ms.length) return false;
+      var $rev = $(".lcd-reviews-widget");
+      if (!$rev.length) { makeWidget().insertAfter($ms); return true; }
+      // widget existuje - ak nie je hned za model-selectorom, presun ho tam
+      if (!$ms.next().is($rev)) { $rev.first().insertAfter($ms); }
+      return true;
     }
+    if ($(".lcd-reviews-widget").length) return true;
     if ($(".type-product")[0]) {
       var isBox = /box/i.test($("h1").first().text());
       if (isBox) {
@@ -499,10 +506,18 @@ function googleReviews(setupData, texts) {
   }
 
   loadScripts();
-  var tries = 0;
+  var tries = 0, extra = 0;
   (function tryPlace() {
     tries++;
-    if (placeWidget() || tries >= 25) return;
+    var placed = placeWidget();
+    // Po umiestneni na homepage este par cyklov preveruj poradie -
+    // model-selector sa na mobile vklada cez prependTo a moze widget
+    // docasne premiestnit pred seba.
+    if (placed) {
+      if ($(".in-index")[0] && extra < 6) { extra++; setTimeout(tryPlace, 300); }
+      return;
+    }
+    if (tries >= 25) return;
     setTimeout(tryPlace, 300);
   })();
 }
