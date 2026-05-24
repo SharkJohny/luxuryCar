@@ -28243,7 +28243,7 @@ function errorToCart(e, texts) {
 function optionTest() {
   let allSelected = true;
   let firstErrorElement = null;
-  $(".config-wrap .parameter-wrap:visible").each(function() {
+  $(".box-config .parameter-wrap:visible, .config-wrap .parameter-wrap:visible").each(function() {
     if (!$(this).find(".option-button.active").length) {
       $(this).addClass("errorToCart");
       if (!firstErrorElement) {
@@ -28262,7 +28262,7 @@ function optionTest() {
       lcdScrollToStep($err, { center: true });
     }, 50);
     setTimeout(() => {
-      $(".config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");
+      $(".box-config .parameter-wrap.errorToCart, .config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");
     }, 2500);
   }
   return allSelected;
@@ -28817,6 +28817,16 @@ function priplatky(setupData2, texts) {
         return;
       }
       if (currentWrap.hasClass("trunk")) {
+        if (!currentWrap.find(".upsale-button.active").length) {
+          currentWrap.addClass("active").addClass("errorToCart");
+          setTimeout(function() {
+            scrollToStep(currentWrap);
+          }, 50);
+          setTimeout(function() {
+            currentWrap.removeClass("errorToCart");
+          }, 2500);
+          return;
+        }
         const $boxs = $(".upsale-buttons.boxs").first();
         if ($boxs.length) {
           currentWrap.removeClass("active");

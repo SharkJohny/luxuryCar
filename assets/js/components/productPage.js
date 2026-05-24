@@ -666,6 +666,14 @@ function priplatky(setupData, texts) {
       // moze ukazat na nespravny (skryty) wrap. Riesime cielene - z trunk
       // vzdy otvorime prvy boxs wrap. Funguje aj ked v K5 nic nie je vybrane.
       if (currentWrap.hasClass("trunk")) {
+        // K4 (kufrova rohoz) musi mat vybranu jednu z 3 moznosti (vratane
+        // NECHCI). Bez vyberu necha krok cerveny a nepustime na K5.
+        if (!currentWrap.find(".upsale-button.active").length) {
+          currentWrap.addClass("active").addClass("errorToCart");
+          setTimeout(function () { scrollToStep(currentWrap); }, 50);
+          setTimeout(function () { currentWrap.removeClass("errorToCart"); }, 2500);
+          return;
+        }
         const $boxs = $(".upsale-buttons.boxs").first();
         if ($boxs.length) {
           currentWrap.removeClass("active");

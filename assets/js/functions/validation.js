@@ -392,7 +392,7 @@ function optionTest() {
   let allSelected = true;
   let firstErrorElement = null;
 
-  $(".config-wrap .parameter-wrap:visible").each(function () {
+  $(".box-config .parameter-wrap:visible, .config-wrap .parameter-wrap:visible").each(function () {
     if (!$(this).find(".option-button.active").length) {
       $(this).addClass("errorToCart");
       if (!firstErrorElement) {
@@ -423,7 +423,7 @@ function optionTest() {
     }, 50);
 
     setTimeout(() => {
-      $(".config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");
+      $(".box-config .parameter-wrap.errorToCart, .config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");
     }, 2500);
   }
 
