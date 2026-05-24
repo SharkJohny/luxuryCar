@@ -1671,9 +1671,11 @@ section#section1 .images-scrolling__content p {
   }
   .row.banners-content.body-banners section#model-selector {
     order: 1;
+    margin-bottom: 0 !important;
   }
   .row.banners-content.body-banners .lcd-reviews-widget {
     order: 2;
+    margin-top: 0 !important;
     padding: 20px 5px !important;
   }
   .row.banners-content.body-banners .col-sm-12 {
@@ -7347,15 +7349,27 @@ header.header,
     gap: 6px !important;
     margin: 0 0 16px !important;
   }
-  /* BUG fix: zarucit zobrazenie nadpisu a CTA tlacidla aj na mobile */
+  /* BUG fix: zarucit zobrazenie nadpisu, karuselu a CTA tlacidla aj na mobile.
+     lcd-reviews.js injektuje vlastny <style id="lcdr-css"> az po nacitani
+     luxuryCar.css - preto !important + explicitne visibility, aby tieto
+     pravidla vyhrali bez ohladu na poradie stylov. */
   .lcd-reviews-widget .lcdr-head,
   .lcd-reviews-widget .lcdr-cta {
     display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .lcd-reviews-widget .lcdr-viewport {
+    display: block !important;
   }
   .lcd-reviews-widget .lcdr-title {
     display: block !important;
+    visibility: visible !important;
     font-size: 18px !important;
     line-height: 1.25 !important;
+  }
+  .lcd-reviews-widget .lcdr-cta a {
+    display: inline-flex !important;
   }
   .lcd-reviews-widget .lcdr-gbadge {
     gap: 10px !important;
