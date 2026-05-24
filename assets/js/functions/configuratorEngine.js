@@ -42,3 +42,54 @@ function lcdStepFilled(stepEl) {
   }
   return !hasControl || picked;
 }
+
+var lcdScroll = { token: 0, priority: false };
+
+function lcdHeaderH() {
+  var sels = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
+  for (var i = 0; i < sels.length; i++) {
+    var e = document.querySelector(sels[i]);
+    if (e && e.offsetHeight > 20) return e.offsetHeight;
+  }
+  return 90;
+}
+
+function lcdDesiredY(el) {
+  var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+  var hH = lcdHeaderH();
+  var avail = vh - hH;
+  var r = el.getBoundingClientRect();
+  var delta;
+  if (r.height > 0 && r.height <= avail) delta = r.top - (hH + (avail - r.height) / 2);
+  else delta = r.top - (hH + 20);
+  return Math.max(0, Math.round(window.scrollY + delta));
+}
+
+/** Vycentruje krok na stred. isVerify=true => priorita, nedá sa prebiť. */
+function lcdScrollToStep(el, isVerify) {
+  if (!el) return;
+  if (lcdScroll.priority && !isVerify) return; // verifikacny scroll ma prednost
+  if (isVerify) lcdScroll.priority = true;
+  var myToken = ++lcdScroll.token;
+  window.scrollTo(0, lcdDesiredY(el));
+  var ticks = 0, aborted = false;
+  function onUser() { aborted = true; }
+  window.addEventListener("wheel", onUser, { passive: true });
+  window.addEventListener("touchmove", onUser, { passive: true });
+  window.addEventListener("keydown", onUser, { passive: true });
+  function stop() {
+    window.removeEventListener("wheel", onUser);
+    window.removeEventListener("touchmove", onUser);
+    window.removeEventListener("keydown", onUser);
+    if (lcdScroll.token === myToken) lcdScroll.priority = false;
+  }
+  function tick() {
+    if (myToken !== lcdScroll.token || aborted || !el.isConnected) { stop(); return; }
+    var want = lcdDesiredY(el);
+    if (Math.abs(window.scrollY - want) > 3) window.scrollTo(0, want);
+    ticks++;
+    if (ticks < 24) setTimeout(tick, 110);
+    else stop();
+  }
+  setTimeout(tick, 90);
+}
