@@ -8083,10 +8083,15 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     max-height: none !important;
   }
 }
-/* Widget videi - fonty/hrubky nadpisu zladene so zvyskom webu */
+/* Widget videi - nadpis zjednoteny s widgetom recenzii (Exo 2, zlaty, uppercase) */
 .lcd-videos-widget .lcdv-title {
-  font-family: "Source Sans 3", sans-serif !important;
-  font-weight: 400 !important;
+  font-family: "Exo 2", sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .04em !important;
+}
+.type-product .lcd-videos-widget .lcdv-title {
+  color: var(--color-primary, #c49b31) !important;
 }
 .lcd-videos-widget .lcdv-subtitle {
   font-family: "Source Sans 3", sans-serif !important;

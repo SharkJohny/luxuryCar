@@ -526,7 +526,7 @@ function googleReviews(setupData, texts) {
 function lcdVideos() {
   // Widget YouTube videi (lcd-videos.js). Produkt: pod widgetom "Zlozenie materialu".
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
-  var VV = "4";
+  var VV = "5";
 
   function placeWidget() {
     if ($(".lcd-videos-widget").length) return true;

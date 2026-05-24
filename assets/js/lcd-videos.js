@@ -32,9 +32,25 @@
     cacheHours: 3                        /* ako dlho držať dáta v cache */
   };
 
+  /* Lokalizácia nadpisu/podnadpisu podľa domény (.cz -> čeština).
+     Popisky jednotlivých videí ostávajú v slovenčine zámerne. */
+  var I18N = {
+    sk: {
+      title: 'Realita luxusných autokobercov',
+      subtitle: 'Pozrite sa, ako naše autokoberce vyzerajú a fungujú v praxi'
+    },
+    cz: {
+      title: 'Realita luxusních autokoberců',
+      subtitle: 'Podívejte se, jak naše autokoberce vypadají a fungují v praxi'
+    }
+  };
+  function lcdvLang() {
+    return /\.cz$/i.test(location.hostname) ? 'cz' : 'sk';
+  }
+
   var DEFAULTS = {
-    title: 'Realita luxusných autokobercov',
-    subtitle: 'Pozrite sa, ako naše autokoberce vyzerajú a fungujú v praxi',
+    title: I18N[lcdvLang()].title,
+    subtitle: I18N[lcdvLang()].subtitle,
     text: '',
     limit: 300
   };
