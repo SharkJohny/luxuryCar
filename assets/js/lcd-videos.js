@@ -329,6 +329,8 @@
     var next = el('button', { class: 'lcdv-arrow lcdv-arrow--next', type: 'button',
       'aria-label': 'Ďalšie', html: ICON.chevR });
     vp.appendChild(prev); vp.appendChild(track); vp.appendChild(next);
+    var lockCenter = false;
+    setTimeout(function () { lockCenter = true; }, 5000);
 
     /* okraje, aby aj prvá/posledná karta vedeli byť v strede */
     function pad() {
@@ -366,9 +368,11 @@
       markActive();
     }
     prev.addEventListener('click', function () {
+      lockCenter = true;
       track.scrollBy({ left: -step(), behavior: 'smooth' });
     });
     next.addEventListener('click', function () {
+      lockCenter = true;
       track.scrollBy({ left: step(), behavior: 'smooth' });
     });
     track.addEventListener('scroll', function () {
@@ -392,6 +396,7 @@
       window.removeEventListener('pointerup', onUp);
     }
     track.addEventListener('pointerdown', function (e) {
+      lockCenter = true;
       if (e.pointerType !== 'mouse') return;
       moved = false; startX = e.clientX; startScroll = track.scrollLeft;
       track.style.userSelect = 'none'; track.style.cursor = 'grabbing';
@@ -446,6 +451,7 @@
     setTimeout(function () { initCarousel(0); }, 60);
     /* re-center ked sa nacitaju thumbnaily (menia rozmery layoutu) */
     track.addEventListener('load', function () {
+      if (lockCenter) return;
       requestAnimationFrame(function () { centerCard(); update(); });
     }, true);
     return vp;

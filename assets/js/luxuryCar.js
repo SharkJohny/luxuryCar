@@ -30799,7 +30799,7 @@ function googleReviews(setupData2, texts) {
 }
 function lcdVideos() {
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
-  var VV = "3";
+  var VV = "4";
   function placeWidget() {
     if ($(".lcd-videos-widget").length) return true;
     if ($(".in-index")[0]) {
