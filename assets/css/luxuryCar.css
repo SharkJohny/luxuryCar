@@ -8257,3 +8257,25 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   }
 }
 
+
+/* Produkt: widget s hotspot obrázkami (+ ikony) — biele pozadie od kraja po
+   kraj až po tlačidlo "Zobrazit více" + kúsok bieleho navyše na oddelenie. */
+.point-picture {
+  position: relative;
+  z-index: 0;
+}
+.point-picture::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: -40px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: #ffffff;
+}
+/* Tlačidlo "Zobrazit více" bližšie k obrázkom (~50% vyššie). */
+.point-picture .btn.more-pictures-button {
+  margin-top: -30px !important;
+}
