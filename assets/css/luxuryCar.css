@@ -4649,12 +4649,16 @@ section.shopify-section.horiz-video.shopify-section--video.full-width {
   background-color: #ededed;
   padding: 50px;
 }
-/* Sekcia "Krok 1-6" (timeline objednávky) — biele pozadie, bez nezmyselných
-   bielych medzier nad a pod ňou (sekcie tesne na seba). */
+/* Sekcia "Krok 1-6" (timeline objednávky) — biele pozadie celého widgetu.
+   Vnútorná .section-blends má sivý full-bleed ::before — prepíšeme ho na biely.
+   Padding 0 = žiadne biele pásiky, sekcie tesne na seba (sivá-biela-sivá). */
 section.shopify-section.shopify-section--timeline {
   background: #ffffff !important;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+section.shopify-section.shopify-section--timeline .section.section-blends.section-full::before {
+  background: #ffffff !important;
 }
 section.shopify-section.horiz-video.shopify-section--video.full-width h3 {
   margin-top: 0px !important;
