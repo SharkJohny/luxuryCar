@@ -29518,6 +29518,21 @@ function initVideoPlayAgain() {
         $video.show();
       }
     }
+    if ($video.closest(".content-over-media, .shopify-section--video").length) {
+      const posterAttr = videoEl.getAttribute("poster");
+      if (posterAttr && !/luxurycardesign/i.test(posterAttr)) {
+        videoEl.removeAttribute("poster");
+      }
+      if (videoEl.preload !== "auto") {
+        videoEl.preload = "auto";
+      }
+      if (videoEl.readyState < 2) {
+        try {
+          videoEl.load();
+        } catch (e) {
+        }
+      }
+    }
     let $playPauseBtn = $container.find(".playpause");
     if ($playPauseBtn.length === 0) {
       $playPauseBtn = jQuery('<div class="playpause"></div>');

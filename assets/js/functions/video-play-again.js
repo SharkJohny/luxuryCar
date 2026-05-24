@@ -59,6 +59,24 @@ export function initVideoPlayAgain() {
       }
     }
 
+    // Video v produktovém popisu (ÚDRŽBA V PRAXI apod.) — viditelné hned:
+    // načteme první snímek a odstraníme cizí (rozbitý) poster z jiného e-shopu,
+    // aby se nezobrazoval prázdný box, dokud uživatel neklikne.
+    if ($video.closest(".content-over-media, .shopify-section--video").length) {
+      const posterAttr = videoEl.getAttribute("poster");
+      if (posterAttr && !/luxurycardesign/i.test(posterAttr)) {
+        videoEl.removeAttribute("poster");
+      }
+      if (videoEl.preload !== "auto") {
+        videoEl.preload = "auto";
+      }
+      if (videoEl.readyState < 2) {
+        try {
+          videoEl.load();
+        } catch (e) {}
+      }
+    }
+
     // Najdeme nebo vytvoříme play/pause tlačítko
     let $playPauseBtn = $container.find(".playpause");
     if ($playPauseBtn.length === 0) {
