@@ -132,3 +132,43 @@ function lcdFirstUnfilled(uptoIndex) {
   }
   return null;
 }
+
+function lcdGoToStep(el, isVerify) {
+  lcdOpenStep(el);
+  lcdScrollToStep(el, isVerify);
+}
+
+export function initConfiguratorEngine() {
+  // "Prejsť k ďalšiemu kroku"
+  $(document).on("click", ".next-step-button", function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var cur = $(this).closest(".position-wrap, .parameter-wrap")[0];
+    var steps = lcdGetSteps();
+    var curIdx = steps.indexOf(cur);
+    if (curIdx < 0) curIdx = steps.length - 1;
+    var bad = lcdFirstUnfilled(curIdx);
+    if (bad) {
+      lcdHighlightStep(bad);
+      lcdGoToStep(bad, true);   // verifikacny scroll — priorita
+      return;
+    }
+    if (curIdx < steps.length - 1) {
+      lcdGoToStep(steps[curIdx + 1], false);
+    } else {
+      var $cart = $("button.add-to-cart-button").filter(":visible").first();
+      if ($cart.length) $cart.trigger("click");
+    }
+  });
+
+  // "Pridať do košíka"
+  $(document).on("click", "button.add-to-cart-button", function (e) {
+    var bad = lcdFirstUnfilled();
+    if (bad) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      lcdHighlightStep(bad);
+      lcdGoToStep(bad, true);
+      return false;
+    }
+    // vsetko vyplnene → Shoptet submit prebehne
+  });
+}
