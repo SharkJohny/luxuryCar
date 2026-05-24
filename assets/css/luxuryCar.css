@@ -8287,7 +8287,8 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 /* Mobile: hotspot widget — menšia medzera medzi obrázkami (~-50%) a menej
    bieleho priestoru pod tlačidlom "Zobrazit více" (~-60%). PC ostáva. */
 @media (max-width: 768px) {
-  .point-picture .image-container {
+  /* 4-triedny selektor, aby prebil .twentytwenty-wrap.full-width .image-container{margin:50px 0!important} */
+  .twentytwenty-wrap.full-width .point-picture .image-container {
     margin-top: 25px !important;
     margin-bottom: 25px !important;
   }
