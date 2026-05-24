@@ -142,9 +142,13 @@ export function initConfiguratorEngine() {
   // "Prejsť k ďalšiemu kroku"
   $(document).on("click", ".next-step-button", function (e) {
     e.preventDefault(); e.stopPropagation();
-    var cur = $(this).closest(".position-wrap, .parameter-wrap")[0];
     var steps = lcdGetSteps();
-    var curIdx = steps.indexOf(cur);
+    // Nájdi krok ktorý obsahuje toto tlačidlo (robustne — nezávisí na triedach).
+    var btn = this;
+    var curIdx = -1;
+    for (var ci = 0; ci < steps.length; ci++) {
+      if (steps[ci].contains(btn)) { curIdx = ci; break; }
+    }
     if (curIdx < 0) curIdx = steps.length - 1;
     var bad = lcdFirstUnfilled(curIdx);
     if (bad) {
