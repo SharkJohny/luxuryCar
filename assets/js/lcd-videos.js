@@ -402,7 +402,17 @@
       if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
     }, true);
 
-    setTimeout(function () { pad(); update(); }, 60);
+    function initCarousel() {
+      if (!track.clientWidth) { setTimeout(initCarousel, 80); return; }
+      pad();
+      var icards = track.querySelectorAll('.lcdv-card');
+      var si = Math.min(3, icards.length - 1);
+      if (icards[si]) {
+        track.scrollLeft = icards[si].offsetLeft + icards[si].offsetWidth / 2 - track.clientWidth / 2;
+      }
+      update();
+    }
+    setTimeout(initCarousel, 60);
     return vp;
   }
 
