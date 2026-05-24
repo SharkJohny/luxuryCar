@@ -517,8 +517,16 @@ function priplatky(setupData, texts) {
             }
           }
           if ($firstInvalid) {
-            // Zoskrolujeme k prvnímu chybějícímu, ostatní zůstanou červené
-            // taky, ať uživatel okamžitě vidí kompletní seznam co chybí.
+            // Otvor prvy nevyplneny krok (aj ked je zatvoreny), aby ho user
+            // videl, a zoskroluj nan. Ostatne zostanu cervene tiez.
+            $(".position-wrap, .parameter-wrap").removeClass("active");
+            $firstInvalid.addClass("active");
+            $firstInvalid.find("> .options-wrap").each(function () {
+              this.style.maxHeight = "";
+              this.style.overflow = "";
+              this.style.opacity = "";
+              this.style.padding = "";
+            });
             scrollToStep($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
@@ -544,6 +552,20 @@ function priplatky(setupData, texts) {
       if ($wrap.hasClass("boxs")) return true;
       if ($wrap.hasClass("trunk")) return true;
       if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+
+      // Krok "Specifikace vozidla" (obsahuje EU/UK volant .wheel-Position)
+      // vyzaduje aj vybranu znacku/model/rok auta — bez nich je neplatny,
+      // takze sa nepreskoci na krok 2.
+      if ($wrap.find(".wheel-Position").length) {
+        var lcdModel = sessionStorage.getItem("model");
+        var lcdModelMissing =
+          !lcdModel ||
+          lcdModel.indexOf("Zna\u010Dka") > -1 ||
+          lcdModel.trim() === "Model" ||
+          lcdModel.indexOf("Rok v\u00FDroby") > -1 ||
+          lcdModel.indexOf("Typ auta") > -1;
+        if (lcdModelMissing) return false;
+      }
 
       let hasSelectable = false;
       let valid = false;

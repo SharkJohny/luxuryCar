@@ -28122,6 +28122,11 @@ function priplatky(setupData2, texts) {
       if ($wrap.hasClass("boxs")) return true;
       if ($wrap.hasClass("trunk")) return true;
       if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
+      if ($wrap.find(".wheel-Position").length) {
+        var lcdModel = sessionStorage.getItem("model");
+        var lcdModelMissing = !lcdModel || lcdModel.indexOf("Zna\u010Dka") > -1 || lcdModel.trim() === "Model" || lcdModel.indexOf("Rok v\xFDroby") > -1 || lcdModel.indexOf("Typ auta") > -1;
+        if (lcdModelMissing) return false;
+      }
       let hasSelectable = false;
       let valid = false;
       if ($wrap.find(".option-button").length) {
@@ -28364,6 +28369,14 @@ function priplatky(setupData2, texts) {
             }
           }
           if ($firstInvalid) {
+            $(".position-wrap, .parameter-wrap").removeClass("active");
+            $firstInvalid.addClass("active");
+            $firstInvalid.find("> .options-wrap").each(function() {
+              this.style.maxHeight = "";
+              this.style.overflow = "";
+              this.style.opacity = "";
+              this.style.padding = "";
+            });
             scrollToStep2($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
