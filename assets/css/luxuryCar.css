@@ -8095,6 +8095,11 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
    Zoom rozbijal layout (prazdne biele miesto). Tu realne CSS zmenseniem
    karty, fontov a paddingov - ziadne prazdne miesto. */
 @media (max-width: 768px) {
+  /* FIX: widget v banners-row flexe narastal na max-width 1380px -> nadpis/odznak/CTA mimo obrazovky */
+  .lcd-reviews-widget {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
   .lcd-reviews-widget .lcdr-card {
     height: 232px !important;
     flex-basis: 248px !important;
