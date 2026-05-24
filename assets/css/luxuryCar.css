@@ -1671,9 +1671,11 @@ section#section1 .images-scrolling__content p {
   }
   .row.banners-content.body-banners section#model-selector {
     order: 1;
+    margin-bottom: 0 !important;
   }
-  .row.banners-content.body-banners section#goggle-review-wrap {
+  .row.banners-content.body-banners .lcd-reviews-widget {
     order: 2;
+    margin-top: 0 !important;
     padding: 20px 5px !important;
   }
   .row.banners-content.body-banners .col-sm-12 {
@@ -3522,8 +3524,38 @@ i.info-icon {
   border-radius: 6px;
   padding: 4px 8px;
 }
-.options-wrap .button.option-button:hover .text {
-  display: block;
+/* Farebne swatche: tmavy hover tooltip (.text) sa NEZOBRAZUJE - na mobile
+   sa po tape "zasekol" a prekryval obsah. Vybrana farba sa miesto toho
+   ukaze ako obycajny text pod swatchmi (.lcd-color-pick, plni JS). */
+.options-wrap .button.option-button:hover .text,
+.options-wrap .button.option-button.active .text {
+  display: none;
+}
+/* Vybrana farba ako inline text pod swatchmi */
+.lcd-color-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin: 4px 10px 10px;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 14px;
+  color: #3a3a3c;
+  line-height: 1.4;
+}
+.lcd-color-pick .lcd-color-pick-val {
+  font-weight: 700;
+  color: #1f1f1f;
+}
+.lcd-color-pick .lcd-color-pick-price {
+  font-weight: 700;
+  color: #c5a44e;
+}
+@media (max-width: 768px) {
+  .lcd-color-pick {
+    font-size: 12.5px;
+    margin: 4px 8px 8px;
+  }
 }
 .options-wrap .button.option-button:hover {
   transform: scale(1.05);
@@ -3643,6 +3675,11 @@ span.quantity {
   left: 50px;
   color: #fff;
   text-transform: uppercase;
+  /* font zhodny s ostatnymi krokmi konfiguratora (base-config h5.variant.name).
+     Bez tychto vlastnosti dedil h5 default theme (20px/400) - krok 5 vyzeral inak. */
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 .upsale-Banner .upsale-buttons {
   display: flex;
@@ -4987,7 +5024,8 @@ a.p-thumbnail {
     height: auto;
     font-size: 13px;
   }
-  .base-config h5.variant.name {
+  .base-config h5.variant.name,
+  .upsale-Banner h5.variant.name {
     top: 10px;
     font-size: 13px;
   }
@@ -7677,6 +7715,108 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   height: 0 !important;
   background: transparent !important;
 }
+/* === Reviews widget - hranate rohy + pozadie od kraja po kraj === */
+.lcd-reviews-widget {
+  border-radius: 0 !important;
+  background: transparent !important;
+  position: relative;
+  z-index: 0;
+  max-width: 1380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.lcd-reviews-widget::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: #ffffff;
+}
+/* Homepage: widget na sivom pase */
+.in-index .lcd-reviews-widget::before {
+  background: #ededed;
+}
+
+/* Produkt: blok "10 dovodov" -> sivy pas (striedanie siva/biela) */
+.basic-description .section.section-blends.section-full:not(.section-dubble) {
+  position: relative;
+  z-index: 0;
+}
+.basic-description .section.section-blends.section-full:not(.section-dubble)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: #ededed;
+}
+
+
+/* === Widget ZLOZENIE MATERIALU - oprava prekrytia textu a obrazku === */
+.basic-description .layers-info-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.basic-description .layers-info-wrap .layers-text {
+  position: static !important;
+  width: auto;
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+.basic-description .layers-info-wrap .image-container {
+  flex: 1 1 480px;
+  width: auto;
+  margin: 0;
+  min-width: 0;
+}
+.basic-description .layers-info-wrap .image-container img {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .basic-description .layers-info-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .basic-description .layers-info-wrap .layers-text,
+  .basic-description .layers-info-wrap .image-container {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+
+/* === Widget videi na homepage - nadpis vlavo + zlaty (ladi so sekciami HP) === */
+.in-index .lcd-videos-widget .lcdv-head {
+  text-align: left;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+.in-index .lcd-videos-widget .lcdv-title {
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+
+/* Tlacidlo "Zvolit model" - zelene (nie zlte) */
+.btn.choice-Model {
+  background: linear-gradient(135deg, #4caf50, #388e3c) !important;
+  border-color: #388e3c !important;
+}
+/* Widget videi na produktoch - priehladne pozadie (ladi do striedania) */
+.type-product .lcd-videos-widget {
+  background: transparent !important;
+}
 
 
 /* ═══ RESPONSIVE LAYOUT FIX — Michal req 2026-05-18 ═══ */
@@ -7941,5 +8081,116 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   body.type-product .product-top .col-xs-12:not(.p-info-wrapper) {
     height: auto !important;
     max-height: none !important;
+  }
+}
+/* Widget videi - fonty/hrubky nadpisu zladene so zvyskom webu */
+.lcd-videos-widget .lcdv-title {
+  font-family: "Source Sans 3", sans-serif !important;
+  font-weight: 400 !important;
+}
+.lcd-videos-widget .lcdv-subtitle {
+  font-family: "Source Sans 3", sans-serif !important;
+}
+/* Widget recenzii - kompaktnejsi na mobile (~ -35%, bez zoom hacku).
+   Zoom rozbijal layout (prazdne biele miesto). Tu realne CSS zmenseniem
+   karty, fontov a paddingov - ziadne prazdne miesto. */
+@media (max-width: 768px) {
+  .lcd-reviews-widget .lcdr-card {
+    height: 232px !important;
+    flex-basis: 248px !important;
+    max-width: 82vw !important;
+    padding: 13px !important;
+    gap: 8px !important;
+  }
+  .lcd-reviews-widget .lcdr-track {
+    gap: 10px !important;
+    padding: 4px 2px 8px !important;
+  }
+  .lcd-reviews-widget .lcdr-card-top {
+    gap: 8px !important;
+  }
+  .lcd-reviews-widget .lcdr-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    flex: 0 0 32px !important;
+    font-size: 13px !important;
+  }
+  .lcd-reviews-widget .lcdr-name {
+    font-size: 13px !important;
+  }
+  .lcd-reviews-widget .lcdr-date {
+    font-size: 11px !important;
+  }
+  .lcd-reviews-widget .lcdr-gmark {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .lcd-reviews-widget .lcdr-stars .lcdr-star {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .lcd-reviews-widget .lcdr-text {
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+    -webkit-line-clamp: 5 !important;
+  }
+  .lcd-reviews-widget .lcdr-thumb {
+    width: 42px !important;
+    height: 42px !important;
+  }
+  /* hlavicka + Google badge kompaktnejsie */
+  .lcd-reviews-widget .lcdr-head {
+    gap: 6px !important;
+    margin: 0 0 16px !important;
+  }
+  /* BUG fix: zarucit zobrazenie nadpisu, karuselu a CTA tlacidla aj na mobile.
+     lcd-reviews.js injektuje vlastny <style id="lcdr-css"> az po nacitani
+     luxuryCar.css - preto !important + explicitne visibility, aby tieto
+     pravidla vyhrali bez ohladu na poradie stylov. */
+  .lcd-reviews-widget .lcdr-head,
+  .lcd-reviews-widget .lcdr-cta {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .lcd-reviews-widget .lcdr-viewport {
+    display: block !important;
+  }
+  .lcd-reviews-widget .lcdr-title {
+    display: block !important;
+    visibility: visible !important;
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+  .lcd-reviews-widget .lcdr-cta a {
+    display: inline-flex !important;
+  }
+  .lcd-reviews-widget .lcdr-gbadge {
+    gap: 10px !important;
+    padding: 9px 13px !important;
+  }
+  .lcd-reviews-widget .lcdr-gbadge-score {
+    font-size: 26px !important;
+  }
+  .lcd-reviews-widget .lcdr-gbadge-logo {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .lcd-reviews-widget .lcdr-gbadge-brand {
+    font-size: 14px !important;
+  }
+  .lcd-reviews-widget .lcdr-gbadge-sub {
+    font-size: 11px !important;
+  }
+  .lcd-reviews-widget .lcdr-gbadge-stars .lcdr-star {
+    width: 13px !important;
+    height: 13px !important;
+  }
+  .lcd-reviews-widget .lcdr-cta {
+    margin-top: 18px !important;
+  }
+  .lcd-reviews-widget .lcdr-cta a {
+    font-size: 13px !important;
+    padding: 10px 22px !important;
   }
 }
