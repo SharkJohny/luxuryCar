@@ -104,6 +104,18 @@ export function initProduct(setupData, texts) {
     if (isDesktopBody && $v.hasClass("mobile")) $v.remove();
     if (!isDesktopBody && $v.hasClass("desctop")) $v.remove();
   });
+  // Odstraň prázdné odstavce (&nbsp; / mezery z editoru) v popisu produktu —
+  // dělají nesmyslné bílé mezery mezi sekcemi (např. před widgetem "Krok 1-6").
+  $(".basic-description p").each(function () {
+    var $p = $(this);
+    if (
+      $p.children().length === 0 &&
+      ($p.text() || "").replace(/\u00a0/g, "").trim() === ""
+    ) {
+      $p.remove();
+    }
+  });
+
   if ($(".p-detail-inner .p-detail-info").length) {
     $(".p-detail-inner .p-detail-info").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }

@@ -4649,6 +4649,13 @@ section.shopify-section.horiz-video.shopify-section--video.full-width {
   background-color: #ededed;
   padding: 50px;
 }
+/* Sekcia "Krok 1-6" (timeline objednávky) — biele pozadie, bez nezmyselných
+   bielych medzier nad a pod ňou (sekcie tesne na seba). */
+section.shopify-section.shopify-section--timeline {
+  background: #ffffff !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
 section.shopify-section.horiz-video.shopify-section--video.full-width h3 {
   margin-top: 0px !important;
 }
