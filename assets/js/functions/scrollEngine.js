@@ -68,6 +68,7 @@ export function lcdScrollToStep(target, opts) {
   var lastTop = null;
   var stableFrames = 0;
   var frames = 0;
+  var startTs = Date.now();
 
   function pageY() {
     return window.pageYOffset || document.documentElement.scrollTop || 0;
@@ -100,27 +101,44 @@ export function lcdScrollToStep(target, opts) {
     return headerH + GAP;
   }
 
+  // Po scrolle layout este reflowuje (nacitanie obrazkov v kroku 4/5,
+  // accordion animacie, async Shoptet skripty) — krok by skoncil za fixnym
+  // header-menu. Preto ~2.9s po scrolle kazdych 120ms prepocitame ciel a
+  // instantne dorovname. Instant scroll funguje aj na pozadi a nebije sa s
+  // animaciou. Watchdog sa zrusi ak pouzivatel sam scrolluje.
   function correctAfterSettle() {
-    var lastY = null;
-    var sf = 0;
-    var f = 0;
-    function watch() {
-      f++;
-      var y = pageY();
-      if (lastY !== null && Math.abs(y - lastY) < 0.6) sf++;
-      else sf = 0;
-      lastY = y;
-      if (sf >= 6 || f > 200) {
-        var have = el.getBoundingClientRect().top;
-        var want = desiredViewportTop();
-        if (Math.abs(have - want) > 38) {
-          nativeScroll(pageY() + have - want);
-        }
-      } else {
-        requestAnimationFrame(watch);
-      }
+    var ticks = 0;
+    var aborted = false;
+    var lastApplied = null;
+    function onUserScroll() { aborted = true; }
+    window.addEventListener("wheel", onUserScroll, { passive: true });
+    window.addEventListener("touchmove", onUserScroll, { passive: true });
+    window.addEventListener("keydown", onUserScroll, { passive: true });
+    function unbind() {
+      window.removeEventListener("wheel", onUserScroll);
+      window.removeEventListener("touchmove", onUserScroll);
+      window.removeEventListener("keydown", onUserScroll);
     }
-    requestAnimationFrame(watch);
+    function step() {
+      ticks++;
+      if (aborted || !el.isConnected) { unbind(); return; }
+      if (lastApplied !== null && Math.abs(pageY() - lastApplied) > 60) {
+        unbind();
+        return;
+      }
+      var have = el.getBoundingClientRect().top;
+      var want = desiredViewportTop();
+      if (Math.abs(have - want) > 3) {
+        var t = Math.max(0, Math.round(pageY() + have - want));
+        window.scrollTo(0, t);
+        lastApplied = t;
+      } else {
+        lastApplied = pageY();
+      }
+      if (ticks < 22) setTimeout(step, 120);
+      else unbind();
+    }
+    setTimeout(step, 260);
   }
 
   function performScroll() {
@@ -134,7 +152,7 @@ export function lcdScrollToStep(target, opts) {
     if (lastTop !== null && Math.abs(t - lastTop) < 0.6) stableFrames++;
     else stableFrames = 0;
     lastTop = t;
-    if (stableFrames >= 5 || frames > 150) {
+    if (stableFrames >= 5 || frames > 150 || Date.now() - startTs > 1100) {
       performScroll();
     } else {
       requestAnimationFrame(tick);

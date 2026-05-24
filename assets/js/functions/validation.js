@@ -63,6 +63,13 @@ export function validation(texts) {
  * produkt který není nakonfigurovaný do piče". Vrátené naspäť.
  */
 function validateProductConfig() {
+  // Sekvencna validacia content krokov: prvy nevyplneny krok otvor LEN
+  // ten, oznac, naskroluj a STOP — rovnako ako tlacidlo "dalsi krok".
+  var $seqBad = lcdFindFirstInvalidStep();
+  if ($seqBad && $seqBad.length) {
+    lcdShowInvalidStep($seqBad);
+    return false;
+  }
   const $errors = $();
   let $first = null;
 
@@ -160,6 +167,20 @@ function validateProductConfig() {
  * element (info wrap), ALEBO ak má aspoň jeden aktívny.
  */
 function isWrapValid($wrap) {
+  // Krok "Specifikace vozidla" (EU/UK volant) je neplatny bez vybranej
+  // znacky/modelu/roku auta — sessionStorage "model" nesmie obsahovat placeholder.
+  if ($wrap.find(".wheel-Position").length) {
+    var lcdM = sessionStorage.getItem("model");
+    if (
+      !lcdM ||
+      lcdM.indexOf("Zna\u010Dka") > -1 ||
+      lcdM.trim() === "Model" ||
+      lcdM.indexOf("Rok v\u00FDroby") > -1 ||
+      lcdM.indexOf("Typ auta") > -1
+    ) {
+      return false;
+    }
+  }
   let hasSelectable = false;
   let valid = false;
 
@@ -186,6 +207,46 @@ function isWrapValid($wrap) {
   }
 
   return !hasSelectable || valid;
+}
+
+/**
+ * Sekvencna validacia (Michal req): vrati prvy nevyplneny content-krok
+ * (.content-wrap > .position-wrap/.parameter-wrap) v poradi od zaciatku
+ * po uptoIndex (vratane). Ak uptoIndex nie je cislo >= 0, kontroluje vsetky.
+ * Vrati jQuery objekt nevalidneho kroku alebo null.
+ */
+export function lcdFindFirstInvalidStep(uptoIndex) {
+  var $steps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+  var limit =
+    typeof uptoIndex === "number" && uptoIndex >= 0 ? uptoIndex : $steps.length - 1;
+  for (var i = 0; i <= limit && i < $steps.length; i++) {
+    if (!isWrapValid($steps.eq(i))) return $steps.eq(i);
+  }
+  return null;
+}
+
+/**
+ * Zobrazi nevalidny krok: zatvori VSETKY content kroky, otvori LEN tento,
+ * oznaci ho cervenym ramcekom, naskroluje nan. Pouzite next-step tlacidlom
+ * aj add-to-cart tlacidlom — aby sa obe spravali rovnako.
+ */
+export function lcdShowInvalidStep($wrap) {
+  if (!$wrap || !$wrap.length) return;
+  $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
+  $wrap.addClass("active").addClass("errorToCart");
+  $wrap.find("> .options-wrap").each(function () {
+    this.style.maxHeight = "";
+    this.style.overflow = "";
+    this.style.opacity = "";
+    this.style.padding = "";
+  });
+  $wrap.find("> .next-step-button").show();
+  setTimeout(function () {
+    lcdScrollToStep($wrap, { center: true });
+  }, 50);
+  setTimeout(function () {
+    $wrap.removeClass("errorToCart");
+  }, 2500);
 }
 
 function upsaleValidation(e) {

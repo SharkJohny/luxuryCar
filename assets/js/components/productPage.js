@@ -2,6 +2,7 @@ import { showUpsalePopup } from "./UpsalePopup.js";
 import { createUpsaleButton, createOptions, createBoxConfig } from "./creatButtons.js";
 import { renderTruckConfigurator } from "../truck-konfigurator/index.jsx";
 import { lcdScrollToStep, lcdTagSteps } from "../functions/scrollEngine.js";
+import { lcdFindFirstInvalidStep, lcdShowInvalidStep } from "../functions/validation.js";
 
 window.addEventListener(
   "error",
@@ -545,6 +546,21 @@ function priplatky(setupData, texts) {
       if ($wrap.hasClass("trunk")) return true;
       if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
 
+      // Krok "Specifikace vozidla" (EU/UK volant) je neplatny bez vybranej
+      // znacky/modelu/roku auta.
+      if ($wrap.find(".wheel-Position").length) {
+        var lcdM = sessionStorage.getItem("model");
+        if (
+          !lcdM ||
+          lcdM.indexOf("Zna\u010Dka") > -1 ||
+          lcdM.trim() === "Model" ||
+          lcdM.indexOf("Rok v\u00FDroby") > -1 ||
+          lcdM.indexOf("Typ auta") > -1
+        ) {
+          return false;
+        }
+      }
+
       let hasSelectable = false;
       let valid = false;
 
@@ -628,12 +644,16 @@ function priplatky(setupData, texts) {
 
       const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
 
-      // Pokud v aktuálním okně jsou výběrné ovládací prvky, vyžadujeme, aby byl proveden výběr
-      if (!isWrapSelectionValid(currentWrap)) {
-        // krátká vizuální zpětná vazba
-        currentWrap.addClass("selection-required");
-        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
-        return; // nepokračuj dál
+      // Sekvencna validacia (Michal req): over content kroky od zaciatku
+      // po aktualny. Prvy nevyplneny krok otvor LEN ten, oznac, naskroluj
+      // a STOP — dalsie kroky sa nekontroluju ani neotvaraju. Rovnaka
+      // logika ako tlacidlo "Pridat do kosika" (validateProductConfig).
+      var $cSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
+      var $curIdx = $cSteps.index(currentWrap);
+      var $badStep = lcdFindFirstInvalidStep($curIdx);
+      if ($badStep && $badStep.length) {
+        lcdShowInvalidStep($badStep);
+        return; // nepokracuj dalej
       }
 
       if (isCartStepWrap(currentWrap)) {
