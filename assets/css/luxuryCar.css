@@ -7249,3 +7249,23 @@ header.header,
 .type-product .lcd-videos-widget {
   background: transparent !important;
 }
+
+
+/* Widget videi - fonty/hrubky nadpisu zladene so zvyskom webu */
+.lcd-videos-widget .lcdv-title {
+  font-family: "Source Sans 3", sans-serif !important;
+  font-weight: 400 !important;
+}
+.lcd-videos-widget .lcdv-subtitle {
+  font-family: "Source Sans 3", sans-serif !important;
+}
+/* Widget recenzii - kompaktnejsi na mobile (~ -35%) */
+@media (max-width: 768px) {
+  .lcd-reviews-widget {
+    padding: 20px 12px !important;
+  }
+  .lcd-reviews-widget .lcdr-head,
+  .lcd-reviews-widget .lcdr-viewport {
+    zoom: 0.65;
+  }
+}
