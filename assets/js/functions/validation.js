@@ -1,4 +1,5 @@
 import { showUpsalePopup } from "../components/UpsalePopup.js";
+import { lcdScrollToStep } from "./scrollEngine.js";
 
 export function validation(texts) {
   $("button.btn.btn-lg.btn-conversion.add-to-cart-button").on("click", function (e) {
@@ -26,24 +27,6 @@ export function validation(texts) {
   $(document).on("click", ".close-btn.return", function () {
     if (!optionTest()) return;
     $(this).parents(".upsale-Banner").removeClass("showConf");
-    // Michal req 2026-05-18: po potvrdeni box-config scroll tak aby CENA +
-    // tlacidlo "Pridat do kosika" boli na SPODKU obrazovky.
-    setTimeout(function () {
-      var $cart = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function () {
-        var s = window.getComputedStyle(this);
-        return s.display !== "none" && s.visibility !== "hidden" && this.offsetParent !== null;
-      }).first();
-      var $price = $(".p-final-price-wrapper").first();
-      var $anchor = $cart.length ? $cart : $price;
-      if (!$anchor || !$anchor.length) return;
-      var el = $anchor[0];
-      var rect = el.getBoundingClientRect();
-      var viewportH = window.innerHeight || 0;
-      // spodok anchor elementu ~40px nad spodkom viewportu
-      var delta = rect.bottom - (viewportH - 40);
-      var newScroll = Math.max(0, window.scrollY + delta);
-      window.scrollTo({ top: newScroll, behavior: "smooth" });
-    }, 600);
   });
 
   $(".content-wrap").on("click", function (event) {
@@ -80,34 +63,8 @@ export function validation(texts) {
  * produkt který není nakonfigurovaný do piče". Vrátené naspäť.
  */
 function validateProductConfig() {
-  // Sekvencna validacia akordeon krokov (Michal req): validuj postupne od
-  // prveho kroku; prvy neplatny krok otvor + vycentruj na stred a STOP —
-  // dalsie kroky sa uz nekontroluju ani neoznacuju.
-  var $seqSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
-  var $seqBad = null;
-  $seqSteps.each(function () {
-    if ($seqBad) return;
-    if (!isWrapValid($(this))) $seqBad = $(this);
-  });
-  if ($seqBad) {
-    $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
-    $seqBad.addClass("active").addClass("errorToCart");
-    $seqBad.find("> .options-wrap").each(function () {
-      this.style.maxHeight = "";
-      this.style.overflow = "";
-      this.style.opacity = "";
-      this.style.padding = "";
-    });
-    lcdCenterScrollToStep($seqBad);
-    setTimeout(function () {
-      $(".errorToCart").removeClass("errorToCart");
-    }, 2500);
-    return false;
-  }
-
   const $errors = $();
   let $first = null;
-  const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
 
   function add($el) {
     if (!$el || !$el.length) return;
@@ -120,9 +77,6 @@ function validateProductConfig() {
   //    musia mať aktívny výber, ak obsahujú selectable element.
   $(".parameter-wrap:visible").each(function () {
     const $wrap = $(this);
-    if ($wrap.hasClass("boxs")) return;
-    if ($wrap.hasClass("trunk")) return;
-    if ($wrap.closest(".box-config").length && !isBoxConfigSelected) return;
     if (!isWrapValid($wrap)) add($wrap);
   });
 
@@ -150,8 +104,6 @@ function validateProductConfig() {
   $(".upsale-buttons:visible").each(function () {
     const $group = $(this);
     if (!$group.find(".upsale-button").length) return;
-    if ($group.hasClass("boxs")) return;
-    if ($group.hasClass("trunk")) return;
     if (!$group.find(".upsale-button.active").not(".none").length) {
       add($group);
     }
@@ -159,74 +111,39 @@ function validateProductConfig() {
 
   // 3) Aktivuj zatvorené nadradené paneli, aby user videl chybu.
   if ($first) {
-    const $banner = $first.closest(".upsale-Banner");
-    if ($banner.length && !$banner.hasClass("showConf")) {
-      $banner.addClass("showConf");
-    }
+    // NEPRIDÁVAJ showConf na box `.upsale-Banner`. `showConf` znamená
+    // „config (1/2 boxy) je vybratý". Pridať ho bez aktívneho conf-tlačidla
+    // rozsynchronizuje krok K6: box-config (Farba boxov) sa zobrazí, ale
+    // conf-tlačidlá „1 box / 2 boxy" dostanú cez CSS visibility:hidden a
+    // `updateUpsale` (conf2 vetva) sa nikdy nespustí → Velikost 1./2. boxu
+    // ostanú display:none. Box-krok korektne otvorí accordion logika nižšie.
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
     }
 
-    // 3b) Otvor prvy nevyplneny akordeon (Michal req: chronologicky prvy).
-    var $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    // 3b) Otvor prvý nevyplnený akordeon (position-wrap / parameter-wrap).
+    //     Klient: keď je akordeon zatvorený a chýba mu výber, user nevie čo
+    //     má doplniť. Pri validácii vždy otvoríme prvý nevalidný akordeon.
+    let $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
     if (!$accordion.length) {
       $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
     }
-    if ($accordion.length) {
-      // Zatvor ostatne akordeony mimo box-config
+    if ($accordion.length && !$accordion.hasClass("active")) {
+      // Zatvor ostatné top-level akordeony (mimo box-config, aby sme nelámali
+      // K6 box konfigurátor).
       $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function () {
         if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
           $(this).removeClass("active");
         }
       });
-      // Michal req 2026-05-18: keď user manuálne zatvoril akordeon, forceCloseWrap
-      // nastavi inline style max-height:0 na options-wrap. addClass active sam
-      // o sebe to neresetuje, takze obsah zostal skryty. Resetneme inline styly.
-      $accordion.find("> .options-wrap").each(function () {
-        this.style.maxHeight = "";
-        this.style.overflow = "";
-        this.style.opacity = "";
-        this.style.padding = "";
-      });
-      $accordion.find("> .next-step-button").show();
       $accordion.addClass("active");
     }
 
-    // 4) Scroll: HEADER akordeona 20% pod header-menu — rAF loop caka kym
-    //    sa absolutna pozicia headeru USTALI (3 framy), az potom scroll.
-    (function () {
-      var $target = $accordion && $accordion.length ? $accordion : $first;
-      if (!$target || !$target.length) return;
-      var $h = $target.find("> .order, > h5").first();
-      var targetEl = $h.length ? $h[0] : $target[0];
-      if (!targetEl) return;
-      var lastAbsTop = null, stableFrames = 0, tries = 0;
-      function finalScroll() {
-        var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-        var headerH = 0;
-        var headerSelectors = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
-        for (var hi = 0; hi < headerSelectors.length; hi++) {
-          var he = document.querySelector(headerSelectors[hi]);
-          if (he && he.offsetHeight > 20) { headerH = he.offsetHeight; break; }
-        }
-        if (!headerH) headerH = 90;
-        var rect = targetEl.getBoundingClientRect();
-        var delta = rect.top - (headerH + viewportH * 0.1);
-        var newScroll = Math.max(0, window.scrollY + delta);
-        window.scrollTo({ top: newScroll, behavior: "smooth" });
-      }
-      function tick() {
-        tries++;
-        var absTop = window.scrollY + targetEl.getBoundingClientRect().top;
-        if (lastAbsTop !== null && Math.abs(absTop - lastAbsTop) < 1) stableFrames++;
-        else stableFrames = 0;
-        lastAbsTop = absTop;
-        if (stableFrames >= 3 || tries > 90) finalScroll();
-        else requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    })();
+    // 4) Scroll na prvú chybu - zdielany LCD scroll engine.
+    setTimeout(function () {
+      lcdScrollToStep($first, { center: true });
+    }, 50);
 
     // 5) Po 2.5 s zhoď červené orámovanie.
     setTimeout(function () {
@@ -243,23 +160,6 @@ function validateProductConfig() {
  * element (info wrap), ALEBO ak má aspoň jeden aktívny.
  */
 function isWrapValid($wrap) {
-  if ($wrap.hasClass("boxs")) return true;
-  if ($wrap.hasClass("trunk")) return true;
-  if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
-
-  // Krok "Specifikace vozidla" (obsahuje EU/UK volant) vyzaduje aj vybranu
-  // znacku/model/rok auta.
-  if ($wrap.find(".wheel-Position").length) {
-    var lcdM = sessionStorage.getItem("model");
-    var lcdMissing =
-      !lcdM ||
-      lcdM.indexOf("Zna\u010Dka") > -1 ||
-      lcdM.trim() === "Model" ||
-      lcdM.indexOf("Rok v\u00FDroby") > -1 ||
-      lcdM.indexOf("Typ auta") > -1;
-    if (lcdMissing) return false;
-  }
-
   let hasSelectable = false;
   let valid = false;
 
@@ -269,7 +169,7 @@ function isWrapValid($wrap) {
   }
   if ($wrap.find(".upsale-button").length) {
     hasSelectable = true;
-    if ($wrap.find(".upsale-button.active").length) valid = true;
+    if ($wrap.find(".upsale-button.active").not(".none").length) valid = true;
   }
   if ($wrap.find("select.surcharge-parameter").length) {
     hasSelectable = true;
@@ -449,21 +349,16 @@ function optionTest() {
     const $err = firstErrorElement;
 
     // Ak parent .box-config je zatvorený (display:none), otvoríme ho.
+    // showConf zámerne NEpridávame — viď validateProductConfig (desync K6:
+    // showConf bez aktívneho conf-tlačidla skryje conf-tlačidlá a veľkosti).
     const $boxConfig = $err.closest(".box-config");
-    const $upsaleBanner = $err.closest(".upsale-Banner");
-    if ($upsaleBanner.length && !$upsaleBanner.hasClass("showConf")) {
-      $upsaleBanner.addClass("showConf");
-    }
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
     }
 
-    // Scroll na první chybějící (s 100px ofsetem od horního okraje viewportu)
+    // Scroll na první chybějící krok - zdielany LCD scroll engine.
     setTimeout(() => {
-      const offsetTop = $err.offset() && $err.offset().top;
-      if (offsetTop != null) {
-        window.scrollTo({ top: Math.max(offsetTop - 100, 0), behavior: "smooth" });
-      }
+      lcdScrollToStep($err, { center: true });
     }, 50);
 
     setTimeout(() => {
@@ -566,47 +461,4 @@ function createpopup(texts) {
   `,
     )
     .appendTo("head");
-}
-
-
-/**
- * Vycentruje krok na STRED obrazovky (v priestore pod fixnym header-menu).
- * Caka cez requestAnimationFrame loop kym sa layout USTALI (3 framy), az
- * potom scrolluje — aby trafil finalnu poziciu aj pocas open/close animacie.
- */
-function lcdCenterScrollToStep($wrap) {
-  if (!$wrap || !$wrap.length) return;
-  var el = $wrap[0];
-  var lastTop = null;
-  var stable = 0;
-  var tries = 0;
-  function finalScroll() {
-    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-    var headerH = 0;
-    var sels = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
-    for (var i = 0; i < sels.length; i++) {
-      var he = document.querySelector(sels[i]);
-      if (he && he.offsetHeight > 20) { headerH = he.offsetHeight; break; }
-    }
-    if (!headerH) headerH = 90;
-    var availH = vh - headerH;
-    var r = el.getBoundingClientRect();
-    var delta;
-    if (r.height > 0 && r.height <= availH) {
-      delta = r.top - (headerH + (availH - r.height) / 2);
-    } else {
-      delta = r.top - (headerH + 20);
-    }
-    window.scrollTo({ top: Math.max(0, window.scrollY + delta), behavior: "smooth" });
-  }
-  function tick() {
-    tries++;
-    var t = window.scrollY + el.getBoundingClientRect().top;
-    if (lastTop !== null && Math.abs(t - lastTop) < 1) stable++;
-    else stable = 0;
-    lastTop = t;
-    if (stable >= 3 || tries > 90) finalScroll();
-    else requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
 }

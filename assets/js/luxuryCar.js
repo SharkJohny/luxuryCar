@@ -27893,6 +27893,143 @@ function renderTruckConfigurator(element) {
   return true;
 }
 
+// assets/js/functions/scrollEngine.js
+function lcdGetHeaderOffset() {
+  var selectors = [
+    ".plugin-fixed-header",
+    ".header-fixed",
+    "#header",
+    "header.header",
+    ".top-navigation-bar",
+    "header",
+    "#header .site-name",
+    ".site-name",
+    "#logo",
+    ".header-logo",
+    ".logo"
+  ];
+  var maxBottom = 0;
+  var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+  for (var s = 0; s < selectors.length; s++) {
+    var nodes;
+    try {
+      nodes = document.querySelectorAll(selectors[s]);
+    } catch (err) {
+      continue;
+    }
+    for (var n = 0; n < nodes.length; n++) {
+      var el = nodes[n];
+      if (!el || !el.offsetHeight) continue;
+      var cs = window.getComputedStyle(el);
+      if (cs.visibility === "hidden" || cs.display === "none") continue;
+      if (parseFloat(cs.opacity || "1") < 0.1) continue;
+      var r = el.getBoundingClientRect();
+      if (r.height < 8 || r.width < 8) continue;
+      var isFixed = cs.position === "fixed" || cs.position === "sticky";
+      var pinnedAtTop = r.top >= -8 && r.top <= 24;
+      if (!isFixed && !pinnedAtTop) continue;
+      if (r.bottom > maxBottom && r.bottom < viewportH * 0.45) {
+        maxBottom = r.bottom;
+      }
+    }
+  }
+  if (maxBottom < 40 && (window.pageYOffset || 0) > 50) {
+    maxBottom = 90;
+  }
+  return maxBottom;
+}
+function lcdScrollToStep(target, opts) {
+  var el = target;
+  if (el && el.jquery) el = el.get(0);
+  if (!el || typeof el.getBoundingClientRect !== "function") return;
+  var GAP = 16;
+  var center = !!(opts && opts.center);
+  var lastTop = null;
+  var stableFrames = 0;
+  var frames = 0;
+  function pageY() {
+    return window.pageYOffset || document.documentElement.scrollTop || 0;
+  }
+  function absTop() {
+    return pageY() + el.getBoundingClientRect().top;
+  }
+  function nativeScroll(top) {
+    top = Math.max(0, Math.round(top));
+    try {
+      window.scrollTo({ top, behavior: "smooth" });
+    } catch (err) {
+      window.scrollTo(0, top);
+    }
+  }
+  function desiredViewportTop() {
+    var headerH = lcdGetHeaderOffset();
+    if (center) {
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      var elH = el.getBoundingClientRect().height || 0;
+      var avail = vh - headerH;
+      if (elH >= avail - 20) return headerH + GAP;
+      return headerH + (avail - elH) / 2;
+    }
+    return headerH + GAP;
+  }
+  function correctAfterSettle() {
+    var lastY = null;
+    var sf = 0;
+    var f = 0;
+    function watch() {
+      f++;
+      var y = pageY();
+      if (lastY !== null && Math.abs(y - lastY) < 0.6) sf++;
+      else sf = 0;
+      lastY = y;
+      if (sf >= 6 || f > 200) {
+        var have = el.getBoundingClientRect().top;
+        var want = desiredViewportTop();
+        if (Math.abs(have - want) > 38) {
+          nativeScroll(pageY() + have - want);
+        }
+      } else {
+        requestAnimationFrame(watch);
+      }
+    }
+    requestAnimationFrame(watch);
+  }
+  function performScroll() {
+    nativeScroll(absTop() - desiredViewportTop());
+    correctAfterSettle();
+  }
+  function tick() {
+    frames++;
+    var t = absTop();
+    if (lastTop !== null && Math.abs(t - lastTop) < 0.6) stableFrames++;
+    else stableFrames = 0;
+    lastTop = t;
+    if (stableFrames >= 5 || frames > 150) {
+      performScroll();
+    } else {
+      requestAnimationFrame(tick);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+function lcdTagSteps() {
+  var steps = [];
+  var contentSteps = document.querySelectorAll(
+    ".content-wrap > .position-wrap, .content-wrap > .parameter-wrap"
+  );
+  for (var i = 0; i < contentSteps.length; i++) {
+    steps.push(contentSteps[i]);
+  }
+  var trunk = document.querySelector(".upsale-buttons.trunk");
+  if (trunk) steps.push(trunk);
+  var boxs = document.querySelector(".upsale-buttons.boxs");
+  if (boxs) steps.push(boxs);
+  for (var j = 0; j < steps.length; j++) {
+    steps[j].setAttribute("data-lcd-step", String(j));
+  }
+  return steps;
+}
+
 // assets/js/components/productPage.js
 window.addEventListener(
   "error",
@@ -28122,11 +28259,6 @@ function priplatky(setupData2, texts) {
       if ($wrap.hasClass("boxs")) return true;
       if ($wrap.hasClass("trunk")) return true;
       if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
-      if ($wrap.find(".wheel-Position").length) {
-        var lcdModel = sessionStorage.getItem("model");
-        var lcdModelMissing = !lcdModel || lcdModel.indexOf("Zna\u010Dka") > -1 || lcdModel.trim() === "Model" || lcdModel.indexOf("Rok v\xFDroby") > -1 || lcdModel.indexOf("Typ auta") > -1;
-        if (lcdModelMissing) return false;
-      }
       let hasSelectable = false;
       let valid = false;
       if ($wrap.find(".option-button").length) {
@@ -28163,54 +28295,8 @@ function priplatky(setupData2, texts) {
         return isLast ? "Dokon\u010Di\u0165 konfigur\xE1ciu" : "Prejs\u0165 k \u010Fal\u0161iemu kroku";
       }
       return isLast ? "Dokon\u010Dit konfiguraci" : "P\u0159ej\xEDt k dal\u0161\xEDmu kroku";
-    }, scrollToStep2 = function($wrap) {
-      if (!$wrap.length) return;
-      const $header = $wrap.find("> .order, > h5").first();
-      const targetEl = $header.length ? $header[0] : $wrap[0];
-      if (!targetEl) return;
-      let lastAbsTop = null;
-      let stableFrames = 0;
-      let tries = 0;
-      function lcdFinalScroll() {
-        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-        let headerH = 0;
-        const headerSelectors = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
-        for (let hi = 0; hi < headerSelectors.length; hi++) {
-          const he = document.querySelector(headerSelectors[hi]);
-          if (he && he.offsetHeight > 20) {
-            headerH = he.offsetHeight;
-            break;
-          }
-        }
-        if (!headerH) headerH = 90;
-        var availH = viewportHeight - headerH;
-        var wrapRect = $wrap[0].getBoundingClientRect();
-        var headerRect = targetEl.getBoundingClientRect();
-        var delta;
-        if (wrapRect.height > 0 && wrapRect.height <= availH) {
-          delta = wrapRect.top - (headerH + (availH - wrapRect.height) / 2);
-        } else {
-          delta = headerRect.top - (headerH + 20);
-        }
-        const newScroll = Math.max(0, window.scrollY + delta);
-        window.scrollTo({ top: newScroll, behavior: "smooth" });
-      }
-      function lcdTick() {
-        tries++;
-        const absTop = window.scrollY + targetEl.getBoundingClientRect().top;
-        if (lastAbsTop !== null && Math.abs(absTop - lastAbsTop) < 1) {
-          stableFrames++;
-        } else {
-          stableFrames = 0;
-        }
-        lastAbsTop = absTop;
-        if (stableFrames >= 3 || tries > 90) {
-          lcdFinalScroll();
-        } else {
-          requestAnimationFrame(lcdTick);
-        }
-      }
-      requestAnimationFrame(lcdTick);
+    }, scrollToStep = function($wrap) {
+      lcdScrollToStep($wrap);
     }, proceedToCartFromStep = function() {
       const $addToCartButton = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function() {
         const style = window.getComputedStyle(this);
@@ -28370,21 +28456,12 @@ function priplatky(setupData2, texts) {
           for (let i = 0; i < clickedIndex; i++) {
             const $wrap = allWraps.eq(i);
             if (!isWrapSelectionValid($wrap)) {
-              $firstInvalid = $wrap;
-              break;
+              $wrap.addClass("selection-required");
+              if (!$firstInvalid) $firstInvalid = $wrap;
             }
           }
-          if ($firstInvalid) $firstInvalid.addClass("selection-required");
           if ($firstInvalid) {
-            $(".position-wrap, .parameter-wrap").removeClass("active");
-            $firstInvalid.addClass("active");
-            $firstInvalid.find("> .options-wrap").each(function() {
-              this.style.maxHeight = "";
-              this.style.overflow = "";
-              this.style.opacity = "";
-              this.style.padding = "";
-            });
-            scrollToStep2($firstInvalid);
+            scrollToStep($firstInvalid);
             setTimeout(() => {
               $(".selection-required").removeClass("selection-required");
             }, 2500);
@@ -28393,12 +28470,6 @@ function priplatky(setupData2, texts) {
         }
         $(".position-wrap, .parameter-wrap").removeClass("active");
         clickedWrap.addClass("active");
-        clickedWrap.find("> .options-wrap").each(function() {
-          this.style.maxHeight = "";
-          this.style.overflow = "";
-          this.style.opacity = "";
-          this.style.padding = "";
-        });
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
       }
@@ -28407,29 +28478,9 @@ function priplatky(setupData2, texts) {
       e.preventDefault();
       e.stopPropagation();
       const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-      var $navSeq = getNavigableWraps();
-      var curSeqIdx = $navSeq.index(currentWrap);
-      var $seqInvalid = null;
-      for (var si = 0; si <= curSeqIdx && si < $navSeq.length; si++) {
-        if (!isWrapSelectionValid($navSeq.eq(si))) {
-          $seqInvalid = $navSeq.eq(si);
-          break;
-        }
-      }
-      if ($seqInvalid && $seqInvalid.length) {
-        $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
-        $seqInvalid.addClass("active").addClass("selection-required");
-        $seqInvalid.find("> .options-wrap").each(function() {
-          this.style.maxHeight = "";
-          this.style.overflow = "";
-          this.style.opacity = "";
-          this.style.padding = "";
-        });
-        var $si = $seqInvalid;
-        setTimeout(function() {
-          $si.removeClass("selection-required");
-        }, 2500);
-        scrollToStep2($seqInvalid);
+      if (!isWrapSelectionValid(currentWrap)) {
+        currentWrap.addClass("selection-required");
+        setTimeout(() => currentWrap.removeClass("selection-required"), 2500);
         return;
       }
       if (isCartStepWrap(currentWrap)) {
@@ -28442,23 +28493,8 @@ function priplatky(setupData2, texts) {
           currentWrap.removeClass("active");
           openNextAccordion($boxs);
           setTimeout(() => {
-            scrollToStep2($boxs);
+            scrollToStep($boxs);
           }, 600);
-          setTimeout(() => {
-            updateButtonTexts2();
-          }, 50);
-          return;
-        }
-      }
-      const $contentSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
-      if ($contentSteps.length && $contentSteps.last()[0] === currentWrap[0]) {
-        const $trunk = $(".upsale-buttons.trunk").first();
-        if ($trunk.length) {
-          currentWrap.removeClass("active");
-          openNextAccordion($trunk);
-          setTimeout(() => {
-            scrollToStep2($trunk);
-          }, 700);
           setTimeout(() => {
             updateButtonTexts2();
           }, 50);
@@ -28472,7 +28508,7 @@ function priplatky(setupData2, texts) {
         currentWrap.removeClass("active");
         openNextAccordion(nextWrap);
         setTimeout(() => {
-          scrollToStep2(nextWrap);
+          scrollToStep(nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs") ? nextWrap : currentWrap);
         }, 600);
       } else {
         allWraps.removeClass("active");
@@ -28496,6 +28532,7 @@ function priplatky(setupData2, texts) {
         setTimeout(() => {
           addNextStepButtons();
           updateButtonTexts2();
+          lcdTagSteps();
         }, 400);
       }
     });
@@ -28513,6 +28550,7 @@ function priplatky(setupData2, texts) {
     setTimeout(() => {
       addNextStepButtons();
       updateButtonTexts2();
+      lcdTagSteps();
     }, 100);
     const pairVariantList = JSON.parse(setupData2.settings.pairVariantList);
     const pairedOrders = {};
@@ -28522,6 +28560,9 @@ function priplatky(setupData2, texts) {
       createOptions("box", orders);
     }
     createBoxConfig();
+    setTimeout(function() {
+      if (typeof resetBoxConfigDefaults === "function") resetBoxConfigDefaults();
+    }, 100);
     $(".detail-parameters .variant-list select").each(function() {
       orders += 1;
       const position = this;
@@ -28583,54 +28624,37 @@ function priplatky(setupData2, texts) {
     const contentStepCount = $(".content-wrap").children(".position-wrap, .parameter-wrap").length;
     $(".upsale-buttons.trunk .order").text(contentStepCount);
     $(".upsale-buttons.boxs .order").text(contentStepCount + 1);
+    lcdTagSteps();
   }
 }
 function openNextAccordion($next) {
   $next.addClass("active");
-  $next.find("> .options-wrap").each(function() {
-    this.style.maxHeight = "";
-    this.style.overflow = "";
-    this.style.opacity = "";
-    this.style.padding = "";
-  });
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
-    $(".upsale-Banner").show();
-    var nextEl = $next[0];
-    var firstTrunk = $(".upsale-Banner .upsale-buttons.trunk")[0] || null;
-    var firstBoxs = $(".upsale-Banner .upsale-buttons.boxs")[0] || null;
-    $(".upsale-Banner .upsale-buttons.trunk, .upsale-Banner .upsale-buttons.boxs").each(function() {
-      if (this === nextEl) return;
-      if (this === firstTrunk) {
-        this.style.display = "";
-        this.classList.remove("active");
-        return;
-      }
-      if (this === firstBoxs) {
-        this.style.display = "";
-        return;
-      }
-      this.style.display = "none";
-    });
   }
 }
 $(document).on("click", ".upsale-button", function(e) {
   updateUpsale(this, e);
   const $trunk = $(this).closest(".upsale-buttons.trunk");
-  if ($trunk.length && !$(this).hasClass("none")) {
+  if ($trunk.length) {
     setTimeout(() => {
-      const $boxs = $(".upsale-buttons.boxs");
-      if ($boxs.is(":visible")) {
-        $trunk.removeClass("active");
-        openNextAccordion($boxs);
-        setTimeout(() => {
-          if (typeof scrollToStep === "function") scrollToStep($boxs);
-        }, 600);
-      }
+      const $boxs = $(".upsale-buttons.boxs").first();
+      $boxs.show();
+      $trunk.removeClass("active");
+      openNextAccordion($boxs);
+      setTimeout(function() {
+        if (typeof lcdScrollToStep === "function") lcdScrollToStep($boxs);
+      }, 350);
     }, 600);
   }
 });
 function resetBoxConfigDefaults() {
+  $(".box-config .parameter-wrap").each(function() {
+    const txt = ($(this).find("h5").first().text() || "").toLowerCase().trim();
+    if (/^vel[ioe]kos[tť]/.test(txt)) {
+      $(this).hide();
+    }
+  });
   const $amountButtons = $(".box-config .amount-button");
   if ($amountButtons.length) {
     $amountButtons.removeClass("active");
@@ -29151,81 +29175,52 @@ $("body").on("click", ".button.option-button", function(e) {
     }
   }, 200);
   const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const stepName = ($currentWrap.find(".variant.name, h5").first().text() || "").toLowerCase().trim();
-  const isManualStep = /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(stepName);
+  const orderNum = parseInt($currentWrap.find(".order").first().text());
+  const isStep0or1 = orderNum === 0 || orderNum === 1;
   const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
   const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
-  if (hasNextBtn && !isManualStep && !isInBoxConfig) {
+  if (hasNextBtn && !isStep0or1 && !isInBoxConfig) {
     setTimeout(() => {
+      const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
+      const contentIndex = allContentWraps.index($currentWrap);
       let $nextWrap = null;
-      const $contentStepsAP = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
-      if ($contentStepsAP.length && $contentStepsAP.last()[0] === $currentWrap[0]) {
-        const $trunkAP = $(".upsale-buttons.trunk").first();
-        if ($trunkAP.length) $nextWrap = $trunkAP;
-      }
-      if (!$nextWrap) {
-        const allWrapsInline = $(".position-wrap, .parameter-wrap").filter(function() {
-          return !$(this).closest(".box-config").length;
-        });
-        const idxInline = allWrapsInline.index($currentWrap);
-        if (idxInline >= 0 && idxInline < allWrapsInline.length - 1) {
-          $nextWrap = allWrapsInline.eq(idxInline + 1);
+      if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
+        $nextWrap = allContentWraps.eq(contentIndex + 1);
+      } else if (contentIndex === -1) {
+        const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
+        const sibIndex = $siblings.index($currentWrap);
+        if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
+          $nextWrap = $siblings.eq(sibIndex + 1);
         }
       }
       if ($nextWrap) {
-        let forceCloseWrap = function($w) {
-          $w.removeClass("active");
-          $w.find("> .options-wrap").each(function() {
-            this.style.maxHeight = "0px";
-            this.style.overflow = "hidden";
-            this.style.opacity = "0";
-            this.style.padding = "0";
-          });
-          $w.find("> .next-step-button").hide();
-        };
-        forceCloseWrap($currentWrap);
-        $(".parameter-wrap.active, .position-wrap.active").not($nextWrap).not($currentWrap).each(function() {
-          forceCloseWrap($(this));
-        });
         openNextAccordion($nextWrap);
-        $nextWrap.find("> .options-wrap").each(function() {
-          this.style.maxHeight = "";
-          this.style.overflow = "";
-          this.style.opacity = "";
-          this.style.padding = "";
-        });
-        $nextWrap.find("> .next-step-button").show();
-        setTimeout(() => {
-          forceCloseWrap($currentWrap);
-        }, 100);
-        setTimeout(() => {
-          forceCloseWrap($currentWrap);
-          scrollToStep($nextWrap);
-        }, 500);
+      } else if (contentIndex >= 0 && contentIndex === allContentWraps.length - 1) {
+        $(".upsale-Banner").fadeIn(400).show();
+        $(".upsale-buttons.boxs").first().show();
+        $currentWrap.removeClass("active");
+        const $trunkW = $(".upsale-buttons.trunk").first();
+        if ($trunkW.length) {
+          openNextAccordion($trunkW);
+          setTimeout(function() {
+            if (typeof lcdScrollToStep === "function") lcdScrollToStep($trunkW);
+          }, 350);
+        }
       } else if (!$(".goToAction")[0]) {
         $(".upsale-Banner").fadeIn(400);
         $(".upsale-Banner").show();
         $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
-        let $targetWrap = null;
         if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
-          $targetWrap = $boxs;
         } else {
-          $targetWrap = $(".upsale-buttons.trunk");
-          openNextAccordion($targetWrap);
+          openNextAccordion($(".upsale-buttons.trunk"));
         }
         if (!$(".parameter-id-" + koberce)[0]) {
           const $boxs = $(".upsale-buttons.boxs");
           $boxs.show();
           openNextAccordion($boxs);
-          $targetWrap = $boxs;
-        }
-        if ($targetWrap && $targetWrap.length) {
-          setTimeout(() => {
-            scrollToStep($targetWrap);
-          }, 600);
         }
       }
     }, 400);
@@ -29305,50 +29300,6 @@ function mountTruckConfigurator() {
     if (++tries > 40) clearInterval(iv);
   }, 100);
 }
-(function() {
-  document.addEventListener("click", function(e) {
-    const orderEl = e.target.closest(".order");
-    if (!orderEl) return;
-    const wrap = orderEl.parentElement;
-    if (!wrap) return;
-    if (!wrap.classList.contains("parameter-wrap") && !wrap.classList.contains("position-wrap")) return;
-    if (wrap.closest(".box-config")) return;
-    if (orderEl.parentElement !== wrap) return;
-    e.stopImmediatePropagation();
-    e.preventDefault();
-    const $wrap = window.$(wrap);
-    const isActive = wrap.classList.contains("active");
-    if (isActive) {
-      wrap.classList.remove("active");
-      $wrap.find("> .options-wrap").each(function() {
-        this.style.maxHeight = "0px";
-        this.style.opacity = "0";
-        this.style.padding = "0";
-      });
-      $wrap.find("> .next-step-button").hide();
-    } else {
-      document.querySelectorAll(".parameter-wrap.active, .position-wrap.active").forEach(function(other) {
-        if (other !== wrap) {
-          other.classList.remove("active");
-          other.querySelectorAll(":scope > .options-wrap").forEach(function(ow) {
-            ow.style.maxHeight = "0px";
-            ow.style.opacity = "0";
-          });
-        }
-      });
-      wrap.classList.add("active");
-      $wrap.find("> .options-wrap").each(function() {
-        this.style.maxHeight = "";
-        this.style.opacity = "";
-        this.style.padding = "";
-      });
-      $wrap.find("> .next-step-button").show();
-      setTimeout(() => {
-        if (typeof scrollToStep === "function") scrollToStep($wrap);
-      }, 600);
-    }
-  }, true);
-})();
 
 // assets/js/functions/stickyphotos.js
 document.addEventListener("DOMContentLoaded", function() {
@@ -29745,7 +29696,7 @@ function changeDescription() {
       newText += "<ul>";
       $(text).each(function() {
         if (this.includes("TYP")) return;
-        newText += "<li>" + this.replace("P\u0159\xEDplatky:", "") + "</li>";
+        newText += "<li>" + this.replace(/P[rř][ií]platky:\s*/gi, "") + "</li>";
       });
       newText += "</ul>";
     }
@@ -29756,6 +29707,13 @@ function changeDescription() {
     $("<li  >").text("Model: " + getModel).appendTo(model);
     $("<li>").text("Rok: " + getYear).appendTo(model);
     $("<li>").text("Typ: " + getCarType).appendTo(model);
+    var $variant = $(this).closest("tr").find("span.main-link-variant").first();
+    var variantText = ($variant.text() || "").replace(/\s+/g, " ");
+    var m1 = variantText.match(/farba\s*1\.?\s*vrstvy\s*:\s*([^,]+)/i);
+    var m2 = variantText.match(/farba\s*2\.?\s*vrstvy\s*:\s*(.+)$/i);
+    if (m1) $("<li>").text("Farba 1. vrstvy: " + m1[1].trim()).appendTo(model);
+    if (m2) $("<li>").text("Farba 2. vrstvy: " + m2[1].trim()).appendTo(model);
+    $variant.hide();
     $("<span>").html(newText).appendTo(setup);
     $(this).html(infowrap);
   });
@@ -29801,21 +29759,6 @@ function validation(texts) {
   $(document).on("click", ".close-btn.return", function() {
     if (!optionTest()) return;
     $(this).parents(".upsale-Banner").removeClass("showConf");
-    setTimeout(function() {
-      var $cart = $("button.btn.btn-lg.btn-conversion.add-to-cart-button").filter(function() {
-        var s = window.getComputedStyle(this);
-        return s.display !== "none" && s.visibility !== "hidden" && this.offsetParent !== null;
-      }).first();
-      var $price = $(".p-final-price-wrapper").first();
-      var $anchor = $cart.length ? $cart : $price;
-      if (!$anchor || !$anchor.length) return;
-      var el = $anchor[0];
-      var rect = el.getBoundingClientRect();
-      var viewportH = window.innerHeight || 0;
-      var delta = rect.bottom - (viewportH - 40);
-      var newScroll = Math.max(0, window.scrollY + delta);
-      window.scrollTo({ top: newScroll, behavior: "smooth" });
-    }, 600);
   });
   $(".content-wrap").on("click", function(event) {
     if ($(event.target).closest(".modl-selector-wrap").length) {
@@ -29836,30 +29779,8 @@ function validation(texts) {
   });
 }
 function validateProductConfig() {
-  var $seqSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
-  var $seqBad = null;
-  $seqSteps.each(function() {
-    if ($seqBad) return;
-    if (!isWrapValid($(this))) $seqBad = $(this);
-  });
-  if ($seqBad) {
-    $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").removeClass("active");
-    $seqBad.addClass("active").addClass("errorToCart");
-    $seqBad.find("> .options-wrap").each(function() {
-      this.style.maxHeight = "";
-      this.style.overflow = "";
-      this.style.opacity = "";
-      this.style.padding = "";
-    });
-    lcdCenterScrollToStep($seqBad);
-    setTimeout(function() {
-      $(".errorToCart").removeClass("errorToCart");
-    }, 2500);
-    return false;
-  }
   const $errors = $();
   let $first = null;
-  const isBoxConfigSelected = $(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length > 0;
   function add($el) {
     if (!$el || !$el.length) return;
     $el.addClass("errorToCart");
@@ -29868,9 +29789,6 @@ function validateProductConfig() {
   }
   $(".parameter-wrap:visible").each(function() {
     const $wrap = $(this);
-    if ($wrap.hasClass("boxs")) return;
-    if ($wrap.hasClass("trunk")) return;
-    if ($wrap.closest(".box-config").length && !isBoxConfigSelected) return;
     if (!isWrapValid($wrap)) add($wrap);
   });
   $("select.surcharge-parameter[required]:visible").each(function() {
@@ -29885,75 +29803,30 @@ function validateProductConfig() {
   $(".upsale-buttons:visible").each(function() {
     const $group = $(this);
     if (!$group.find(".upsale-button").length) return;
-    if ($group.hasClass("boxs")) return;
-    if ($group.hasClass("trunk")) return;
     if (!$group.find(".upsale-button.active").not(".none").length) {
       add($group);
     }
   });
   if ($first) {
-    const $banner = $first.closest(".upsale-Banner");
-    if ($banner.length && !$banner.hasClass("showConf")) {
-      $banner.addClass("showConf");
-    }
     const $boxConfig = $first.closest(".box-config");
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
     }
-    var $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
+    let $accordion = $first.closest(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").first();
     if (!$accordion.length) {
       $accordion = $first.closest(".position-wrap, .parameter-wrap").first();
     }
-    if ($accordion.length) {
+    if ($accordion.length && !$accordion.hasClass("active")) {
       $(".content-wrap > .position-wrap.active, .content-wrap > .parameter-wrap.active").each(function() {
         if (this !== $accordion[0] && !$(this).closest(".box-config").length) {
           $(this).removeClass("active");
         }
       });
-      $accordion.find("> .options-wrap").each(function() {
-        this.style.maxHeight = "";
-        this.style.overflow = "";
-        this.style.opacity = "";
-        this.style.padding = "";
-      });
-      $accordion.find("> .next-step-button").show();
       $accordion.addClass("active");
     }
-    (function() {
-      var $target = $accordion && $accordion.length ? $accordion : $first;
-      if (!$target || !$target.length) return;
-      var $h = $target.find("> .order, > h5").first();
-      var targetEl = $h.length ? $h[0] : $target[0];
-      if (!targetEl) return;
-      var lastAbsTop = null, stableFrames = 0, tries = 0;
-      function finalScroll() {
-        var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-        var headerH = 0;
-        var headerSelectors = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
-        for (var hi = 0; hi < headerSelectors.length; hi++) {
-          var he = document.querySelector(headerSelectors[hi]);
-          if (he && he.offsetHeight > 20) {
-            headerH = he.offsetHeight;
-            break;
-          }
-        }
-        if (!headerH) headerH = 90;
-        var rect = targetEl.getBoundingClientRect();
-        var delta = rect.top - (headerH + viewportH * 0.1);
-        var newScroll = Math.max(0, window.scrollY + delta);
-        window.scrollTo({ top: newScroll, behavior: "smooth" });
-      }
-      function tick() {
-        tries++;
-        var absTop = window.scrollY + targetEl.getBoundingClientRect().top;
-        if (lastAbsTop !== null && Math.abs(absTop - lastAbsTop) < 1) stableFrames++;
-        else stableFrames = 0;
-        lastAbsTop = absTop;
-        if (stableFrames >= 3 || tries > 90) finalScroll();
-        else requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    })();
+    setTimeout(function() {
+      lcdScrollToStep($first, { center: true });
+    }, 50);
     setTimeout(function() {
       $(".errorToCart").removeClass("errorToCart");
     }, 2500);
@@ -29961,14 +29834,6 @@ function validateProductConfig() {
   return $first === null;
 }
 function isWrapValid($wrap) {
-  if ($wrap.hasClass("boxs")) return true;
-  if ($wrap.hasClass("trunk")) return true;
-  if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
-  if ($wrap.find(".wheel-Position").length) {
-    var lcdM = sessionStorage.getItem("model");
-    var lcdMissing = !lcdM || lcdM.indexOf("Zna\u010Dka") > -1 || lcdM.trim() === "Model" || lcdM.indexOf("Rok v\xFDroby") > -1 || lcdM.indexOf("Typ auta") > -1;
-    if (lcdMissing) return false;
-  }
   let hasSelectable = false;
   let valid = false;
   if ($wrap.find(".option-button").length) {
@@ -29977,7 +29842,7 @@ function isWrapValid($wrap) {
   }
   if ($wrap.find(".upsale-button").length) {
     hasSelectable = true;
-    if ($wrap.find(".upsale-button.active").length) valid = true;
+    if ($wrap.find(".upsale-button.active").not(".none").length) valid = true;
   }
   if ($wrap.find("select.surcharge-parameter").length) {
     hasSelectable = true;
@@ -30044,18 +29909,11 @@ function optionTest() {
   if (!allSelected && firstErrorElement) {
     const $err = firstErrorElement;
     const $boxConfig = $err.closest(".box-config");
-    const $upsaleBanner = $err.closest(".upsale-Banner");
-    if ($upsaleBanner.length && !$upsaleBanner.hasClass("showConf")) {
-      $upsaleBanner.addClass("showConf");
-    }
     if ($boxConfig.length && $boxConfig.css("display") === "none") {
       $boxConfig.css("display", "");
     }
     setTimeout(() => {
-      const offsetTop = $err.offset() && $err.offset().top;
-      if (offsetTop != null) {
-        window.scrollTo({ top: Math.max(offsetTop - 100, 0), behavior: "smooth" });
-      }
+      lcdScrollToStep($err, { center: true });
     }, 50);
     setTimeout(() => {
       $(".config-wrap .parameter-wrap.errorToCart").removeClass("errorToCart");
@@ -30145,45 +30003,6 @@ function createpopup2(texts) {
     }
   `
   ).appendTo("head");
-}
-function lcdCenterScrollToStep($wrap) {
-  if (!$wrap || !$wrap.length) return;
-  var el = $wrap[0];
-  var lastTop = null;
-  var stable = 0;
-  var tries = 0;
-  function finalScroll() {
-    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-    var headerH = 0;
-    var sels = [".plugin-fixed-header", ".top-navigation-bar", "header.header", "header"];
-    for (var i = 0; i < sels.length; i++) {
-      var he = document.querySelector(sels[i]);
-      if (he && he.offsetHeight > 20) {
-        headerH = he.offsetHeight;
-        break;
-      }
-    }
-    if (!headerH) headerH = 90;
-    var availH = vh - headerH;
-    var r = el.getBoundingClientRect();
-    var delta;
-    if (r.height > 0 && r.height <= availH) {
-      delta = r.top - (headerH + (availH - r.height) / 2);
-    } else {
-      delta = r.top - (headerH + 20);
-    }
-    window.scrollTo({ top: Math.max(0, window.scrollY + delta), behavior: "smooth" });
-  }
-  function tick() {
-    tries++;
-    var t = window.scrollY + el.getBoundingClientRect().top;
-    if (lastTop !== null && Math.abs(t - lastTop) < 1) stable++;
-    else stable = 0;
-    lastTop = t;
-    if (stable >= 3 || tries > 90) finalScroll();
-    else requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
 }
 
 // assets/js/functions/livePrice.js
@@ -31055,83 +30874,3 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
-(function() {
-  "use strict";
-  if (window.__lcdAutoScroll) return;
-  window.__lcdAutoScroll = true;
-  window.__lcdScrollLog = [];
-  function getStepHeaderText(stepEl) {
-    if (!stepEl) return "";
-    var orderTxt = (stepEl.querySelector(".order") || {}).textContent || "";
-    var t = (stepEl.textContent || "").trim();
-    if (orderTxt && t.indexOf(orderTxt) === 0) t = t.slice(orderTxt.length).trim();
-    return t.slice(0, 60).toLowerCase();
-  }
-  function isColorLayerStep(stepEl) {
-    return /^(farba|barva)\s+\d/i.test(getStepHeaderText(stepEl));
-  }
-  function isManualStep(stepEl) {
-    if (!stepEl) return false;
-    var name = "";
-    var nameEl = stepEl.querySelector(".variant.name, h5");
-    if (nameEl) name = (nameEl.textContent || "").toLowerCase().trim();
-    return /^(vzor|specifik|farba\s+\d|barva\s+\d)/i.test(name);
-  }
-  function findNextVisibleStep(curr) {
-    if (!curr) return null;
-    var all = Array.prototype.slice.call(
-      document.querySelectorAll(".parameter-wrap, .upsale-button.config, .box-config")
-    );
-    var i = all.indexOf(curr);
-    if (i === -1) return null;
-    for (var j = i + 1; j < all.length; j++) {
-      if (all[j].offsetParent !== null) return all[j];
-    }
-    return document.querySelector('button[type="submit"], .add-to-cart-button') || null;
-  }
-  function smoothScrollTo(el) {
-    if (!el) return;
-    var rect = el.getBoundingClientRect();
-    var viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
-    var elH = el.offsetHeight || rect.height || 0;
-    var top;
-    if (elH > viewportH * 0.8) {
-      var fixedHdr = document.querySelector(".plugin-fixed-header");
-      var navBar = document.querySelector(".top-navigation-bar");
-      var hdr = document.querySelector("header");
-      var headerOffset = fixedHdr && fixedHdr.offsetHeight || navBar && navBar.offsetHeight || hdr && hdr.offsetHeight || 80;
-      top = window.scrollY + rect.top - headerOffset - 12;
-    } else {
-      top = window.scrollY + rect.top - (viewportH - elH) / 2;
-    }
-    if (top < 0) top = 0;
-    window.scrollTo({ top, behavior: "smooth" });
-    window.__lcdScrollLog.push("scrolled -> " + (el.className || el.tagName).slice(0, 40));
-  }
-  function scheduleScroll(stepContainer) {
-    setTimeout(function() {
-      var next = findNextVisibleStep(stepContainer);
-      smoothScrollTo(next);
-    }, 550);
-  }
-  document.addEventListener("click", function(e) {
-    var btn = e.target.closest(".option-button, .upsale-button");
-    if (!btn) return;
-    if (btn.closest(".box-config")) return;
-    var step = btn.closest(".parameter-wrap, .upsale-button.config, .upsale-button.radio");
-    if (!step) return;
-    if (isManualStep(step)) {
-      window.__lcdScrollLog.push("skip manual step (1-3)");
-      return;
-    }
-    scheduleScroll(step);
-  });
-  document.addEventListener("click", function(e) {
-    var btn = e.target.closest(
-      '.box-config .close-btn, .box-config [class*="confirm"], .box-config [class*="potvrd"]'
-    );
-    if (!btn) return;
-    if (!/potvrd/i.test(btn.textContent || "")) return;
-    scheduleScroll(btn.closest(".box-config"));
-  });
-})();

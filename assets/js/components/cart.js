@@ -65,7 +65,7 @@ function changeDescription() {
       newText += "<ul>";
       $(text).each(function () {
         if (this.includes("TYP")) return;
-        newText += "<li>" + this.replace("Příplatky:", "") + "</li>";
+        newText += "<li>" + this.replace(/P[rř][ií]platky:\s*/gi, "") + "</li>";
       });
       newText += "</ul>";
     }
@@ -85,6 +85,14 @@ function changeDescription() {
     $("<li>")
       .text("Typ: " + getCarType)
       .appendTo(model);
+    // Farba 1. a 2. vrstvy z variantu (span.main-link-variant) - nad priplatkami.
+    var $variant = $(this).closest("tr").find("span.main-link-variant").first();
+    var variantText = ($variant.text() || "").replace(/\s+/g, " ");
+    var m1 = variantText.match(/farba\s*1\.?\s*vrstvy\s*:\s*([^,]+)/i);
+    var m2 = variantText.match(/farba\s*2\.?\s*vrstvy\s*:\s*(.+)$/i);
+    if (m1) $("<li>").text("Farba 1. vrstvy: " + m1[1].trim()).appendTo(model);
+    if (m2) $("<li>").text("Farba 2. vrstvy: " + m2[1].trim()).appendTo(model);
+    $variant.hide();
     $("<span>").html(newText).appendTo(setup);
     $(this).html(infowrap);
 
