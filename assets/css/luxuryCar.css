@@ -7813,9 +7813,15 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   background: linear-gradient(135deg, #4caf50, #388e3c) !important;
   border-color: #388e3c !important;
 }
-/* Widget videi na produktoch - priehladne pozadie (ladi do striedania) */
+/* Widget videi na produktoch - jemny sivy gradient nad nadpisom,
+   aby sa widget vizualne oddelil od sekcie "Zlozenie materialu" vyssie. */
 .type-product .lcd-videos-widget {
-  background: transparent !important;
+  background: linear-gradient(180deg,
+    #ffffff 0,
+    #e6e6e6 42px,
+    #f4f4f4 96px,
+    #ffffff 168px) !important;
+  padding-top: 52px !important;
 }
 
 
