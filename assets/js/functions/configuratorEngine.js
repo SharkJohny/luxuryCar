@@ -116,14 +116,14 @@ function lcdScrollToStep(el, isVerify) {
       setTimeout(function () {
         if (!alive()) { done(); return; }
         var w1 = lcdDesiredY(el);
-        if (Math.abs(window.scrollY - w1) > 8) {
+        if (Math.abs(window.scrollY - w1) > 60) {
           window.scrollTo({ top: w1, behavior: "instant" });
         }
         // 3) Posledna korekcia — neskore nacitanie obrazkov.
         setTimeout(function () {
           if (alive()) {
             var w2 = lcdDesiredY(el);
-            if (Math.abs(window.scrollY - w2) > 8) {
+            if (Math.abs(window.scrollY - w2) > 60) {
               window.scrollTo({ top: w2, behavior: "instant" });
             }
           }
