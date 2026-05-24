@@ -14,11 +14,15 @@ function lcdGetSteps() {
 
 function lcdStepFilled(stepEl) {
   var $s = $(stepEl);
-  // Krok "Specifikace vozidla" vyzaduje vybrane auto.
+  // Krok "Specifikace vozidla" — vsetky car dropdowny musia mat realny
+  // vyber. Placeholder = selectedIndex 0. sessionStorage.model moze byt
+  // staly po reloade, preto kontrolujeme priamo dropdowny (zdroj pravdy).
   if ($s.find(".wheel-Position").length) {
-    var m = sessionStorage.getItem("model");
-    if (!m || m.indexOf("Značka") > -1 || m.trim() === "Model" ||
-        m.indexOf("Rok výroby") > -1 || m.indexOf("Typ auta") > -1) return false;
+    var carOk = true;
+    $s.find("select").each(function () {
+      if (this.selectedIndex <= 0) carOk = false;
+    });
+    if (!carOk) return false;
   }
   var hasControl = false, picked = false;
   if ($s.find(".option-button").length) {
@@ -65,33 +69,68 @@ function lcdDesiredY(el) {
   return Math.max(0, Math.round(window.scrollY + delta));
 }
 
-/** Vycentruje krok na stred. isVerify=true => priorita, nedá sa prebiť. */
+/**
+ * Vycentruje krok na stred. isVerify=true => priorita.
+ * Pocka kym sa layout ustali, potom INSTANTNE skoci (CSS scroll-behavior:smooth
+ * by inak animoval kazdy scrollTo a vznikol by 2s "skakajuci" efekt).
+ * Max 3 instantne scrolly, rozlozene v case — ziadne tesne hamranie.
+ */
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
   if (lcdScroll.priority && !isVerify) return; // verifikacny scroll ma prednost
   if (isVerify) lcdScroll.priority = true;
   var myToken = ++lcdScroll.token;
-  window.scrollTo(0, lcdDesiredY(el));
-  var ticks = 0, aborted = false;
+  var aborted = false;
   function onUser() { aborted = true; }
   window.addEventListener("wheel", onUser, { passive: true });
   window.addEventListener("touchmove", onUser, { passive: true });
   window.addEventListener("keydown", onUser, { passive: true });
-  function stop() {
+  function done() {
     window.removeEventListener("wheel", onUser);
     window.removeEventListener("touchmove", onUser);
     window.removeEventListener("keydown", onUser);
     if (lcdScroll.token === myToken) lcdScroll.priority = false;
   }
-  function tick() {
-    if (myToken !== lcdScroll.token || aborted || !el.isConnected) { stop(); return; }
-    var want = lcdDesiredY(el);
-    if (Math.abs(window.scrollY - want) > 3) window.scrollTo(0, want);
-    ticks++;
-    if (ticks < 24) setTimeout(tick, 110);
-    else stop();
+  function alive() {
+    return myToken === lcdScroll.token && !aborted && el.isConnected;
   }
-  setTimeout(tick, 90);
+  function jump() {
+    window.scrollTo({ top: lcdDesiredY(el), behavior: "instant" });
+  }
+  // 1) Pockaj kym sa layout ustali (abs-pozicia kroku 3x rovnaka), max 1.2s.
+  var lastAbs = null, stable = 0, waited = 0;
+  function settle() {
+    if (!alive()) { done(); return; }
+    var abs = window.scrollY + el.getBoundingClientRect().top;
+    if (lastAbs !== null && Math.abs(abs - lastAbs) < 2) stable++;
+    else stable = 0;
+    lastAbs = abs;
+    waited += 70;
+    if (stable >= 3 || waited >= 1200) {
+      jump();
+      // 2) Korekcia po dozneni accordion animacie.
+      setTimeout(function () {
+        if (!alive()) { done(); return; }
+        var w1 = lcdDesiredY(el);
+        if (Math.abs(window.scrollY - w1) > 8) {
+          window.scrollTo({ top: w1, behavior: "instant" });
+        }
+        // 3) Posledna korekcia — neskore nacitanie obrazkov.
+        setTimeout(function () {
+          if (alive()) {
+            var w2 = lcdDesiredY(el);
+            if (Math.abs(window.scrollY - w2) > 8) {
+              window.scrollTo({ top: w2, behavior: "instant" });
+            }
+          }
+          done();
+        }, 700);
+      }, 450);
+    } else {
+      setTimeout(settle, 70);
+    }
+  }
+  settle();
 }
 
 function lcdResetOptionsWrap($s) {

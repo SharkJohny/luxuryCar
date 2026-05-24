@@ -29450,8 +29450,11 @@ function lcdGetSteps() {
 function lcdStepFilled(stepEl) {
   var $s = $(stepEl);
   if ($s.find(".wheel-Position").length) {
-    var m = sessionStorage.getItem("model");
-    if (!m || m.indexOf("Zna\u010Dka") > -1 || m.trim() === "Model" || m.indexOf("Rok v\xFDroby") > -1 || m.indexOf("Typ auta") > -1) return false;
+    var carOk = true;
+    $s.find("select").each(function() {
+      if (this.selectedIndex <= 0) carOk = false;
+    });
+    if (!carOk) return false;
   }
   var hasControl = false, picked = false;
   if ($s.find(".option-button").length) {
@@ -29499,32 +29502,62 @@ function lcdScrollToStep(el, isVerify) {
   if (lcdScroll.priority && !isVerify) return;
   if (isVerify) lcdScroll.priority = true;
   var myToken = ++lcdScroll.token;
-  window.scrollTo(0, lcdDesiredY(el));
-  var ticks = 0, aborted = false;
+  var aborted = false;
   function onUser() {
     aborted = true;
   }
   window.addEventListener("wheel", onUser, { passive: true });
   window.addEventListener("touchmove", onUser, { passive: true });
   window.addEventListener("keydown", onUser, { passive: true });
-  function stop() {
+  function done() {
     window.removeEventListener("wheel", onUser);
     window.removeEventListener("touchmove", onUser);
     window.removeEventListener("keydown", onUser);
     if (lcdScroll.token === myToken) lcdScroll.priority = false;
   }
-  function tick() {
-    if (myToken !== lcdScroll.token || aborted || !el.isConnected) {
-      stop();
+  function alive() {
+    return myToken === lcdScroll.token && !aborted && el.isConnected;
+  }
+  function jump() {
+    window.scrollTo({ top: lcdDesiredY(el), behavior: "instant" });
+  }
+  var lastAbs = null, stable = 0, waited = 0;
+  function settle() {
+    if (!alive()) {
+      done();
       return;
     }
-    var want = lcdDesiredY(el);
-    if (Math.abs(window.scrollY - want) > 3) window.scrollTo(0, want);
-    ticks++;
-    if (ticks < 24) setTimeout(tick, 110);
-    else stop();
+    var abs = window.scrollY + el.getBoundingClientRect().top;
+    if (lastAbs !== null && Math.abs(abs - lastAbs) < 2) stable++;
+    else stable = 0;
+    lastAbs = abs;
+    waited += 70;
+    if (stable >= 3 || waited >= 1200) {
+      jump();
+      setTimeout(function() {
+        if (!alive()) {
+          done();
+          return;
+        }
+        var w1 = lcdDesiredY(el);
+        if (Math.abs(window.scrollY - w1) > 8) {
+          window.scrollTo({ top: w1, behavior: "instant" });
+        }
+        setTimeout(function() {
+          if (alive()) {
+            var w2 = lcdDesiredY(el);
+            if (Math.abs(window.scrollY - w2) > 8) {
+              window.scrollTo({ top: w2, behavior: "instant" });
+            }
+          }
+          done();
+        }, 700);
+      }, 450);
+    } else {
+      setTimeout(settle, 70);
+    }
   }
-  setTimeout(tick, 90);
+  settle();
 }
 function lcdResetOptionsWrap($s) {
   $s.find("> .options-wrap").each(function() {
