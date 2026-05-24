@@ -8199,14 +8199,14 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     padding: 10px 22px !important;
   }
 }
-/* === Homepage mobil: medzera nad widgetom videi + striedanie pozadi === */
+/* === Homepage mobil: medzera nad widgetom videi + biele pozadie sekcie === */
 @media (max-width: 768px) {
   .in-index .lcd-videos-widget {
     background: #ffffff !important;
     padding-top: 32px !important;
   }
   .in-index .lcd-videos-widget + section {
-    background: #ededed !important;
+    background: #ffffff !important;
   }
 }
 
