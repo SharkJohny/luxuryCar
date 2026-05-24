@@ -413,7 +413,13 @@
       if (!c || !c.offsetWidth) return false;
       var target = c.offsetLeft + c.offsetWidth / 2 - track.clientWidth / 2;
       target = Math.max(0, Math.min(target, track.scrollWidth - track.clientWidth));
+      /* DOLEZITE: scroll-behavior:smooth + scroll-snap:mandatory blokuju
+         programove nastavenie scrollLeft (hodnota ostane 0). Docasne
+         vypneme smooth, nastavime scroll instantne a hned obnovime. */
+      var prevBehav = track.style.scrollBehavior;
+      track.style.scrollBehavior = 'auto';
       track.scrollLeft = target;
+      track.style.scrollBehavior = prevBehav;
       markActive();
       /* uspesne ak sa stred drzi na pozadovanej karte (snap toleruje par px) */
       var mid = track.scrollLeft + track.clientWidth / 2;
