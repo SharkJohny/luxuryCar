@@ -90,11 +90,20 @@ export function initProduct(setupData, texts) {
     $(".benefitBanner__item").remove();
   }
 
-  if ($("body.desktop").length) {
-    $("video.mobile").remove();
-  } else {
-    $("video.desctop").remove();
-  }
+  // Odstraníme nesprávnou variantu videa JEN když v bloku existují obě varianty.
+  // Pokud má video blok jen jednu variantu (desctop nebo mobile), necháme ji
+  // na všech zařízeních — jinak by produkt s jedním videem zůstal bez videa.
+  var isDesktopBody = $("body.desktop").length > 0;
+  $("video.desctop, video.mobile").each(function () {
+    var $v = $(this);
+    var $vp = $v.parent();
+    var bothVariants =
+      $vp.children("video.desctop").length > 0 &&
+      $vp.children("video.mobile").length > 0;
+    if (!bothVariants) return;
+    if (isDesktopBody && $v.hasClass("mobile")) $v.remove();
+    if (!isDesktopBody && $v.hasClass("desctop")) $v.remove();
+  });
   if ($(".p-detail-inner .p-detail-info").length) {
     $(".p-detail-inner .p-detail-info").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }

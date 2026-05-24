@@ -27951,11 +27951,15 @@ function initProduct(setupData2, texts) {
   if ($(".id-751").length) {
     $(".benefitBanner__item").remove();
   }
-  if ($("body.desktop").length) {
-    $("video.mobile").remove();
-  } else {
-    $("video.desctop").remove();
-  }
+  var isDesktopBody = $("body.desktop").length > 0;
+  $("video.desctop, video.mobile").each(function() {
+    var $v = $(this);
+    var $vp = $v.parent();
+    var bothVariants = $vp.children("video.desctop").length > 0 && $vp.children("video.mobile").length > 0;
+    if (!bothVariants) return;
+    if (isDesktopBody && $v.hasClass("mobile")) $v.remove();
+    if (!isDesktopBody && $v.hasClass("desctop")) $v.remove();
+  });
   if ($(".p-detail-inner .p-detail-info").length) {
     $(".p-detail-inner .p-detail-info").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }
@@ -29506,7 +29510,8 @@ function initVideoPlayAgain() {
       $video.show();
     } else {
       const isMobile = window.innerWidth < 768;
-      if (isMobile && $video.hasClass("desctop") || !isMobile && $video.hasClass("mobile")) {
+      const bothVariants = $container.children("video.desctop").length > 0 && $container.children("video.mobile").length > 0;
+      if (bothVariants && (isMobile && $video.hasClass("desctop") || !isMobile && $video.hasClass("mobile"))) {
         $video.css("display", "none");
         return;
       } else {

@@ -4464,8 +4464,19 @@ div#description p span {
   margin-top: 50px;
 }
 
-section.shopify-section.horiz-video.shopify-section--video video {
+section.shopify-section.horiz-video.shopify-section--video video,
+.content-over-media.aspect-video video {
   max-height: 800px;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+/* desctop video je 16:9 - rezervuj spravnu vysku aj pred nacitanim,
+   nech sa neskolabuje na default 150px (video viditelne hned) */
+section.shopify-section.horiz-video.shopify-section--video video.desctop,
+.content-over-media.aspect-video video.desctop {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .btn.btn-cart,

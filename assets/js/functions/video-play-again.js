@@ -41,9 +41,17 @@ export function initVideoPlayAgain() {
       $video.show();
       console.log("Wrapper video found:", $video.attr("class"), "in container:", $container.attr("class"));
     } else {
-      // Správná podmínka pro desctop/mobile videa
+      // Správná podmínka pro desctop/mobile videa.
+      // Skryjeme nesprávnou variantu JEN když v bloku existují obě (desctop i mobile).
+      // Pokud má blok jen jednu variantu, necháme ji viditelnou na všech zařízeních.
       const isMobile = window.innerWidth < 768;
-      if ((isMobile && $video.hasClass("desctop")) || (!isMobile && $video.hasClass("mobile"))) {
+      const bothVariants =
+        $container.children("video.desctop").length > 0 &&
+        $container.children("video.mobile").length > 0;
+      if (
+        bothVariants &&
+        ((isMobile && $video.hasClass("desctop")) || (!isMobile && $video.hasClass("mobile")))
+      ) {
         $video.css("display", "none");
         return; // Přeskočíme zpracování tohoto videa
       } else {
