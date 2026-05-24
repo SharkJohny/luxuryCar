@@ -29610,6 +29610,27 @@ function lcdGoToStep(el, isVerify) {
   lcdOpenStep(el);
   lcdScrollToStep(el, isVerify);
 }
+function lcdBoxConfigUnfilled() {
+  var boxPicked = document.querySelector(
+    ".upsale-buttons.boxs .upsale-button.active.config:not(.none)"
+  );
+  if (!boxPicked) return null;
+  var wraps = document.querySelectorAll(".box-config .parameter-wrap");
+  for (var i = 0; i < wraps.length; i++) {
+    if (wraps[i].offsetParent === null) continue;
+    if (!lcdStepFilled(wraps[i])) return wraps[i];
+  }
+  return null;
+}
+function lcdHandleBoxConfig() {
+  var bad = lcdBoxConfigUnfilled();
+  if (!bad) return true;
+  var bc = bad.closest(".box-config");
+  if (bc && getComputedStyle(bc).display === "none") bc.style.display = "";
+  lcdHighlightStep(bad);
+  lcdScrollToStep(bad, true);
+  return false;
+}
 function initConfiguratorEngine() {
   $(document).on("click", ".next-step-button", function(e) {
     e.preventDefault();
@@ -29645,6 +29666,20 @@ function initConfiguratorEngine() {
       e.stopImmediatePropagation();
       lcdHighlightStep(bad);
       lcdGoToStep(bad, true);
+      return false;
+    }
+    if (!lcdHandleBoxConfig()) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    }
+  });
+  $(document).on("click", ".close-btn.return", function(e) {
+    if (!lcdHandleBoxConfig()) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
       return false;
     }
   });

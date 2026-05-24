@@ -181,6 +181,33 @@ function lcdGoToStep(el, isVerify) {
   lcdScrollToStep(el, isVerify);
 }
 
+/** Prvy nevyplneny box-config pod-krok (farba/velkost boxov) — len ak je
+ *  vybrany box (config, nie "nechci"). Vrati element alebo null. */
+function lcdBoxConfigUnfilled() {
+  var boxPicked = document.querySelector(
+    ".upsale-buttons.boxs .upsale-button.active.config:not(.none)"
+  );
+  if (!boxPicked) return null;
+  var wraps = document.querySelectorAll(".box-config .parameter-wrap");
+  for (var i = 0; i < wraps.length; i++) {
+    if (wraps[i].offsetParent === null) continue; // skryty pod-krok
+    if (!lcdStepFilled(wraps[i])) return wraps[i];
+  }
+  return null;
+}
+
+/** Overi box-config. Ak chyba farba/velkost — otvori, oznaci, naskroluje
+ *  a vrati false. Inak true. */
+function lcdHandleBoxConfig() {
+  var bad = lcdBoxConfigUnfilled();
+  if (!bad) return true;
+  var bc = bad.closest(".box-config");
+  if (bc && getComputedStyle(bc).display === "none") bc.style.display = "";
+  lcdHighlightStep(bad);
+  lcdScrollToStep(bad, true);
+  return false;
+}
+
 export function initConfiguratorEngine() {
   // "Prejsť k ďalšiemu kroku"
   $(document).on("click", ".next-step-button", function (e) {
@@ -216,6 +243,19 @@ export function initConfiguratorEngine() {
       lcdGoToStep(bad, true);
       return false;
     }
+    // Box-config: ak je vybrany box, farba aj velkost musia byt vybrate.
+    if (!lcdHandleBoxConfig()) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      return false;
+    }
     // vsetko vyplnene → Shoptet submit prebehne
+  });
+
+  // "potvrdiť" v box-config — over farba/velkost boxov.
+  $(document).on("click", ".close-btn.return", function (e) {
+    if (!lcdHandleBoxConfig()) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      return false;
+    }
   });
 }
