@@ -76,7 +76,7 @@
     'box-shadow:0 6px 20px rgba(0,0,0,.18);}',
     '.lcdv-card.is-active{transform:scale(1.04);opacity:1;z-index:2;box-shadow:0 20px 46px rgba(0,0,0,.34);}',
     '.lcdv-card:focus-visible{outline:3px solid #1a73e8;outline-offset:3px;}',
-    '@media(max-width:560px){.lcdv-card{flex-basis:70vw;}.lcdv-title{font-size:24px;}}',
+    '@media(max-width:560px){.lcdv-card{flex-basis:11.6vw;max-width:11.6vw;border-radius:6px;}.lcdv-card.is-active{transform:scale(1.2);}.lcdv-track{gap:4px;padding:20px 0 18px;}.lcdv-play{width:17px;height:17px;}.lcdv-play svg{width:8px;height:8px;}.lcdv-cap{display:none;}.lcdv-arrow{width:30px;height:30px;}.lcdv-arrow svg{width:13px;height:13px;}.lcdv-title{font-size:21px;}.lcdv-subtitle{font-size:13px;}}',
     '.lcdv-thumb{width:100%;height:100%;object-fit:cover;display:block;}',
     '.lcdv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);',
     'width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.92);',
