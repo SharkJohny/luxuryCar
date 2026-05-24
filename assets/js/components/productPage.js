@@ -540,6 +540,14 @@ function priplatky(setupData, texts) {
 
         // Otevři kliknutý element
         clickedWrap.addClass("active");
+        // Reset inline stylov options-wrap (forceCloseWrap mohol nastavit
+        // max-height:0) — inak by sa obsah po znovuotvoreni nezobrazil.
+        clickedWrap.find("> .options-wrap").each(function () {
+          this.style.maxHeight = "";
+          this.style.overflow = "";
+          this.style.opacity = "";
+          this.style.padding = "";
+        });
 
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
@@ -956,6 +964,15 @@ function priplatky(setupData, texts) {
 // Otevře akordeon bez scrollování
 function openNextAccordion($next) {
   $next.addClass("active");
+  // Ak bol krok predtym zatvoreny (forceCloseWrap nastavi inline max-height:0
+  // na options-wrap), samotne addClass("active") obsah nezviditelni —
+  // resetneme inline styly, inak ostanu vzorky/moznosti skryte.
+  $next.find("> .options-wrap").each(function () {
+    this.style.maxHeight = "";
+    this.style.overflow = "";
+    this.style.opacity = "";
+    this.style.padding = "";
+  });
   // Boxs/trunk wrapy su default display:none (skryte cez .hide() v auto-postup
   // logike). Samotne addClass("active") ich nezviditelni - treba explicitne
   // .show(). Plus parent .upsale-Banner je tiez default hidden — bez .show()

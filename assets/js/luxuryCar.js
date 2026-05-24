@@ -28386,6 +28386,12 @@ function priplatky(setupData2, texts) {
         }
         $(".position-wrap, .parameter-wrap").removeClass("active");
         clickedWrap.addClass("active");
+        clickedWrap.find("> .options-wrap").each(function() {
+          this.style.maxHeight = "";
+          this.style.overflow = "";
+          this.style.opacity = "";
+          this.style.padding = "";
+        });
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
       }
@@ -28554,6 +28560,12 @@ function priplatky(setupData2, texts) {
 }
 function openNextAccordion($next) {
   $next.addClass("active");
+  $next.find("> .options-wrap").each(function() {
+    this.style.maxHeight = "";
+    this.style.overflow = "";
+    this.style.opacity = "";
+    this.style.padding = "";
+  });
   if ($next.hasClass("boxs") || $next.hasClass("trunk")) {
     $next.show();
     $(".upsale-Banner").show();
