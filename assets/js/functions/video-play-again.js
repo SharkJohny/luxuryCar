@@ -60,20 +60,24 @@ export function initVideoPlayAgain() {
     }
 
     // Video v produktovém popisu (ÚDRŽBA V PRAXI apod.) — viditelné hned:
-    // načteme první snímek a odstraníme cizí (rozbitý) poster z jiného e-shopu,
-    // aby se nezobrazoval prázdný box, dokud uživatel neklikne.
+    // motiv vložil poster obrázek omylem jako <img> dovnitř <video> (fallback
+    // obsah, který se v podporovaném prohlížeči nezobrazí) a atribut poster
+    // ukazuje na cizí e-shop. Použijeme vnitřní <img> jako poster, aby byl
+    // náhled videa vidět okamžitě, bez nutnosti kliknout.
     if ($video.closest(".content-over-media, .shopify-section--video").length) {
       const posterAttr = videoEl.getAttribute("poster");
-      if (posterAttr && !/luxurycardesign/i.test(posterAttr)) {
-        videoEl.removeAttribute("poster");
+      const posterOk = posterAttr && /luxurycardesign/i.test(posterAttr);
+      if (!posterOk) {
+        const innerImg = videoEl.querySelector("img");
+        const imgSrc = innerImg ? innerImg.getAttribute("src") : "";
+        if (imgSrc) {
+          videoEl.setAttribute("poster", imgSrc);
+        } else if (posterAttr) {
+          videoEl.removeAttribute("poster");
+        }
       }
-      if (videoEl.preload !== "auto") {
-        videoEl.preload = "auto";
-      }
-      if (videoEl.readyState < 2) {
-        try {
-          videoEl.load();
-        } catch (e) {}
+      if (videoEl.preload === "none" || !videoEl.preload) {
+        videoEl.preload = "metadata";
       }
     }
 

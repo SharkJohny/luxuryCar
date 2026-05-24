@@ -29520,17 +29520,18 @@ function initVideoPlayAgain() {
     }
     if ($video.closest(".content-over-media, .shopify-section--video").length) {
       const posterAttr = videoEl.getAttribute("poster");
-      if (posterAttr && !/luxurycardesign/i.test(posterAttr)) {
-        videoEl.removeAttribute("poster");
-      }
-      if (videoEl.preload !== "auto") {
-        videoEl.preload = "auto";
-      }
-      if (videoEl.readyState < 2) {
-        try {
-          videoEl.load();
-        } catch (e) {
+      const posterOk = posterAttr && /luxurycardesign/i.test(posterAttr);
+      if (!posterOk) {
+        const innerImg = videoEl.querySelector("img");
+        const imgSrc = innerImg ? innerImg.getAttribute("src") : "";
+        if (imgSrc) {
+          videoEl.setAttribute("poster", imgSrc);
+        } else if (posterAttr) {
+          videoEl.removeAttribute("poster");
         }
+      }
+      if (videoEl.preload === "none" || !videoEl.preload) {
+        videoEl.preload = "metadata";
       }
     }
     let $playPauseBtn = $container.find(".playpause");
