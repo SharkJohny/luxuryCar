@@ -1672,7 +1672,7 @@ section#section1 .images-scrolling__content p {
   .row.banners-content.body-banners section#model-selector {
     order: 1;
   }
-  .row.banners-content.body-banners section#goggle-review-wrap {
+  .row.banners-content.body-banners .lcd-reviews-widget {
     order: 2;
     padding: 20px 5px !important;
   }
@@ -7346,6 +7346,16 @@ header.header,
   .lcd-reviews-widget .lcdr-head {
     gap: 6px !important;
     margin: 0 0 16px !important;
+  }
+  /* BUG fix: zarucit zobrazenie nadpisu a CTA tlacidla aj na mobile */
+  .lcd-reviews-widget .lcdr-head,
+  .lcd-reviews-widget .lcdr-cta {
+    display: flex !important;
+  }
+  .lcd-reviews-widget .lcdr-title {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1.25 !important;
   }
   .lcd-reviews-widget .lcdr-gbadge {
     gap: 10px !important;
