@@ -8283,3 +8283,18 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .point-picture .btn.more-pictures-button {
   margin-top: -30px !important;
 }
+
+/* Mobile: hotspot widget — menšia medzera medzi obrázkami (~-50%) a menej
+   bieleho priestoru pod tlačidlom "Zobrazit více" (~-60%). PC ostáva. */
+@media (max-width: 768px) {
+  .point-picture .image-container {
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+  }
+  .point-picture .btn.more-pictures-button {
+    margin-bottom: 20px !important;
+  }
+  .point-picture::before {
+    bottom: -10px !important;
+  }
+}
