@@ -4654,7 +4654,7 @@ section.shopify-section.horiz-video.shopify-section--video.full-width {
    Padding 0 = žiadne biele pásiky, sekcie tesne na seba (sivá-biela-sivá). */
 section.shopify-section.shopify-section--timeline {
   background: #ffffff !important;
-  padding-top: 0 !important;
+  padding-top: 38px !important;
   padding-bottom: 0 !important;
 }
 section.shopify-section.shopify-section--timeline .section.section-blends.section-full::before {
