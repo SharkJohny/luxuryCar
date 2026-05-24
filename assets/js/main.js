@@ -7,6 +7,7 @@ import { initHeader } from "./components/header.js";
 import { initVideoPlayAgain } from "./functions/video-play-again.js";
 import { initCart } from "./components/cart.js";
 import { validation } from "./functions/validation.js";
+import { initConfiguratorEngine } from "./functions/configuratorEngine.js";
 import { initLivePrice } from "./functions/livePrice.js";
 import { initContactForm } from "./components/contactForm.js";
 import "./seo-runtime.js"; // SEO Fáza A — runtime inject (JSON-LD, hreflang, H1, etc.)
@@ -34,6 +35,7 @@ $.getJSON(optionData.downloadData, function (data) {
 
   addNote();
   validation(texts);
+  initConfiguratorEngine();
   initLivePrice();
   initCart(texts);
   $(".config-wrap .parameter-wrap:eq(1)").addClass("noText");

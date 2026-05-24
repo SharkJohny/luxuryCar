@@ -1,8 +1,6 @@
 import { showUpsalePopup } from "./UpsalePopup.js";
 import { createUpsaleButton, createOptions, createBoxConfig } from "./creatButtons.js";
 import { renderTruckConfigurator } from "../truck-konfigurator/index.jsx";
-import { lcdScrollToStep, lcdTagSteps } from "../functions/scrollEngine.js";
-import { lcdFindFirstInvalidStep, lcdShowInvalidStep } from "../functions/validation.js";
 
 window.addEventListener(
   "error",
@@ -218,28 +216,6 @@ export function initProduct(setupData, texts) {
   //   }).appendTo(image);
   // });
 
-  $(".next-step-button").on("click", function (event) {
-    if ($(event.target).closest(".parameter-cars.patterns-wrap").length) {
-      return;
-    }
-    const model = sessionStorage.getItem("model");
-    console.log(model);
-    if (!model || (model && (model.includes("Značka") || model.trim() === "Model" || model.includes("Rok výroby") || model.includes("Typ auta")))) {
-      const name = $("h1").text();
-      if (name.includes("box") || name.includes("Boxy")) {
-        return;
-      }
-
-      createpopup(texts);
-      setTimeout(() => {
-        // Místo odebrání všech active buttonů v content-wrap
-        // odebereme active pouze z tlačítka, na které se kliklo
-        $(event.target).closest(".button.option-button").removeClass("active");
-      }, 1000);
-
-      $(".image-wrap").remove();
-    }
-  });
   setTimeout(() => {
     $(".parameter-wrap.orders-1").removeClass("goToAction");
   }, 1000);
@@ -505,28 +481,6 @@ function priplatky(setupData, texts) {
         const $activeWrap = $(".position-wrap.active, .parameter-wrap.active").first();
         const activeIndex = $activeWrap.length ? allWraps.index($activeWrap) : -1;
 
-        // Pokud jdeme dopředu, zkontrolujeme validitu VŠECH předchozích kroků
-        // (klient: „verifikácie su pokazené – vždy sa zobrazí len posledný
-        // ktorý nevybral, mali by sa zobraziť všetky naraz").
-        if (clickedIndex > activeIndex && activeIndex >= 0) {
-          let $firstInvalid = null;
-          for (let i = 0; i < clickedIndex; i++) {
-            const $wrap = allWraps.eq(i);
-            if (!isWrapSelectionValid($wrap)) {
-              $wrap.addClass("selection-required");
-              if (!$firstInvalid) $firstInvalid = $wrap;
-            }
-          }
-          if ($firstInvalid) {
-            // Zoskrolujeme k prvnímu chybějícímu, ostatní zůstanou červené
-            // taky, ať uživatel okamžitě vidí kompletní seznam co chybí.
-            scrollToStep($firstInvalid);
-            setTimeout(() => {
-              $(".selection-required").removeClass("selection-required");
-            }, 2500);
-            return;
-          }
-        }
 
         // Zavři všechny ostatní position-wrap a parameter-wrap elementy
         $(".position-wrap, .parameter-wrap").removeClass("active");
@@ -539,62 +493,6 @@ function priplatky(setupData, texts) {
         console.log(`Otevřen ${elementType}:`, elementName);
       },
     );
-
-    // Funkcionalita pro tlačítko "Přejít k dalšímu kroku"
-    function isWrapSelectionValid($wrap) {
-      if ($wrap.hasClass("boxs")) return true;
-      if ($wrap.hasClass("trunk")) return true;
-      if ($wrap.closest(".box-config").length && !$(".upsale-buttons.boxs .upsale-button.active.config").not(".none").length) return true;
-
-      // Krok "Specifikace vozidla" (EU/UK volant) je neplatny bez vybranej
-      // znacky/modelu/roku auta.
-      if ($wrap.find(".wheel-Position").length) {
-        var lcdM = sessionStorage.getItem("model");
-        if (
-          !lcdM ||
-          lcdM.indexOf("Zna\u010Dka") > -1 ||
-          lcdM.trim() === "Model" ||
-          lcdM.indexOf("Rok v\u00FDroby") > -1 ||
-          lcdM.indexOf("Typ auta") > -1
-        ) {
-          return false;
-        }
-      }
-
-      let hasSelectable = false;
-      let valid = false;
-
-      if ($wrap.find(".option-button").length) {
-        hasSelectable = true;
-        if ($wrap.find(".option-button.active").length) valid = true;
-      }
-
-      if ($wrap.find(".upsale-button").length) {
-        hasSelectable = true;
-        if ($wrap.find(".upsale-button.active").length) valid = true;
-      }
-
-      if ($wrap.find("select.surcharge-parameter").length) {
-        hasSelectable = true;
-        $wrap.find("select.surcharge-parameter").each(function () {
-          const val = $(this).val();
-          if (val && val !== "0" && val !== "" && val !== null) valid = true;
-        });
-      }
-
-      if ($wrap.find("input[type='radio'], input[type='checkbox']").length) {
-        hasSelectable = true;
-        if ($wrap.find("input[type='radio']:checked, input[type='checkbox']:checked").length) valid = true;
-      }
-
-      return !hasSelectable || valid;
-    }
-
-    function getNavigableWraps() {
-      return $(".position-wrap, .parameter-wrap").filter(function () {
-        return !$(this).closest(".box-config").length;
-      });
-    }
 
     function isCartStepWrap($wrap) {
       return $wrap.hasClass("upsale-buttons") && $wrap.hasClass("boxs");
@@ -612,111 +510,9 @@ function priplatky(setupData, texts) {
       return isLast ? "Dokončit konfiguraci" : "Přejít k dalšímu kroku";
     }
 
-    // Scroll na krok - deleguje na zdielany LCD scroll engine
-    // (functions/scrollEngine.js). Caka na ustalenie layoutu po accordion
-    // animacii, potom naskroluje tak aby cislo + nazov kroku boli viditelne
-    // tesne pod fixnym header-menu.
-    function scrollToStep($wrap) {
-      lcdScrollToStep($wrap);
-    }
-
-    function proceedToCartFromStep() {
-      const $addToCartButton = $("button.btn.btn-lg.btn-conversion.add-to-cart-button")
-        .filter(function () {
-          const style = window.getComputedStyle(this);
-          return style.display !== "none" && style.visibility !== "hidden" && this.offsetParent !== null;
-        })
-        .first();
-
-      $(".upsale-Banner.showConf").removeClass("showConf");
-
-      if ($addToCartButton.length) {
-        $addToCartButton.trigger("click");
-        return;
-      }
-
-      $(".position-wrap, .parameter-wrap").removeClass("active");
-    }
-
-    $(document).on("click", ".next-step-button", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-
-      // Sekvencna validacia (Michal req): over content kroky od zaciatku
-      // po aktualny. Prvy nevyplneny krok otvor LEN ten, oznac, naskroluj
-      // a STOP — dalsie kroky sa nekontroluju ani neotvaraju. Rovnaka
-      // logika ako tlacidlo "Pridat do kosika" (validateProductConfig).
-      var $cSteps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap");
-      var $curIdx = $cSteps.index(currentWrap);
-      var $badStep = lcdFindFirstInvalidStep($curIdx);
-      if ($badStep && $badStep.length) {
-        lcdShowInvalidStep($badStep);
-        return; // nepokracuj dalej
-      }
-
-      if (isCartStepWrap(currentWrap)) {
-        proceedToCartFromStep();
-        return;
-      }
-
-      // K5 (trunk) -> K6 (boxs): explicitny prechod. V DOM su duplicitne
-      // trunk/boxs wrapy (conf1/conf2), takze getNavigableWraps().index()+1
-      // moze ukazat na nespravny (skryty) wrap. Riesime cielene - z trunk
-      // vzdy otvorime prvy boxs wrap. Funguje aj ked v K5 nic nie je vybrane.
-      if (currentWrap.hasClass("trunk")) {
-        // K4 (kufrova rohoz) musi mat vybranu jednu z 3 moznosti (vratane
-        // NECHCI). Bez vyberu necha krok cerveny a nepustime na K5.
-        if (!currentWrap.find(".upsale-button.active").length) {
-          currentWrap.addClass("active").addClass("errorToCart");
-          setTimeout(function () { scrollToStep(currentWrap); }, 50);
-          setTimeout(function () { currentWrap.removeClass("errorToCart"); }, 2500);
-          return;
-        }
-        const $boxs = $(".upsale-buttons.boxs").first();
-        if ($boxs.length) {
-          currentWrap.removeClass("active");
-          openNextAccordion($boxs);
-          setTimeout(() => {
-            scrollToStep($boxs);
-          }, 600);
-          setTimeout(() => {
-            updateButtonTexts();
-          }, 50);
-          return;
-        }
-      }
-
-      const allWraps = getNavigableWraps();
-      const currentIndex = allWraps.index(currentWrap);
-
-      // Najdi následující wrap element
-      if (currentIndex < allWraps.length - 1) {
-        const nextWrap = allWraps.eq(currentIndex + 1);
-
-        currentWrap.removeClass("active");
-        openNextAccordion(nextWrap);
-        setTimeout(() => {
-          scrollToStep((nextWrap.hasClass("trunk") || nextWrap.hasClass("boxs")) ? nextWrap : currentWrap);
-        }, 600);
-
-        console.log("Přechod k dalšímu kroku:", nextWrap.find(".variant.name, h5").first().text() || "Unnamed");
-      } else {
-        console.log("Konfigurace dokončena");
-        // Zavři všechny elementy
-        allWraps.removeClass("active");
-      }
-
-      // Aktualizuj texty tlačítek po každé změně
-      setTimeout(() => {
-        updateButtonTexts();
-      }, 50);
-    });
-
     // Přidání tlačítek "Přejít k dalšímu kroku" do všech wrap elementů
     function addNextStepButtons() {
-      const allWraps = getNavigableWraps();
+      const allWraps = $(".position-wrap, .parameter-wrap").filter(function () { return !$(this).closest(".box-config").length; });
 
       allWraps.each(function (index) {
         const $wrap = $(this);
@@ -742,7 +538,7 @@ function priplatky(setupData, texts) {
 
     // Funkce pro aktualizaci textů tlačítek
     function updateButtonTexts() {
-      const allWraps = getNavigableWraps();
+      const allWraps = $(".position-wrap, .parameter-wrap").filter(function () { return !$(this).closest(".box-config").length; });
 
       allWraps.each(function (index) {
         const $wrap = $(this);
@@ -782,7 +578,6 @@ function priplatky(setupData, texts) {
           console.log("Přidání tlačítek---------");
           addNextStepButtons();
           updateButtonTexts(); // Aktualizuj texty po přidání nových elementů
-          lcdTagSteps(); // preznac kroky stabilnym data-lcd-step
         }, 400); // Malé zpoždění pro jistotu
       }
     });
@@ -806,7 +601,6 @@ function priplatky(setupData, texts) {
     setTimeout(() => {
       addNextStepButtons();
       updateButtonTexts();
-      lcdTagSteps(); // stabilne oznacenie krokov pre scroll engine
     }, 100);
 
     const pairVariantList = JSON.parse(setupData.settings.pairVariantList);
@@ -907,7 +701,6 @@ function priplatky(setupData, texts) {
     const contentStepCount = $(".content-wrap").children(".position-wrap, .parameter-wrap").length;
     $(".upsale-buttons.trunk .order").text(contentStepCount);
     $(".upsale-buttons.boxs .order").text(contentStepCount + 1);
-    lcdTagSteps(); // stabilne oznacenie krokov po dorobeni cisel poradia
   }
 }
 
@@ -928,19 +721,6 @@ $(document).on("click", ".upsale-button", function (e) {
   // Check if the clicked element is within .upsale-buttons.trunk
   updateUpsale(this, e);
 
-  // Po vybere koberca do kufra (K5): zavri K5, otvor K6 a naskroluj nan.
-  const $trunk = $(this).closest(".upsale-buttons.trunk");
-  if ($trunk.length) {
-    setTimeout(() => {
-      const $boxs = $(".upsale-buttons.boxs").first();
-      $boxs.show();
-      $trunk.removeClass("active");
-      openNextAccordion($boxs);
-      setTimeout(function () {
-        if (typeof lcdScrollToStep === "function") lcdScrollToStep($boxs);
-      }, 350);
-    }, 600);
-  }
 });
 
 function resetBoxConfigDefaults() {
@@ -1736,67 +1516,6 @@ $("body").on("click", ".button.option-button", function (e) {
     }
   }, 200);
 
-  // Auto-postup pro všechny wrappy s next-step-button kromě kroku 0 a 1
-  const $currentWrap = $(this).closest(".position-wrap, .parameter-wrap");
-  const orderNum = parseInt($currentWrap.find(".order").first().text());
-  const isStep0or1 = orderNum === 0 || orderNum === 1;
-  const hasNextBtn = $currentWrap.find(".next-step-button").length > 0;
-  const isInBoxConfig = !!$currentWrap.closest(".config-wrap, .box-config").length;
-
-  if (hasNextBtn && !isStep0or1 && !isInBoxConfig) {
-    // Hledáme next wrap se zpožděním 400ms — dáme čas Shoptetu přidat nové dynamické kroky do DOM
-    setTimeout(() => {
-      const allContentWraps = $(".content-wrap").children(".position-wrap, .parameter-wrap");
-      const contentIndex = allContentWraps.index($currentWrap);
-
-      let $nextWrap = null;
-      if (contentIndex >= 0 && contentIndex < allContentWraps.length - 1) {
-        $nextWrap = allContentWraps.eq(contentIndex + 1);
-      } else if (contentIndex === -1) {
-        // Dynamicky přidaný wrap mimo content-wrap — hledej next sibling v tom samém parentu
-        const $siblings = $currentWrap.parent().children(".position-wrap, .parameter-wrap");
-        const sibIndex = $siblings.index($currentWrap);
-        if (sibIndex >= 0 && sibIndex < $siblings.length - 1) {
-          $nextWrap = $siblings.eq(sibIndex + 1);
-        }
-      }
-
-      if ($nextWrap) {
-        openNextAccordion($nextWrap);
-      } else if (contentIndex >= 0 && contentIndex === allContentWraps.length - 1) {
-        // Krok 4 (posledny content-wrap krok): po vybere moznosti hned
-        // zobraz K5/K6 banner, zavri K4, otvor K5 a naskroluj nan.
-        $(".upsale-Banner").fadeIn(400).show();
-        $(".upsale-buttons.boxs").first().show();
-        $currentWrap.removeClass("active");
-        const $trunkW = $(".upsale-buttons.trunk").first();
-        if ($trunkW.length) {
-          openNextAccordion($trunkW);
-          setTimeout(function () {
-            if (typeof lcdScrollToStep === "function") lcdScrollToStep($trunkW);
-          }, 350);
-        }
-      } else if (!$(".goToAction")[0]) {
-        console.log("goToAction");
-        $(".upsale-Banner").fadeIn(400);
-        $(".upsale-Banner").show();
-        $(".upsale-buttons.position-wrap.parameter-cars.parameter-wrap.boxs").hide();
-
-        if ($(".upsale-buttons.position-wrap.trunk .upsale-button.radio.active")[0]) {
-          const $boxs = $(".upsale-buttons.boxs");
-          $boxs.show();
-          openNextAccordion($boxs);
-        } else {
-          openNextAccordion($(".upsale-buttons.trunk"));
-        }
-        if (!$(".parameter-id-" + koberce)[0]) {
-          const $boxs = $(".upsale-buttons.boxs");
-          $boxs.show();
-          openNextAccordion($boxs);
-        }
-      }
-    }, 400);
-  }
 });
 function priceActualization(e) {
   const header = $("h1").text();
