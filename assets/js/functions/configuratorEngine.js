@@ -93,3 +93,42 @@ function lcdScrollToStep(el, isVerify) {
   }
   setTimeout(tick, 90);
 }
+
+function lcdResetOptionsWrap($s) {
+  $s.find("> .options-wrap").each(function () {
+    this.style.maxHeight = ""; this.style.overflow = "";
+    this.style.opacity = ""; this.style.padding = "";
+  });
+}
+
+/** Otvori IBA tento krok, ostatne zatvori. */
+function lcdOpenStep(el) {
+  lcdGetSteps().forEach(function (s) {
+    if (s !== el) $(s).removeClass("active");
+  });
+  var $s = $(el);
+  if ($s.hasClass("trunk") || $s.hasClass("boxs")) {
+    $s.show();
+    $(".upsale-Banner").show();
+  }
+  $s.addClass("active");
+  lcdResetOptionsWrap($s);
+  $s.find("> .next-step-button").show();
+}
+
+/** Cerveno zvyrazni krok + vyzva na doplnenie. */
+function lcdHighlightStep(el) {
+  var $s = $(el);
+  $s.addClass("lcd-needs-fill");
+  setTimeout(function () { $s.removeClass("lcd-needs-fill"); }, 3000);
+}
+
+/** Vrati prvy nevyplneny krok 0..uptoIndex, alebo null. */
+function lcdFirstUnfilled(uptoIndex) {
+  var steps = lcdGetSteps();
+  var limit = (typeof uptoIndex === "number" && uptoIndex >= 0) ? uptoIndex : steps.length - 1;
+  for (var i = 0; i <= limit && i < steps.length; i++) {
+    if (!lcdStepFilled(steps[i])) return steps[i];
+  }
+  return null;
+}
