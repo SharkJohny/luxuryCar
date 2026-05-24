@@ -8263,6 +8263,8 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .point-picture {
   position: relative;
   z-index: 0;
+  /* sivy pas nad widgetom (rovnaky ako sivy pas nad before/after sliderom) */
+  margin-top: 167px !important;
 }
 .point-picture::before {
   content: "";
