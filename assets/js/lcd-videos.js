@@ -29,7 +29,7 @@
     apiKey: 'AIzaSyC1oohVIKqPPcxL3rZKZ_ZPKLoWS9CbRgQ',
     playlistId: 'PL5uNhg-LR1do0MIzDRJGM4d-2Kj1uLwxU',
     maxFetch: 500,                       /* koľko položiek max ťahať z API */
-    cacheHours: 12                       /* ako dlho držať dáta v cache */
+    cacheHours: 3                        /* ako dlho držať dáta v cache */
   };
 
   var DEFAULTS = {
@@ -402,17 +402,46 @@
       if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
     }, true);
 
-    function initCarousel() {
-      if (!track.clientWidth) { setTimeout(initCarousel, 80); return; }
-      pad();
+    /* vycentruje 4. kartu -> 3 vlavo + 1 zvacsena v strede + 3 vpravo.
+       Robustne: caka na layout a overuje, ze scroll naozaj zostal nastaveny
+       (scroll-snap moze hodnotu vratit, kym sa carousel este renderuje). */
+    function centerCard() {
       var icards = track.querySelectorAll('.lcdv-card');
+      if (!icards.length) return false;
       var si = Math.min(3, icards.length - 1);
-      if (icards[si]) {
-        track.scrollLeft = icards[si].offsetLeft + icards[si].offsetWidth / 2 - track.clientWidth / 2;
-      }
-      update();
+      var c = icards[si];
+      if (!c || !c.offsetWidth) return false;
+      var target = c.offsetLeft + c.offsetWidth / 2 - track.clientWidth / 2;
+      target = Math.max(0, Math.min(target, track.scrollWidth - track.clientWidth));
+      track.scrollLeft = target;
+      markActive();
+      /* uspesne ak sa stred drzi na pozadovanej karte (snap toleruje par px) */
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      return Math.abs((c.offsetLeft + c.offsetWidth / 2) - mid) < c.offsetWidth / 2;
     }
-    setTimeout(initCarousel, 60);
+    function initCarousel(tries) {
+      tries = tries || 0;
+      if (!track.clientWidth || !track.scrollWidth) {
+        if (tries < 40) { setTimeout(function () { initCarousel(tries + 1); }, 80); }
+        return;
+      }
+      pad();
+      var ok = centerCard();
+      update();
+      /* opakuj, kym sa carousel neustali (lazy obrazky / async render) */
+      if (!ok && tries < 40) {
+        setTimeout(function () { initCarousel(tries + 1); }, 80);
+      } else {
+        /* finalne docentrovanie po ustaleni layoutu */
+        requestAnimationFrame(function () { centerCard(); update(); });
+        setTimeout(function () { centerCard(); update(); }, 300);
+      }
+    }
+    setTimeout(function () { initCarousel(0); }, 60);
+    /* re-center ked sa nacitaju thumbnaily (menia rozmery layoutu) */
+    track.addEventListener('load', function () {
+      requestAnimationFrame(function () { centerCard(); update(); });
+    }, true);
     return vp;
   }
 
