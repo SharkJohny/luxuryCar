@@ -18,9 +18,13 @@ function lcdStepFilled(stepEl) {
   // vyber. Placeholder = selectedIndex 0. sessionStorage.model moze byt
   // staly po reloade, preto kontrolujeme priamo dropdowny (zdroj pravdy).
   if ($s.find(".wheel-Position").length) {
+    var lcdPlaceholders = ["Značka", "Model", "Rok výroby", "Typ auta",
+                           "Značka", "Ročník", "Typ"];
     var carOk = true;
     $s.find("select").each(function () {
-      if (this.selectedIndex <= 0) carOk = false;
+      var opt = this.options[this.selectedIndex];
+      var txt = (opt ? opt.text : "").replace(/\s+/g, " ").trim();
+      if (!txt || lcdPlaceholders.indexOf(txt) > -1) carOk = false;
     });
     if (!carOk) return false;
   }

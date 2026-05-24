@@ -29450,9 +29450,20 @@ function lcdGetSteps() {
 function lcdStepFilled(stepEl) {
   var $s = $(stepEl);
   if ($s.find(".wheel-Position").length) {
+    var lcdPlaceholders = [
+      "Zna\u010Dka",
+      "Model",
+      "Rok v\xFDroby",
+      "Typ auta",
+      "Zna\u010Dka",
+      "Ro\u010Dn\xEDk",
+      "Typ"
+    ];
     var carOk = true;
     $s.find("select").each(function() {
-      if (this.selectedIndex <= 0) carOk = false;
+      var opt = this.options[this.selectedIndex];
+      var txt = (opt ? opt.text : "").replace(/\s+/g, " ").trim();
+      if (!txt || lcdPlaceholders.indexOf(txt) > -1) carOk = false;
     });
     if (!carOk) return false;
   }
