@@ -7222,3 +7222,16 @@ header.header,
     width: 100%;
   }
 }
+
+
+/* === Widget videi na homepage - nadpis vlavo + zlaty (ladi so sekciami HP) === */
+.in-index .lcd-videos-widget .lcdv-head {
+  text-align: left;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+.in-index .lcd-videos-widget .lcdv-title {
+  color: var(--color-primary);
+  text-transform: uppercase;
+}

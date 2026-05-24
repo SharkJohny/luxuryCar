@@ -334,7 +334,7 @@
     function pad() {
       var c = track.querySelector('.lcdv-card');
       if (!c) return;
-      var p = Math.max(6, Math.round(track.clientWidth / 2 - c.offsetWidth / 2));
+      var p = 6;
       track.style.paddingLeft = track.style.paddingRight = p + 'px';
     }
     /* zvýrazni kartu najbližšie k stredu */
