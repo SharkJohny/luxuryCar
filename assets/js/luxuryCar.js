@@ -29674,6 +29674,11 @@ function initConfiguratorEngine() {
       e.stopImmediatePropagation();
       return false;
     }
+    window.__lcdCartReloading = true;
+    document.addEventListener("ShoptetCartUpdated", function lcdToCart() {
+      document.removeEventListener("ShoptetCartUpdated", lcdToCart);
+      window.location.href = "/kosik/";
+    });
   });
   $(document).on("click", ".close-btn.return", function(e) {
     if (!lcdHandleBoxConfig()) {

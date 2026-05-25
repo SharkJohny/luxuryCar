@@ -248,7 +248,14 @@ export function initConfiguratorEngine() {
       e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
       return false;
     }
-    // vsetko vyplnene → Shoptet submit prebehne
+    // Vsetko vyplnene → Shoptet prida do kosika. Po pridani prejdi rovno
+    // do kosika (/kosik/). __lcdCartReloading flag zabrani cart.js reloadu
+    // produktovej stranky — namiesto toho spravime redirect.
+    window.__lcdCartReloading = true;
+    document.addEventListener("ShoptetCartUpdated", function lcdToCart() {
+      document.removeEventListener("ShoptetCartUpdated", lcdToCart);
+      window.location.href = "/kosik/";
+    });
   });
 
   // "potvrdiť" v box-config — over farba/velkost boxov.
