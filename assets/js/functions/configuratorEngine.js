@@ -242,8 +242,26 @@ export function initConfiguratorEngine() {
     }
   });
 
+  // Auto-select "nechcem" (.upsale-button.none) v trunk a boxs ak ziadna
+  // option nie je .active. Tym sa do Shoptet objednavky dostane
+  // "Autokoberce do kufru: nechcem" / "Boxy do kufru: nechcem".
+  function lcdAutoSelectNoneIfEmpty() {
+    ["trunk", "boxs"].forEach(function (cls) {
+      var $wrap = $(".upsale-buttons." + cls);
+      if (!$wrap.length) return;
+      if ($wrap.find(".upsale-button.active").length) return;
+      var $none = $wrap.find(".upsale-button.none").first();
+      if ($none.length) {
+        // Trigger click — spusti Shoptet handlers + nastavi surcharge na 0.
+        $none.trigger("click");
+      }
+    });
+  }
+
   // "Pridať do košíka"
   $(document).on("click", "button.add-to-cart-button", function (e) {
+    // Auto "nechcem" pre nepovinne trunk/boxs ak prazdne.
+    lcdAutoSelectNoneIfEmpty();
     var bad = lcdFirstUnfilled();
     if (bad) {
       e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();

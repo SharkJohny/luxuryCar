@@ -29661,7 +29661,19 @@ function initConfiguratorEngine() {
       if ($cart.length) $cart.trigger("click");
     }
   });
+  function lcdAutoSelectNoneIfEmpty() {
+    ["trunk", "boxs"].forEach(function(cls) {
+      var $wrap = $(".upsale-buttons." + cls);
+      if (!$wrap.length) return;
+      if ($wrap.find(".upsale-button.active").length) return;
+      var $none = $wrap.find(".upsale-button.none").first();
+      if ($none.length) {
+        $none.trigger("click");
+      }
+    });
+  }
   $(document).on("click", "button.add-to-cart-button", function(e) {
+    lcdAutoSelectNoneIfEmpty();
     var bad = lcdFirstUnfilled();
     if (bad) {
       e.preventDefault();
