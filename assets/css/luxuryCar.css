@@ -8308,9 +8308,10 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
    viewporte to robilo nekonzistentny vzhlad. Zjednocujeme padding, gap,
    min-height kariet a velkost obrazka pre vsetky typy moznosti na <=768px. */
 @media (max-width: 768px) {
-  /* K3 rozlozenie kobercov (.parameter-cars .option-button) a
-     K5/K6 trunk + boxs (.upsale-buttons .upsale-button) maju ROVNAKY layout */
-  .parameter-cars .button.option-button,
+  /* K3 rozlozenie kobercov + K5/K6 trunk/boxs — ZJEDNOTENY layout.
+     POZOR: NEZACHYTAVAT K1 (.base-config — wheel/sit/door Position).
+     Cielime cez .options-wrap (K3) + .upsale-buttons (K5/K6). */
+  .options-wrap .button.option-button:not(.color-swatch):not(.lines):not(.diagonal):not(.hexa),
   .upsale-buttons .upsale-button.config,
   .upsale-buttons .upsale-button.radio,
   .upsale-buttons .upsale-button.none {
@@ -8322,8 +8323,8 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     min-height: 180px !important;
     box-sizing: border-box !important;
   }
-  /* Obrazky vo vsetkych kartach rovnako velke */
-  .parameter-cars .button.option-button img,
+  /* Obrazky vo vsetkych kartach rovnako velke (NIE pre wheel-Position) */
+  .options-wrap .button.option-button:not(.color-swatch):not(.lines):not(.diagonal):not(.hexa) img,
   .upsale-buttons .upsale-button img {
     width: auto !important;
     max-width: 80% !important;
@@ -8331,9 +8332,9 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     object-fit: contain !important;
     margin: 0 auto 8px !important;
   }
-  /* Karty v rade rovnaky gap */
-  .parameter-cars,
-  .upsale-buttons .parameter-cars,
+  /* Karty v rade rovnaky gap — NIE pre base-config / wheel/sit/door */
+  .options-wrap:not(.wheel-Position):not(.sit-Position):not(.door-Position),
+  .upsale-buttons .parameter-cars:not(.wheel-Position):not(.sit-Position):not(.door-Position),
   .upsale-buttons {
     gap: 10px !important;
   }
@@ -8343,7 +8344,7 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     padding-top: 30px !important;
   }
   /* Pri kartach s textom pod obrazkom — text na stred + jednotny font-size */
-  .parameter-cars .button.option-button .radio-text,
+  .options-wrap .button.option-button:not(.color-swatch):not(.lines):not(.diagonal):not(.hexa) .radio-text,
   .upsale-buttons .upsale-button .banner-header,
   .upsale-buttons .upsale-button .banner-header > span {
     text-align: center !important;
