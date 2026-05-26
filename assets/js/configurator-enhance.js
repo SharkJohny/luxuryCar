@@ -110,6 +110,11 @@
       // Strip "+X €/Kč" suffix a normalizuj medzery
       label = label.replace(/\s*\+\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
       label = label.replace(/\s+/g, " ");
+      // Skratit "Diamond Farba kože : Čierna Farba šitia : Zelená" -> "Diamond — Čierna / Zelená"
+      var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
+      if (m) {
+        label = m[1].trim() + " — " + m[2].trim() + (m[3] ? " / " + m[3].trim() : "");
+      }
       if (!label) return;
       // Vyhnut sa duplikatu / aktualizuj ak sa zmenil
       var existing = wrap.querySelector(".lcd-color-label");
