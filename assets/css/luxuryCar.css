@@ -7232,13 +7232,15 @@ span.price-recommended {
   .upsale-buttons.trunk .upsale-button img,
   .upsale-buttons.boxs .upsale-button img {
     width: 55% !important;
-    max-width: 55% !important;
-    height: auto !important;
-    aspect-ratio: 16 / 10 !important;
+    max-width: 200px !important;
+    min-width: 140px !important;
+    height: 110px !important;
+    aspect-ratio: auto !important;
     object-fit: cover !important;
+    object-position: center !important;
     margin: 0 !important;
     border-radius: 10px !important;
-    flex: 0 0 55% !important;
+    flex: 0 0 auto !important;
   }
   /* Banner-header — text + cena vpravo, menej priestoru ale wrap-uje */
   .upsale-buttons.trunk .upsale-button .banner-header,
