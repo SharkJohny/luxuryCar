@@ -307,4 +307,24 @@ export function initConfiguratorEngine() {
     // Vyplneny box-config → zatvor panel
     $(this).closest(".upsale-Banner").removeClass("showConf");
   });
+
+  // BOX PRODUKT (URL /luxusny-boxi-do-kufra/ alebo H1 obsahuje "box"):
+  // pri loade auto-otvor K1 (prvy krok). Ostatné kroky zatvorene. Po vybere
+  // ziaden auto-advance — user klika "Prejst k dalsiemu kroku" rucne.
+  function isBoxProduct() {
+    var h1 = ($("h1").first().text() || "").toLowerCase();
+    if (h1.indexOf("box") > -1) return true;
+    var path = (window.location.pathname || "").toLowerCase();
+    return /boxi|boxy|box/.test(path);
+  }
+  function lcdAutoOpenFirstStep() {
+    if (!isBoxProduct()) return;
+    var steps = lcdGetSteps();
+    if (steps.length === 0) return;
+    lcdOpenStep(steps[0]);
+  }
+  // Retry — Shoptet generuje kroky async (5x 600ms).
+  setTimeout(lcdAutoOpenFirstStep, 600);
+  setTimeout(lcdAutoOpenFirstStep, 1500);
+  setTimeout(lcdAutoOpenFirstStep, 3000);
 }
