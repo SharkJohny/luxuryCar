@@ -89,14 +89,57 @@
       });
   }
 
+  // K2 / K3 / box-config: nad preview obrazkom vybranej farby zobraz text
+  // s nazvom vzorky/farby (napr. "Diamond Farba kože : Čierna"). Text sa
+  // berie z <select> option zodpovedajucej aktivnemu .option-button.
+  function addColorLabels() {
+    document.querySelectorAll(".image-wrap").forEach(function (wrap) {
+      var parWrap = wrap.closest(".parameter-wrap");
+      if (!parWrap) return;
+      var active = parWrap.querySelector(".button.option-button.active");
+      if (!active) return;
+      var value = active.getAttribute("data-value");
+      var variant = active.getAttribute("data-variant");
+      if (!value || !variant) return;
+      var sel = document.querySelector("select.parameter-id-" + variant);
+      var label = "";
+      if (sel) {
+        var opt = sel.querySelector('option[value="' + value + '"]');
+        if (opt) label = (opt.textContent || "").trim();
+      }
+      // Strip "+X €/Kč" suffix a normalizuj medzery
+      label = label.replace(/\s*\+\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
+      label = label.replace(/\s+/g, " ");
+      if (!label) return;
+      // Vyhnut sa duplikatu / aktualizuj ak sa zmenil
+      var existing = wrap.querySelector(".lcd-color-label");
+      if (existing) {
+        if (existing.textContent !== label) existing.textContent = label;
+        return;
+      }
+      var div = document.createElement("div");
+      div.className = "lcd-color-label";
+      div.textContent = label;
+      wrap.insertBefore(div, wrap.firstChild);
+    });
+  }
+
   function run() {
     var tries = 0;
     var iv = setInterval(function () {
       tries++;
       markBestsellers();
       fixBoxSoloPrices();
+      addColorLabels();
       if (tries > 40) clearInterval(iv);
     }, 600);
+    // Tiez prepoctaj label po kazdom kliku na option-button (rychla odozva)
+    document.addEventListener("click", function (e) {
+      var btn = e.target && e.target.closest(".button.option-button");
+      if (!btn) return;
+      setTimeout(addColorLabels, 250);
+      setTimeout(addColorLabels, 800);
+    });
   }
 
   if (document.readyState === "loading") {
