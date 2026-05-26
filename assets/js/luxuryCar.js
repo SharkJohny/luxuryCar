@@ -29672,6 +29672,13 @@ function initConfiguratorEngine() {
       }
     });
   }
+  $(document).on("click", ".lcd-k3-layout .button.option-button", function(e) {
+    var trunk = document.querySelector(".upsale-buttons.trunk");
+    if (!trunk) return;
+    setTimeout(function() {
+      lcdGoToStep(trunk, false);
+    }, 400);
+  });
   $(document).on("click", "button.add-to-cart-button", function(e) {
     lcdAutoSelectNoneIfEmpty();
     var bad = lcdFirstUnfilled();

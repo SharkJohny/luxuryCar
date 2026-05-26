@@ -258,6 +258,18 @@ export function initConfiguratorEngine() {
     });
   }
 
+  // K3 "Rozloženie kobercov" → auto-otvorit trunk (Autokoberce do kufru).
+  // Cislo kroku K4/K5 zavisi od produktu (BASIC vs ELITE) — detegujeme
+  // cieli trunk cez selektor .upsale-buttons.trunk, NIE cez index.
+  $(document).on("click", ".lcd-k3-layout .button.option-button", function (e) {
+    var trunk = document.querySelector(".upsale-buttons.trunk");
+    if (!trunk) return;
+    // Pockaj kym Shoptet update-ne stav (cena, image-wrap), potom advance.
+    setTimeout(function () {
+      lcdGoToStep(trunk, false);
+    }, 400);
+  });
+
   // "Pridať do košíka"
   $(document).on("click", "button.add-to-cart-button", function (e) {
     // Auto "nechcem" pre nepovinne trunk/boxs ak prazdne.
