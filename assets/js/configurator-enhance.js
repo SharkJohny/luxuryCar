@@ -13,33 +13,29 @@
   "use strict";
 
   function markBestsellers() {
-    // Krok 4 — "prvý a druhý rad" (SK parameter-85, CZ parameter-57)
-    document
-      .querySelectorAll(
-        ".parameter-85 .option-button, .parameter-wrap.parameter-85 .option-button, " +
-        ".parameter-57 .option-button, .parameter-wrap.parameter-57 .option-button"
-      )
-      .forEach(function (btn) {
-        var dv = btn.getAttribute("data-value");
-        var txt = (btn.textContent || "").toLowerCase();
-        // SK: "prvý a druhý rad", CZ: "první a druhá řada"
-        var isSecondRow =
-          dv === "589" ||
-          (/prv\S*\s*a\s*druh\S*\s*ř?ad/i.test(txt) &&
-            !/tret|třet/i.test(txt));
-        if (isSecondRow && !btn.classList.contains("lcd-najobjednavanejsie")) {
-          btn.classList.add("lcd-najobjednavanejsie");
-        }
-      });
-    // Krok 5 — "KLASIK - NA DNO"
-    document.querySelectorAll(".trunk .upsale-button").forEach(function (card) {
+    // K3 "Rozloženie kobercov" — badge "NAJOBJEDNÁVANEJŠIE" na "prvý a druhý rad".
+    // Robustne cez TEXT match — nezavisi od parameter-ID (BASIC vs ELITE,
+    // SK vs CZ mozu mat ine ID, ale text moznosti je rovnaky).
+    document.querySelectorAll(".option-button").forEach(function (btn) {
+      var txt = (btn.textContent || "").toLowerCase().replace(/\s+/g, " ");
+      // SK: "prvý a druhý rad", CZ: "první a druhá řada"
+      // POZOR: nesmie chytit "prvy, druhy A TRETI rad"
+      var isSecondRow =
+        /\bprv\S*\s+a\s+druh\S*\s+(rad|řad|rada|řada)/i.test(txt) &&
+        !/tret|třet/i.test(txt);
+      if (isSecondRow && !btn.classList.contains("lcd-najobjednavanejsie")) {
+        btn.classList.add("lcd-najobjednavanejsie");
+      }
+    });
+    // K5/K6 trunk (autokoberce do kufru) — "KLASIK - NA DNO".
+    document.querySelectorAll(".upsale-buttons.trunk .upsale-button").forEach(function (card) {
       var txt = (card.textContent || "").toLowerCase();
       if (/klasik/.test(txt) && !card.classList.contains("lcd-bestseller")) {
         card.classList.add("lcd-bestseller");
       }
     });
-    // Krok 6 — "2x box"
-    document.querySelectorAll(".boxs .upsale-button").forEach(function (card) {
+    // K5/K6 boxs (boxy do kufra) — "2x box".
+    document.querySelectorAll(".upsale-buttons.boxs .upsale-button").forEach(function (card) {
       var txt = (card.textContent || "").toLowerCase().replace(/\s+/g, " ");
       if (/2\s*x\s*box/.test(txt) && !card.classList.contains("lcd-bestseller")) {
         card.classList.add("lcd-bestseller");

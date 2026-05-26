@@ -14,6 +14,14 @@ function lcdGetSteps() {
 
 function lcdStepFilled(stepEl) {
   var $s = $(stepEl);
+  // Kroky trunk (autokoberce do kufra) a boxs (boxy) su NEPOVINNE.
+  // Cislo kroku K4/K5/K6 zavisi od produktu (BASIC vs ELITE),
+  // preto detekujeme cez selektor, nie index. Ak zakaznik nevybere,
+  // automaticky to znamena "nechcem" — krok je platny.
+  if ($s.hasClass("trunk") || $s.hasClass("boxs") ||
+      $s.is(".upsale-buttons.trunk") || $s.is(".upsale-buttons.boxs")) {
+    return true;
+  }
   // Krok "Specifikace vozidla" — vsetky car dropdowny musia mat realny
   // vyber. Placeholder = selectedIndex 0. sessionStorage.model moze byt
   // staly po reloade, preto kontrolujeme priamo dropdowny (zdroj pravdy).
@@ -259,10 +267,14 @@ export function initConfiguratorEngine() {
   });
 
   // "potvrdiť" v box-config — over farba/velkost boxov.
+  // Ak je vsetko OK, zatvor box-config panel (removeClass showConf)
+  // a krok K5/K6 sa vrati do compact view.
   $(document).on("click", ".close-btn.return", function (e) {
     if (!lcdHandleBoxConfig()) {
       e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
       return false;
     }
+    // Vyplneny box-config → zatvor panel
+    $(this).closest(".upsale-Banner").removeClass("showConf");
   });
 }

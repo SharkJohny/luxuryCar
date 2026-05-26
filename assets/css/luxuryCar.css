@@ -8302,3 +8302,51 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 
 .lcd-needs-fill { outline: 3px solid #d33 !important; outline-offset: -3px; animation: lcdPulse 0.6s ease-in-out 2; }
 @keyframes lcdPulse { 0%,100% { outline-color:#d33; } 50% { outline-color:#ff8a8a; } }
+
+/* ═══ MOBIL — ZJEDNOTENIE KARIET K3 / K5 / K6 (2026-05-26) ═══
+   Sukromnie kazdy krok mal vlastnu velkost obrazka a tlacidla; na uzkom
+   viewporte to robilo nekonzistentny vzhlad. Zjednocujeme padding, gap,
+   min-height kariet a velkost obrazka pre vsetky typy moznosti na <=768px. */
+@media (max-width: 768px) {
+  /* K3 rozlozenie kobercov (.parameter-cars .option-button) a
+     K5/K6 trunk + boxs (.upsale-buttons .upsale-button) maju ROVNAKY layout */
+  .parameter-cars .button.option-button,
+  .upsale-buttons .upsale-button.config,
+  .upsale-buttons .upsale-button.radio,
+  .upsale-buttons .upsale-button.none {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 12px 12px !important;
+    min-height: 180px !important;
+    box-sizing: border-box !important;
+  }
+  /* Obrazky vo vsetkych kartach rovnako velke */
+  .parameter-cars .button.option-button img,
+  .upsale-buttons .upsale-button img {
+    width: auto !important;
+    max-width: 80% !important;
+    max-height: 90px !important;
+    object-fit: contain !important;
+    margin: 0 auto 8px !important;
+  }
+  /* Karty v rade rovnaky gap */
+  .parameter-cars,
+  .upsale-buttons .parameter-cars,
+  .upsale-buttons {
+    gap: 10px !important;
+  }
+  /* Karta s badge rezervuje priestor zhora (uz existuje vyssie pre konkretne badge classy — toto je fallback) */
+  .upsale-button.lcd-bestseller,
+  .option-button.lcd-najobjednavanejsie {
+    padding-top: 30px !important;
+  }
+  /* Pri kartach s textom pod obrazkom — text na stred + jednotny font-size */
+  .parameter-cars .button.option-button .radio-text,
+  .upsale-buttons .upsale-button .banner-header,
+  .upsale-buttons .upsale-button .banner-header > span {
+    text-align: center !important;
+    width: 100% !important;
+  }
+}
