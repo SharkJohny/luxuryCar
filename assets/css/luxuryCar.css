@@ -7220,27 +7220,29 @@ span.price-recommended {
   .boxs .upsale-button .banner-header .price {
     font-size: 18px;
   }
-  /* K4/K5 trunk — zjednotene karty na mobile (img vlavo, text vpravo, konzistentny pomer) */
+  /* K4/K5 trunk — zjednotene karty na mobile (img vlavo siroky, text vpravo) */
   .upsale-buttons.trunk .upsale-button {
     display: flex !important;
     flex-direction: row !important;
-    align-items: stretch !important;
-    min-height: 140px !important;
-    padding: 0 !important;
+    align-items: center !important;
+    min-height: auto !important;
+    padding: 8px !important;
   }
   .upsale-buttons.trunk .upsale-button img {
-    width: 50% !important;
-    max-width: 50% !important;
+    width: 55% !important;
+    max-width: 55% !important;
     height: auto !important;
+    aspect-ratio: 16 / 10 !important;
     object-fit: cover !important;
-    margin: 12px !important;
+    margin: 0 !important;
     border-radius: 10px !important;
-    flex: 0 0 calc(50% - 24px) !important;
+    flex: 0 0 55% !important;
   }
-  /* Karta sirsia pre img — banner-header dostane mensi priestor ale text wrap-uje */
+  /* Banner-header — text + cena vpravo, menej priestoru ale wrap-uje */
   .upsale-buttons.trunk .upsale-button .banner-header {
     flex: 1 1 0 !important;
     min-width: 0 !important;
+    padding: 0 8px !important;
   }
   .upsale-buttons.trunk .upsale-button .banner-header > span {
     font-size: 14px !important;
