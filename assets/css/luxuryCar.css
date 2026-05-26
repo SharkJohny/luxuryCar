@@ -7229,14 +7229,23 @@ span.price-recommended {
     padding: 0 !important;
   }
   .upsale-buttons.trunk .upsale-button img {
-    width: 45% !important;
-    max-width: 45% !important;
+    width: 50% !important;
+    max-width: 50% !important;
     height: auto !important;
-    aspect-ratio: 4 / 3 !important;
     object-fit: cover !important;
     margin: 12px !important;
     border-radius: 10px !important;
-    flex: 0 0 calc(45% - 24px) !important;
+    flex: 0 0 calc(50% - 24px) !important;
+  }
+  /* Karta sirsia pre img — banner-header dostane mensi priestor ale text wrap-uje */
+  .upsale-buttons.trunk .upsale-button .banner-header {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+  .upsale-buttons.trunk .upsale-button .banner-header > span {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    word-wrap: break-word !important;
   }
   .upsale-buttons.trunk .upsale-button .banner-header {
     flex: 1 1 auto !important;
@@ -7253,6 +7262,22 @@ span.price-recommended {
   /* Box-config sekcie — menší padding na mobile */
   .box-config .config-wrap > .parameter-wrap {
     padding: 10px 10px !important;
+  }
+  /* Produktova cena pod konfiguratorom — drzat na jednej linke (mobile) */
+  strong.price-final,
+  .p-info-wrapper strong.price-final {
+    flex-wrap: nowrap !important;
+    align-items: baseline !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+  }
+  .p-info-wrapper .price-final {
+    font-size: 32px !important;
+    line-height: 1 !important;
+  }
+  .p-info-wrapper .price-final > * {
+    display: inline-block !important;
+    white-space: nowrap !important;
   }
 }
 
