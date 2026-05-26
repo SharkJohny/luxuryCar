@@ -7220,6 +7220,36 @@ span.price-recommended {
   .boxs .upsale-button .banner-header .price {
     font-size: 18px;
   }
+  /* K4/K5 trunk — zjednotene karty na mobile (img vlavo, text vpravo, konzistentny pomer) */
+  .upsale-buttons.trunk .upsale-button {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    min-height: 140px !important;
+    padding: 0 !important;
+  }
+  .upsale-buttons.trunk .upsale-button img {
+    width: 45% !important;
+    max-width: 45% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3 !important;
+    object-fit: cover !important;
+    margin: 12px !important;
+    border-radius: 10px !important;
+    flex: 0 0 calc(45% - 24px) !important;
+  }
+  .upsale-buttons.trunk .upsale-button .banner-header {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    padding: 12px 12px 12px 0 !important;
+    text-align: center !important;
+  }
+  /* Badge NAJOBJEDNAVANEJSIE — top-right roh karty */
+  .upsale-buttons.trunk .upsale-button.lcd-bestseller::after {
+    top: 8px !important;
+    right: 8px !important;
+    left: auto !important;
+  }
   /* Box-config sekcie — menší padding na mobile */
   .box-config .config-wrap > .parameter-wrap {
     padding: 10px 10px !important;
