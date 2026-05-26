@@ -30107,7 +30107,10 @@ function initContactForm() {
     label = label.replace(/\s+/g, " ");
     var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
     if (m) {
-      label = m[1].trim() + " \u2014 " + m[2].trim() + (m[3] ? " / " + m[3].trim() : "");
+      var v1 = m[1].trim().replace(/[\s\/]+$/, "").replace(/^[\s\/]+/, "");
+      var v2 = m[2].trim().replace(/[\s\/]+$/, "").replace(/^[\s\/]+/, "");
+      var v3 = m[3] ? m[3].trim().replace(/[\s\/]+$/, "").replace(/^[\s\/]+/, "") : "";
+      label = v1 + " \u2014 " + v2 + (v3 ? " / " + v3 : "");
     }
     return label;
   }

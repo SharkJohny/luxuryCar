@@ -108,7 +108,11 @@
     // Skratit "Diamond Farba kože : Čierna Farba šitia : Zelená" -> "Diamond — Čierna / Zelená"
     var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
     if (m) {
-      label = m[1].trim() + " — " + m[2].trim() + (m[3] ? " / " + m[3].trim() : "");
+      // Trim trailing/leading whitespace + slash — option text moze obsahovat "Čierna /" pred "Farba šitia"
+      var v1 = m[1].trim().replace(/[\s\/]+$/, "").replace(/^[\s\/]+/, "");
+      var v2 = m[2].trim().replace(/[\s\/]+$/, "").replace(/^[\s\/]+/, "");
+      var v3 = m[3] ? m[3].trim().replace(/[\s\/]+$/, "").replace(/^[\s\/]+/, "") : "";
+      label = v1 + " — " + v2 + (v3 ? " / " + v3 : "");
     }
     return label;
   }
