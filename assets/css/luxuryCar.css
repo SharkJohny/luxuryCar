@@ -7536,7 +7536,8 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .parameter-85 .button.option-button.radio-row,
 .parameter-57 .button.option-button.radio-row,
 .parameter-wrap.parameter-85 .button.option-button.radio-row,
-.parameter-wrap.parameter-57 .button.option-button.radio-row {
+.parameter-wrap.parameter-57 .button.option-button.radio-row,
+.lcd-k3-layout .button.option-button.radio-row {
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
@@ -7549,20 +7550,22 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .parameter-85 .button.option-button.radio-row label.radio-label,
 .parameter-57 .button.option-button.radio-row label.radio-label,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label,
-.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label {
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label,
+.lcd-k3-layout .button.option-button.radio-row label.radio-label {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
   gap: 14px !important;
   width: 100% !important;
   padding: 0 !important;
-  flex-wrap: wrap;
+  flex-wrap: nowrap !important;
 }
 /* IMG VLAVO (order 1) — ~35% sirky karty */
 .parameter-85 .button.option-button.radio-row label.radio-label img,
 .parameter-57 .button.option-button.radio-row label.radio-label img,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label img,
-.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label img {
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label img,
+.lcd-k3-layout .button.option-button.radio-row label.radio-label img {
   order: 1 !important;
   width: 35% !important;
   max-width: 140px !important;
@@ -7577,10 +7580,12 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
 .parameter-57 .button.option-button.radio-row label.radio-label span.radio-text,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label span.radio-text,
-.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text {
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label span.radio-text,
+.lcd-k3-layout .button.option-button.radio-row label.radio-label span.radio-text {
   order: 2 !important;
   flex: 1 1 auto !important;
   width: auto !important;
+  min-width: 0 !important;
   font-size: 17px !important;
   font-weight: 700 !important;
   text-align: left !important;
@@ -7589,12 +7594,16 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   margin: 0 !important;
   padding: 0 !important;
   display: block !important;
+  white-space: normal !important;
+  line-height: 1.2 !important;
+  word-wrap: break-word !important;
 }
 /* Cena oranzova (order 3) — vpravo */
 .parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
 .parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price,
 .parameter-wrap.parameter-85 .button.option-button.radio-row label.radio-label strong.radio-price,
-.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price {
+.parameter-wrap.parameter-57 .button.option-button.radio-row label.radio-label strong.radio-price,
+.lcd-k3-layout .button.option-button.radio-row label.radio-label strong.radio-price {
   order: 3 !important;
   width: auto !important;
   text-align: right !important;
@@ -7610,14 +7619,16 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .parameter-85 .option-button.lcd-najobjednavanejsie,
 .parameter-57 .option-button.lcd-najobjednavanejsie,
 .parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie,
-.parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie {
+.parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie,
+.lcd-k3-layout .option-button.lcd-najobjednavanejsie {
   position: relative !important;
   padding-top: 38px !important;
 }
 .parameter-85 .option-button.lcd-najobjednavanejsie::after,
 .parameter-57 .option-button.lcd-najobjednavanejsie::after,
 .parameter-wrap.parameter-85 .option-button.lcd-najobjednavanejsie::after,
-.parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie::after {
+.parameter-wrap.parameter-57 .option-button.lcd-najobjednavanejsie::after,
+.lcd-k3-layout .option-button.lcd-najobjednavanejsie::after {
   position: absolute !important;
   top: 8px !important;
   right: 8px !important;
@@ -8302,95 +8313,3 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 
 .lcd-needs-fill { outline: 3px solid #d33 !important; outline-offset: -3px; animation: lcdPulse 0.6s ease-in-out 2; }
 @keyframes lcdPulse { 0%,100% { outline-color:#d33; } 50% { outline-color:#ff8a8a; } }
-
-/* ═══ MOBIL K3 "Rozloženie kobercov" — horizontalny layout (2026-05-26 v3) ═══
-   K3 ma struct: <button.option-button> > <label.radio-label> > [span.radio-text, strong.radio-price, img].
-   Cielime na .radio-label ako flex container; img dame na zaciatok cez order. */
-@media (max-width: 768px) {
-  /* Zakrojiť hover tooltip overlay (.text DIV je sibling label-u, nie nas obsah) */
-  .lcd-k3-layout .button.option-button > .text,
-  .lcd-k3-layout .button.option-button:hover > .text {
-    display: none !important;
-  }
-  /* Karty pod sebou */
-  .lcd-k3-layout .options-wrap.radio-wrap,
-  .lcd-k3-layout .options-wrap {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-  }
-  /* Karta — neprekaza, ramcek len cez label */
-  .lcd-k3-layout .button.option-button.radio-row {
-    width: 100% !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-    min-height: auto !important;
-  }
-  /* RADIO LABEL = flex container: img | text | price */
-  .lcd-k3-layout .button.option-button.radio-row .radio-label {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 10px 14px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    text-align: left !important;
-  }
-  /* IMG — prvy (order:1), pevne 80x60 */
-  .lcd-k3-layout .button.option-button.radio-row .radio-label img {
-    order: 1 !important;
-    flex: 0 0 80px !important;
-    width: 80px !important;
-    height: 60px !important;
-    max-width: 80px !important;
-    max-height: 60px !important;
-    object-fit: contain !important;
-    margin: 0 !important;
-    background: #ececec !important;
-    border-radius: 6px !important;
-  }
-  /* TEXT — druhy (order:2), flex:1, moze wrap-ovat na 2 riadky */
-  .lcd-k3-layout .button.option-button.radio-row .radio-label .radio-text {
-    order: 2 !important;
-    flex: 1 1 auto !important;
-    text-align: left !important;
-    white-space: normal !important;
-    word-wrap: break-word !important;
-    line-height: 1.25 !important;
-    font-size: 14px !important;
-    font-weight: 800 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    position: static !important;
-    width: auto !important;
-  }
-  /* PRICE — treti (order:3), vpravo */
-  .lcd-k3-layout .button.option-button.radio-row .radio-label .radio-price {
-    order: 3 !important;
-    flex: 0 0 auto !important;
-    margin-left: auto !important;
-    text-align: right !important;
-    font-size: 14px !important;
-    font-weight: 800 !important;
-    white-space: nowrap !important;
-    padding: 0 0 0 8px !important;
-    display: block !important;
-    position: static !important;
-    color: #C49B31 !important;
-  }
-  /* Badge NAJOBJEDNAVANEJSIE — top-center, rezervovat priestor zhora */
-  .lcd-k3-layout .button.option-button.lcd-najobjednavanejsie .radio-label {
-    padding-top: 28px !important;
-  }
-  .lcd-k3-layout .button.option-button.lcd-najobjednavanejsie::after {
-    top: 4px !important;
-    right: 50% !important;
-    transform: translateX(50%) !important;
-    left: auto !important;
-    font-size: 9px !important;
-    padding: 3px 10px !important;
-    max-width: calc(100% - 16px) !important;
-  }
-}
