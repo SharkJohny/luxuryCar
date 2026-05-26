@@ -13,6 +13,19 @@
   "use strict";
 
   function markBestsellers() {
+    // Oznac K3 "Rozloženie kobercov" parameter-wrap triedou lcd-k3-layout —
+    // umozni cieleny mobile CSS (img left + text right + price). Marker:
+    // option "len prvý rad" (SK) / "pouze první řada" (CZ) — unikatne pre K3.
+    document.querySelectorAll(".option-button").forEach(function (btn) {
+      var txt = (btn.textContent || "").toLowerCase().replace(/\s+/g, " ");
+      if (/\blen\s+prv\S*\s+rad\b|\bpouze\s+prvn\S*\s+ř?ad/i.test(txt)) {
+        var wrap = btn.closest(".parameter-wrap");
+        if (wrap && !wrap.classList.contains("lcd-k3-layout")) {
+          wrap.classList.add("lcd-k3-layout");
+        }
+      }
+    });
+
     // K3 "Rozloženie kobercov" — badge "NAJOBJEDNÁVANEJŠIE" na "prvý a druhý rad".
     // Robustne cez TEXT match — nezavisi od parameter-ID (BASIC vs ELITE,
     // SK vs CZ mozu mat ine ID, ale text moznosti je rovnaky).

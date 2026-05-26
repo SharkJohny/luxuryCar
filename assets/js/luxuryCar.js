@@ -30040,6 +30040,15 @@ function initContactForm() {
   function markBestsellers() {
     document.querySelectorAll(".option-button").forEach(function(btn) {
       var txt = (btn.textContent || "").toLowerCase().replace(/\s+/g, " ");
+      if (/\blen\s+prv\S*\s+rad\b|\bpouze\s+prvn\S*\s+ř?ad/i.test(txt)) {
+        var wrap = btn.closest(".parameter-wrap");
+        if (wrap && !wrap.classList.contains("lcd-k3-layout")) {
+          wrap.classList.add("lcd-k3-layout");
+        }
+      }
+    });
+    document.querySelectorAll(".option-button").forEach(function(btn) {
+      var txt = (btn.textContent || "").toLowerCase().replace(/\s+/g, " ");
       var isSecondRow = /\bprv\S*\s+a\s+druh\S*\s+(rad|řad|rada|řada)/i.test(txt) && !/tret|třet/i.test(txt);
       if (isSecondRow && !btn.classList.contains("lcd-najobjednavanejsie")) {
         btn.classList.add("lcd-najobjednavanejsie");
