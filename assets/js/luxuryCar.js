@@ -30103,7 +30103,7 @@ function initContactForm() {
       var opt = sel.querySelector('option[value="' + value + '"]');
       if (opt) label = (opt.textContent || "").trim();
     }
-    label = label.replace(/\s*\+\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
+    label = label.replace(/\s*\+\s*(?:€|Kč|EUR|CZK)?\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
     label = label.replace(/\s+/g, " ");
     var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
     if (m) {

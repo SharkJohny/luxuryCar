@@ -8413,3 +8413,14 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     margin: 8px 0 0;
   }
 }
+
+/* ═══ Box-config FARBA BOXOV — skryt fajku pri vybranom swatchi ═══
+   Stratil sa vizualny ramcek; ponechame iba zlate orámovanie .active.
+   Cielime IBA na color swatches (option-button BEZ triedy .text — velkost karty maju .text). */
+.box-config .button.option-button:not(.text).active:before,
+.box-config .button.option-button:not(.text).active::before,
+.upsale-Banner .box-config .button.option-button:not(.text).active:before,
+.upsale-Banner .box-config .button.option-button:not(.text).active::before {
+  display: none !important;
+  content: none !important;
+}

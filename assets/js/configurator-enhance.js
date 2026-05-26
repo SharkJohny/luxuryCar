@@ -103,7 +103,7 @@
       if (opt) label = (opt.textContent || "").trim();
     }
     // Strip "+X €/Kč" suffix a normalizuj medzery
-    label = label.replace(/\s*\+\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
+    label = label.replace(/\s*\+\s*(?:€|Kč|EUR|CZK)?\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
     label = label.replace(/\s+/g, " ");
     // Skratit "Diamond Farba kože : Čierna Farba šitia : Zelená" -> "Diamond — Čierna / Zelená"
     var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
