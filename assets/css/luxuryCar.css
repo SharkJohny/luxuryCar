@@ -8383,9 +8383,10 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 @keyframes lcdPulse { 0%,100% { outline-color:#d33; } 50% { outline-color:#ff8a8a; } }
 
 /* ═══ K2 / K3 / box-config — text s nazvom vybranej vzorky/farby ═══
-   Zobrazi sa nad preview obrazkom v .image-wrap, po vybere color swatch.
-   Plain text bez okienka, max 1-2 riadky. */
-.image-wrap .lcd-color-label {
+   Zobrazi sa nad preview obrazkom v .image-wrap (K2/K3) alebo na konci
+   parameter-wrap-u (box-config FARBA BOXOV). Plain text bez okienka. */
+.image-wrap .lcd-color-label,
+.box-config .parameter-wrap > .lcd-color-label {
   font-family: "Exo 2", sans-serif;
   font-size: 14px;
   font-weight: 700;
@@ -8399,9 +8400,16 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   letter-spacing: 0.3px;
   line-height: 1.3;
 }
+.box-config .parameter-wrap > .lcd-color-label {
+  margin: 10px 0 0;
+}
 @media (max-width: 768px) {
-  .image-wrap .lcd-color-label {
+  .image-wrap .lcd-color-label,
+  .box-config .parameter-wrap > .lcd-color-label {
     font-size: 13px;
     margin: 0 0 4px;
+  }
+  .box-config .parameter-wrap > .lcd-color-label {
+    margin: 8px 0 0;
   }
 }

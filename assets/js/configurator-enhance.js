@@ -92,40 +92,64 @@
   // K2 / K3 / box-config: nad preview obrazkom vybranej farby zobraz text
   // s nazvom vzorky/farby (napr. "Diamond Farba kože : Čierna"). Text sa
   // berie z <select> option zodpovedajucej aktivnemu .option-button.
+  function buildLabelFromActive(active) {
+    var value = active.getAttribute("data-value");
+    var variant = active.getAttribute("data-variant");
+    if (!value || !variant) return "";
+    var sel = document.querySelector("select.parameter-id-" + variant);
+    var label = "";
+    if (sel) {
+      var opt = sel.querySelector('option[value="' + value + '"]');
+      if (opt) label = (opt.textContent || "").trim();
+    }
+    // Strip "+X €/Kč" suffix a normalizuj medzery
+    label = label.replace(/\s*\+\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
+    label = label.replace(/\s+/g, " ");
+    // Skratit "Diamond Farba kože : Čierna Farba šitia : Zelená" -> "Diamond — Čierna / Zelená"
+    var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
+    if (m) {
+      label = m[1].trim() + " — " + m[2].trim() + (m[3] ? " / " + m[3].trim() : "");
+    }
+    return label;
+  }
+
+  function upsertLabel(container, text, position) {
+    var existing = container.querySelector(":scope > .lcd-color-label");
+    if (existing) {
+      if (existing.textContent !== text) existing.textContent = text;
+      return;
+    }
+    var div = document.createElement("div");
+    div.className = "lcd-color-label";
+    div.textContent = text;
+    if (position === "end") container.appendChild(div);
+    else container.insertBefore(div, container.firstChild);
+  }
+
   function addColorLabels() {
+    // 1) K2 / K3 — label NAD obrazkom v .image-wrap
     document.querySelectorAll(".image-wrap").forEach(function (wrap) {
       var parWrap = wrap.closest(".parameter-wrap");
       if (!parWrap) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
-      var value = active.getAttribute("data-value");
-      var variant = active.getAttribute("data-variant");
-      if (!value || !variant) return;
-      var sel = document.querySelector("select.parameter-id-" + variant);
-      var label = "";
-      if (sel) {
-        var opt = sel.querySelector('option[value="' + value + '"]');
-        if (opt) label = (opt.textContent || "").trim();
-      }
-      // Strip "+X €/Kč" suffix a normalizuj medzery
-      label = label.replace(/\s*\+\s*[\d.,]+\s*(?:€|Kč|EUR|CZK)?\s*$/i, "").trim();
-      label = label.replace(/\s+/g, " ");
-      // Skratit "Diamond Farba kože : Čierna Farba šitia : Zelená" -> "Diamond — Čierna / Zelená"
-      var m = label.match(/^(.+?)\s*Farba\s+ko[žz]e\s*:\s*([^\s].*?)(?:\s+Farba\s+[šs]itia\s*:\s*([^\s].*?))?\s*$/i);
-      if (m) {
-        label = m[1].trim() + " — " + m[2].trim() + (m[3] ? " / " + m[3].trim() : "");
-      }
+      var label = buildLabelFromActive(active);
       if (!label) return;
-      // Vyhnut sa duplikatu / aktualizuj ak sa zmenil
-      var existing = wrap.querySelector(".lcd-color-label");
-      if (existing) {
-        if (existing.textContent !== label) existing.textContent = label;
-        return;
-      }
-      var div = document.createElement("div");
-      div.className = "lcd-color-label";
-      div.textContent = label;
-      wrap.insertBefore(div, wrap.firstChild);
+      upsertLabel(wrap, label, "start");
+    });
+
+    // 2) Box-config FARBA BOXOV — nema image-wrap, label dame na koniec
+    //    parameter-wrap-u (pod swatch grid, nad VELIKOST 1. BOXU).
+    document.querySelectorAll(".box-config .parameter-wrap").forEach(function (parWrap) {
+      // Iba color wrap (ma option-button bez .text size triedy)
+      var active = parWrap.querySelector(".button.option-button.active");
+      if (!active) return;
+      // Skip size wrap (option-buttony s textom "cm" maju ine spravanie)
+      var txt = (active.textContent || "").toLowerCase();
+      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(txt)) return;
+      var label = buildLabelFromActive(active);
+      if (!label) return;
+      upsertLabel(parWrap, label, "end");
     });
   }
 
