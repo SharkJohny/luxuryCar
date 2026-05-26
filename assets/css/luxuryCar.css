@@ -8335,9 +8335,13 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     margin: 0 !important;
     flex: 0 0 80px !important;
   }
+  /* Skryt absolute hover tooltip overlay (.text) — na mobile nepotrebny */
+  .lcd-k3-layout .button.option-button .text,
+  .lcd-k3-layout .button.option-button:hover .text {
+    display: none !important;
+  }
   /* Text v strede — moze wrap-ovat na 2 riadky */
-  .lcd-k3-layout .button.option-button .radio-text,
-  .lcd-k3-layout .button.option-button .text {
+  .lcd-k3-layout .button.option-button .radio-text {
     flex: 1 1 auto !important;
     text-align: left !important;
     white-space: normal !important;
@@ -8349,6 +8353,7 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     padding: 0 !important;
     display: block !important;
     width: auto !important;
+    position: static !important;
   }
   /* Cena vpravo */
   .lcd-k3-layout .button.option-button .radio-price,
