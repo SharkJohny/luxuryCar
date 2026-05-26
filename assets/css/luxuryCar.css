@@ -7220,15 +7220,17 @@ span.price-recommended {
   .boxs .upsale-button .banner-header .price {
     font-size: 18px;
   }
-  /* K4/K5 trunk — zjednotene karty na mobile (img vlavo siroky, text vpravo) */
-  .upsale-buttons.trunk .upsale-button {
+  /* K4/K5 trunk + K5/K6 boxs — zjednotene karty na mobile (img vlavo siroky, text vpravo) */
+  .upsale-buttons.trunk .upsale-button,
+  .upsale-buttons.boxs .upsale-button {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     min-height: auto !important;
     padding: 8px !important;
   }
-  .upsale-buttons.trunk .upsale-button img {
+  .upsale-buttons.trunk .upsale-button img,
+  .upsale-buttons.boxs .upsale-button img {
     width: 55% !important;
     max-width: 55% !important;
     height: auto !important;
@@ -7239,12 +7241,14 @@ span.price-recommended {
     flex: 0 0 55% !important;
   }
   /* Banner-header — text + cena vpravo, menej priestoru ale wrap-uje */
-  .upsale-buttons.trunk .upsale-button .banner-header {
+  .upsale-buttons.trunk .upsale-button .banner-header,
+  .upsale-buttons.boxs .upsale-button .banner-header {
     flex: 1 1 0 !important;
     min-width: 0 !important;
     padding: 0 8px !important;
   }
-  .upsale-buttons.trunk .upsale-button .banner-header > span {
+  .upsale-buttons.trunk .upsale-button .banner-header > span,
+  .upsale-buttons.boxs .upsale-button .banner-header > span {
     font-size: 14px !important;
     line-height: 1.2 !important;
     word-wrap: break-word !important;
@@ -7256,10 +7260,12 @@ span.price-recommended {
     text-align: center !important;
   }
   /* Badge NAJOBJEDNAVANEJSIE — vykukuje nad horny okraj karty, nezakryva text */
-  .upsale-buttons.trunk .upsale-button.lcd-bestseller {
+  .upsale-buttons.trunk .upsale-button.lcd-bestseller,
+  .upsale-buttons.boxs .upsale-button.lcd-bestseller {
     overflow: visible !important;
   }
-  .upsale-buttons.trunk .upsale-button.lcd-bestseller::after {
+  .upsale-buttons.trunk .upsale-button.lcd-bestseller::after,
+  .upsale-buttons.boxs .upsale-button.lcd-bestseller::after {
     top: -10px !important;
     right: 12px !important;
     left: auto !important;
