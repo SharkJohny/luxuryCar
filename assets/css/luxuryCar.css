@@ -8424,3 +8424,33 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   display: none !important;
   content: none !important;
 }
+
+/* ═══ Homepage ZLOŽENIE MATERIÁLU — mobile fix: text POD obrazok ═══
+   Desktop ma .layers-text { position:absolute; bottom:25% } (overlay).
+   Na mobile to spôsobilo prekrytie obrázku textom. Forsujeme relative. */
+@media (max-width: 768px) {
+  .basic-description .layers-text,
+  .layers-info-wrap .layers-text,
+  .basic-description .section.section-blends .layers-text {
+    position: relative !important;
+    bottom: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    padding: 20px 16px 0 !important;
+    background: transparent !important;
+    z-index: auto !important;
+  }
+  /* Image container — uistit ze nieje absolute alebo overlap */
+  .basic-description .layers-info,
+  .layers-info-wrap {
+    display: block !important;
+    position: relative !important;
+  }
+  .basic-description .layers-info .image-container,
+  .layers-info-wrap .image-container {
+    width: 100% !important;
+    margin: 0 0 20px !important;
+  }
+}
