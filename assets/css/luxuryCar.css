@@ -7255,10 +7255,13 @@ span.price-recommended {
     padding: 12px 12px 12px 0 !important;
     text-align: center !important;
   }
-  /* Badge NAJOBJEDNAVANEJSIE — top-right roh karty */
+  /* Badge NAJOBJEDNAVANEJSIE — vykukuje nad horny okraj karty, nezakryva text */
+  .upsale-buttons.trunk .upsale-button.lcd-bestseller {
+    overflow: visible !important;
+  }
   .upsale-buttons.trunk .upsale-button.lcd-bestseller::after {
-    top: 8px !important;
-    right: 8px !important;
+    top: -10px !important;
+    right: 12px !important;
     left: auto !important;
   }
   /* Box-config sekcie — menší padding na mobile */
