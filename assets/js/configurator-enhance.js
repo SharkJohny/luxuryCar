@@ -13,16 +13,22 @@
   "use strict";
 
   function markBestsellers() {
-    // Oznac K3 "Rozloženie kobercov" parameter-wrap triedou lcd-k3-layout —
-    // umozni cieleny mobile CSS (img left + text right + price). Marker:
-    // option "len prvý rad" (SK) / "pouze první řada" (CZ) — unikatne pre K3.
-    document.querySelectorAll(".option-button").forEach(function (btn) {
-      var txt = (btn.textContent || "").toLowerCase().replace(/\s+/g, " ");
-      if (/\blen\s+prv\S*\s+rad\b|\bpouze\s+prvn\S*\s+ř?ad/i.test(txt)) {
-        var wrap = btn.closest(".parameter-wrap");
-        if (wrap && !wrap.classList.contains("lcd-k3-layout")) {
-          wrap.classList.add("lcd-k3-layout");
-        }
+    // Oznac K3 "Rozloženie kobercov" parameter-wrap triedou lcd-k3-layout.
+    // ROBUSTNY marker: pocita option-button-y s textom obsahujucim "rad/řad"
+    // (rad, řada, prvý rad, druhý rad, prvý a druhý rad, prvý druhý a tretí rad...).
+    // Ak >= 2 → je to K3 Rozlozenie kobercov. Pokryva SK aj CZ vsetky variante.
+    document.querySelectorAll(".parameter-wrap").forEach(function (parWrap) {
+      if (parWrap.classList.contains("lcd-k3-layout")) return;
+      if (parWrap.closest(".box-config")) return; // skip box-config
+      var btns = parWrap.querySelectorAll(".option-button");
+      if (btns.length < 2) return;
+      var radCount = 0;
+      btns.forEach(function (btn) {
+        var t = (btn.textContent || "").toLowerCase();
+        if (/\b(rad|řad|rada|řada)\b/.test(t)) radCount++;
+      });
+      if (radCount >= 2) {
+        parWrap.classList.add("lcd-k3-layout");
       }
     });
 
