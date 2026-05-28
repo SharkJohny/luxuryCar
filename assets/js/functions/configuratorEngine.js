@@ -90,6 +90,13 @@ function lcdDesiredY(el) {
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
   if (lcdScroll.priority && !isVerify) return; // verifikacny scroll ma prednost
+  // ANTI-DRIFT: ak je target uz dostatocne blizko k centralnej polohe (do 80px),
+  // NESKROLUJ. Inak by opakovany klik na "Pridat do kosika" / "Potvrdit" pri
+  // chybajucej velkosti boxu scrolloval HORE pri kazdom kliku (kumulativny drift).
+  var earlyDesiredY = lcdDesiredY(el);
+  if (Math.abs(window.scrollY - earlyDesiredY) < 80) {
+    return;
+  }
   if (isVerify) lcdScroll.priority = true;
   var myToken = ++lcdScroll.token;
   var aborted = false;

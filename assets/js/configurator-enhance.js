@@ -131,8 +131,11 @@
   }
 
   function addColorLabels() {
-    // 1) K2 / K3 — label NAD obrazkom v .image-wrap
+    // 1) K2 / K3 — label NAD obrazkom v .image-wrap.
+    //    SKIP box-config: tam je .image-wrap CSS-hidden (display:none),
+    //    label by zmizol s rodicom. Box-config riesi vetva 2.
     document.querySelectorAll(".image-wrap").forEach(function (wrap) {
+      if (wrap.closest(".box-config")) return;
       var parWrap = wrap.closest(".parameter-wrap");
       if (!parWrap) return;
       var active = parWrap.querySelector(".button.option-button.active");
@@ -142,15 +145,12 @@
       upsertLabel(wrap, label, "start");
     });
 
-    // 2) Box-config FARBA BOXOV — nema image-wrap, label dame na koniec
-    //    parameter-wrap-u (pod swatch grid, nad VELIKOST 1. BOXU).
+    // 2) Box-config — label v .parameter-wrap (skip size wraps cez .parameter-sizes class).
     document.querySelectorAll(".box-config .parameter-wrap").forEach(function (parWrap) {
-      // Iba color wrap (ma option-button bez .text size triedy)
+      // Size wrap ma class .parameter-sizes (cleanejsi detect nez regex textu)
+      if (parWrap.classList.contains("parameter-sizes")) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
-      // Skip size wrap (option-buttony s textom "cm" maju ine spravanie)
-      var txt = (active.textContent || "").toLowerCase();
-      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(txt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
       upsertLabel(parWrap, label, "end");

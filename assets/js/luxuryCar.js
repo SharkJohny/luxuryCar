@@ -29512,6 +29512,10 @@ function lcdDesiredY(el) {
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
   if (lcdScroll.priority && !isVerify) return;
+  var earlyDesiredY = lcdDesiredY(el);
+  if (Math.abs(window.scrollY - earlyDesiredY) < 80) {
+    return;
+  }
   if (isVerify) lcdScroll.priority = true;
   var myToken = ++lcdScroll.token;
   var aborted = false;
@@ -30148,6 +30152,7 @@ function initContactForm() {
   }
   function addColorLabels() {
     document.querySelectorAll(".image-wrap").forEach(function(wrap) {
+      if (wrap.closest(".box-config")) return;
       var parWrap = wrap.closest(".parameter-wrap");
       if (!parWrap) return;
       var active = parWrap.querySelector(".button.option-button.active");
@@ -30157,10 +30162,9 @@ function initContactForm() {
       upsertLabel(wrap, label, "start");
     });
     document.querySelectorAll(".box-config .parameter-wrap").forEach(function(parWrap) {
+      if (parWrap.classList.contains("parameter-sizes")) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
-      var txt = (active.textContent || "").toLowerCase();
-      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(txt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
       upsertLabel(parWrap, label, "end");
