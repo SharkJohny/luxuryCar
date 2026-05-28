@@ -441,7 +441,7 @@ function googleReviews(setupData, texts) {
   // Box produkt: ako prvy widget. SK/CZ cez data-lang.
   var lang = (($("html").attr("lang") || "").toLowerCase().indexOf("cs") === 0) ? "cz" : "sk";
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
-  var WV = "4";
+  var WV = "5";
 
   $("#goggle-review-wrap, .google-reviews").remove();
 
