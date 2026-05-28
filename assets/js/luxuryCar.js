@@ -29686,17 +29686,23 @@ function initConfiguratorEngine() {
     if (radCount < 2) return;
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
+    var elK3 = $parWrap[0];
     function closeK3() {
-      $parWrap.removeClass("active");
-      $parWrap.removeClass("goToAction").removeClass("errorToCart");
+      $parWrap.removeClass("active goToAction errorToCart");
+      if (elK3) {
+        elK3.style.setProperty("max-height", "50px", "important");
+      }
     }
+    window.__lcdK3Clicks = (window.__lcdK3Clicks || 0) + 1;
     setTimeout(function() {
       closeK3();
       lcdGoToStep(trunk, false);
     }, 100);
     setTimeout(closeK3, 350);
     setTimeout(closeK3, 700);
-    setTimeout(closeK3, 1200);
+    setTimeout(function() {
+      if (elK3) elK3.style.removeProperty("max-height");
+    }, 5e3);
   });
   $(document).on("click", "button.add-to-cart-button", function(e) {
     lcdAutoSelectNoneIfEmpty();

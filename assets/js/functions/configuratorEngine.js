@@ -286,20 +286,29 @@ export function initConfiguratorEngine() {
     // cez lcdGetSteps() ale niekedy K3 wrap nie je v tomto vystupe -> ostane active).
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
-    // RETRY pattern: niekedy Shoptet po priceActualization re-renderuje a vrati
-    // .active na K3 wrap. Volame removeClass 3x s odstupom + lcdGoToStep raz.
+    // FORCE CLOSE: removeClass(active) + inline style.maxHeight=50px ktory
+    // OVERRIDE-uje CSS .parameter-wrap.active { max-height:1000px } cez specificity.
+    // Aj keby Shoptet pridal active spat, inline style donuti accordion zostat zatvoreny.
+    // Cleanup po 5s aby user mohol K3 znovu otvorit manualne klikom na hlavicku.
+    var elK3 = $parWrap[0];
     function closeK3() {
-      $parWrap.removeClass("active");
-      $parWrap.removeClass("goToAction").removeClass("errorToCart");
+      $parWrap.removeClass("active goToAction errorToCart");
+      if (elK3) {
+        elK3.style.setProperty("max-height", "50px", "important");
+      }
     }
+    // Debug counter na window — Michal moze overit cez DevTools (window.__lcdK3Clicks)
+    window.__lcdK3Clicks = (window.__lcdK3Clicks || 0) + 1;
     setTimeout(function () {
       closeK3();
-      // Otvor trunk + scroll
       lcdGoToStep(trunk, false);
     }, 100);
     setTimeout(closeK3, 350);
     setTimeout(closeK3, 700);
-    setTimeout(closeK3, 1200);
+    // Cleanup inline style po 5s — user moze znovu otvorit K3 manualne
+    setTimeout(function () {
+      if (elK3) elK3.style.removeProperty("max-height");
+    }, 5000);
   });
 
   // "Pridať do košíka"
