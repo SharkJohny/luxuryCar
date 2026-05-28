@@ -266,12 +266,24 @@ export function initConfiguratorEngine() {
   }
 
   // K3 "Rozloženie kobercov" → auto-otvorit trunk (Autokoberce do kufru).
-  // Cislo kroku K4/K5 zavisi od produktu (BASIC vs ELITE) — detegujeme
-  // cieli trunk cez selektor .upsale-buttons.trunk, NIE cez index.
-  $(document).on("click", ".lcd-k3-layout .button.option-button", function (e) {
+  // ROBUSTNE: detekcia K3 priamo v click handleri (pocet 'rad/řad' option-buttonov >= 2),
+  // NEZAVISI OD .lcd-k3-layout markera (ten moze byt nedostupny ak markBestsellers
+  // este nebezal). Cielime trunk cez selektor .upsale-buttons.trunk, NIE index
+  // (K4 v BASIC, K5 v ELITE — selektor je univerzalny).
+  $(document).on("click", ".button.option-button", function (e) {
+    var $btn = $(this);
+    var $parWrap = $btn.closest(".parameter-wrap");
+    if (!$parWrap.length) return;
+    if ($parWrap.closest(".box-config").length) return; // skip box-config
+    // K3 detect: >= 2 option-buttony s textom rad/řad/rada/řada
+    var radCount = 0;
+    $parWrap.find(".option-button").each(function () {
+      if (/\b(rad|řad|rada|řada)\b/i.test($(this).text())) radCount++;
+    });
+    if (radCount < 2) return;
+    // K3 click -> auto-advance na trunk po Shoptet update
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
-    // Pockaj kym Shoptet update-ne stav (cena, image-wrap), potom advance.
     setTimeout(function () {
       lcdGoToStep(trunk, false);
     }, 400);

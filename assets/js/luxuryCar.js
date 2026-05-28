@@ -29674,7 +29674,16 @@ function initConfiguratorEngine() {
       }
     });
   }
-  $(document).on("click", ".lcd-k3-layout .button.option-button", function(e) {
+  $(document).on("click", ".button.option-button", function(e) {
+    var $btn = $(this);
+    var $parWrap = $btn.closest(".parameter-wrap");
+    if (!$parWrap.length) return;
+    if ($parWrap.closest(".box-config").length) return;
+    var radCount = 0;
+    $parWrap.find(".option-button").each(function() {
+      if (/\b(rad|řad|rada|řada)\b/i.test($(this).text())) radCount++;
+    });
+    if (radCount < 2) return;
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
     setTimeout(function() {
