@@ -8423,6 +8423,13 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   letter-spacing: 0.3px;
   line-height: 1.3;
 }
+/* Box-config parameter-wrap je display:flex (z 3773-3776). Defaultne
+   flex-wrap:nowrap -> label sa nezalamuje pod swatches, ide vpravo ako 3. flex item.
+   FIX: forsovat flex-wrap:wrap na parent + width:100% na label. */
+.upsale-Banner .box-config .parameter-wrap,
+.box-config .parameter-wrap {
+  flex-wrap: wrap !important;
+}
 .box-config .parameter-wrap > .lcd-color-label,
 .box-config .lcd-color-label {
   margin: 12px 0 4px !important;
