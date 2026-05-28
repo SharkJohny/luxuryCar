@@ -30171,7 +30171,20 @@ function initContactForm() {
       if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(activeTxt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
-      upsertLabel(parWrap, label, "end");
+      var optionsWrap = parWrap.querySelector(".options-wrap");
+      if (optionsWrap) {
+        var next = optionsWrap.nextElementSibling;
+        if (next && next.classList && next.classList.contains("lcd-color-label")) {
+          if (next.textContent !== label) next.textContent = label;
+        } else {
+          var div = document.createElement("div");
+          div.className = "lcd-color-label";
+          div.textContent = label;
+          optionsWrap.parentNode.insertBefore(div, optionsWrap.nextSibling);
+        }
+      } else {
+        upsertLabel(parWrap, label, "end");
+      }
     });
   }
   function addVideoPlayOverlays() {

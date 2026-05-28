@@ -8423,13 +8423,16 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   letter-spacing: 0.3px;
   line-height: 1.3;
 }
-.box-config .parameter-wrap > .lcd-color-label {
-  margin: 10px 0 0;
+.box-config .parameter-wrap > .lcd-color-label,
+.box-config .lcd-color-label {
+  margin: 12px 0 4px !important;
   width: 100% !important;
   flex-basis: 100% !important;
   order: 999 !important;
+  grid-column: 1 / -1 !important;
   display: block !important;
   text-align: center !important;
+  clear: both !important;
 }
 @media (max-width: 768px) {
   .image-wrap .lcd-color-label,

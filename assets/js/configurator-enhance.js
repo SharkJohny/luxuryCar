@@ -160,7 +160,23 @@
       if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(activeTxt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
-      upsertLabel(parWrap, label, "end");
+      // Pre box-config color wrap: vloz label PO .options-wrap (nie do parWrap),
+      // aby bol POD swatchmi nezavisle od flex/grid layoutu parameter-wrap-u.
+      var optionsWrap = parWrap.querySelector(".options-wrap");
+      if (optionsWrap) {
+        // Najst existujuci label hned za optionsWrap, alebo vytvorit novy
+        var next = optionsWrap.nextElementSibling;
+        if (next && next.classList && next.classList.contains("lcd-color-label")) {
+          if (next.textContent !== label) next.textContent = label;
+        } else {
+          var div = document.createElement("div");
+          div.className = "lcd-color-label";
+          div.textContent = label;
+          optionsWrap.parentNode.insertBefore(div, optionsWrap.nextSibling);
+        }
+      } else {
+        upsertLabel(parWrap, label, "end");
+      }
     });
   }
 
