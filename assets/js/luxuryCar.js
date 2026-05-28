@@ -29687,6 +29687,8 @@ function initConfiguratorEngine() {
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
     setTimeout(function() {
+      $parWrap.removeClass("active");
+      $parWrap.removeClass("goToAction").removeClass("errorToCart");
       lcdGoToStep(trunk, false);
     }, 400);
   });

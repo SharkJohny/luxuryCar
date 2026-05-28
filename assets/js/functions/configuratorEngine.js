@@ -281,10 +281,16 @@ export function initConfiguratorEngine() {
       if (/\b(rad|řad|rada|řada)\b/i.test($(this).text())) radCount++;
     });
     if (radCount < 2) return;
-    // K3 click -> auto-advance na trunk po Shoptet update
+    // K3 click -> auto-advance na trunk po Shoptet update.
+    // Explicit close K3 wrap + open trunk (lcdGoToStep -> lcdOpenStep robi forEach
+    // cez lcdGetSteps() ale niekedy K3 wrap nie je v tomto vystupe -> ostane active).
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
     setTimeout(function () {
+      // 1) Explicit close current K3 parameter-wrap (defenzivna istota)
+      $parWrap.removeClass("active");
+      $parWrap.removeClass("goToAction").removeClass("errorToCart");
+      // 2) Otvor trunk + scroll (anti-drift moze skip scroll, ale openStep funguje)
       lcdGoToStep(trunk, false);
     }, 400);
   });
