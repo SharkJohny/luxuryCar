@@ -8425,6 +8425,11 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 }
 .box-config .parameter-wrap > .lcd-color-label {
   margin: 10px 0 0;
+  width: 100% !important;
+  flex-basis: 100% !important;
+  order: 999 !important;
+  display: block !important;
+  text-align: center !important;
 }
 @media (max-width: 768px) {
   .image-wrap .lcd-color-label,

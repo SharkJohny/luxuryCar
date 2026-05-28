@@ -145,12 +145,19 @@
       upsertLabel(wrap, label, "start");
     });
 
-    // 2) Box-config — label v .parameter-wrap (skip size wraps cez .parameter-sizes class).
+    // 2) Box-config — label v .parameter-wrap LEN PRE FARBU (nie velikost).
+    //    Kombinovany filter: 3 detekcie size wrap (robustne):
+    //      a) class .parameter-sizes
+    //      b) text active option obsahuje "XxYxZ cm"
+    //      c) h5 nadpis sa zacina "Velikost / Veľkosť / Velokost"
     document.querySelectorAll(".box-config .parameter-wrap").forEach(function (parWrap) {
-      // Size wrap ma class .parameter-sizes (cleanejsi detect nez regex textu)
       if (parWrap.classList.contains("parameter-sizes")) return;
+      var h5 = parWrap.querySelector("h5");
+      if (h5 && /^vel[ioe]kos[tť]/i.test((h5.textContent || "").trim())) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
+      var activeTxt = (active.textContent || "").toLowerCase();
+      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(activeTxt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
       upsertLabel(parWrap, label, "end");

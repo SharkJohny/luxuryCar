@@ -30163,8 +30163,12 @@ function initContactForm() {
     });
     document.querySelectorAll(".box-config .parameter-wrap").forEach(function(parWrap) {
       if (parWrap.classList.contains("parameter-sizes")) return;
+      var h5 = parWrap.querySelector("h5");
+      if (h5 && /^vel[ioe]kos[tť]/i.test((h5.textContent || "").trim())) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
+      var activeTxt = (active.textContent || "").toLowerCase();
+      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(activeTxt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
       upsertLabel(parWrap, label, "end");
