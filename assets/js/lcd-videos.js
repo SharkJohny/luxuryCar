@@ -182,7 +182,7 @@
 
   /* ------------------------------------------------------- dáta z API ----- */
   function loadVideos(cfg, cb) {
-    var cacheKey = 'lcdVideos_' + cfg.playlistId;
+    var cacheKey = 'lcdVideos_v2_' + cfg.playlistId;
     /* cache */
     try {
       var c = JSON.parse(window.localStorage.getItem(cacheKey) || 'null');
@@ -197,7 +197,7 @@
     var out = [];
     function page(token) {
       var url = 'https://www.googleapis.com/youtube/v3/playlistItems' +
-        '?part=snippet,status&maxResults=50' +
+        '?part=snippet,status,contentDetails&maxResults=50' +
         '&playlistId=' + encodeURIComponent(cfg.playlistId) +
         '&key=' + encodeURIComponent(cfg.apiKey) +
         (token ? '&pageToken=' + token : '');
@@ -206,19 +206,25 @@
         .then(function (j) {
           if (j.error) { throw new Error(j.error.message || 'API error'); }
           (j.items || []).forEach(function (it) {
-            var s = it.snippet || {}, st = it.status || {};
+            var s = it.snippet || {}, st = it.status || {}, cd = it.contentDetails || {};
             var vid = s.resourceId && s.resourceId.videoId;
             if (!validId(vid)) return;
             var ps = st.privacyStatus;
             if (ps === 'private' || ps === 'privacyStatusUnspecified') return;
             if (s.title === 'Private video' || s.title === 'Deleted video') return;
             if (!s.thumbnails) return;            /* nedostupné video */
-            out.push({ id: vid, title: s.title || '' });
+            // Datum publikacie videa (NIE pridania do playlistu)
+            var pub = cd.videoPublishedAt || s.publishedAt || '';
+            out.push({ id: vid, title: s.title || '', publishedAt: pub });
           });
           if (j.nextPageToken && out.length < CONFIG.maxFetch) {
             page(j.nextPageToken);
           } else {
             if (!out.length) { cb(FALLBACK.slice()); return; }
+            // Sort najnovsie prve (desc podla publishedAt)
+            out.sort(function (a, b) {
+              return (b.publishedAt || '').localeCompare(a.publishedAt || '');
+            });
             try { window.localStorage.setItem(cacheKey,
               JSON.stringify({ t: Date.now(), v: out })); } catch (e) {}
             cb(out);
