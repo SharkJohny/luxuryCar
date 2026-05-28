@@ -30097,6 +30097,9 @@ function initContactForm() {
       if (/klasik/.test(txt) && !card.classList.contains("lcd-bestseller")) {
         card.classList.add("lcd-bestseller");
       }
+      if (/premium/.test(txt) && !card.classList.contains("lcd-trunk-premium")) {
+        card.classList.add("lcd-trunk-premium");
+      }
     });
     document.querySelectorAll(".upsale-buttons.boxs .upsale-button").forEach(function(card) {
       var txt = (card.textContent || "").toLowerCase().replace(/\s+/g, " ");

@@ -46,11 +46,15 @@
         btn.classList.add("lcd-najobjednavanejsie");
       }
     });
-    // K5/K6 trunk (autokoberce do kufru) — "KLASIK - NA DNO".
+    // K5/K6 trunk (autokoberce do kufru) — "KLASIK - NA DNO" badge + reorder marker.
     document.querySelectorAll(".upsale-buttons.trunk .upsale-button").forEach(function (card) {
       var txt = (card.textContent || "").toLowerCase();
       if (/klasik/.test(txt) && !card.classList.contains("lcd-bestseller")) {
         card.classList.add("lcd-bestseller");
+      }
+      // PREMIUM (cely kufor) → marker pre CSS order (PREMIUM prvy, KLASIK stred)
+      if (/premium/.test(txt) && !card.classList.contains("lcd-trunk-premium")) {
+        card.classList.add("lcd-trunk-premium");
       }
     });
     // K5/K6 boxs (boxy do kufra) — "2x box".

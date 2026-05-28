@@ -8601,3 +8601,24 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     height: 22px;
   }
 }
+
+
+/* ═══ K5/K6 trunk — vizualne preusporiadanie kariet ═══
+   PREMIUM CELY KUFOR -> prvy (vlavo/hore)
+   KLASIK NA DNO (lcd-bestseller) -> druhy (stred, najobjednavanejsi)
+   NECHCEM + ostatne -> tretie a dalsie */
+.upsale-buttons.trunk .parameter-cars,
+.upsale-buttons.trunk > .position-wrap,
+.upsale-buttons.trunk > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+.upsale-buttons.trunk .upsale-button {
+  order: 3;
+}
+.upsale-buttons.trunk .upsale-button.lcd-trunk-premium {
+  order: 1 !important;
+}
+.upsale-buttons.trunk .upsale-button.lcd-bestseller {
+  order: 2 !important;
+}
