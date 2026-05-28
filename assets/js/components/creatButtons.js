@@ -532,13 +532,14 @@ function createOptionButtons(options, parameterId, optionsWrap, isBoxParam = fal
         const diffText = diff > 0 ? "+ " + NumToPrice(diff) : "";
         $(`<div class='price' data-price="${diff > 0 ? diff : 0}">${diffText}</div>`).appendTo(buttonDescription);
       } else {
-        let textPrice = priceButton[value] ? priceButton[value] : "";
-
-        if (priceButton[value]) {
-          textPrice = "+ " + NumToPrice(priceButton[value]);
-        }
-
-        $(`<div class='price' data-price="${priceButton[value]}">${textPrice}</div>`).appendTo(buttonDescription);
+        // Samostatny box produkt (/luxusny-boxi-do-kufra/) nema priceButton mapu
+        // pre svoje value-IDs — fallback na Shoptet data-surcharge-final-price
+        // (cena rozdielu oproti default variant zo Shoptet adminu).
+        var priceVal = (typeof priceButton[value] !== "undefined" && priceButton[value])
+          ? priceButton[value]
+          : (surchargeFinal > 0 ? surchargeFinal : 0);
+        let textPrice = priceVal > 0 ? "+ " + NumToPrice(priceVal) : "";
+        $(`<div class='price' data-price="${priceVal}">${textPrice}</div>`).appendTo(buttonDescription);
       }
 
       $(optionButton).addClass("text");

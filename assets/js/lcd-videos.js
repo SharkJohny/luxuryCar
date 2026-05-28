@@ -29,7 +29,7 @@
     apiKey: 'AIzaSyC1oohVIKqPPcxL3rZKZ_ZPKLoWS9CbRgQ',
     playlistId: 'PL5uNhg-LR1do0MIzDRJGM4d-2Kj1uLwxU',
     maxFetch: 500,                       /* koľko položiek max ťahať z API */
-    cacheHours: 3                        /* ako dlho držať dáta v cache */
+    cacheHours: 1                        /* ako dlho držať dáta v cache (auto-refresh playlistu — Michal pridáva videá denne) */
   };
 
   /* Lokalizácia nadpisu/podnadpisu podľa domény (.cz -> čeština).

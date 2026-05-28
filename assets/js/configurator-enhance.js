@@ -157,6 +157,22 @@
     });
   }
 
+  // Pridaj play button overlay na .customers-video karty (RECENZIA/POROVNANIE)
+  // — aby ľudia videli že ide o videá a nie statické obrázky.
+  function addVideoPlayOverlays() {
+    document.querySelectorAll(".customers-video .customer-video").forEach(function (card) {
+      if (card.querySelector(".lcd-video-play-overlay")) return;
+      var vid = card.querySelector("video, a, .image-wrap");
+      if (!vid) return;
+      var overlay = document.createElement("div");
+      overlay.className = "lcd-video-play-overlay";
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.innerHTML = '<span class="lcd-video-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>';
+      // vlozit ako prvy child .customer-video (absolute pozicia na video)
+      card.insertBefore(overlay, card.firstChild);
+    });
+  }
+
   function run() {
     var tries = 0;
     var iv = setInterval(function () {
@@ -164,6 +180,7 @@
       markBestsellers();
       fixBoxSoloPrices();
       addColorLabels();
+      addVideoPlayOverlays();
       if (tries > 40) clearInterval(iv);
     }, 600);
     // Tiez prepoctaj label po kazdom kliku na option-button (rychla odozva)

@@ -8454,3 +8454,112 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     margin: 0 0 20px !important;
   }
 }
+
+
+/* ═══ Play button overlay na .customers-video karty (RECENZIA / POROVNANIE) ═══
+   Aby uzivatel videl ze ide o videa (nie staticke obrazky). */
+.customers-video .customer-video {
+  position: relative;
+}
+.lcd-video-play-overlay {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  right: 5px;
+  bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+@media (max-width: 768px) {
+  .lcd-video-play-overlay {
+    bottom: 40px;
+  }
+}
+.lcd-video-play-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.customers-video .customer-video:hover .lcd-video-play-circle {
+  background: #fff;
+  transform: scale(1.08);
+}
+.lcd-video-play-circle svg {
+  width: 30px;
+  height: 30px;
+  color: #1A1A1A;
+  margin-left: 3px;
+}
+@media (max-width: 768px) {
+  .lcd-video-play-circle {
+    width: 56px;
+    height: 56px;
+  }
+  .lcd-video-play-circle svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ═══ Play button overlay na .customers-video karty (RECENZIA / POROVNANIE) ═══
+   Aby uzivatel videl ze ide o videa, nie staticke obrazky. */
+.customers-video .customer-video {
+  position: relative;
+}
+.lcd-video-play-overlay {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  right: 5px;
+  bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+@media (max-width: 768px) {
+  .lcd-video-play-overlay {
+    bottom: 40px;
+  }
+}
+.lcd-video-play-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.customers-video .customer-video:hover .lcd-video-play-circle {
+  background: #fff;
+  transform: scale(1.08);
+}
+.lcd-video-play-circle svg {
+  width: 30px;
+  height: 30px;
+  color: #1A1A1A;
+  margin-left: 3px;
+}
+@media (max-width: 768px) {
+  .lcd-video-play-circle {
+    width: 56px;
+    height: 56px;
+  }
+  .lcd-video-play-circle svg {
+    width: 22px;
+    height: 22px;
+  }
+}

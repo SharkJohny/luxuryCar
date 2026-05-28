@@ -28,6 +28,10 @@
   window.__lcdReviewsLoaded = true;
 
   /* -------------------------------------------------------------- konfig --- */
+  // Pevne Google linky pre LCD profil — Zobrazit profil + Napisat recenziu
+  var LCD_GOOGLE_VIEW_URL = "https://www.google.com/maps/place/Luxury+Car+Design/@49.1861708,18.7330054,1043m/data=!3m1!1e3!4m8!3m7!1s0x8c8f632b21071671:0xd702e416d6787c20!8m2!3d49.1861708!4d18.7330054!9m1!1b1!16s%2Fg%2F11txlgxckd?authuser=0&hl=cs&entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D";
+  var LCD_GOOGLE_WRITE_URL = "https://www.google.com/maps/place//data=!4m3!3m2!1s0x8c8f632b21071671:0xd702e416d6787c20!12e1?source=g.page.m.kd._&laa=lu-desktop-review-solicitation";
+
   var DEFAULTS = {
     limit: 12,
     minRating: 4,
@@ -383,7 +387,7 @@
       card.appendChild(prow);
     }
 
-    var href = safeLink(r.url) || cfg.placeUrl;
+    var href = LCD_GOOGLE_VIEW_URL;
     if (href) {
       card.appendChild(el('a', {
         class: 'lcdr-more', href: href, target: '_blank',
@@ -604,7 +608,7 @@
   /* --------------------------------------------------------- CTA tlacidlo --- */
   function buildReviewBtn(cfg) {
     var wrap = el('div', { class: 'lcdr-cta' });
-    var href = cfg.placeUrl;
+    var href = LCD_GOOGLE_WRITE_URL;
     if (!href) return wrap;
     wrap.appendChild(el('a', {
       href: href, target: '_blank', rel: 'noopener noreferrer nofollow'

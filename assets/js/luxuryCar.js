@@ -24498,11 +24498,9 @@ function createOptionButtons(options, parameterId, optionsWrap, isBoxParam = fal
         const diffText = diff > 0 ? "+ " + NumToPrice(diff) : "";
         $(`<div class='price' data-price="${diff > 0 ? diff : 0}">${diffText}</div>`).appendTo(buttonDescription);
       } else {
-        let textPrice = priceButton[value] ? priceButton[value] : "";
-        if (priceButton[value]) {
-          textPrice = "+ " + NumToPrice(priceButton[value]);
-        }
-        $(`<div class='price' data-price="${priceButton[value]}">${textPrice}</div>`).appendTo(buttonDescription);
+        var priceVal = typeof priceButton[value] !== "undefined" && priceButton[value] ? priceButton[value] : surchargeFinal > 0 ? surchargeFinal : 0;
+        let textPrice = priceVal > 0 ? "+ " + NumToPrice(priceVal) : "";
+        $(`<div class='price' data-price="${priceVal}">${textPrice}</div>`).appendTo(buttonDescription);
       }
       $(optionButton).addClass("text");
       if (isBoxParam) {
@@ -30168,6 +30166,18 @@ function initContactForm() {
       upsertLabel(parWrap, label, "end");
     });
   }
+  function addVideoPlayOverlays() {
+    document.querySelectorAll(".customers-video .customer-video").forEach(function(card) {
+      if (card.querySelector(".lcd-video-play-overlay")) return;
+      var vid = card.querySelector("video, a, .image-wrap");
+      if (!vid) return;
+      var overlay = document.createElement("div");
+      overlay.className = "lcd-video-play-overlay";
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.innerHTML = '<span class="lcd-video-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>';
+      card.insertBefore(overlay, card.firstChild);
+    });
+  }
   function run() {
     var tries = 0;
     var iv = setInterval(function() {
@@ -30175,6 +30185,7 @@ function initContactForm() {
       markBestsellers();
       fixBoxSoloPrices();
       addColorLabels();
+      addVideoPlayOverlays();
       if (tries > 40) clearInterval(iv);
     }, 600);
     document.addEventListener("click", function(e) {
