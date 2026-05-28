@@ -29686,11 +29686,17 @@ function initConfiguratorEngine() {
     if (radCount < 2) return;
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
-    setTimeout(function() {
+    function closeK3() {
       $parWrap.removeClass("active");
       $parWrap.removeClass("goToAction").removeClass("errorToCart");
+    }
+    setTimeout(function() {
+      closeK3();
       lcdGoToStep(trunk, false);
-    }, 400);
+    }, 100);
+    setTimeout(closeK3, 350);
+    setTimeout(closeK3, 700);
+    setTimeout(closeK3, 1200);
   });
   $(document).on("click", "button.add-to-cart-button", function(e) {
     lcdAutoSelectNoneIfEmpty();

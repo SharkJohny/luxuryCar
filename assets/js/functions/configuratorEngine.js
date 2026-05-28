@@ -286,13 +286,20 @@ export function initConfiguratorEngine() {
     // cez lcdGetSteps() ale niekedy K3 wrap nie je v tomto vystupe -> ostane active).
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
-    setTimeout(function () {
-      // 1) Explicit close current K3 parameter-wrap (defenzivna istota)
+    // RETRY pattern: niekedy Shoptet po priceActualization re-renderuje a vrati
+    // .active na K3 wrap. Volame removeClass 3x s odstupom + lcdGoToStep raz.
+    function closeK3() {
       $parWrap.removeClass("active");
       $parWrap.removeClass("goToAction").removeClass("errorToCart");
-      // 2) Otvor trunk + scroll (anti-drift moze skip scroll, ale openStep funguje)
+    }
+    setTimeout(function () {
+      closeK3();
+      // Otvor trunk + scroll
       lcdGoToStep(trunk, false);
-    }, 400);
+    }, 100);
+    setTimeout(closeK3, 350);
+    setTimeout(closeK3, 700);
+    setTimeout(closeK3, 1200);
   });
 
   // "Pridať do košíka"
