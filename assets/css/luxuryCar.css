@@ -8204,18 +8204,41 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
     max-height: none !important;
   }
 }
-/* Widget videi - nadpis zjednoteny s widgetom recenzii (Exo 2, zlaty, uppercase) */
+/* Widget videi - nadpis ZJEDNOTENY s headingom "NA MIERU VYROBENÉ" (Exo 2, zlaty, uppercase).
+   Font-size + weight zladene s .basic-description .section-blends p.h2 span (35-40px). */
 .lcd-videos-widget .lcdv-title {
   font-family: "Exo 2", sans-serif !important;
-  font-weight: 700 !important;
+  font-size: 38px !important;
+  font-weight: 800 !important;
   text-transform: uppercase !important;
-  letter-spacing: .04em !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1.1 !important;
+  color: var(--color-primary, #c49b31) !important;
+  margin: 0 0 10px !important;
 }
 .type-product .lcd-videos-widget .lcdv-title {
   color: var(--color-primary, #c49b31) !important;
 }
+/* Subtitle "Pozrite sa, ako..." — zladeny s "CHRÁŇTE VÁŠ KUFOR..." */
 .lcd-videos-widget .lcdv-subtitle {
-  font-family: "Source Sans 3", sans-serif !important;
+  font-family: "Exo 2", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  color: #1A1A1A !important;
+  line-height: 1.3 !important;
+  margin: 0 0 16px !important;
+}
+@media (max-width: 768px) {
+  .lcd-videos-widget .lcdv-title {
+    font-size: 24px !important;
+    letter-spacing: 0.3px !important;
+  }
+  .lcd-videos-widget .lcdv-subtitle {
+    font-size: 13px !important;
+    margin: 0 0 10px !important;
+  }
 }
 /* Widget recenzii - kompaktnejsi na mobile (~ -35%, bez zoom hacku).
    Zoom rozbijal layout (prazdne biele miesto). Tu realne CSS zmenseniem
