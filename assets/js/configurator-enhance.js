@@ -190,6 +190,73 @@
     });
   }
 
+  // ═══ BOX PRODUKT (samostatny /luxusny-boxi-do-kufra/) — len pre tento produkt ═══
+
+  function lcdIsStandaloneBoxProduct() {
+    var h1 = (document.querySelector("h1") && document.querySelector("h1").textContent || "").toLowerCase();
+    var path = (window.location.pathname || "").toLowerCase();
+    return h1.indexOf("box") > -1 && /boxi|boxy/.test(path);
+  }
+
+  // Text posledneho .next-step-button na box produkte:
+  // "Prejsť k ďalšiemu kroku" -> "Dokončiť konfiguráciu"
+  function lcdFixBoxLastButtonText() {
+    if (!lcdIsStandaloneBoxProduct()) return;
+    var wraps = document.querySelectorAll(".content-wrap .parameter-wrap:not(.parameter-sizes), .content-wrap .position-wrap");
+    // Najst posledny viditelny wrap mimo box-config
+    var lastVisible = null;
+    document.querySelectorAll(".content-wrap > .parameter-wrap, .content-wrap > .position-wrap").forEach(function (w) {
+      if (w.closest(".box-config")) return;
+      if (w.offsetParent === null) return; // skryty
+      lastVisible = w;
+    });
+    if (!lastVisible) return;
+    var btn = lastVisible.querySelector(".next-step-button");
+    if (!btn) return;
+    var lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+    var newText = lang.indexOf("cs") === 0 ? "Dokončit konfiguraci" : "Dokončiť konfiguráciu";
+    if (btn.textContent.trim() !== newText) {
+      btn.textContent = newText;
+      btn.classList.add("finish-button");
+    }
+  }
+
+  // RRP cena (Doporucena cena) — pre box produkt pridat = aktualna × 1.6
+  // Shoptet niekedy nevykresluje price-recommended ak variant nema RRP nastavene.
+  function lcdAddBoxRRP() {
+    if (!lcdIsStandaloneBoxProduct()) return;
+    var finalEl = document.querySelector(".p-info-wrapper strong.price-final, strong.price-final");
+    if (!finalEl) return;
+    // Skontroluj ci RRP uz existuje (zo Shoptet alebo nasa injekcia)
+    if (finalEl.querySelector(".lcd-rrp-injected")) return;
+    var existing = finalEl.querySelector(".price-recommended, .recommended-price-final");
+    if (existing && (existing.textContent || "").replace(/\s+/g, "").length > 0) return;
+    // Vypocet RRP = aktualna * 1.6, zaokruhlene nahor na 10
+    var amountText = (finalEl.textContent || "").replace(/[^0-9,\.]/g, "").replace(",", ".");
+    var amount = parseFloat(amountText);
+    if (!amount || isNaN(amount)) return;
+    var rrp = Math.ceil((amount * 1.6) / 10) * 10;
+    // Detekcia meny
+    var meta = document.querySelector('meta[itemprop="priceCurrency"]');
+    var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
+    var sym = (code === "CZK") ? "Kč" : "€";
+    var locale = (code === "CZK") ? "cs-CZ" : "sk-SK";
+    var rrpFmt;
+    try { rrpFmt = rrp.toLocaleString(locale) + " " + sym; } catch (e) { rrpFmt = rrp + " " + sym; }
+    // Najst label "Aktuálna cena" / "Doporučená cena" v p-info-wrapper
+    var labels = document.querySelectorAll(".p-info-wrapper .price-standard, .p-info-wrapper .price-label, .p-info-wrapper span");
+    // Pridame RRP riadok PRED price-final
+    var rrpWrap = document.createElement("div");
+    rrpWrap.className = "lcd-rrp-wrap";
+    rrpWrap.innerHTML = '<span class="lcd-rrp-label">' +
+      (((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("cs") === 0) ? "Doporučená cena" : "Doporučená cena") +
+      '</span> <span class="price-recommended lcd-rrp-injected">' + rrpFmt + '</span>';
+    var parent = finalEl.parentNode;
+    if (parent && !parent.querySelector(".lcd-rrp-wrap")) {
+      parent.insertBefore(rrpWrap, finalEl);
+    }
+  }
+
   // Pridaj play button overlay na .customers-video karty (RECENZIA/POROVNANIE)
   // — aby ľudia videli že ide o videá a nie statické obrázky.
   function addVideoPlayOverlays() {
@@ -214,6 +281,8 @@
       fixBoxSoloPrices();
       addColorLabels();
       addVideoPlayOverlays();
+      lcdFixBoxLastButtonText();
+      lcdAddBoxRRP();
       if (tries > 40) clearInterval(iv);
     }, 600);
     // Tiez prepoctaj label po kazdom kliku na option-button (rychla odozva)

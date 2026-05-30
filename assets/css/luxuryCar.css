@@ -8622,3 +8622,22 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
 .upsale-buttons.trunk .upsale-button.lcd-bestseller {
   order: 2 !important;
 }
+
+
+/* ═══ Box produkt (samostatny) — RRP "Doporucena cena" pridana JS-om ═══ */
+.lcd-rrp-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+.lcd-rrp-wrap .lcd-rrp-label {
+  color: #666;
+  font-weight: 500;
+}
+.lcd-rrp-wrap .price-recommended {
+  color: #999;
+  text-decoration: line-through;
+  font-weight: 500;
+}

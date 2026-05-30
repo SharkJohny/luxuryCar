@@ -30218,6 +30218,60 @@ function initContactForm() {
       }
     });
   }
+  function lcdIsStandaloneBoxProduct() {
+    var h1 = (document.querySelector("h1") && document.querySelector("h1").textContent || "").toLowerCase();
+    var path = (window.location.pathname || "").toLowerCase();
+    return h1.indexOf("box") > -1 && /boxi|boxy/.test(path);
+  }
+  function lcdFixBoxLastButtonText() {
+    if (!lcdIsStandaloneBoxProduct()) return;
+    var wraps = document.querySelectorAll(".content-wrap .parameter-wrap:not(.parameter-sizes), .content-wrap .position-wrap");
+    var lastVisible = null;
+    document.querySelectorAll(".content-wrap > .parameter-wrap, .content-wrap > .position-wrap").forEach(function(w) {
+      if (w.closest(".box-config")) return;
+      if (w.offsetParent === null) return;
+      lastVisible = w;
+    });
+    if (!lastVisible) return;
+    var btn = lastVisible.querySelector(".next-step-button");
+    if (!btn) return;
+    var lang2 = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+    var newText = lang2.indexOf("cs") === 0 ? "Dokon\u010Dit konfiguraci" : "Dokon\u010Di\u0165 konfigur\xE1ciu";
+    if (btn.textContent.trim() !== newText) {
+      btn.textContent = newText;
+      btn.classList.add("finish-button");
+    }
+  }
+  function lcdAddBoxRRP() {
+    if (!lcdIsStandaloneBoxProduct()) return;
+    var finalEl = document.querySelector(".p-info-wrapper strong.price-final, strong.price-final");
+    if (!finalEl) return;
+    if (finalEl.querySelector(".lcd-rrp-injected")) return;
+    var existing = finalEl.querySelector(".price-recommended, .recommended-price-final");
+    if (existing && (existing.textContent || "").replace(/\s+/g, "").length > 0) return;
+    var amountText = (finalEl.textContent || "").replace(/[^0-9,\.]/g, "").replace(",", ".");
+    var amount = parseFloat(amountText);
+    if (!amount || isNaN(amount)) return;
+    var rrp = Math.ceil(amount * 1.6 / 10) * 10;
+    var meta = document.querySelector('meta[itemprop="priceCurrency"]');
+    var code = meta ? (meta.getAttribute("content") || "").toUpperCase() : "";
+    var sym = code === "CZK" ? "K\u010D" : "\u20AC";
+    var locale = code === "CZK" ? "cs-CZ" : "sk-SK";
+    var rrpFmt;
+    try {
+      rrpFmt = rrp.toLocaleString(locale) + " " + sym;
+    } catch (e) {
+      rrpFmt = rrp + " " + sym;
+    }
+    var labels = document.querySelectorAll(".p-info-wrapper .price-standard, .p-info-wrapper .price-label, .p-info-wrapper span");
+    var rrpWrap = document.createElement("div");
+    rrpWrap.className = "lcd-rrp-wrap";
+    rrpWrap.innerHTML = '<span class="lcd-rrp-label">' + ((document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("cs") === 0 ? "Doporu\u010Den\xE1 cena" : "Doporu\u010Den\xE1 cena") + '</span> <span class="price-recommended lcd-rrp-injected">' + rrpFmt + "</span>";
+    var parent = finalEl.parentNode;
+    if (parent && !parent.querySelector(".lcd-rrp-wrap")) {
+      parent.insertBefore(rrpWrap, finalEl);
+    }
+  }
   function addVideoPlayOverlays() {
     document.querySelectorAll(".customers-video .customer-video").forEach(function(card) {
       if (card.querySelector(".lcd-video-play-overlay")) return;
@@ -30238,6 +30292,8 @@ function initContactForm() {
       fixBoxSoloPrices();
       addColorLabels();
       addVideoPlayOverlays();
+      lcdFixBoxLastButtonText();
+      lcdAddBoxRRP();
       if (tries > 40) clearInterval(iv);
     }, 600);
     document.addEventListener("click", function(e) {
