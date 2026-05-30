@@ -8641,3 +8641,16 @@ html[lang="cs"] .lcd-najobjednavanejsie::after {
   text-decoration: line-through;
   font-weight: 500;
 }
+
+
+/* ═══ Box produkt — reorder krokov (POČET → FARBA → VEĽKOSŤ) ═══
+   .lcd-box-reordered class pridana JS-om len na samostatnom box produkte. */
+.content-wrap.lcd-box-reordered {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.content-wrap.lcd-box-reordered > .parameter-wrap,
+.content-wrap.lcd-box-reordered > .position-wrap {
+  /* order inline style ma prednost; default 99 (pred trunk/boxs) */
+  order: 99;
+}

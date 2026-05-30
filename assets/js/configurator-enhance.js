@@ -198,6 +198,39 @@
     return h1.indexOf("box") > -1 && /boxi|boxy/.test(path);
   }
 
+  // Box produkt — reorder krokov + rename "FARBA 1.VRSTVY" -> "FARBA BOXOV"
+  // Nové poradie: 1) POČET BOXOV  2) FARBA BOXOV  3) VEĽKOSŤ
+  // Scope: iba samostatny box produkt.
+  function lcdBoxReorderAndRename() {
+    if (!lcdIsStandaloneBoxProduct()) return;
+    var contentWrap = document.querySelector(".content-wrap");
+    if (!contentWrap) return;
+    // Forsujem display:flex + flex-direction:column aby CSS 'order' fungoval
+    if (!contentWrap.classList.contains("lcd-box-reordered")) {
+      contentWrap.classList.add("lcd-box-reordered");
+    }
+    // Iteruj cez direct children (.parameter-wrap a .position-wrap)
+    var children = contentWrap.querySelectorAll(":scope > .parameter-wrap, :scope > .position-wrap");
+    children.forEach(function (wrap) {
+      var h5 = wrap.querySelector("h5.variant.name, h5");
+      if (!h5) return;
+      var txt = (h5.textContent || "").trim().toLowerCase();
+      // Rename: "Farba 1.vrstvy / Barva 1.vrstvy" -> "Farba boxov / Barva boxů"
+      if (/farba\s*1\.?\s*vrstv|barva\s*1\.?\s*vrstv/i.test(txt)) {
+        var lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var newName = lang.indexOf("cs") === 0 ? "Barva boxů" : "Farba boxov";
+        if (h5.textContent.trim() !== newName) {
+          h5.textContent = newName;
+        }
+        wrap.style.order = "2"; // FARBA = krok 2
+      } else if (/po[čc]et\s*box/i.test(txt)) {
+        wrap.style.order = "1"; // POČET = krok 1
+      } else if (/^vel[ioe]kos[tť]/i.test(txt)) {
+        wrap.style.order = "3"; // VEĽKOSŤ = krok 3
+      }
+    });
+  }
+
   // Text posledneho .next-step-button na box produkte:
   // "Prejsť k ďalšiemu kroku" -> "Dokončiť konfiguráciu"
   function lcdFixBoxLastButtonText() {
@@ -281,6 +314,7 @@
       fixBoxSoloPrices();
       addColorLabels();
       addVideoPlayOverlays();
+      lcdBoxReorderAndRename();
       lcdFixBoxLastButtonText();
       lcdAddBoxRRP();
       if (tries > 40) clearInterval(iv);

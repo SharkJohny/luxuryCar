@@ -30223,6 +30223,32 @@ function initContactForm() {
     var path = (window.location.pathname || "").toLowerCase();
     return h1.indexOf("box") > -1 && /boxi|boxy/.test(path);
   }
+  function lcdBoxReorderAndRename() {
+    if (!lcdIsStandaloneBoxProduct()) return;
+    var contentWrap = document.querySelector(".content-wrap");
+    if (!contentWrap) return;
+    if (!contentWrap.classList.contains("lcd-box-reordered")) {
+      contentWrap.classList.add("lcd-box-reordered");
+    }
+    var children = contentWrap.querySelectorAll(":scope > .parameter-wrap, :scope > .position-wrap");
+    children.forEach(function(wrap) {
+      var h5 = wrap.querySelector("h5.variant.name, h5");
+      if (!h5) return;
+      var txt = (h5.textContent || "").trim().toLowerCase();
+      if (/farba\s*1\.?\s*vrstv|barva\s*1\.?\s*vrstv/i.test(txt)) {
+        var lang2 = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var newName = lang2.indexOf("cs") === 0 ? "Barva box\u016F" : "Farba boxov";
+        if (h5.textContent.trim() !== newName) {
+          h5.textContent = newName;
+        }
+        wrap.style.order = "2";
+      } else if (/po[čc]et\s*box/i.test(txt)) {
+        wrap.style.order = "1";
+      } else if (/^vel[ioe]kos[tť]/i.test(txt)) {
+        wrap.style.order = "3";
+      }
+    });
+  }
   function lcdFixBoxLastButtonText() {
     if (!lcdIsStandaloneBoxProduct()) return;
     var wraps = document.querySelectorAll(".content-wrap .parameter-wrap:not(.parameter-sizes), .content-wrap .position-wrap");
@@ -30292,6 +30318,7 @@ function initContactForm() {
       fixBoxSoloPrices();
       addColorLabels();
       addVideoPlayOverlays();
+      lcdBoxReorderAndRename();
       lcdFixBoxLastButtonText();
       lcdAddBoxRRP();
       if (tries > 40) clearInterval(iv);
