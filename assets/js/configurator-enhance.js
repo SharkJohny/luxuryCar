@@ -25,7 +25,7 @@
       var radCount = 0;
       btns.forEach(function (btn) {
         var t = (btn.textContent || "").toLowerCase();
-        if (/\b(rad|řad|rada|řada)\b/.test(t)) radCount++;
+        if (/(^|\s)(rad|řad)/i.test(t)) radCount++;
       });
       if (radCount >= 2) {
         parWrap.classList.add("lcd-k3-layout");
@@ -212,7 +212,7 @@
     if (h1.indexOf("elite") > -1 || h1.indexOf("basic") > -1) return false;
     if (h1.indexOf("hexa") > -1 || h1.indexOf("stripe") > -1) return false;
     if (!/kufr/.test(h1)) return false;
-    return /koberce|rohoz|rohož/.test(h1);
+    return /kober(ce|ec)|rohoz|rohož/.test(h1);
   }
   function lcdRenameTrunkMatColorStep() {
     if (!lcdIsTrunkMatStandalone()) return;

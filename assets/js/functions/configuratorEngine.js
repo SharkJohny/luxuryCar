@@ -125,26 +125,20 @@ function lcdScrollToStep(el, isVerify) {
     else stable = 0;
     lastAbs = abs;
     waited += 70;
-    if (stable >= 3 || waited >= 1200) {
+    if (stable >= 4 || waited >= 1400) {
       jump();
-      // 2) Korekcia po dozneni accordion animacie.
+      // JEDINA korekcia — iba pri VELKOM neskorom reflowe (nacitanie obrazkov),
+      // NIE pri malom doznievani accordionu. Prah 150px => ziadny viditelny
+      // "mini pohyb" po prvom scrolle; doladi sa len ked nieco velke posunie layout.
       setTimeout(function () {
-        if (!alive()) { done(); return; }
-        var w1 = lcdDesiredY(el);
-        if (Math.abs(window.scrollY - w1) > 60) {
-          window.scrollTo({ top: w1, behavior: "instant" });
-        }
-        // 3) Posledna korekcia — neskore nacitanie obrazkov.
-        setTimeout(function () {
-          if (alive()) {
-            var w2 = lcdDesiredY(el);
-            if (Math.abs(window.scrollY - w2) > 60) {
-              window.scrollTo({ top: w2, behavior: "instant" });
-            }
+        if (alive()) {
+          var w1 = lcdDesiredY(el);
+          if (Math.abs(window.scrollY - w1) > 150) {
+            window.scrollTo({ top: w1, behavior: "instant" });
           }
-          done();
-        }, 700);
-      }, 450);
+        }
+        done();
+      }, 600);
     } else {
       setTimeout(settle, 70);
     }
@@ -278,7 +272,7 @@ export function initConfiguratorEngine() {
     // K3 detect: >= 2 option-buttony s textom rad/řad/rada/řada
     var radCount = 0;
     $parWrap.find(".option-button").each(function () {
-      if (/\b(rad|řad|rada|řada)\b/i.test($(this).text())) radCount++;
+      if (/(^|\s)(rad|řad)/i.test($(this).text())) radCount++;
     });
     if (radCount < 2) return;
     // K3 click -> auto-advance na trunk po Shoptet update.

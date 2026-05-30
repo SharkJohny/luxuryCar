@@ -29564,27 +29564,17 @@ function lcdScrollToStep(el, isVerify) {
     else stable = 0;
     lastAbs = abs;
     waited += 70;
-    if (stable >= 3 || waited >= 1200) {
+    if (stable >= 4 || waited >= 1400) {
       jump();
       setTimeout(function() {
-        if (!alive()) {
-          done();
-          return;
-        }
-        var w1 = lcdDesiredY(el);
-        if (Math.abs(window.scrollY - w1) > 60) {
-          window.scrollTo({ top: w1, behavior: "instant" });
-        }
-        setTimeout(function() {
-          if (alive()) {
-            var w2 = lcdDesiredY(el);
-            if (Math.abs(window.scrollY - w2) > 60) {
-              window.scrollTo({ top: w2, behavior: "instant" });
-            }
+        if (alive()) {
+          var w1 = lcdDesiredY(el);
+          if (Math.abs(window.scrollY - w1) > 150) {
+            window.scrollTo({ top: w1, behavior: "instant" });
           }
-          done();
-        }, 700);
-      }, 450);
+        }
+        done();
+      }, 600);
     } else {
       setTimeout(settle, 70);
     }
@@ -29697,7 +29687,7 @@ function initConfiguratorEngine() {
     if ($parWrap.closest(".box-config").length) return;
     var radCount = 0;
     $parWrap.find(".option-button").each(function() {
-      if (/\b(rad|řad|rada|řada)\b/i.test($(this).text())) radCount++;
+      if (/(^|\s)(rad|řad)/i.test($(this).text())) radCount++;
     });
     if (radCount < 2) return;
     var trunk = document.querySelector(".upsale-buttons.trunk");
@@ -30115,7 +30105,7 @@ function initContactForm() {
       var radCount = 0;
       btns.forEach(function(btn) {
         var t = (btn.textContent || "").toLowerCase();
-        if (/\b(rad|řad|rada|řada)\b/.test(t)) radCount++;
+        if (/(^|\s)(rad|řad)/i.test(t)) radCount++;
       });
       if (radCount >= 2) {
         parWrap.classList.add("lcd-k3-layout");
@@ -30256,7 +30246,7 @@ function initContactForm() {
     if (h1.indexOf("elite") > -1 || h1.indexOf("basic") > -1) return false;
     if (h1.indexOf("hexa") > -1 || h1.indexOf("stripe") > -1) return false;
     if (!/kufr/.test(h1)) return false;
-    return /koberce|rohoz|rohož/.test(h1);
+    return /kober(ce|ec)|rohoz|rohož/.test(h1);
   }
   function lcdRenameTrunkMatColorStep() {
     if (!lcdIsTrunkMatStandalone()) return;
