@@ -58,6 +58,26 @@ function changeDescription() {
   const getYear = sessionStorage.getItem("Year");
   const getCarType = sessionStorage.getItem("carType");
   console.log("Changing description for cart items");
+
+  // Fallback pre samostatne produkty BEZ surcharges (Premium/Klasik kufrove rohoze):
+  // formatuj span.main-link-variant na bullety "Farba 1./2. vrstvy".
+  $("tr").each(function () {
+    var $row = $(this);
+    if ($row.find("span.main-link-surcharges").length) return; // ma surcharges, riesi nizsie
+    var $variant = $row.find("span.main-link-variant").first();
+    if (!$variant.length || $variant.data("lcdFormatted")) return;
+    var variantText = ($variant.text() || "").replace(/\s+/g, " ");
+    if (!/farba\s*[12]\.?\s*vrstvy/i.test(variantText)) return;
+    var m1 = variantText.match(/farba\s*1\.?\s*vrstvy\s*:\s*([^,]+?)(?=\s*farba\s*2|\s*$)/i);
+    var m2 = variantText.match(/farba\s*2\.?\s*vrstvy\s*:\s*(.+)$/i);
+    if (!m1 && !m2) return;
+    var $ul = $("<ul>").addClass("lcd-variant-bullets");
+    if (m1) $("<li>").text("Farba 1. vrstvy: " + m1[1].trim()).appendTo($ul);
+    if (m2) $("<li>").text("Farba 2. vrstvy: " + m2[1].trim()).appendTo($ul);
+    $variant.after($ul).hide();
+    $variant.data("lcdFormatted", true);
+  });
+
   $("span.main-link-surcharges").each(function () {
     const text = $(this).text().split(",");
     let newText = "";

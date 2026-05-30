@@ -29279,6 +29279,22 @@ function changeDescription() {
   const getModel = sessionStorage.getItem("Model");
   const getYear = sessionStorage.getItem("Year");
   const getCarType = sessionStorage.getItem("carType");
+  $("tr").each(function() {
+    var $row = $(this);
+    if ($row.find("span.main-link-surcharges").length) return;
+    var $variant = $row.find("span.main-link-variant").first();
+    if (!$variant.length || $variant.data("lcdFormatted")) return;
+    var variantText = ($variant.text() || "").replace(/\s+/g, " ");
+    if (!/farba\s*[12]\.?\s*vrstvy/i.test(variantText)) return;
+    var m1 = variantText.match(/farba\s*1\.?\s*vrstvy\s*:\s*([^,]+?)(?=\s*farba\s*2|\s*$)/i);
+    var m2 = variantText.match(/farba\s*2\.?\s*vrstvy\s*:\s*(.+)$/i);
+    if (!m1 && !m2) return;
+    var $ul = $("<ul>").addClass("lcd-variant-bullets");
+    if (m1) $("<li>").text("Farba 1. vrstvy: " + m1[1].trim()).appendTo($ul);
+    if (m2) $("<li>").text("Farba 2. vrstvy: " + m2[1].trim()).appendTo($ul);
+    $variant.after($ul).hide();
+    $variant.data("lcdFormatted", true);
+  });
   $("span.main-link-surcharges").each(function() {
     const text = $(this).text().split(",");
     let newText = "";
@@ -29744,6 +29760,12 @@ function initConfiguratorEngine() {
   }
   function lcdAutoOpenFirstStep() {
     if (!isBoxProduct()) return;
+    if (document.querySelector(".content-wrap .button.option-button.active")) return;
+    if (document.querySelector(".content-wrap .parameter-wrap.active")) {
+      var firstStep = document.querySelector(".content-wrap > .parameter-wrap, .content-wrap > .position-wrap");
+      var active = document.querySelector(".content-wrap .parameter-wrap.active");
+      if (active && active !== firstStep) return;
+    }
     var steps = lcdGetSteps();
     if (steps.length === 0) return;
     lcdOpenStep(steps[0]);
@@ -30228,6 +30250,27 @@ function initContactForm() {
     var path = (window.location.pathname || "").toLowerCase();
     return h1.indexOf("box") > -1 && /boxi|boxy/.test(path);
   }
+  function lcdIsTrunkMatStandalone() {
+    var h1 = (document.querySelector("h1") && document.querySelector("h1").textContent || "").toLowerCase();
+    if (h1.indexOf("box") > -1) return false;
+    if (h1.indexOf("elite") > -1 || h1.indexOf("basic") > -1) return false;
+    if (h1.indexOf("hexa") > -1 || h1.indexOf("stripe") > -1) return false;
+    if (!/kufr/.test(h1)) return false;
+    return /koberce|rohoz|rohož/.test(h1);
+  }
+  function lcdRenameTrunkMatColorStep() {
+    if (!lcdIsTrunkMatStandalone()) return;
+    document.querySelectorAll(".parameter-wrap h5.variant.name, .parameter-wrap h5").forEach(function(h5) {
+      var txt = (h5.textContent || "").trim().toLowerCase();
+      if (/farba\s*1\.?\s*vrstv|barva\s*1\.?\s*vrstv/i.test(txt)) {
+        var lang2 = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var newName = lang2.indexOf("cs") === 0 ? "Barva roho\u017E\xED do kufru" : "Farba roho\u017E\xED do kufra";
+        if (h5.textContent.trim() !== newName) {
+          h5.textContent = newName;
+        }
+      }
+    });
+  }
   function lcdBoxReorderAndRename() {
     if (!lcdIsStandaloneBoxProduct()) return;
     var contentWrap = document.querySelector(".content-wrap");
@@ -30324,6 +30367,7 @@ function initContactForm() {
       addColorLabels();
       addVideoPlayOverlays();
       lcdBoxReorderAndRename();
+      lcdRenameTrunkMatColorStep();
       lcdFixBoxLastButtonText();
       lcdAddBoxRRP();
       if (tries > 40) clearInterval(iv);

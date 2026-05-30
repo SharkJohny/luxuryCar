@@ -360,6 +360,15 @@ export function initConfiguratorEngine() {
   }
   function lcdAutoOpenFirstStep() {
     if (!isBoxProduct()) return;
+    // GUARD: ak uz user nieco vybral (akakolvek option-button alebo step active),
+    // NEVRACAJ ho spat na K1 — inak by po 2-3s skacalo z K2 (farba) spat na K1 (pocet).
+    if (document.querySelector(".content-wrap .button.option-button.active")) return;
+    if (document.querySelector(".content-wrap .parameter-wrap.active")) {
+      // Ak je uz nejaky krok active a NIE JE to prvy step, nechaj ho otvoreny
+      var firstStep = document.querySelector(".content-wrap > .parameter-wrap, .content-wrap > .position-wrap");
+      var active = document.querySelector(".content-wrap .parameter-wrap.active");
+      if (active && active !== firstStep) return;
+    }
     var steps = lcdGetSteps();
     if (steps.length === 0) return;
     lcdOpenStep(steps[0]);

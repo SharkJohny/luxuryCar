@@ -204,7 +204,31 @@
     return h1.indexOf("box") > -1 && /boxi|boxy/.test(path);
   }
 
-  // Box produkt — reorder krokov + rename "FARBA 1.VRSTVY" -> "FARBA BOXOV"
+  // Kufrove rohoze samostatne (Premium Diamond, Klasik Diamond) — rename "Farba 1.vrstvy" -> "Farba rohozi do kufra".
+  // Detekcia: H1 includes "kufr" + ("koberce" || "rohoz") + NIE elite/basic/box.
+  function lcdIsTrunkMatStandalone() {
+    var h1 = (document.querySelector("h1") && document.querySelector("h1").textContent || "").toLowerCase();
+    if (h1.indexOf("box") > -1) return false;
+    if (h1.indexOf("elite") > -1 || h1.indexOf("basic") > -1) return false;
+    if (h1.indexOf("hexa") > -1 || h1.indexOf("stripe") > -1) return false;
+    if (!/kufr/.test(h1)) return false;
+    return /koberce|rohoz|rohož/.test(h1);
+  }
+  function lcdRenameTrunkMatColorStep() {
+    if (!lcdIsTrunkMatStandalone()) return;
+    document.querySelectorAll(".parameter-wrap h5.variant.name, .parameter-wrap h5").forEach(function (h5) {
+      var txt = (h5.textContent || "").trim().toLowerCase();
+      if (/farba\s*1\.?\s*vrstv|barva\s*1\.?\s*vrstv/i.test(txt)) {
+        var lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var newName = lang.indexOf("cs") === 0 ? "Barva rohoží do kufru" : "Farba rohoží do kufra";
+        if (h5.textContent.trim() !== newName) {
+          h5.textContent = newName;
+        }
+      }
+    });
+  }
+
+  // Box produkt — reorder krokov + rename "FARBA 1.VRSTVY" -> "FARBA BOXOV""
   // Nové poradie: 1) POČET BOXOV  2) FARBA BOXOV  3) VEĽKOSŤ
   // Scope: iba samostatny box produkt.
   function lcdBoxReorderAndRename() {
@@ -321,6 +345,7 @@
       addColorLabels();
       addVideoPlayOverlays();
       lcdBoxReorderAndRename();
+      lcdRenameTrunkMatColorStep();
       lcdFixBoxLastButtonText();
       lcdAddBoxRRP();
       if (tries > 40) clearInterval(iv);
