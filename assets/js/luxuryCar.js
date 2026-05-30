@@ -30186,8 +30186,13 @@ function initContactForm() {
       if (wrap.closest(".box-config")) return;
       var parWrap = wrap.closest(".parameter-wrap");
       if (!parWrap) return;
+      if (parWrap.classList.contains("parameter-sizes")) return;
+      var h5 = parWrap.querySelector("h5");
+      if (h5 && /^vel[ioe]kos[tť]/i.test((h5.textContent || "").trim())) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
+      var activeTxt = (active.textContent || "").toLowerCase();
+      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(activeTxt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
       upsertLabel(wrap, label, "start");

@@ -142,14 +142,20 @@
 
   function addColorLabels() {
     // 1) K2 / K3 — label NAD obrazkom v .image-wrap.
-    //    SKIP box-config: tam je .image-wrap CSS-hidden (display:none),
-    //    label by zmizol s rodicom. Box-config riesi vetva 2.
+    //    SKIP: box-config (image-wrap je CSS-hidden) + size wraps (NEPLNI ucel,
+    //    Michal vyzaduje aby pri velkosti boxu NEbol label).
     document.querySelectorAll(".image-wrap").forEach(function (wrap) {
       if (wrap.closest(".box-config")) return;
       var parWrap = wrap.closest(".parameter-wrap");
       if (!parWrap) return;
+      // SKIP size wrap (3-vrstvova detekcia)
+      if (parWrap.classList.contains("parameter-sizes")) return;
+      var h5 = parWrap.querySelector("h5");
+      if (h5 && /^vel[ioe]kos[tť]/i.test((h5.textContent || "").trim())) return;
       var active = parWrap.querySelector(".button.option-button.active");
       if (!active) return;
+      var activeTxt = (active.textContent || "").toLowerCase();
+      if (/\b\d+\s*x\s*\d+\s*x\s*\d+\s*cm\b/.test(activeTxt)) return;
       var label = buildLabelFromActive(active);
       if (!label) return;
       upsertLabel(wrap, label, "start");
