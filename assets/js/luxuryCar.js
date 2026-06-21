@@ -30651,7 +30651,7 @@ function initSignpost() {
 function googleReviews(setupData2, texts) {
   var lang2 = ($("html").attr("lang") || "").toLowerCase().indexOf("cs") === 0 ? "cz" : "sk";
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
-  var WV = "6";
+  var WV = "7";
   $("#goggle-review-wrap, .google-reviews").remove();
   function makeWidget() {
     var title = lang2 === "cz" ? "Co \u0159\xEDkaj\xED na\u0161i z\xE1kazn\xEDci" : "\u010Co hovoria na\u0161i z\xE1kazn\xEDci";

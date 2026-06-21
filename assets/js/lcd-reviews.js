@@ -373,17 +373,31 @@
     if (photos.length) {
       var SHOW = 4;
       var prow = el('div', { class: 'lcdr-photos' });
-      photos.slice(0, SHOW).forEach(function (p, i) {
-        var btn = el('button', { class: 'lcdr-thumb', type: 'button',
-          'aria-label': tr(cfg).zoom + (i + 1) });
-        btn.appendChild(el('img', { src: p, alt: 'Fotka od zákazníka', loading: 'lazy' }));
-        if (i === SHOW - 1 && photos.length > SHOW) {
-          btn.appendChild(el('span', { class: 'lcdr-thumb-more',
-            text: '+' + (photos.length - SHOW) }));
-        }
-        btn.addEventListener('click', function () { openLightbox(photos, i); });
-        prow.appendChild(btn);
-      });
+      // Self-healing: niektoré Google review fotky (grass-cs URL) môžu expirovať.
+      // Pri chybe načítania fotku odstránime z radu aj z lightboxu a rad prerenderujeme
+      // (oprava počtu + slotov), aby zákazník nikdy nevidel rozbitý placeholder.
+      var renderThumbs = function () {
+        prow.innerHTML = '';
+        photos.slice(0, SHOW).forEach(function (p, i) {
+          var btn = el('button', { class: 'lcdr-thumb', type: 'button',
+            'aria-label': tr(cfg).zoom + (i + 1) });
+          var pimg = el('img', { src: p, alt: 'Fotka od zákazníka', loading: 'lazy' });
+          pimg.addEventListener('error', function () {
+            var idx = photos.indexOf(p);
+            if (idx !== -1) photos.splice(idx, 1);
+            if (!photos.length) { if (prow.parentNode) prow.parentNode.removeChild(prow); return; }
+            renderThumbs();
+          });
+          btn.appendChild(pimg);
+          if (i === SHOW - 1 && photos.length > SHOW) {
+            btn.appendChild(el('span', { class: 'lcdr-thumb-more',
+              text: '+' + (photos.length - SHOW) }));
+          }
+          btn.addEventListener('click', function () { openLightbox(photos, i); });
+          prow.appendChild(btn);
+        });
+      };
+      renderThumbs();
       card.appendChild(prow);
     }
 
