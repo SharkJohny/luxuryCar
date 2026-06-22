@@ -2270,6 +2270,7 @@ var require_scheduler_development = __commonJS({
         }
         function forceFrameRate(fps) {
           if (fps < 0 || fps > 125) {
+            console["error"]("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported");
             return;
           }
           if (fps > 0) {
@@ -15969,6 +15970,7 @@ var require_react_dom_development = __commonJS({
                 if (boundary.tag === ClassComponent) {
                   return;
                 }
+                console["error"](error2);
               }
               var componentName = source ? getComponentNameFromFiber(source) : null;
               var componentNameMessage = componentName ? "The above error occurred in the <" + componentName + "> component:" : "The above error occurred in one of your React components:";
@@ -15980,7 +15982,9 @@ var require_react_dom_development = __commonJS({
                 errorBoundaryMessage = "React will try to recreate this component tree from scratch " + ("using the error boundary you provided, " + errorBoundaryName + ".");
               }
               var combinedMessage = componentNameMessage + "\n" + componentStack + "\n\n" + ("" + errorBoundaryMessage);
+              console["error"](combinedMessage);
             } else {
+              console["error"](error2);
             }
           } catch (e) {
             setTimeout(function() {
@@ -23044,6 +23048,7 @@ var require_react_dom_development = __commonJS({
           // emulating an uncaught JavaScript error.
           reportError
         ) : function(error2) {
+          console["error"](error2);
         };
         function ReactDOMRoot(internalRoot) {
           this._internalRoot = internalRoot;
@@ -23506,6 +23511,7 @@ var require_react_dom_development = __commonJS({
             if (navigator.userAgent.indexOf("Chrome") > -1 && navigator.userAgent.indexOf("Edge") === -1 || navigator.userAgent.indexOf("Firefox") > -1) {
               var protocol = window.location.protocol;
               if (/^(https?|file):$/.test(protocol)) {
+                console.info("%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools" + (protocol === "file:" ? "\nYou might need to use a local HTTP server (instead of file://): https://reactjs.org/link/react-devtools-faq" : ""), "font-weight:bold");
               }
             }
           }
@@ -23576,6 +23582,7 @@ var require_client = __commonJS({
 
 // assets/js/option.js
 var timestamp = Date.now();
+console.log("Timestamp for data.json:", timestamp);
 var optionData = {
   key: "value",
   downloadData: "https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/documents/upload/data.json?" + timestamp
@@ -23667,8 +23674,10 @@ function intIndex() {
   }
   $(document).on("click", ".accordion", function(e) {
     e.preventDefault();
+    console.log("Accordion clicked!");
     $(this).toggleClass("active");
     var $panel = $(this).next(".panel");
+    console.log("Found panel:", $panel.length);
     if (!$panel.length) return;
     if ($panel.css("display") === "none") {
       $panel.css("display", "block");
@@ -23681,7 +23690,9 @@ function intIndex() {
       if (entry.isIntersecting) {
         const $element = $(entry.target).find('span[style*="text-align: end"]');
         const targetNumber = parseFloat($element.text().replace(",", ""));
+        console.log(targetNumber);
         if (targetNumber > 0) {
+          console.log("assdsd");
           const duration = parseFloat($(entry.target).attr("count-up")) * 1e3;
           animateCountUp($element, targetNumber, duration);
           observer.unobserve(entry.target);
@@ -23954,11 +23965,13 @@ function intIndex() {
         }
       }).then(function(data) {
         $btn.text("\u2713 Odesl\xE1no").css("background", "#28a745");
+        console.log("Success:", data);
         setTimeout(function() {
           $btn.prop("disabled", false).text(originalText).css("background", "#c49b30");
         }, 2e3);
       }).catch(function(error) {
         $btn.text("\u2717 Chyba").css("background", "#dc3545");
+        console.error("Error:", error);
         setTimeout(function() {
           $btn.prop("disabled", false).text(originalText).css("background", "#c49b30");
         }, 2e3);
@@ -24233,10 +24246,12 @@ function createOptions(position, orders) {
   }
   $(".navigatte-button:eq(0)").addClass("active");
   const paramerer = `.parameter-wrap.orders-${orders}`;
+  console.log(name);
   const nameWrap = $("<div>", {
     class: "name-wrap"
   }).appendTo(paramerer);
   const getName = $("table.detail-parameters tr:contains(colorTitle) td").text().trim();
+  console.log(getName);
   if (parameterId == "107" && getName != "") {
     name = getName;
   }
@@ -24318,10 +24333,12 @@ function createOptions(position, orders) {
   const optionsWrap = $("<div>", {
     class: "options-wrap"
   }).appendTo(paramerer);
+  console.log(options);
   createOptionButtons(options, parameterId, optionsWrap, isBoxParam, basePrice2);
   if (name == "ve\u013Ekos\u0165") {
     $(".surcharge-list").each(function() {
       const parameterId2 = $(this).find("select").attr("data-parameter-id");
+      console.log(parameterId2);
       const isBoxNested = boxsParameterIds2.includes(parseInt(parameterId2));
       let basePriceNested = 0;
       if (isBoxNested) {
@@ -25477,6 +25494,7 @@ function Configurator() {
         doorSameNasivkaAsCarpet
       });
     } catch (e) {
+      console.error("[truck-konfig] syncToShoptet zlyhal:", e);
     }
   }, [
     znacka,
@@ -26318,7 +26336,7 @@ function Configurator() {
           color: opt.price > 0 ? "#2E1810" : "#888"
         } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene")
       );
-    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
+    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 325 250\r\n                Q 390 185 505 170 L 680 170\r\n                Q 745 170 810 220 L 840 245\r\n                Q 860 255 900 255\r\n                Q 940 255 960 245 L 990 220\r\n                Q 1055 170 1120 170 L 1295 170\r\n                Q 1410 185 1475 250\r\n                Q 1510 290 1515 365 L 1555 865\r\n                Q 1560 950 1490 1005\r\n                Q 1445 1040 1330 1040 L 470 1040\r\n                Q 355 1040 310 1005\r\n                Q 240 950 245 865 L 285 365\r\n                Q 290 290 325 250 Z\r\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 720 182\r\n                Q 785 240 785 330 Q 790 375 835 390\r\n                L 965 390\r\n                Q 1010 375 1015 330 Q 1015 240 1080 182\r\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
       {
         x: "350",
@@ -27765,9 +27783,13 @@ function Configurator() {
             doorSameNasivkaAsCarpet
           });
         } catch (err) {
+          console.error("[truck-konfig] final sync zlyhal:", err);
         }
         const nativeBtn = document.querySelector('[data-testid="buttonAddToCart"]') || document.querySelector("button.add-to-cart-button") || document.querySelector(".add-to-cart-button");
         if (!nativeBtn) {
+          console.error(
+            "[truck-konfig] Nat\xEDvne Shoptet tla\u010Didlo 'Prida\u0165 do ko\u0161\xEDka' nebolo n\xE1jden\xE9. Skontroluj produkt v Shoptete (cena, sklad)."
+          );
           return;
         }
         const form = nativeBtn.closest("form") || document.querySelector('form[action*="addCartItem"]');
@@ -27775,10 +27797,12 @@ function Configurator() {
           try {
             nativeBtn.click();
           } catch (err) {
+            console.warn("[truck-konfig] nativeBtn.click() zlyhalo:", err);
             if (form && typeof form.requestSubmit === "function") {
               try {
                 form.requestSubmit(nativeBtn);
               } catch (err2) {
+                console.error("[truck-konfig] form.requestSubmit() zlyhalo:", err2);
               }
             }
           }
@@ -27823,6 +27847,7 @@ var ConfiguratorErrorBoundary = class extends import_react2.default.Component {
     return { error };
   }
   componentDidCatch(error, info) {
+    console.error("[truck-konfig] ErrorBoundary caught:", error, info);
     if (typeof window !== "undefined") {
       window.__truckKonfigError = { message: String(error), stack: error && error.stack, info };
     }
@@ -27898,6 +27923,7 @@ window.addEventListener(
     if (event.target && event.target.tagName === "IMG") {
       const img = event.target;
       if (!img.dataset.retried) {
+        console.warn("Image load failed (possible 502), retrying with timestamp:", img.src);
         img.dataset.retried = "true";
         const separator = img.src.includes("?") ? "&" : "?";
         img.src = img.src + separator + Date.now();
@@ -27929,6 +27955,7 @@ var price = Number(
   $("span.calculated-price").length ? $("span.calculated-price").text().replace(/[^0-9]/g, "") : 0
 );
 var diference = standartPrice - price;
+console.log(diference);
 function initProduct(setupData2, texts) {
   if (isTruckConfiguratorPage()) {
     mountTruckConfigurator();
@@ -28003,6 +28030,7 @@ function initProduct(setupData2, texts) {
     $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
     $(`.timeline__slide:eq(${index})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
     currentIndex = index;
+    console.log(`Kliknul jsi na tla\u010D\xEDtko s indexem: ${index}`);
   });
   prevButton.on("click", function() {
     if (currentIndex > 0) {
@@ -28011,6 +28039,7 @@ function initProduct(setupData2, texts) {
       buttons.eq(currentIndex).addClass("active");
       $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
       $(`.timeline__slide:eq(${currentIndex})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+      console.log(`Posunul jsi zp\u011Bt na index: ${currentIndex}`);
     }
   });
   nextButton.on("click", function() {
@@ -28020,6 +28049,7 @@ function initProduct(setupData2, texts) {
       buttons.eq(currentIndex).addClass("active");
       $(".timeline__slide").removeClass("is-selected").addClass("reveal-invisible").attr("style", "opacity: 0; visibility: hidden; z-index: 0;");
       $(`.timeline__slide:eq(${currentIndex})`).addClass("is-selected").removeClass("reveal-invisible").attr("style", "opacity: 1; visibility: visible; z-index: 1;");
+      console.log(`Posunul jsi dop\u0159edu na index: ${currentIndex}`);
     }
   });
   setTimeout(() => {
@@ -28031,6 +28061,7 @@ function initProduct(setupData2, texts) {
   });
   $(".parameter-cars.sit-Position .option-wrap .option-button").on("click", function() {
     const position = $(this).data("value");
+    console.log(position);
     sessionStorage.setItem("seatPosition", position);
   });
   $(".parameter-cars.door-Position .option-wrap .option-button").on("click", function() {
@@ -28157,6 +28188,7 @@ function priplatky(setupData2, texts) {
         class: "parameter-cars"
       }).appendTo(buttonWrap);
       const name = $("h1").text();
+      console.log(name);
       let prefix = "";
       if (name.includes("HEXA")) {
         prefix = "hexa-";
@@ -28222,6 +28254,7 @@ function priplatky(setupData2, texts) {
         class: "parameter-cars"
       }).appendTo(buttonWrapBox);
       const name = $("h1").text();
+      console.log(name);
       let prefix = "";
       if (name.includes("HEXA")) {
         prefix = "hexa-";
@@ -28260,6 +28293,7 @@ function priplatky(setupData2, texts) {
         clickedWrap.addClass("active");
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
+        console.log(`Otev\u0159en ${elementType}:`, elementName);
       }
     );
     const observer = new MutationObserver(function(mutations) {
@@ -28275,6 +28309,7 @@ function priplatky(setupData2, texts) {
       });
       if (shouldAddButtons) {
         setTimeout(() => {
+          console.log("P\u0159id\xE1n\xED tla\u010D\xEDtek---------");
           addNextStepButtons();
           updateButtonTexts2();
         }, 400);
@@ -28335,9 +28370,12 @@ function priplatky(setupData2, texts) {
       } else {
         orders += 1;
       }
+      console.log(id);
       const position = this;
       createOptions(position, orders);
+      console.log(pairVariantList);
     });
+    console.log("clickaaaa");
     if ($("html[lang='cs']").length) {
       $(".p-variants-block .surcharge-list:contains('Velikost boxu') option[data-index='0']").text("Zvolte velikost boxu");
       $(".p-variants-block .surcharge-list:contains('Rozm\u011Br 2. Boxu') option[data-index='0']").text("Zvolte velikost 2.boxu");
@@ -28364,6 +28402,7 @@ function priplatky(setupData2, texts) {
       $(".navigatte-button").removeClass("active");
       $(`.navigatte-button:eq(${optionName})`).addClass("active");
     });
+    console.log("clickaaaa");
     const contentStepCount = $(".content-wrap").children(".position-wrap, .parameter-wrap").length;
     $(".upsale-buttons.trunk .order").text(contentStepCount);
     $(".upsale-buttons.boxs .order").text(contentStepCount + 1);
@@ -28445,6 +28484,7 @@ $(document).on("click", ".close-btn.close", function() {
   updateUpsale(this);
 });
 $(document).on("click", ".boxs .upsale-button.none", function(e) {
+  console.log("clickaaaa");
   $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0);
   $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0);
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button").removeClass("active");
@@ -28473,6 +28513,7 @@ function firstPage(texts) {
   let diamondurl = $(".detail-parameters tr:contains('diamond') td").text();
   let hexaurl = $(".detail-parameters tr:contains('hexa') td").text();
   let stripeurl = $(".detail-parameters tr:contains('stripe') td").text();
+  console.log(diamondurl);
   const diamond = $(
     `<a href="${diamondurl}" class="button option-button " data-value="pattern1"><img src="/user/documents/upload/assets/banners/diamont.jpg?v1" alt="Pattern1.jpg"><div class="banner-header"> DIAMOND LINE</div></a>`
   ).appendTo(patternsWrap);
@@ -28482,6 +28523,7 @@ function firstPage(texts) {
   const stripe = $(
     `<a href="${stripeurl}" class="button option-button " data-value="pattern1"><img src="/user/documents/upload/assets/banners/stripe-line.jpg?v1" alt="Pattern1.jpg"><div class="banner-header"> STRIPE LINE</div></a>`
   ).appendTo(patternsWrap);
+  console.log(diamondurl);
   if (diamondurl == "active") {
     diamond.addClass("active");
   }
@@ -28562,8 +28604,11 @@ $("body").on("click", ".position-wrap ", function() {
 });
 function createModelInfo() {
   const model = sessionStorage.getItem("model");
+  console.log(model);
   const type = sessionStorage.getItem("carType");
+  console.log("type -----------", type);
   if (type && type !== "undefined") {
+    console.log("type", type);
     const paramId = dataLayer[0].shoptet.projectId == "581408" ? 47 : 74;
     const value = $(`select.parameter-id-${paramId} option`).filter(function() {
       return $(this).text().toLowerCase().includes(type.toLowerCase());
@@ -28577,11 +28622,13 @@ function createModelInfo() {
     return;
   }
   if (model) {
+    console.log("model", model);
     if ($(".model-info")[0]) return;
     const infoWrap = $("<div>").addClass("model-info").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
     $("<div>").addClass("header-info").text(language3 === "cs" ? "Z\xE1ruka kompatibility s Va\u0161\xEDm vozidlem" : "Garancia kompatibility s Va\u0161\xEDm vozidlom").appendTo(infoWrap);
     $("<div>").addClass("model-text").text(model).appendTo(infoWrap);
     $(".setup-model").on("click", function() {
+      console.log("setup model");
       $("section#model-selector").show();
       modelInfo.remove();
     });
@@ -28605,6 +28652,7 @@ function lcdParsePrice(raw) {
 function calculateStandartPrice(diference2, explicitPrice) {
   setTimeout(() => {
   }, 1e3);
+  console.log(diference2);
   let price2 = Number(explicitPrice);
   if (!Number.isFinite(price2) || price2 <= 0) price2 = 0;
   if (!price2 || price2 <= 0) {
@@ -28626,14 +28674,20 @@ function calculateStandartPrice(diference2, explicitPrice) {
       }
     }
   }
+  console.log("price", price2);
   let newStandartPrice = Math.ceil(price2 * 1.6 / 10) * 10;
+  console.log("price", price2, "newStandartPrice (price + 60%)", newStandartPrice);
   $(".upsale-button.active").each(function() {
     const priceText = $(this).find(".save").attr("data-save");
+    console.log(priceText);
     if (priceText) {
       const priceValue = Number(priceText.replace(/[^0-9]/g, ""));
+      console.log("priceValue", priceValue);
+      console.log("newStandartPrice s upsale", newStandartPrice);
     }
   });
   const discount = Math.round((newStandartPrice - price2) / newStandartPrice * 100);
+  console.log("discount", discount);
   if (newStandartPrice < 100) return;
   $(".p-final-price-wrapper .price-save").text("\u2013" + discount + " %");
   $(".p-final-price-wrapper .price-standard span").not(".price-save").text(NumToPrice(newStandartPrice));
@@ -28666,6 +28720,7 @@ function updateUpsale($this, event) {
     }
   }
   const value = $($this).attr("value")?.split("-");
+  console.log(value);
   if (value) {
     if (boxs.length) {
       $(".upsale-buttons.boxs .upsale-button").removeClass("active");
@@ -28778,6 +28833,7 @@ function updateBoxPrice() {
   $(".box-config .parameter-wrap, .parameter-wrap.parameter-sizes").each(function() {
     const price2 = Number($(this).find(".price.price-standart").attr("data-price"));
     const addPrice = Number($(this).find(".button.option-button.text.active .price").attr("data-price") || 0);
+    console.log(price2, addPrice);
     $(this).find(".price.price-standart").text(NumToPrice(price2 + addPrice));
   });
 }
@@ -28802,6 +28858,7 @@ function createUpsaleInfo(texts) {
   }
 }
 $("body").on("click", ".button.option-button", function(e) {
+  console.log("click");
   createModelInfo();
   $(this).parents(".parameter-wrap").removeClass("goToAction").removeClass("errorToCart");
   $("body").removeClass("disabled-add-to-cart");
@@ -28831,10 +28888,13 @@ function priceActualization2(e) {
     const parameterId = $(this).parents(".parameter-wrap").attr("data-parameterid");
     const image = $(this).find("img").attr("src");
     $(".navigatte-button.parameterNav" + parameterId).attr("style", " background-image: url(" + image + ");");
+    console.log(parameterId);
     $(".parameter-id-" + variant).val(value).trigger("change");
     if (variant == 4) {
     }
     const image2 = $(this).find("img").attr("src");
+    console.log(image2);
+    console.log(".parameter-wrap.parameter-" + parameterId);
     const imageWrap = $("<div>", {
       class: "image-wrap"
     }).appendTo(".parameter-wrap.parameter-" + parameterId).fadeIn(1e3);
@@ -28858,6 +28918,10 @@ function mountTruckConfigurator() {
     const host = window.location && window.location.hostname || "";
     if (/^localhost$|^127\.0\.0\.1$|\.local$/i.test(host)) {
       window.__TRUCK_KONFIG_VERBOSE__ = true;
+      console.log(
+        "%c[truck-konfig] verbose mode ON \u2013 ceny vid\xED\u0161 v panele i v tomto logu. Aktu\xE1lny v\xFDpo\u010Det: window.__truckKonfig",
+        "color:#C5A44E;font-weight:600"
+      );
     }
   } catch (e) {
   }
@@ -28902,6 +28966,7 @@ function initStickyPhotos() {
   const imageWrapper = document.querySelector(".p-image-wrapper");
   const productTop = document.querySelector(".product-top");
   if (!imageWrapper || !productTop) {
+    console.log("Produktov\xE9 elementy nenalezeny");
     return;
   }
   imageWrapper.style.willChange = "transform";
@@ -29019,6 +29084,7 @@ function headerFixProdukt() {
       const header = document.querySelector("header");
       const productForm = document.getElementById("product-detail-form");
       if (!header || !productForm) {
+        console.warn("Stop render conversion header");
         return false;
       }
       const submitButton = productForm.querySelector("button[type=submit]") || productForm.querySelector("input[type=submit]");
@@ -29086,6 +29152,7 @@ function headerFixProdukt() {
 
 // assets/js/functions/video-play-again.js
 function initVideoPlayAgain() {
+  console.log("initVideoPlayAgain called");
   jQuery("video.desctop, video.mobile, .wrapper > video, .customer-video .wrapper > video, .customers-video video, .slick-slide video").off(
     "click.videoControl touchend.videoControl ended.videoControl play.videoControl pause.videoControl"
   );
@@ -29105,8 +29172,10 @@ function initVideoPlayAgain() {
     const containerClasses = $container.attr("class") || "no classes";
     const videoClasses = $video.attr("class") || "no classes";
     const isInSlider = $video.closest(".slick-slide").length > 0;
+    console.log("Processing video:", videoSrc, containerClasses, videoClasses, "isInSlider:", isInSlider);
     if ($container.hasClass("wrapper")) {
       $video.show();
+      console.log("Wrapper video found:", $video.attr("class"), "in container:", $container.attr("class"));
     } else {
       const isMobile = window.innerWidth < 768;
       const bothVariants = $container.children("video.desctop").length > 0 && $container.children("video.mobile").length > 0;
@@ -29137,7 +29206,9 @@ function initVideoPlayAgain() {
     if ($playPauseBtn.length === 0) {
       $playPauseBtn = jQuery('<div class="playpause"></div>');
       $container.append($playPauseBtn);
+      console.log("Created new playpause button");
     } else {
+      console.log("Found existing playpause button");
     }
     function updateButtonState() {
       if (videoEl.ended) {
@@ -29157,9 +29228,10 @@ function initVideoPlayAgain() {
       const isMobile = window.innerWidth < 768;
       const videoClass = $video.attr("class") || "no classes";
       const paused = videoEl.paused;
+      console.log("Video clicked/touched:", "isMobile:", isMobile, "videoClass:", videoClass, "paused:", paused);
       if (videoEl.paused) {
         pauseOtherVideos(videoEl);
-        videoEl.play().catch((error) => void 0);
+        videoEl.play().catch((error) => console.error("Video play failed:", error));
       } else {
         videoEl.pause();
       }
@@ -29200,9 +29272,10 @@ function initVideoPlayAgain() {
     e.preventDefault();
     const src = $video.find("source").attr("src") || "no source";
     const paused = videoEl.paused;
+    console.log("Video clicked via delegation:", "src:", src, "paused:", paused);
     if (videoEl.paused) {
       pauseOtherVideos(videoEl);
-      videoEl.play().catch((error) => void 0);
+      videoEl.play().catch((error) => console.error("Video play failed:", error));
     } else {
       videoEl.pause();
     }
@@ -29217,14 +29290,16 @@ function initVideoPlayAgain() {
     e.preventDefault();
     const src = $video.find("source").attr("src") || "no source";
     const paused = videoEl.paused;
+    console.log("General video clicked via delegation:", "src:", src, "paused:", paused);
     if (videoEl.paused) {
       pauseOtherVideos(videoEl);
-      videoEl.play().catch((error) => void 0);
+      videoEl.play().catch((error) => console.error("Video play failed:", error));
     } else {
       videoEl.pause();
     }
   });
   jQuery(document).on("afterChange", ".slick-initialized", function(event, slick, currentSlide) {
+    console.log("Slick slide changed, reinitializing videos");
     setTimeout(() => {
       jQuery(".slick-active video").each(function() {
         const $video = jQuery(this);
@@ -29239,6 +29314,8 @@ function initVideoPlayAgain() {
 
 // assets/js/components/cart.js
 function initCart(texts) {
+  console.log("Initializing cart with texts:", texts);
+  console.log("Cart initialized");
   changeDescription();
   if (!window.__lcdCartReloadBound) {
     window.__lcdCartReloadBound = true;
@@ -29279,6 +29356,7 @@ function changeDescription() {
   const getModel = sessionStorage.getItem("Model");
   const getYear = sessionStorage.getItem("Year");
   const getCarType = sessionStorage.getItem("carType");
+  console.log("Changing description for cart items");
   $("tr").each(function() {
     var $row = $(this);
     if ($row.find("span.main-link-surcharges").length) return;
@@ -29306,6 +29384,7 @@ function changeDescription() {
       });
       newText += "</ul>";
     }
+    console.log(text);
     const infowrap = $("<div>").addClass("info-wrap");
     const model = $("<ul>").addClass("model").appendTo(infowrap);
     const setup = $("<div>").addClass("setup").appendTo(infowrap);
@@ -29325,12 +29404,16 @@ function changeDescription() {
   });
 }
 function chechCupon(texts) {
+  console.log(texts);
+  console.log("Checking coupon code in cart -----------------------");
   const getCode = shoptetData.cartInfo.discountCoupon.code;
   let chechCupon2 = false;
   if (getCode == "LUX10") {
+    console.log("Checking coupon code:", getCode);
     $(".main-link-surcharges").each(function() {
       const $this = $(this);
       if ($this.text().includes("Farba boxov ") || $this.text().includes("autokoberce do kufru - Jednoduch\xE9") || $this.text().includes("Kompletn\xED ochrana")) {
+        console.log("Coupon found in surcharge:", $this.text());
         chechCupon2 = true;
       }
     });
@@ -29341,6 +29424,7 @@ function chechCupon(texts) {
         $(".cart-summary").before('<div class="alert alert-warning" role="alert">' + texts.cupon_message + "</div>");
       }, 1e3);
     }
+    console.log("Coupon code is not valid, applying changes");
     $(".applied-coupon input.btn.btn-sm.btn-primary").click();
   }
 }
@@ -30380,11 +30464,15 @@ function initContactForm() {
 var setupData;
 $.getJSON(optionData.downloadData, function(data) {
   setupData = data;
+  console.log("setupData:", setupData);
+  console.log("setupData.settings:", setupData.settings);
+  console.log("setupData.cars:", setupData.cars);
   let language4 = dataLayer[0].shoptet.language;
   if (dataLayer[0].shoptet.projectId == 704436) {
     language4 = "cs";
   }
   const texts = setupData.language[language4];
+  console.log("setupData.language:", texts);
   initProduct(setupData, texts);
   initModelSelect2(texts, setupData);
   googleReviews(setupData, texts);
@@ -30528,6 +30616,7 @@ function initModelSelect2(texts) {
     $("<option>").text(variant).appendTo(".type-selector .selector select");
   });
   if (getBrand != null) {
+    console.log(getBrand);
     $("<option>" + getBrand + "</option>").prependTo(".surcharge-list.brands.dm-selector select");
     $(".surcharge-list.brands.dm-selector select").val(getBrand);
   }
@@ -30538,13 +30627,17 @@ function initModelSelect2(texts) {
         $("<option>" + models_for_brand[i] + "</option>").appendTo(".surcharge-list.models.dm-selector select");
       }
       setTimeout(() => {
+        console.log("Nastavuji model (600ms):", getModel);
         $(".surcharge-list.models.dm-selector select").val(getModel);
       }, 600);
       setTimeout(() => {
+        console.log("Nastavuji model znovu (1200ms):", getModel);
         $(".surcharge-list.models.dm-selector select").val(getModel);
       }, 1200);
       setTimeout(() => {
+        console.log("Posledn\xED pokus o nastaven\xED modelu (2000ms):", getModel);
         $(".surcharge-list.models.dm-selector select").val(getModel);
+        console.log("Aktu\xE1ln\xED hodnota selectu:", $(".surcharge-list.models.dm-selector select").val());
       }, 2e3);
     }
   }
@@ -30578,8 +30671,10 @@ function initModelSelect2(texts) {
   let isInitializing = true;
   $(".brands select").on("change", function() {
     if (isInitializing) {
+      console.log("Ignoruji change event b\u011Bhem inicializace pro:", $(this).val());
       return;
     }
+    console.log("Spou\u0161t\xED se change event pro zna\u010Dku:", $(this).val());
     if ($(this).val() === cstm_znacka.at(1)) {
       $(".models option:not(.notselect)").remove();
     } else {
@@ -30594,23 +30689,27 @@ function initModelSelect2(texts) {
   });
   setTimeout(() => {
     isInitializing = false;
+    console.log("Inicializace dokon\u010Dena, change eventy povoleny");
   }, 2500);
   $(".btn.choice-Model").on("click", function() {
     saveModel(true);
   });
   setTimeout(() => {
     $(".surcharge-list select").on("change", function() {
+      console.log("change");
       saveModel(false);
     });
   }, 1e3);
 }
 function saveModel(redirect) {
+  console.log("saveModel");
   const Brand = $(".surcharge-list.brands.dm-selector select").val();
   const Model = $(".surcharge-list.models.dm-selector select").val();
   const Year = $(".surcharge-list.years.dm-selector select").val();
   const type = $(".surcharge-list.type-selector select").val();
   setTimeout(() => {
     try {
+      console.log(Brand + " " + Model + " " + Year);
       sessionStorage.setItem("Brand", Brand);
       if (Model !== "Model") {
         sessionStorage.setItem("Model", Model);
@@ -30620,6 +30719,7 @@ function saveModel(redirect) {
       sessionStorage.setItem("carType", type);
       $(".model-text").text(Brand + " " + Model + " " + Year + " " + type);
     } catch (e) {
+      console.warn("Session storage is not available:", e);
     }
   }, 100);
   if ($(".in-index")[0] && redirect) {
@@ -30651,7 +30751,7 @@ function initSignpost() {
 function googleReviews(setupData2, texts) {
   var lang2 = ($("html").attr("lang") || "").toLowerCase().indexOf("cs") === 0 ? "cz" : "sk";
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
-  var WV = "7";
+  var WV = "8";
   $("#goggle-review-wrap, .google-reviews").remove();
   function makeWidget() {
     var title = lang2 === "cz" ? "Co \u0159\xEDkaj\xED na\u0161i z\xE1kazn\xEDci" : "\u010Co hovoria na\u0161i z\xE1kazn\xEDci";
@@ -30827,9 +30927,12 @@ ${model}`;
       }
       $("#remark").val(poznamka);
     };
+    console.log("adresa");
     const city = sessionStorage.getItem("model");
+    console.log(city);
     shoptet.custom.postSuccessfulValidation = function(form) {
       if ($(form).attr("id") === "order-form") {
+        console.log("tttt");
         toNote();
       }
       return true;
