@@ -134,6 +134,12 @@
     '.lcdr-lb-next{right:18px;top:50%;transform:translateY(-50%);}',
     '.lcdr-lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);',
     'color:#fff;font-size:13px;background:rgba(0,0,0,.45);padding:5px 13px;border-radius:20px;}',
+    '.lcdr-lb-glink{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);',
+    'display:inline-flex;align-items:center;gap:7px;color:#fff;font-size:13px;font-weight:600;',
+    'text-decoration:none;background:rgba(0,0,0,.55);padding:7px 16px;border-radius:22px;',
+    'white-space:nowrap;border:1px solid rgba(255,255,255,.18);transition:background .15s;}',
+    '.lcdr-lb-glink:hover{background:rgba(255,255,255,.2);}',
+    '.lcdr-lb-glink svg{width:16px;height:16px;flex:0 0 16px;display:block;}',
     '.lcdr-cta{margin:32px auto 0;display:flex;justify-content:center;}',
     '.lcdr-cta a{display:inline-flex;align-items:center;gap:9px;background:var(--lcdr-gold);color:#fff;font-weight:700;font-size:15px;text-decoration:none;padding:14px 30px;border-radius:10px;transition:filter .15s,transform .15s;}',
     '.lcdr-cta a:hover{filter:brightness(1.08);transform:translateY(-1px);}',
@@ -257,7 +263,7 @@
   }
 
   /* ------------------------------------------------------------ lightbox --- */
-  var lb = null, lbState = { photos: [], i: 0 }, lbReturnFocus = null;
+  var lb = null, lbState = { photos: [], i: 0, reviewUrl: null }, lbReturnFocus = null;
 
   function ensureLightbox() {
     if (lb) return lb;
@@ -271,8 +277,15 @@
     var close = el('button', { class: 'lcdr-lb-btn lcdr-lb-close', type: 'button',
       'aria-label': 'Zavrieť', html: ICON.close });
     var count = el('div', { class: 'lcdr-lb-count' });
+    var glink = el('a', { class: 'lcdr-lb-glink', target: '_blank',
+      rel: 'noopener noreferrer nofollow',
+      'aria-label': 'Zobraziť recenziu na Google' }, [
+      el('span', { html: ICON.google, 'aria-hidden': 'true' }),
+      'Zobraziť recenziu na Google'
+    ]);
+    glink.style.display = 'none';
     lb.appendChild(prev); lb.appendChild(next); lb.appendChild(close);
-    lb.appendChild(img); lb.appendChild(count);
+    lb.appendChild(img); lb.appendChild(count); lb.appendChild(glink);
 
     function show() {
       img.src = lbState.photos[lbState.i];
@@ -280,6 +293,9 @@
       var multi = lbState.photos.length > 1;
       prev.style.display = next.style.display = multi ? '' : 'none';
       count.style.display = multi ? '' : 'none';
+      var gu = lbState.reviewUrl;
+      if (gu) { glink.href = gu; glink.style.display = ''; }
+      else { glink.style.display = 'none'; }
     }
     function go(d) {
       lbState.i = (lbState.i + d + lbState.photos.length) % lbState.photos.length;
@@ -321,12 +337,13 @@
     return lb;
   }
 
-  function openLightbox(photos, i) {
+  function openLightbox(photos, i, reviewUrl) {
     if (!photos || !photos.length) return;
     var x = ensureLightbox();
     lbReturnFocus = document.activeElement;
     lbState.photos = photos;
     lbState.i = Math.min(Math.max(i || 0, 0), photos.length - 1);
+    lbState.reviewUrl = reviewUrl || null;
     x._show();
     x.classList.add('is-open');
     document.addEventListener('keydown', x._onKey);
@@ -393,7 +410,7 @@
             btn.appendChild(el('span', { class: 'lcdr-thumb-more',
               text: '+' + (photos.length - SHOW) }));
           }
-          btn.addEventListener('click', function () { openLightbox(photos, i); });
+          btn.addEventListener('click', function () { openLightbox(photos, i, safeLink(r.url) || LCD_GOOGLE_VIEW_URL); });
           prow.appendChild(btn);
         });
       };
