@@ -38,6 +38,6 @@ jobs:
             set sftp:auto-confirm yes;
             set net:max-retries 3;
             set net:reconnect-interval-base 5;
-            mirror -R --delete=never --parallel=4 --exclude node_modules/ --exclude .git/ assets/ eshopy/luxuryCar/assets/;
+            mirror -R --parallel=4 --exclude node_modules/ --exclude .git/ assets/ eshopy/luxuryCar/assets/;
             quit"
           rm -f ~/.netrc
