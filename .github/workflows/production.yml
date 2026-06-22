@@ -29,15 +29,12 @@ jobs:
       # Nahranie súborov cez SFTP (lftp — robí rekurzívne mkdir, funguje pre nové adresáre ako img/reviews/)
       - name: 📦 SFTP Upload (lftp)
         env:
-          SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
+          LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
         run: |
           sudo apt-get install -y lftp
-          printf 'machine ftp.myshoptet.com login git_444591 password %s\n' "$SFTP_PASS" > ~/.netrc
-          chmod 600 ~/.netrc
-          lftp sftp://ftp.myshoptet.com -e "
+          lftp -u git_444591 --env-password sftp://ftp.myshoptet.com -e "
             set sftp:auto-confirm yes;
             set net:max-retries 3;
             set net:reconnect-interval-base 5;
             mirror -R --parallel=4 --exclude node_modules/ --exclude .git/ assets/ eshopy/luxuryCar/assets/;
             quit"
-          rm -f ~/.netrc
