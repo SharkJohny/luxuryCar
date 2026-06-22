@@ -26,15 +26,18 @@ jobs:
           yarn esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --drop:console --legal-comments=none
           echo "{\"v\":\"${{ steps.version.outputs.sha }}\"}" > assets/js/version.json
 
-      - name: SFTP Upload
-        uses: Dylan700/sftp-upload-action@latest
-        with:
-          server: ftp.myshoptet.com
-          username: git_444591
-          password: ${{ secrets.SFTP_PASSWORD }}
-          port: 22
-          uploads: |
-            ./assets/ => eshopy/luxuryCar/assets/
-          ignore: |
-            .git
-            node_modules
+      # Nahranie súborov cez SFTP (lftp — robí rekurzívne mkdir, funguje pre nové adresáre ako img/reviews/)
+      - name: 📦 SFTP Upload (lftp)
+        env:
+          SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          sudo apt-get install -y lftp
+          printf 'machine ftp.myshoptet.com login git_444591 password %s\n' "$SFTP_PASS" > ~/.netrc
+          chmod 600 ~/.netrc
+          lftp sftp://ftp.myshoptet.com -e "
+            set sftp:auto-confirm yes;
+            set net:max-retries 3;
+            set net:reconnect-interval-base 5;
+            mirror -R --delete=never --parallel=4 --exclude node_modules/ --exclude .git/ assets/ eshopy/luxuryCar/assets/;
+            quit"
+          rm -f ~/.netrc
