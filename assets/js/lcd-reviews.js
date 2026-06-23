@@ -49,7 +49,7 @@
   /* ----------------------------------------------------------------- CSS --- */
   var CSS = [
     '.lcd-reviews-widget{',
-    '--lcdr-star:#c49b31;--lcdr-gold:#c49b31;--lcdr-card-bg:#ffffff;--lcdr-card-border:#ece6d6;',
+    '--lcdr-star:#FBBC05;--lcdr-gold:#c49b31;--lcdr-card-bg:#ffffff;--lcdr-card-border:#ece6d6;',
     '--lcdr-text:#4d4d4d;--lcdr-heading:#1f1f1f;--lcdr-muted:#8a8276;--lcdr-radius:14px;',
     'font-family:"Source Sans 3","Source Sans Pro",-apple-system,Segoe UI,Roboto,Arial,sans-serif;',
     'display:block;box-sizing:border-box;color:var(--lcdr-text);-webkit-font-smoothing:antialiased;background:#f8f6f1;border-radius:24px;padding:42px 30px;}',
