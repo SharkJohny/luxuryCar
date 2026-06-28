@@ -26336,7 +26336,7 @@ function Configurator() {
           color: opt.price > 0 ? "#2E1810" : "#888"
         } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene")
       );
-    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 325 250\r\n                Q 390 185 505 170 L 680 170\r\n                Q 745 170 810 220 L 840 245\r\n                Q 860 255 900 255\r\n                Q 940 255 960 245 L 990 220\r\n                Q 1055 170 1120 170 L 1295 170\r\n                Q 1410 185 1475 250\r\n                Q 1510 290 1515 365 L 1555 865\r\n                Q 1560 950 1490 1005\r\n                Q 1445 1040 1330 1040 L 470 1040\r\n                Q 355 1040 310 1005\r\n                Q 240 950 245 865 L 285 365\r\n                Q 290 290 325 250 Z\r\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 720 182\r\n                Q 785 240 785 330 Q 790 375 835 390\r\n                L 965 390\r\n                Q 1010 375 1015 330 Q 1015 240 1080 182\r\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
+    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
       {
         x: "350",
@@ -27916,6 +27916,862 @@ function renderTruckConfigurator(element) {
   return true;
 }
 
+// assets/js/vzorky-konfigurator/swatch-data.js
+var VZORKY_SERIES = [
+  {
+    "key": "stripe",
+    "title": "Stripe Line",
+    "param": "Vzorka Stripe Line",
+    "ids": [
+      "S-1",
+      "S-2",
+      "S-3",
+      "S-4",
+      "S-5",
+      "S-6",
+      "S-7",
+      "S-8"
+    ]
+  },
+  {
+    "key": "hexa",
+    "title": "Hexa Line",
+    "param": "Vzorka Hexa Line",
+    "ids": [
+      "H-1",
+      "H-2",
+      "H-3"
+    ]
+  },
+  {
+    "key": "diamond",
+    "title": "Diamond Line",
+    "param": "Vzorka Diamond Line",
+    "ids": [
+      "D-1",
+      "D-2",
+      "D-3",
+      "D-4",
+      "D-5",
+      "D-6",
+      "D-7",
+      "D-8",
+      "D-9",
+      "D-10",
+      "D-11",
+      "D-12",
+      "D-13",
+      "D-14",
+      "D-15",
+      "D-16",
+      "D-17",
+      "D-18"
+    ]
+  },
+  {
+    "key": "second",
+    "title": "2. vrstva (Lux Color)",
+    "param": "Vzorka 2. vrstva",
+    "ids": [
+      "LUX-10",
+      "LUX-01",
+      "LUX-02",
+      "LUX-03",
+      "LUX-04",
+      "LUX-05",
+      "LUX-06",
+      "LUX-07",
+      "LUX-08",
+      "LUX-09",
+      "LUX-11",
+      "LUX-12",
+      "LUX-13",
+      "LUX-14",
+      "LUX-15",
+      "LUX-16"
+    ]
+  }
+];
+var VZORKY_ITEMS = {
+  "S-1": {
+    "label": "\u0160tandard 29",
+    "img": "/assets/img/vzorky/S-1.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-2": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 b\xE9\u017Eovou",
+    "img": "/assets/img/vzorky/S-2.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-3": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
+    "img": "/assets/img/vzorky/S-3.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-4": {
+    "label": "B\xE9\u017Eov\xE1",
+    "img": "/assets/img/vzorky/S-4.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-5": {
+    "label": "Hned\xE1 k\xE1va",
+    "img": "/assets/img/vzorky/S-5.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-6": {
+    "label": "Bledo hned\xE1",
+    "img": "/assets/img/vzorky/S-6.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-7": {
+    "label": "V\xEDnovo \u010Derven\xE1",
+    "img": "/assets/img/vzorky/S-7.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-8": {
+    "label": "\u010Cerven\xE1",
+    "img": "/assets/img/vzorky/S-8.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "H-1": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
+    "img": "/assets/img/vzorky/H-1.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "H-2": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 modrou",
+    "img": "/assets/img/vzorky/H-2.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "H-3": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
+    "img": "/assets/img/vzorky/H-3.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "D-1": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
+    "img": "/assets/img/vzorky/D-1.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-2": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 modrou",
+    "img": "/assets/img/vzorky/D-2.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-3": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
+    "img": "/assets/img/vzorky/D-3.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-4": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 b\xE9\u017Eovou",
+    "img": "/assets/img/vzorky/D-4.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-5": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 sivou",
+    "img": "/assets/img/vzorky/D-5.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-6": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 bielou",
+    "img": "/assets/img/vzorky/D-6.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-7": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u017Eltou",
+    "img": "/assets/img/vzorky/D-7.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-8": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 zelenou",
+    "img": "/assets/img/vzorky/D-8.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-9": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 bronzovou",
+    "img": "/assets/img/vzorky/D-9.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-10": {
+    "label": "B\xE9\u017Eov\xE1",
+    "img": "/assets/img/vzorky/D-10.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-11": {
+    "label": "Hned\xE1 k\xE1va",
+    "img": "/assets/img/vzorky/D-11.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-12": {
+    "label": "Bledo hned\xE1",
+    "img": "/assets/img/vzorky/D-12.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-13": {
+    "label": "V\xEDnovo \u010Derven\xE1",
+    "img": "/assets/img/vzorky/D-13.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-14": {
+    "label": "\u010Cerven\xE1",
+    "img": "/assets/img/vzorky/D-14.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-15": {
+    "label": "Siv\xE1",
+    "img": "/assets/img/vzorky/D-15.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-16": {
+    "label": "Oran\u017Eov\xE1",
+    "img": "/assets/img/vzorky/D-16.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-17": {
+    "label": "Modr\xE1",
+    "img": "/assets/img/vzorky/D-17.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "D-18": {
+    "label": "Fialov\xE1",
+    "img": "/assets/img/vzorky/D-18.jpg",
+    "series": "diamond",
+    "orderable": true
+  },
+  "LUX-10": {
+    "label": "Lux Color 10 \u2014 \u010Dierna",
+    "img": "/assets/img/vzorky/LUX-10.jpg",
+    "series": "second",
+    "orderable": true
+  },
+  "LUX-01": {
+    "label": "Lux Color 01",
+    "img": "/assets/img/vzorky/LUX-01.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-02": {
+    "label": "Lux Color 02",
+    "img": "/assets/img/vzorky/LUX-02.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-03": {
+    "label": "Lux Color 03",
+    "img": "/assets/img/vzorky/LUX-03.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-04": {
+    "label": "Lux Color 04",
+    "img": "/assets/img/vzorky/LUX-04.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-05": {
+    "label": "Lux Color 05",
+    "img": "/assets/img/vzorky/LUX-05.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-06": {
+    "label": "Lux Color 06",
+    "img": "/assets/img/vzorky/LUX-06.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-07": {
+    "label": "Lux Color 07",
+    "img": "/assets/img/vzorky/LUX-07.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-08": {
+    "label": "Lux Color 08",
+    "img": "/assets/img/vzorky/LUX-08.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-09": {
+    "label": "Lux Color 09",
+    "img": "/assets/img/vzorky/LUX-09.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-11": {
+    "label": "Lux Color 11",
+    "img": "/assets/img/vzorky/LUX-11.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-12": {
+    "label": "Lux Color 12",
+    "img": "/assets/img/vzorky/LUX-12.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-13": {
+    "label": "Lux Color 13",
+    "img": "/assets/img/vzorky/LUX-13.jpg",
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-14": {
+    "label": "Lux Color 14",
+    "img": null,
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-15": {
+    "label": "Lux Color 15",
+    "img": null,
+    "series": "second",
+    "orderable": false
+  },
+  "LUX-16": {
+    "label": "Lux Color 16",
+    "img": null,
+    "series": "second",
+    "orderable": false
+  }
+};
+
+// assets/js/vzorky-konfigurator/index.js
+var MOUNT_ID = "lcd-vzorky-root";
+var DEPOSIT = 5;
+var ID_RE = /\b(S-\d+|H-\d+|D-\d+|LUX-\d+)\b/;
+var SERIES_BY_KEY = Object.fromEntries(VZORKY_SERIES.map((s) => [s.key, s]));
+var ID_ORDER = Object.fromEntries(
+  VZORKY_SERIES.flatMap((s) => s.ids.map((id, i) => [id, i]))
+);
+function isOrderableId(id) {
+  return (VZORKY_ITEMS[id] || {}).orderable !== false;
+}
+function isVzorkyConfiguratorPage() {
+  try {
+    if (/vzorkovnik-dragonskin/i.test(window.location.pathname)) return true;
+    const h1 = document.querySelector("h1");
+    const t = h1 && h1.textContent || "";
+    return /vzorkovn|objedn[aá]vka\s+vzor/i.test(t);
+  } catch (e) {
+    return false;
+  }
+}
+function idFromText(t) {
+  const m = ID_RE.exec(t || "");
+  return m ? m[1] : null;
+}
+function seriesKeyForId(id) {
+  if (/^S-/.test(id)) return "stripe";
+  if (/^H-/.test(id)) return "hexa";
+  if (/^D-/.test(id)) return "diamond";
+  if (/^LUX-/.test(id)) return "second";
+  return null;
+}
+function rowOf(select) {
+  return select.closest("tr.surcharge-list, tr, .parameter-wrap, .form-group, li") || select.parentElement;
+}
+function idForSelect(select) {
+  return idFromText(select.getAttribute("data-parameter-name")) || idFromText(select.getAttribute("name")) || idFromText((rowOf(select) || {}).textContent) || optionId(select);
+}
+function optionId(select) {
+  for (const o of select.options) {
+    const id = idFromText(o.textContent);
+    if (id) return id;
+  }
+  return null;
+}
+function findParamSelects() {
+  const out = [];
+  const seen = /* @__PURE__ */ new Set();
+  const consider = (sel) => {
+    if (seen.has(sel)) return;
+    const id = idForSelect(sel);
+    if (!id) return;
+    const sk = seriesKeyForId(id);
+    if (!sk) return;
+    seen.add(sel);
+    out.push({ select: sel, id, seriesKey: sk });
+  };
+  const native = document.querySelectorAll("select.surcharge-parameter");
+  if (native.length) native.forEach(consider);
+  if (!out.length) document.querySelectorAll("select").forEach(consider);
+  return out;
+}
+function hideNativeRow(select) {
+  const row = rowOf(select);
+  if (row) row.classList.add("lcd-vz-native-hidden");
+  else select.classList.add("lcd-vz-native-hidden");
+}
+function optPrice(o) {
+  const a = o.getAttribute("data-surcharge-final-price");
+  if (a != null && a !== "") {
+    const n = parseFloat(a);
+    if (!Number.isNaN(n)) return n;
+  }
+  const m = (o.textContent || "").match(/(\d+(?:[.,]\d+)?)\s*€/);
+  return m ? parseFloat(m[1].replace(",", ".")) : 0;
+}
+function noneOption(select) {
+  const opts = Array.from(select.options);
+  return opts.find((o) => /nechcem/i.test(o.textContent || "")) || opts.find((o) => o.value !== "" && optPrice(o) === 0) || opts.find((o) => o.value === "") || select.options[0];
+}
+function yesOption(select) {
+  const opts = Array.from(select.options);
+  return opts.find((o) => /chcem/i.test(o.textContent || "") && !/nechcem/i.test(o.textContent || "")) || opts.find((o) => optPrice(o) > 0) || opts.find((o) => o.value !== "" && !/nechcem/i.test(o.textContent || "")) || null;
+}
+function injectStyles() {
+  if (document.getElementById("lcd-vz-style")) return;
+  const css = `
+.lcd-vz-native-hidden{display:none!important}
+#${MOUNT_ID}{width:100%;margin:18px 0 0;clear:both}
+
+/* Akordeon s\xE9ri\xED \u2014 vzh\u013Ead zhodn\xFD s krokmi konfigur\xE1tora (zlat\xFD gradient header). */
+#${MOUNT_ID} .lcd-vz-acc{position:relative;margin:0 0 8px;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:border-color .3s}
+#${MOUNT_ID} .lcd-vz-acc.is-open{border-color:#e0d5b8}
+#${MOUNT_ID} .lcd-vz-acc-head{display:flex;align-items:center;gap:12px;width:100%;padding:14px 20px;background:linear-gradient(135deg,#c5a44e,#a8893a);color:#fff;font-family:'Exo 2',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:left;cursor:pointer;user-select:none;border:none;border-radius:10px;transition:border-radius .2s}
+#${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-head{border-radius:10px 10px 0 0}
+#${MOUNT_ID} .lcd-vz-acc-num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:14px}
+#${MOUNT_ID} .lcd-vz-acc-title{flex:1 1 auto}
+#${MOUNT_ID} .lcd-vz-acc-count{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.4px;background:#fff;color:#a8893a;border-radius:20px;padding:3px 10px;text-transform:none}
+#${MOUNT_ID} .lcd-vz-acc-count[hidden]{display:none}
+#${MOUNT_ID} .lcd-vz-acc-chev{flex:0 0 auto;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #fff;transition:transform .25s}
+#${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-chev{transform:rotate(180deg)}
+#${MOUNT_ID} .lcd-vz-acc-body{display:none;background:#fff;border-radius:0 0 10px 10px;padding:16px}
+#${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-body{display:block}
+#${MOUNT_ID} .lcd-vz-hint{font-size:12px;color:#777;margin:0 0 10px}
+
+/* Mrie\u017Eka dla\u017Ed\xEDc \u2014 max 5 ved\u013Ea seba (ako n\xE1vrh), na mobile menej. */
+#${MOUNT_ID} .lcd-vz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media (max-width:600px){#${MOUNT_ID} .lcd-vz-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* Dla\u017Edica = full-bleed obr\xE1zok bez paddingu + n\xE1zov pod n\xEDm (ako n\xE1vrh). */
+#${MOUNT_ID} .lcd-vz-swatch{position:relative;display:block;padding:0;border:2px solid #e3e3e3;border-radius:10px;overflow:hidden;background:#fff;cursor:pointer;text-align:center;font:inherit;transition:border-color .15s,box-shadow .15s,transform .1s}
+#${MOUNT_ID} .lcd-vz-swatch:hover{border-color:#C5A44E;transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.10)}
+#${MOUNT_ID} .lcd-vz-thumb-wrap{position:relative;display:block;width:100%;aspect-ratio:1/1}
+#${MOUNT_ID} .lcd-vz-thumb{width:100%;height:100%;object-fit:cover;display:block;background:#f1ede2 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 fill=%22none%22 stroke=%22%23c9bfa0%22 stroke-width=%221.5%22><circle cx=%2212%22 cy=%2212%22 r=%229%22/></svg>') center/28px no-repeat}
+#${MOUNT_ID} .lcd-vz-name{display:block;font-size:11px;line-height:1.25;color:#333;padding:5px 4px 6px;min-height:30px}
+#${MOUNT_ID} .lcd-vz-swatch[aria-pressed="true"]{border-color:#C5A44E;box-shadow:0 0 0 3px rgba(197,164,78,.25)}
+#${MOUNT_ID} .lcd-vz-swatch[aria-pressed="true"] .lcd-vz-thumb-wrap::after{content:"\\2713";position:absolute;top:6px;right:6px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#C5A44E;color:#fff;font-size:13px;font-weight:700}
+
+/* N\xE1h\u013Eadov\xE9 (neobjedn\xE1vate\u013En\xE9) vzorky \u2014 zobrazia sa, ale nejd\xFA vybra\u0165. */
+#${MOUNT_ID} .lcd-vz-swatch--preview{cursor:default;opacity:.82}
+#${MOUNT_ID} .lcd-vz-swatch--preview:hover{border-color:#e3e3e3;transform:none;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+#${MOUNT_ID} .lcd-vz-swatch--preview .lcd-vz-thumb{filter:saturate(.85)}
+#${MOUNT_ID} .lcd-vz-swatch--preview .lcd-vz-name{color:#9a9a9a}
+#${MOUNT_ID} .lcd-vz-swatch--send{border-color:#4CAF50}
+#${MOUNT_ID} .lcd-vz-tag{position:absolute;left:0;right:0;padding:3px 4px;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;text-align:center;color:#fff;pointer-events:none}
+#${MOUNT_ID} .lcd-vz-tag--no{bottom:0;background:rgba(46,24,16,.9)}
+#${MOUNT_ID} .lcd-vz-tag--send{top:0;background:linear-gradient(135deg,#4CAF50,#2E7D32)}
+#${MOUNT_ID} .lcd-vz-swatch--send[aria-pressed="true"] .lcd-vz-tag--send{display:none}
+
+/* Dla\u017Edica \u201ENechcem" \u2014 prv\xE1 v ka\u017Edej s\xE9rii (zru\u0161\xED v\xFDber s\xE9rie). Vzh\u013Ead z n\xE1vrhu. */
+#${MOUNT_ID} .lcd-vz-skip{position:relative;display:block;padding:0;border:2px dashed #bbb;border-radius:10px;overflow:hidden;background:#fafafa;cursor:pointer;font:inherit;color:#2E1810;text-align:center;transition:all .15s}
+#${MOUNT_ID} .lcd-vz-skip:hover{border-color:#2E7D32}
+#${MOUNT_ID} .lcd-vz-skip-ico{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;font-size:30px;font-weight:700}
+#${MOUNT_ID} .lcd-vz-skip-label{display:block;font-size:11px;font-weight:700;line-height:1.25;padding:5px 4px 6px;min-height:30px}
+#${MOUNT_ID} .lcd-vz-skip[aria-pressed="true"]{border:2px solid #2E7D32;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff}
+
+/* Rekapitul\xE1cia objedn\xE1vky \u2014 tmav\xE1 karta pod\u013Ea n\xE1vrhu (DARK + zlat\xE9 akcenty). */
+#${MOUNT_ID} .lcd-vz-recap{margin:18px 0 0;padding:20px;border-radius:12px;background:linear-gradient(135deg,#2E1810 0%,#1a1008 100%);color:#fff;box-shadow:0 10px 30px rgba(46,24,16,.25)}
+#${MOUNT_ID} .lcd-vz-recap-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+#${MOUNT_ID} .lcd-vz-recap-col{flex:1 1 240px}
+#${MOUNT_ID} .lcd-vz-recap-col.right{flex:0 0 auto;text-align:right}
+#${MOUNT_ID} .lcd-vz-recap-eyebrow{font-size:11px;color:#C5A44E;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+#${MOUNT_ID} .lcd-vz-recap-count{font-size:26px;font-weight:800;margin-top:4px}
+#${MOUNT_ID} .lcd-vz-recap-desc{font-size:13px;opacity:.85;margin:4px 0 0}
+#${MOUNT_ID} .lcd-vz-recap-total{font-size:38px;font-weight:900;color:#C5A44E;line-height:1}
+#${MOUNT_ID} .lcd-vz-recap-sub{font-size:10.5px;opacity:.65;margin-top:4px;letter-spacing:.5px}
+#${MOUNT_ID} .lcd-vz-recap-selected{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15)}
+#${MOUNT_ID} .lcd-vz-recap-selected[hidden]{display:none}
+#${MOUNT_ID} .lcd-vz-recap-list{margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.6}
+#${MOUNT_ID} .lcd-vz-recap-list li strong{color:#fff}
+#${MOUNT_ID} .lcd-vz-recap-note{font-size:11.5px;opacity:.7;margin:14px 0 0}
+`;
+  const style = document.createElement("style");
+  style.id = "lcd-vz-style";
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+function buildSwatch(id, opts = {}) {
+  const { onPick, preview = false, highlight = false } = opts;
+  const item = VZORKY_ITEMS[id] || {};
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "lcd-vz-swatch" + (preview ? " lcd-vz-swatch--preview" : "") + (highlight ? " lcd-vz-swatch--send" : "");
+  btn.dataset.id = id;
+  if (preview) btn.setAttribute("aria-disabled", "true");
+  else btn.setAttribute("aria-pressed", "false");
+  btn.title = (item.label || id) + (preview ? " \u2014 neposiela sa, len n\xE1h\u013Ead" : "");
+  const wrap = document.createElement("span");
+  wrap.className = "lcd-vz-thumb-wrap";
+  const thumb = document.createElement(item.img ? "img" : "span");
+  thumb.className = "lcd-vz-thumb";
+  if (item.img) {
+    thumb.src = item.img;
+    thumb.alt = item.label || id;
+    thumb.loading = "lazy";
+  }
+  wrap.appendChild(thumb);
+  if (preview) {
+    const tag = document.createElement("span");
+    tag.className = "lcd-vz-tag lcd-vz-tag--no";
+    tag.textContent = "Neposiela sa";
+    wrap.appendChild(tag);
+  } else if (highlight) {
+    const tag = document.createElement("span");
+    tag.className = "lcd-vz-tag lcd-vz-tag--send";
+    tag.textContent = "Posielame";
+    wrap.appendChild(tag);
+  }
+  btn.appendChild(wrap);
+  const name = document.createElement("span");
+  name.className = "lcd-vz-name";
+  name.textContent = item.label || id;
+  btn.appendChild(name);
+  if (!preview) btn.addEventListener("click", () => onPick(btn));
+  return btn;
+}
+function buildSkipTile(onSkip) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "lcd-vz-skip";
+  btn.setAttribute("aria-pressed", "true");
+  btn.title = "Nechcem \u017Eiadnu vzorku z tejto s\xE9rie";
+  const ico = document.createElement("span");
+  ico.className = "lcd-vz-skip-ico";
+  ico.textContent = "\u2713";
+  btn.appendChild(ico);
+  const label = document.createElement("span");
+  label.className = "lcd-vz-skip-label";
+  label.textContent = "Nechcem";
+  btn.appendChild(label);
+  btn._ico = ico;
+  btn.addEventListener("click", () => onSkip());
+  return btn;
+}
+function setSkipActive(btn, active) {
+  if (!btn) return;
+  btn.setAttribute("aria-pressed", active ? "true" : "false");
+  if (btn._ico) btn._ico.textContent = active ? "\u2713" : "\u2298";
+}
+function setSelectValue(select, opt) {
+  if (!opt) return;
+  select.value = opt.value;
+  select.dispatchEvent(new Event("change", { bubbles: true }));
+  select.dispatchEvent(new Event("input", { bubbles: true }));
+}
+var PRICE_SELECTORS = ".calculated-price, .price-final-holder, .price-final";
+function parsePriceNumber(raw) {
+  const t = String(raw).replace(/[^\d.,]/g, "");
+  if (!t) return NaN;
+  const dp = Math.max(t.lastIndexOf(","), t.lastIndexOf("."));
+  if (dp > -1 && t.length - dp <= 3) {
+    const intPart = t.slice(0, dp).replace(/[.,]/g, "");
+    return Number(intPart + "." + t.slice(dp + 1));
+  }
+  return Number(t.replace(/[.,]/g, ""));
+}
+function formatWhole(n) {
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\xA0");
+}
+function roundPriceText(text) {
+  return text.replace(/\d[\d\s.,]*\d|\d/, (token) => {
+    const num = parsePriceNumber(token);
+    return Number.isFinite(num) ? formatWhole(Math.round(num)) : token;
+  });
+}
+function normalizePrices() {
+  document.querySelectorAll(PRICE_SELECTORS).forEach((el) => {
+    if (el.children.length) return;
+    const orig = el.textContent || "";
+    if (!/\d/.test(orig)) return;
+    const next = roundPriceText(orig);
+    if (next !== orig) el.textContent = next;
+  });
+}
+function watchPrices() {
+  const area = document.querySelector(".p-final-price-wrapper") || document.querySelector(".p-info-wrapper") || document.body;
+  if (!area || area.__lcdVzPriceWatch) return;
+  area.__lcdVzPriceWatch = true;
+  let scheduled = false;
+  const obs = new MutationObserver(() => {
+    if (scheduled) return;
+    scheduled = true;
+    setTimeout(() => {
+      scheduled = false;
+      normalizePrices();
+    }, 30);
+  });
+  obs.observe(area, { childList: true, subtree: true, characterData: true });
+}
+function pluralVzorka(n) {
+  const m10 = Math.abs(n) % 10;
+  const m100 = Math.abs(n) % 100;
+  if (m10 === 1 && m100 !== 11) return "vzorka";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "vzorky";
+  return "vzoriek";
+}
+function shortLabel(id, label) {
+  if (!label) return "?";
+  if (id === "LUX-10") return "\u010Dierna";
+  return label.replace(/^(Lux Color( \d+)?|Comfort)\s*[—–-]\s*/, "");
+}
+function renderVzorkyConfigurator(host) {
+  injectStyles();
+  const entries = findParamSelects();
+  if (!entries.length) return false;
+  entries.forEach((e) => {
+    e.idx = e.id in ID_ORDER ? ID_ORDER[e.id] : 999;
+  });
+  const root = document.createElement("div");
+  root.id = MOUNT_ID;
+  const seriesCountEls = {};
+  const skipEls = {};
+  const seriesSwatches = {};
+  const recapEls = {};
+  const isYes = (e) => {
+    const yo = yesOption(e.select);
+    return !!yo && e.select.value === yo.value;
+  };
+  const order = ["stripe", "hexa", "diamond", "second"];
+  const recompute = () => {
+    order.forEach((sk) => {
+      const c = entries.filter((e) => e.seriesKey === sk && isYes(e)).length;
+      const el = seriesCountEls[sk];
+      if (el) {
+        el.textContent = c === 1 ? "1 vybran\xE1" : `${c} vybran\xE9`;
+        el.hidden = c === 0;
+      }
+      setSkipActive(skipEls[sk], c === 0);
+    });
+    const selected = entries.filter(isYes).sort((a, b) => order.indexOf(a.seriesKey) - order.indexOf(b.seriesKey) || a.idx - b.idx);
+    const n = selected.length;
+    if (recapEls.count) recapEls.count.textContent = `${n} ${pluralVzorka(n)}`;
+    if (recapEls.total) recapEls.total.textContent = `${n * DEPOSIT} \u20AC`;
+    if (recapEls.desc) {
+      recapEls.desc.textContent = n === 0 ? "Zatia\u013E nem\xE1\u0161 vybrat\xFA \u017Eiadnu vzorku. Klikaj na vzorky v akorde\xF3noch vy\u0161\u0161ie." : `Vratn\xE1 z\xE1loha ${DEPOSIT} \u20AC za ka\u017Ed\xFA vzorku. Ke\u010F n\xE1m vzorky vr\xE1ti\u0161, z\xE1lohu ti po\u0161leme sp\xE4\u0165.`;
+    }
+    if (recapEls.selected) recapEls.selected.hidden = n === 0;
+    if (recapEls.list) {
+      recapEls.list.textContent = "";
+      selected.forEach((e) => {
+        const item = VZORKY_ITEMS[e.id] || {};
+        const meta = SERIES_BY_KEY[e.seriesKey] || { title: e.seriesKey };
+        const li = document.createElement("li");
+        const strong = document.createElement("strong");
+        strong.textContent = e.id;
+        li.appendChild(strong);
+        li.append(` \u2014 ${meta.title}: ${shortLabel(e.id, item.label)}`);
+        recapEls.list.appendChild(li);
+      });
+    }
+    normalizePrices();
+    setTimeout(normalizePrices, 60);
+  };
+  entries.forEach((e) => hideNativeRow(e.select));
+  const entryById = Object.fromEntries(entries.map((e) => [e.id, e]));
+  const accordions = [];
+  let num = 0;
+  order.forEach((seriesKey) => {
+    const meta = SERIES_BY_KEY[seriesKey];
+    if (!meta || !meta.ids || !meta.ids.length) return;
+    const ids = meta.ids;
+    if (!ids.some((id) => entryById[id] && isOrderableId(id))) return;
+    const hasPreview = ids.some((id) => !isOrderableId(id));
+    num += 1;
+    const acc = document.createElement("div");
+    acc.className = "lcd-vz-acc";
+    const head = document.createElement("button");
+    head.type = "button";
+    head.className = "lcd-vz-acc-head";
+    head.setAttribute("aria-expanded", "false");
+    const numEl = document.createElement("span");
+    numEl.className = "lcd-vz-acc-num";
+    numEl.textContent = String(num);
+    const title = document.createElement("span");
+    title.className = "lcd-vz-acc-title";
+    title.textContent = meta.title;
+    const countEl = document.createElement("span");
+    countEl.className = "lcd-vz-acc-count";
+    countEl.hidden = true;
+    const chev = document.createElement("span");
+    chev.className = "lcd-vz-acc-chev";
+    head.append(numEl, title, countEl, chev);
+    seriesCountEls[seriesKey] = countEl;
+    const body = document.createElement("div");
+    body.className = "lcd-vz-acc-body";
+    const hint = document.createElement("p");
+    hint.className = "lcd-vz-hint";
+    hint.textContent = hasPreview ? "Vyber \u013Eubovo\u013En\xFD po\u010Det objedn\xE1vate\u013En\xFDch vzoriek (5 \u20AC z\xE1loha / vzorka). N\xE1h\u013Eady \u201ENeposiela sa\u201C sa objedna\u0165 nedaj\xFA." : "Vyber \u013Eubovo\u013En\xFD po\u010Det vzoriek (vratn\xE1 z\xE1loha 5 \u20AC / vzorka). Op\xE4tovn\xFD klik v\xFDber zru\u0161\xED.";
+    body.appendChild(hint);
+    const grid = document.createElement("div");
+    grid.className = "lcd-vz-grid";
+    const swatchRefs = [];
+    seriesSwatches[seriesKey] = swatchRefs;
+    const onSkip = () => {
+      swatchRefs.forEach(({ entry, btn }) => {
+        btn.setAttribute("aria-pressed", "false");
+        setSelectValue(entry.select, noneOption(entry.select));
+      });
+      recompute();
+    };
+    const skip = buildSkipTile(onSkip);
+    skipEls[seriesKey] = skip;
+    grid.appendChild(skip);
+    ids.forEach((id) => {
+      const e = entryById[id];
+      if (e && isOrderableId(id)) {
+        const none = noneOption(e.select);
+        const yes = yesOption(e.select);
+        const onPick = (btn) => {
+          const already = btn.getAttribute("aria-pressed") === "true";
+          if (already) {
+            btn.setAttribute("aria-pressed", "false");
+            setSelectValue(e.select, none);
+          } else {
+            btn.setAttribute("aria-pressed", "true");
+            setSelectValue(e.select, yes);
+          }
+          recompute();
+        };
+        const sw = buildSwatch(id, { onPick, highlight: hasPreview });
+        if (isYes(e)) sw.setAttribute("aria-pressed", "true");
+        swatchRefs.push({ entry: e, btn: sw });
+        grid.appendChild(sw);
+      } else {
+        if (e) {
+          const none = noneOption(e.select);
+          if (none && e.select.value !== none.value) setSelectValue(e.select, none);
+        }
+        grid.appendChild(buildSwatch(id, { preview: true }));
+      }
+    });
+    body.appendChild(grid);
+    const setOpen = (open) => {
+      acc.classList.toggle("is-open", open);
+      head.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    head.addEventListener("click", () => {
+      const willOpen = !acc.classList.contains("is-open");
+      accordions.forEach((a) => a.setOpen(false));
+      setOpen(willOpen);
+    });
+    acc.append(head, body);
+    accordions.push({ setOpen });
+    root.appendChild(acc);
+  });
+  if (accordions[0]) accordions[0].setOpen(true);
+  const recap = document.createElement("div");
+  recap.className = "lcd-vz-recap";
+  const top = document.createElement("div");
+  top.className = "lcd-vz-recap-top";
+  const colL = document.createElement("div");
+  colL.className = "lcd-vz-recap-col";
+  const ebL = document.createElement("div");
+  ebL.className = "lcd-vz-recap-eyebrow";
+  ebL.textContent = "Tvoja objedn\xE1vka vzoriek";
+  const countBig = document.createElement("div");
+  countBig.className = "lcd-vz-recap-count";
+  const desc = document.createElement("div");
+  desc.className = "lcd-vz-recap-desc";
+  colL.append(ebL, countBig, desc);
+  const colR = document.createElement("div");
+  colR.className = "lcd-vz-recap-col right";
+  const ebR = document.createElement("div");
+  ebR.className = "lcd-vz-recap-eyebrow";
+  ebR.textContent = "Vratn\xE1 z\xE1loha spolu";
+  const totalBig = document.createElement("div");
+  totalBig.className = "lcd-vz-recap-total";
+  const sub = document.createElement("div");
+  sub.className = "lcd-vz-recap-sub";
+  sub.textContent = "+ po\u0161tovn\xE9 + poplatok za platbu";
+  colR.append(ebR, totalBig, sub);
+  top.append(colL, colR);
+  const selBlock = document.createElement("div");
+  selBlock.className = "lcd-vz-recap-selected";
+  selBlock.hidden = true;
+  const selEb = document.createElement("div");
+  selEb.className = "lcd-vz-recap-eyebrow";
+  selEb.textContent = "Vybran\xE9 vzorky:";
+  const list = document.createElement("ul");
+  list.className = "lcd-vz-recap-list";
+  selBlock.append(selEb, list);
+  const note = document.createElement("p");
+  note.className = "lcd-vz-recap-note";
+  note.textContent = "Z\xE1loha 5 \u20AC / vzorka sa vr\xE1ti po obdr\u017Ean\xED vzoriek sp\xE4\u0165. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EPrida\u0165 do ko\u0161\xEDka\u201C ni\u017E\u0161ie.";
+  recap.append(top, selBlock, note);
+  recapEls.count = countBig;
+  recapEls.total = totalBig;
+  recapEls.desc = desc;
+  recapEls.selected = selBlock;
+  recapEls.list = list;
+  root.appendChild(recap);
+  host.appendChild(root);
+  recompute();
+  watchPrices();
+  normalizePrices();
+  [120, 400, 1e3].forEach((d) => setTimeout(normalizePrices, d));
+  return true;
+}
+function mountVzorkyConfigurator() {
+  document.body && document.body.classList.add("is-vzorky-konfigurator");
+  const tryMount = () => {
+    if (document.getElementById(MOUNT_ID)) return true;
+    const selects = findParamSelects();
+    if (!selects.length) return false;
+    const host = document.createElement("div");
+    host.className = "lcd-vz-host";
+    const firstSel = selects[0].select;
+    const table = firstSel.closest("table");
+    const wrapper = firstSel.closest(".p-info-wrapper") || table;
+    if (table && table.parentElement) {
+      table.parentElement.insertBefore(host, table.nextSibling);
+    } else if (wrapper) {
+      const row = rowOf(firstSel);
+      if (row && row.parentElement) row.parentElement.insertBefore(host, row);
+      else wrapper.appendChild(host);
+    } else {
+      (document.querySelector(".p-info-wrapper") || document.body).appendChild(host);
+    }
+    return renderVzorkyConfigurator(host);
+  };
+  if (tryMount()) return;
+  let tries = 0;
+  const iv = setInterval(() => {
+    if (tryMount() || ++tries > 40) clearInterval(iv);
+  }, 100);
+}
+
 // assets/js/components/productPage.js
 window.addEventListener(
   "error",
@@ -27961,13 +28817,19 @@ function initProduct(setupData2, texts) {
     mountTruckConfigurator();
     return;
   }
-  createModelInfo();
+  const isVzorky = isVzorkyConfiguratorPage();
+  if (isVzorky) {
+    mountVzorkyConfigurator();
+  }
+  if (!isVzorky) createModelInfo();
   setTimeout(() => {
     $(".p-thumbnails-horizontal").addClass("overflow-next");
   }, 1e3);
-  $("<div class='recommended-price'>Doporu\u010Den\xE1 cena</div>").prependTo(".p-info-wrapper span.price-standard");
-  $(".price-save:eq(1)").appendTo(".p-info-wrapper span.price-standard");
-  $("<div class='recommended-price-final'>" + texts.current_price + "</div>").prependTo(".p-info-wrapper .price-final");
+  if (!isVzorky) {
+    $("<div class='recommended-price'>Doporu\u010Den\xE1 cena</div>").prependTo(".p-info-wrapper span.price-standard");
+    $(".price-save:eq(1)").appendTo(".p-info-wrapper span.price-standard");
+    $("<div class='recommended-price-final'>" + texts.current_price + "</div>").prependTo(".p-info-wrapper .price-final");
+  }
   setTimeout(() => {
     if ($(".col-xs-12.col-lg-6.p-info-wrapper").length) {
       $(".col-xs-12.col-lg-6.p-info-wrapper").addClass("active");
@@ -27997,11 +28859,13 @@ function initProduct(setupData2, texts) {
   if ($(".p-detail-inner .p-detail-inner-header").length) {
     $(".p-detail-inner .p-detail-inner-header").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }
-  if ($(".benefitBanner.position--benefitProduct .benefitBanner__item").length) {
+  if (!isVzorky && $(".benefitBanner.position--benefitProduct .benefitBanner__item").length) {
     $(".benefitBanner.position--benefitProduct .benefitBanner__item").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }
-  createModelInfo();
-  priplatky(setupData2, texts);
+  if (!isVzorky) {
+    createModelInfo();
+    priplatky(setupData2, texts);
+  }
   $(".button.btn.select-model").on("click", function() {
     const overflow = $("<div>", {
       class: "overflow",
@@ -28603,6 +29467,7 @@ $("body").on("click", ".position-wrap ", function() {
   createModelInfo();
 });
 function createModelInfo() {
+  if (isVzorkyConfiguratorPage()) return;
   const model = sessionStorage.getItem("model");
   console.log(model);
   const type = sessionStorage.getItem("carType");
@@ -30751,7 +31616,7 @@ function initSignpost() {
 function googleReviews(setupData2, texts) {
   var lang2 = ($("html").attr("lang") || "").toLowerCase().indexOf("cs") === 0 ? "cz" : "sk";
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";
-  var WV = "8";
+  var WV = "9";
   $("#goggle-review-wrap, .google-reviews").remove();
   function makeWidget() {
     var title = lang2 === "cz" ? "Co \u0159\xEDkaj\xED na\u0161i z\xE1kazn\xEDci" : "\u010Co hovoria na\u0161i z\xE1kazn\xEDci";

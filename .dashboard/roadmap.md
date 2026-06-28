@@ -1,0 +1,89 @@
+# Roadmap
+
+## Vzorkovník → Shoptet (pasteable HTML)
+- [x] Analýza klientskeho repa `luxusnerohoze-dev/vzorky` (zdroj, obrázky, runtime deps)
+- [x] Build pipeline `vzorky/build-vzorky.mjs` (sharp resize + esbuild JSX→JS)
+- [x] Inline React (UMD z node_modules) — odstránený unpkg/Babel CDN
+- [x] Inline base64 obrázky (len 48 referencovaných, downscale) — žiadne externé cesty
+- [x] Scopnuté CSS pod `#lcd-vzorky-root` + guard proti dvojitému mountu
+- [x] `fetch-source.sh` + npm scripty (`vzorky:fetch`, `build:vzorky`, `vzorky:test`)
+- [x] jsdom mount test — 0 runtime chýb, 49 base64 img, order math OK
+- [x] Výstup `vzorky/dist/vzorky-shoptet.html` (~2.7 MB), pripravený na vloženie
+- [x] Fix: celý blok prepísaný na čisté ASCII (\uXXXX) — opravená rozsypaná diakritika
+- [ ] Klient: doplniť fotky `2.vrstva/new/Lux_color_14/15/16.png` (zatiaľ placeholder)
+- [ ] Klient: vložiť blok do Shoptet stránky a vizuálne overiť
+
+## Vzorkovník — JS výnimka v HLAVNOM kóde (vizuálny vzorkovník napojený na košík)
+Pôvodný pokus (mount celého standalone React bloku s base64) ZAMIETNUTÝ — rozbíjal
+bundle. Nová, čistá implementácia:
+- [x] `assets/js/vzorky-konfigurator/index.js` — vanilla (žiadny React/base64),
+      nájde 45 surcharge `<select>`-ov (ID z `data-parameter-name` „(S-1)"), skryje
+      natívne riadky, zoskupí do 4 sérií POD SEBA, vyrenderuje mriežku dlaždíc;
+      klik → set `<select>` na „Chcem/Nechcem" + `change` → Shoptet ráta zálohu
+- [x] Swatch obrázky cez CDN: `vzorky/build-swatch-assets.mjs` (`yarn vzorky:swatches`)
+      optimalizuje 42 fotiek do `assets/img/vzorky/<ID>.jpg` (1.1 MB), CI ich mirroruje
+      na CDN — **žiadny base64 bloat** (bundle ostáva 10.4 MB)
+- [x] Manifest `assets/js/vzorky-konfigurator/swatch-data.js` (45 položiek, ~3 KB)
+- [x] `productPage.js`: import + `isVzorkyConfiguratorPage()` (slug /vzorkovnik-dragonskin
+      al. H1) + výnimka v `initProduct` (vzor truck)
+- [x] FIX umiestnenia: selecty hľadané cez `.surcharge-parameter` + `data-parameter-name`;
+      mount do PRAVÉHO stĺpca `.p-info-wrapper` ZA `<table>` surcharge parametrov (nie cez
+      celú šírku) → cena/množstvo/„Pridať do košíka" ostávajú, e-shop funguje normálne
+- [x] FIX „JS sa nespúšťa / overlay visí": odstránený `return` po mountVzorkyConfigurator.
+      Truck má `return` (nahrádza celú stránku), ale vzorkovník je NORMÁLNY produkt →
+      initProduct musí dobehnúť do konca (inak sa nedokončí init stránky a overlay ostane).
+      Overené proti reálnemu DOM (stiahnuté live HTML): mount bez výnimky, 45 dlaždíc,
+      root v `.p-info-wrapper`, 4 natívne riadky skryté
+- [x] MULTI-SELECT: každá vzorka = vlastný yes/no parameter → dá sa vybrať
+      ľubovoľný počet vzoriek (aj viac v jednej sérii), opätovný klik ruší len daný výber
+- [x] `productPage.js`: príznak `isVzorky` vypína generátory autokoberec-konfigurátora
+      (`createModelInfo`, `priplatky` = upsale/kroky, cenové bannery) na vzorkovníku —
+      bez `return` (odhalenie stĺpca/cena/košík bežia ďalej, stránka nevisí).
+      `createModelInfo` má aj vlastný guard (bráni globálnemu `.position-wrap` klik handleru)
+- [x] UI ako konfigurátor: série = AKORDEONY (zlatý gradient header `#c5a44e→#a8893a`,
+      'Exo 2', číslo kroku, počítadlo vybraných, šípka; single-open, 1. otvorený default).
+      Vlastné `.lcd-vz-*` triedy (nie `.position-wrap`) → bez väzby na auto-konfigurátor
+- [x] NÁHĽADY (neobjednávateľné) podľa návrhu: Lux Color bez parametra sa zobrazia ako dlaždice
+      so štítkom „Neposiela sa“, nejdú vybrať; LUX-10 zvýraznená „Posielame“ (zelená)
+- [x] REKAPITULÁCIA objednávky = tmavá karta podľa návrhu (#2E1810 + zlaté akcenty):
+      počet vzoriek + vratná záloha spolu, zoznam „ID — séria: farba“, live update, prázdny/plný stav
+- [x] Zaokrúhlenie ZOBRAZENEJ ceny na celé eurá (`normalizePrices`/`watchPrices` v index.js):
+      admin base 0,01 € (Shoptet inak produkt nezobrazí) → zákazník vidí 0 € / 5 € / 10 €…
+      Beží pri mounte aj po každej zmene (MutationObserver). Mení len zobrazenie, nie cenu objednávky.
+- [x] DLAŽDICE podľa návrhu: full-bleed obrázky bez paddingu (`.lcd-vz-thumb-wrap` štvorec,
+      `object-fit:cover`, štítky stavu ako prekryv na obrázku, názov farby pod ním); mriežka
+      max 5 v rade (`repeat(5,1fr)`, mobil 3); v každej sérii PRVÁ dlaždica „Nechcem"
+      (`buildSkipTile`) — aktívna keď nič nevybrané, klik zruší celý výber série
+- [x] Integračný jsdom test `vzorky/test-konfigurator.mjs` (`yarn vzorky:test`) — 45/45 OK:
+      akordeony + single-open toggle, multi-select v sérii aj naprieč, náhľady (15× neobjednávateľné,
+      klik nič nerobí), LUX-10 „Posielame“, rekapitulácia (počet/záloha/poradie/formát položky),
+      zaokrúhlenie ceny (0,01 €→0 €, 5,01 €→5 €), skip dlaždice (4×, prvá v mriežke, aktivita
+      podľa výberu, klik zruší len danú sériu)
+- [x] FIX „vyberateľné aj to, čo nemá ísť vybrať": objednávateľnosť je teraz
+      AUTORITATÍVNE z manifestu (`orderable` flag), nie z prítomnosti `<select>` v DOM-e.
+      `build-swatch-assets.mjs` nesie `orderable` do `swatch-data.js` (30 orderable /
+      15 náhľadov); `index.js` `isOrderableId()` → náhľad sa nedá vybrať, ani keď preň
+      Shoptet vystaví parameter (poistne držaný na „Nechcem"). Regresný test
+      v `test-konfigurator.mjs` (LUX-01 so selectom ostáva náhľad). 46/46 OK, bundle rebuilt.
+- [ ] LUX-14/15/16: chýbajú fotky (zatiaľ dlaždica bez obrázka) — doplniť do
+      `vzorky/images/web/2.vrstva/new/` a pustiť `yarn vzorky:swatches`
+- [ ] DEPLOY na produkciu: `luxuryCar.js` tam teraz 404-uje → výnimka beží len v deve.
+      Treba commit+push (CI rebuild+SFTP mirror) alebo manuálny upload bundla+`assets/img/vzorky/`
+- [ ] Vizuálne overiť v deve na /vzorkovnik-dragonskin---objednavka-vzoriek
+
+## Vzorkovník ako Shoptet PRODUKT (SURCHARGE_PARAMETER)
+- [x] v1: 30 samostatných yes/no parametrov — kedysi zamietnuté
+- [x] v4: **4 vrstvy = 4 parametre** (farby ako hodnoty +5 €) — problém: parameter je single-select, z vrstvy šlo vybrať len 1 farbu
+- [x] v5: každá vzorka = samostatný yes/no parameter (Nechcem 0 € / Chcem +5 €) → viac vzoriek naraz
+- [x] v6 (FINAL): LEN OBJEDNÁVATEĽNÉ vzorky = parameter — **30 parametrov** (Stripe 8 + Hexa 3 +
+      Diamond 18 + 2.vrstva len LUX-10). Ostatné Lux Color (15×) sú v konfigurátore len náhľady
+      (orderable:false v `konfigurator.jsx`), nemajú parameter → nedajú sa objednať
+- [x] Zdroj farieb = repo konfigurátor (rozhodnutie klienta)
+- [x] Bez fotiek pri voľbách (stačia príplatkové parametre)
+- [x] `vzorky/dist/vzorky-product.xml` validuje proti RELAX NG (`yarn vzorky:product`)
+- [ ] Potvrdiť VAT na vratnej zálohe (teraz 21 %, deposit môže byť 0 %)
+- [ ] Naimportovať do Shoptetu cez XML import a overiť parametre v košíku
+
+## Truck konfigurátor — re-sync z klienta (samostatná session)
+- [ ] Stiahnuť najnovší klientsky `konfigurator.jsx` (GitHub master, zmeny z 24.6.)
+- [ ] Znovu zapojiť Shoptet pricing/sync/ErrorBoundary (pattern už v repe)

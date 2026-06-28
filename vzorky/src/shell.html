@@ -1,0 +1,36 @@
+<!-- ====================================================================== -->
+<!-- LUXURY CAR DESIGN - Konfigurator vzoriek (self-contained blok)         -->
+<!-- Vygenerovane: vzorky/build-vzorky.mjs  (NEUPRAVOVAT rucne)             -->
+<!-- Zdroj pravdy: luxusnerohoze-dev/vzorky -> vzorky/src/konfigurator.jsx  -->
+<!--                                                                        -->
+<!-- Cely blok vloz do Shoptet stranky (rezim HTML / zdroj). Je uplne       -->
+<!-- samostatny: ziadne externe skripty ani obrazky, React je inline,       -->
+<!-- obrazky su base64. CSS je scopnute pod #lcd-vzorky-root, takze          -->
+<!-- neovplyvni zvysok stranky. Cely subor je cisty ASCII (diakritika je    -->
+<!-- v JS escapovana na \uXXXX) - renderuje spravne v kazdom kodovani.       -->
+<!-- ====================================================================== -->
+<style>
+  /* Scoped reset - plati IBA vnutri konfiguratora, neunika do Shoptet temy. */
+  #lcd-vzorky-root,
+  #lcd-vzorky-root *,
+  #lcd-vzorky-root *::before,
+  #lcd-vzorky-root *::after { box-sizing: border-box; }
+  #lcd-vzorky-root {
+    background: #f9f7f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2E1810;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.5;
+  }
+  #lcd-vzorky-root img { max-width: 100%; display: block; }
+  #lcd-vzorky-root button { font-family: inherit; }
+  /* Toast animacia (unikatny nazov, kolizia nehrozi). */
+  @keyframes lcd-toast-in {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+  }
+</style>
+
+<div id="lcd-vzorky-root"></div>
+
+<script>/*__LCD_VZORKY_BUNDLE__*/</script>

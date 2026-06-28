@@ -44,3 +44,16 @@ Když admin změní cenu příplatku v Shoptete, konfigurátor ji automaticky po
 ### Klientský repo
 - **`luxusnerohoze-dev/konfigurator`** — zdroj (`cennik_konfigurator.xlsx`, JSX konfigurátor, obrázky nášivek)
 - **`SharkJohny/LuxuryCarExport`** — náš pricelist pipeline (Google Sheets → XML feed update)
+
+<!-- ai-command-center:roadmap:start -->
+## Roadmap (managed by AI Command Center) — IMPORTANT
+
+**You MUST keep `.dashboard/roadmap.md` continuously up to date as you work.** This
+is not optional. It is a Markdown checklist: `- [ ] task` = not done, `- [x] task` = done.
+
+Rules — follow every time you change code:
+- The MOMENT you finish a step, edit `.dashboard/roadmap.md` and check it off (`- [x]`).
+- When you start new work or discover a task not yet listed, ADD it as `- [ ]` before/while you do it.
+- Never let the file go stale: if what you just did is not reflected there, fix it before moving on.
+- Keep it as the single source of truth for "what is done / what is left". The dashboard shows it live.
+<!-- ai-command-center:roadmap:end -->

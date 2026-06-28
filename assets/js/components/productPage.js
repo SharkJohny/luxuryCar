@@ -1,6 +1,10 @@
 import { showUpsalePopup } from "./UpsalePopup.js";
 import { createUpsaleButton, createOptions, createBoxConfig } from "./creatButtons.js";
 import { renderTruckConfigurator } from "../truck-konfigurator/index.jsx";
+import {
+  isVzorkyConfiguratorPage,
+  mountVzorkyConfigurator,
+} from "../vzorky-konfigurator/index.js";
 
 window.addEventListener(
   "error",
@@ -71,16 +75,37 @@ export function initProduct(setupData, texts) {
     return;
   }
 
-  createModelInfo();
+  // --- VZORKOVNÍK DRAGONSKIN (vizuálny vzorkovník napojený na košík) ---
+  // Na stránke /vzorkovnik-dragonskin---objednavka-vzoriek prekreslíme surcharge
+  // <select>-y na mriežku farebných dlaždíc; výber sa propaguje späť do natívnych
+  // selectov → Shoptet ráta vratnú zálohu a košík funguje.
+  //
+  // Vzorkovník (a iné „jednoduché" produkty) NIE je autokoberec — nesmie dostať
+  // konfigurátor osobáků, model-info ani upsale/cenové bannery, ktoré initProduct
+  // štandardne generuje pre autokoberce. Príznak `isVzorky` vypína VŠETKY tieto
+  // generátory. Sem sa pridajú ďalšie produkty, kde je auto-konfigurátor nežiadúci.
+  //
+  // POZOR: žiadny `return`! Na rozdiel od truck konfigurátora (ktorý nahrádza
+  // celú stránku) je vzorkovník NORMÁLNY produkt — initProduct musí dobehnúť do
+  // konca (odhalenie stĺpca, cena, košík), inak stránka ostane „visieť". Preto
+  // negenerátorový page-init necháme bežať (jeho selektory tu aj tak nič netrafia).
+  const isVzorky = isVzorkyConfiguratorPage();
+  if (isVzorky) {
+    mountVzorkyConfigurator();
+  }
+
+  if (!isVzorky) createModelInfo();
   // changeThumbnails();
   setTimeout(() => {
     $(".p-thumbnails-horizontal").addClass("overflow-next");
   }, 1000);
 
-  $("<div class='recommended-price'>Doporučená cena</div>").prependTo(".p-info-wrapper span.price-standard");
+  if (!isVzorky) {
+    $("<div class='recommended-price'>Doporučená cena</div>").prependTo(".p-info-wrapper span.price-standard");
 
-  $(".price-save:eq(1)").appendTo(".p-info-wrapper span.price-standard");
-  $("<div class='recommended-price-final'>" + texts.current_price + "</div>").prependTo(".p-info-wrapper .price-final");
+    $(".price-save:eq(1)").appendTo(".p-info-wrapper span.price-standard");
+    $("<div class='recommended-price-final'>" + texts.current_price + "</div>").prependTo(".p-info-wrapper .price-final");
+  }
   setTimeout(() => {
     if ($(".col-xs-12.col-lg-6.p-info-wrapper").length) {
       $(".col-xs-12.col-lg-6.p-info-wrapper").addClass("active");
@@ -121,11 +146,15 @@ export function initProduct(setupData, texts) {
   if ($(".p-detail-inner .p-detail-inner-header").length) {
     $(".p-detail-inner .p-detail-inner-header").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }
-  if ($(".benefitBanner.position--benefitProduct .benefitBanner__item").length) {
+  if (!isVzorky && $(".benefitBanner.position--benefitProduct .benefitBanner__item").length) {
     $(".benefitBanner.position--benefitProduct .benefitBanner__item").prependTo(".col-xs-12.col-lg-6.p-info-wrapper");
   }
-  createModelInfo();
-  priplatky(setupData, texts);
+  // Hlavné generátory autokoberec-konfigurátora a upsale/banerov — na vzorkovníku
+  // (a iných jednoduchých produktoch) ich PRESKOČÍME, aby sa negenerovali.
+  if (!isVzorky) {
+    createModelInfo();
+    priplatky(setupData, texts);
+  }
 
   $(".button.btn.select-model").on("click", function () {
     const overflow = $("<div>", {
@@ -999,6 +1028,9 @@ $("body").on("click", ".position-wrap ", function () {
 });
 
 function createModelInfo() {
+  // Vzorkovník nie je autokoberec — žiadne auto „model-info" (banner kompatibility
+  // s vozidlom). Bráni aj globálnemu .position-wrap click handleru vyššie.
+  if (isVzorkyConfiguratorPage()) return;
   const model = sessionStorage.getItem("model");
   console.log(model);
   const type = sessionStorage.getItem("carType");

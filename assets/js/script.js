@@ -35,13 +35,8 @@
   s.type = "module";
   s.src = "/assets/js/luxuryCar.js?b=" + bust;
   s.dataset.luxurycarBundle = "1";
-  s.onerror = (e) => {
-    // eslint-disable-next-line no-console
-    console.error(
-      "[luxuryCar bootstrap] Failed to load /assets/js/luxuryCar.js — " +
-        "did `yarn build` produce it?",
-      e,
-    );
-  };
+  // Bundle nemusí byť na danom prostredí nasadený (napr. produkcia bez CI
+  // mirroru) — vtedy zlyhá ticho, bez vyhadzovania chyby do konzoly.
+  s.onerror = () => {};
   (document.head || document.documentElement).appendChild(s);
 })();

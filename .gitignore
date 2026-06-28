@@ -1,1 +1,9 @@
 /node_modules
+
+# OMC operational state (akýkoľvek .omc/ adresár v strome)
+.omc/
+
+# Vzorkovník — stiahnuté originály obrázkov (re-fetchable cez `yarn vzorky:fetch`).
+# Commitujeme len výsledný blok vzorky/dist/vzorky-shoptet.html, nie ~9 MB zdrojov.
+/vzorky/images/
+.shoptet-tool/
