@@ -27995,253 +27995,253 @@ var VZORKY_SERIES = [
 var VZORKY_ITEMS = {
   "S-1": {
     "label": "\u0160tandard 29",
-    "img": "/assets/img/vzorky/S-1.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-1.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-2": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 b\xE9\u017Eovou",
-    "img": "/assets/img/vzorky/S-2.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-2.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-3": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
-    "img": "/assets/img/vzorky/S-3.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-3.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-4": {
     "label": "B\xE9\u017Eov\xE1",
-    "img": "/assets/img/vzorky/S-4.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-4.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-5": {
     "label": "Hned\xE1 k\xE1va",
-    "img": "/assets/img/vzorky/S-5.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-5.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-6": {
     "label": "Bledo hned\xE1",
-    "img": "/assets/img/vzorky/S-6.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-6.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-7": {
     "label": "V\xEDnovo \u010Derven\xE1",
-    "img": "/assets/img/vzorky/S-7.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-7.jpg",
     "series": "stripe",
     "orderable": true
   },
   "S-8": {
     "label": "\u010Cerven\xE1",
-    "img": "/assets/img/vzorky/S-8.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-8.jpg",
     "series": "stripe",
     "orderable": true
   },
   "H-1": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
-    "img": "/assets/img/vzorky/H-1.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-1.jpg",
     "series": "hexa",
     "orderable": true
   },
   "H-2": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 modrou",
-    "img": "/assets/img/vzorky/H-2.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-2.jpg",
     "series": "hexa",
     "orderable": true
   },
   "H-3": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
-    "img": "/assets/img/vzorky/H-3.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-3.jpg",
     "series": "hexa",
     "orderable": true
   },
   "D-1": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
-    "img": "/assets/img/vzorky/D-1.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-1.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-2": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 modrou",
-    "img": "/assets/img/vzorky/D-2.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-2.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-3": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
-    "img": "/assets/img/vzorky/D-3.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-3.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-4": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 b\xE9\u017Eovou",
-    "img": "/assets/img/vzorky/D-4.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-4.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-5": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 sivou",
-    "img": "/assets/img/vzorky/D-5.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-5.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-6": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 bielou",
-    "img": "/assets/img/vzorky/D-6.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-6.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-7": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u017Eltou",
-    "img": "/assets/img/vzorky/D-7.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-7.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-8": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 zelenou",
-    "img": "/assets/img/vzorky/D-8.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-8.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-9": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 bronzovou",
-    "img": "/assets/img/vzorky/D-9.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-9.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-10": {
     "label": "B\xE9\u017Eov\xE1",
-    "img": "/assets/img/vzorky/D-10.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-10.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-11": {
     "label": "Hned\xE1 k\xE1va",
-    "img": "/assets/img/vzorky/D-11.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-11.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-12": {
     "label": "Bledo hned\xE1",
-    "img": "/assets/img/vzorky/D-12.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-12.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-13": {
     "label": "V\xEDnovo \u010Derven\xE1",
-    "img": "/assets/img/vzorky/D-13.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-13.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-14": {
     "label": "\u010Cerven\xE1",
-    "img": "/assets/img/vzorky/D-14.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-14.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-15": {
     "label": "Siv\xE1",
-    "img": "/assets/img/vzorky/D-15.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-15.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-16": {
     "label": "Oran\u017Eov\xE1",
-    "img": "/assets/img/vzorky/D-16.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-16.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-17": {
     "label": "Modr\xE1",
-    "img": "/assets/img/vzorky/D-17.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-17.jpg",
     "series": "diamond",
     "orderable": true
   },
   "D-18": {
     "label": "Fialov\xE1",
-    "img": "/assets/img/vzorky/D-18.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-18.jpg",
     "series": "diamond",
     "orderable": true
   },
   "LUX-10": {
     "label": "Lux Color 10 \u2014 \u010Dierna",
-    "img": "/assets/img/vzorky/LUX-10.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-10.jpg",
     "series": "second",
     "orderable": true
   },
   "LUX-01": {
     "label": "Lux Color 01",
-    "img": "/assets/img/vzorky/LUX-01.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-01.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-02": {
     "label": "Lux Color 02",
-    "img": "/assets/img/vzorky/LUX-02.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-02.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-03": {
     "label": "Lux Color 03",
-    "img": "/assets/img/vzorky/LUX-03.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-03.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-04": {
     "label": "Lux Color 04",
-    "img": "/assets/img/vzorky/LUX-04.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-04.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-05": {
     "label": "Lux Color 05",
-    "img": "/assets/img/vzorky/LUX-05.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-05.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-06": {
     "label": "Lux Color 06",
-    "img": "/assets/img/vzorky/LUX-06.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-06.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-07": {
     "label": "Lux Color 07",
-    "img": "/assets/img/vzorky/LUX-07.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-07.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-08": {
     "label": "Lux Color 08",
-    "img": "/assets/img/vzorky/LUX-08.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-08.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-09": {
     "label": "Lux Color 09",
-    "img": "/assets/img/vzorky/LUX-09.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-09.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-11": {
     "label": "Lux Color 11",
-    "img": "/assets/img/vzorky/LUX-11.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-11.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-12": {
     "label": "Lux Color 12",
-    "img": "/assets/img/vzorky/LUX-12.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-12.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-13": {
     "label": "Lux Color 13",
-    "img": "/assets/img/vzorky/LUX-13.jpg",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-13.jpg",
     "series": "second",
     "orderable": false
   },

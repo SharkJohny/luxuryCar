@@ -5,8 +5,8 @@
  * Z klientskeho zdroja (vzorky/src/konfigurator.jsx) vezme farby 4 sérií
  * (Stripe / Hexa / Diamond / 2. vrstva) a:
  *   1) každý referencovaný obrázok zoptimalizuje (sharp, ~360 px, JPEG q80)
- *      do  assets/img/vzorky/<ID>.jpg   — CI to mirroruje na CDN cez lftp,
- *      takže ŽIADNY base64 bloat v luxuryCar.js.
+ *      do  assets/img/vzorky/<ID>.jpg  (lokálne, ako zdroj na nahratie do Shoptetu).
+ *      Manifest ale ukazuje na Shoptet upload (IMG_BASE) — ŽIADNY base64 bloat.
  *   2) vygeneruje malý manifest  assets/js/vzorky-konfigurator/swatch-data.js
  *      (ID -> { label, img }) + poradie sérií. Manifest je ~3 KB, inlinuje sa
  *      do bundla bez problému.
@@ -33,6 +33,9 @@ const OUT_MANIFEST = join(REPO, "assets", "js", "vzorky-konfigurator", "swatch-d
 
 const EDGE = 360; // swatch sa zobrazuje ~120-160 px; 360 = 2× retina rezerva
 const QUALITY = 80;
+// Obrázky vzoriek sú nahrané v Shoptet upload priečinku (nie v repo /assets).
+// Plná absolútna URL → funguje v deve (Bender) aj na produkcii bez ohľadu na doménu.
+const IMG_BASE = "https://www.luxurycardesign.sk/user/documents/upload/assets/config/";
 
 const log = (...a) => console.log("[swatch]", ...a);
 
@@ -56,7 +59,7 @@ const SERIES = [
   { key: "second",  title: "2. vrstva (Lux Color)",  param: "Vzorka 2. vrstva",    items: extractArray("SECOND") },
 ];
 
-// --- 2. Optimalizuj obrázky -> assets/img/vzorky/<ID>.jpg --------------------
+// --- 2. Optimalizuj obrázky -> assets/img/vzorky/<ID>.jpg (zdroj na upload) ---
 if (existsSync(OUT_IMG)) rmSync(OUT_IMG, { recursive: true, force: true });
 mkdirSync(OUT_IMG, { recursive: true });
 
@@ -73,7 +76,7 @@ for (const series of SERIES) {
     // takže náhľady sa nedajú vybrať, ani keby pre ne Shoptet vystavil parameter.
     const orderable = series.key !== "second" || it.orderable === true;
     const abs = join(IMAGES_WEB, it.img);
-    const url = "/assets/img/vzorky/" + it.id + ".jpg";
+    const url = IMG_BASE + it.id + ".jpg";
     const raw = existsSync(abs) ? readFileSync(abs) : null;
     if (raw && raw.length > 0) {
       const buf = await sharp(raw)

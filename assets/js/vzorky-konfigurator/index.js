@@ -16,8 +16,8 @@
  *   1) nájdeme tieto <select>-y (ID čítame z data-parameter-name "(…)"),
  *   2) zoskupíme ich do 4 sérií (Stripe / Hexa / Diamond / 2. vrstva) POD SEBA,
  *   3) NATÍVNE riadky skryjeme,
- *   4) vykreslíme mriežku farebných dlaždíc (obrázky z /assets/img/vzorky/<ID>.jpg,
- *      hostené na CDN — žiadny base64 v bundli),
+ *   4) vykreslíme mriežku farebných dlaždíc (obrázky zo Shoptet uploadu
+ *      /user/documents/upload/assets/config/<ID>.jpg — žiadny base64 v bundli),
  *   5) klik na dlaždicu prepne podkladový <select> na "Chcem" / "Nechcem" +
  *      dispatchne 'change' → Shoptet prepočíta vratnú zálohu.
  *
