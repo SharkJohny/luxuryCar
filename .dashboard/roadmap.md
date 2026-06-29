@@ -84,6 +84,26 @@ bundle. Nová, čistá implementácia:
 - [ ] Potvrdiť VAT na vratnej zálohe (teraz 21 %, deposit môže byť 0 %)
 - [ ] Naimportovať do Shoptetu cez XML import a overiť parametre v košíku
 
-## Truck konfigurátor — re-sync z klienta (samostatná session)
-- [ ] Stiahnuť najnovší klientsky `konfigurator.jsx` (GitHub master, zmeny z 24.6.)
-- [ ] Znovu zapojiť Shoptet pricing/sync/ErrorBoundary (pattern už v repe)
+## Truck konfigurátor — re-sync z klienta + mobilná verzia
+- [x] DESKTOP update z klienta (`luxusnerohoze-dev/konfigurator` origin/master): 3-way
+      git merge (base=abad847 → theirs=origin/master) na spt `konfigurator.jsx` —
+      prinieslo klientove UX zmeny (scroll-once `*Scrolled`, galéria fotiek `activePhoto`,
+      odstránený auto-advance, door-lemovanie sync) a zachovalo spt adaptácie (React import,
+      DOM-pricing, syncToShoptet, add-to-cart, export). 2 triviálne konflikty vyriešené.
+- [x] PHONE verzia (`phone/konfigurator.jsx`) zapojená ako `konfigurator.phone.jsx` —
+      rovnaké Shoptet adaptácie aplikované scriptom (pricing/sync/state shape identický s desktopom).
+- [x] FIX TDZ bug v klientovom phone kóde: auto-scroll useEffect referencoval `step1Done`
+      v deps PRED jeho deklaráciou → presunutý za deklaráciu.
+- [x] Viewport switch v `index.jsx`: `matchMedia(max-width:768px)` → phone, inak desktop (mount-time).
+- [x] Smoke test `assets/js/truck-konfigurator/test-truck-mount.mjs` (`yarn truck:test`):
+      obe verzie mountujú bez runtime chýb + renderujú DOM. OK.
+- [x] Bundle: base64 obrázky von z bundla → **19.7MB → 1.5MB** (aj pôvodný desktop
+      externalizovaný). `truck/build-truck-images.mjs` (`yarn truck:images`, beží v build:once
+      a v CI) vytiahne 174 unikátnych obrázkov (dedup desktop+phone) do `assets/img/truck/`
+      a vygeneruje `konfigurator*.gen.jsx` (base64→URL `…/upload/assets/config/truck/`).
+      Zdrojové `konfigurator*.jsx` ostávajú s base64 (čistý re-sync); `index.jsx` bundluje .gen.
+      IMG_BASE = `https://www.luxurycardesign.cz/user/documents/upload/assets/config/`
+      (file manager NIE je zdieľaný medzi doménami: truck = .cz, vzorky = .sk).
+- [x] ⬆️ Obrázky nahraté klientom do Shoptet (.cz) `assets/config/` — overené všetkých 174/174 = HTTP 200.
+- [ ] Vizuálne overiť desktop aj mobil na reálnom truck produkte (cena/sync/košík).
+- [ ] Breakpoint 768px doladiť podľa reálneho zariadenia (tablet teraz dostáva desktop).

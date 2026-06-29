@@ -12,9 +12,28 @@
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { Configurator } from "./konfigurator.jsx";
+// .gen.jsx = base64 obrázky vytiahnuté na Shoptet upload (truck/build-truck-images.mjs).
+// Zdrojové konfigurator.jsx / konfigurator.phone.jsx (s base64) ostávajú kvôli
+// čistému re-syncu z klienta; bundlujú sa LEN tieto ľahké .gen verzie.
+import { Configurator as DesktopConfigurator } from "./konfigurator.gen.jsx";
+import { Configurator as PhoneConfigurator } from "./konfigurator.phone.gen.jsx";
 
 const MOUNTED_ATTR = "data-tk-mounted";
+
+// Mobil dostáva PHONE verziu konfigurátora, desktop DESKTOP — rozhoduje šírka
+// displeja pri mounte. Breakpoint 768 px (telefóny). Tablety a viac = desktop.
+// (Mount-time rozhodnutie; pri zmene šírky po načítaní sa UI neprepína.)
+const PHONE_MQ = "(max-width: 768px)";
+function pickConfigurator() {
+  try {
+    if (typeof window !== "undefined" && window.matchMedia && window.matchMedia(PHONE_MQ).matches) {
+      return PhoneConfigurator;
+    }
+  } catch (e) {
+    /* matchMedia nedostupné → desktop fallback */
+  }
+  return DesktopConfigurator;
+}
 
 class ConfiguratorErrorBoundary extends React.Component {
   constructor(props) {
@@ -86,11 +105,12 @@ export function renderTruckConfigurator(element) {
   if (!element) return false;
   if (element.getAttribute(MOUNTED_ATTR) === "1") return true;
   element.setAttribute(MOUNTED_ATTR, "1");
+  const Picked = pickConfigurator();
   createRoot(element).render(
     React.createElement(
       ConfiguratorErrorBoundary,
       null,
-      React.createElement(Configurator),
+      React.createElement(Picked),
     ),
   );
   return true;

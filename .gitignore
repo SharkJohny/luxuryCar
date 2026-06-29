@@ -7,3 +7,8 @@
 # Commitujeme len výsledný blok vzorky/dist/vzorky-shoptet.html, nie ~9 MB zdrojov.
 /vzorky/images/
 .shoptet-tool/
+
+# Truck konfigurátor — generované ľahké verzie (base64 → URL); regeneruje
+# `yarn truck:images` (beží aj v build:once). Zdroj = konfigurator*.jsx s base64.
+/assets/js/truck-konfigurator/konfigurator.gen.jsx
+/assets/js/truck-konfigurator/konfigurator.phone.gen.jsx
