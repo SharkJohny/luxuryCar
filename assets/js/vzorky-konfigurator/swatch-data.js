@@ -3,31 +3,6 @@
 
 export const VZORKY_SERIES = [
   {
-    "key": "stripe",
-    "title": "Stripe Line",
-    "param": "Vzorka Stripe Line",
-    "ids": [
-      "S-1",
-      "S-2",
-      "S-3",
-      "S-4",
-      "S-5",
-      "S-6",
-      "S-7",
-      "S-8"
-    ]
-  },
-  {
-    "key": "hexa",
-    "title": "Hexa Line",
-    "param": "Vzorka Hexa Line",
-    "ids": [
-      "H-1",
-      "H-2",
-      "H-3"
-    ]
-  },
-  {
     "key": "diamond",
     "title": "Diamond Line",
     "param": "Vzorka Diamond Line",
@@ -50,6 +25,31 @@ export const VZORKY_SERIES = [
       "D-16",
       "D-17",
       "D-18"
+    ]
+  },
+  {
+    "key": "stripe",
+    "title": "Stripe Line",
+    "param": "Vzorka Stripe Line",
+    "ids": [
+      "S-1",
+      "S-2",
+      "S-3",
+      "S-4",
+      "S-5",
+      "S-6",
+      "S-7",
+      "S-8"
+    ]
+  },
+  {
+    "key": "hexa",
+    "title": "Hexa Line",
+    "param": "Vzorka Hexa Line",
+    "ids": [
+      "H-1",
+      "H-2",
+      "H-3"
     ]
   },
   {
@@ -78,72 +78,6 @@ export const VZORKY_SERIES = [
 ];
 
 export const VZORKY_ITEMS = {
-  "S-1": {
-    "label": "Štandard 29",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-1.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-2": {
-    "label": "Čierna prešívaná béžovou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-2.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-3": {
-    "label": "Čierna prešívaná čiernou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-3.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-4": {
-    "label": "Béžová",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-4.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-5": {
-    "label": "Hnedá káva",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-5.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-6": {
-    "label": "Bledo hnedá",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-6.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-7": {
-    "label": "Vínovo červená",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-7.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-8": {
-    "label": "Červená",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-8.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "H-1": {
-    "label": "Čierna prešívaná červenou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-1.jpg",
-    "series": "hexa",
-    "orderable": true
-  },
-  "H-2": {
-    "label": "Čierna prešívaná modrou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-2.jpg",
-    "series": "hexa",
-    "orderable": true
-  },
-  "H-3": {
-    "label": "Čierna prešívaná čiernou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-3.jpg",
-    "series": "hexa",
-    "orderable": true
-  },
   "D-1": {
     "label": "Čierna prešívaná červenou",
     "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-1.jpg",
@@ -252,6 +186,72 @@ export const VZORKY_ITEMS = {
     "series": "diamond",
     "orderable": true
   },
+  "S-1": {
+    "label": "Štandard 29",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-1.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-2": {
+    "label": "Čierna prešívaná béžovou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-2.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-3": {
+    "label": "Čierna prešívaná čiernou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-3.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-4": {
+    "label": "Béžová",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-4.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-5": {
+    "label": "Hnedá káva",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-5.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-6": {
+    "label": "Bledo hnedá",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-6.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-7": {
+    "label": "Vínovo červená",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-7.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-8": {
+    "label": "Červená",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-8.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "H-1": {
+    "label": "Čierna prešívaná červenou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-1.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "H-2": {
+    "label": "Čierna prešívaná modrou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-2.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "H-3": {
+    "label": "Čierna prešívaná čiernou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-3.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
   "LUX-10": {
     "label": "Lux Color 10 — čierna",
     "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-10.jpg",
@@ -332,19 +332,19 @@ export const VZORKY_ITEMS = {
   },
   "LUX-14": {
     "label": "Lux Color 14",
-    "img": null,
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-14.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-15": {
     "label": "Lux Color 15",
-    "img": null,
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-15.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-16": {
     "label": "Lux Color 16",
-    "img": null,
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-16.jpg",
     "series": "second",
     "orderable": false
   }

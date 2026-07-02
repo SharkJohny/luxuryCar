@@ -15,13 +15,16 @@ REPO="luxusnerohoze-dev/vzorky"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "[fetch] konfigurator.jsx + index.original.html"
-gh api "repos/$REPO/contents/konfigurator.jsx" --jq '.content' | base64 -d > "$DIR/src/konfigurator.jsx"
-gh api "repos/$REPO/contents/index.html"        --jq '.content' | base64 -d > "$DIR/src/index.original.html"
+gh api "repos/$REPO/contents/konfigurator.jsx" -H "Accept: application/vnd.github.raw" > "$DIR/src/konfigurator.jsx"
+gh api "repos/$REPO/contents/index.html"        -H "Accept: application/vnd.github.raw" > "$DIR/src/index.original.html"
 
 echo "[fetch] parsujem referencované obrázky z konfigurator.jsx"
 # IMG("...")      -> web/...
 # IMG_PATH("...") -> product/...
-mapfile -t REFS < <(
+REFS=()
+while IFS= read -r line; do
+  REFS+=("$line")
+done < <(
   grep -oE 'IMG(_PATH)?\("[^"]+"\)' "$DIR/src/konfigurator.jsx" \
     | sed -E 's/IMG_PATH\("/product\//; s/IMG\("/web\//; s/"\)//' \
     | sort -u
@@ -32,7 +35,8 @@ ok=0; fail=0
 for rel in "${REFS[@]}"; do
   dest="$DIR/images/$rel"
   mkdir -p "$(dirname "$dest")"
-  if gh api "repos/$REPO/contents/images/$rel" --jq '.content' 2>/dev/null | base64 -d > "$dest" 2>/dev/null && [ -s "$dest" ]; then
+  # Accept: raw obchádza 1MB limit base64 JSON odpovede (funguje do ~100MB)
+  if gh api "repos/$REPO/contents/images/$rel" -H "Accept: application/vnd.github.raw" > "$dest" 2>/dev/null && [ -s "$dest" ]; then
     ok=$((ok+1))
   else
     rm -f "$dest"                       # nenechaj prázdny súbor (build ho berie ako missing)

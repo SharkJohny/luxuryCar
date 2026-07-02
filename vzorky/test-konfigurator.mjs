@@ -202,9 +202,9 @@ if (table && table.compareDocumentPosition(root) & window.Node.DOCUMENT_POSITION
   ok("root je umiestnený ZA tabuľkou parametrov");
 else fail("root nie je za tabuľkou parametrov");
 
-// poradie sérií: Stripe, Hexa, Diamond, 2. vrstva
+// poradie sérií: Diamond, Stripe, Hexa, 2. vrstva
 const titles = [...series].map((s) => s.querySelector(".lcd-vz-acc-title").textContent);
-if (titles[0] === "Stripe Line" && titles[3] === "2. vrstva (Lux Color)")
+if (titles[0] === "Diamond Line" && titles[3] === "2. vrstva (Lux Color)")
   ok(`poradie sérií OK: ${titles.join(" → ")}`);
 else fail(`zlé poradie: ${titles.join(" → ")}`);
 
@@ -271,9 +271,9 @@ else fail(`LUX-01 select.value=${selectForId("LUX-01").value}, čakal 'Nechcem' 
 const recapItems = root.querySelectorAll(".lcd-vz-recap-list li");
 if (recapItems.length === 2) ok("rekapitulácia: 2 položky (D-1 + S-3)");
 else fail(`rekapitulácia má ${recapItems.length} položiek (čakal 2)`);
-// poradie v rekapitulácii: séria (Stripe pred Diamond), v rámci série podľa idx
+// poradie v rekapitulácii: séria (Diamond pred Stripe), v rámci série podľa idx
 const recapText = root.querySelector(".lcd-vz-recap-list").textContent;
-if (/S-3[\s\S]*D-1/.test(recapText)) ok("rekapitulácia zoradená podľa sérií (Stripe → Diamond)");
+if (/D-1[\s\S]*S-3/.test(recapText)) ok("rekapitulácia zoradená podľa sérií (Diamond → Stripe)");
 else fail(`zlé poradie rekapitulácie: "${recapText}"`);
 if (/D-1\s*[—–-]\s*Diamond Line:/.test(recapText)) ok("položka rekapitulácie: 'D-1 — Diamond Line: …'");
 else fail(`zlý formát položky: "${recapText}"`);

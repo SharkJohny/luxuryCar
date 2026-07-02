@@ -53,9 +53,9 @@ function extractArray(name) {
 }
 
 const SERIES = [
+  { key: "diamond", title: "Diamond Line",           param: "Vzorka Diamond Line", items: extractArray("DIAMOND") },
   { key: "stripe",  title: "Stripe Line",            param: "Vzorka Stripe Line",  items: extractArray("STRIPE") },
   { key: "hexa",    title: "Hexa Line",              param: "Vzorka Hexa Line",    items: extractArray("HEXA") },
-  { key: "diamond", title: "Diamond Line",           param: "Vzorka Diamond Line", items: extractArray("DIAMOND") },
   { key: "second",  title: "2. vrstva (Lux Color)",  param: "Vzorka 2. vrstva",    items: extractArray("SECOND") },
 ];
 

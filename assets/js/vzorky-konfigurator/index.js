@@ -435,8 +435,8 @@ export function renderVzorkyConfigurator(host) {
     return !!yo && e.select.value === yo.value;
   };
 
-  // poradie sérií: Stripe, Hexa, Diamond, 2. vrstva
-  const order = ["stripe", "hexa", "diamond", "second"];
+  // poradie sérií: Diamond, Stripe, Hexa, 2. vrstva
+  const order = ["diamond", "stripe", "hexa", "second"];
 
   // Prepočet: počítadlá v hlavičkách akordeonov + rekapitulácia objednávky.
   const recompute = () => {

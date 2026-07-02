@@ -10,7 +10,11 @@
 - [x] jsdom mount test — 0 runtime chýb, 49 base64 img, order math OK
 - [x] Výstup `vzorky/dist/vzorky-shoptet.html` (~2.7 MB), pripravený na vloženie
 - [x] Fix: celý blok prepísaný na čisté ASCII (\uXXXX) — opravená rozsypaná diakritika
-- [ ] Klient: doplniť fotky `2.vrstva/new/Lux_color_14/15/16.png` (zatiaľ placeholder)
+- [x] Klient doplnil fotky `2.vrstva/new/Lux_color_14/15/16.png` (commit `de70531`,
+      8.5.2026) → `yarn vzorky:fetch` (opravený `mapfile`→portable read loop pre bash 3.2
+      + `Accept: application/vnd.github.raw` namiesto base64 `content`, ktorý má na GH API
+      1MB limit — fotky boli 14-18MB) + `yarn build:vzorky` → placeholder v
+      `dist/vzorky-shoptet.html` nahradený reálnymi náhľadmi, `yarn vzorky:test` OK
 - [ ] Klient: vložiť blok do Shoptet stránky a vizuálne overiť
 
 ## Vzorkovník — JS výnimka v HLAVNOM kóde (vizuálny vzorkovník napojený na košík)
@@ -65,8 +69,15 @@ bundle. Nová, čistá implementácia:
       15 náhľadov); `index.js` `isOrderableId()` → náhľad sa nedá vybrať, ani keď preň
       Shoptet vystaví parameter (poistne držaný na „Nechcem"). Regresný test
       v `test-konfigurator.mjs` (LUX-01 so selectom ostáva náhľad). 46/46 OK, bundle rebuilt.
-- [ ] LUX-14/15/16: chýbajú fotky (zatiaľ dlaždica bez obrázka) — doplniť do
-      `vzorky/images/web/2.vrstva/new/` a pustiť `yarn vzorky:swatches`
+- [x] LUX-14/15/16: fotky doplnené do `vzorky/images/web/2.vrstva/new/`,
+      `yarn vzorky:swatches` vygeneroval `assets/img/vzorky/LUX-{14,15,16}.jpg`
+      (42→45 súborov) + zapísal manifest, `yarn vzorky:test` OK (nezmenené počty
+      dlaždíc/náhľadov, LUX-14/15/16 ostávajú `orderable:false`)
+- [x] Poradie sérií zmenené na Diamond ako 1. voľba: `order` pole v `index.js`
+      (`["diamond","stripe","hexa","second"]`) + `SERIES` v `build-swatch-assets.mjs`
+      zosúladené s `vzorky/src/konfigurator.jsx` (klientský zdroj mal Diamond už
+      prvý v akordeóne). Testy (`test-konfigurator.mjs`) prepísané na nové
+      očakávané poradie (akordeóny aj rekapitulácia), `yarn vzorky:test` OK
 - [ ] DEPLOY na produkciu: `luxuryCar.js` tam teraz 404-uje → výnimka beží len v deve.
       Treba commit+push (CI rebuild+SFTP mirror) alebo manuálny upload bundla+`assets/img/vzorky/`
 - [ ] Vizuálne overiť v deve na /vzorkovnik-dragonskin---objednavka-vzoriek
