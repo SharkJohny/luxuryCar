@@ -118,3 +118,24 @@ bundle. Nová, čistá implementácia:
 - [x] ⬆️ Obrázky nahraté klientom do Shoptet (.cz) `assets/config/` — overené všetkých 174/174 = HTTP 200.
 - [ ] Vizuálne overiť desktop aj mobil na reálnom truck produkte (cena/sync/košík).
 - [ ] Breakpoint 768px doladiť podľa reálneho zariadenia (tablet teraz dostáva desktop).
+
+## Konfigurátor — redesign kroku "Autokoberce do kufra" podľa návrhu (2.7.2026)
+- [x] `lcdTrunkCardsRedesign()` v `configurator-enhance.js`: split textu karty na
+      titulok + podtitulok, save badge s percentom (−66 % / −58 % z data-recommended),
+      NECHCEM podtitulok "Ponechať kufor prázdny" + poznámka "Bez zľavy na tento doplnok",
+      badge "★ Najobjednávanejšie" na PREMIUM karte (SK/CZ lokalizácia)
+- [x] SCSS `_productPage.scss`: horizontálne karty (obrázok 38 % vľavo, object-fit cover),
+      veľká cena s prečiarknutou RRP, zelený save badge, ✓ krúžok na aktívnej karte,
+      NECHCEM grayscale obrázok; mobilná verzia (≤768px)
+- [x] jsdom test logiky (3 karty, percentá sedia s návrhom) + `yarn build:once` OK
+- [x] Presné gradienty podľa spec od Michala (2.7.2026): hlavička kroku
+      135deg #d9bb6b→#b98f36; badge Najobjednávanejšie 135deg #e2c163→#b98f36;
+      zelená (save lišta + všetky flow CTA vrátane potvrdiť — klientove pravidlo
+      jednotnej zelenej) 135deg #34a865→#238049, hover #2f9a5c→#1e7241
+- [ ] Zlatý oddeľovač pod názvom (90deg #e2c163→#b98f36) — čaká na upresnenie,
+      pod ktorým názvom má byť (v dodanom výreze návrhu nie je vidieť)
+- [x] Hlavička akordeónu: číslo kroku v tmavom štvorčeku (#1d1911, JS wrap
+      `lcdWrapStepNumbers()` — samoopravný voči `.text()` prepisu z productPage.js),
+      tmavý titulok #1f1a10 weight 800, malá tmavá šipka; výška 48px desktop /
+      40px mobil (rešpektuje max-height 50/42px zbaleného kroku); jsdom test OK
+- [ ] Vizuálne overiť na reálnom produkte (desktop + mobil) a odladiť podľa návrhu

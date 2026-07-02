@@ -435,24 +435,44 @@ i.info-icon {
     border: 2px solid #e0d5b8;
   }
 
+  // Hlavička akordeónu — zlatý gradient presne podľa spec od Michala
+  // (2.7.2026): 135deg #d9bb6b → #b98f36. Tmavý štvorček s číslom kroku
+  // (span.lcd-step-num dopĺňa lcdWrapStepNumbers() v configurator-enhance.js),
+  // tmavý titulok. Výška 48px — musí zostať pod max-height:50px zbaleného
+  // kroku (configuratorEngine K3 force-close nastavuje 50px inline).
   .order {
-    background: linear-gradient(135deg, #c5a44e, #a8893a);
+    background: linear-gradient(135deg, #d9bb6b 0%, #b98f36 100%);
     width: 100%;
     height: auto;
-    color: #fff;
+    color: #1f1a10;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-align: left;
     font-family: 'Exo 2';
-    padding: 14px 20px;
+    padding: 10px 16px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     cursor: pointer;
     transition: all 0.3s;
     user-select: none;
+  }
+
+  .lcd-step-num {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #1d1911;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 
   .h4.variant.name {
@@ -460,10 +480,10 @@ i.info-icon {
     left: 75px;
     top: 14px;
     font-size: 15px;
-    color: #fff;
+    color: #1f1a10;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 700;
+    font-weight: 800;
   }
 }
 
@@ -507,10 +527,10 @@ i.info-icon {
 .base-config h5.variant.name {
   position: absolute;
   top: 14px;
-  left: 50px;
-  color: #fff;
+  left: 58px; // za tmavým štvorčekom čísla (16px padding + 28px + 14px gap)
+  color: #1f1a10;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1px;
   font-size: 15px;
 }
@@ -808,10 +828,12 @@ span.quantity {
 
   h5.variant.name {
     position: absolute;
-    top: 16px;
-    left: 50px;
-    color: #fff;
+    top: 14px;
+    left: 58px; // zarovnané s .base-config — za štvorčekom čísla
+    color: #1f1a10;
     text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
   }
 
   .upsale-buttons {
@@ -995,18 +1017,18 @@ span.quantity {
     padding: 8px 16px;
     // Klient: „POTVRDIŤ a ďalšie tlačítka majú byť zelené" — zjednotené
     // s `.finish-button` štýlom.
-    background: linear-gradient(135deg, #4caf50, #388e3c);
+    background: linear-gradient(135deg, #34a865, #238049);
 
     color: #fff;
     border-radius: 25px;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 4px 16px rgba(35, 128, 73, 0.4);
 
     &:hover {
-      background: linear-gradient(135deg, #5cb85c, #449d44);
-      box-shadow: 0 6px 24px rgba(76, 175, 80, 0.6);
+      background: linear-gradient(135deg, #2f9a5c, #1e7241);
+      box-shadow: 0 6px 24px rgba(35, 128, 73, 0.6);
     }
   }
 
@@ -1922,7 +1944,7 @@ section#model-info {
     position: absolute;
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #4caf50, #388e3c);
+    background: linear-gradient(135deg, #34a865, #238049);
     color: white;
     border-radius: 50%;
     padding: 20px 10px;
@@ -3106,13 +3128,13 @@ a.p-thumbnail {
     &::after {
       content: '▼';
       position: absolute;
-      right: 20px;
+      right: 16px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 16px;
+      font-size: 11px;
       font-weight: bold;
       transition: transform 0.3s ease;
-      color: #fff;
+      color: rgba(31, 26, 16, 0.7);
     }
   }
 
@@ -3131,7 +3153,7 @@ a.p-thumbnail {
   // pre next-step a zelený len pre last-step / finish).
   .next-step-button {
     display: none;
-    background: linear-gradient(135deg, #4caf50, #388e3c);
+    background: linear-gradient(135deg, #34a865, #238049);
     color: white;
     border: none;
     padding: 14px 24px;
@@ -3146,12 +3168,12 @@ a.p-thumbnail {
     font-family: 'Exo 2';
     width: calc(100% - 40px);
     text-align: center;
-    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 4px 16px rgba(35, 128, 73, 0.4);
 
     &:hover {
-      background: linear-gradient(135deg, #5cb85c, #449d44);
+      background: linear-gradient(135deg, #2f9a5c, #1e7241);
       transform: scale(1.03);
-      box-shadow: 0 6px 24px rgba(76, 175, 80, 0.6);
+      box-shadow: 0 6px 24px rgba(35, 128, 73, 0.6);
     }
 
     &:active {
@@ -3161,12 +3183,12 @@ a.p-thumbnail {
     // Finish-button má rovnakú zelenú – pre kompatibilitu so starým
     // selektorom necháme override prázdny (sedí s defaultom).
     &.finish-button {
-      background: linear-gradient(135deg, #4caf50, #388e3c);
-      box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+      background: linear-gradient(135deg, #34a865, #238049);
+      box-shadow: 0 4px 16px rgba(35, 128, 73, 0.4);
 
       &:hover {
-        background: linear-gradient(135deg, #5cb85c, #449d44);
-        box-shadow: 0 6px 24px rgba(76, 175, 80, 0.6);
+        background: linear-gradient(135deg, #2f9a5c, #1e7241);
+        box-shadow: 0 6px 24px rgba(35, 128, 73, 0.6);
       }
     }
   }
@@ -3360,5 +3382,244 @@ video::-webkit-media-controls {
 .position-wrap.parameter-cars.parameter-wrap.base-config.active {
   .parameter-cars .button.option-button {
     height: unset !important;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Krok "Autokoberce do kufra" — redesign kariet podľa návrhu (2026-07).
+// Obrázok vľavo, titulok + podtitulok, cena s prečiarknutou RRP,
+// zelený "Ušetríte" badge s percentom, ✓ na aktívnej karte,
+// badge "★ Najobjednávanejšie" na PREMIUM, NECHCEM v grayscale.
+// Markup dopĺňa lcdTrunkCardsRedesign() v configurator-enhance.js.
+// ─────────────────────────────────────────────────────────────────────
+.upsale-Banner .upsale-buttons.trunk {
+  .parameter-cars {
+    gap: 14px;
+  }
+
+  .upsale-button {
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 2px solid #ececec;
+    border-radius: 14px;
+
+    img {
+      width: 38%;
+      min-height: 170px;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      object-fit: cover;
+      align-self: stretch;
+    }
+
+    .banner-header {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 22px 14px;
+    }
+
+    .lcd-card-title {
+      display: block;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .lcd-card-sub {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #9a8f74;
+      text-align: center;
+    }
+
+    .price {
+      position: static;
+      top: auto;
+      width: auto;
+      padding: 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: #111;
+      line-height: 1.2;
+
+      .price-recommended {
+        font-size: 0.55em;
+        font-weight: 400;
+      }
+    }
+
+    .save {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: auto;
+      margin-top: 4px;
+      padding: 9px 16px;
+      background: linear-gradient(135deg, #34a865, #238049);
+      color: #fff !important;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(35, 128, 73, 0.35);
+
+      strong {
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .lcd-save-pct {
+        background: rgba(0, 0, 0, 0.28);
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .upsale-button.active {
+    border: 2px solid #c49b31 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 18px rgba(196, 155, 49, 0.3);
+
+    &::after {
+      content: '✓';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #c49b31;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .upsale-button.none {
+    img {
+      filter: grayscale(1);
+      opacity: 0.85;
+    }
+
+    .lcd-card-note {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #8a7a4a;
+      text-align: center;
+    }
+  }
+
+  .lcd-upsale-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background: linear-gradient(135deg, #e2c163, #b98f36);
+    color: #2b2107;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: 768px) {
+  .upsale-Banner .upsale-buttons.trunk .upsale-button {
+    width: 100%;
+
+    img {
+      width: 40%;
+      min-height: 120px;
+    }
+
+    .banner-header {
+      padding: 14px 10px;
+    }
+
+    .lcd-card-title {
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .lcd-card-sub {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .price {
+      font-size: 20px;
+    }
+
+    .save {
+      gap: 6px;
+      padding: 7px 10px;
+      font-size: 10px;
+
+      strong {
+        font-size: 12px;
+      }
+
+      .lcd-save-pct {
+        font-size: 10px;
+        padding: 2px 6px;
+      }
+    }
+  }
+}
+
+// Hlavička akordeónu — mobil. Zbalený krok má max-height:42px,
+// hlavička musí byť ≤ 40px (7 + 26 + 7). Až na konci súboru,
+// aby prebila desktopové pravidlá (.base-config / .upsale-Banner h5).
+@media (max-width: 768px) {
+
+  .parameter-wrap .order,
+  .position-wrap .order {
+    padding: 7px 12px;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .parameter-wrap .lcd-step-num,
+  .position-wrap .lcd-step-num {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  .base-config h5.variant.name,
+  .upsale-Banner h5.variant.name {
+    top: 11px;
+    left: 48px;
+    font-size: 13px;
   }
 }

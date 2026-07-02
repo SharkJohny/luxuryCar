@@ -31604,31 +31604,6 @@ function renderTruckConfigurator(element) {
 // assets/js/vzorky-konfigurator/swatch-data.js
 var VZORKY_SERIES = [
   {
-    "key": "stripe",
-    "title": "Stripe Line",
-    "param": "Vzorka Stripe Line",
-    "ids": [
-      "S-1",
-      "S-2",
-      "S-3",
-      "S-4",
-      "S-5",
-      "S-6",
-      "S-7",
-      "S-8"
-    ]
-  },
-  {
-    "key": "hexa",
-    "title": "Hexa Line",
-    "param": "Vzorka Hexa Line",
-    "ids": [
-      "H-1",
-      "H-2",
-      "H-3"
-    ]
-  },
-  {
     "key": "diamond",
     "title": "Diamond Line",
     "param": "Vzorka Diamond Line",
@@ -31651,6 +31626,31 @@ var VZORKY_SERIES = [
       "D-16",
       "D-17",
       "D-18"
+    ]
+  },
+  {
+    "key": "stripe",
+    "title": "Stripe Line",
+    "param": "Vzorka Stripe Line",
+    "ids": [
+      "S-1",
+      "S-2",
+      "S-3",
+      "S-4",
+      "S-5",
+      "S-6",
+      "S-7",
+      "S-8"
+    ]
+  },
+  {
+    "key": "hexa",
+    "title": "Hexa Line",
+    "param": "Vzorka Hexa Line",
+    "ids": [
+      "H-1",
+      "H-2",
+      "H-3"
     ]
   },
   {
@@ -31678,72 +31678,6 @@ var VZORKY_SERIES = [
   }
 ];
 var VZORKY_ITEMS = {
-  "S-1": {
-    "label": "\u0160tandard 29",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-1.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-2": {
-    "label": "\u010Cierna pre\u0161\xEDvan\xE1 b\xE9\u017Eovou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-2.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-3": {
-    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-3.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-4": {
-    "label": "B\xE9\u017Eov\xE1",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-4.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-5": {
-    "label": "Hned\xE1 k\xE1va",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-5.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-6": {
-    "label": "Bledo hned\xE1",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-6.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-7": {
-    "label": "V\xEDnovo \u010Derven\xE1",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-7.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "S-8": {
-    "label": "\u010Cerven\xE1",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-8.jpg",
-    "series": "stripe",
-    "orderable": true
-  },
-  "H-1": {
-    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-1.jpg",
-    "series": "hexa",
-    "orderable": true
-  },
-  "H-2": {
-    "label": "\u010Cierna pre\u0161\xEDvan\xE1 modrou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-2.jpg",
-    "series": "hexa",
-    "orderable": true
-  },
-  "H-3": {
-    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
-    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-3.jpg",
-    "series": "hexa",
-    "orderable": true
-  },
   "D-1": {
     "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
     "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/D-1.jpg",
@@ -31852,6 +31786,72 @@ var VZORKY_ITEMS = {
     "series": "diamond",
     "orderable": true
   },
+  "S-1": {
+    "label": "\u0160tandard 29",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-1.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-2": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 b\xE9\u017Eovou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-2.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-3": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-3.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-4": {
+    "label": "B\xE9\u017Eov\xE1",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-4.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-5": {
+    "label": "Hned\xE1 k\xE1va",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-5.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-6": {
+    "label": "Bledo hned\xE1",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-6.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-7": {
+    "label": "V\xEDnovo \u010Derven\xE1",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-7.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "S-8": {
+    "label": "\u010Cerven\xE1",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/S-8.jpg",
+    "series": "stripe",
+    "orderable": true
+  },
+  "H-1": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Dervenou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-1.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "H-2": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 modrou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-2.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
+  "H-3": {
+    "label": "\u010Cierna pre\u0161\xEDvan\xE1 \u010Diernou",
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/H-3.jpg",
+    "series": "hexa",
+    "orderable": true
+  },
   "LUX-10": {
     "label": "Lux Color 10 \u2014 \u010Dierna",
     "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-10.jpg",
@@ -31932,19 +31932,19 @@ var VZORKY_ITEMS = {
   },
   "LUX-14": {
     "label": "Lux Color 14",
-    "img": null,
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-14.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-15": {
     "label": "Lux Color 15",
-    "img": null,
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-15.jpg",
     "series": "second",
     "orderable": false
   },
   "LUX-16": {
     "label": "Lux Color 16",
-    "img": null,
+    "img": "https://www.luxurycardesign.sk/user/documents/upload/assets/config/LUX-16.jpg",
     "series": "second",
     "orderable": false
   }
@@ -32248,7 +32248,7 @@ function renderVzorkyConfigurator(host) {
     const yo = yesOption(e.select);
     return !!yo && e.select.value === yo.value;
   };
-  const order = ["stripe", "hexa", "diamond", "second"];
+  const order = ["diamond", "stripe", "hexa", "second"];
   const recompute = () => {
     order.forEach((sk) => {
       const c = entries.filter((e) => e.seriesKey === sk && isYes(e)).length;
@@ -34970,6 +34970,83 @@ function initContactForm() {
       parent.insertBefore(rrpWrap, finalEl);
     }
   }
+  function lcdWrapStepNumbers() {
+    document.querySelectorAll(".parameter-wrap .order, .position-wrap .order").forEach(function(order) {
+      if (order.querySelector(".lcd-step-num")) return;
+      var node = order.firstChild;
+      if (!node || node.nodeType !== 3) return;
+      var txt = (node.textContent || "").trim();
+      if (!txt) return;
+      var span = document.createElement("span");
+      span.className = "lcd-step-num";
+      span.textContent = txt;
+      order.replaceChild(span, node);
+    });
+  }
+  function lcdTrunkCardsRedesign() {
+    var cs = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("cs") === 0;
+    document.querySelectorAll(".upsale-buttons.trunk .upsale-button").forEach(function(card) {
+      if (card.getAttribute("data-lcd-card")) return;
+      var header = card.querySelector(".banner-header");
+      var span = header && header.querySelector("span");
+      if (!span) return;
+      var raw = (span.textContent || "").replace(/\s+/g, " ").trim();
+      if (!raw) return;
+      var parts = raw.split(/\s*[-–—]\s*/);
+      var title = (parts.shift() || raw).trim();
+      var sub = parts.join(" \xB7 ").trim();
+      var isNone = card.classList.contains("none");
+      if (isNone && !sub) sub = cs ? "Ponechat kufr pr\xE1zdn\xFD" : "Ponecha\u0165 kufor pr\xE1zdny";
+      span.innerHTML = "";
+      var t = document.createElement("span");
+      t.className = "lcd-card-title";
+      t.textContent = title;
+      span.appendChild(t);
+      if (sub) {
+        var s = document.createElement("span");
+        s.className = "lcd-card-sub";
+        s.textContent = sub;
+        span.appendChild(s);
+      }
+      if (isNone) {
+        var note = document.createElement("div");
+        note.className = "lcd-card-note";
+        note.textContent = cs ? "Bez slevy na tento dopln\u011Bk" : "Bez z\u013Eavy na tento doplnok";
+        header.appendChild(note);
+      }
+      var save = header.querySelector(".save");
+      var rec = header.querySelector(".price-recommended");
+      if (save && rec) {
+        var saveVal = parseFloat((save.getAttribute("data-save") || "").replace(",", "."));
+        var recVal = parseFloat((rec.getAttribute("data-recommended") || "").replace(",", "."));
+        var m = (save.textContent || "").trim().match(/^(\D+?)\s*([\d][\d\s .,]*.*)$/);
+        if (m) {
+          save.innerHTML = "";
+          var lbl = document.createElement("span");
+          lbl.className = "lcd-save-label";
+          lbl.textContent = m[1].trim();
+          save.appendChild(lbl);
+          var amt = document.createElement("strong");
+          amt.textContent = m[2].trim();
+          save.appendChild(amt);
+          if (saveVal > 0 && recVal > 0) {
+            var pct = document.createElement("span");
+            pct.className = "lcd-save-pct";
+            pct.textContent = "\u2212" + Math.round(saveVal / recVal * 100) + " %";
+            save.appendChild(pct);
+          }
+        }
+      }
+      card.setAttribute("data-lcd-card", "1");
+    });
+    var prem = document.querySelector(".upsale-buttons.trunk .upsale-button.lcd-trunk-premium");
+    if (prem && !prem.querySelector(".lcd-upsale-badge")) {
+      var b = document.createElement("span");
+      b.className = "lcd-upsale-badge";
+      b.textContent = "\u2605 " + (cs ? "Nejobjedn\xE1van\u011Bj\u0161\xED" : "Najobjedn\xE1vanej\u0161ie");
+      prem.insertBefore(b, prem.firstChild);
+    }
+  }
   function addVideoPlayOverlays() {
     document.querySelectorAll(".customers-video .customer-video").forEach(function(card) {
       if (card.querySelector(".lcd-video-play-overlay")) return;
@@ -34987,6 +35064,8 @@ function initContactForm() {
     var iv = setInterval(function() {
       tries++;
       markBestsellers();
+      lcdWrapStepNumbers();
+      lcdTrunkCardsRedesign();
       fixBoxSoloPrices();
       addColorLabels();
       addVideoPlayOverlays();

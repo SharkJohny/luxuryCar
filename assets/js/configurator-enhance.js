@@ -320,6 +320,95 @@
     }
   }
 
+  // Hlavička akordeónu podľa návrhu — číslo kroku obalí do span.lcd-step-num
+  // (tmavý štvorček na zlatom gradiente). Číslo je holý text node v .order,
+  // CSS ho samostatne naštýlovať nevie. productPage.js môže .order.text(n)
+  // prepísať — interval to ďalší tick znovu obalí.
+  function lcdWrapStepNumbers() {
+    document.querySelectorAll(".parameter-wrap .order, .position-wrap .order").forEach(function (order) {
+      if (order.querySelector(".lcd-step-num")) return;
+      var node = order.firstChild;
+      if (!node || node.nodeType !== 3) return;
+      var txt = (node.textContent || "").trim();
+      if (!txt) return;
+      var span = document.createElement("span");
+      span.className = "lcd-step-num";
+      span.textContent = txt;
+      order.replaceChild(span, node);
+    });
+  }
+
+  // ═══ K5/K6 TRUNK — redesign kariet podľa návrhu (2026-07) ═══
+  // "KLASIK - NA DNO" → titulok + podtitulok, save badge s percentom,
+  // "NECHCEM" karta dostane podtitulok + poznámku, PREMIUM badge.
+  function lcdTrunkCardsRedesign() {
+    var cs = (document.documentElement.getAttribute("lang") || "").toLowerCase().indexOf("cs") === 0;
+    document.querySelectorAll(".upsale-buttons.trunk .upsale-button").forEach(function (card) {
+      if (card.getAttribute("data-lcd-card")) return;
+      var header = card.querySelector(".banner-header");
+      var span = header && header.querySelector("span");
+      if (!span) return;
+      var raw = (span.textContent || "").replace(/\s+/g, " ").trim();
+      if (!raw) return;
+      // Rozdel na titulok a podtitulok podla prvej pomlcky ("KLASIK - NA DNO")
+      var parts = raw.split(/\s*[-–—]\s*/);
+      var title = (parts.shift() || raw).trim();
+      var sub = parts.join(" · ").trim();
+      var isNone = card.classList.contains("none");
+      if (isNone && !sub) sub = cs ? "Ponechat kufr prázdný" : "Ponechať kufor prázdny";
+      span.innerHTML = "";
+      var t = document.createElement("span");
+      t.className = "lcd-card-title";
+      t.textContent = title;
+      span.appendChild(t);
+      if (sub) {
+        var s = document.createElement("span");
+        s.className = "lcd-card-sub";
+        s.textContent = sub;
+        span.appendChild(s);
+      }
+      if (isNone) {
+        var note = document.createElement("div");
+        note.className = "lcd-card-note";
+        note.textContent = cs ? "Bez slevy na tento doplněk" : "Bez zľavy na tento doplnok";
+        header.appendChild(note);
+      }
+      // Save badge: "UŠETRÍTE 8 449 Kč" + "−58 %" (percento z doporucenej ceny)
+      var save = header.querySelector(".save");
+      var rec = header.querySelector(".price-recommended");
+      if (save && rec) {
+        var saveVal = parseFloat((save.getAttribute("data-save") || "").replace(",", "."));
+        var recVal = parseFloat((rec.getAttribute("data-recommended") || "").replace(",", "."));
+        var m = (save.textContent || "").trim().match(/^(\D+?)\s*([\d][\d\s .,]*.*)$/);
+        if (m) {
+          save.innerHTML = "";
+          var lbl = document.createElement("span");
+          lbl.className = "lcd-save-label";
+          lbl.textContent = m[1].trim();
+          save.appendChild(lbl);
+          var amt = document.createElement("strong");
+          amt.textContent = m[2].trim();
+          save.appendChild(amt);
+          if (saveVal > 0 && recVal > 0) {
+            var pct = document.createElement("span");
+            pct.className = "lcd-save-pct";
+            pct.textContent = "−" + Math.round((saveVal / recVal) * 100) + " %";
+            save.appendChild(pct);
+          }
+        }
+      }
+      card.setAttribute("data-lcd-card", "1");
+    });
+    // Badge "★ NAJOBJEDNÁVANEJŠIE" na PREMIUM karte (podľa návrhu)
+    var prem = document.querySelector(".upsale-buttons.trunk .upsale-button.lcd-trunk-premium");
+    if (prem && !prem.querySelector(".lcd-upsale-badge")) {
+      var b = document.createElement("span");
+      b.className = "lcd-upsale-badge";
+      b.textContent = "★ " + (cs ? "Nejobjednávanější" : "Najobjednávanejšie");
+      prem.insertBefore(b, prem.firstChild);
+    }
+  }
+
   // Pridaj play button overlay na .customers-video karty (RECENZIA/POROVNANIE)
   // — aby ľudia videli že ide o videá a nie statické obrázky.
   function addVideoPlayOverlays() {
@@ -341,6 +430,8 @@
     var iv = setInterval(function () {
       tries++;
       markBestsellers();
+      lcdWrapStepNumbers();
+      lcdTrunkCardsRedesign();
       fixBoxSoloPrices();
       addColorLabels();
       addVideoPlayOverlays();

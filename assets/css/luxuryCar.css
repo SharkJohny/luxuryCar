@@ -3300,33 +3300,47 @@ i.info-icon {
   border: 2px solid #e0d5b8;
 }
 .parameter-wrap .order {
-  background: linear-gradient(135deg, #c5a44e, #a8893a);
+  background: linear-gradient(135deg, #d9bb6b 0%, #b98f36 100%);
   width: 100%;
   height: auto;
-  color: #fff;
+  color: #1f1a10;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: left;
   font-family: "Exo 2";
-  padding: 14px 20px;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   cursor: pointer;
   transition: all 0.3s;
   user-select: none;
+}
+.parameter-wrap .lcd-step-num {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #1d1911;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 7px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 .parameter-wrap .h4.variant.name {
   position: absolute;
   left: 75px;
   top: 14px;
   font-size: 15px;
-  color: #fff;
+  color: #1f1a10;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .NoteDiv {
@@ -3364,10 +3378,10 @@ i.info-icon {
 .base-config h5.variant.name {
   position: absolute;
   top: 14px;
-  left: 50px;
-  color: #fff;
+  left: 58px;
+  color: #1f1a10;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1px;
   font-size: 15px;
 }
@@ -3632,10 +3646,12 @@ span.quantity {
 }
 .upsale-Banner h5.variant.name {
   position: absolute;
-  top: 16px;
-  left: 50px;
-  color: #fff;
+  top: 14px;
+  left: 58px;
+  color: #1f1a10;
   text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 .upsale-Banner .upsale-buttons {
   display: flex;
@@ -3783,17 +3799,17 @@ span.quantity {
   bottom: 5px;
   font-size: 20px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  background: linear-gradient(135deg, #34a865, #238049);
   color: #fff;
   border-radius: 25px;
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 4px 16px rgba(35, 128, 73, 0.4);
 }
 .upsale-Banner .close-btn.return:hover {
-  background: linear-gradient(135deg, #5cb85c, #449d44);
-  box-shadow: 0 6px 24px rgba(76, 175, 80, 0.6);
+  background: linear-gradient(135deg, #2f9a5c, #1e7241);
+  box-shadow: 0 6px 24px rgba(35, 128, 73, 0.6);
 }
 .upsale-Banner .countdown-wrap .label {
   font-size: 15px;
@@ -4501,7 +4517,7 @@ section#model-info .setup-model {
   position: absolute;
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  background: linear-gradient(135deg, #34a865, #238049);
   color: white;
   border-radius: 50%;
   padding: 20px 10px;
@@ -5429,13 +5445,13 @@ a.p-thumbnail {
 .parameter-wrap .order::after {
   content: "▼";
   position: absolute;
-  right: 20px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: 11px;
   font-weight: bold;
   transition: transform 0.3s ease;
-  color: #fff;
+  color: rgba(31, 26, 16, 0.7);
 }
 .position-wrap.active .order::after,
 .position-wrap.active h5::after,
@@ -5448,7 +5464,7 @@ a.p-thumbnail {
 .position-wrap .next-step-button,
 .parameter-wrap .next-step-button {
   display: none;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  background: linear-gradient(135deg, #34a865, #238049);
   color: white;
   border: none;
   padding: 14px 24px;
@@ -5463,13 +5479,13 @@ a.p-thumbnail {
   font-family: "Exo 2";
   width: calc(100% - 40px);
   text-align: center;
-  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 4px 16px rgba(35, 128, 73, 0.4);
 }
 .position-wrap .next-step-button:hover,
 .parameter-wrap .next-step-button:hover {
-  background: linear-gradient(135deg, #5cb85c, #449d44);
+  background: linear-gradient(135deg, #2f9a5c, #1e7241);
   transform: scale(1.03);
-  box-shadow: 0 6px 24px rgba(76, 175, 80, 0.6);
+  box-shadow: 0 6px 24px rgba(35, 128, 73, 0.6);
 }
 .position-wrap .next-step-button:active,
 .parameter-wrap .next-step-button:active {
@@ -5477,13 +5493,13 @@ a.p-thumbnail {
 }
 .position-wrap .next-step-button.finish-button,
 .parameter-wrap .next-step-button.finish-button {
-  background: linear-gradient(135deg, #4caf50, #388e3c);
-  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(135deg, #34a865, #238049);
+  box-shadow: 0 4px 16px rgba(35, 128, 73, 0.4);
 }
 .position-wrap .next-step-button.finish-button:hover,
 .parameter-wrap .next-step-button.finish-button:hover {
-  background: linear-gradient(135deg, #5cb85c, #449d44);
-  box-shadow: 0 6px 24px rgba(76, 175, 80, 0.6);
+  background: linear-gradient(135deg, #2f9a5c, #1e7241);
+  box-shadow: 0 6px 24px rgba(35, 128, 73, 0.6);
 }
 .position-wrap.active .next-step-button,
 .parameter-wrap.active .next-step-button {
@@ -5638,6 +5654,203 @@ video::-webkit-media-controls {
   height: unset !important;
 }
 
+.upsale-Banner .upsale-buttons.trunk .parameter-cars {
+  gap: 14px;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: 2px solid #ececec;
+  border-radius: 14px;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button img {
+  width: 38%;
+  min-height: 170px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  object-fit: cover;
+  align-self: stretch;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .banner-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 22px 14px;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .lcd-card-title {
+  display: block;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  line-height: 1.2;
+  text-align: center;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .lcd-card-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a8f74;
+  text-align: center;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .price {
+  position: static;
+  top: auto;
+  width: auto;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.2;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .price .price-recommended {
+  font-size: 0.55em;
+  font-weight: 400;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .save {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  margin-top: 4px;
+  padding: 9px 16px;
+  background: linear-gradient(135deg, #34a865, #238049);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(35, 128, 73, 0.35);
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .save strong {
+  font-size: 15px;
+  font-weight: 800;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button .save .lcd-save-pct {
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button.active {
+  border: 2px solid #c49b31 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 18px rgba(196, 155, 49, 0.3);
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button.active::after {
+  content: "✓";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #c49b31;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button.none img {
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+.upsale-Banner .upsale-buttons.trunk .upsale-button.none .lcd-card-note {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #8a7a4a;
+  text-align: center;
+}
+.upsale-Banner .upsale-buttons.trunk .lcd-upsale-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background: linear-gradient(135deg, #e2c163, #b98f36);
+  color: #2b2107;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
+  .upsale-Banner .upsale-buttons.trunk .upsale-button {
+    width: 100%;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button img {
+    width: 40%;
+    min-height: 120px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .banner-header {
+    padding: 14px 10px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .lcd-card-title {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .lcd-card-sub {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .price {
+    font-size: 20px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .save {
+    gap: 6px;
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .save strong {
+    font-size: 12px;
+  }
+  .upsale-Banner .upsale-buttons.trunk .upsale-button .save .lcd-save-pct {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
+@media (max-width: 768px) {
+  .parameter-wrap .order,
+  .position-wrap .order {
+    padding: 7px 12px;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .parameter-wrap .lcd-step-num,
+  .position-wrap .lcd-step-num {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  .base-config h5.variant.name,
+  .upsale-Banner h5.variant.name {
+    top: 11px;
+    left: 48px;
+    font-size: 13px;
+  }
+}
 .photo-row iframe,
 .photo-row img {
   width: calc(50% - 10px);
