@@ -131,8 +131,19 @@ function headerFixProdukt() {
 
       // Create debounced scroll handler
       const scrollHandler = debounceScroll(function () {
-        const shouldShowFixed = window.pageYOffset > buttonOffsetTop;
+        // Počas scroll-anchoringu konfigurátora (kompenzačné scrollBy každý
+        // frame) NEprepínať — prahové prekmity robili problikávanie lišty.
+        if (window.__lcdAnchoring) return;
         const pluginHeader = document.querySelector("#js-plugin-header");
+        if (!pluginHeader) return;
+        // Offset tlačidla čítať NAŽIVO — akordeón konfigurátora mení layout,
+        // hodnota z initu bola po pár klikoch úplne mimo.
+        const btnTop = submitButton ? getElementOffsetTop(submitButton) : buttonOffsetTop;
+        // HYSTERÉZA ±120px: zap/vyp až za pásmom, žiadne blikanie na prahu.
+        const isActive = pluginHeader.classList.contains("active");
+        const shouldShowFixed = isActive
+          ? window.pageYOffset > btnTop - 120
+          : window.pageYOffset > btnTop + 120;
         const isSticky = "sticky" === getComputedStyle(header).position;
         const isDesktop = window.innerWidth > 468;
         const headerHeight = header.clientHeight;

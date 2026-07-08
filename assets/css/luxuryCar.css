@@ -3652,6 +3652,9 @@ span.quantity {
   text-transform: uppercase;
   font-weight: 800;
   letter-spacing: 1px;
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.4;
 }
 .upsale-Banner .upsale-buttons {
   display: flex;
@@ -4369,8 +4372,12 @@ div#description p span {
 
 .upsale-buttons.boxs,
 .upsale-buttons.trunk {
-  min-height: 52px;
-  transition: 1s;
+  min-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+.upsale-buttons.boxs.active,
+.upsale-buttons.trunk.active {
+  max-height: 2600px;
 }
 .upsale-buttons.boxs .upsale-button.\30 ,
 .upsale-buttons.boxs .upsale-button.config,
@@ -4769,6 +4776,14 @@ a.p-thumbnail {
   background: white;
 }
 
+@media (min-width: 769px) {
+  .position-wrap.parameter-cars.parameter-wrap.base-config,
+  .parameter-wrap,
+  .upsale-buttons.boxs,
+  .upsale-buttons.trunk {
+    transition: max-height 0.18s ease-out;
+  }
+}
 .twentytwenty-wrap.full-width .image-container {
   margin: 50px 0 !important;
 }

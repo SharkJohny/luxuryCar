@@ -115,6 +115,9 @@ export function createUpsaleButton(img, text, position, value, type, price, pref
     $(button).find(".banner-header").append(priceHTML);
   }
 
+  // Kroky kufor/boxy su na zaciatku SKRYTE — odhalia sa (zbalene) az po
+  // vybere rozlozenia kobercov (K3 handler v configuratorEngine.js) alebo
+  // pri prechode na ne tlacidlom (lcdOpenStep). Ziadny auto-scroll pri odhaleni.
   $(".upsale-Banner").hide();
   setTimeout(() => {
     $(".parameter-wrap.orders-1").removeClass("goToAction");

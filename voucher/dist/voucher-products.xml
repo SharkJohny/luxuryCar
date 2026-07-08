@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SHOP>
+  <SHOPITEM id="3101">
+    <NAME>Darčeková poukážka</NAME>
+    <GUID>680e5f71-68f9-4171-9e56-6d47331a32e5</GUID>
+    <SHORT_DESCRIPTION><![CDATA[<p>Darčeková poukážka Luxury Car Design — vyber hodnotu v konfigurátore nižšie. Platnosť 12 mesiacov, platí na celý sortiment.</p>]]></SHORT_DESCRIPTION>
+    <DESCRIPTION><![CDATA[<p>Daruj zážitok z luxusu. Vyber hodnotu poukážky v konfigurátore — kód poukážky ti pošleme emailom po spracovaní objednávky. Obdarovaný ho uplatní v košíku na <strong>luxurycardesign.sk</strong> pri ďalšom nákupe.</p>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>1</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>visible</VISIBILITY>
+    <META_DESCRIPTION>Darčeková poukážka Luxury Car Design — hodnota 100–500 € alebo vlastná suma po 100 €. Platnosť 12 mesiacov.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VOUCHER</CODE>
+    <CURRENCY>EUR</CURRENCY>
+    <PRICE>0.01</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>0.01</STANDARD_PRICE>
+    <APPLY_DISCOUNT_COUPON>0</APPLY_DISCOUNT_COUPON>
+    <APPLY_LOYALTY_DISCOUNT>0</APPLY_LOYALTY_DISCOUNT>
+    <APPLY_QUANTITY_DISCOUNT>0</APPLY_QUANTITY_DISCOUNT>
+    <APPLY_VOLUME_DISCOUNT>0</APPLY_VOLUME_DISCOUNT>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+  <SHOPITEM id="3102">
+    <NAME>Darčeková poukážka 100 €</NAME>
+    <GUID>85284e00-7c5d-4c4d-a4cf-9d6bcb5cbfea</GUID>
+    <SHORT_DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 100 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></SHORT_DESCRIPTION>
+    <DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 100 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>0</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>detailOnly</VISIBILITY>
+    <META_DESCRIPTION>Darčeková poukážka 100 € — Luxury Car Design.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VOUCHER-100</CODE>
+    <CURRENCY>EUR</CURRENCY>
+    <PRICE>100</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>100</STANDARD_PRICE>
+    <APPLY_DISCOUNT_COUPON>0</APPLY_DISCOUNT_COUPON>
+    <APPLY_LOYALTY_DISCOUNT>0</APPLY_LOYALTY_DISCOUNT>
+    <APPLY_QUANTITY_DISCOUNT>0</APPLY_QUANTITY_DISCOUNT>
+    <APPLY_VOLUME_DISCOUNT>0</APPLY_VOLUME_DISCOUNT>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+  <SHOPITEM id="3103">
+    <NAME>Darčeková poukážka 200 €</NAME>
+    <GUID>5fdcfc2d-0f0f-4345-92c1-bd2abcff07b7</GUID>
+    <SHORT_DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 200 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></SHORT_DESCRIPTION>
+    <DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 200 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>0</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>detailOnly</VISIBILITY>
+    <META_DESCRIPTION>Darčeková poukážka 200 € — Luxury Car Design.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VOUCHER-200</CODE>
+    <CURRENCY>EUR</CURRENCY>
+    <PRICE>200</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>200</STANDARD_PRICE>
+    <APPLY_DISCOUNT_COUPON>0</APPLY_DISCOUNT_COUPON>
+    <APPLY_LOYALTY_DISCOUNT>0</APPLY_LOYALTY_DISCOUNT>
+    <APPLY_QUANTITY_DISCOUNT>0</APPLY_QUANTITY_DISCOUNT>
+    <APPLY_VOLUME_DISCOUNT>0</APPLY_VOLUME_DISCOUNT>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+  <SHOPITEM id="3104">
+    <NAME>Darčeková poukážka 300 €</NAME>
+    <GUID>1466ac93-afaa-4f75-a80c-967c7ea2c711</GUID>
+    <SHORT_DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 300 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></SHORT_DESCRIPTION>
+    <DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 300 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>0</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>detailOnly</VISIBILITY>
+    <META_DESCRIPTION>Darčeková poukážka 300 € — Luxury Car Design.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VOUCHER-300</CODE>
+    <CURRENCY>EUR</CURRENCY>
+    <PRICE>300</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>300</STANDARD_PRICE>
+    <APPLY_DISCOUNT_COUPON>0</APPLY_DISCOUNT_COUPON>
+    <APPLY_LOYALTY_DISCOUNT>0</APPLY_LOYALTY_DISCOUNT>
+    <APPLY_QUANTITY_DISCOUNT>0</APPLY_QUANTITY_DISCOUNT>
+    <APPLY_VOLUME_DISCOUNT>0</APPLY_VOLUME_DISCOUNT>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+  <SHOPITEM id="3105">
+    <NAME>Darčeková poukážka 400 €</NAME>
+    <GUID>c25894fd-917d-4cbc-bf40-8bacfc5caa20</GUID>
+    <SHORT_DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 400 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></SHORT_DESCRIPTION>
+    <DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 400 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>0</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>detailOnly</VISIBILITY>
+    <META_DESCRIPTION>Darčeková poukážka 400 € — Luxury Car Design.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VOUCHER-400</CODE>
+    <CURRENCY>EUR</CURRENCY>
+    <PRICE>400</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>400</STANDARD_PRICE>
+    <APPLY_DISCOUNT_COUPON>0</APPLY_DISCOUNT_COUPON>
+    <APPLY_LOYALTY_DISCOUNT>0</APPLY_LOYALTY_DISCOUNT>
+    <APPLY_QUANTITY_DISCOUNT>0</APPLY_QUANTITY_DISCOUNT>
+    <APPLY_VOLUME_DISCOUNT>0</APPLY_VOLUME_DISCOUNT>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+  <SHOPITEM id="3106">
+    <NAME>Darčeková poukážka 500 €</NAME>
+    <GUID>1361e3cf-f661-4d71-9277-1e7a848853cb</GUID>
+    <SHORT_DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 500 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></SHORT_DESCRIPTION>
+    <DESCRIPTION><![CDATA[<p>Darčeková poukážka v hodnote 500 € — súčasť konfigurátora darčekovej poukážky (nekupuje sa samostatne).</p>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>0</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>detailOnly</VISIBILITY>
+    <META_DESCRIPTION>Darčeková poukážka 500 € — Luxury Car Design.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VOUCHER-500</CODE>
+    <CURRENCY>EUR</CURRENCY>
+    <PRICE>500</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>500</STANDARD_PRICE>
+    <APPLY_DISCOUNT_COUPON>0</APPLY_DISCOUNT_COUPON>
+    <APPLY_LOYALTY_DISCOUNT>0</APPLY_LOYALTY_DISCOUNT>
+    <APPLY_QUANTITY_DISCOUNT>0</APPLY_QUANTITY_DISCOUNT>
+    <APPLY_VOLUME_DISCOUNT>0</APPLY_VOLUME_DISCOUNT>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+</SHOP>

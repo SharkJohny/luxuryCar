@@ -2382,9 +2382,9 @@ var require_react_dom_development = __commonJS({
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
           __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
         }
-        var React4 = require_react();
+        var React6 = require_react();
         var Scheduler = require_scheduler();
-        var ReactSharedInternals = React4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         var suppressWarning = false;
         function setSuppressWarning(newSuppressWarning) {
           {
@@ -3991,7 +3991,7 @@ var require_react_dom_development = __commonJS({
           {
             if (props.value == null) {
               if (typeof props.children === "object" && props.children !== null) {
-                React4.Children.forEach(props.children, function(child) {
+                React6.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -23099,7 +23099,7 @@ var require_react_dom_development = __commonJS({
             unmarkContainerAsRoot(container);
           }
         };
-        function createRoot2(container, options2) {
+        function createRoot3(container, options2) {
           if (!isValidContainer(container)) {
             throw new Error("createRoot(...): Target container is not a DOM element.");
           }
@@ -23482,7 +23482,7 @@ var require_react_dom_development = __commonJS({
               error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
             }
           }
-          return createRoot2(container, options2);
+          return createRoot3(container, options2);
         }
         function hydrateRoot$1(container, initialChildren, options2) {
           {
@@ -32457,6 +32457,665 @@ function mountVzorkyConfigurator() {
   }, 100);
 }
 
+// assets/js/voucher-konfigurator/index.jsx
+var import_react5 = __toESM(require_react());
+var import_client2 = __toESM(require_client());
+
+// assets/js/voucher-konfigurator/konfigurator.jsx
+var import_react4 = __toESM(require_react());
+
+// assets/js/voucher-konfigurator/pricing.js
+var PRESET_VALUES = [100, 200, 300, 400, 500];
+var DEFAULT_VALUE = 300;
+var STEP = 100;
+var CUSTOM_MIN = 100;
+var CUSTOM_MAX = 2e3;
+var VALIDITY_MONTHS = 12;
+var COIN_VALUES = [500, 400, 300, 200, 100];
+function decomposeToCoins(value) {
+  let remaining = Math.max(0, Math.round(value / STEP) * STEP);
+  const coins = {};
+  for (const coin of COIN_VALUES) {
+    const count = Math.floor(remaining / coin);
+    if (count > 0) {
+      coins[coin] = count;
+      remaining -= count * coin;
+    }
+  }
+  return coins;
+}
+function clampToStep(value) {
+  const stepped = Math.round(value / STEP) * STEP;
+  return Math.max(CUSTOM_MIN, Math.min(CUSTOM_MAX, stepped));
+}
+function fmtEur(n) {
+  const r = Math.round(n * 100) / 100;
+  if (r === Math.round(r)) {
+    return new Intl.NumberFormat("sk-SK").format(Math.round(r)) + " \u20AC";
+  }
+  return new Intl.NumberFormat("sk-SK", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(r) + " \u20AC";
+}
+function validityDate() {
+  const d = /* @__PURE__ */ new Date();
+  d.setMonth(d.getMonth() + VALIDITY_MONTHS);
+  return d.toLocaleDateString("sk-SK");
+}
+
+// assets/js/voucher-konfigurator/cart.js
+var COIN_URLS = {
+  100: "/darcekova-poukazka-100-eur/",
+  // TODO: over/uprav po importe XML do Shoptetu
+  200: "/darcekova-poukazka-200-eur/",
+  // TODO
+  300: "/darcekova-poukazka-300-eur/",
+  // TODO
+  400: "/darcekova-poukazka-400-eur/",
+  // TODO
+  500: "/darcekova-poukazka-500-eur/"
+  // TODO
+};
+var CART_URL = "/kosik/";
+var AMOUNT_INPUT_SELECTORS = 'input[name="amount"], input.amount, .p-quantity input[type="number"]';
+var ADD_BUTTON_SELECTOR = "button.add-to-cart-button";
+var IFRAME_TIMEOUT_MS = 8e3;
+var AFTER_CLICK_DELAY_MS = 1200;
+function addOneCoin(url, qty) {
+  return new Promise((resolve) => {
+    const iframe = document.createElement("iframe");
+    iframe.style.cssText = "position:absolute;width:0;height:0;border:0;visibility:hidden";
+    iframe.setAttribute("aria-hidden", "true");
+    iframe.tabIndex = -1;
+    let settled = false;
+    let timeoutId = null;
+    const cleanup = (ok, reason) => {
+      if (settled) return;
+      settled = true;
+      if (timeoutId) clearTimeout(timeoutId);
+      iframe.remove();
+      resolve({ ok, reason });
+    };
+    timeoutId = setTimeout(() => cleanup(false, "timeout"), IFRAME_TIMEOUT_MS);
+    iframe.addEventListener("load", () => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return cleanup(false, "no-document");
+        const amountInput = doc.querySelector(AMOUNT_INPUT_SELECTORS);
+        if (amountInput) {
+          amountInput.value = String(qty);
+          amountInput.dispatchEvent(new Event("input", { bubbles: true }));
+          amountInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        const btn = doc.querySelector(ADD_BUTTON_SELECTOR);
+        if (!btn) return cleanup(false, "no-add-button");
+        btn.click();
+        setTimeout(() => cleanup(true, null), AFTER_CLICK_DELAY_MS);
+      } catch (e) {
+        cleanup(false, "exception:" + (e && e.message));
+      }
+    });
+    iframe.src = url;
+    document.body.appendChild(iframe);
+  });
+}
+async function addCoinsToCart(coins) {
+  const entries = Object.entries(coins).filter(([, n]) => n > 0);
+  const results = [];
+  for (const [value, qty] of entries) {
+    const url = COIN_URLS[value];
+    if (!url) {
+      results.push({ value: Number(value), qty, ok: false, reason: "missing-url" });
+      continue;
+    }
+    const { ok, reason } = await addOneCoin(url, qty);
+    results.push({ value: Number(value), qty, ok, reason });
+  }
+  return results;
+}
+function goToCart() {
+  window.location.href = CART_URL;
+}
+
+// assets/js/voucher-konfigurator/konfigurator.jsx
+var DELIVERY_INFO = {
+  title: "Email \u2014 k\xF3d pouk\xE1\u017Eky",
+  desc: "Po spracovan\xED objedn\xE1vky ti po\u0161leme k\xF3d pouk\xE1\u017Eky na email. K\xF3d zad\xE1\u0161 v ko\u0161\xEDku pri \u010Fal\u0161om n\xE1kupe a hodnota sa odr\xE1ta.",
+  status: "Email \u2014 zdarma"
+};
+var AUDIENCE = [
+  { icon: "\u{1F381}", title: "Ke\u010F neviete, \u010Do presne k\xFApi\u0165", text: "Autokoberce sa \u0161ij\xFA na mieru konkr\xE9tneho auta. Bez presn\xE9ho typu vozidla dar\u010Dek \u013Eahko netraf\xEDte \u2014 pouk\xE1\u017Eka to vyrie\u0161i za v\xE1s." },
+  { icon: "\u{1F697}", title: "Pre milovn\xEDka svojho auta", text: "Partner, otec \u010Di kamar\xE1t, ktor\xFD si auto str\xE1\u017Ei ako oko v hlave. Toto je dar\u010Dek, ktor\xFD naozaj vyu\u017Eije a ocen\xED." },
+  { icon: "\u{1F3E2}", title: "Ako firemn\xFD dar\u010Dek", text: "Pre zamestnancov, klientov aj obchodn\xFDch partnerov. Hodnotu zvol\xEDte pod\u013Ea pr\xEDle\u017Eitosti a v\u0161etko vybav\xEDte z jedn\xE9ho miesta." },
+  { icon: "\u23F1\uFE0F", title: "Na posledn\xFA chv\xED\u013Eu", text: "Zabudli ste na dar\u010Dek? Pouk\xE1\u017Eku vybav\xEDme r\xFDchlo \u2014 stihnete to aj na posledn\xFA chv\xED\u013Eu." }
+];
+var REASONS = [
+  { icon: "\u{1F3AF}", title: "Nem\xF4\u017Eete sa netrafi\u0165", text: "Obdarovan\xFD si vyberie presne to, \u010Do chce \u2014 farbu, dizajn aj typ produktu. \u017Diadne h\xE1danie." },
+  { icon: "\u2709\uFE0F", title: "Pr\xEDde emailom", text: "K\xF3d pouk\xE1\u017Eky ti po\u0161leme na email po spracovan\xED objedn\xE1vky." },
+  { icon: "\u{1F5A8}\uFE0F", title: "Vyzer\xE1 ako dar\u010Dek", text: "Pouk\xE1\u017Eku m\xF4\u017Ee\u0161 vytla\u010Di\u0165 a odovzda\u0165 pekne do ruky \u2014 nielen hol\xFD k\xF3d v spr\xE1ve." },
+  { icon: "\u{1F4B6}", title: "Hodnotu vol\xEDte vy", text: `Od ${fmtEur(CUSTOM_MIN)} do ${fmtEur(CUSTOM_MAX)}, v krokoch po ${fmtEur(STEP)}.` },
+  { icon: "\u{1F4C5}", title: "Cel\xFD rok platnosti", text: "Obdarovan\xFD sa nemus\xED pon\xE1h\u013Ea\u0165 \u2014 na v\xFDber aj objedn\xE1vku m\xE1 12 mesiacov." },
+  { icon: "\u{1F6D2}", title: "Plat\xED na cel\xFD sortiment", text: "Autokoberce, kufrov\xE9 roho\u017Ee aj bundle sety \u2014 v\u0161etko z webu luxurycardesign.sk." }
+];
+var OCCASIONS = [
+  { icon: "\u{1F384}", label: "Vianoce" },
+  { icon: "\u{1F382}", label: "Narodeniny" },
+  { icon: "\u{1F697}", label: "Nov\xE9 auto" },
+  { icon: "\u{1F48D}", label: "V\xFDro\u010Die" },
+  { icon: "\u{1F454}", label: "Otcov de\u0148" },
+  { icon: "\u{1F91D}", label: "Firemn\xFD dar\u010Dek" }
+];
+var STEPS = [
+  { num: "1", title: "Vyberiete hodnotu", text: "Zvol\xEDte sumu pouk\xE1\u017Eky a dokon\u010D\xEDte objedn\xE1vku. Platba prebehne ako pri be\u017Enom n\xE1kupe." },
+  { num: "2", title: "K\xF3d pr\xEDde na email", text: "Po spracovan\xED objedn\xE1vky ti po\u0161leme k\xF3d pouk\xE1\u017Eky emailom." },
+  { num: "3", title: "Obdarovan\xFD uplatn\xED k\xF3d", text: "K\xF3d zad\xE1 v ko\u0161\xEDku na luxurycardesign.sk a hodnota pouk\xE1\u017Eky sa odr\xE1ta z jeho objedn\xE1vky." }
+];
+var REVIEWS = [
+  { text: "Man\u017Eelovi som dala pouk\xE1\u017Eku pod strom\u010Dek \u2014 koberce do auta si st\xE1le odkladal na potom. Kone\u010Dne si ich objednal presne pod\u013Ea seba.", author: "Lucia", role: "Trnava" },
+  { text: "Dar\u010Dek pre kolegu som rie\u0161il na posledn\xFA chv\xED\u013Eu. K\xF3d pri\u0161iel r\xFDchlo, stihol som to e\u0161te v pr\xE1ci.", author: "Martin", role: "Bratislava" },
+  { text: "Nevedeli sme, ak\xFD m\xE1 brat presn\xFD model auta. Pouk\xE1\u017Eka to vyrie\u0161ila \u2014 v\u0161etko si vybral s\xE1m.", author: "Veronika", role: "\u017Dilina" }
+];
+var COMPARE = [
+  { aspect: "Traf\xEDte sa do vkusu?", voucher: "Obdarovan\xFD si vyberie s\xE1m", guess: "Riskujete, \u017Ee netraf\xEDte" },
+  { aspect: "Kedy je dar\u010Dek pripraven\xFD", voucher: "K\xF3d dostane\u0161 emailom", guess: "\u010Cak\xE1te na dodanie alebo sklad" },
+  { aspect: "Treba pozna\u0165 auto?", voucher: "Nie \u2014 typ zad\xE1 obdarovan\xFD", guess: "Mus\xEDte pozna\u0165 model aj v\xFDbavu" },
+  { aspect: "\u010Cas na rozhodnutie", voucher: "Cel\xFDch 12 mesiacov", guess: "\u017Diadny" },
+  { aspect: "V\xFDsledok", voucher: "Presne to, \u010Do si obdarovan\xFD praje", guess: "D\xFAfate, \u017Ee sa traf\xEDte" }
+];
+var FAQ_ITEMS = [
+  { q: "Ako sa pouk\xE1\u017Eka uplatn\xED?", a: "Po objedn\xE1vke ti pr\xEDde email s k\xF3dom pouk\xE1\u017Eky. Tento k\xF3d zad\xE1\u0161 v ko\u0161\xEDku na luxurycardesign.sk a hodnota pouk\xE1\u017Eky sa odr\xE1ta z objedn\xE1vky." },
+  { q: "Ako dlho pouk\xE1\u017Eka plat\xED?", a: "12 mesiacov od zak\xFApenia." },
+  { q: "Kedy mi pouk\xE1\u017Eka pr\xEDde?", a: "K\xF3d pouk\xE1\u017Eky ti po\u0161leme na email po spracovan\xED objedn\xE1vky." },
+  { q: "\u010Co ak je objedn\xE1vka drah\u0161ia ako pouk\xE1\u017Eka?", a: "\u017Diadny probl\xE9m \u2014 rozdiel jednoducho doplat\xEDte pri objedn\xE1vke be\u017En\xFDm sp\xF4sobom." },
+  { q: "Na \u010Do sa d\xE1 pouk\xE1\u017Eka pou\u017Ei\u0165?", a: "Na cel\xFD sortiment na luxurycardesign.sk \u2014 autokoberce, kufrov\xE9 roho\u017Ee aj bundle sety." },
+  { q: "Mus\xEDm pozna\u0165 typ auta obdarovan\xE9ho?", a: "Nie. Autokoberce sa s\xEDce vyr\xE1baj\xFA na mieru, ale presn\xFD typ a v\xFDbavu vozidla zad\xE1 a\u017E obdarovan\xFD pri svojej objedn\xE1vke." },
+  { q: "D\xE1 sa pouk\xE1\u017Eka vr\xE1ti\u0165?", a: "Dar\u010Dekov\xE9 pouk\xE1\u017Eky sa nedaj\xFA vr\xE1ti\u0165 ani vymeni\u0165 za hotovos\u0165. Platia v\u0161ak na cel\xFD sortiment, tak\u017Ee obdarovan\xFD si v\u017Edy n\xE1jde, \u010Do vyu\u017Eije." },
+  { q: "Ako funguje vlastn\xE1 suma?", a: `Vlastn\xFA sumu vie\u0161 zvoli\u0165 v krokoch po ${fmtEur(STEP)} (napr. 600 \u20AC, 700 \u20AC\u2026) \u2014 poukaz vtedy dostane\u0161 ako kombin\xE1ciu viacer\xFDch k\xF3dov v s\xFA\u010Dte danej hodnoty. Pre v\xE4\u010D\u0161iu alebo atypick\xFA sumu n\xE1s kontaktuj priamo.` }
+];
+function VoucherCard({ value, validity }) {
+  const [flash, setFlash] = import_react4.default.useState(false);
+  import_react4.default.useEffect(() => {
+    setFlash(true);
+    const t = setTimeout(() => setFlash(false), 280);
+    return () => clearTimeout(t);
+  }, [value]);
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-card" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-grid" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-top" }, /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-brand-name" }, "LCD"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-brand-sub" }, "Dar\u010Dekov\xE1 pouk\xE1\u017Eka")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-chip" })), /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-amount" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-amount-label" }, "Hodnota"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-amount-value" + (flash ? " flash" : "") }, fmtEur(value))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-bottom" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-meta" }, "Platnos\u0165", /* @__PURE__ */ import_react4.default.createElement("strong", null, "do ", validity)), /* @__PURE__ */ import_react4.default.createElement("div", { className: "voucher-tagline" }, "\u2014 Drive in luxury"))));
+}
+function CoinsBreakdown({ coins }) {
+  const entries = Object.entries(coins).map(([v, n]) => [Number(v), n]).sort((a, b) => b[0] - a[0]);
+  if (entries.length <= 1) return null;
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-coins" }, entries.map(([v, n]) => /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-coin-chip", key: v }, /* @__PURE__ */ import_react4.default.createElement("strong", null, n, "\xD7"), " ", fmtEur(v))));
+}
+function Accordion({ open, badge, label, status, onToggle, children, id }) {
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-acc" + (open ? " open" : ""), id }, /* @__PURE__ */ import_react4.default.createElement("button", { type: "button", className: "vch-acc-header", onClick: onToggle, "aria-expanded": open }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-acc-badge" }, badge), /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-acc-label" }, label), status ? /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-acc-status" }, status) : null, /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-acc-arrow", "aria-hidden": "true" }, "\u25BE")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-acc-body" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-acc-body-inner" }, children)));
+}
+function FaqRow({ item, open, onToggle }) {
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-faq-item" + (open ? " open" : "") }, /* @__PURE__ */ import_react4.default.createElement("button", { type: "button", className: "gv-faq-q", onClick: onToggle, "aria-expanded": open }, /* @__PURE__ */ import_react4.default.createElement("span", null, item.q), /* @__PURE__ */ import_react4.default.createElement("span", { className: "gv-faq-icon", "aria-hidden": "true" }, "+")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-faq-a" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-faq-a-inner" }, item.a)));
+}
+function InfoSections() {
+  const [openFaq, setOpenFaq] = import_react4.default.useState(-1);
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-wrap" }, /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "Pre koho"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "Komu dar\u010Dekov\xE1 pouk\xE1\u017Eka sadne"), /* @__PURE__ */ import_react4.default.createElement("p", { className: "gv-lead" }, "Pouk\xE1\u017Eka je ide\xE1lna v\u0161ade tam, kde chcete darova\u0165 luxus do auta, ale v\xFDber rad\u0161ej nech\xE1te na obdarovan\xE9ho."), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-audience-grid" }, AUDIENCE.map((a, i) => /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-audience-card", key: i }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-audience-icon" }, a.icon), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-audience-title" }, a.title), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-audience-text" }, a.text))))), /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "Pre\u010Do pouk\xE1\u017Eka"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "\u0160es\u0165 d\xF4vodov, pre\u010Do \u0148ou ni\u010D nepokaz\xEDte"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reasons-grid" }, REASONS.map((r, i) => /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reason-card", key: i }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reason-icon" }, r.icon), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reason-body" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reason-title" }, r.title), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reason-text" }, r.text)))))), /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "Dokonal\xFD dar\u010Dek"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "Sadne na ka\u017Ed\xFA pr\xEDle\u017Eitos\u0165"), /* @__PURE__ */ import_react4.default.createElement("p", { className: "gv-lead" }, "Nie je to dar\u010Dek len pod strom\u010Dek. Luxus do auta pote\u0161\xED v\u017Edy, ke\u010F chcete niekoho naozaj prekvapi\u0165."), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-occasions-row" }, OCCASIONS.map((o, i) => /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-occasion-chip", key: i }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "gv-occasion-icon" }, o.icon), /* @__PURE__ */ import_react4.default.createElement("span", null, o.label))))), /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "Ako to funguje"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "Tri kroky a dar\u010Dek je hotov\xFD"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-steps-row" }, STEPS.map((s, i) => /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-step-card", key: i }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-step-num" }, s.num), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-step-title" }, s.title), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-step-text" }, s.text))))), /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "Sk\xFAsenosti"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "\u010Co hovoria t\xED, \u010Do pouk\xE1\u017Eku darovali"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-reviews-grid" }, REVIEWS.map((r, i) => /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-review-card", key: i }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-review-stars", "aria-hidden": "true" }, "\u2605\u2605\u2605\u2605\u2605"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-review-text" }, r.text), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-review-author" }, r.author, " ", /* @__PURE__ */ import_react4.default.createElement("span", null, "\xB7 ", r.role)))))), /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "Porovnanie"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "Pouk\xE1\u017Eka vs. h\xE1da\u0165 konkr\xE9tny dar\u010Dek"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-table" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-head" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-cell gv-compare-aspect" }), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-cell gv-compare-voucher" }, "Dar\u010Dekov\xE1 pouk\xE1\u017Eka"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-cell gv-compare-guess" }, "H\xE1da\u0165 dar\u010Dek")), COMPARE.map((c, i) => /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-row", key: i }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-cell gv-compare-aspect" }, c.aspect), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-cell gv-compare-voucher" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "gv-compare-mark yes", "aria-hidden": "true" }, "\u2713"), c.voucher), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-compare-cell gv-compare-guess" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "gv-compare-mark no", "aria-hidden": "true" }, "\u2715"), c.guess))))), /* @__PURE__ */ import_react4.default.createElement("section", { className: "gv-section" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-eyebrow" }, "\u010Cast\xE9 ot\xE1zky"), /* @__PURE__ */ import_react4.default.createElement("h2", { className: "gv-title" }, "E\u0161te nie\u010Do nejasn\xE9?"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "gv-faq-list" }, FAQ_ITEMS.map((item, i) => /* @__PURE__ */ import_react4.default.createElement(FaqRow, { key: i, item, open: openFaq === i, onToggle: () => setOpenFaq(openFaq === i ? -1 : i) })))));
+}
+function VoucherApp() {
+  const [openSection, setOpenSection] = import_react4.default.useState(1);
+  const [presetValue, setPresetValue] = import_react4.default.useState(DEFAULT_VALUE);
+  const [customMode, setCustomMode] = import_react4.default.useState(false);
+  const [customValue, setCustomValue] = import_react4.default.useState("");
+  const [toastMsg, setToastMsg] = import_react4.default.useState(null);
+  const [adding, setAdding] = import_react4.default.useState(false);
+  const value = import_react4.default.useMemo(() => {
+    if (customMode) {
+      const v = parseInt(customValue, 10);
+      if (isNaN(v)) return CUSTOM_MIN;
+      return clampToStep(v);
+    }
+    return presetValue;
+  }, [customMode, customValue, presetValue]);
+  const coins = import_react4.default.useMemo(() => decomposeToCoins(value), [value]);
+  const total = value;
+  const validity = import_react4.default.useMemo(() => validityDate(), []);
+  function toggle(n) {
+    setOpenSection((prev) => prev === n ? 0 : n);
+  }
+  function goToStep(n) {
+    setOpenSection(n);
+    setTimeout(() => {
+      const el = document.getElementById(n === 0 ? "voucher-summary" : "acc-step-" + n);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 500);
+  }
+  function pickPreset(v) {
+    setPresetValue(v);
+    setCustomMode(false);
+    setCustomValue("");
+  }
+  function pickCustom() {
+    setCustomMode(true);
+    setTimeout(() => {
+      const el = document.getElementById("customAmount");
+      if (el) el.focus();
+    }, 100);
+  }
+  function onCustomBlur() {
+    if (!customValue) return;
+    const v = parseInt(customValue, 10) || CUSTOM_MIN;
+    setCustomValue(String(clampToStep(v)));
+  }
+  async function addToCart() {
+    if (adding) return;
+    setAdding(true);
+    setToastMsg(`Prid\xE1vam pouk\xE1\u017Eku ${fmtEur(value)} do ko\u0161\xEDka\u2026`);
+    try {
+      const results = await addCoinsToCart(coins);
+      const failed = results.filter((r) => !r.ok);
+      if (failed.length) {
+        setToastMsg("\u010Cas\u0165 pouk\xE1\u017Eky sa nepodarilo prida\u0165 automaticky. Sk\xFAs to pros\xEDm znova alebo n\xE1s kontaktuj.");
+        setAdding(false);
+        return;
+      }
+      setToastMsg(`Pouk\xE1\u017Eka ${fmtEur(value)} pridan\xE1 do ko\u0161\xEDka \u2713`);
+      setTimeout(() => goToCart(), 900);
+    } catch (e) {
+      setToastMsg("Pridanie do ko\u0161\xEDka zlyhalo. Sk\xFAs to pros\xEDm znova.");
+      setAdding(false);
+    }
+  }
+  const statusValue = customMode ? `Vlastn\xE1: ${fmtEur(value)}` : fmtEur(value);
+  const statusDelivery = DELIVERY_INFO.status;
+  return /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-container" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-main" }, /* @__PURE__ */ import_react4.default.createElement("section", { className: "vch-stage" }, /* @__PURE__ */ import_react4.default.createElement(VoucherCard, { value, validity }), /* @__PURE__ */ import_react4.default.createElement(CoinsBreakdown, { coins }), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-strip" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-item" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-icon" }, "\u232C"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-title" }, "12 mesiacov"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-desc" }, "Platnos\u0165 od n\xE1kupu")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-item" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-icon" }, "\u2726"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-title" }, "Na v\u0161etko"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-desc" }, "Cel\xFD sortiment LCD")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-item" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-icon" }, "\u2709"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-title" }, "Email s k\xF3dom"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-trust-desc" }, "Uplatn\xED\u0161 v ko\u0161\xEDku"))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-tip-box" }, /* @__PURE__ */ import_react4.default.createElement("strong", null, "Tip:"), " Pouk\xE1\u017Eku obdarovan\xFD uplatn\xED na \u010Doko\u013Evek z ponuky webu", " ", /* @__PURE__ */ import_react4.default.createElement("a", { href: "https://www.luxurycardesign.sk", target: "_blank", rel: "noopener noreferrer" }, "www.luxurycardesign.sk"), " ", "\u2014 autokoberce, kufrov\xE9 roho\u017Ee aj bundle sety. Vyberie si presne to, \u010Do potrebuje.")), /* @__PURE__ */ import_react4.default.createElement("section", { className: "vch-config" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-config-eyebrow" }, "Luxury Car Design"), /* @__PURE__ */ import_react4.default.createElement("h1", { className: "vch-config-title" }, "Dar\u010Dekov\xE1 pouk\xE1\u017Eka"), /* @__PURE__ */ import_react4.default.createElement("p", { className: "vch-config-lead" }, "Daruj z\xE1\u017Eitok z luxusu. Vyber hodnotu pouk\xE1\u017Eky \u2014 po\u0161leme ti k\xF3d na email. Obdarovan\xFD zad\xE1 k\xF3d v ko\u0161\xEDku a m\xE1 luxus na cel\xFD sortiment."), /* @__PURE__ */ import_react4.default.createElement(Accordion, { open: openSection === 1, badge: 1, label: "Hodnota pouk\xE1\u017Eky", status: statusValue, onToggle: () => toggle(1), id: "acc-step-1" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-values-grid" }, PRESET_VALUES.map((v) => /* @__PURE__ */ import_react4.default.createElement(
+    "button",
+    {
+      key: v,
+      type: "button",
+      className: "vch-val-btn" + (!customMode && presetValue === v ? " active" : "") + (v === DEFAULT_VALUE ? " popular" : ""),
+      onClick: () => pickPreset(v)
+    },
+    fmtEur(v)
+  )), /* @__PURE__ */ import_react4.default.createElement(
+    "button",
+    {
+      type: "button",
+      className: "vch-val-btn" + (customMode ? " active" : ""),
+      onClick: pickCustom
+    },
+    "Vlastn\xE1"
+  )), customMode ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-custom-amount" }, /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "customAmount" }, "Vlastn\xE1 suma"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-custom-input-wrap" }, /* @__PURE__ */ import_react4.default.createElement(
+    "input",
+    {
+      id: "customAmount",
+      type: "number",
+      className: "vch-custom-input",
+      min: CUSTOM_MIN,
+      max: CUSTOM_MAX,
+      step: STEP,
+      inputMode: "numeric",
+      value: customValue,
+      onChange: (e) => setCustomValue(e.target.value),
+      onBlur: onCustomBlur,
+      placeholder: String(DEFAULT_VALUE + STEP)
+    }
+  ), /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-custom-currency" }, "\u20AC")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-custom-hint" }, "Krok ", fmtEur(STEP), ". Min. ", fmtEur(CUSTOM_MIN), ", max. ", fmtEur(CUSTOM_MAX), ". V\xE4\u010D\u0161iu sumu vybav\xEDme na mieru \u2014 nap\xED\u0161 n\xE1m.")) : null, /* @__PURE__ */ import_react4.default.createElement("button", { type: "button", className: "vch-step-next-btn", onClick: () => goToStep(2) }, "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok ", /* @__PURE__ */ import_react4.default.createElement("span", { "aria-hidden": "true" }, "\u2192"))), /* @__PURE__ */ import_react4.default.createElement(Accordion, { open: openSection === 2, badge: 2, label: "Doru\u010Denie", status: statusDelivery, onToggle: () => toggle(2), id: "acc-step-2" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-delivery-info" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-delivery-info-icon" }, "\u2709"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-delivery-info-content" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-delivery-info-title" }, DELIVERY_INFO.title, /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-delivery-free" }, " \u2014 zdarma")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-delivery-info-desc" }, DELIVERY_INFO.desc), /* @__PURE__ */ import_react4.default.createElement("ul", { className: "vch-delivery-info-list" }, /* @__PURE__ */ import_react4.default.createElement("li", null, "K\xF3d pouk\xE1\u017Eky na email"), /* @__PURE__ */ import_react4.default.createElement("li", null, "Uplatnite\u013En\xFD priamo v ko\u0161\xEDku"), /* @__PURE__ */ import_react4.default.createElement("li", null, "Platnos\u0165 12 mesiacov od n\xE1kupu")))), /* @__PURE__ */ import_react4.default.createElement("button", { type: "button", className: "vch-step-next-btn", onClick: () => goToStep(0) }, "Pokra\u010Dova\u0165 na zhrnutie ", /* @__PURE__ */ import_react4.default.createElement("span", { "aria-hidden": "true" }, "\u2192"))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-summary", id: "voucher-summary" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-summary-eyebrow" }, "Zhrnutie objedn\xE1vky"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-summary-row" }, /* @__PURE__ */ import_react4.default.createElement("span", null, "Hodnota pouk\xE1\u017Eky"), /* @__PURE__ */ import_react4.default.createElement("strong", null, fmtEur(value))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-summary-row" }, /* @__PURE__ */ import_react4.default.createElement("span", null, "Doru\u010Denie"), /* @__PURE__ */ import_react4.default.createElement("strong", { className: "vch-delivery-free" }, "Email \u2014 zdarma")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-summary-total" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-summary-total-label" }, "Spolu"), /* @__PURE__ */ import_react4.default.createElement("span", { className: "vch-summary-total-value" }, fmtEur(total))), /* @__PURE__ */ import_react4.default.createElement("button", { type: "button", className: "vch-cta", onClick: addToCart, disabled: adding }, adding ? "Prid\xE1vam\u2026" : "Prida\u0165 do ko\u0161\xEDka"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-summary-trust" }, /* @__PURE__ */ import_react4.default.createElement("span", null, "\u2713 Platnos\u0165 12 mes."), /* @__PURE__ */ import_react4.default.createElement("span", null, "\u2713 K\xF3d emailom"), /* @__PURE__ */ import_react4.default.createElement("span", null, "\u2713 Na cel\xFD sortiment")))))), /* @__PURE__ */ import_react4.default.createElement(InfoSections, null), toastMsg ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "vch-toast" }, toastMsg) : null);
+}
+
+// assets/js/voucher-konfigurator/styles.js
+var STYLE_ID = "lcd-voucher-style";
+var ROOT_ID = "lcd-voucher-root";
+function injectVoucherStyles() {
+  if (document.getElementById(STYLE_ID)) return;
+  const R = `#${ROOT_ID}`;
+  const css = `
+${R} {
+  --gold: #C5A44E;
+  --gold-dark: #A8893A;
+  --dark: #2E1810;
+  --dark-2: #1a1008;
+  --cream: #fdf8ec;
+  --bg: #f9f7f2;
+  --border: #e0d5b8;
+  --text-muted: #777;
+  --white: #ffffff;
+  --bg-soft: #fafafa;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--dark);
+  font-size: 15px;
+  line-height: 1.5;
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+${R} *, ${R} *::before, ${R} *::after { box-sizing: border-box; }
+${R} button { font: inherit; }
+${R} a { color: var(--gold); text-decoration: none; }
+${R} a:hover { color: var(--gold-dark); }
+${R} img { max-width: 100%; display: block; }
+${R} h1, ${R} h2, ${R} h3 { margin: 0; overflow-wrap: break-word; word-wrap: break-word; }
+${R} p { margin: 0; }
+${R} input[type=number]::-webkit-inner-spin-button,
+${R} input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+${R} input[type=number] { -moz-appearance: textfield; }
+${R} button:focus-visible, ${R} input:focus-visible { outline: 3px solid rgba(197,164,78,0.4); outline-offset: 2px; }
+
+${R} .vch-container { max-width: 1280px; width: 100%; margin: 0 auto; padding: 24px 24px 60px; }
+
+${R} .vch-main { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+@media (min-width: 980px) {
+  ${R} .vch-main { grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 40px; }
+}
+@media (min-width: 1200px) {
+  ${R} .vch-main { grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 48px; }
+}
+${R} .vch-stage { min-width: 0; }
+@media (min-width: 980px) { ${R} .vch-stage { position: sticky; top: 20px; } }
+${R} .vch-config { min-width: 0; }
+
+/* Voucher card */
+${R} .voucher-card {
+  position: relative; width: 100%; max-width: 480px; margin: 0 auto;
+  aspect-ratio: 1.586 / 1;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(197,164,78,0.22) 0%, transparent 50%),
+    radial-gradient(circle at 82% 78%, rgba(197,164,78,0.14) 0%, transparent 50%),
+    linear-gradient(135deg, #1A1A1A 0%, #000 50%, #1A1A1A 100%);
+  border: 1px solid var(--gold-dark); border-radius: 16px; padding: 24px 28px;
+  box-shadow: 0 24px 48px -18px rgba(0,0,0,0.5), 0 0 0 1px rgba(197,164,78,0.08) inset;
+  color: var(--white); overflow: hidden;
+}
+${R} .voucher-grid { width: 100%; height: 100%; display: grid; grid-template-rows: auto 1fr auto; gap: 8px; }
+${R} .voucher-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+${R} .voucher-brand-name { font-size: 18px; font-weight: 800; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; line-height: 1; }
+${R} .voucher-brand-sub { font-size: 9px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-top: 4px; }
+${R} .voucher-chip { width: 38px; height: 28px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); border-radius: 5px; flex-shrink: 0; }
+${R} .voucher-amount { align-self: center; text-align: right; }
+${R} .voucher-amount-label { font-size: 10px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-bottom: 4px; }
+${R} .voucher-amount-value { font-size: 44px; font-weight: 800; color: var(--gold); line-height: 1; letter-spacing: -1px; text-shadow: 0 0 30px rgba(197,164,78,0.4); transition: transform 0.25s ease; }
+@media (min-width: 1200px) { ${R} .voucher-amount-value { font-size: 56px; } }
+${R} .voucher-amount-value.flash { transform: scale(1.06); }
+${R} .voucher-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+${R} .voucher-meta { font-size: 8px; letter-spacing: 1.5px; color: #999; text-transform: uppercase; }
+${R} .voucher-meta strong { color: var(--white); font-weight: 500; display: block; margin-top: 3px; font-size: 10px; letter-spacing: 1px; }
+${R} .voucher-tagline { font-family: Georgia, serif; font-style: italic; color: var(--gold); font-size: 12px; letter-spacing: 0.5px; }
+
+/* Coin breakdown badge (ko\u013Eko a ak\xFDch minc\xED sa prid\xE1 do ko\u0161\xEDka) */
+${R} .vch-coins { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+${R} .vch-coin-chip { background: var(--white); border: 2px solid var(--border); border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 700; color: var(--dark); }
+${R} .vch-coin-chip strong { color: var(--gold-dark); }
+
+/* Trust strip */
+${R} .vch-trust-strip { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+${R} .vch-trust-item { background: var(--white); border: 2px solid var(--border); border-radius: 10px; padding: 14px 10px; text-align: center; }
+${R} .vch-trust-icon { font-size: 20px; color: var(--gold); margin-bottom: 6px; line-height: 1; }
+${R} .vch-trust-title { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 800; color: var(--dark); margin-bottom: 3px; }
+${R} .vch-trust-desc { font-size: 10px; color: #666; }
+
+${R} .vch-tip-box { margin-top: 16px; padding: 14px 18px; background: var(--cream); border: 2px solid var(--gold); border-radius: 10px; font-size: 13px; line-height: 1.55; }
+${R} .vch-tip-box strong { color: var(--gold-dark); }
+${R} .vch-tip-box a { color: var(--gold-dark); font-weight: 700; text-decoration: underline; }
+
+${R} .vch-step-next-btn {
+  margin-top: 14px; width: 100%; padding: 12px 18px;
+  background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: #fff;
+  border: none; border-radius: 9px; font-size: 13px; font-weight: 700; letter-spacing: .02em;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 14px rgba(76,175,80,0.35); transition: filter .15s ease, transform .1s ease;
+}
+${R} .vch-step-next-btn:hover { filter: brightness(1.07); }
+${R} .vch-step-next-btn:active { transform: scale(.99); }
+
+${R} .vch-config-eyebrow { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+${R} .vch-config-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; color: var(--dark); text-transform: uppercase; margin-bottom: 10px; line-height: 1.1; }
+@media (min-width: 768px) { ${R} .vch-config-title { font-size: 32px; } }
+@media (min-width: 1200px) { ${R} .vch-config-title { font-size: 38px; } }
+${R} .vch-config-lead { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 22px; }
+@media (min-width: 768px) { ${R} .vch-config-lead { font-size: 15px; } }
+
+/* Accordion */
+${R} .vch-acc { margin-bottom: 10px; scroll-margin-top: 16px; }
+${R} .vch-acc-header {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 13px 14px;
+  border: none; cursor: pointer; text-align: left;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: var(--white); border-radius: 8px; transition: border-radius 0.2s;
+}
+${R} .vch-acc.open .vch-acc-header { border-radius: 8px 8px 0 0; }
+${R} .vch-acc-badge { min-width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.22); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+${R} .vch-acc-label { flex: 1; min-width: 0; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+@media (min-width: 768px) { ${R} .vch-acc-label { font-size: 14px; } ${R} .vch-acc-header { padding: 14px 18px; } }
+${R} .vch-acc-status { background: rgba(0,0,0,0.18); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+${R} .vch-acc.open .vch-acc-status { background: rgba(255,255,255,0.3); }
+${R} .vch-acc-arrow { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.22); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; transition: transform 0.3s; }
+${R} .vch-acc.open .vch-acc-arrow { transform: rotate(180deg); }
+${R} .vch-acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--bg-soft); }
+${R} .vch-acc.open .vch-acc-body { max-height: 1200px; border: 2px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; }
+${R} .vch-acc-body-inner { padding: 16px; }
+
+/* Value buttons */
+${R} .vch-values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+@media (min-width: 1100px) { ${R} .vch-values-grid { grid-template-columns: repeat(6, 1fr); } }
+${R} .vch-val-btn { padding: 14px 6px; background: var(--white); border: 2px solid var(--border); border-radius: 10px; color: var(--dark); font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.18s ease; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+${R} .vch-val-btn:hover { border-color: var(--gold); }
+${R} .vch-val-btn.active { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: var(--white); border-color: var(--gold); box-shadow: 0 6px 16px rgba(197,164,78,0.4); }
+${R} .vch-val-btn.active::after { content: "\u2713"; position: absolute; top: 4px; right: 6px; font-size: 10px; font-weight: 700; }
+${R} .vch-val-btn.popular { position: relative; border-color: var(--gold); background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%); box-shadow: 0 4px 12px rgba(197,164,78,0.18); }
+${R} .vch-val-btn.popular::before { content: "Top"; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: var(--white); font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; box-shadow: 0 3px 8px rgba(197,164,78,0.5); white-space: nowrap; z-index: 2; }
+${R} .vch-val-btn.popular.active { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); }
+${R} .vch-val-btn.popular.active::before { background: var(--dark); color: var(--gold); }
+
+${R} .vch-custom-amount { margin-top: 12px; }
+${R} .vch-custom-amount label { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #666; margin-bottom: 6px; font-weight: 700; }
+${R} .vch-custom-input-wrap { position: relative; }
+${R} .vch-custom-input { width: 100%; padding: 14px 50px 14px 16px; border: 2px solid var(--gold); border-radius: 10px; font-size: 16px; font-weight: 700; color: var(--dark); background: var(--white); outline: none; font-family: inherit; }
+${R} .vch-custom-currency { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--gold); font-weight: 700; font-size: 16px; pointer-events: none; }
+${R} .vch-custom-hint { font-size: 11px; color: #888; margin-top: 6px; line-height: 1.5; }
+
+/* Delivery info card */
+${R} .vch-delivery-info { display: flex; gap: 14px; padding: 16px 18px; background: var(--cream); border: 2px solid var(--gold); border-radius: 10px; align-items: flex-start; }
+${R} .vch-delivery-info-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--white); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--gold); flex-shrink: 0; }
+${R} .vch-delivery-info-content { flex: 1; min-width: 0; }
+${R} .vch-delivery-info-title { font-size: 15px; font-weight: 800; color: var(--dark); margin-bottom: 6px; letter-spacing: 0.3px; }
+${R} .vch-delivery-free { color: #4CAF50; font-weight: 600; }
+${R} .vch-delivery-info-desc { font-size: 13px; color: #555; line-height: 1.55; margin-bottom: 10px; }
+${R} .vch-delivery-info-list { margin: 0; padding: 0 0 0 18px; font-size: 12px; color: #666; line-height: 1.6; }
+${R} .vch-delivery-info-list li { margin-bottom: 2px; }
+
+/* Summary */
+${R} .vch-summary { margin-top: 22px; padding: 22px; border-radius: 12px; background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%); color: var(--white); box-shadow: 0 12px 30px rgba(46,24,16,0.3); }
+${R} .vch-summary-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 10px; }
+${R} .vch-summary-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: rgba(255,255,255,0.85); }
+${R} .vch-summary-row strong { color: var(--white); font-weight: 700; }
+${R} .vch-summary-total { border-top: 1px solid rgba(255,255,255,0.15); margin-top: 12px; padding-top: 14px; display: flex; justify-content: space-between; align-items: baseline; }
+${R} .vch-summary-total-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
+${R} .vch-summary-total-value { font-size: 28px; font-weight: 800; color: var(--gold); letter-spacing: -0.5px; }
+${R} .vch-cta { display: block; width: 100%; margin-top: 18px; padding: 16px; background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: var(--white); border: none; border-radius: 10px; font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; box-shadow: 0 8px 20px rgba(76,175,80,0.4); transition: transform 0.2s, box-shadow 0.2s; }
+${R} .vch-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(76,175,80,0.55); }
+${R} .vch-cta:active { transform: translateY(0); }
+${R} .vch-cta:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+${R} .vch-summary-trust { margin-top: 14px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; font-size: 11px; color: rgba(255,255,255,0.7); }
+
+/* Toast */
+${R} .vch-toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: var(--white);
+  padding: 14px 20px; border-radius: 10px; font-weight: 700; font-size: 14px;
+  box-shadow: 0 16px 36px rgba(197,164,78,0.5); max-width: calc(100vw - 48px); z-index: 1000;
+  animation: lcd-vch-toast-in 0.4s ease;
+}
+@keyframes lcd-vch-toast-in { from { transform: translateY(140%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+@media (max-width: 640px) {
+  ${R} .vch-container { padding: 14px 14px 40px; }
+  ${R} .vch-config-title { font-size: 24px; }
+  ${R} .voucher-card { padding: 20px; max-width: 100%; }
+  ${R} .voucher-amount-value { font-size: 38px; }
+  ${R} .voucher-brand-name { font-size: 16px; }
+  ${R} .vch-acc-status { max-width: 90px; font-size: 10px; padding: 2px 8px; }
+  ${R} .vch-summary { padding: 18px; }
+  ${R} .vch-summary-total-value { font-size: 24px; }
+  ${R} .vch-toast { left: 14px; right: 14px; bottom: 14px; text-align: center; }
+}
+
+/* ===== Popisn\xE9 sekcie (gv- prefix \u2014 u\u017E dostato\u010Dne unik\xE1tne, port 1:1) ===== */
+${R} .gv-wrap { max-width: 1280px; margin: 40px auto 8px; padding: 0 24px; display: flex; flex-direction: column; gap: 48px; }
+${R} .gv-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #A8893A; font-weight: 800; margin-bottom: 8px; }
+${R} .gv-title { font-size: 25px; font-weight: 800; color: #2E1810; margin: 0 0 10px; line-height: 1.22; text-align: left; text-transform: none; letter-spacing: normal; }
+${R} .gv-lead { font-size: 15px; color: #5f564d; line-height: 1.6; margin: 0 0 22px; max-width: 660px; }
+${R} .gv-audience-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+${R} .gv-audience-card { background: #fff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px 18px; }
+${R} .gv-audience-icon { font-size: 30px; margin-bottom: 12px; }
+${R} .gv-audience-title { font-size: 15px; font-weight: 800; color: #2E1810; margin-bottom: 7px; }
+${R} .gv-audience-text { font-size: 13px; color: #6a6058; line-height: 1.55; }
+${R} .gv-reasons-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+${R} .gv-reason-card { display: flex; gap: 13px; background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 12px; padding: 18px; }
+${R} .gv-reason-icon { font-size: 24px; flex-shrink: 0; line-height: 1; }
+${R} .gv-reason-title { font-size: 14px; font-weight: 800; color: #2E1810; margin-bottom: 5px; }
+${R} .gv-reason-text { font-size: 13px; color: #6a6058; line-height: 1.55; }
+${R} .gv-occasions-row { display: flex; flex-wrap: wrap; gap: 12px; }
+${R} .gv-occasion-chip { display: flex; align-items: center; gap: 9px; background: #fff; border: 2px solid #e0d5b8; border-radius: 999px; padding: 11px 20px; font-size: 14px; font-weight: 700; color: #2E1810; }
+${R} .gv-occasion-icon { font-size: 18px; }
+${R} .gv-steps-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+${R} .gv-step-card { background: #fff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 24px 20px; }
+${R} .gv-step-num { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #C5A44E 0%, #A8893A 100%); color: #fff; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+${R} .gv-step-title { font-size: 16px; font-weight: 800; color: #2E1810; margin-bottom: 7px; }
+${R} .gv-step-text { font-size: 13px; color: #6a6058; line-height: 1.55; }
+${R} .gv-reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+${R} .gv-review-card { background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 12px; padding: 20px; }
+${R} .gv-review-stars { color: #C5A44E; font-size: 14px; letter-spacing: 3px; margin-bottom: 10px; }
+${R} .gv-review-text { font-size: 13.5px; color: #4a423c; line-height: 1.6; font-style: italic; margin-bottom: 12px; }
+${R} .gv-review-author { font-size: 13px; font-weight: 800; color: #2E1810; }
+${R} .gv-review-author span { font-weight: 500; color: #8a8078; }
+${R} .gv-compare-table { border: 1px solid #e0d5b8; border-radius: 12px; overflow: hidden; }
+${R} .gv-compare-head, ${R} .gv-compare-row { display: grid; grid-template-columns: 1.4fr 1.3fr 1.3fr; }
+${R} .gv-compare-head { background: #2E1810; }
+${R} .gv-compare-head .gv-compare-cell { color: #fff; font-weight: 800; font-size: 13px; }
+${R} .gv-compare-row { border-top: 1px solid #e0d5b8; }
+${R} .gv-compare-row:nth-child(even) { background: #fdf8ec; }
+${R} .gv-compare-cell { padding: 13px 15px; font-size: 13px; color: #5f564d; display: flex; align-items: center; gap: 8px; }
+${R} .gv-compare-aspect { font-weight: 700; color: #2E1810; }
+${R} .gv-compare-mark { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; color: #fff; }
+${R} .gv-compare-mark.yes { background: #4CAF50; }
+${R} .gv-compare-mark.no { background: #c0996a; }
+${R} .gv-faq-list { display: flex; flex-direction: column; gap: 10px; }
+${R} .gv-faq-item { border: 1px solid #e0d5b8; border-radius: 10px; overflow: hidden; background: #fff; }
+${R} .gv-faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; background: none; border: none; cursor: pointer; font-size: 14px; font-weight: 700; color: #2E1810; text-align: left; }
+${R} .gv-faq-icon { font-size: 22px; color: #A8893A; flex-shrink: 0; line-height: 1; transition: transform 0.25s; }
+${R} .gv-faq-item.open .gv-faq-icon { transform: rotate(45deg); }
+${R} .gv-faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+${R} .gv-faq-item.open .gv-faq-a { max-height: 360px; }
+${R} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; line-height: 1.6; }
+@media (max-width: 880px) {
+  ${R} .gv-audience-grid, ${R} .gv-reasons-grid, ${R} .gv-steps-row, ${R} .gv-reviews-grid { grid-template-columns: minmax(0, 1fr); }
+  ${R} .gv-title { font-size: 22px; }
+  ${R} .gv-compare-head, ${R} .gv-compare-row { grid-template-columns: 1.3fr 1fr 1fr; }
+}
+`;
+  const style = document.createElement("style");
+  style.id = STYLE_ID;
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+
+// assets/js/voucher-konfigurator/index.jsx
+var MOUNTED_ATTR2 = "data-vk-mounted";
+var VoucherErrorBoundary = class extends import_react5.default.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+  componentDidCatch(error, info) {
+    console.error("[voucher-konfig] ErrorBoundary caught:", error, info);
+    if (typeof window !== "undefined") {
+      window.__voucherKonfigError = { message: String(error), stack: error && error.stack, info };
+    }
+  }
+  render() {
+    if (this.state.error) {
+      return import_react5.default.createElement(
+        "div",
+        {
+          style: {
+            padding: 24,
+            background: "#fff4f4",
+            border: "2px solid #d32f2f",
+            borderRadius: 10,
+            color: "#333",
+            fontFamily: "system-ui, sans-serif",
+            maxWidth: 720,
+            margin: "24px auto"
+          }
+        },
+        import_react5.default.createElement(
+          "div",
+          { style: { fontSize: 16, fontWeight: 700, color: "#d32f2f", marginBottom: 8 } },
+          "Konfigur\xE1tor pouk\xE1\u017Eky zlyhal pri renderovan\xED"
+        ),
+        import_react5.default.createElement(
+          "div",
+          { style: { fontSize: 13, marginBottom: 8 } },
+          "Pozrite sa do DevTools Console \u2014 podrobnosti s\xFA tie\u017E v ",
+          import_react5.default.createElement("code", null, "window.__voucherKonfigError"),
+          "."
+        ),
+        import_react5.default.createElement(
+          "pre",
+          {
+            style: {
+              background: "#fff",
+              border: "1px solid #eee",
+              padding: 12,
+              borderRadius: 6,
+              fontSize: 11,
+              color: "#666",
+              overflow: "auto",
+              maxHeight: 240,
+              whiteSpace: "pre-wrap"
+            }
+          },
+          String(this.state.error && this.state.error.stack || this.state.error)
+        )
+      );
+    }
+    return this.props.children;
+  }
+};
+function isVoucherPage() {
+  try {
+    if (/darcekova-poukaz/i.test(window.location.pathname)) return true;
+    const h1 = document.querySelector("h1");
+    const t = h1 && h1.textContent || "";
+    return /darčekov[aá]\s+pouk[aá]ž|darcekova\s+poukaz/i.test(t);
+  } catch (e) {
+    return false;
+  }
+}
+function renderVoucherConfigurator(element) {
+  if (!element) return false;
+  if (element.getAttribute(MOUNTED_ATTR2) === "1") return true;
+  element.setAttribute(MOUNTED_ATTR2, "1");
+  injectVoucherStyles();
+  (0, import_client2.createRoot)(element).render(
+    import_react5.default.createElement(VoucherErrorBoundary, null, import_react5.default.createElement(VoucherApp))
+  );
+  return true;
+}
+function mountVoucherConfigurator() {
+  document.body && document.body.classList.add("is-voucher-konfigurator");
+  const tryMount = () => {
+    if (document.getElementById(ROOT_ID)) return true;
+    const wrapper = document.querySelector(".p-info-wrapper");
+    if (!wrapper) return false;
+    const el = document.createElement("div");
+    el.id = ROOT_ID;
+    wrapper.innerHTML = "";
+    wrapper.appendChild(el);
+    return renderVoucherConfigurator(el);
+  };
+  if (tryMount()) return;
+  let tries = 0;
+  const iv = setInterval(() => {
+    if (tryMount() || ++tries > 40) clearInterval(iv);
+  }, 100);
+}
+
 // assets/js/components/productPage.js
 window.addEventListener(
   "error",
@@ -32500,6 +33159,10 @@ console.log(diference);
 function initProduct(setupData2, texts) {
   if (isTruckConfiguratorPage()) {
     mountTruckConfigurator();
+    return;
+  }
+  if (isVoucherPage()) {
+    mountVoucherConfigurator();
     return;
   }
   const isVzorky = isVzorkyConfiguratorPage();
@@ -32831,6 +33494,9 @@ function priplatky(setupData2, texts) {
         e.preventDefault();
         const clickedWrap = $(this).closest(".position-wrap, .parameter-wrap");
         if (clickedWrap.hasClass("active")) {
+          if (window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
+            window.__lcdAnchorTo(clickedWrap[0], 400);
+          }
           clickedWrap.removeClass("active");
           return;
         }
@@ -32838,8 +33504,18 @@ function priplatky(setupData2, texts) {
         const clickedIndex = allWraps.index(clickedWrap);
         const $activeWrap = $(".position-wrap.active, .parameter-wrap.active").first();
         const activeIndex = $activeWrap.length ? allWraps.index($activeWrap) : -1;
+        const lcdDesk = !window.matchMedia("(max-width: 768px)").matches;
+        const lcdNode = clickedWrap[0];
+        const lcdBefore = lcdDesk && lcdNode ? lcdNode.getBoundingClientRect().top : null;
         $(".position-wrap, .parameter-wrap").removeClass("active");
         clickedWrap.addClass("active");
+        if (lcdBefore !== null) {
+          const lcdD = lcdNode.getBoundingClientRect().top - lcdBefore;
+          if (Math.abs(lcdD) > 1) {
+            window.scrollBy({ top: lcdD, behavior: "instant" });
+          }
+          if (window.__lcdAnchorTo) window.__lcdAnchorTo(lcdNode, 600);
+        }
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
         console.log(`Otev\u0159en ${elementType}:`, elementName);
@@ -33023,9 +33699,9 @@ function setBoxConfigVisibleCount(visibleCount) {
 }
 $(document).on("click", ".close-btn.close", function() {
   $(this).parents(".upsale-Banner").removeClass("showConf");
-  $("select.parameter-id-" + boxy + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0);
+  $("select.parameter-id-" + boxy + ".surcharge-parameter").val(0).trigger("change");
+  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0).trigger("change");
+  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0).trigger("change");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button").removeClass("active");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button.none").addClass("active");
   $(".config-wrap .option-button").removeClass("active");
@@ -33034,8 +33710,8 @@ $(document).on("click", ".close-btn.close", function() {
 });
 $(document).on("click", ".boxs .upsale-button.none", function(e) {
   console.log("clickaaaa");
-  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0);
+  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0).trigger("change");
+  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0).trigger("change");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button").removeClass("active");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button.none").addClass("active");
   $(".config-wrap .option-button").removeClass("active");
@@ -33277,13 +33953,13 @@ function updateUpsale($this, event) {
     }
     if ($($this).hasClass("active")) {
       $($this).removeClass("active");
-      $("select.surcharge-parameter.parameter-id-" + value[0]).val(0);
+      $("select.surcharge-parameter.parameter-id-" + value[0]).val(0).trigger("change");
     } else {
       if ($($this).hasClass("radio")) {
         $(".upsale-button.radio ").removeClass("active");
       }
       $($this).addClass("active");
-      $("select.surcharge-parameter.parameter-id-" + value[0]).val(value[1]);
+      $("select.surcharge-parameter.parameter-id-" + value[0]).val(value[1]).trigger("change");
     }
     if ($($this).hasClass("config") && !$($this).hasClass("none")) {
       $($this).parents(".upsale-Banner").addClass("showConf");
@@ -33431,7 +34107,6 @@ function priceActualization2(e) {
   if (header.includes("box")) {
     setTimeout(() => updateBoxPrice(), 150);
   }
-  $(".image-wrap").remove();
   $(".button.option-button.active").each(function() {
     const value = $(this).attr("data-value");
     const variant = $(this).attr("data-variant");
@@ -33440,17 +34115,17 @@ function priceActualization2(e) {
     $(".navigatte-button.parameterNav" + parameterId).attr("style", " background-image: url(" + image + ");");
     console.log(parameterId);
     $(".parameter-id-" + variant).val(value).trigger("change");
-    if (variant == 4) {
-    }
     const image2 = $(this).find("img").attr("src");
-    console.log(image2);
-    console.log(".parameter-wrap.parameter-" + parameterId);
-    const imageWrap = $("<div>", {
-      class: "image-wrap"
-    }).appendTo(".parameter-wrap.parameter-" + parameterId).fadeIn(1e3);
-    $("<img>", { src: image2 }).appendTo(imageWrap);
+    const $paramWrap = $(this).parents(".parameter-wrap");
+    if (e && $paramWrap.has(e.target).length) {
+      $paramWrap.find(".image-wrap").remove();
+      const imageWrap = $("<div>", { class: "image-wrap" }).appendTo($paramWrap);
+      $("<img>", { src: image2 }).appendTo(imageWrap);
+    }
   });
-  $(".parameter-wrap").not($(e.target).parents(".parameter-wrap")).find(".image-wrap").remove();
+  if (e) {
+    $(".parameter-wrap").not($(e.target).parents(".parameter-wrap")).find(".image-wrap").remove();
+  }
 }
 function isTruckConfiguratorPage() {
   try {
@@ -33646,8 +34321,12 @@ function headerFixProdukt() {
       const availabilityElement = document.getElementsByClassName("cell-availability-value")[0] || document.getElementsByClassName("product-detail-availability")[0] || document.getElementsByClassName("availability")[0] || document.getElementsByClassName("availability-label")[0];
       const priceElement = document.getElementsByClassName("price-final-holder")[0] || document.getElementsByClassName("sub-left-position")[0] || document.getElementsByClassName("product-detail-final-price")[0] || document.getElementsByClassName("price-final-holder")[0];
       const scrollHandler = debounceScroll(function() {
-        const shouldShowFixed = window.pageYOffset > buttonOffsetTop;
+        if (window.__lcdAnchoring) return;
         const pluginHeader = document.querySelector("#js-plugin-header");
+        if (!pluginHeader) return;
+        const btnTop = submitButton ? getElementOffsetTop(submitButton) : buttonOffsetTop;
+        const isActive = pluginHeader.classList.contains("active");
+        const shouldShowFixed = isActive ? window.pageYOffset > btnTop - 120 : window.pageYOffset > btnTop + 120;
         const isSticky = "sticky" === getComputedStyle(header).position;
         const isDesktop = window.innerWidth > 468;
         const headerHeight = header.clientHeight;
@@ -34150,22 +34829,23 @@ function lcdHeaderH() {
   return 90;
 }
 function lcdDesiredY(el) {
+  var hH = lcdHeaderH();
+  var r = el.getBoundingClientRect();
+  return Math.max(0, Math.round(window.scrollY + r.top - hH - 16));
+}
+function lcdStepComfortable(el) {
   var vh = window.innerHeight || document.documentElement.clientHeight || 0;
   var hH = lcdHeaderH();
-  var avail = vh - hH;
   var r = el.getBoundingClientRect();
-  var delta;
-  if (r.height > 0 && r.height <= avail) delta = r.top - (hH + (avail - r.height) / 2);
-  else delta = r.top - (hH + 20);
-  return Math.max(0, Math.round(window.scrollY + delta));
+  return r.top >= hH - 8 && r.top <= hH + (vh - hH) * 0.45;
 }
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
+  var lcdIsMobile = window.matchMedia("(max-width: 768px)").matches;
+  if (!isVerify && !lcdIsMobile) return;
   if (lcdScroll.priority && !isVerify) return;
-  var earlyDesiredY = lcdDesiredY(el);
-  if (Math.abs(window.scrollY - earlyDesiredY) < 80) {
-    return;
-  }
+  if (lcdStepComfortable(el)) return;
+  if (Math.abs(window.scrollY - lcdDesiredY(el)) < 100) return;
   if (isVerify) lcdScroll.priority = true;
   var myToken = ++lcdScroll.token;
   var aborted = false;
@@ -34184,9 +34864,6 @@ function lcdScrollToStep(el, isVerify) {
   function alive() {
     return myToken === lcdScroll.token && !aborted && el.isConnected;
   }
-  function jump() {
-    window.scrollTo({ top: lcdDesiredY(el), behavior: "instant" });
-  }
   var lastAbs = null, stable = 0, waited = 0;
   function settle() {
     if (!alive()) {
@@ -34197,20 +34874,25 @@ function lcdScrollToStep(el, isVerify) {
     if (lastAbs !== null && Math.abs(abs - lastAbs) < 2) stable++;
     else stable = 0;
     lastAbs = abs;
-    waited += 70;
-    if (stable >= 4 || waited >= 1400) {
-      jump();
+    waited += 60;
+    if (stable >= 3 || waited >= 800) {
+      if (lcdStepComfortable(el)) {
+        done();
+        return;
+      }
+      var lcdBehavior = lcdIsMobile ? "smooth" : "instant";
+      window.scrollTo({ top: lcdDesiredY(el), behavior: lcdBehavior });
       setTimeout(function() {
         if (alive()) {
           var w1 = lcdDesiredY(el);
-          if (Math.abs(window.scrollY - w1) > 150) {
-            window.scrollTo({ top: w1, behavior: "instant" });
+          if (Math.abs(window.scrollY - w1) > 150 && !lcdStepComfortable(el)) {
+            window.scrollTo({ top: w1, behavior: lcdBehavior });
           }
         }
         done();
-      }, 600);
+      }, 700);
     } else {
-      setTimeout(settle, 70);
+      setTimeout(settle, 60);
     }
   }
   settle();
@@ -34251,7 +34933,64 @@ function lcdFirstUnfilled(uptoIndex) {
   }
   return null;
 }
+function lcdAnchorTo(el, duration) {
+  if (!el) return;
+  var targetTop = el.getBoundingClientRect().top;
+  var start = performance.now();
+  var aborted = false;
+  window.__lcdAnchoring = true;
+  function onUser() {
+    aborted = true;
+  }
+  window.addEventListener("wheel", onUser, { passive: true });
+  window.addEventListener("touchmove", onUser, { passive: true });
+  function cleanup() {
+    window.__lcdAnchoring = false;
+    window.removeEventListener("wheel", onUser);
+    window.removeEventListener("touchmove", onUser);
+  }
+  function tick(now) {
+    if (aborted || !el.isConnected || lcdScroll.priority) {
+      cleanup();
+      return;
+    }
+    if (el.offsetParent) {
+      var d = el.getBoundingClientRect().top - targetTop;
+      if (Math.abs(d) > 0.5) {
+        window.scrollBy({ top: d, behavior: "instant" });
+      }
+    }
+    if (now - start < duration) requestAnimationFrame(tick);
+    else cleanup();
+  }
+  requestAnimationFrame(tick);
+}
+window.__lcdAnchorTo = lcdAnchorTo;
 function lcdGoToStep(el, isVerify) {
+  var lcdMob = window.matchMedia("(max-width: 768px)").matches;
+  if (!lcdMob && !isVerify) {
+    var anchorEl = null;
+    if (el.offsetParent) {
+      anchorEl = el;
+    } else {
+      var lcdSteps = lcdGetSteps();
+      for (var li = 0; li < lcdSteps.length; li++) {
+        if (lcdSteps[li] === el) break;
+        if (lcdSteps[li].offsetParent) anchorEl = lcdSteps[li];
+      }
+    }
+    if (anchorEl) {
+      var lcdBefore = anchorEl.getBoundingClientRect().top;
+      lcdOpenStep(el);
+      var lcdD = anchorEl.getBoundingClientRect().top - lcdBefore;
+      if (Math.abs(lcdD) > 1) {
+        window.scrollBy({ top: lcdD, behavior: "instant" });
+      }
+      lcdAnchorTo(anchorEl, 600);
+      lcdScrollToStep(el, isVerify);
+      return;
+    }
+  }
   lcdOpenStep(el);
   lcdScrollToStep(el, isVerify);
 }
@@ -34324,6 +35063,10 @@ function initConfiguratorEngine() {
       if (/(^|\s)(rad|řad)/i.test($(this).text())) radCount++;
     });
     if (radCount < 2) return;
+    if (!window.matchMedia("(max-width: 768px)").matches) {
+      $(".upsale-Banner").show();
+      return;
+    }
     var trunk = document.querySelector(".upsale-buttons.trunk");
     if (!trunk) return;
     var elK3 = $parWrap[0];
@@ -34337,12 +35080,15 @@ function initConfiguratorEngine() {
     setTimeout(function() {
       closeK3();
       lcdGoToStep(trunk, false);
-    }, 100);
-    setTimeout(closeK3, 350);
+    }, 350);
     setTimeout(closeK3, 700);
     setTimeout(function() {
       if (elK3) elK3.style.removeProperty("max-height");
-    }, 5e3);
+    }, 2500);
+  });
+  $(document).on("click", ".parameter-wrap .order, .parameter-wrap h5, .parameter-wrap .variant.name", function() {
+    var wrap = this.closest(".parameter-wrap");
+    if (wrap) wrap.style.removeProperty("max-height");
   });
   $(document).on("click", "button.add-to-cart-button", function(e) {
     lcdAutoSelectNoneIfEmpty();

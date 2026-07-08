@@ -1,5 +1,44 @@
 # Roadmap
 
+## Darčeková poukážka (fáze 1 — frontend UI + XML produkty, bez backendu)
+Zdroj: `luxusnerohoze-dev/darcekova-poukazka` (privátne repo). Rozsah zúžený s klientom:
+žiadny Cloudflare Worker/D1/PDF/email — všetko beží v Shoptete. Hodnota = 5 "mincí"
+100/200/300/400/500 €, vlastná suma sa skladá kombináciou po 100 €. Plán:
+`/Users/sharkjohny/.claude/plans/mossy-nibbling-eagle.md`.
+- [x] Analýza zdrojového repa (frontend `konfigurator.jsx`/`index.html`, backend, Shoptet glue)
+      a rozsahu s klientom — backend úplne mimo, XML produkty namiesto floating custom sumy
+- [x] `assets/js/voucher-konfigurator/` — port konfigurátora (vzor truck-konfigurator):
+      `pricing.js` (hodnoty, `decomposeToCoins`), `cart.js` (napojenie na košík),
+      `styles.js` (scoped CSS pod `#lcd-voucher-root`, `vch-`/`gv-` prefixy),
+      `konfigurator.jsx` (React UI, texty zmiernené — žiadny sľub automatického PDF/5 min),
+      `index.jsx` (`isVoucherPage`, `mountVoucherConfigurator`, ErrorBoundary)
+- [x] Texty upravené: PRESET_VALUES 100–500, vlastná suma krokovaná po 100 € (100–2000 €),
+      rozklad na mince zobrazený zákazníkovi (`CoinsBreakdown`), doručenie = "kód emailom
+      po spracovaní objednávky" (nie sľub konkrétneho PDF/5 minút — backend neexistuje)
+- [x] `voucher/build-voucher-xml.mjs` → `voucher/dist/voucher-products.xml`: 1× master
+      (VOUCHER, visible, cena 0,01 €) + 5× mincí (VOUCHER-100…500, `VISIBILITY=detailOnly`
+      — dostupné cez URL pre košík, ale nezobrazia sa v katalógu/vyhľadávaní); zľavy/kupóny
+      na minciach vypnuté. Validuje proti `docs/shoptet-products-complete-v10.rng`
+- [x] `productPage.js`: import + `isVoucherPage()`/`mountVoucherConfigurator()` výnimka v
+      `initProduct` (vzor truck — plný takeover, `return`)
+- [x] `package.json`: skripty `voucher:product` (build+validácia XML), `voucher:test` (mount test)
+- [x] `assets/js/voucher-konfigurator/test-voucher-mount.mjs` (`yarn voucher:test`) — OK
+- [x] `yarn build:once` — voucher modul zabundlovaný do `luxuryCar.js` bez chýb
+- [ ] **RIZIKO — over pred nasadením:** napojenie na košík (`cart.js`) používa skryté
+      `<iframe>` + natívny klik na `.add-to-cart-button` (žiadny reverse-engineering
+      interného Shoptet AJAX API) — potrebné doplniť/overiť na živom webe:
+      1) `COIN_URLS` v `cart.js` (reálne slugy 5 mincí PO importe XML — Shoptet ich
+         generuje z NAME, nedajú sa predpovedať vopred),
+      2) `CART_URL` (skutočná URL košíka),
+      3) `AMOUNT_INPUT_SELECTORS`/`ADD_BUTTON_SELECTOR` (ak sa líšia od predpokladu)
+- [ ] Naimportovať `voucher/dist/voucher-products.xml` do Shoptetu, over VAT sadzbu (teraz 21 %)
+- [ ] Vytvoriť/pomenovať stránku poukazu v Shoptet adminovi, zladiť slug s `isVoucherPage()`
+      (predpoklad `/darcekova-poukazka/`)
+- [ ] Vizuálne overiť konfigurátor na živom webe (desktop + mobil), otestovať golden path
+      (200 €, 700 € zložené z viacerých mincí) — pridanie do košíka, súčet, checkout
+- [ ] Mimo fázy 1 (samostatný plán neskôr): uplatnenie/doručenie unikátnych kódov —
+      zatiaľ rieši admin ručne cez Shoptet zľavové kupóny
+
 ## Vzorkovník → Shoptet (pasteable HTML)
 - [x] Analýza klientskeho repa `luxusnerohoze-dev/vzorky` (zdroj, obrázky, runtime deps)
 - [x] Build pipeline `vzorky/build-vzorky.mjs` (sharp resize + esbuild JSX→JS)
@@ -139,3 +178,68 @@ bundle. Nová, čistá implementácia:
       tmavý titulok #1f1a10 weight 800, malá tmavá šipka; výška 48px desktop /
       40px mobil (rešpektuje max-height 50/42px zbaleného kroku); jsdom test OK
 - [ ] Vizuálne overiť na reálnom produkte (desktop + mobil) a odladiť podľa návrhu
+
+## Konfigurátor — UX revízia „aby neskákal" (8.7.2026)
+- [x] FIX ceny: updateUpsale nastavoval surcharge select bez trigger("change") —
+      livePrice cenu pri výbere kobercov/boxov do kufra vôbec neprepočítal;
+      doplnený trigger aj v close/none handleroch boxov (productPage.js)
+- [x] Scroll engine (configuratorEngine.js): zarovnanie na VRCH kroku namiesto
+      centrovania; „pohodlná zóna" (krok viditeľný hore = žiadny scroll);
+      jeden smooth scroll namiesto čakania 1.4s + instant teleport + korekcia
+- [x] Anti-jump kotva v lcdGoToStep: po zavretí krokov nad viewportom instantná
+      kompenzácia scrollTop o deltu — cieľ opticky nedrgne
+- [x] K3→kufor auto-advance: 350ms pauza (user vidí označenie výberu), inline
+      max-height zámok skrátený 5s→2.5s + self-heal klik na hlavičku ho zruší hneď
+- [x] CSS: trunk/boxs transition 1s → max-height 0.3s (lenivé animácie preč)
+- [x] Overené v náhľade: desktop + mobil screenshot OK, audit bez nových vád,
+      console bez chýb z nášho JS; build OK
+- [x] Auto-scroll pri výberoch na DESKTOPE úplne vypnutý (klient: „popojíždění
+      je matoucí"). Ostáva len verifikačný scroll (chýbajúci krok pri Pridať
+      do košíka) a mobil (max-width 768px), kde je krok mimo viewport
+- [x] Verifikačný scroll na PC bez animácie — behavior:"instant" (obchádza aj
+      scroll-behavior:smooth šablóny); smooth ostáva len na mobile
+- [x] „Skočí kúsok dole pri výbere": priceActualization pri KAŽDOM kliku
+      globálne mazala všetky .image-wrap preview a znovu ich vkladala
+      s fadeIn(1000) → zmrštenie+nafúknutie kroku. Nově výmena len v kroku,
+      kde sa kliklo, bez fade; + guard na e=undefined (box produkt)
+- [x] „Vyjde o kus hore pri rozložení": K4→kufor auto-prechod (force-close K3
+      + otvorenie trunku) na DESKTOPE úplne vypnutý — kufor sa otvorí až
+      tlačidlom „Prejsť k ďalšiemu kroku". Mobil ponechaný pôvodný flow
+- [x] SCROLL ANCHORING (lcdAnchorTo): pri zatváraní predchádzajúceho kroku
+      drží aktívny/kliknutý krok rAF dorovnávaním scrollu na rovnakej
+      vizuálnej výške počas celej 300ms animácie. Zapojené do lcdGoToStep
+      (next-step tlačidlo) aj akordeonového kliku na hlavičku
+      (window.__lcdAnchorTo v productPage.js). Len desktop; ruší sa pri
+      user scrolle a verifikačnom scrolle
+- [x] FIX kotvy pre „dogenerované" kroky 5/6 (kufor/boxy): skrytý cieľ má
+      rect.top 0 → kotva strieľala obrovskú deltu. Skrytý cieľ → kotví sa
+      posledný VIDITEĽNÝ krok pred ním; + offsetParent guard v tick()
+- [x] FINÁLNE UKĽUDNENIE (desktop): akordeón BEZ CSS animácie (transition:none
+      ≥769px; max-height transition mala mŕtvu zónu a behala trhane) —
+      zatvorenie + otvorenie + synchrónna scroll kompenzácia v JEDNOM frame,
+      vizuálne sa nepohne nič; rAF kotva 600ms dolapá neskoré reflowy
+      (obrázky). Zapojené v lcdGoToStep aj akordeónovom kliku. Mobil
+      ponecháva 0.3s animáciu + smooth scroll
+- [x] „Problikáva hlavička": konverzná fixná lišta (.plugin-fixed-header,
+      header.js) prepínala .active na ostrom prahu pageYOffset >
+      buttonOffsetTop (navyše prah z initu = po klikoch v akordeóne stale).
+      Fix: hysteréza ±120px + živý prepočet prahu + skip počas
+      window.__lcdAnchoring (flag nastavuje lcdAnchorTo)
+- [x] Kroky 5/6 (kufor/boxy) VIDITEĽNÉ OD NAČÍTANIA ako zbalené položky
+      akordeónu — odstránený $(".upsale-Banner").hide() v createUpsaleButton.
+      Žiadne neskoršie „dogenerovanie" krokov = žiadny brajgel pri ich
+      objavení; show() volania v lcdOpenStep/updateUpsale sú teraz no-op
+- [x] Kroky 5/6 zbalené PRESNE ako 1-4: min-height 52px → 0 (trčal pruh
+      obsahu pod hlavičkou, zbalený krok má max-height 50px)
+- [x] Zjednotenie krokov 5/6 s 1-4: nadpis font-size 15px/margin 0 (dedil
+      väčší template h5 = „jiný formát nadpisu"); active max-height 2600px
+      (karty presahovali generický 1000px limit a orezávali sa)
+- [x] „Zabliká patička pri kliku na K4": transition:none = obsah pod
+      zatváraným krokom preskočil v 1 frame (číta sa ako blik). Desktop
+      mikro-animácia max-height 0.18s ease-out + kotva aj v ZAVÁRACEJ vetve
+      akordeónu (jediná cesta bez nej, productPage.js:516)
+- [x] FINÁLNY flow krokov 5/6: skryté od načítania (hide obnovený), odhalia
+      sa ZBALENÉ po výbere rozloženia kobercov (K3 handler, desktop: len
+      show bez scrollu/otvárania — banner sa pridá pod aktuálny krok, nič
+      neskáče; mobil: pôvodný auto-prechod). Otvorenie tlačidlom
+      „Prejsť k ďalšiemu kroku"

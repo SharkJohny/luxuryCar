@@ -5,6 +5,10 @@ import {
   isVzorkyConfiguratorPage,
   mountVzorkyConfigurator,
 } from "../vzorky-konfigurator/index.js";
+import {
+  isVoucherPage,
+  mountVoucherConfigurator,
+} from "../voucher-konfigurator/index.jsx";
 
 window.addEventListener(
   "error",
@@ -72,6 +76,15 @@ export function initProduct(setupData, texts) {
   // beze změn. Napojení na košík / parametry řešíme později.
   if (isTruckConfiguratorPage()) {
     mountTruckConfigurator();
+    return;
+  }
+
+  // --- DARČEKOVÁ POUKÁŽKA (plný takeover, rovnaký princíp ako truck) ---
+  // Na stránke master produktu poukazu (/darcekova-poukazka/) sa namiesto
+  // štandardnej produktovej stránky zobrazí konfigurátor hodnoty poukazu;
+  // ten sám pridáva zodpovedajúce "mince" (VOUCHER-100…500) do košíka.
+  if (isVoucherPage()) {
+    mountVoucherConfigurator();
     return;
   }
 
@@ -499,8 +512,12 @@ function priplatky(setupData, texts) {
         e.preventDefault();
         const clickedWrap = $(this).closest(".position-wrap, .parameter-wrap");
 
-        // Pokud je již aktivní, zavři ho
+        // Pokud je již aktivní, zavři ho — s kotvou (jediná cesta bez ní;
+        // hlavička drží místo, obsah pod ní se složí plynule bez bliknutí)
         if (clickedWrap.hasClass("active")) {
+          if (window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
+            window.__lcdAnchorTo(clickedWrap[0], 400);
+          }
           clickedWrap.removeClass("active");
           return;
         }
@@ -510,12 +527,26 @@ function priplatky(setupData, texts) {
         const $activeWrap = $(".position-wrap.active, .parameter-wrap.active").first();
         const activeIndex = $activeWrap.length ? allWraps.index($activeWrap) : -1;
 
+        // Ukotvení kliknutého kroku (desktop): akordeon je bez animace, takže
+        // zavření+otevření+kompenzace scrollu proběhne v jednom framu — krok
+        // zůstane opticky na stejné výšce. rAF kotva dolapá pozdní reflow.
+        const lcdDesk = !window.matchMedia("(max-width: 768px)").matches;
+        const lcdNode = clickedWrap[0];
+        const lcdBefore = lcdDesk && lcdNode ? lcdNode.getBoundingClientRect().top : null;
 
         // Zavři všechny ostatní position-wrap a parameter-wrap elementy
         $(".position-wrap, .parameter-wrap").removeClass("active");
 
         // Otevři kliknutý element
         clickedWrap.addClass("active");
+
+        if (lcdBefore !== null) {
+          const lcdD = lcdNode.getBoundingClientRect().top - lcdBefore;
+          if (Math.abs(lcdD) > 1) {
+            window.scrollBy({ top: lcdD, behavior: "instant" });
+          }
+          if (window.__lcdAnchorTo) window.__lcdAnchorTo(lcdNode, 600);
+        }
 
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
@@ -846,9 +877,10 @@ function setBoxConfigVisibleCount(visibleCount) {
 
 $(document).on("click", ".close-btn.close", function () {
   $(this).parents(".upsale-Banner").removeClass("showConf");
-  $("select.parameter-id-" + boxy + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0);
+  // trigger("change") — livePrice musí cenu po zrušení boxů snížit zpět
+  $("select.parameter-id-" + boxy + ".surcharge-parameter").val(0).trigger("change");
+  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0).trigger("change");
+  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0).trigger("change");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button").removeClass("active");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button.none").addClass("active");
   $(".config-wrap .option-button").removeClass("active");
@@ -858,8 +890,8 @@ $(document).on("click", ".close-btn.close", function () {
 $(document).on("click", ".boxs .upsale-button.none", function (e) {
   console.log("clickaaaa");
   // Check if the clicked element is within .upsale-buttons.  $("select.parameter-id-" + boxy + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0);
-  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0);
+  $("select.parameter-id-" + box1 + ".surcharge-parameter").val(0).trigger("change");
+  $("select.parameter-id-" + box2 + ".surcharge-parameter").val(0).trigger("change");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button").removeClass("active");
   $(".upsale-buttons.parameter-wrap.boxs .upsale-button.none").addClass("active");
   $(".config-wrap .option-button").removeClass("active");
@@ -1349,16 +1381,19 @@ function updateUpsale($this, event) {
     }
 
     // Přepínání active
+    // .trigger("change") je NUTNÝ — livePrice.js přepočítává cenu na detailu
+    // na change event; bez něj se cena při výběru koberců/boxů do kufru
+    // vůbec neměnila (setrvala základní).
     if ($($this).hasClass("active")) {
       $($this).removeClass("active");
-      $("select.surcharge-parameter.parameter-id-" + value[0]).val(0);
+      $("select.surcharge-parameter.parameter-id-" + value[0]).val(0).trigger("change");
     } else {
       // Pokud je to radio, nejdřív deaktivuju ostatní
       if ($($this).hasClass("radio")) {
         $(".upsale-button.radio ").removeClass("active");
       }
       $($this).addClass("active");
-      $("select.surcharge-parameter.parameter-id-" + value[0]).val(value[1]);
+      $("select.surcharge-parameter.parameter-id-" + value[0]).val(value[1]).trigger("change");
     }
 
     // Pokud je config a ne none, zobrazím konfiguraci
@@ -1557,7 +1592,6 @@ function priceActualization(e) {
   if (header.includes("box")) {
     setTimeout(() => updateBoxPrice(), 150);
   }
-  $(".image-wrap").remove();
   $(".button.option-button.active").each(function () {
     const value = $(this).attr("data-value");
     const variant = $(this).attr("data-variant");
@@ -1568,21 +1602,23 @@ function priceActualization(e) {
     console.log(parameterId);
 
     $(".parameter-id-" + variant).val(value).trigger("change");
-    if (variant == 4) {
-    }
     const image2 = $(this).find("img").attr("src");
-    console.log(image2);
 
-    console.log(".parameter-wrap.parameter-" + parameterId);
-    const imageWrap = $("<div>", {
-      class: "image-wrap",
-    })
-      .appendTo(".parameter-wrap.parameter-" + parameterId)
-      .fadeIn(1000);
-    $("<img>", { src: image2 }).appendTo(imageWrap);
+    // Preview obrázok LEN pre krok, v ktorom sa kliklo, výmena na mieste.
+    // Pôvodné globálne $(".image-wrap").remove() + append + fadeIn(1000) pri
+    // KAŽDOM kliku zmrštilo a znovu nafúklo otvorený krok — stránka poskočila.
+    const $paramWrap = $(this).parents(".parameter-wrap");
+    if (e && $paramWrap.has(e.target).length) {
+      $paramWrap.find(".image-wrap").remove();
+      const imageWrap = $("<div>", { class: "image-wrap" }).appendTo($paramWrap);
+      $("<img>", { src: image2 }).appendTo(imageWrap);
+    }
   });
 
-  $(".parameter-wrap").not($(e.target).parents(".parameter-wrap")).find(".image-wrap").remove();
+  // e môže byť undefined (amountChoser volá priceActualization() bez eventu)
+  if (e) {
+    $(".parameter-wrap").not($(e.target).parents(".parameter-wrap")).find(".image-wrap").remove();
+  }
 }
 
 function changeThumbnails() {

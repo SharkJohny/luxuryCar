@@ -71,14 +71,20 @@ function lcdHeaderH() {
 }
 
 function lcdDesiredY(el) {
+  // Zarovnaj VRCH kroku tesne pod header (nie centrovanie — to robilo velke
+  // posuny hore-dole a posobilo "skakavo"). Konzistentny maly pohyb.
+  var hH = lcdHeaderH();
+  var r = el.getBoundingClientRect();
+  return Math.max(0, Math.round(window.scrollY + r.top - hH - 16));
+}
+
+/** Krok je v "pohodlnej zone" viewportu — nescrolluj vobec. */
+function lcdStepComfortable(el) {
   var vh = window.innerHeight || document.documentElement.clientHeight || 0;
   var hH = lcdHeaderH();
-  var avail = vh - hH;
   var r = el.getBoundingClientRect();
-  var delta;
-  if (r.height > 0 && r.height <= avail) delta = r.top - (hH + (avail - r.height) / 2);
-  else delta = r.top - (hH + 20);
-  return Math.max(0, Math.round(window.scrollY + delta));
+  // vrch kroku medzi headerom a ~45 % viewportu => uzivatel krok vidi
+  return r.top >= hH - 8 && r.top <= hH + (vh - hH) * 0.45;
 }
 
 /**
@@ -89,14 +95,17 @@ function lcdDesiredY(el) {
  */
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
+  // DESKTOP: auto-scroll pri vyberoch VYPNUTY (klient: "popojizdeni je
+  // matouci a zbytecne"). Kroky su v bocnom stlpci vidno aj bez scrollu.
+  // Scrolluje sa len: 1) verifikacia (chybajuci krok pri Pridat do kosika),
+  // 2) mobil — tam je krok mimo viewport a bez scrollu by user nic nevidel.
+  var lcdIsMobile = window.matchMedia("(max-width: 768px)").matches;
+  if (!isVerify && !lcdIsMobile) return;
   if (lcdScroll.priority && !isVerify) return; // verifikacny scroll ma prednost
-  // ANTI-DRIFT: ak je target uz dostatocne blizko k centralnej polohe (do 80px),
-  // NESKROLUJ. Inak by opakovany klik na "Pridat do kosika" / "Potvrdit" pri
-  // chybajucej velkosti boxu scrolloval HORE pri kazdom kliku (kumulativny drift).
-  var earlyDesiredY = lcdDesiredY(el);
-  if (Math.abs(window.scrollY - earlyDesiredY) < 80) {
-    return;
-  }
+  // ANTI-DRIFT + POHODLNA ZONA: ak krok uz vidno v hornej casti viewportu,
+  // NESCROLLUJ vobec — kazdy zbytocny scroll = "skakanie".
+  if (lcdStepComfortable(el)) return;
+  if (Math.abs(window.scrollY - lcdDesiredY(el)) < 100) return;
   if (isVerify) lcdScroll.priority = true;
   var myToken = ++lcdScroll.token;
   var aborted = false;
@@ -113,10 +122,9 @@ function lcdScrollToStep(el, isVerify) {
   function alive() {
     return myToken === lcdScroll.token && !aborted && el.isConnected;
   }
-  function jump() {
-    window.scrollTo({ top: lcdDesiredY(el), behavior: "instant" });
-  }
-  // 1) Pockaj kym sa layout ustali (abs-pozicia kroku 3x rovnaka), max 1.2s.
+  // 1) Kratke pockanie na ustalenie layoutu (accordion transition ~300ms),
+  //    potom JEDEN plynuly (smooth) scroll — ziadne instant teleporty.
+  //    Povodne: az 1.4s cakania + instant skok + druhy instant skok = "kostrbate".
   var lastAbs = null, stable = 0, waited = 0;
   function settle() {
     if (!alive()) { done(); return; }
@@ -124,23 +132,25 @@ function lcdScrollToStep(el, isVerify) {
     if (lastAbs !== null && Math.abs(abs - lastAbs) < 2) stable++;
     else stable = 0;
     lastAbs = abs;
-    waited += 70;
-    if (stable >= 4 || waited >= 1400) {
-      jump();
-      // JEDINA korekcia — iba pri VELKOM neskorom reflowe (nacitanie obrazkov),
-      // NIE pri malom doznievani accordionu. Prah 150px => ziadny viditelny
-      // "mini pohyb" po prvom scrolle; doladi sa len ked nieco velke posunie layout.
+    waited += 60;
+    if (stable >= 3 || waited >= 800) {
+      if (lcdStepComfortable(el)) { done(); return; }
+      // PC: ziadna posuvacia animacia — jeden okamzity skok (len verifikacia).
+      // Mobil: smooth (posun je velky, instant by dezorientoval).
+      var lcdBehavior = lcdIsMobile ? "smooth" : "instant";
+      window.scrollTo({ top: lcdDesiredY(el), behavior: lcdBehavior });
+      // Jedina korekcia — len pri VELKOM neskorom reflowe (obrazky).
       setTimeout(function () {
         if (alive()) {
           var w1 = lcdDesiredY(el);
-          if (Math.abs(window.scrollY - w1) > 150) {
-            window.scrollTo({ top: w1, behavior: "instant" });
+          if (Math.abs(window.scrollY - w1) > 150 && !lcdStepComfortable(el)) {
+            window.scrollTo({ top: w1, behavior: lcdBehavior });
           }
         }
         done();
-      }, 600);
+      }, 700);
     } else {
-      setTimeout(settle, 70);
+      setTimeout(settle, 60);
     }
   }
   settle();
@@ -185,7 +195,81 @@ function lcdFirstUnfilled(uptoIndex) {
   return null;
 }
 
+/**
+ * SCROLL ANCHORING: drzi prvok pocas layout zmien (zatvaranie predchadzajuceho
+ * kroku, max-height transition 300ms) na ROVNAKEJ vizualnej vyske — kazdy
+ * frame instantne dorovna scroll o posun prvku. Ziadne "poskocenie" pri
+ * zatvarani okna nad aktivnym krokom. Prerusi sa, ked user sam scrollne
+ * alebo ked bezi prioritny verifikacny scroll.
+ */
+function lcdAnchorTo(el, duration) {
+  if (!el) return;
+  var targetTop = el.getBoundingClientRect().top;
+  var start = performance.now();
+  var aborted = false;
+  // Flag pre header.js — konverzna fixna lista pocas anchoringu neprepina
+  // (kompenzacne scrollBy prekmitavali cez jej prah => problikavanie).
+  window.__lcdAnchoring = true;
+  function onUser() { aborted = true; }
+  window.addEventListener("wheel", onUser, { passive: true });
+  window.addEventListener("touchmove", onUser, { passive: true });
+  function cleanup() {
+    window.__lcdAnchoring = false;
+    window.removeEventListener("wheel", onUser);
+    window.removeEventListener("touchmove", onUser);
+  }
+  function tick(now) {
+    if (aborted || !el.isConnected || lcdScroll.priority) { cleanup(); return; }
+    // Skryty prvok (display:none) ma rect.top 0 — korekcia by odstrelila
+    // stranku o obrovsku deltu. Tento frame preskoc.
+    if (el.offsetParent) {
+      var d = el.getBoundingClientRect().top - targetTop;
+      if (Math.abs(d) > 0.5) {
+        window.scrollBy({ top: d, behavior: "instant" });
+      }
+    }
+    if (now - start < duration) requestAnimationFrame(tick);
+    else cleanup();
+  }
+  requestAnimationFrame(tick);
+}
+
+// Export pre productPage.js (akordeonovy klik na hlavicku kroku) — nech aj
+// manualne otvaranie krokov drzi kliknuty krok na mieste.
+window.__lcdAnchorTo = lcdAnchorTo;
+
 function lcdGoToStep(el, isVerify) {
+  // Desktop: akordeon je bez CSS animacie (transition:none v SCSS), takze
+  // zatvorenie + otvorenie + scroll kompenzacia prebehnu SYNCHRONNE v jednom
+  // frame — jednorazova delta je presna a nic sa vizualne nepohne.
+  // rAF kotva potom 600ms dolapa neskore reflowy (nacitanie obrazkov).
+  // Mobil: kotva nie — tam nasleduje smooth scroll a kotva by s nim bojovala.
+  var lcdMob = window.matchMedia("(max-width: 768px)").matches;
+  if (!lcdMob && !isVerify) {
+    // Kotviaci prvok: viditelny ciel; ak je ciel este skryty (trunk/boxs pred
+    // prvym zobrazenim ma rect.top 0), posledny VIDITELNY krok pred nim.
+    var anchorEl = null;
+    if (el.offsetParent) {
+      anchorEl = el;
+    } else {
+      var lcdSteps = lcdGetSteps();
+      for (var li = 0; li < lcdSteps.length; li++) {
+        if (lcdSteps[li] === el) break;
+        if (lcdSteps[li].offsetParent) anchorEl = lcdSteps[li];
+      }
+    }
+    if (anchorEl) {
+      var lcdBefore = anchorEl.getBoundingClientRect().top;
+      lcdOpenStep(el);
+      var lcdD = anchorEl.getBoundingClientRect().top - lcdBefore;
+      if (Math.abs(lcdD) > 1) {
+        window.scrollBy({ top: lcdD, behavior: "instant" });
+      }
+      lcdAnchorTo(anchorEl, 600);
+      lcdScrollToStep(el, isVerify);
+      return;
+    }
+  }
   lcdOpenStep(el);
   lcdScrollToStep(el, isVerify);
 }
@@ -275,6 +359,15 @@ export function initConfiguratorEngine() {
       if (/(^|\s)(rad|řad)/i.test($(this).text())) radCount++;
     });
     if (radCount < 2) return;
+    // DESKTOP: ZIADNY auto-prechod — stranka sa pri vybere nesmie sama hybat
+    // (klient: "kdyz vyberu rozlozeni, vyjede to o kus nahoru"). Vyber
+    // rozlozenia ale ODHALI zbalene kroky kufor/boxy: banner sa prida POD
+    // aktualny krok, obsah pod nim sa len posunie nizsie — nic neskace.
+    // Otvorenie kroku az klikom na "Prejst k dalsiemu kroku". Mobil: povodny flow.
+    if (!window.matchMedia("(max-width: 768px)").matches) {
+      $(".upsale-Banner").show();
+      return;
+    }
     // K3 click -> auto-advance na trunk po Shoptet update.
     // Explicit close K3 wrap + open trunk (lcdGoToStep -> lcdOpenStep robi forEach
     // cez lcdGetSteps() ale niekedy K3 wrap nie je v tomto vystupe -> ostane active).
@@ -293,16 +386,25 @@ export function initConfiguratorEngine() {
     }
     // Debug counter na window — Michal moze overit cez DevTools (window.__lcdK3Clicks)
     window.__lcdK3Clicks = (window.__lcdK3Clicks || 0) + 1;
+    // 350ms pauza: user najprv VIDI ze sa jeho vyber oznacil, az potom sa
+    // prejde dalej (okamzity presun pri 100ms posobil trhane).
     setTimeout(function () {
       closeK3();
       lcdGoToStep(trunk, false);
-    }, 100);
-    setTimeout(closeK3, 350);
+    }, 350);
     setTimeout(closeK3, 700);
-    // Cleanup inline style po 5s — user moze znovu otvorit K3 manualne
+    // Cleanup inline style — user moze znovu otvorit K3 manualne.
+    // (Klik na hlavicku ho navyse odomkne OKAMZITE — viac v initConfiguratorEngine.)
     setTimeout(function () {
       if (elK3) elK3.style.removeProperty("max-height");
-    }, 5000);
+    }, 2500);
+  });
+
+  // SELF-HEAL: klik na hlavicku ktorehokolvek kroku okamzite odstrani inline
+  // max-height zamok (K3 force-close) — inak by krok do 2.5s nesiel otvorit.
+  $(document).on("click", ".parameter-wrap .order, .parameter-wrap h5, .parameter-wrap .variant.name", function () {
+    var wrap = this.closest(".parameter-wrap");
+    if (wrap) wrap.style.removeProperty("max-height");
   });
 
   // "Pridať do košíka"

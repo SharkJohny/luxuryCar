@@ -834,6 +834,11 @@ span.quantity {
     text-transform: uppercase;
     font-weight: 800;
     letter-spacing: 1px;
+    // IDENTICKÝ formát ako nadpisy krokov 1-4 (.base-config h5) — bez tohto
+    // dedil väčší template h5 font a nadpis "vyzeral inak".
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.4;
   }
 
   .upsale-buttons {
@@ -1728,8 +1733,19 @@ div#description {
 
 .upsale-buttons.boxs,
 .upsale-buttons.trunk {
-  min-height: 52px;
-  transition: 1s;
+  // min-height 52px trcal nad max-height:50px zbaleneho kroku — pod hlavickou
+  // presvital pruzok obsahu. Zbalene sa musia chovat PRESNE ako kroky 1-4.
+  min-height: 0;
+  // 1s animovala kazdu zmenu (aj max-height pri otvarani) — posobilo lenivo
+  // a rozhadzovalo scroll mieru pocas prechodu. Zosuladene s .parameter-wrap.
+  transition: max-height 0.3s ease-in-out;
+
+  // Otvoreny stav: velke karty (3x ~200px+ obrazky) presahuju genericky
+  // .parameter-wrap.active limit 1000px — obsah sa orezaval a krok sa
+  // "spraval inak" nez ostatne. Vyssi strop len pre tieto dva kroky.
+  &.active {
+    max-height: 2600px;
+  }
 
   .upsale-button.\30,
   .upsale-button.config,
@@ -2232,6 +2248,22 @@ a.p-thumbnail {
   &.active {
     max-height: 1000px;
     background: white;
+  }
+}
+
+// DESKTOP: akordeón s MIKRO-animáciou 0.18s. Úplné vypnutie (transition:none)
+// spôsobilo, že obsah POD zatváraným krokom preskočil v jednom frame — čítalo
+// sa to ako "bliknutie" (klient: „zabliká patička u kobercov do kufra").
+// 0.18s ease-out je dosť krátke, aby nič "nepopojíždzalo", a dosť dlhé, aby
+// pohyb obsahu pod krokom bol čitateľný. rAF kotva (lcdAnchorTo) drží
+// kliknutý krok na mieste počas celého skladania. Mobil má 0.3s.
+@media (min-width: 769px) {
+
+  .position-wrap.parameter-cars.parameter-wrap.base-config,
+  .parameter-wrap,
+  .upsale-buttons.boxs,
+  .upsale-buttons.trunk {
+    transition: max-height 0.18s ease-out;
   }
 }
 
