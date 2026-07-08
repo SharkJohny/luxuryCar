@@ -243,3 +243,9 @@ bundle. Nová, čistá implementácia:
       show bez scrollu/otvárania — banner sa pridá pod aktuálny krok, nič
       neskáče; mobil: pôvodný auto-prechod). Otvorenie tlačidlom
       „Prejsť k ďalšiemu kroku"
+- [x] MOBIL „prázdny košík": redirect na /kosik/ bežal na ShoptetCartUpdated
+      aj keď pridanie zlyhalo. Guard: redirect LEN ak badge košíka v headri
+      ukazuje > 0 položiek (200ms delay na update badge), inak ostať na
+      produkte (Shoptet ukáže chybu). + nativny $cart[0].click() namiesto
+      jQuery trigger (garantovaný submit formulára)
+- [ ] Overiť na reálnom mobile: Prejsť do košíka → produkt v košíku

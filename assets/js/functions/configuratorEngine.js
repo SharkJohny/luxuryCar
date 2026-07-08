@@ -323,7 +323,9 @@ export function initConfiguratorEngine() {
       lcdGoToStep(steps[curIdx + 1], false);
     } else {
       var $cart = $("button.add-to-cart-button").filter(":visible").first();
-      if ($cart.length) $cart.trigger("click");
+      // Nativny click (nie jQuery trigger) — garantuje aj nativny submit
+      // formulara; jQuery trigger na mobile obcas pridanie nespustil.
+      if ($cart.length) $cart[0].click();
     }
   });
 
@@ -429,7 +431,22 @@ export function initConfiguratorEngine() {
     window.__lcdCartReloading = true;
     document.addEventListener("ShoptetCartUpdated", function lcdToCart() {
       document.removeEventListener("ShoptetCartUpdated", lcdToCart);
-      window.location.href = "/kosik/";
+      // MOBIL BUG: ShoptetCartUpdated prisiel aj ked pridanie ZLYHALO —
+      // zakaznik skoncil v prazdnom kosiku. Redirect LEN ked kosik realne
+      // nieco obsahuje (badge v headri); inak ostan na produkte, Shoptet
+      // ukaze vlastnu chybovu hlasku. Kratky delay — badge sa updatuje
+      // tesne po evente.
+      setTimeout(function () {
+        var badge = document.querySelector(
+          ".navigation-buttons a[data-target='cart'] i, a.cart-count i, .cart-count i"
+        );
+        var n = badge ? parseInt((badge.textContent || "").replace(/\D/g, ""), 10) : NaN;
+        if (!isNaN(n) && n > 0) {
+          window.location.href = "/kosik/";
+        } else {
+          window.__lcdCartReloading = false;
+        }
+      }, 200);
     });
   });
 

@@ -35039,7 +35039,7 @@ function initConfiguratorEngine() {
       lcdGoToStep(steps[curIdx + 1], false);
     } else {
       var $cart = $("button.add-to-cart-button").filter(":visible").first();
-      if ($cart.length) $cart.trigger("click");
+      if ($cart.length) $cart[0].click();
     }
   });
   function lcdAutoSelectNoneIfEmpty() {
@@ -35110,7 +35110,17 @@ function initConfiguratorEngine() {
     window.__lcdCartReloading = true;
     document.addEventListener("ShoptetCartUpdated", function lcdToCart() {
       document.removeEventListener("ShoptetCartUpdated", lcdToCart);
-      window.location.href = "/kosik/";
+      setTimeout(function() {
+        var badge = document.querySelector(
+          ".navigation-buttons a[data-target='cart'] i, a.cart-count i, .cart-count i"
+        );
+        var n = badge ? parseInt((badge.textContent || "").replace(/\D/g, ""), 10) : NaN;
+        if (!isNaN(n) && n > 0) {
+          window.location.href = "/kosik/";
+        } else {
+          window.__lcdCartReloading = false;
+        }
+      }, 200);
     });
   });
   $(document).on("click", ".close-btn.return", function(e) {
