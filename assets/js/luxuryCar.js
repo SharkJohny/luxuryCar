@@ -33493,22 +33493,12 @@ function priplatky(setupData2, texts) {
       function(e) {
         e.preventDefault();
         const clickedWrap = $(this).closest(".position-wrap, .parameter-wrap");
-        const isUpsaleStep = clickedWrap.hasClass("trunk") || clickedWrap.hasClass("boxs");
         if (clickedWrap.hasClass("active")) {
-          if (!isUpsaleStep && window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
-            window.__lcdAnchorTo(clickedWrap[0], 400);
-          }
           if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(clickedWrap[0], false);
           else clickedWrap.removeClass("active");
           return;
         }
         const allWraps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").add(".upsale-buttons.trunk, .upsale-buttons.boxs");
-        const clickedIndex = allWraps.index(clickedWrap);
-        const $activeWrap = $(".position-wrap.active, .parameter-wrap.active").first();
-        const activeIndex = $activeWrap.length ? allWraps.index($activeWrap) : -1;
-        const lcdDesk = !window.matchMedia("(max-width: 768px)").matches;
-        const lcdNode = clickedWrap[0];
-        const lcdBefore = lcdDesk && !isUpsaleStep && lcdNode ? lcdNode.getBoundingClientRect().top : null;
         allWraps.each(function() {
           if (this === clickedWrap[0]) return;
           if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(this, false);
@@ -33516,13 +33506,6 @@ function priplatky(setupData2, texts) {
         });
         if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(clickedWrap[0], true);
         else clickedWrap.addClass("active");
-        if (lcdBefore !== null) {
-          const lcdD = lcdNode.getBoundingClientRect().top - lcdBefore;
-          if (Math.abs(lcdD) > 1) {
-            window.scrollBy({ top: lcdD, behavior: "instant" });
-          }
-          if (window.__lcdAnchorTo) window.__lcdAnchorTo(lcdNode, 600);
-        }
         const elementType = clickedWrap.hasClass("position-wrap") ? "position-wrap" : "parameter-wrap";
         const elementName = clickedWrap.find(".variant.name, h5").first().text() || "Unnamed";
         console.log(`Otev\u0159en ${elementType}:`, elementName);
@@ -34944,9 +34927,9 @@ function lcdOpenStep(el) {
     $s.show();
     $(".upsale-Banner").show();
   }
+  $s.find("> .next-step-button").show();
   lcdSetStepOpen(el, true);
   lcdResetOptionsWrap($s);
-  $s.find("> .next-step-button").show();
 }
 function lcdHighlightStep(el) {
   var $s = $(el);
@@ -34963,9 +34946,11 @@ function lcdFirstUnfilled(uptoIndex) {
   }
   return null;
 }
-function lcdAnchorTo(el, duration) {
+var lcdAnchorToken = 0;
+function lcdAnchorTo(el, duration, fixedTop) {
   if (!el) return;
-  var targetTop = el.getBoundingClientRect().top;
+  var myToken = ++lcdAnchorToken;
+  var targetTop = typeof fixedTop === "number" ? fixedTop : el.getBoundingClientRect().top;
   var start = performance.now();
   var aborted = false;
   window.__lcdAnchoring = true;
@@ -34975,19 +34960,20 @@ function lcdAnchorTo(el, duration) {
   window.addEventListener("wheel", onUser, { passive: true });
   window.addEventListener("touchmove", onUser, { passive: true });
   function cleanup() {
-    window.__lcdAnchoring = false;
+    if (myToken === lcdAnchorToken) window.__lcdAnchoring = false;
     window.removeEventListener("wheel", onUser);
     window.removeEventListener("touchmove", onUser);
   }
   function tick(now) {
-    if (aborted || !el.isConnected || lcdScroll.priority) {
+    if (myToken !== lcdAnchorToken || aborted || !el.isConnected || lcdScroll.priority) {
       cleanup();
       return;
     }
     if (el.offsetParent) {
       var d = el.getBoundingClientRect().top - targetTop;
-      if (Math.abs(d) > 0.5) {
-        window.scrollBy({ top: d, behavior: "instant" });
+      if (Math.abs(d) > 0.25) {
+        var root = document.scrollingElement || document.documentElement;
+        root.scrollTop += d;
       }
     }
     if (now - start < duration) requestAnimationFrame(tick);
@@ -34998,33 +34984,9 @@ function lcdAnchorTo(el, duration) {
 window.__lcdAnchorTo = lcdAnchorTo;
 function lcdGoToStep(el, isVerify) {
   var lcdMob = window.matchMedia("(max-width: 768px)").matches;
-  var lcdIsUpsaleStep = el.classList.contains("trunk") || el.classList.contains("boxs");
-  if (!lcdMob && !isVerify && lcdIsUpsaleStep) {
+  if (!lcdMob && !isVerify) {
     lcdOpenStep(el);
     return;
-  }
-  if (!lcdMob && !isVerify) {
-    var anchorEl = null;
-    if (el.offsetParent) {
-      anchorEl = el;
-    } else {
-      var lcdSteps = lcdGetSteps();
-      for (var li = 0; li < lcdSteps.length; li++) {
-        if (lcdSteps[li] === el) break;
-        if (lcdSteps[li].offsetParent) anchorEl = lcdSteps[li];
-      }
-    }
-    if (anchorEl) {
-      var lcdBefore = anchorEl.getBoundingClientRect().top;
-      lcdOpenStep(el);
-      var lcdD = anchorEl.getBoundingClientRect().top - lcdBefore;
-      if (Math.abs(lcdD) > 1) {
-        window.scrollBy({ top: lcdD, behavior: "instant" });
-      }
-      lcdAnchorTo(anchorEl, 600);
-      lcdScrollToStep(el, isVerify);
-      return;
-    }
   }
   lcdOpenStep(el);
   lcdScrollToStep(el, isVerify);
@@ -35051,6 +35013,10 @@ function lcdHandleBoxConfig() {
   return false;
 }
 function initConfiguratorEngine() {
+  if (!window.matchMedia("(max-width: 768px)").matches) {
+    document.documentElement.style.overflowAnchor = "none";
+    document.body.style.overflowAnchor = "none";
+  }
   if (window.ResizeObserver) {
     var lcdStepResizeObserver = new ResizeObserver(function(entries) {
       entries.forEach(function(entry) {
@@ -36264,6 +36230,25 @@ function googleReviews(setupData2, texts) {
     if (tries >= 25) return;
     setTimeout(tryPlace, 300);
   })();
+  if ($(".in-index").length && window.matchMedia("(max-width: 768px)").matches && window.MutationObserver) {
+    var orderFrame = 0;
+    var orderObserver = new MutationObserver(function() {
+      if (orderFrame) return;
+      orderFrame = requestAnimationFrame(function() {
+        orderFrame = 0;
+        var $ms = $(".in-index section#model-selector").first();
+        if (!$ms.length) return;
+        var $ratings = $(".in-index section#goggle-review-wrap, .in-index .lcd-reviews-widget");
+        var $anchor = $ms;
+        $ratings.each(function() {
+          var $rating = $(this);
+          if (!$anchor.next().is($rating)) $rating.insertAfter($anchor);
+          $anchor = $rating;
+        });
+      });
+    });
+    orderObserver.observe(document.body, { childList: true, subtree: true });
+  }
 }
 function lcdVideos() {
   var base = "https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/";

@@ -703,8 +703,12 @@ i.info-icon {
     }
 
     &:hover {
+      position: relative;
+      z-index: 1200;
+
       .text {
         display: block;
+        z-index: 1300;
       }
 
       transform: scale(1.05);
@@ -750,6 +754,20 @@ i.info-icon {
     &:before {
       display: none;
     }
+  }
+}
+
+// Krok "Špecifikácia vozidla" — viac priestoru pre volbu poctu miest aj
+// spodne flow tlacidlo. :has cieli iba car-spec krok, nie ostatne akordeony.
+.position-wrap.parameter-cars.parameter-wrap.base-config:has(> .wheel-Position) {
+  padding-bottom: 12px;
+
+  .sit-Position .button.option-button {
+    padding: 12px 14px;
+  }
+
+  > .next-step-button {
+    margin-bottom: 14px;
   }
 }
 

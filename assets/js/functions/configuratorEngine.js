@@ -204,9 +204,11 @@ function lcdOpenStep(el) {
     $s.show();
     $(".upsale-Banner").show();
   }
+  // Tlacidlo musi byt viditelne uz PRI merani scrollHeight. Ked sa ukazalo
+  // az potom, cielova vyska bola mensia a spodok tlacidla zostal orezany.
+  $s.find("> .next-step-button").show();
   lcdSetStepOpen(el, true);
   lcdResetOptionsWrap($s);
-  $s.find("> .next-step-button").show();
 }
 
 /** Cerveno zvyrazni krok + vyzva na doplnenie. */
@@ -233,9 +235,12 @@ function lcdFirstUnfilled(uptoIndex) {
  * zatvarani okna nad aktivnym krokom. Prerusi sa, ked user sam scrollne
  * alebo ked bezi prioritny verifikacny scroll.
  */
-function lcdAnchorTo(el, duration) {
+var lcdAnchorToken = 0;
+
+function lcdAnchorTo(el, duration, fixedTop) {
   if (!el) return;
-  var targetTop = el.getBoundingClientRect().top;
+  var myToken = ++lcdAnchorToken;
+  var targetTop = typeof fixedTop === "number" ? fixedTop : el.getBoundingClientRect().top;
   var start = performance.now();
   var aborted = false;
   // Flag pre header.js — konverzna fixna lista pocas anchoringu neprepina
@@ -245,18 +250,23 @@ function lcdAnchorTo(el, duration) {
   window.addEventListener("wheel", onUser, { passive: true });
   window.addEventListener("touchmove", onUser, { passive: true });
   function cleanup() {
-    window.__lcdAnchoring = false;
+    if (myToken === lcdAnchorToken) window.__lcdAnchoring = false;
     window.removeEventListener("wheel", onUser);
     window.removeEventListener("touchmove", onUser);
   }
   function tick(now) {
-    if (aborted || !el.isConnected || lcdScroll.priority) { cleanup(); return; }
+    if (myToken !== lcdAnchorToken || aborted || !el.isConnected || lcdScroll.priority) {
+      cleanup();
+      return;
+    }
     // Skryty prvok (display:none) ma rect.top 0 — korekcia by odstrelila
     // stranku o obrovsku deltu. Tento frame preskoc.
     if (el.offsetParent) {
       var d = el.getBoundingClientRect().top - targetTop;
-      if (Math.abs(d) > 0.5) {
-        window.scrollBy({ top: d, behavior: "instant" });
+      if (Math.abs(d) > 0.25) {
+        // Priamy zapis je deterministicky a nevytvara dalsiu scroll animaciu.
+        var root = document.scrollingElement || document.documentElement;
+        root.scrollTop += d;
       }
     }
     if (now - start < duration) requestAnimationFrame(tick);
@@ -270,44 +280,12 @@ function lcdAnchorTo(el, duration) {
 window.__lcdAnchorTo = lcdAnchorTo;
 
 function lcdGoToStep(el, isVerify) {
-  // Desktop: akordeon je bez CSS animacie (transition:none v SCSS), takze
-  // zatvorenie + otvorenie + scroll kompenzacia prebehnu SYNCHRONNE v jednom
-  // frame — jednorazova delta je presna a nic sa vizualne nepohne.
-  // rAF kotva potom 600ms dolapa neskore reflowy (nacitanie obrazkov).
-  // Mobil: kotva nie — tam nasleduje smooth scroll a kotva by s nim bojovala.
   var lcdMob = window.matchMedia("(max-width: 768px)").matches;
-  var lcdIsUpsaleStep = el.classList.contains("trunk") || el.classList.contains("boxs");
-  // K5/K6 su susedne a ich zbalene hlavicky su stale viditelne. Priebežne
-  // scrollovanie cez lcdAnchorTo tu namiesto pomoci vytvaralo drobne cuknutie.
-  // Nechaj viewport na mieste a animuj iba vysku akordeonu.
-  if (!lcdMob && !isVerify && lcdIsUpsaleStep) {
+  // Desktop: ziadna manipulacia so scrollom. Viewport zostane presne tam,
+  // kde ho uzivatel nechal; meni sa iba otvoreny stav akordeonu.
+  if (!lcdMob && !isVerify) {
     lcdOpenStep(el);
     return;
-  }
-  if (!lcdMob && !isVerify) {
-    // Kotviaci prvok: viditelny ciel; ak je ciel este skryty (trunk/boxs pred
-    // prvym zobrazenim ma rect.top 0), posledny VIDITELNY krok pred nim.
-    var anchorEl = null;
-    if (el.offsetParent) {
-      anchorEl = el;
-    } else {
-      var lcdSteps = lcdGetSteps();
-      for (var li = 0; li < lcdSteps.length; li++) {
-        if (lcdSteps[li] === el) break;
-        if (lcdSteps[li].offsetParent) anchorEl = lcdSteps[li];
-      }
-    }
-    if (anchorEl) {
-      var lcdBefore = anchorEl.getBoundingClientRect().top;
-      lcdOpenStep(el);
-      var lcdD = anchorEl.getBoundingClientRect().top - lcdBefore;
-      if (Math.abs(lcdD) > 1) {
-        window.scrollBy({ top: lcdD, behavior: "instant" });
-      }
-      lcdAnchorTo(anchorEl, 600);
-      lcdScrollToStep(el, isVerify);
-      return;
-    }
   }
   lcdOpenStep(el);
   lcdScrollToStep(el, isVerify);
@@ -341,6 +319,12 @@ function lcdHandleBoxConfig() {
 }
 
 export function initConfiguratorEngine() {
+  // Chrome scroll anchoring dokaze pri zbaleni obsahu posunut viewport aj bez
+  // JS. Na desktope ho pre konfigurator vypni spolu s manualnym scrollom.
+  if (!window.matchMedia("(max-width: 768px)").matches) {
+    document.documentElement.style.overflowAnchor = "none";
+    document.body.style.overflowAnchor = "none";
+  }
   // Drz cielovu vysku otvoreneho kroku aktualnu aj pri neskorom nacitani
   // obrazkov alebo zmene obsahu. ResizeObserver nesposobuje layout polling.
   if (window.ResizeObserver) {

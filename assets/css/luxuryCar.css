@@ -1672,6 +1672,10 @@ section#section1 .images-scrolling__content p {
   .row.banners-content.body-banners section#model-selector {
     order: 1;
   }
+  .row.banners-content.body-banners .lcd-reviews-widget {
+    order: 2;
+    width: 100%;
+  }
   .row.banners-content.body-banners section#goggle-review-wrap {
     order: 2;
     padding: 20px 5px !important;
@@ -3529,8 +3533,13 @@ i.info-icon {
   border-radius: 6px;
   padding: 4px 8px;
 }
+.options-wrap .button.option-button:hover {
+  position: relative;
+  z-index: 1200;
+}
 .options-wrap .button.option-button:hover .text {
   display: block;
+  z-index: 1300;
 }
 .options-wrap .button.option-button:hover {
   transform: scale(1.05);
@@ -3571,6 +3580,16 @@ i.info-icon {
 }
 .options-wrap .button.option-button.lines.active:before {
   display: none;
+}
+
+.position-wrap.parameter-cars.parameter-wrap.base-config:has(> .wheel-Position) {
+  padding-bottom: 12px;
+}
+.position-wrap.parameter-cars.parameter-wrap.base-config:has(> .wheel-Position) .sit-Position .button.option-button {
+  padding: 12px 14px;
+}
+.position-wrap.parameter-cars.parameter-wrap.base-config:has(> .wheel-Position) > .next-step-button {
+  margin-bottom: 14px;
 }
 
 span.quantity {

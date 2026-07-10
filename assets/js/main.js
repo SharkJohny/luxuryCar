@@ -522,6 +522,31 @@ function googleReviews(setupData, texts) {
     if (tries >= 25) return;
     setTimeout(tryPlace, 300);
   })();
+
+  // Mobilna homepage sklada bannery a model-selector asynchronne aj po
+  // skonceni retry cyklu. Udrz recenzie vzdy bezprostredne ZA celym vyberom
+  // vozidla; desktopove poradie tym nie je dotknute.
+  if ($(".in-index").length && window.matchMedia("(max-width: 768px)").matches && window.MutationObserver) {
+    var orderFrame = 0;
+    var orderObserver = new MutationObserver(function () {
+      if (orderFrame) return;
+      orderFrame = requestAnimationFrame(function () {
+        orderFrame = 0;
+        var $ms = $(".in-index section#model-selector").first();
+        if (!$ms.length) return;
+        // Trustindex vie neskoro znovu vlozit povodny #goggle-review-wrap;
+        // presuvame preto novy aj legacy rating blok.
+        var $ratings = $(".in-index section#goggle-review-wrap, .in-index .lcd-reviews-widget");
+        var $anchor = $ms;
+        $ratings.each(function () {
+          var $rating = $(this);
+          if (!$anchor.next().is($rating)) $rating.insertAfter($anchor);
+          $anchor = $rating;
+        });
+      });
+    });
+    orderObserver.observe(document.body, { childList: true, subtree: true });
+  }
 }
 
 
@@ -981,5 +1006,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-
