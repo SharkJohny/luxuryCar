@@ -511,18 +511,21 @@ function priplatky(setupData, texts) {
       function (e) {
         e.preventDefault();
         const clickedWrap = $(this).closest(".position-wrap, .parameter-wrap");
+        const isUpsaleStep = clickedWrap.hasClass("trunk") || clickedWrap.hasClass("boxs");
 
         // Pokud je již aktivní, zavři ho — s kotvou (jediná cesta bez ní;
         // hlavička drží místo, obsah pod ní se složí plynule bez bliknutí)
         if (clickedWrap.hasClass("active")) {
-          if (window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
+          if (!isUpsaleStep && window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
             window.__lcdAnchorTo(clickedWrap[0], 400);
           }
-          clickedWrap.removeClass("active");
+          if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(clickedWrap[0], false);
+          else clickedWrap.removeClass("active");
           return;
         }
 
-        const allWraps = $(".position-wrap, .parameter-wrap");
+        const allWraps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap")
+          .add(".upsale-buttons.trunk, .upsale-buttons.boxs");
         const clickedIndex = allWraps.index(clickedWrap);
         const $activeWrap = $(".position-wrap.active, .parameter-wrap.active").first();
         const activeIndex = $activeWrap.length ? allWraps.index($activeWrap) : -1;
@@ -532,13 +535,18 @@ function priplatky(setupData, texts) {
         // zůstane opticky na stejné výšce. rAF kotva dolapá pozdní reflow.
         const lcdDesk = !window.matchMedia("(max-width: 768px)").matches;
         const lcdNode = clickedWrap[0];
-        const lcdBefore = lcdDesk && lcdNode ? lcdNode.getBoundingClientRect().top : null;
+        const lcdBefore = lcdDesk && !isUpsaleStep && lcdNode ? lcdNode.getBoundingClientRect().top : null;
 
         // Zavři všechny ostatní position-wrap a parameter-wrap elementy
-        $(".position-wrap, .parameter-wrap").removeClass("active");
+        allWraps.each(function () {
+          if (this === clickedWrap[0]) return;
+          if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(this, false);
+          else $(this).removeClass("active");
+        });
 
         // Otevři kliknutý element
-        clickedWrap.addClass("active");
+        if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(clickedWrap[0], true);
+        else clickedWrap.addClass("active");
 
         if (lcdBefore !== null) {
           const lcdD = lcdNode.getBoundingClientRect().top - lcdBefore;

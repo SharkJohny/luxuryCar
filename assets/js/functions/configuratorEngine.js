@@ -163,17 +163,48 @@ function lcdResetOptionsWrap($s) {
   });
 }
 
+/**
+ * Nastavi cielovu vysku akordeonu podla skutocneho obsahu. Pevnych 1000px
+ * sposobovalo, ze kratke kroky sa otvarali rychlo a dlhe viditelne trhali.
+ */
+function lcdMeasureStep(el) {
+  if (!el || !el.isConnected) return;
+  var height = Math.max(50, el.scrollHeight);
+  el.style.setProperty("--lcd-step-open-height", height + "px");
+}
+
+function lcdCloseStep(el) {
+  if (!el) return;
+  // Pred odobratim triedy zachovaj realny start transitionu.
+  if (el.classList.contains("active")) lcdMeasureStep(el);
+  el.classList.remove("active");
+}
+
+function lcdSetStepOpen(el, open) {
+  if (!el) return;
+  if (!open) {
+    lcdCloseStep(el);
+    return;
+  }
+  lcdMeasureStep(el);
+  el.classList.add("active");
+  // Obsah sa pri otvoreni moze prelomit az po zobrazeni (obrazky, selecty).
+  requestAnimationFrame(function () { lcdMeasureStep(el); });
+}
+
+window.__lcdSetStepOpen = lcdSetStepOpen;
+
 /** Otvori IBA tento krok, ostatne zatvori. */
 function lcdOpenStep(el) {
   lcdGetSteps().forEach(function (s) {
-    if (s !== el) $(s).removeClass("active");
+    if (s !== el) lcdCloseStep(s);
   });
   var $s = $(el);
   if ($s.hasClass("trunk") || $s.hasClass("boxs")) {
     $s.show();
     $(".upsale-Banner").show();
   }
-  $s.addClass("active");
+  lcdSetStepOpen(el, true);
   lcdResetOptionsWrap($s);
   $s.find("> .next-step-button").show();
 }
@@ -245,6 +276,14 @@ function lcdGoToStep(el, isVerify) {
   // rAF kotva potom 600ms dolapa neskore reflowy (nacitanie obrazkov).
   // Mobil: kotva nie — tam nasleduje smooth scroll a kotva by s nim bojovala.
   var lcdMob = window.matchMedia("(max-width: 768px)").matches;
+  var lcdIsUpsaleStep = el.classList.contains("trunk") || el.classList.contains("boxs");
+  // K5/K6 su susedne a ich zbalene hlavicky su stale viditelne. Priebežne
+  // scrollovanie cez lcdAnchorTo tu namiesto pomoci vytvaralo drobne cuknutie.
+  // Nechaj viewport na mieste a animuj iba vysku akordeonu.
+  if (!lcdMob && !isVerify && lcdIsUpsaleStep) {
+    lcdOpenStep(el);
+    return;
+  }
   if (!lcdMob && !isVerify) {
     // Kotviaci prvok: viditelny ciel; ak je ciel este skryty (trunk/boxs pred
     // prvym zobrazenim ma rect.top 0), posledny VIDITELNY krok pred nim.
@@ -302,6 +341,17 @@ function lcdHandleBoxConfig() {
 }
 
 export function initConfiguratorEngine() {
+  // Drz cielovu vysku otvoreneho kroku aktualnu aj pri neskorom nacitani
+  // obrazkov alebo zmene obsahu. ResizeObserver nesposobuje layout polling.
+  if (window.ResizeObserver) {
+    var lcdStepResizeObserver = new ResizeObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.target.classList.contains("active")) lcdMeasureStep(entry.target);
+      });
+    });
+    lcdGetSteps().forEach(function (step) { lcdStepResizeObserver.observe(step); });
+  }
+
   // "Prejsť k ďalšiemu kroku"
   $(document).on("click", ".next-step-button", function (e) {
     e.preventDefault(); e.stopPropagation();

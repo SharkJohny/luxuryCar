@@ -33493,22 +33493,29 @@ function priplatky(setupData2, texts) {
       function(e) {
         e.preventDefault();
         const clickedWrap = $(this).closest(".position-wrap, .parameter-wrap");
+        const isUpsaleStep = clickedWrap.hasClass("trunk") || clickedWrap.hasClass("boxs");
         if (clickedWrap.hasClass("active")) {
-          if (window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
+          if (!isUpsaleStep && window.__lcdAnchorTo && !window.matchMedia("(max-width: 768px)").matches) {
             window.__lcdAnchorTo(clickedWrap[0], 400);
           }
-          clickedWrap.removeClass("active");
+          if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(clickedWrap[0], false);
+          else clickedWrap.removeClass("active");
           return;
         }
-        const allWraps = $(".position-wrap, .parameter-wrap");
+        const allWraps = $(".content-wrap > .position-wrap, .content-wrap > .parameter-wrap").add(".upsale-buttons.trunk, .upsale-buttons.boxs");
         const clickedIndex = allWraps.index(clickedWrap);
         const $activeWrap = $(".position-wrap.active, .parameter-wrap.active").first();
         const activeIndex = $activeWrap.length ? allWraps.index($activeWrap) : -1;
         const lcdDesk = !window.matchMedia("(max-width: 768px)").matches;
         const lcdNode = clickedWrap[0];
-        const lcdBefore = lcdDesk && lcdNode ? lcdNode.getBoundingClientRect().top : null;
-        $(".position-wrap, .parameter-wrap").removeClass("active");
-        clickedWrap.addClass("active");
+        const lcdBefore = lcdDesk && !isUpsaleStep && lcdNode ? lcdNode.getBoundingClientRect().top : null;
+        allWraps.each(function() {
+          if (this === clickedWrap[0]) return;
+          if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(this, false);
+          else $(this).removeClass("active");
+        });
+        if (window.__lcdSetStepOpen) window.__lcdSetStepOpen(clickedWrap[0], true);
+        else clickedWrap.addClass("active");
         if (lcdBefore !== null) {
           const lcdD = lcdNode.getBoundingClientRect().top - lcdBefore;
           if (Math.abs(lcdD) > 1) {
@@ -34905,16 +34912,39 @@ function lcdResetOptionsWrap($s) {
     this.style.padding = "";
   });
 }
+function lcdMeasureStep(el) {
+  if (!el || !el.isConnected) return;
+  var height = Math.max(50, el.scrollHeight);
+  el.style.setProperty("--lcd-step-open-height", height + "px");
+}
+function lcdCloseStep(el) {
+  if (!el) return;
+  if (el.classList.contains("active")) lcdMeasureStep(el);
+  el.classList.remove("active");
+}
+function lcdSetStepOpen(el, open) {
+  if (!el) return;
+  if (!open) {
+    lcdCloseStep(el);
+    return;
+  }
+  lcdMeasureStep(el);
+  el.classList.add("active");
+  requestAnimationFrame(function() {
+    lcdMeasureStep(el);
+  });
+}
+window.__lcdSetStepOpen = lcdSetStepOpen;
 function lcdOpenStep(el) {
   lcdGetSteps().forEach(function(s) {
-    if (s !== el) $(s).removeClass("active");
+    if (s !== el) lcdCloseStep(s);
   });
   var $s = $(el);
   if ($s.hasClass("trunk") || $s.hasClass("boxs")) {
     $s.show();
     $(".upsale-Banner").show();
   }
-  $s.addClass("active");
+  lcdSetStepOpen(el, true);
   lcdResetOptionsWrap($s);
   $s.find("> .next-step-button").show();
 }
@@ -34968,6 +34998,11 @@ function lcdAnchorTo(el, duration) {
 window.__lcdAnchorTo = lcdAnchorTo;
 function lcdGoToStep(el, isVerify) {
   var lcdMob = window.matchMedia("(max-width: 768px)").matches;
+  var lcdIsUpsaleStep = el.classList.contains("trunk") || el.classList.contains("boxs");
+  if (!lcdMob && !isVerify && lcdIsUpsaleStep) {
+    lcdOpenStep(el);
+    return;
+  }
   if (!lcdMob && !isVerify) {
     var anchorEl = null;
     if (el.offsetParent) {
@@ -35016,6 +35051,16 @@ function lcdHandleBoxConfig() {
   return false;
 }
 function initConfiguratorEngine() {
+  if (window.ResizeObserver) {
+    var lcdStepResizeObserver = new ResizeObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.target.classList.contains("active")) lcdMeasureStep(entry.target);
+      });
+    });
+    lcdGetSteps().forEach(function(step) {
+      lcdStepResizeObserver.observe(step);
+    });
+  }
   $(document).on("click", ".next-step-button", function(e) {
     e.preventDefault();
     e.stopPropagation();

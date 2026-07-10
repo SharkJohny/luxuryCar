@@ -3294,7 +3294,7 @@ i.info-icon {
   overflow: hidden;
   border: none;
   background: transparent;
-  transition: all 0.3s;
+  transition: max-height 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, background-color 0.2s ease;
 }
 .parameter-wrap.active {
   border: 2px solid #e0d5b8;
@@ -3315,7 +3315,7 @@ i.info-icon {
   align-items: center;
   gap: 14px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background-color 0.2s ease, color 0.2s ease;
   user-select: none;
 }
 .parameter-wrap .lcd-step-num {
@@ -4768,11 +4768,12 @@ a.p-thumbnail {
 .position-wrap.parameter-cars.parameter-wrap.base-config,
 .parameter-wrap {
   max-height: 50px;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: max-height;
 }
 .position-wrap.parameter-cars.parameter-wrap.base-config.active,
 .parameter-wrap.active {
-  max-height: 1000px;
+  max-height: var(--lcd-step-open-height, 1000px);
   background: white;
 }
 
@@ -4781,7 +4782,15 @@ a.p-thumbnail {
   .parameter-wrap,
   .upsale-buttons.boxs,
   .upsale-buttons.trunk {
-    transition: max-height 0.18s ease-out;
+    transition: max-height 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .position-wrap.parameter-cars.parameter-wrap.base-config,
+  .parameter-wrap,
+  .upsale-buttons.boxs,
+  .upsale-buttons.trunk {
+    transition-duration: 0.01ms !important;
   }
 }
 .twentytwenty-wrap.full-width .image-container {
@@ -5308,6 +5317,30 @@ a.p-thumbnail {
 .box-config .parameter-wrap {
   padding: 0 20px;
 }
+.box-config .parameter-wrap:has(> .lcd-color-label) {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  grid-template-areas: "name options" "label options";
+  align-items: start;
+}
+.box-config .parameter-wrap:has(> .lcd-color-label) > .name-wrap {
+  grid-area: name;
+  width: auto;
+}
+.box-config .parameter-wrap:has(> .lcd-color-label) > .options-wrap {
+  grid-area: options;
+  width: 100%;
+  min-width: 0;
+}
+.box-config .parameter-wrap:has(> .lcd-color-label) > .lcd-color-label {
+  grid-area: label;
+  width: auto;
+  height: auto;
+  padding: 2px 12px 16px 0;
+  color: #6b6253;
+  font-size: 12px;
+  line-height: 1.35;
+}
 .box-config h5.variant.name {
   padding: 0px !important;
 }
@@ -5328,6 +5361,15 @@ a.p-thumbnail {
   color: #c49b30;
 }
 
+@media (max-width: 768px) {
+  .box-config .parameter-wrap:has(> .lcd-color-label) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "name" "label" "options";
+  }
+  .box-config .parameter-wrap:has(> .lcd-color-label) > .lcd-color-label {
+    padding: 0 0 8px;
+  }
+}
 .close-btn.close.bottom {
   font-size: 18px;
   position: absolute;
@@ -5682,13 +5724,15 @@ video::-webkit-media-controls {
   border-radius: 14px;
 }
 .upsale-Banner .upsale-buttons.trunk .upsale-button img {
-  width: 38%;
-  min-height: 170px;
+  width: 46%;
+  height: auto;
+  min-height: 0;
   margin: 0;
   border: none;
   border-radius: 0;
-  object-fit: cover;
-  align-self: stretch;
+  object-fit: contain;
+  align-self: center;
+  background: #111;
 }
 .upsale-Banner .upsale-buttons.trunk .upsale-button .banner-header {
   flex: 1;
@@ -5815,8 +5859,9 @@ video::-webkit-media-controls {
     width: 100%;
   }
   .upsale-Banner .upsale-buttons.trunk .upsale-button img {
-    width: 40%;
-    min-height: 120px;
+    width: 44%;
+    height: auto;
+    min-height: 0;
   }
   .upsale-Banner .upsale-buttons.trunk .upsale-button .banner-header {
     padding: 14px 10px;
@@ -7002,4 +7047,5 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
+
 /*# sourceMappingURL=luxuryCar.css.map */
