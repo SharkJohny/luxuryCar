@@ -3875,8 +3875,16 @@ span.quantity {
 }
 
 .image-wrap {
-  max-width: 50%;
+  max-width: 320px;
+  width: 50%;
   margin: 30px auto 10px;
+}
+.image-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
 }
 
 .button-wrap {

@@ -1592,11 +1592,18 @@ function priceActualization(e) {
     // Preview obrázok LEN pre krok, v ktorom sa kliklo, výmena na mieste.
     // Pôvodné globálne $(".image-wrap").remove() + append + fadeIn(1000) pri
     // KAŽDOM kliku zmrštilo a znovu nafúklo otvorený krok — stránka poskočila.
-    const $paramWrap = $(this).parents(".parameter-wrap");
-    if (e && $paramWrap.has(e.target).length) {
-      $paramWrap.find(".image-wrap").remove();
-      const imageWrap = $("<div>", { class: "image-wrap" }).appendTo($paramWrap);
-      $("<img>", { src: image2 }).appendTo(imageWrap);
+    const $wrap = $(this).parents(".parameter-wrap").has(e && e.target);
+    if (e && $wrap.length) {
+      $wrap.find(".image-wrap").remove();
+      const imageWrap = $("<div>", { class: "image-wrap" }).appendTo($wrap);
+      const $img = $("<img>", { src: image2 }).appendTo(imageWrap);
+      // Preview zväčší obsah kroku AŽ po tom, čo akordeon zmeral cieľovú výšku
+      // pri otvorení — bez premerania ho overflow:hidden orezal (preview zmizol).
+      const remeasure = () => {
+        if (window.__lcdMeasureStep) $wrap.each((_, el) => window.__lcdMeasureStep(el));
+      };
+      requestAnimationFrame(remeasure);
+      $img.on("load", remeasure);
     }
   });
 

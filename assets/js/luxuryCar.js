@@ -34106,11 +34106,16 @@ function priceActualization2(e) {
     console.log(parameterId);
     $(".parameter-id-" + variant).val(value).trigger("change");
     const image2 = $(this).find("img").attr("src");
-    const $paramWrap = $(this).parents(".parameter-wrap");
-    if (e && $paramWrap.has(e.target).length) {
-      $paramWrap.find(".image-wrap").remove();
-      const imageWrap = $("<div>", { class: "image-wrap" }).appendTo($paramWrap);
-      $("<img>", { src: image2 }).appendTo(imageWrap);
+    const $wrap = $(this).parents(".parameter-wrap").has(e && e.target);
+    if (e && $wrap.length) {
+      $wrap.find(".image-wrap").remove();
+      const imageWrap = $("<div>", { class: "image-wrap" }).appendTo($wrap);
+      const $img = $("<img>", { src: image2 }).appendTo(imageWrap);
+      const remeasure = () => {
+        if (window.__lcdMeasureStep) $wrap.each((_, el) => window.__lcdMeasureStep(el));
+      };
+      requestAnimationFrame(remeasure);
+      $img.on("load", remeasure);
     }
   });
   if (e) {
@@ -34918,6 +34923,7 @@ function lcdSetStepOpen(el, open) {
   });
 }
 window.__lcdSetStepOpen = lcdSetStepOpen;
+window.__lcdMeasureStep = lcdMeasureStep;
 function lcdOpenStep(el) {
   lcdGetSteps().forEach(function(s) {
     if (s !== el) lcdCloseStep(s);

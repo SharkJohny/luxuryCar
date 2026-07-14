@@ -193,6 +193,9 @@ function lcdSetStepOpen(el, open) {
 }
 
 window.__lcdSetStepOpen = lcdSetStepOpen;
+// Umožni preview obrázku (priceActualization) premerať krok potom, ako doňho
+// pridá .image-wrap — inak ho overflow:hidden orezal na starej cieľovej výške.
+window.__lcdMeasureStep = lcdMeasureStep;
 
 /** Otvori IBA tento krok, ostatne zatvori. */
 function lcdOpenStep(el) {
