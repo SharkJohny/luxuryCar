@@ -2291,6 +2291,21 @@ a.p-thumbnail {
   }
 }
 
+// MOBIL: accordion NEanimovať. Animácia max-height vysokého obsahu (options +
+// veľký preview obrázok) nútila mobilný prehliadač prepočítať layout+paint
+// každý frame — celý konfigurátor sa viditeľne triasol. Snap otvorenia/zatvorenia
+// + zrušené permanentné will-change (samo o sebe zdroj jitteru na mobile) to
+// odstráni. Desktop si plynulú animáciu ponecháva.
+@media (max-width: 768px) {
+  .position-wrap.parameter-cars.parameter-wrap.base-config,
+  .parameter-wrap,
+  .upsale-buttons.boxs,
+  .upsale-buttons.trunk {
+    transition: none !important;
+    will-change: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .position-wrap.parameter-cars.parameter-wrap.base-config,
   .parameter-wrap,

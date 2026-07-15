@@ -34837,7 +34837,7 @@ function lcdStepComfortable(el) {
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
   var lcdIsMobile = window.matchMedia("(max-width: 768px)").matches;
-  if (!isVerify && !lcdIsMobile) return;
+  if (!isVerify) return;
   if (lcdScroll.priority && !isVerify) return;
   if (lcdStepComfortable(el)) return;
   if (Math.abs(window.scrollY - lcdDesiredY(el)) < 100) return;

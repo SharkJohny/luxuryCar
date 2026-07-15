@@ -4812,6 +4812,15 @@ a.p-thumbnail {
     transition: max-height 0.26s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
+@media (max-width: 768px) {
+  .position-wrap.parameter-cars.parameter-wrap.base-config,
+  .parameter-wrap,
+  .upsale-buttons.boxs,
+  .upsale-buttons.trunk {
+    transition: none !important;
+    will-change: auto;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .position-wrap.parameter-cars.parameter-wrap.base-config,
   .parameter-wrap,

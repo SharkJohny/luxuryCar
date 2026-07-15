@@ -95,12 +95,13 @@ function lcdStepComfortable(el) {
  */
 function lcdScrollToStep(el, isVerify) {
   if (!el) return;
-  // DESKTOP: auto-scroll pri vyberoch VYPNUTY (klient: "popojizdeni je
-  // matouci a zbytecne"). Kroky su v bocnom stlpci vidno aj bez scrollu.
-  // Scrolluje sa len: 1) verifikacia (chybajuci krok pri Pridat do kosika),
-  // 2) mobil — tam je krok mimo viewport a bez scrollu by user nic nevidel.
+  // Auto-scroll pri vyberoch VYPNUTY na desktope AJ mobile. Na mobile settle()
+  // smycka (poll layoutu / 60ms) + smooth scrollTo + korekcia po 700ms bojovali
+  // s prebiehajucim reflowom (lazy obrazky, 600ms enhance interval) — viewport
+  // opakovane popojizdel a cely konfigurator sa "trasol". Scrolluje sa uz LEN
+  // verifikacia (skok na chybajuci krok pri Pridat do kosika).
   var lcdIsMobile = window.matchMedia("(max-width: 768px)").matches;
-  if (!isVerify && !lcdIsMobile) return;
+  if (!isVerify) return;
   if (lcdScroll.priority && !isVerify) return; // verifikacny scroll ma prednost
   // ANTI-DRIFT + POHODLNA ZONA: ak krok uz vidno v hornej casti viewportu,
   // NESCROLLUJ vobec — kazdy zbytocny scroll = "skakanie".
