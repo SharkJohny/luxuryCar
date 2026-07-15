@@ -171,6 +171,12 @@ function lcdResetOptionsWrap($s) {
 function lcdMeasureStep(el) {
   if (!el || !el.isConnected) return;
   var height = Math.max(50, el.scrollHeight);
+  // Zapíš LEN pri reálnej zmene (>2px). Bez tejto poistky sa ResizeObserver
+  // (nižšie) zacyklil: measure → zmena --lcd-step-open-height → max-height →
+  // resize kroku → observer → measure … Na mobile to spolu so scroll-anchoringom
+  // rozkmitalo celý konfigurátor (najmä otvorenú "Specifikáciu vozidla").
+  var prev = parseInt(el.style.getPropertyValue("--lcd-step-open-height"), 10);
+  if (!isNaN(prev) && Math.abs(prev - height) <= 2) return;
   el.style.setProperty("--lcd-step-open-height", height + "px");
 }
 
@@ -332,9 +338,18 @@ export function initConfiguratorEngine() {
   // Drz cielovu vysku otvoreneho kroku aktualnu aj pri neskorom nacitani
   // obrazkov alebo zmene obsahu. ResizeObserver nesposobuje layout polling.
   if (window.ResizeObserver) {
+    // rAF debounce — observer nesmie merať synchronne vo vnútri vlastného
+    // resize callbacku (to je klasická ResizeObserver slučka). Spolu s >2px
+    // poistkou v lcdMeasureStep to drží výšku aktuálnu bez kmitania.
+    var lcdRoScheduled = false;
     var lcdStepResizeObserver = new ResizeObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.target.classList.contains("active")) lcdMeasureStep(entry.target);
+      if (lcdRoScheduled) return;
+      lcdRoScheduled = true;
+      requestAnimationFrame(function () {
+        lcdRoScheduled = false;
+        entries.forEach(function (entry) {
+          if (entry.target.classList.contains("active")) lcdMeasureStep(entry.target);
+        });
       });
     });
     lcdGetSteps().forEach(function (step) { lcdStepResizeObserver.observe(step); });

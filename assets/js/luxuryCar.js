@@ -34903,6 +34903,8 @@ function lcdResetOptionsWrap($s) {
 function lcdMeasureStep(el) {
   if (!el || !el.isConnected) return;
   var height = Math.max(50, el.scrollHeight);
+  var prev = parseInt(el.style.getPropertyValue("--lcd-step-open-height"), 10);
+  if (!isNaN(prev) && Math.abs(prev - height) <= 2) return;
   el.style.setProperty("--lcd-step-open-height", height + "px");
 }
 function lcdCloseStep(el) {
@@ -35024,9 +35026,15 @@ function initConfiguratorEngine() {
     document.body.style.overflowAnchor = "none";
   }
   if (window.ResizeObserver) {
+    var lcdRoScheduled = false;
     var lcdStepResizeObserver = new ResizeObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.target.classList.contains("active")) lcdMeasureStep(entry.target);
+      if (lcdRoScheduled) return;
+      lcdRoScheduled = true;
+      requestAnimationFrame(function() {
+        lcdRoScheduled = false;
+        entries.forEach(function(entry) {
+          if (entry.target.classList.contains("active")) lcdMeasureStep(entry.target);
+        });
       });
     });
     lcdGetSteps().forEach(function(step) {
