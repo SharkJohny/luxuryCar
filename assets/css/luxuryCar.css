@@ -4820,6 +4820,12 @@ a.p-thumbnail {
     transition: none !important;
     will-change: auto;
   }
+  .position-wrap.parameter-cars.parameter-wrap.base-config.active,
+  .parameter-wrap.active,
+  .upsale-buttons.boxs.active,
+  .upsale-buttons.trunk.active {
+    max-height: none !important;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .position-wrap.parameter-cars.parameter-wrap.base-config,

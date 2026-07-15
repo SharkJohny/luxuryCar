@@ -337,7 +337,10 @@ export function initConfiguratorEngine() {
   }
   // Drz cielovu vysku otvoreneho kroku aktualnu aj pri neskorom nacitani
   // obrazkov alebo zmene obsahu. ResizeObserver nesposobuje layout polling.
-  if (window.ResizeObserver) {
+  // MOBIL: ResizeObserver NEregistruj vôbec. Otvorený krok tam má max-height:none
+  // (CSS), takže meranú výšku nepotrebuje — a práve toto prepočítavanie pri zmene
+  // vh (URL-bar prehliadača počas scrollu) rozkmitalo obsah pod editorom.
+  if (window.ResizeObserver && !window.matchMedia("(max-width: 768px)").matches) {
     // rAF debounce — observer nesmie merať synchronne vo vnútri vlastného
     // resize callbacku (to je klasická ResizeObserver slučka). Spolu s >2px
     // poistkou v lcdMeasureStep to drží výšku aktuálnu bez kmitania.

@@ -2304,6 +2304,18 @@ a.p-thumbnail {
     transition: none !important;
     will-change: auto;
   }
+
+  // MOBIL: otvorený krok NEsmie naháňať meranú výšku (--lcd-step-open-height).
+  // URL-bar prehliadača pri scrolle mení vh → obsah kroku (model-selector…) mení
+  // výšku → ResizeObserver prepočítal --lcd-step-open-height o desiatky px → obsah
+  // POD editorom skákal. Na mobile otvor krok naplno (max-height:none) — žiadne
+  // meranie, žiadne chvenie. Desktop si meranú animáciu ponecháva.
+  .position-wrap.parameter-cars.parameter-wrap.base-config.active,
+  .parameter-wrap.active,
+  .upsale-buttons.boxs.active,
+  .upsale-buttons.trunk.active {
+    max-height: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

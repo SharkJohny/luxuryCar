@@ -35025,7 +35025,7 @@ function initConfiguratorEngine() {
     document.documentElement.style.overflowAnchor = "none";
     document.body.style.overflowAnchor = "none";
   }
-  if (window.ResizeObserver) {
+  if (window.ResizeObserver && !window.matchMedia("(max-width: 768px)").matches) {
     var lcdRoScheduled = false;
     var lcdStepResizeObserver = new ResizeObserver(function(entries) {
       if (lcdRoScheduled) return;
