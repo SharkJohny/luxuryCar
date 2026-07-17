@@ -32028,7 +32028,7 @@ function optPrice(o) {
 }
 function noneOption(select) {
   const opts = Array.from(select.options);
-  return opts.find((o) => /nechcem/i.test(o.textContent || "")) || opts.find((o) => o.value !== "" && optPrice(o) === 0) || opts.find((o) => o.value === "") || select.options[0];
+  return opts.find((o) => o.value === "") || opts.find((o) => /nechcem/i.test(o.textContent || "")) || opts.find((o) => o.value !== "" && optPrice(o) === 0) || select.options[0];
 }
 function yesOption(select) {
   const opts = Array.from(select.options);
@@ -32047,44 +32047,63 @@ function injectStyles() {
 #${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-head{border-radius:10px 10px 0 0}
 #${MOUNT_ID} .lcd-vz-acc-num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:14px}
 #${MOUNT_ID} .lcd-vz-acc-title{flex:1 1 auto}
-#${MOUNT_ID} .lcd-vz-acc-count{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.4px;background:#fff;color:#a8893a;border-radius:20px;padding:3px 10px;text-transform:none}
+#${MOUNT_ID} .lcd-vz-acc-count{flex:0 0 auto;font-size:12px;font-weight:800;letter-spacing:.4px;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border-radius:12px;padding:2px 10px;text-transform:none;box-shadow:0 2px 6px rgba(76,175,80,.4)}
 #${MOUNT_ID} .lcd-vz-acc-count[hidden]{display:none}
+#${MOUNT_ID} .lcd-vz-acc-state{flex:0 0 auto;padding:5px 12px;border-radius:14px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:rgba(255,255,255,.18);color:#fff}
+#${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-state{background:rgba(255,255,255,.22)}
 #${MOUNT_ID} .lcd-vz-acc-chev{flex:0 0 auto;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #fff;transition:transform .25s}
 #${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-chev{transform:rotate(180deg)}
-#${MOUNT_ID} .lcd-vz-acc-body{display:none;background:#fff;border-radius:0 0 10px 10px;padding:16px}
+#${MOUNT_ID} .lcd-vz-acc-body{display:none;background:#fafafa;border-radius:0 0 10px 10px;padding:16px}
 #${MOUNT_ID} .lcd-vz-acc.is-open .lcd-vz-acc-body{display:block}
 #${MOUNT_ID} .lcd-vz-hint{font-size:12px;color:#777;margin:0 0 10px}
 
 /* Mrie\u017Eka dla\u017Ed\xEDc \u2014 max 5 ved\u013Ea seba (ako n\xE1vrh), na mobile menej. */
-#${MOUNT_ID} .lcd-vz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+#${MOUNT_ID} .lcd-vz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 @media (max-width:600px){#${MOUNT_ID} .lcd-vz-grid{grid-template-columns:repeat(3,1fr)}}
 
-/* Dla\u017Edica = full-bleed obr\xE1zok bez paddingu + n\xE1zov pod n\xEDm (ako n\xE1vrh). */
-#${MOUNT_ID} .lcd-vz-swatch{position:relative;display:block;padding:0;border:2px solid #e3e3e3;border-radius:10px;overflow:hidden;background:#fff;cursor:pointer;text-align:center;font:inherit;transition:border-color .15s,box-shadow .15s,transform .1s}
+/* Bunka = \u0160TVORCOV\xC1 dla\u017Edica (len obr\xE1zok) + popisok POD \u0148ou na pozad\xED sekcie
+ * (pod\u013Ea n\xE1vrhu). V\u0161etky dla\u017Edice maj\xFA identick\xFA v\xFD\u0161ku \u2014 dlh\xFD n\xE1zov zalom\xED
+ * text v popisku pod dla\u017Edicou a nerozhod\xED mrie\u017Eku. */
+#${MOUNT_ID} .lcd-vz-cell{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+#${MOUNT_ID} .lcd-vz-swatch{position:relative;display:block;width:100%;aspect-ratio:1/1;padding:0;border:2px solid #ddd;border-radius:10px;overflow:hidden;background:#000;cursor:pointer;font:inherit;box-shadow:0 2px 6px rgba(0,0,0,.08);transition:border-color .15s,box-shadow .15s,transform .1s}
 #${MOUNT_ID} .lcd-vz-swatch:hover{border-color:#C5A44E;transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.10)}
-#${MOUNT_ID} .lcd-vz-thumb-wrap{position:relative;display:block;width:100%;aspect-ratio:1/1}
-#${MOUNT_ID} .lcd-vz-thumb{width:100%;height:100%;object-fit:cover;display:block;background:#f1ede2 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 fill=%22none%22 stroke=%22%23c9bfa0%22 stroke-width=%221.5%22><circle cx=%2212%22 cy=%2212%22 r=%229%22/></svg>') center/28px no-repeat}
-#${MOUNT_ID} .lcd-vz-name{display:block;font-size:11px;line-height:1.25;color:#333;padding:5px 4px 6px;min-height:30px}
-#${MOUNT_ID} .lcd-vz-swatch[aria-pressed="true"]{border-color:#C5A44E;box-shadow:0 0 0 3px rgba(197,164,78,.25)}
-#${MOUNT_ID} .lcd-vz-swatch[aria-pressed="true"] .lcd-vz-thumb-wrap::after{content:"\\2713";position:absolute;top:6px;right:6px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#C5A44E;color:#fff;font-size:13px;font-weight:700}
+#${MOUNT_ID} .lcd-vz-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#f1ede2 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 fill=%22none%22 stroke=%22%23c9bfa0%22 stroke-width=%221.5%22><circle cx=%2212%22 cy=%2212%22 r=%229%22/></svg>') center/28px no-repeat}
+#${MOUNT_ID} .lcd-vz-name{font-size:11px;line-height:1.3;font-weight:600;color:#2E1810;text-align:center;min-height:30px;padding:0 2px}
+#${MOUNT_ID} .lcd-vz-swatch[aria-pressed="true"]{border:3px solid #C5A44E;box-shadow:0 8px 20px rgba(197,164,78,.5)}
+#${MOUNT_ID} .lcd-vz-swatch[aria-pressed="true"]::after{content:"\\2713";position:absolute;top:6px;right:6px;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;font-size:14px;font-weight:800;box-shadow:0 2px 8px rgba(76,175,80,.5)}
 
-/* N\xE1h\u013Eadov\xE9 (neobjedn\xE1vate\u013En\xE9) vzorky \u2014 zobrazia sa, ale nejd\xFA vybra\u0165. */
-#${MOUNT_ID} .lcd-vz-swatch--preview{cursor:default;opacity:.82}
-#${MOUNT_ID} .lcd-vz-swatch--preview:hover{border-color:#e3e3e3;transform:none;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+/* N\xE1h\u013Eadov\xE9 (neobjedn\xE1vate\u013En\xE9) vzorky \u2014 klik uk\xE1\u017Ee ve\u013Ek\xFD n\xE1h\u013Ead, nejd\xFA vybra\u0165. */
+#${MOUNT_ID} .lcd-vz-swatch--preview{cursor:pointer;opacity:.85}
+#${MOUNT_ID} .lcd-vz-swatch--preview:hover{border-color:#ddd;transform:none;box-shadow:0 2px 6px rgba(0,0,0,.06)}
 #${MOUNT_ID} .lcd-vz-swatch--preview .lcd-vz-thumb{filter:saturate(.85)}
-#${MOUNT_ID} .lcd-vz-swatch--preview .lcd-vz-name{color:#9a9a9a}
-#${MOUNT_ID} .lcd-vz-swatch--send{border-color:#4CAF50}
+#${MOUNT_ID} .lcd-vz-cell--preview .lcd-vz-name{color:#9a9a9a}
+#${MOUNT_ID} .lcd-vz-swatch--send{border-color:#4CAF50;border-width:3px}
 #${MOUNT_ID} .lcd-vz-tag{position:absolute;left:0;right:0;padding:3px 4px;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;text-align:center;color:#fff;pointer-events:none}
-#${MOUNT_ID} .lcd-vz-tag--no{bottom:0;background:rgba(46,24,16,.9)}
+#${MOUNT_ID} .lcd-vz-tag--no{bottom:0;background:rgba(46,24,16,.88)}
 #${MOUNT_ID} .lcd-vz-tag--send{top:0;background:linear-gradient(135deg,#4CAF50,#2E7D32)}
 #${MOUNT_ID} .lcd-vz-swatch--send[aria-pressed="true"] .lcd-vz-tag--send{display:none}
 
-/* Dla\u017Edica \u201ENechcem" \u2014 prv\xE1 v ka\u017Edej s\xE9rii (zru\u0161\xED v\xFDber s\xE9rie). Vzh\u013Ead z n\xE1vrhu. */
-#${MOUNT_ID} .lcd-vz-skip{position:relative;display:block;padding:0;border:2px dashed #bbb;border-radius:10px;overflow:hidden;background:#fafafa;cursor:pointer;font:inherit;color:#2E1810;text-align:center;transition:all .15s}
+/* Dla\u017Edica \u201ENechcem" \u2014 prv\xE1 v ka\u017Edej s\xE9rii (zru\u0161\xED v\xFDber s\xE9rie). Pod\u013Ea n\xE1vrhu:
+ * biela \u010Diarkovan\xE1 dla\u017Edica s ve\u013Ek\xFDm \u2298/\u2713 v strede, popisok POD dla\u017Edicou. */
+#${MOUNT_ID} .lcd-vz-skip{position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;padding:0;border:2px dashed #bbb;border-radius:10px;overflow:hidden;background:#fafafa;cursor:pointer;font:inherit;color:#666;font-size:38px;font-weight:900;box-shadow:0 2px 6px rgba(0,0,0,.06);transition:all .15s}
 #${MOUNT_ID} .lcd-vz-skip:hover{border-color:#2E7D32}
-#${MOUNT_ID} .lcd-vz-skip-ico{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;font-size:30px;font-weight:700}
-#${MOUNT_ID} .lcd-vz-skip-label{display:block;font-size:11px;font-weight:700;line-height:1.25;padding:5px 4px 6px;min-height:30px}
-#${MOUNT_ID} .lcd-vz-skip[aria-pressed="true"]{border:2px solid #2E7D32;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff}
+#${MOUNT_ID} .lcd-vz-skip-ico{display:block}
+#${MOUNT_ID} .lcd-vz-skip-label{font-size:11px;font-weight:700;line-height:1.3;color:#2E1810;text-align:center;min-height:30px;padding:0 2px}
+#${MOUNT_ID} .lcd-vz-skip[aria-pressed="true"]{border:3px solid #2E7D32;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;box-shadow:0 8px 20px rgba(76,175,80,.4)}
+#${MOUNT_ID} .lcd-vz-skip[aria-pressed="true"]+.lcd-vz-skip-label{color:#2E7D32}
+
+/* Ve\u013Ek\xFD inline n\xE1h\u013Ead kliknutej vzorky POD mrie\u017Ekou (pod\u013Ea n\xE1vrhu). */
+#${MOUNT_ID} .lcd-vz-preview{display:block;width:100%;max-width:360px;margin:20px auto 0;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:#000;border:2px solid #C5A44E;box-shadow:0 12px 36px rgba(197,164,78,.3);position:relative}
+#${MOUNT_ID} .lcd-vz-preview[hidden]{display:none}
+#${MOUNT_ID} .lcd-vz-preview img{width:100%;height:100%;object-fit:cover;display:block}
+#${MOUNT_ID} .lcd-vz-preview-id{position:absolute;top:12px;left:12px;background:rgba(46,24,16,.9);color:#fff;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:1px}
+#${MOUNT_ID} .lcd-vz-preview-cap{position:absolute;bottom:0;left:0;right:0;padding:14px 14px 12px;background:linear-gradient(0deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.55) 60%,rgba(0,0,0,0) 100%);color:#fff}
+#${MOUNT_ID} .lcd-vz-preview-eyebrow{font-size:10.5px;color:#C5A44E;font-weight:800;text-transform:uppercase;letter-spacing:1.5px}
+#${MOUNT_ID} .lcd-vz-preview-name{font-size:16px;font-weight:800;margin-top:2px;line-height:1.25}
+
+/* Zelen\xE9 "Pokra\u010Dova\u0165" tla\u010Didlo na konci sekcie (pod\u013Ea n\xE1vrhu). */
+#${MOUNT_ID} .lcd-vz-continue{display:block;margin:22px auto 0;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:none;padding:14px 36px;border-radius:30px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;box-shadow:0 8px 24px rgba(76,175,80,.45);transition:transform .15s,box-shadow .15s;font-family:inherit}
+#${MOUNT_ID} .lcd-vz-continue:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(76,175,80,.55)}
 
 /* Rekapitul\xE1cia objedn\xE1vky \u2014 tmav\xE1 karta pod\u013Ea n\xE1vrhu (DARK + zlat\xE9 akcenty). */
 #${MOUNT_ID} .lcd-vz-recap{margin:18px 0 0;padding:20px;border-radius:12px;background:linear-gradient(135deg,#2E1810 0%,#1a1008 100%);color:#fff;box-shadow:0 10px 30px rgba(46,24,16,.25)}
@@ -32101,6 +32120,14 @@ function injectStyles() {
 #${MOUNT_ID} .lcd-vz-recap-list{margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.6}
 #${MOUNT_ID} .lcd-vz-recap-list li strong{color:#fff}
 #${MOUNT_ID} .lcd-vz-recap-note{font-size:11.5px;opacity:.7;margin:14px 0 0}
+
+/* Cena "\u20AC 0" pod rekapitul\xE1ciou by bola DRUH\xC1 cena na str\xE1nke \u2014 total u\u017E
+ * ukazuje tmav\xE1 rekapitul\xE1cia. Element len skryjeme; Shoptet do\u0148 \u010Falej
+ * p\xED\u0161e (livePrice), objedn\xE1vkov\xFD tok sa nemen\xED. */
+body.is-vzorky-konfigurator .p-final-price-wrapper{display:none}
+/* Desktop pos\xFAva add-to-cart o -75px k cene; bez ceny by tla\u010Didlo prekrylo
+ * rekapitul\xE1ciu \u2014 na vzorkovn\xEDku posun zru\u0161i\u0165. */
+body.is-vzorky-konfigurator .p-info-wrapper .add-to-cart{position:static;top:auto;margin-top:14px}
 `;
   const style = document.createElement("style");
   style.id = "lcd-vz-style";
@@ -32108,8 +32135,10 @@ function injectStyles() {
   document.head.appendChild(style);
 }
 function buildSwatch(id, opts = {}) {
-  const { onPick, preview = false, highlight = false } = opts;
+  const { onPick, onPreview, preview = false, highlight = false } = opts;
   const item = VZORKY_ITEMS[id] || {};
+  const cell = document.createElement("div");
+  cell.className = "lcd-vz-cell" + (preview ? " lcd-vz-cell--preview" : "");
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "lcd-vz-swatch" + (preview ? " lcd-vz-swatch--preview" : "") + (highlight ? " lcd-vz-swatch--send" : "");
@@ -32117,8 +32146,6 @@ function buildSwatch(id, opts = {}) {
   if (preview) btn.setAttribute("aria-disabled", "true");
   else btn.setAttribute("aria-pressed", "false");
   btn.title = (item.label || id) + (preview ? " \u2014 neposiela sa, len n\xE1h\u013Ead" : "");
-  const wrap = document.createElement("span");
-  wrap.className = "lcd-vz-thumb-wrap";
   const thumb = document.createElement(item.img ? "img" : "span");
   thumb.className = "lcd-vz-thumb";
   if (item.img) {
@@ -32126,27 +32153,30 @@ function buildSwatch(id, opts = {}) {
     thumb.alt = item.label || id;
     thumb.loading = "lazy";
   }
-  wrap.appendChild(thumb);
+  btn.appendChild(thumb);
   if (preview) {
     const tag = document.createElement("span");
     tag.className = "lcd-vz-tag lcd-vz-tag--no";
     tag.textContent = "Neposiela sa";
-    wrap.appendChild(tag);
+    btn.appendChild(tag);
   } else if (highlight) {
     const tag = document.createElement("span");
     tag.className = "lcd-vz-tag lcd-vz-tag--send";
     tag.textContent = "Posielame";
-    wrap.appendChild(tag);
+    btn.appendChild(tag);
   }
-  btn.appendChild(wrap);
-  const name = document.createElement("span");
+  const name = document.createElement("div");
   name.className = "lcd-vz-name";
   name.textContent = item.label || id;
-  btn.appendChild(name);
+  cell.append(btn, name);
+  cell._btn = btn;
   if (!preview) btn.addEventListener("click", () => onPick(btn));
-  return btn;
+  else if (onPreview) btn.addEventListener("click", () => onPreview(id));
+  return cell;
 }
 function buildSkipTile(onSkip) {
+  const cell = document.createElement("div");
+  cell.className = "lcd-vz-cell";
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "lcd-vz-skip";
@@ -32156,18 +32186,21 @@ function buildSkipTile(onSkip) {
   ico.className = "lcd-vz-skip-ico";
   ico.textContent = "\u2713";
   btn.appendChild(ico);
-  const label = document.createElement("span");
+  const label = document.createElement("div");
   label.className = "lcd-vz-skip-label";
-  label.textContent = "Nechcem";
-  btn.appendChild(label);
+  label.textContent = "Nechcem \u2713";
+  cell.append(btn, label);
   btn._ico = ico;
+  btn._label = label;
+  cell._btn = btn;
   btn.addEventListener("click", () => onSkip());
-  return btn;
+  return cell;
 }
 function setSkipActive(btn, active) {
   if (!btn) return;
   btn.setAttribute("aria-pressed", active ? "true" : "false");
   if (btn._ico) btn._ico.textContent = active ? "\u2713" : "\u2298";
+  if (btn._label) btn._label.textContent = active ? "Nechcem \u2713" : "Nechcem";
 }
 function setSelectValue(select, opt) {
   if (!opt) return;
@@ -32241,6 +32274,7 @@ function renderVzorkyConfigurator(host) {
   const root = document.createElement("div");
   root.id = MOUNT_ID;
   const seriesCountEls = {};
+  const seriesStateEls = {};
   const skipEls = {};
   const seriesSwatches = {};
   const recapEls = {};
@@ -32254,8 +32288,14 @@ function renderVzorkyConfigurator(host) {
       const c = entries.filter((e) => e.seriesKey === sk && isYes(e)).length;
       const el = seriesCountEls[sk];
       if (el) {
-        el.textContent = c === 1 ? "1 vybran\xE1" : `${c} vybran\xE9`;
+        el.textContent = `${c} \u2713`;
         el.hidden = c === 0;
+      }
+      const st = seriesStateEls[sk];
+      if (st) {
+        const accEl = st.closest(".lcd-vz-acc");
+        const isOpen = accEl && accEl.classList.contains("is-open");
+        st.textContent = isOpen ? "Zavrie\u0165" : c > 0 ? "Zmeni\u0165" : "+ Prida\u0165";
       }
       setSkipActive(skipEls[sk], c === 0);
     });
@@ -32309,10 +32349,14 @@ function renderVzorkyConfigurator(host) {
     const countEl = document.createElement("span");
     countEl.className = "lcd-vz-acc-count";
     countEl.hidden = true;
+    const stateEl = document.createElement("span");
+    stateEl.className = "lcd-vz-acc-state";
+    stateEl.textContent = "+ Prida\u0165";
     const chev = document.createElement("span");
     chev.className = "lcd-vz-acc-chev";
-    head.append(numEl, title, countEl, chev);
+    head.append(numEl, title, countEl, stateEl, chev);
     seriesCountEls[seriesKey] = countEl;
+    seriesStateEls[seriesKey] = stateEl;
     const body = document.createElement("div");
     body.className = "lcd-vz-acc-body";
     const hint = document.createElement("p");
@@ -32321,6 +32365,30 @@ function renderVzorkyConfigurator(host) {
     body.appendChild(hint);
     const grid = document.createElement("div");
     grid.className = "lcd-vz-grid";
+    const preview = document.createElement("div");
+    preview.className = "lcd-vz-preview";
+    preview.hidden = true;
+    const pvImg = document.createElement("img");
+    pvImg.alt = "";
+    const pvId = document.createElement("div");
+    pvId.className = "lcd-vz-preview-id";
+    const pvCap = document.createElement("div");
+    pvCap.className = "lcd-vz-preview-cap";
+    const pvEyebrow = document.createElement("div");
+    pvEyebrow.className = "lcd-vz-preview-eyebrow";
+    pvEyebrow.textContent = meta.title;
+    const pvName = document.createElement("div");
+    pvName.className = "lcd-vz-preview-name";
+    pvCap.append(pvEyebrow, pvName);
+    preview.append(pvImg, pvId, pvCap);
+    const showPreview = (pid) => {
+      const it = VZORKY_ITEMS[pid] || {};
+      if (!it.img) return;
+      pvImg.src = it.img;
+      pvId.textContent = pid;
+      pvName.textContent = it.label || pid;
+      preview.hidden = false;
+    };
     const swatchRefs = [];
     seriesSwatches[seriesKey] = swatchRefs;
     const onSkip = () => {
@@ -32330,9 +32398,9 @@ function renderVzorkyConfigurator(host) {
       });
       recompute();
     };
-    const skip = buildSkipTile(onSkip);
-    skipEls[seriesKey] = skip;
-    grid.appendChild(skip);
+    const skipCell = buildSkipTile(onSkip);
+    skipEls[seriesKey] = skipCell._btn;
+    grid.appendChild(skipCell);
     ids.forEach((id) => {
       const e = entryById[id];
       if (e && isOrderableId(id)) {
@@ -32347,24 +32415,43 @@ function renderVzorkyConfigurator(host) {
             btn.setAttribute("aria-pressed", "true");
             setSelectValue(e.select, yes);
           }
+          showPreview(id);
           recompute();
         };
-        const sw = buildSwatch(id, { onPick, highlight: hasPreview });
-        if (isYes(e)) sw.setAttribute("aria-pressed", "true");
-        swatchRefs.push({ entry: e, btn: sw });
-        grid.appendChild(sw);
+        const cell = buildSwatch(id, { onPick, highlight: hasPreview });
+        if (isYes(e)) cell._btn.setAttribute("aria-pressed", "true");
+        swatchRefs.push({ entry: e, btn: cell._btn });
+        grid.appendChild(cell);
       } else {
         if (e) {
           const none = noneOption(e.select);
           if (none && e.select.value !== none.value) setSelectValue(e.select, none);
         }
-        grid.appendChild(buildSwatch(id, { preview: true }));
+        grid.appendChild(buildSwatch(id, { preview: true, onPreview: showPreview }));
       }
     });
     body.appendChild(grid);
+    body.appendChild(preview);
+    const contBtn = document.createElement("button");
+    contBtn.type = "button";
+    contBtn.className = "lcd-vz-continue";
+    const myIndex = accordions.length;
+    contBtn.addEventListener("click", () => {
+      const next = accordions[myIndex + 1];
+      accordions.forEach((a) => a.setOpen(false));
+      if (next) {
+        next.setOpen(true);
+        next.acc.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        recap.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+    body.appendChild(contBtn);
     const setOpen = (open) => {
       acc.classList.toggle("is-open", open);
       head.setAttribute("aria-expanded", open ? "true" : "false");
+      const c = entries.filter((e) => e.seriesKey === seriesKey && isYes(e)).length;
+      stateEl.textContent = open ? "Zavrie\u0165" : c > 0 ? "Zmeni\u0165" : "+ Prida\u0165";
     };
     head.addEventListener("click", () => {
       const willOpen = !acc.classList.contains("is-open");
@@ -32372,8 +32459,12 @@ function renderVzorkyConfigurator(host) {
       setOpen(willOpen);
     });
     acc.append(head, body);
-    accordions.push({ setOpen });
+    accordions.push({ setOpen, acc, title: meta.title, contBtn });
     root.appendChild(acc);
+  });
+  accordions.forEach((a, i) => {
+    const next = accordions[i + 1];
+    a.contBtn.textContent = next ? `Pokra\u010Dova\u0165 na ${next.title} \u2192` : "Pokra\u010Dova\u0165 na s\xFAhrn objedn\xE1vky \u2192";
   });
   if (accordions[0]) accordions[0].setOpen(true);
   const recap = document.createElement("div");
