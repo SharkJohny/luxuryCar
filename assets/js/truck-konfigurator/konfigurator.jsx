@@ -553,7 +553,7 @@ const TEXTS = {
     saving: "Ušetříte",
     save_amount: "Ušetříte",
     instead_of: "místo",
-    bundle_label: "BUNDLE",
+    bundle_label: "BALÍK",
     // Step labels
     step_vehicle: "Specifikace vozidla",
     step_material: "Materiál a barva",
@@ -573,14 +573,14 @@ const TEXTS = {
     err_select_nit_color: "Prosím, vyberte barvu nitě.",
     // Door panel
     no_door_panel: "Ne, nechci tapacír dveří",
-    yes_door_panel: "Ano, chci (v konfigurátoru – bundle)",
+    yes_door_panel: "Ano, chci (v konfigurátoru – balík)",
     no_door_embroidery: "Ne, nechci nášivku na dveřích",
     yes_door_embroidery: "Ano, chci nášivku na dveřích",
     // Embroidery placement
     no_embroidery: "Bez nášivek",
     embroidery_center: "Pouze střed",
     embroidery_sides: "Řidič + spolujezdec",
-    embroidery_all: "Řidič + spolujezdec + střed (BUNDLE)",
+    embroidery_all: "Řidič + spolujezdec + střed (BALÍK)",
   },
   sk: {
     next_step: "Pokračovať",
@@ -593,7 +593,7 @@ const TEXTS = {
     saving: "Ušetríte",
     save_amount: "Ušetríte",
     instead_of: "namiesto",
-    bundle_label: "BUNDLE",
+    bundle_label: "BALÍK",
     step_vehicle: "Špecifikácia vozidla",
     step_material: "Materiál a farba",
     step_lemovanie: "Lemovanie",
@@ -610,13 +610,13 @@ const TEXTS = {
     err_select_lemovanie: "Vyberte typ lemovania",
     err_select_nit_color: "Prosím, vyberte farbu nite.",
     no_door_panel: "Nie nechcem tapacír dverí",
-    yes_door_panel: "Áno chcem (v konfigurátore – bundle)",
+    yes_door_panel: "Áno chcem (v konfigurátore – balík)",
     no_door_embroidery: "Nie nechcem nášivku na dverách",
     yes_door_embroidery: "Áno chcem nášivku na dverách",
     no_embroidery: "Bez nášiviek",
     embroidery_center: "Len stred",
     embroidery_sides: "Šofér + spolujazdec",
-    embroidery_all: "Šofér + spolujazdec + stred (BUNDLE)",
+    embroidery_all: "Šofér + spolujazdec + stred (BALÍK)",
   },
   // pl: { ... }  // future
 };
@@ -693,7 +693,8 @@ const FALLBACK_PRICES = {
 // preview), vrátime FALLBACK_PRICES — konfigurátor vie pracovať aj
 // offline so známymi defaultmi z `cennik_konfigurator.xlsx`.
 
-const PRICE_SUFFIX_RE = /\s*([+\-])\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(Kč|€|EUR|CZK)\s*$/i;
+// Cena môže mať menu PRED číslom ("+€95" — Shoptet SK) aj ZA ním ("+95 €").
+const PRICE_SUFFIX_RE = /\s*([+\-])\s*(?:Kč|€|EUR|CZK)?\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(?:Kč|€|EUR|CZK)?\s*$/i;
 
 function _parseOptionPrice(text) {
   if (!text) return { price: 0, clean: "" };
@@ -797,14 +798,17 @@ function readShoptetPrices(fallback) {
       stred: pick(nasBucket["Len stred"], fbNas.stred),
       boky: pick(nasBucket["Šofér + spolujazdec"], fbNas.boky),
       "boky+stred": pick(
-        nasBucket["Šofér + spolujazdec + stred (BUNDLE)"] ??
+        nasBucket["Šofér + spolujazdec + stred (BALÍK)"] ??
+          nasBucket["Šofér + spolujazdec + stred (BUNDLE)"] ??
           findByText(nasBucket, "šofér", "spolujazdec", "stred"),
         fbNas["boky+stred"],
       ),
     },
     NASIVKY_SAMO: fallback.NASIVKY_SAMO || {},
     TAPACIR_BUNDLE: pick(
-      tapBucket["Áno chcem (v konfigurátore – bundle)"] ??
+      tapBucket["Áno chcem (v konfigurátore – balík)"] ??
+        tapBucket["Áno chcem (v konfigurátore – bundle)"] ??
+        findByText(tapBucket, "áno", "balík") ??
         findByText(tapBucket, "áno", "bundle"),
       fallback.TAPACIR_BUNDLE,
     ),
@@ -932,11 +936,25 @@ function findMatchingOption(select, search) {
   const opts = select.querySelectorAll("option[value]");
   const searchNorm = String(search).trim().toLowerCase();
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*\d[\d\s]*\s*(Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
     if (t === searchNorm) return o;
   }
+  // Tolerancia premenovania balík/bundle (admin vs kód): presná zhoda so
+  // zámenou slova MUSÍ bežať pred fuzzy vetvou — fuzzy by "…stred (balík)"
+  // chytila na kratšiu option "Šofér + spolujazdec" a vybrala zlú hodnotu.
+  const swapNorm = searchNorm.includes("balík")
+    ? searchNorm.replace("balík", "bundle")
+    : searchNorm.includes("bundle")
+      ? searchNorm.replace("bundle", "balík")
+      : null;
+  if (swapNorm) {
+    for (const o of opts) {
+      const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+      if (t === swapNorm) return o;
+    }
+  }
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*\d[\d\s]*\s*(Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
     if (t.includes(searchNorm) || searchNorm.includes(t)) return o;
   }
   return null;
@@ -954,14 +972,15 @@ function resolveValue(paramName, s) {
       nechcem: "Bez nášiviek",
       stred: "Len stred",
       boky: "Šofér + spolujazdec",
-      "boky+stred": "Šofér + spolujazdec + stred (BUNDLE)",
+      "boky+stred": "Šofér + spolujazdec + stred (BALÍK)",
     })[s.nasivkyPlacement] || null;
   }
 
   if (n === "tapacír" || n === "tapacir") {
-    if (s.doorPanelChoice === "ano") return "Áno chcem (v konfigurátore – bundle)";
-    if (s.doorPanelChoice === "nie") return "Nie nechcem tapacír dverí";
-    return null;
+    if (s.doorPanelChoice === "ano") return "Áno chcem (v konfigurátore – balík)";
+    // null (krok 5 preskočený) = "nechcem" — Shoptet select Tapacír je POVINNÝ;
+    // bez hodnoty by natívne Pridať do košíka potichu zlyhalo.
+    return "Nie nechcem tapacír dverí";
   }
 
   if (n === "nášivka dvere" || n === "nasivka dvere") {
@@ -1989,8 +2008,8 @@ function Configurator() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 10 }}>
               {[
-                { id: "boky", label: "Šofér + spolujazdec", price: PRICES.NASIVKY.boky },
-                { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred },
+                { id: "boky", label: "Šofér + spolujazdec", price: PRICES.NASIVKY.boky, rrp: PRICES.NASIVKY_SAMO.boky },
+                { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred, rrp: PRICES.NASIVKY_SAMO.stred },
                 { id: "nechcem", label: "Bez nášiviek", price: 0 },
               ].map((opt) => {
                 const isActive = nasivkyPlacement === opt.id;
@@ -2018,11 +2037,23 @@ function Configurator() {
                     }}
                   >
                     <span>{isActive && <span style={{ marginRight: 6 }}>✓</span>}{opt.label}</span>
-                    <span style={{
-                      fontSize: 18, fontWeight: 800,
-                      color: opt.price > 0 ? "#2E1810" : "#888",
-                    }}>
-                      {opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"}
+                    <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+                      {opt.rrp > opt.price && (
+                        <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
+                          {opt.rrp} ${CURRENCY}
+                        </span>
+                      )}
+                      <span style={{
+                        fontSize: 18, fontWeight: 800,
+                        color: opt.price > 0 ? "#2E1810" : "#888",
+                      }}>
+                        {opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"}
+                      </span>
+                      {opt.rrp > opt.price && (
+                        <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" }}>
+                          −{opt.rrp - opt.price} ${CURRENCY}
+                        </span>
+                      )}
                     </span>
                   </div>
                 );
@@ -2272,6 +2303,7 @@ function Configurator() {
                   }} />
                 )}
 
+                <div id="konfig-sub-4b2" style={{ scrollMarginTop: 20 }} />
                 {/* Farba nite */}
                 {selectedNasivka && (
                   <NitColorPicker label="2. Farba nite pre nášivku (šofér a spolujazdec):" questionNumber={2} value={selectedNitColor} onChange={(v) => {
@@ -2577,6 +2609,7 @@ function Configurator() {
                   }} />
                 )}
 
+                <div id="konfig-sub-4c2" style={{ scrollMarginTop: 20 }} />
                 {/* Farba nite */}
                 {selectedStredNasivka && !stredSameAsSide && (
                   <NitColorPicker
@@ -3629,7 +3662,7 @@ function Configurator() {
 {/* Dokončiť button */}
         {doorPanelChoice && (
           <button
-            onClick={() => setOpenSection(0)}
+            onClick={() => { setOpenSection(0); setTimeout(() => { const el = document.getElementById("konfig-suhrn"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300); }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 16,
               background: "linear-gradient(135deg, #4CAF50, #388E3C)",
@@ -3640,7 +3673,7 @@ function Configurator() {
             onMouseOver={(e) => e.target.style.transform = "scale(1.01)"}
             onMouseOut={(e) => e.target.style.transform = "scale(1)"}
           >
-            Dokončiť konfiguráciu ✓
+            Prejsť na ďalší krok →
           </button>
         )}
       </AccordionSection>
@@ -3800,7 +3833,8 @@ function Configurator() {
             if (selectedNasivka && !selectedNitColor) {
               setValidationErrors({ step4sub: "4b", nitColor: true, message: "Prosím, vyberte farbu nite." });
               setOpenSection(4); setStep4Sub("boky");
-              setTimeout(() => { const el = document.getElementById("konfig-sub-4b"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+              // Klient (bod 5): rolovať priamo na výber FARBY nite (4/B-2), nie na vrch 4/B.
+              setTimeout(() => { const el = document.getElementById("konfig-sub-4b2") || document.getElementById("konfig-sub-4b"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
               return;
             }
             if ((nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred") && !selectedStredNasivka) {
@@ -3812,16 +3846,13 @@ function Configurator() {
             if (selectedStredNasivka && !selectedStredNitColor) {
               setValidationErrors({ step4sub: "4c", stredNitColor: true, message: "Prosím, vyberte farbu nite pre stredovú nášivku." });
               setOpenSection(4); setStep4Sub("stred");
-              setTimeout(() => { const el = document.getElementById("konfig-sub-4c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+              // Klient (bod 5): rolovať priamo na výber FARBY nite (4/C-2), nie na vrch 4/C.
+              setTimeout(() => { const el = document.getElementById("konfig-sub-4c2") || document.getElementById("konfig-sub-4c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
               return;
             }
-            // Step 5
-            if (doorPanelChoice === null) {
-              setValidationErrors({ step5sub: "5a", message: "Prosím, dokončite krok 5 — vyberte, či chcete výplne dverových panelov." });
-              setOpenSection(5); setDoorStep5Sub("choice");
-              setTimeout(() => { const el = document.getElementById("konfig-sub-5a"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
-              return;
-            }
+            // Step 5 — VOLITEĽNÝ (klient, bod 7): keď zákazník nič nevyberie
+            // alebo zvolí "nie", ide rovno do košíka. Keď zvolí "áno",
+            // nasledujúce kontroly vynútia dokončenie všetkých podkrokov (bod 6).
             if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
               setValidationErrors({ step5sub: "5b", message: "Prosím, vyberte materiál a farbu dverových panelov." });
               setOpenSection(5); setDoorStep5Sub("material");
@@ -3871,6 +3902,19 @@ function Configurator() {
               });
             } catch (err) {
               console.error("[truck-konfig] final sync zlyhal:", err);
+            }
+
+            // Diagnostika: povinný Shoptet select bez hodnoty = prehliadač
+            // ZATICHA zablokuje submit (button je pod display:none, validačná
+            // bublina sa nemá kde ukázať). Vypíš, ČO presne chýba.
+            const lcdUnfilled = Array.from(
+              document.querySelectorAll("select[data-parameter-id]"),
+            ).filter((s) => s.required && !s.value);
+            if (lcdUnfilled.length) {
+              console.error(
+                "[truck-konfig] POVINNÉ selecty bez hodnoty — submit sa nevykoná:",
+                lcdUnfilled.map((s) => s.dataset.parameterName || s.name),
+              );
             }
 
             const nativeBtn =

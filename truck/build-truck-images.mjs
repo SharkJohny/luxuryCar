@@ -31,9 +31,12 @@ const REPO = join(ROOT, "..");
 const TK = join(REPO, "assets", "js", "truck-konfigurator");
 const OUT_IMG = join(REPO, "assets", "img", "truck");
 
-// Obrázky nahraté v Shoptet správcovi súborov na .cz doméne, priamo v assets/config/
-// (file manager NIE je zdieľaný medzi .sk a .cz — truck = .cz, vzorky = .sk).
-const IMG_BASE = "https://www.luxurycardesign.cz/user/documents/upload/assets/config/";
+// Súbory sú nahraté vo file manageri .CZ shopu (manager nie je zdieľaný
+// medzi .sk/.cz). Servírujeme ich cez cdn.myshoptet.com, ktorá posiela
+// `access-control-allow-origin: *` — obrázky sa zobrazia na .sk aj .cz
+// A canvas tinting nášiviek (crossOrigin="anonymous") neprejde na CORS.
+// Priama www.luxurycardesign.cz URL ACAO hlavičku NEposiela — nepoužívať.
+const IMG_BASE = "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/";
 
 const SOURCES = [
   { in: join(TK, "konfigurator.jsx"),       out: join(TK, "konfigurator.gen.jsx") },
@@ -80,4 +83,4 @@ console.log(
   `[truck-img] ${totalRefs} referencií, ${seen.size} unikátnych obrázkov (${onDisk} na disku v assets/img/truck/), ` +
   `~${(bytesBase64 / 1048576).toFixed(1)} MB base64 von z bundla, ${(bytesDecoded / 1048576).toFixed(1)} MB dekódovaných.`,
 );
-console.log("[truck-img] HOTOVO. Nahraj assets/img/truck/* do Shoptet (.cz): assets/config/");
+console.log("[truck-img] HOTOVO. Obrázky sa servírujú z cdn.myshoptet.com (upload .cz, CORS OK).");

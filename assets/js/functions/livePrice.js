@@ -75,9 +75,14 @@ function applyLivePrice() {
   const total = basePrice + surcharge;
   const $holder = $(PRICE_HOLDER_SEL).first();
   if (!$holder.length) return;
-  // Zachováme štruktúru – len prepíšeme text price
-  // (Shoptet drží symbol v rovnakom node, takže nahradíme celý obsah).
-  $holder.text(formatPrice(total));
+  // Shoptet surcharges drží VNÚTRI holdera <span class="calculated-price">
+  // a shoptet.surcharges.writePrices doň píše cez querySelector. $holder.text()
+  // by ten span zničil a každý ďalší updatePrices by padol na
+  // "Cannot set properties of null (setting 'textContent')" — preto píšeme
+  // do vnútorného spanu, keď existuje.
+  const $inner = $holder.find(".calculated-price");
+  if ($inner.length) $inner.text(formatPrice(total));
+  else $holder.text(formatPrice(total));
   // Vlastný event, ak by chcel niekto reagovať (napr. ďalšie UI bloky)
   document.dispatchEvent(new CustomEvent("LuxuryCarPriceRecalculated", {
     detail: { basePrice, surcharge, total },

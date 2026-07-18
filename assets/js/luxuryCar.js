@@ -24740,57 +24740,57 @@ var FIELD_META = {
 var FIELD_ORDER = ["prevodovka", "sedadlo", "zasuvky", "brzda", "podlaha"];
 var MATERIALS = {
   "Mikrosemi\u0161 \u2013 jednofarebn\xFD": [
-    { code: "1NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t74e84ff1cbef77d2.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4e39131904cb5a1c.jpg" },
-    { code: "2NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4c8fac5b2e089427.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta7a6d458feb9b6cc.jpg" },
-    { code: "3NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9f2ce71b9ea9a0cb.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t973b34223983eacc.jpg" },
-    { code: "4NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7e490684c5cfb3d7.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t115d67261c502d47.jpg" },
-    { code: "5NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta3c1e0db99eb4409.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te6d976d441141a05.jpg" }
+    { code: "1NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t74e84ff1cbef77d2.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4e39131904cb5a1c.jpg" },
+    { code: "2NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4c8fac5b2e089427.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta7a6d458feb9b6cc.jpg" },
+    { code: "3NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9f2ce71b9ea9a0cb.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t973b34223983eacc.jpg" },
+    { code: "4NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7e490684c5cfb3d7.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t115d67261c502d47.jpg" },
+    { code: "5NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta3c1e0db99eb4409.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te6d976d441141a05.jpg" }
   ],
   "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": [
-    { code: "2N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t14ffc532d58baf8c.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t53ca6a0f2fcb0a10.jpg" },
-    { code: "3N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbba36859f6967aed.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t02a642474cb8c6bd.jpg" },
-    { code: "4N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t74392c518fc6ec1b.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t69943bafb228c8ad.jpg" },
-    { code: "5N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t52b6c137891c5863.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7bbced787e4a7daf.jpg" },
-    { code: "6N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb0ae3048c30a937f.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7400d0be7ba993c1.jpg" },
-    { code: "7N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb7a10c5ed6ad891c.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0a63d8c78141af3b.jpg" }
+    { code: "2N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t14ffc532d58baf8c.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t53ca6a0f2fcb0a10.jpg" },
+    { code: "3N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbba36859f6967aed.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t02a642474cb8c6bd.jpg" },
+    { code: "4N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t74392c518fc6ec1b.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t69943bafb228c8ad.jpg" },
+    { code: "5N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t52b6c137891c5863.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7bbced787e4a7daf.jpg" },
+    { code: "6N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb0ae3048c30a937f.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7400d0be7ba993c1.jpg" },
+    { code: "7N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb7a10c5ed6ad891c.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0a63d8c78141af3b.jpg" }
   ],
   "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": [
-    { code: "10G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9e11360c8b5b33f2.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3e47c28253d486bf.jpg" },
-    { code: "11G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tba7fac3d76222872.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t24b3f5cb859e77d3.jpg" },
-    { code: "12G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t78c3b5a4253754a4.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7a764b16123d98a3.jpg" },
-    { code: "13G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t82d11db508e728b1.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta153addec6a8283e.jpg" },
-    { code: "1G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta8e3c50870857155.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8394fa2fda6eb360.jpg" },
-    { code: "2G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2994f34d4cd53d21.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t02c7c9a827a2bbc9.jpg" },
-    { code: "3G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t6d6715bc70f7d5f4.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0f8b0f0f7051239a.jpg" },
-    { code: "4G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3c512732d75fa7.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tf755c78a1ce50400.jpg" },
-    { code: "5G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tac00c31fd8a5f219.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t51297446ab803c6e.jpg" },
-    { code: "6G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/taea811c46742e0f3.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbc00e77770ca0c02.jpg" },
-    { code: "7G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb63fbc08be84eb79.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8d52d44ad793c32f.jpg" },
-    { code: "8G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcdc846ecc726e2a8.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t6e91f296f502914d.jpg" },
-    { code: "9G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcd5917f59b3a5564.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td7dcfb1aa59d4d4e.jpg" }
+    { code: "10G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9e11360c8b5b33f2.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3e47c28253d486bf.jpg" },
+    { code: "11G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tba7fac3d76222872.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t24b3f5cb859e77d3.jpg" },
+    { code: "12G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t78c3b5a4253754a4.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7a764b16123d98a3.jpg" },
+    { code: "13G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t82d11db508e728b1.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta153addec6a8283e.jpg" },
+    { code: "1G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta8e3c50870857155.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8394fa2fda6eb360.jpg" },
+    { code: "2G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2994f34d4cd53d21.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t02c7c9a827a2bbc9.jpg" },
+    { code: "3G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t6d6715bc70f7d5f4.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0f8b0f0f7051239a.jpg" },
+    { code: "4G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3c512732d75fa7.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tf755c78a1ce50400.jpg" },
+    { code: "5G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tac00c31fd8a5f219.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t51297446ab803c6e.jpg" },
+    { code: "6G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taea811c46742e0f3.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbc00e77770ca0c02.jpg" },
+    { code: "7G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb63fbc08be84eb79.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8d52d44ad793c32f.jpg" },
+    { code: "8G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcdc846ecc726e2a8.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t6e91f296f502914d.jpg" },
+    { code: "9G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcd5917f59b3a5564.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td7dcfb1aa59d4d4e.jpg" }
   ],
   "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1": [
-    { code: "10", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te9ac7f5351b68e09.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te69da20aa41cfff3.jpg" },
-    { code: "11", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t353babf7c464a09d.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te336d117c5367d5e.jpg" },
-    { code: "12", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1f1c099993a3d774.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8131265bc4c64fbf.jpg" },
-    { code: "13", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8b516a6d49d330b5.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0b38d0fda7a57d1f.jpg" },
-    { code: "14", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfe31ca1dba5c2610.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t17ff27defa0022b9.jpg" },
-    { code: "15", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t62bc83cf8d7026cb.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfb06efd104e1fcc0.jpg" },
-    { code: "2", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t5f8ab6691d211623.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9b1c37eeb17d3693.jpg" },
-    { code: "3", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1a30d3a35534feec.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1fdf04e79a61d5ed.jpg" },
-    { code: "4", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t03b5a82f305ee506.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb91308eb655ef52e.jpg" },
-    { code: "5", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc6a4c024068862d2.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2d8d9f4c253ba6b2.jpg" },
-    { code: "6", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t886fcd9fc535d354.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc464971278671ee7.jpg" },
-    { code: "7", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1f7a82cd181a914b.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te679cce95c0c10e5.jpg" },
-    { code: "8", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4b3c9bf0ab291c76.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t668402f24e15e4ce.jpg" },
-    { code: "9", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2f607992556a7d2d.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t843a05ba466bdbb3.jpg" }
+    { code: "10", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te9ac7f5351b68e09.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te69da20aa41cfff3.jpg" },
+    { code: "11", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t353babf7c464a09d.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te336d117c5367d5e.jpg" },
+    { code: "12", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1f1c099993a3d774.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8131265bc4c64fbf.jpg" },
+    { code: "13", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8b516a6d49d330b5.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0b38d0fda7a57d1f.jpg" },
+    { code: "14", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfe31ca1dba5c2610.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t17ff27defa0022b9.jpg" },
+    { code: "15", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t62bc83cf8d7026cb.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfb06efd104e1fcc0.jpg" },
+    { code: "2", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t5f8ab6691d211623.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9b1c37eeb17d3693.jpg" },
+    { code: "3", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1a30d3a35534feec.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1fdf04e79a61d5ed.jpg" },
+    { code: "4", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t03b5a82f305ee506.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb91308eb655ef52e.jpg" },
+    { code: "5", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc6a4c024068862d2.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2d8d9f4c253ba6b2.jpg" },
+    { code: "6", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t886fcd9fc535d354.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc464971278671ee7.jpg" },
+    { code: "7", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1f7a82cd181a914b.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te679cce95c0c10e5.jpg" },
+    { code: "8", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4b3c9bf0ab291c76.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t668402f24e15e4ce.jpg" },
+    { code: "9", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2f607992556a7d2d.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t843a05ba466bdbb3.jpg" }
   ],
   "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1": [
-    { code: "PES2", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t77244e4fd2331431.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tf1503ccd74e74267.jpg" },
-    { code: "PES3", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc132f79a910cedaf.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0a3c866cebb0f7ea.jpg" },
-    { code: "PES4", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te8f61760afc6a0b7.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t97b51774dce7522c.jpg" },
-    { code: "PES5", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tf0381ae5cd0f4595.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2ce1313e82b0bf9c.jpg" },
-    { code: "PES6", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4225053cfbd5ea08.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t77e5e3e37e15eba5.jpg" }
+    { code: "PES2", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t77244e4fd2331431.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tf1503ccd74e74267.jpg" },
+    { code: "PES3", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc132f79a910cedaf.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0a3c866cebb0f7ea.jpg" },
+    { code: "PES4", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te8f61760afc6a0b7.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t97b51774dce7522c.jpg" },
+    { code: "PES5", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tf0381ae5cd0f4595.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2ce1313e82b0bf9c.jpg" },
+    { code: "PES6", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4225053cfbd5ea08.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t77e5e3e37e15eba5.jpg" }
   ]
 };
 var MATERIAL_ORDER = [
@@ -24808,46 +24808,46 @@ var MATERIAL_DESCRIPTIONS = {
   "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": "Dvojfarebn\xFD efekt pre \u0161t\xFDlovej\u0161\xED vzh\u013Ead interi\xE9ru."
 };
 var LEMOVANIE = [
-  { code: "01", name: "\u010Cierna + B\xE9\u017Eov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8cd5b7dd871c7d37.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t353eac4f6e2fed27.png" },
-  { code: "02", name: "\u010Cierna + \u0160ed\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t5d2273518a7d03f8.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t65dfa103b6fc5c04.png" },
-  { code: "03", name: "\u010Cierna + Grafitov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb23f7f2a9337c47d.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t718fe120effd7b36.png" },
-  { code: "04", name: "\u010Cierna + \u010Cerven\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t08b2c2399b439af8.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0b02d8db6ee469d1.png" },
-  { code: "05", name: "\u010Cierna + Bordov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t235c691ebe554953.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcac87c5af6e1c9a8.png" },
-  { code: "06", name: "\u010Cierna + Modr\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td153a83b797b61f5.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tda3375b84f071e71.png" },
-  { code: "07", name: "\u010Cierna + Zelen\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td19269a158a9fe4a.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9e4085eceed2bea8.png" },
-  { code: "08", name: "\u010Cierna + Hned\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/teabe8146719a305d.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t08325b69dc4beed4.png" },
-  { code: "09", name: "\u010Cierna + \u010Cierna", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcd8a3bba4fa4b28e.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t47458e405e4075ef.png" },
-  { code: "10", name: "B\xE9\u017Eov\xE1 + Modr\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7cdffaf0dc4420e9.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tad5d5768523d63dc.png" },
-  { code: "11", name: "B\xE9\u017Eov\xE1 + Hned\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfaeac0c543f1b878.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcc199b3b006ab1a3.png" },
-  { code: "12", name: "B\xE9\u017Eov\xE1 + \u010Cerven\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc8cc61dfa37ba5db.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta45e72b6236e2b1e.png" },
-  { code: "13", name: "Hned\xE1 + B\xE9\u017Eov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t961e3c232fb27023.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta54d3d1d54081e28.png" }
+  { code: "01", name: "\u010Cierna + B\xE9\u017Eov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8cd5b7dd871c7d37.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t353eac4f6e2fed27.png" },
+  { code: "02", name: "\u010Cierna + \u0160ed\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t5d2273518a7d03f8.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t65dfa103b6fc5c04.png" },
+  { code: "03", name: "\u010Cierna + Grafitov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb23f7f2a9337c47d.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t718fe120effd7b36.png" },
+  { code: "04", name: "\u010Cierna + \u010Cerven\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t08b2c2399b439af8.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0b02d8db6ee469d1.png" },
+  { code: "05", name: "\u010Cierna + Bordov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t235c691ebe554953.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcac87c5af6e1c9a8.png" },
+  { code: "06", name: "\u010Cierna + Modr\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td153a83b797b61f5.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tda3375b84f071e71.png" },
+  { code: "07", name: "\u010Cierna + Zelen\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td19269a158a9fe4a.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9e4085eceed2bea8.png" },
+  { code: "08", name: "\u010Cierna + Hned\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/teabe8146719a305d.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t08325b69dc4beed4.png" },
+  { code: "09", name: "\u010Cierna + \u010Cierna", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcd8a3bba4fa4b28e.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t47458e405e4075ef.png" },
+  { code: "10", name: "B\xE9\u017Eov\xE1 + Modr\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7cdffaf0dc4420e9.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tad5d5768523d63dc.png" },
+  { code: "11", name: "B\xE9\u017Eov\xE1 + Hned\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfaeac0c543f1b878.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcc199b3b006ab1a3.png" },
+  { code: "12", name: "B\xE9\u017Eov\xE1 + \u010Cerven\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc8cc61dfa37ba5db.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta45e72b6236e2b1e.png" },
+  { code: "13", name: "Hned\xE1 + B\xE9\u017Eov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t961e3c232fb27023.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta54d3d1d54081e28.png" }
 ];
 var NASIVKY = [
-  { code: "H1", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t97aba50e89494538.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tae6af2a2426f3396.png" },
-  { code: "H2", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tefdfbcaa49c586de.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t88cd60ff4179cd60.png" },
-  { code: "H3", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3a7f2ecdc2ae06f3.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te5281b4dc864e342.png" },
-  { code: "H4", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t782b9d55b443142b.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfd63103ea75e08a4.png" },
-  { code: "H5", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td99b76208d7d97db.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t953ee53e6ef7fc50.png" },
-  { code: "H6", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tdc6ca6b6c655f185.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t835e56cd8cff04c2.png" },
-  { code: "H7", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t13e4e576fa722665.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t18bba598907f12c0.png" },
-  { code: "H8", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfe8d5bf5f95cae08.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8d4cbf08d914fcd7.png" },
-  { code: "H9", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbe9ef9df3cc78198.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t02065da04d45b21c.png" },
-  { code: "H10", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t023eea1802bc4a3a.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t152d539643aec880.png" },
-  { code: "H11", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t362fc49cb1cad159.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3203796236c251.png" },
-  { code: "H12", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t18e93d5020621814.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3f7859d64f7a43be.png" },
-  { code: "H15", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta80db3a2f86e9750.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc731364614d4135d.png" },
-  { code: "H16", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t80f7f32aca53fad7.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8625f632250c0b3c.png" },
-  { code: "H17", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tef23e2e366c78310.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3c8c42b6dcd0ecc0.png" },
-  { code: "H18", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7e67f725075ea44b.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1dc00f58e2c8fd92.png" },
-  { code: "H19", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbaed0fcf26e0755f.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t5d1a5bb38fb3d278.png" },
-  { code: "H21", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta7694a7fb98ce642.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t763e4244ae30e974.png" },
-  { code: "H23", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0af786a945838e5d.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t89ffba643e72778b.png" },
-  { code: "H24", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1e1ec0dfc2602d62.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t58c10a630f2960c5.png" },
-  { code: "H25", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta8f936f019bebe61.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8cc35e39496af51a.png" },
-  { code: "H26", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t88c7848a702e5745.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t172d8e7f5f88700d.png" },
-  { code: "N1", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t39963bf133e59132.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbe16336055795dd3.png" },
-  { code: "N2", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t6dc097b8e05eddff.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0c37994928748c3d.png" },
-  { code: "N33", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9095f5d3730395c4.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t23288d73822219ed.png" }
+  { code: "H1", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t97aba50e89494538.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tae6af2a2426f3396.png" },
+  { code: "H2", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tefdfbcaa49c586de.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t88cd60ff4179cd60.png" },
+  { code: "H3", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3a7f2ecdc2ae06f3.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te5281b4dc864e342.png" },
+  { code: "H4", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t782b9d55b443142b.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfd63103ea75e08a4.png" },
+  { code: "H5", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td99b76208d7d97db.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t953ee53e6ef7fc50.png" },
+  { code: "H6", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tdc6ca6b6c655f185.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t835e56cd8cff04c2.png" },
+  { code: "H7", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t13e4e576fa722665.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t18bba598907f12c0.png" },
+  { code: "H8", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfe8d5bf5f95cae08.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8d4cbf08d914fcd7.png" },
+  { code: "H9", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbe9ef9df3cc78198.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t02065da04d45b21c.png" },
+  { code: "H10", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t023eea1802bc4a3a.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t152d539643aec880.png" },
+  { code: "H11", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t362fc49cb1cad159.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3203796236c251.png" },
+  { code: "H12", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t18e93d5020621814.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3f7859d64f7a43be.png" },
+  { code: "H15", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta80db3a2f86e9750.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc731364614d4135d.png" },
+  { code: "H16", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t80f7f32aca53fad7.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8625f632250c0b3c.png" },
+  { code: "H17", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tef23e2e366c78310.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3c8c42b6dcd0ecc0.png" },
+  { code: "H18", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7e67f725075ea44b.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1dc00f58e2c8fd92.png" },
+  { code: "H19", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbaed0fcf26e0755f.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t5d1a5bb38fb3d278.png" },
+  { code: "H21", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta7694a7fb98ce642.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t763e4244ae30e974.png" },
+  { code: "H23", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0af786a945838e5d.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t89ffba643e72778b.png" },
+  { code: "H24", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1e1ec0dfc2602d62.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t58c10a630f2960c5.png" },
+  { code: "H25", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta8f936f019bebe61.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8cc35e39496af51a.png" },
+  { code: "H26", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t88c7848a702e5745.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t172d8e7f5f88700d.png" },
+  { code: "N1", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t39963bf133e59132.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbe16336055795dd3.png" },
+  { code: "N2", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t6dc097b8e05eddff.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0c37994928748c3d.png" },
+  { code: "N33", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9095f5d3730395c4.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t23288d73822219ed.png" }
 ];
 function ChevronDown({ open }) {
   return /* @__PURE__ */ import_react.default.createElement(
@@ -24995,17 +24995,17 @@ function AccordionSection({ number, title, subtitle, open, done, onClick, childr
   } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: open ? 24 : "0 24px" } }, open && children)));
 }
 var NITE_FARBY = [
-  { code: "2999", name: "\u010Cierna", color: "#2a2a2a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0acce9f17551e29f.png" },
-  { code: "2901", name: "Strieborn\xE1", color: "#b0b0b0", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td8ee3fd1a0b50dab.png" },
-  { code: "3738", name: "Svetlo siv\xE1", color: "#c0c0c0", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t78d15b62e1a030ca.png" },
-  { code: "3546", name: "B\xE9\u017Eov\xE1", color: "#dcc8a8", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcd2e0f71e407b924.png" },
-  { code: "3617", name: "Svetlohned\xE1", color: "#c9a06a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc98fe8c1e364f8b0.png" },
-  { code: "3504", name: "Tmavohned\xE1", color: "#5a3520", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te4aeb4ff47ef2df0.png" },
-  { code: "3501", name: "Hor\u010Dicov\xE1", color: "#c49a40", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta62c0658b9a9bd0a.png" },
-  { code: "2824", name: "\u010Cerven\xE1", color: "#c82030", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tba212aa970a65473.png" },
-  { code: "2866", name: "Fialov\xE1", color: "#6b3a6b", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t35343b64d55dbf32.png" },
-  { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
-  { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
+  { code: "2999", name: "\u010Cierna", color: "#2a2a2a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0acce9f17551e29f.png" },
+  { code: "2901", name: "Strieborn\xE1", color: "#b0b0b0", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td8ee3fd1a0b50dab.png" },
+  { code: "3738", name: "Svetlo siv\xE1", color: "#c0c0c0", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t78d15b62e1a030ca.png" },
+  { code: "3546", name: "B\xE9\u017Eov\xE1", color: "#dcc8a8", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcd2e0f71e407b924.png" },
+  { code: "3617", name: "Svetlohned\xE1", color: "#c9a06a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc98fe8c1e364f8b0.png" },
+  { code: "3504", name: "Tmavohned\xE1", color: "#5a3520", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te4aeb4ff47ef2df0.png" },
+  { code: "3501", name: "Hor\u010Dicov\xE1", color: "#c49a40", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta62c0658b9a9bd0a.png" },
+  { code: "2824", name: "\u010Cerven\xE1", color: "#c82030", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tba212aa970a65473.png" },
+  { code: "2866", name: "Fialov\xE1", color: "#6b3a6b", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t35343b64d55dbf32.png" },
+  { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
+  { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
 ];
 function detectLang() {
   if (typeof window === "undefined") return "sk";
@@ -25045,7 +25045,7 @@ var FALLBACK_PRICES = {
   NASIVKA_DVERE: 50,
   NASIVKA_DVERE_SAMO: 70
 };
-var PRICE_SUFFIX_RE = /\s*([+\-])\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(Kč|€|EUR|CZK)\s*$/i;
+var PRICE_SUFFIX_RE = /\s*([+\-])\s*(?:Kč|€|EUR|CZK)?\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(?:Kč|€|EUR|CZK)?\s*$/i;
 function _parseOptionPrice(text) {
   if (!text) return { price: 0, clean: "" };
   const trimmed = String(text).trim();
@@ -25131,13 +25131,13 @@ function readShoptetPrices(fallback) {
       stred: pick(nasBucket["Len stred"], fbNas.stred),
       boky: pick(nasBucket["\u0160of\xE9r + spolujazdec"], fbNas.boky),
       "boky+stred": pick(
-        nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? findByText(nasBucket, "\u0161of\xE9r", "spolujazdec", "stred"),
+        nasBucket["\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"] ?? nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? findByText(nasBucket, "\u0161of\xE9r", "spolujazdec", "stred"),
         fbNas["boky+stred"]
       )
     },
     NASIVKY_SAMO: fallback.NASIVKY_SAMO || {},
     TAPACIR_BUNDLE: pick(
-      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? findByText(tapBucket, "\xE1no", "bundle"),
+      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)"] ?? tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? findByText(tapBucket, "\xE1no", "bal\xEDk") ?? findByText(tapBucket, "\xE1no", "bundle"),
       fallback.TAPACIR_BUNDLE
     ),
     TAPACIR_SAMO: fallback.TAPACIR_SAMO,
@@ -25237,17 +25237,24 @@ function calculatePrice(state, PRICES) {
   const savings = Math.max(0, originalTotal - total);
   return { total, breakdown, savings, originalTotal };
 }
-var DOOR_PANEL_PHOTO = "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t894b009d54832cbd.png";
+var DOOR_PANEL_PHOTO = "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t894b009d54832cbd.png";
 function findMatchingOption(select, search) {
   if (!search) return null;
   const opts = select.querySelectorAll("option[value]");
   const searchNorm = String(search).trim().toLowerCase();
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*\d[\d\s]*\s*(Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
     if (t === searchNorm) return o;
   }
+  const swapNorm = searchNorm.includes("bal\xEDk") ? searchNorm.replace("bal\xEDk", "bundle") : searchNorm.includes("bundle") ? searchNorm.replace("bundle", "bal\xEDk") : null;
+  if (swapNorm) {
+    for (const o of opts) {
+      const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+      if (t === swapNorm) return o;
+    }
+  }
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*\d[\d\s]*\s*(Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
     if (t.includes(searchNorm) || searchNorm.includes(t)) return o;
   }
   return null;
@@ -25261,13 +25268,12 @@ function resolveValue(paramName, s) {
       nechcem: "Bez n\xE1\u0161iviek",
       stred: "Len stred",
       boky: "\u0160of\xE9r + spolujazdec",
-      "boky+stred": "\u0160of\xE9r + spolujazdec + stred (BUNDLE)"
+      "boky+stred": "\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"
     }[s.nasivkyPlacement] || null;
   }
   if (n === "tapac\xEDr" || n === "tapacir") {
-    if (s.doorPanelChoice === "ano") return "\xC1no chcem (v konfigur\xE1tore \u2013 bundle)";
-    if (s.doorPanelChoice === "nie") return "Nie nechcem tapac\xEDr dver\xED";
-    return null;
+    if (s.doorPanelChoice === "ano") return "\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)";
+    return "Nie nechcem tapac\xEDr dver\xED";
   }
   if (n === "n\xE1\u0161ivka dvere" || n === "nasivka dvere") {
     if (s.doorPanelChoice !== "ano") return "Nie nechcem n\xE1\u0161ivku na dver\xE1ch";
@@ -26272,8 +26278,8 @@ function Configurator() {
         whiteSpace: "nowrap"
       } }, "\u2212", PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"], " ", CURRENCY))
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 10 } }, [
-      { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky },
-      { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred },
+      { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky, rrp: PRICES.NASIVKY_SAMO.boky },
+      { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred, rrp: PRICES.NASIVKY_SAMO.stred },
       { id: "nechcem", label: "Bez n\xE1\u0161iviek", price: 0 }
     ].map((opt) => {
       const isActive = nasivkyPlacement === opt.id;
@@ -26328,11 +26334,11 @@ function Configurator() {
           }
         },
         /* @__PURE__ */ import_react.default.createElement("span", null, isActive && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), opt.label),
-        /* @__PURE__ */ import_react.default.createElement("span", { style: {
+        /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " $", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
           fontSize: 18,
           fontWeight: 800,
           color: opt.price > 0 ? "#2E1810" : "#888"
-        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene")
+        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " $", CURRENCY))
       );
     })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
@@ -26467,7 +26473,7 @@ function Configurator() {
     })), selectedNasivka && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-boky", style: { scrollMarginBottom: "25vh", marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 8, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "1px solid #ddd" } }, selectedNitColor ? /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react.default.createElement("img", { src: selectedNasivka.full, alt: selectedNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code))), selectedNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: {
       borderTop: "1px dashed #d4c488",
       margin: "24px 0 20px 0"
-    } }), selectedNasivka && /* @__PURE__ */ import_react.default.createElement(NitColorPicker, { label: "2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", questionNumber: 2, value: selectedNitColor, onChange: (v) => {
+    } }), /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-sub-4b2", style: { scrollMarginTop: 20 } }), selectedNasivka && /* @__PURE__ */ import_react.default.createElement(NitColorPicker, { label: "2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", questionNumber: 2, value: selectedNitColor, onChange: (v) => {
       setSelectedNitColor(v);
       setValidationErrors((e) => ({ ...e, nitColor: false }));
       if (!bokyNitScrolled) {
@@ -26686,7 +26692,7 @@ function Configurator() {
     }))), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-stred", style: { scrollMarginBottom: "25vh", marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 8, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "1px solid #ddd" } }, selectedStredNitColor ? /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react.default.createElement("img", { src: selectedStredNasivka.full, alt: selectedStredNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code))), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react.default.createElement("div", { style: {
       borderTop: "1px dashed #d4c488",
       margin: "24px 0 20px 0"
-    } }), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react.default.createElement(
+    } }), /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-sub-4c2", style: { scrollMarginTop: 20 } }), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react.default.createElement(
       NitColorPicker,
       {
         questionNumber: 2,
@@ -27612,7 +27618,13 @@ function Configurator() {
     doorPanelChoice && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
-        onClick: () => setOpenSection(0),
+        onClick: () => {
+          setOpenSection(0);
+          setTimeout(() => {
+            const el = document.getElementById("konfig-suhrn");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 300);
+        },
         style: {
           width: "100%",
           padding: "14px 0",
@@ -27630,7 +27642,7 @@ function Configurator() {
         onMouseOver: (e) => e.target.style.transform = "scale(1.01)",
         onMouseOut: (e) => e.target.style.transform = "scale(1)"
       },
-      "Dokon\u010Di\u0165 konfigur\xE1ciu \u2713"
+      "Prejs\u0165 na \u010Fal\u0161\xED krok \u2192"
     )
   ), /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-suhrn", style: {
     marginTop: 24,
@@ -27765,7 +27777,7 @@ function Configurator() {
           setOpenSection(4);
           setStep4Sub("boky");
           setTimeout(() => {
-            const el = document.getElementById("konfig-sub-4b");
+            const el = document.getElementById("konfig-sub-4b2") || document.getElementById("konfig-sub-4b");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
           }, 450);
           return;
@@ -27785,17 +27797,7 @@ function Configurator() {
           setOpenSection(4);
           setStep4Sub("stred");
           setTimeout(() => {
-            const el = document.getElementById("konfig-sub-4c");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
-          return;
-        }
-        if (doorPanelChoice === null) {
-          setValidationErrors({ step5sub: "5a", message: "Pros\xEDm, dokon\u010Dite krok 5 \u2014 vyberte, \u010Di chcete v\xFDplne dverov\xFDch panelov." });
-          setOpenSection(5);
-          setDoorStep5Sub("choice");
-          setTimeout(() => {
-            const el = document.getElementById("konfig-sub-5a");
+            const el = document.getElementById("konfig-sub-4c2") || document.getElementById("konfig-sub-4c");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
           }, 450);
           return;
@@ -27877,6 +27879,15 @@ function Configurator() {
           });
         } catch (err) {
           console.error("[truck-konfig] final sync zlyhal:", err);
+        }
+        const lcdUnfilled = Array.from(
+          document.querySelectorAll("select[data-parameter-id]")
+        ).filter((s) => s.required && !s.value);
+        if (lcdUnfilled.length) {
+          console.error(
+            "[truck-konfig] POVINN\xC9 selecty bez hodnoty \u2014 submit sa nevykon\xE1:",
+            lcdUnfilled.map((s) => s.dataset.parameterName || s.name)
+          );
         }
         const nativeBtn = document.querySelector('[data-testid="buttonAddToCart"]') || document.querySelector("button.add-to-cart-button") || document.querySelector(".add-to-cart-button");
         if (!nativeBtn) {
@@ -28106,57 +28117,57 @@ var FIELD_META2 = {
 var FIELD_ORDER2 = ["prevodovka", "sedadlo", "zasuvky", "brzda", "podlaha"];
 var MATERIALS2 = {
   "Mikrosemi\u0161 \u2013 jednofarebn\xFD": [
-    { code: "1NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t74e84ff1cbef77d2.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4e39131904cb5a1c.jpg" },
-    { code: "2NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4c8fac5b2e089427.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta7a6d458feb9b6cc.jpg" },
-    { code: "3NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9f2ce71b9ea9a0cb.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t973b34223983eacc.jpg" },
-    { code: "4NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7e490684c5cfb3d7.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t115d67261c502d47.jpg" },
-    { code: "5NUB", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta3c1e0db99eb4409.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te6d976d441141a05.jpg" }
+    { code: "1NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t74e84ff1cbef77d2.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4e39131904cb5a1c.jpg" },
+    { code: "2NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4c8fac5b2e089427.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta7a6d458feb9b6cc.jpg" },
+    { code: "3NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9f2ce71b9ea9a0cb.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t973b34223983eacc.jpg" },
+    { code: "4NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7e490684c5cfb3d7.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t115d67261c502d47.jpg" },
+    { code: "5NUB", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta3c1e0db99eb4409.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te6d976d441141a05.jpg" }
   ],
   "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": [
-    { code: "2N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t14ffc532d58baf8c.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t53ca6a0f2fcb0a10.jpg" },
-    { code: "3N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbba36859f6967aed.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t02a642474cb8c6bd.jpg" },
-    { code: "4N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t74392c518fc6ec1b.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t69943bafb228c8ad.jpg" },
-    { code: "5N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t52b6c137891c5863.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7bbced787e4a7daf.jpg" },
-    { code: "6N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb0ae3048c30a937f.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7400d0be7ba993c1.jpg" },
-    { code: "7N", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb7a10c5ed6ad891c.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0a63d8c78141af3b.jpg" }
+    { code: "2N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t14ffc532d58baf8c.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t53ca6a0f2fcb0a10.jpg" },
+    { code: "3N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbba36859f6967aed.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t02a642474cb8c6bd.jpg" },
+    { code: "4N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t74392c518fc6ec1b.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t69943bafb228c8ad.jpg" },
+    { code: "5N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t52b6c137891c5863.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7bbced787e4a7daf.jpg" },
+    { code: "6N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb0ae3048c30a937f.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7400d0be7ba993c1.jpg" },
+    { code: "7N", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb7a10c5ed6ad891c.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0a63d8c78141af3b.jpg" }
   ],
   "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": [
-    { code: "10G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9e11360c8b5b33f2.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3e47c28253d486bf.jpg" },
-    { code: "11G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tba7fac3d76222872.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t24b3f5cb859e77d3.jpg" },
-    { code: "12G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t78c3b5a4253754a4.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7a764b16123d98a3.jpg" },
-    { code: "13G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t82d11db508e728b1.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta153addec6a8283e.jpg" },
-    { code: "1G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta8e3c50870857155.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8394fa2fda6eb360.jpg" },
-    { code: "2G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2994f34d4cd53d21.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t02c7c9a827a2bbc9.jpg" },
-    { code: "3G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t6d6715bc70f7d5f4.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0f8b0f0f7051239a.jpg" },
-    { code: "4G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3c512732d75fa7.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tf755c78a1ce50400.jpg" },
-    { code: "5G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tac00c31fd8a5f219.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t51297446ab803c6e.jpg" },
-    { code: "6G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/taea811c46742e0f3.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbc00e77770ca0c02.jpg" },
-    { code: "7G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb63fbc08be84eb79.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8d52d44ad793c32f.jpg" },
-    { code: "8G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcdc846ecc726e2a8.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t6e91f296f502914d.jpg" },
-    { code: "9G", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcd5917f59b3a5564.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td7dcfb1aa59d4d4e.jpg" }
+    { code: "10G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9e11360c8b5b33f2.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3e47c28253d486bf.jpg" },
+    { code: "11G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tba7fac3d76222872.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t24b3f5cb859e77d3.jpg" },
+    { code: "12G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t78c3b5a4253754a4.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7a764b16123d98a3.jpg" },
+    { code: "13G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t82d11db508e728b1.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta153addec6a8283e.jpg" },
+    { code: "1G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta8e3c50870857155.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8394fa2fda6eb360.jpg" },
+    { code: "2G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2994f34d4cd53d21.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t02c7c9a827a2bbc9.jpg" },
+    { code: "3G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t6d6715bc70f7d5f4.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0f8b0f0f7051239a.jpg" },
+    { code: "4G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3c512732d75fa7.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tf755c78a1ce50400.jpg" },
+    { code: "5G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tac00c31fd8a5f219.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t51297446ab803c6e.jpg" },
+    { code: "6G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taea811c46742e0f3.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbc00e77770ca0c02.jpg" },
+    { code: "7G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb63fbc08be84eb79.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8d52d44ad793c32f.jpg" },
+    { code: "8G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcdc846ecc726e2a8.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t6e91f296f502914d.jpg" },
+    { code: "9G", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcd5917f59b3a5564.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td7dcfb1aa59d4d4e.jpg" }
   ],
   "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1": [
-    { code: "10", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te9ac7f5351b68e09.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te69da20aa41cfff3.jpg" },
-    { code: "11", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t353babf7c464a09d.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te336d117c5367d5e.jpg" },
-    { code: "12", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1f1c099993a3d774.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8131265bc4c64fbf.jpg" },
-    { code: "13", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8b516a6d49d330b5.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0b38d0fda7a57d1f.jpg" },
-    { code: "14", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfe31ca1dba5c2610.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t17ff27defa0022b9.jpg" },
-    { code: "15", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t62bc83cf8d7026cb.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfb06efd104e1fcc0.jpg" },
-    { code: "2", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t5f8ab6691d211623.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9b1c37eeb17d3693.jpg" },
-    { code: "3", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1a30d3a35534feec.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1fdf04e79a61d5ed.jpg" },
-    { code: "4", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t03b5a82f305ee506.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb91308eb655ef52e.jpg" },
-    { code: "5", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc6a4c024068862d2.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2d8d9f4c253ba6b2.jpg" },
-    { code: "6", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t886fcd9fc535d354.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc464971278671ee7.jpg" },
-    { code: "7", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1f7a82cd181a914b.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te679cce95c0c10e5.jpg" },
-    { code: "8", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4b3c9bf0ab291c76.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t668402f24e15e4ce.jpg" },
-    { code: "9", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2f607992556a7d2d.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t843a05ba466bdbb3.jpg" }
+    { code: "10", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te9ac7f5351b68e09.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te69da20aa41cfff3.jpg" },
+    { code: "11", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t353babf7c464a09d.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te336d117c5367d5e.jpg" },
+    { code: "12", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1f1c099993a3d774.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8131265bc4c64fbf.jpg" },
+    { code: "13", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8b516a6d49d330b5.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0b38d0fda7a57d1f.jpg" },
+    { code: "14", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfe31ca1dba5c2610.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t17ff27defa0022b9.jpg" },
+    { code: "15", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t62bc83cf8d7026cb.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfb06efd104e1fcc0.jpg" },
+    { code: "2", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t5f8ab6691d211623.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9b1c37eeb17d3693.jpg" },
+    { code: "3", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1a30d3a35534feec.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1fdf04e79a61d5ed.jpg" },
+    { code: "4", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t03b5a82f305ee506.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb91308eb655ef52e.jpg" },
+    { code: "5", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc6a4c024068862d2.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2d8d9f4c253ba6b2.jpg" },
+    { code: "6", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t886fcd9fc535d354.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc464971278671ee7.jpg" },
+    { code: "7", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1f7a82cd181a914b.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te679cce95c0c10e5.jpg" },
+    { code: "8", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4b3c9bf0ab291c76.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t668402f24e15e4ce.jpg" },
+    { code: "9", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2f607992556a7d2d.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t843a05ba466bdbb3.jpg" }
   ],
   "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1": [
-    { code: "PES2", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t77244e4fd2331431.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tf1503ccd74e74267.jpg" },
-    { code: "PES3", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc132f79a910cedaf.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0a3c866cebb0f7ea.jpg" },
-    { code: "PES4", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te8f61760afc6a0b7.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t97b51774dce7522c.jpg" },
-    { code: "PES5", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tf0381ae5cd0f4595.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t2ce1313e82b0bf9c.jpg" },
-    { code: "PES6", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t4225053cfbd5ea08.jpg", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t77e5e3e37e15eba5.jpg" }
+    { code: "PES2", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t77244e4fd2331431.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tf1503ccd74e74267.jpg" },
+    { code: "PES3", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc132f79a910cedaf.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0a3c866cebb0f7ea.jpg" },
+    { code: "PES4", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te8f61760afc6a0b7.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t97b51774dce7522c.jpg" },
+    { code: "PES5", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tf0381ae5cd0f4595.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t2ce1313e82b0bf9c.jpg" },
+    { code: "PES6", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t4225053cfbd5ea08.jpg", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t77e5e3e37e15eba5.jpg" }
   ]
 };
 var MATERIAL_ORDER2 = [
@@ -28174,46 +28185,46 @@ var MATERIAL_DESCRIPTIONS2 = {
   "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": "Dvojfarebn\xFD efekt pre \u0161t\xFDlovej\u0161\xED vzh\u013Ead interi\xE9ru."
 };
 var LEMOVANIE2 = [
-  { code: "01", name: "\u010Cierna + B\xE9\u017Eov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8cd5b7dd871c7d37.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t353eac4f6e2fed27.png" },
-  { code: "02", name: "\u010Cierna + \u0160ed\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t5d2273518a7d03f8.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t65dfa103b6fc5c04.png" },
-  { code: "03", name: "\u010Cierna + Grafitov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tb23f7f2a9337c47d.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t718fe120effd7b36.png" },
-  { code: "04", name: "\u010Cierna + \u010Cerven\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t08b2c2399b439af8.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0b02d8db6ee469d1.png" },
-  { code: "05", name: "\u010Cierna + Bordov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t235c691ebe554953.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcac87c5af6e1c9a8.png" },
-  { code: "06", name: "\u010Cierna + Modr\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td153a83b797b61f5.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tda3375b84f071e71.png" },
-  { code: "07", name: "\u010Cierna + Zelen\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td19269a158a9fe4a.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9e4085eceed2bea8.png" },
-  { code: "08", name: "\u010Cierna + Hned\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/teabe8146719a305d.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t08325b69dc4beed4.png" },
-  { code: "09", name: "\u010Cierna + \u010Cierna", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcd8a3bba4fa4b28e.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t47458e405e4075ef.png" },
-  { code: "10", name: "B\xE9\u017Eov\xE1 + Modr\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7cdffaf0dc4420e9.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tad5d5768523d63dc.png" },
-  { code: "11", name: "B\xE9\u017Eov\xE1 + Hned\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfaeac0c543f1b878.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcc199b3b006ab1a3.png" },
-  { code: "12", name: "B\xE9\u017Eov\xE1 + \u010Cerven\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc8cc61dfa37ba5db.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta45e72b6236e2b1e.png" },
-  { code: "13", name: "Hned\xE1 + B\xE9\u017Eov\xE1", swatch: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t961e3c232fb27023.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta54d3d1d54081e28.png" }
+  { code: "01", name: "\u010Cierna + B\xE9\u017Eov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8cd5b7dd871c7d37.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t353eac4f6e2fed27.png" },
+  { code: "02", name: "\u010Cierna + \u0160ed\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t5d2273518a7d03f8.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t65dfa103b6fc5c04.png" },
+  { code: "03", name: "\u010Cierna + Grafitov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tb23f7f2a9337c47d.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t718fe120effd7b36.png" },
+  { code: "04", name: "\u010Cierna + \u010Cerven\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t08b2c2399b439af8.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0b02d8db6ee469d1.png" },
+  { code: "05", name: "\u010Cierna + Bordov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t235c691ebe554953.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcac87c5af6e1c9a8.png" },
+  { code: "06", name: "\u010Cierna + Modr\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td153a83b797b61f5.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tda3375b84f071e71.png" },
+  { code: "07", name: "\u010Cierna + Zelen\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td19269a158a9fe4a.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9e4085eceed2bea8.png" },
+  { code: "08", name: "\u010Cierna + Hned\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/teabe8146719a305d.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t08325b69dc4beed4.png" },
+  { code: "09", name: "\u010Cierna + \u010Cierna", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcd8a3bba4fa4b28e.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t47458e405e4075ef.png" },
+  { code: "10", name: "B\xE9\u017Eov\xE1 + Modr\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7cdffaf0dc4420e9.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tad5d5768523d63dc.png" },
+  { code: "11", name: "B\xE9\u017Eov\xE1 + Hned\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfaeac0c543f1b878.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcc199b3b006ab1a3.png" },
+  { code: "12", name: "B\xE9\u017Eov\xE1 + \u010Cerven\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc8cc61dfa37ba5db.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta45e72b6236e2b1e.png" },
+  { code: "13", name: "Hned\xE1 + B\xE9\u017Eov\xE1", swatch: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t961e3c232fb27023.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta54d3d1d54081e28.png" }
 ];
 var NASIVKY2 = [
-  { code: "H1", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t97aba50e89494538.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tae6af2a2426f3396.png" },
-  { code: "H2", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tefdfbcaa49c586de.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t88cd60ff4179cd60.png" },
-  { code: "H3", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3a7f2ecdc2ae06f3.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te5281b4dc864e342.png" },
-  { code: "H4", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t782b9d55b443142b.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfd63103ea75e08a4.png" },
-  { code: "H5", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td99b76208d7d97db.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t953ee53e6ef7fc50.png" },
-  { code: "H6", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tdc6ca6b6c655f185.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t835e56cd8cff04c2.png" },
-  { code: "H7", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t13e4e576fa722665.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t18bba598907f12c0.png" },
-  { code: "H8", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tfe8d5bf5f95cae08.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8d4cbf08d914fcd7.png" },
-  { code: "H9", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbe9ef9df3cc78198.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t02065da04d45b21c.png" },
-  { code: "H10", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t023eea1802bc4a3a.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t152d539643aec880.png" },
-  { code: "H11", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t362fc49cb1cad159.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3203796236c251.png" },
-  { code: "H12", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t18e93d5020621814.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3f7859d64f7a43be.png" },
-  { code: "H15", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta80db3a2f86e9750.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc731364614d4135d.png" },
-  { code: "H16", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t80f7f32aca53fad7.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8625f632250c0b3c.png" },
-  { code: "H17", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tef23e2e366c78310.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t3c8c42b6dcd0ecc0.png" },
-  { code: "H18", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t7e67f725075ea44b.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1dc00f58e2c8fd92.png" },
-  { code: "H19", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbaed0fcf26e0755f.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t5d1a5bb38fb3d278.png" },
-  { code: "H21", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta7694a7fb98ce642.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t763e4244ae30e974.png" },
-  { code: "H23", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0af786a945838e5d.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t89ffba643e72778b.png" },
-  { code: "H24", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t1e1ec0dfc2602d62.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t58c10a630f2960c5.png" },
-  { code: "H25", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta8f936f019bebe61.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t8cc35e39496af51a.png" },
-  { code: "H26", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t88c7848a702e5745.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t172d8e7f5f88700d.png" },
-  { code: "N1", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t39963bf133e59132.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tbe16336055795dd3.png" },
-  { code: "N2", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t6dc097b8e05eddff.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0c37994928748c3d.png" },
-  { code: "N33", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t9095f5d3730395c4.png", full: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t23288d73822219ed.png" }
+  { code: "H1", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t97aba50e89494538.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tae6af2a2426f3396.png" },
+  { code: "H2", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tefdfbcaa49c586de.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t88cd60ff4179cd60.png" },
+  { code: "H3", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3a7f2ecdc2ae06f3.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te5281b4dc864e342.png" },
+  { code: "H4", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t782b9d55b443142b.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfd63103ea75e08a4.png" },
+  { code: "H5", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td99b76208d7d97db.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t953ee53e6ef7fc50.png" },
+  { code: "H6", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tdc6ca6b6c655f185.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t835e56cd8cff04c2.png" },
+  { code: "H7", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t13e4e576fa722665.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t18bba598907f12c0.png" },
+  { code: "H8", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tfe8d5bf5f95cae08.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8d4cbf08d914fcd7.png" },
+  { code: "H9", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbe9ef9df3cc78198.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t02065da04d45b21c.png" },
+  { code: "H10", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t023eea1802bc4a3a.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t152d539643aec880.png" },
+  { code: "H11", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t362fc49cb1cad159.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3b3203796236c251.png" },
+  { code: "H12", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t18e93d5020621814.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3f7859d64f7a43be.png" },
+  { code: "H15", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta80db3a2f86e9750.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc731364614d4135d.png" },
+  { code: "H16", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t80f7f32aca53fad7.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8625f632250c0b3c.png" },
+  { code: "H17", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tef23e2e366c78310.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t3c8c42b6dcd0ecc0.png" },
+  { code: "H18", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t7e67f725075ea44b.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1dc00f58e2c8fd92.png" },
+  { code: "H19", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbaed0fcf26e0755f.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t5d1a5bb38fb3d278.png" },
+  { code: "H21", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta7694a7fb98ce642.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t763e4244ae30e974.png" },
+  { code: "H23", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0af786a945838e5d.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t89ffba643e72778b.png" },
+  { code: "H24", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t1e1ec0dfc2602d62.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t58c10a630f2960c5.png" },
+  { code: "H25", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta8f936f019bebe61.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t8cc35e39496af51a.png" },
+  { code: "H26", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t88c7848a702e5745.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t172d8e7f5f88700d.png" },
+  { code: "N1", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t39963bf133e59132.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tbe16336055795dd3.png" },
+  { code: "N2", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t6dc097b8e05eddff.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0c37994928748c3d.png" },
+  { code: "N33", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t9095f5d3730395c4.png", full: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t23288d73822219ed.png" }
 ];
 function ChevronDown2({ open }) {
   return /* @__PURE__ */ import_react2.default.createElement(
@@ -28363,17 +28374,17 @@ function AccordionSection2({ number, title, subtitle, open, done, onClick, child
   } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: open ? 24 : "0 24px" } }, open && children)));
 }
 var NITE_FARBY2 = [
-  { code: "2999", name: "\u010Cierna", color: "#2a2a2a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t0acce9f17551e29f.png" },
-  { code: "2901", name: "Strieborn\xE1", color: "#b0b0b0", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/td8ee3fd1a0b50dab.png" },
-  { code: "3738", name: "Svetlo siv\xE1", color: "#c0c0c0", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t78d15b62e1a030ca.png" },
-  { code: "3546", name: "B\xE9\u017Eov\xE1", color: "#dcc8a8", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tcd2e0f71e407b924.png" },
-  { code: "3617", name: "Svetlohned\xE1", color: "#c9a06a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tc98fe8c1e364f8b0.png" },
-  { code: "3504", name: "Tmavohned\xE1", color: "#5a3520", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/te4aeb4ff47ef2df0.png" },
-  { code: "3501", name: "Hor\u010Dicov\xE1", color: "#c49a40", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta62c0658b9a9bd0a.png" },
-  { code: "2824", name: "\u010Cerven\xE1", color: "#c82030", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/tba212aa970a65473.png" },
-  { code: "2866", name: "Fialov\xE1", color: "#6b3a6b", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t35343b64d55dbf32.png" },
-  { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
-  { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
+  { code: "2999", name: "\u010Cierna", color: "#2a2a2a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0acce9f17551e29f.png" },
+  { code: "2901", name: "Strieborn\xE1", color: "#b0b0b0", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/td8ee3fd1a0b50dab.png" },
+  { code: "3738", name: "Svetlo siv\xE1", color: "#c0c0c0", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t78d15b62e1a030ca.png" },
+  { code: "3546", name: "B\xE9\u017Eov\xE1", color: "#dcc8a8", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tcd2e0f71e407b924.png" },
+  { code: "3617", name: "Svetlohned\xE1", color: "#c9a06a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tc98fe8c1e364f8b0.png" },
+  { code: "3504", name: "Tmavohned\xE1", color: "#5a3520", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/te4aeb4ff47ef2df0.png" },
+  { code: "3501", name: "Hor\u010Dicov\xE1", color: "#c49a40", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta62c0658b9a9bd0a.png" },
+  { code: "2824", name: "\u010Cerven\xE1", color: "#c82030", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/tba212aa970a65473.png" },
+  { code: "2866", name: "Fialov\xE1", color: "#6b3a6b", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t35343b64d55dbf32.png" },
+  { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
+  { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
 ];
 var FALLBACK_PRICES2 = {
   BASE: 199,
@@ -28399,7 +28410,7 @@ var FALLBACK_PRICES2 = {
   NASIVKA_DVERE: 50,
   NASIVKA_DVERE_SAMO: 70
 };
-var PRICE_SUFFIX_RE2 = /\s*([+\-])\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(Kč|€|EUR|CZK)\s*$/i;
+var PRICE_SUFFIX_RE2 = /\s*([+\-])\s*(?:Kč|€|EUR|CZK)?\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(?:Kč|€|EUR|CZK)?\s*$/i;
 function _parseOptionPrice2(text) {
   if (!text) return { price: 0, clean: "" };
   const trimmed = String(text).trim();
@@ -28485,13 +28496,13 @@ function readShoptetPrices2(fallback) {
       stred: pick(nasBucket["Len stred"], fbNas.stred),
       boky: pick(nasBucket["\u0160of\xE9r + spolujazdec"], fbNas.boky),
       "boky+stred": pick(
-        nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? findByText(nasBucket, "\u0161of\xE9r", "spolujazdec", "stred"),
+        nasBucket["\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"] ?? nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? findByText(nasBucket, "\u0161of\xE9r", "spolujazdec", "stred"),
         fbNas["boky+stred"]
       )
     },
     NASIVKY_SAMO: fallback.NASIVKY_SAMO || {},
     TAPACIR_BUNDLE: pick(
-      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? findByText(tapBucket, "\xE1no", "bundle"),
+      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)"] ?? tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? findByText(tapBucket, "\xE1no", "bal\xEDk") ?? findByText(tapBucket, "\xE1no", "bundle"),
       fallback.TAPACIR_BUNDLE
     ),
     TAPACIR_SAMO: fallback.TAPACIR_SAMO,
@@ -28591,17 +28602,24 @@ function calculatePrice2(state, PRICES) {
   const savings = Math.max(0, originalTotal - total);
   return { total, breakdown, savings, originalTotal };
 }
-var DOOR_PANEL_PHOTO2 = "https://www.luxurycardesign.cz/user/documents/upload/assets/config/t894b009d54832cbd.png";
+var DOOR_PANEL_PHOTO2 = "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t894b009d54832cbd.png";
 function findMatchingOption2(select, search) {
   if (!search) return null;
   const opts = select.querySelectorAll("option[value]");
   const searchNorm = String(search).trim().toLowerCase();
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*\d[\d\s]*\s*(Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
     if (t === searchNorm) return o;
   }
+  const swapNorm = searchNorm.includes("bal\xEDk") ? searchNorm.replace("bal\xEDk", "bundle") : searchNorm.includes("bundle") ? searchNorm.replace("bundle", "bal\xEDk") : null;
+  if (swapNorm) {
+    for (const o of opts) {
+      const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+      if (t === swapNorm) return o;
+    }
+  }
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*\d[\d\s]*\s*(Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
     if (t.includes(searchNorm) || searchNorm.includes(t)) return o;
   }
   return null;
@@ -28615,13 +28633,12 @@ function resolveValue2(paramName, s) {
       nechcem: "Bez n\xE1\u0161iviek",
       stred: "Len stred",
       boky: "\u0160of\xE9r + spolujazdec",
-      "boky+stred": "\u0160of\xE9r + spolujazdec + stred (BUNDLE)"
+      "boky+stred": "\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"
     }[s.nasivkyPlacement] || null;
   }
   if (n === "tapac\xEDr" || n === "tapacir") {
-    if (s.doorPanelChoice === "ano") return "\xC1no chcem (v konfigur\xE1tore \u2013 bundle)";
-    if (s.doorPanelChoice === "nie") return "Nie nechcem tapac\xEDr dver\xED";
-    return null;
+    if (s.doorPanelChoice === "ano") return "\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)";
+    return "Nie nechcem tapac\xEDr dver\xED";
   }
   if (n === "n\xE1\u0161ivka dvere" || n === "nasivka dvere") {
     if (s.doorPanelChoice !== "ano") return "Nie nechcem n\xE1\u0161ivku na dver\xE1ch";
@@ -29772,8 +29789,8 @@ function Configurator2() {
         whiteSpace: "nowrap"
       } }, "\xDASPORA ", PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"], " \u20AC"))
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 10 } }, [
-      { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky },
-      { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred },
+      { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky, rrp: PRICES.NASIVKY_SAMO.boky },
+      { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred, rrp: PRICES.NASIVKY_SAMO.stred },
       { id: "nechcem", label: "Bez n\xE1\u0161iviek", price: 0 }
     ].map((opt) => {
       const isActive = nasivkyPlacement === opt.id;
@@ -29828,11 +29845,11 @@ function Configurator2() {
           }
         },
         /* @__PURE__ */ import_react2.default.createElement("span", null, isActive && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), opt.label),
-        /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+        /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
           fontSize: 18,
           fontWeight: 800,
           color: opt.price > 0 ? "#2E1810" : "#888"
-        } }, opt.price > 0 ? `+ ${opt.price} \u20AC` : "v cene")
+        } }, opt.price > 0 ? `+ ${opt.price} \u20AC` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " \u20AC"))
       );
     })))), false),
     (nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && /* @__PURE__ */ import_react2.default.createElement(import_react2.default.Fragment, null, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -29929,7 +29946,7 @@ function Configurator2() {
     })), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-boky", style: { scrollMarginBottom: "25vh", marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, selectedNitColor ? /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react2.default.createElement("img", { src: selectedNasivka.full, alt: selectedNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code))), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
       borderTop: "1px dashed #d4c488",
       margin: "24px 0 20px 0"
-    } }), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement(NitColorPicker, { label: "2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", questionNumber: 2, value: selectedNitColor, onChange: (v) => {
+    } }), /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-sub-4b2", style: { scrollMarginTop: 20 } }), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement(NitColorPicker, { label: "2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", questionNumber: 2, value: selectedNitColor, onChange: (v) => {
       setSelectedNitColor(v);
       setValidationErrors((e) => ({ ...e, nitColor: false }));
       if (!bokyNitScrolled) {
@@ -30136,7 +30153,7 @@ function Configurator2() {
     }))), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-stred", style: { scrollMarginBottom: "25vh", marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, selectedStredNitColor ? /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react2.default.createElement("img", { src: selectedStredNasivka.full, alt: selectedStredNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code))), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
       borderTop: "1px dashed #d4c488",
       margin: "24px 0 20px 0"
-    } }), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react2.default.createElement(
+    } }), /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-sub-4c2", style: { scrollMarginTop: 20 } }), selectedStredNasivka && !stredSameAsSide && /* @__PURE__ */ import_react2.default.createElement(
       NitColorPicker,
       {
         questionNumber: 2,
@@ -31111,7 +31128,13 @@ function Configurator2() {
     doorPanelChoice && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
-        onClick: () => setOpenSection(0),
+        onClick: () => {
+          setOpenSection(0);
+          setTimeout(() => {
+            const el = document.getElementById("konfig-suhrn");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 300);
+        },
         style: {
           width: "100%",
           padding: "14px 0",
@@ -31129,7 +31152,7 @@ function Configurator2() {
         onMouseOver: (e) => e.target.style.transform = "scale(1.01)",
         onMouseOut: (e) => e.target.style.transform = "scale(1)"
       },
-      "Dokon\u010Di\u0165 konfigur\xE1ciu \u2713"
+      "Prejs\u0165 na \u010Fal\u0161\xED krok \u2192"
     )
   ), /* @__PURE__ */ import_react2.default.createElement("details", { id: "konfig-suhrn", className: "konfig-suhrn-details", style: {
     marginTop: 16,
@@ -31304,7 +31327,7 @@ function Configurator2() {
           setOpenSection(4);
           setStep4Sub("boky");
           setTimeout(() => {
-            const el = document.getElementById("konfig-sub-4b");
+            const el = document.getElementById("konfig-sub-4b2") || document.getElementById("konfig-sub-4b");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
           }, 450);
           return;
@@ -31324,17 +31347,7 @@ function Configurator2() {
           setOpenSection(4);
           setStep4Sub("stred");
           setTimeout(() => {
-            const el = document.getElementById("konfig-sub-4c");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
-          return;
-        }
-        if (doorPanelChoice === null) {
-          setValidationErrors({ step5sub: "5a", message: "Pros\xEDm, dokon\u010Dite krok 5 \u2014 vyberte, \u010Di chcete v\xFDplne dverov\xFDch panelov." });
-          setOpenSection(5);
-          setDoorStep5Sub("choice");
-          setTimeout(() => {
-            const el = document.getElementById("konfig-sub-5a");
+            const el = document.getElementById("konfig-sub-4c2") || document.getElementById("konfig-sub-4c");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
           }, 450);
           return;
@@ -31416,6 +31429,15 @@ function Configurator2() {
           });
         } catch (err) {
           console.error("[truck-konfig] final sync zlyhal:", err);
+        }
+        const lcdUnfilled = Array.from(
+          document.querySelectorAll("select[data-parameter-id]")
+        ).filter((s) => s.required && !s.value);
+        if (lcdUnfilled.length) {
+          console.error(
+            "[truck-konfig] POVINN\xC9 selecty bez hodnoty \u2014 submit sa nevykon\xE1:",
+            lcdUnfilled.map((s) => s.dataset.parameterName || s.name)
+          );
         }
         const nativeBtn = document.querySelector('[data-testid="buttonAddToCart"]') || document.querySelector("button.add-to-cart-button") || document.querySelector(".add-to-cart-button");
         if (!nativeBtn) {
@@ -35323,7 +35345,9 @@ function applyLivePrice() {
   const total = basePrice + surcharge;
   const $holder = $(PRICE_HOLDER_SEL).first();
   if (!$holder.length) return;
-  $holder.text(formatPrice(total));
+  const $inner = $holder.find(".calculated-price");
+  if ($inner.length) $inner.text(formatPrice(total));
+  else $holder.text(formatPrice(total));
   document.dispatchEvent(new CustomEvent("LuxuryCarPriceRecalculated", {
     detail: { basePrice, surcharge, total }
   }));

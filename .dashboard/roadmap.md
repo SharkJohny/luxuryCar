@@ -249,3 +249,68 @@ bundle. Nová, čistá implementácia:
       produkte (Shoptet ukáže chybu). + nativny $cart[0].click() namiesto
       jQuery trigger (garantovaný submit formulára)
 - [ ] Overiť na reálnom mobile: Prejsť do košíka → produkt v košíku
+- [x] test-truck.xml: nové ceny podľa cennik_konfigurator (1).xlsx (EUR×25 → CZK):
+      prešívaná 10€/250, tónovaná 40€/1000, mikrosemiš 40€/1000 a 50€/1250,
+      nášivky stred/predné 59€/1475, bundle 95€/2375, tapacír 119€/2975,
+      nášivka dvere 49€/1225. Base 199€/4975 bez zmeny. RELAX NG validuje.
+- [x] test-truck.xml: prevod na EUR (slovenský shop) — import padal na
+      "Invalid currency 'CZK' of surcharge parameter". Všetkých 20 CURRENCY
+      tagov CZK→EUR, ceny priamo z ceníka v €: base 199, prešívaná 10,
+      tónovaná 40, mikrosemiš 40/50, nášivky 59/59/95, tapacír 119,
+      nášivka dvere 49. RELAX NG validuje.
+
+## Truck konfigurátor — pripomienky klienta (kamiony pripomienky.odt, 18.7.2026)
+- [x] Bod 2 ceny VRÁTENÉ na ceníkové (Jan: "ceny neupravovat, sú presne
+      z ceníka") — XML 59/59/95, fallback 70/70/100. Strikethrough UI na
+      kartách B/C ponechaný (zobrazí sa, len keď rrp > cena). Ak klient na
+      139/89/59 trvá, mení sa ceník/admin, nie kód.
+- [x] FIX po bode 7: preskočený krok 5 nechával POVINNÝ Shoptet select
+      "Tapacír" prázdny → natívne Pridať do košíka potichu zlyhalo.
+      resolveValue: null = "Nie nechcem tapacír dverí".
+- [x] Bod 4b: „bundle" → „balík" (TEXTS, sync texty, pricing bucket kľúče
+      s BUNDLE fallbackom, findMatchingOption tolerantný na obe slová,
+      test-truck.xml). POZOR: premenovať aj option texty v Shoptet admine
+      produkčného produktu (id 883), inak košík ďalej píše „bundle".
+- [x] Bod 5: verifikácia chýbajúcej farby nite roluje priamo na výber farby
+      (nové kotvy konfig-sub-4b2 / 4c2), nie na vrch kroku 4/B / 4/C.
+- [x] Bod 6: krok 5 "áno" + Pridať do košíka → vynútené dokončenie všetkých
+      podkrokov 5b–5d (validačná reťaz už existovala; overiť na produkcii —
+      klient zrejme testoval starší build).
+- [x] Bod 7: krok 5 voliteľný — nič nevybraté/"nie" = rovno do košíka
+      (odstránený doorPanelChoice===null blocker).
+- [x] Bod 8: tlačidlo v kroku 5 „Dokončiť konfiguráciu ✓" → „Prejsť na ďalší
+      krok →" + scroll na cenový súhrn.
+- [x] Smoke test yarn truck:test — desktop aj phone mount OK.
+- [ ] Bod 1: CZ preklady celého konfigurátora (TEXTS pokrýva len časť UI;
+      treba obsahový prechod všetkých SK stringov v JSX) — VEĽKÁ úloha.
+- [ ] Bod 3: ceník riadený z klientovho excelu (cennik_konfigurator.xlsx →
+      Shoptet príplatky; pipeline SharkJohny/LuxuryCarExport) — mimo FE repo.
+- [ ] Bod 4a: „košík neprepisuje správne dáta" — treba od klienta konkrétny
+      príklad (ktorý parameter/hodnota), bez repro nefixovať naslepo.
+- [ ] Popisky (bod 8b): klient dodá texty a fotky — čaká sa na podklady.
+- [x] FIX writePrices TypeError (konzola klienta): livePrice.js prepisoval
+      .price-final-holder cez $holder.text() a ničil Shoptetov vnútorný
+      <span class="calculated-price"> — každý shoptet.surcharges.updatePrices
+      potom padal na null.textContent. Teraz píšeme do vnútorného spanu.
+- [x] FIX CORS obrázkov truck konfigurátora: IMG_BASE z absolútnej .cz URL
+      na RELATÍVNU /user/documents/upload/assets/config/ (na .sk shope
+      absolútna .cz padala na CORS pri canvas tintingu nášiviek).
+      TODO KLIENT/JAN: nahrať assets/img/truck/* do file managera .SK shopu
+      (assets/config/) — súbory sú zatiaľ len na .cz.
+- [ ] Košík "kliknutie nič neurobí": pridaná diagnostika pred submitom —
+      povinné Shoptet selecty bez hodnoty sa vypíšu do konzoly
+      ("[truck-konfig] POVINNÉ selecty bez hodnoty"). Po nasadení zopakovať
+      test a poslať výpis konzoly.
+- [x] E2E test košíka: nový test-truck-cart.mjs (jsdom + reálne selecty zo
+      živej stránky vrátane required a BUNDLE textov) — prejde kroky 1–4,
+      krok 5 nechá prázdny (bod 7), klikne košík. VÝSLEDOK OK: všetkých
+      6 povinných selectov naplnených, natívne tlačidlo kliknuté, žiadna
+      validačná hláška. Obrázky: preview audit 0 broken-image (CDN URL).
+- [x] ROOT CAUSE košíka nájdený E2E testom + konzolou klienta: required
+      select "Nášivky" ostal prázdny pri variante A — regex na odstrih
+      cenového suffixu nepoznal formát "+€95" (mena PRED číslom, Shoptet SK),
+      takže "(BALÍK)"/"(BUNDLE)" option sa nedala namatchovať. Opravené
+      v findMatchingOption (3×) aj PRICE_SUFFIX_RE (čítanie cien z DOM),
+      obe verzie. E2E test-truck-cart.mjs teraz prechádza BALÍK cestou:
+      Nášivky = "Šofér + spolujazdec + stred (BUNDLE) +€95" ✓, natívne
+      tlačidlo kliknuté ✓.
