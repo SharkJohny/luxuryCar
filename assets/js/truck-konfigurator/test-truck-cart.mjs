@@ -46,8 +46,10 @@ const dom = new JSDOM(
          <div class="add-to-cart">
            <button type="submit" class="btn btn-lg btn-conversion add-to-cart-button" data-testid="buttonAddToCart">Pridať do košíka</button>
          </div>
+         <!-- mount JE vo vnútri formu — presne ako na reálnej stránke;
+              button bez type=button by formulár odoslal (= pridal do košíka) -->
+         <div id="tk-mount"></div>
        </form>
-       <div id="tk-mount"></div>
      </div>
    </body></html>`,
   { url: "https://www.luxurycardesign.sk/luxusne-autokoberce-truck---test-konfigurator/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
@@ -62,6 +64,10 @@ win.scrollTo = () => {};
 let nativeClicked = 0;
 const nativeBtn = doc.querySelector('[data-testid="buttonAddToCart"]');
 nativeBtn.addEventListener("click", (e) => { nativeClicked++; e.preventDefault(); });
+// Náhodné odoslanie formu POČAS konfigurácie = bug "pridá do košíka na
+// štvrtom kroku" (button bez type vo forme je implicitne submit).
+let formSubmits = 0;
+doc.querySelector("form").addEventListener("submit", (e) => { formSubmits++; e.preventDefault(); });
 
 new win.Function(code + "\nwindow.__TK__ = __TK__;").call(win);
 win.__TK__.renderTruckConfigurator(doc.getElementById("tk-mount"));
@@ -189,6 +195,11 @@ try {
   ok("krok 4: variant A (boky+stred) + nášivka + niť");
 
   // ---- KROK 5: NECHÁVAME PRÁZDNY (klient bod 7)
+
+  // Do košíka sa NESMIE pridať nič počas konfigurácie (klient: "přidávat
+  // do košíku až na konci") — žiadny submit pred finálnym tlačidlom.
+  if (formSubmits > 0) fail(`form sa odoslal ${formSubmits}× UŽ POČAS konfigurácie (button bez type="button")`);
+  else ok("žiadny submit počas konfigurácie");
 
   // ---- PRIDAŤ DO KOŠÍKA (naše zelené tlačidlo s 🛒)
   mustClick(/🛒/, "🛒 Pridať do košíka");

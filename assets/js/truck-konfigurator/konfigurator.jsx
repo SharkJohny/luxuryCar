@@ -1061,6 +1061,14 @@ function resolveValue(paramName, s) {
 
 function syncToShoptet(state) {
   if (typeof document === "undefined") return { totalSelects: 0, matchedCount: 0, changed: false };
+  // Skutočná značka+model kamiónu sa do Shoptet selectu nedostane (Vozidlo má
+  // jedinú hodnotu "Vyberie sa v konfigurátore") — ulož do sessionStorage,
+  // košík (cart.js) ju odtiaľ zobrazí ako "Vozidlo: <značka model>".
+  try {
+    if (state.znacka && state.model) {
+      sessionStorage.setItem("truckVehicle", state.znacka + " " + state.model);
+    }
+  } catch (e) { /* private mode */ }
   const allSelects = document.querySelectorAll("select[data-parameter-id]");
   let changed = false;
   let matchedCount = 0;
@@ -1672,7 +1680,7 @@ function Configurator() {
 
         {/* Button to proceed */}
         {step1Done && (
-          <button
+          <button type="button"
             onClick={() => {
               setOpenSection(2);
               setTimeout(() => { const el = document.getElementById("konfig-step-2"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
@@ -1773,7 +1781,7 @@ function Configurator() {
 
             {/* Tlačidlo ďalej */}
             {selectedColor && (
-              <button
+              <button type="button"
                 onClick={() => {
                   setOpenSection(3);
                   setTimeout(() => { const el = document.getElementById("konfig-step-3"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
@@ -1868,7 +1876,7 @@ function Configurator() {
 
         {/* Tlačidlo ďalej */}
         {selectedLemovanie && (
-          <button
+          <button type="button"
             onClick={() => {
               setOpenSection(4);
               setTimeout(() => { const el = document.getElementById("konfig-step-4"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
@@ -2399,7 +2407,7 @@ function Configurator() {
 
                 {/* Tlačidlo na potvrdenie a prechod na stred */}
                 {selectedNasivka && selectedNitColor && nasivkyPlacement === "boky+stred" && (
-                  <button
+                  <button type="button"
                     onClick={() => {
                       setStep4Sub("stred");
                       setTimeout(() => { const el = document.getElementById("konfig-sub-4c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
@@ -2738,7 +2746,7 @@ function Configurator() {
           (nasivkyPlacement === "stred" && selectedStredNasivka) ||
           (nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka)
         ) && (
-          <button
+          <button type="button"
             onClick={() => {
               setOpenSection(5);
               setTimeout(() => { const el = document.getElementById("konfig-step-5"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
@@ -3093,7 +3101,7 @@ function Configurator() {
 
                 {/* Next step button */}
                 {doorColor && (
-                  <button
+                  <button type="button"
                     onClick={() => {
                       setDoorStep5Sub("lemovanie");
                       setTimeout(() => { const el = document.getElementById("konfig-sub-5c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
@@ -3273,7 +3281,7 @@ function Configurator() {
 
                     {/* Next step button */}
                     {doorLemovanie && (
-                      <button
+                      <button type="button"
                         onClick={() => setDoorStep5Sub("nasivky")}
                         style={{
                           width: "100%", padding: "12px 0", marginTop: 8,
@@ -3661,7 +3669,7 @@ function Configurator() {
 
 {/* Dokončiť button */}
         {doorPanelChoice && (
-          <button
+          <button type="button"
             onClick={() => { setOpenSection(0); setTimeout(() => { const el = document.getElementById("konfig-suhrn"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300); }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 16,
@@ -3793,7 +3801,7 @@ function Configurator() {
       )}
 
       <div style={{ marginTop: 16, display: "flex", justifyContent: "center" }}>
-        <button
+        <button type="button"
           onClick={() => {
             // Find ONLY the first incomplete step — mark just that one
             // Step 1

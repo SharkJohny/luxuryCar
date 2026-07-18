@@ -314,3 +314,15 @@ bundle. Nová, čistá implementácia:
       obe verzie. E2E test-truck-cart.mjs teraz prechádza BALÍK cestou:
       Nášivky = "Šofér + spolujazdec + stred (BUNDLE) +€95" ✓, natívne
       tlačidlo kliknuté ✓.
+- [x] FIX "pridá do košíka už na 4. kroku": React <button> bez type vo
+      vnútri Shoptet product formu je implicitne type=submit — každé
+      "Pokračovať" odoslalo formulár (viditeľné až po oprave Nášivky
+      selectu, dovtedy submit blokovala HTML5 validácia). Všetkých 9+11
+      buttonov v oboch verziách má teraz type="button". E2E rozšírený
+      o guard "žiadny submit počas konfigurácie" — prechádza.
+- [x] Košík truck/vzorkovník: riadky "Značka/Model/Rok/Typ: undefined" preč —
+      vypisujú sa len s reálnou hodnotou a len pre autokoberce. Truck riadok
+      má namiesto nich "Vozidlo: <značka model>" (konfigurátor ukladá vozidlo
+      do sessionStorage.truckVehicle; Shoptet select Vozidlo má len
+      placeholder). Placeholder bullety "… - Vyberie sa v konfigurátore" sa
+      u trucku skrývajú. Overené v preview košíku.

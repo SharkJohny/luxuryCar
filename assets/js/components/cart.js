@@ -80,12 +80,26 @@ function changeDescription() {
 
   $("span.main-link-surcharges").each(function () {
     const text = $(this).text().split(",");
+    // Truck produkt: vozidlo NIE je v sessionStorage (tú plní autokoberce
+    // konfigurátor), ale v surcharge parametri "Vozidlo: <značka model>".
+    const isTruckRow = /\btruck\b/i.test($(this).closest("tr").text() || "");
+    let truckVehicle = null;
     let newText = "";
     if (text.length > 1) {
       newText += "<ul>";
       $(text).each(function () {
         if (this.includes("TYP")) return;
-        newText += "<li>" + this.replace(/P[rř][ií]platky:\s*/gi, "") + "</li>";
+        const item = String(this).replace(/P[rř][ií]platky:\s*/gi, "").trim();
+        // "Vozidlo" u trucku vytiahni hore k modelu (nie medzi príplatky).
+        // Shoptet oddeľuje názov a hodnotu ":" alebo "-".
+        if (isTruckRow && /^Vozidlo\s*[-–:]/i.test(item)) {
+          truckVehicle = item.replace(/^Vozidlo\s*[-–:]\s*/i, "");
+          return;
+        }
+        // Placeholder hodnoty informačných parametrov trucku sú pre
+        // zákazníka bezvýznamné — skry ich.
+        if (isTruckRow && /Vyberie sa v konfigurátore/i.test(item)) return;
+        newText += "<li>" + item + "</li>";
       });
       newText += "</ul>";
     }
@@ -93,18 +107,26 @@ function changeDescription() {
     const infowrap = $("<div>").addClass("info-wrap");
     const model = $("<ul>").addClass("model").appendTo(infowrap);
     const setup = $("<div>").addClass("setup").appendTo(infowrap);
-    $("<li>")
-      .text("Značka: " + getBrand)
-      .appendTo(model);
-    $("<li  >")
-      .text("Model: " + getModel)
-      .appendTo(model);
-    $("<li>")
-      .text("Rok: " + getYear)
-      .appendTo(model);
-    $("<li>")
-      .text("Typ: " + getCarType)
-      .appendTo(model);
+    // Riadok pridaj LEN keď má skutočnú hodnotu — "Značka: undefined" u
+    // produktov bez auto-konfigurátora (truck, vzorkovník) nemá čo robiť.
+    const addLine = (label, value) => {
+      if (!value || value === "undefined" || value === "null") return;
+      $("<li>").text(label + ": " + value).appendTo(model);
+    };
+    if (isTruckRow) {
+      // Skutočnú značku+model ukladá truck konfigurátor do sessionStorage
+      // (Shoptet select "Vozidlo" má len placeholder hodnotu). Fallback:
+      // hodnota zo surcharge textu, ak by storage chýbala.
+      let ssVehicle = null;
+      try { ssVehicle = sessionStorage.getItem("truckVehicle"); } catch (e) { /* private mode */ }
+      if (truckVehicle && /Vyberie sa v konfigurátore/i.test(truckVehicle)) truckVehicle = null;
+      addLine("Vozidlo", ssVehicle || truckVehicle);
+    } else {
+      addLine("Značka", getBrand);
+      addLine("Model", getModel);
+      addLine("Rok", getYear);
+      addLine("Typ", getCarType);
+    }
     // Farba 1. a 2. vrstvy z variantu (span.main-link-variant) - nad priplatkami.
     var $variant = $(this).closest("tr").find("span.main-link-variant").first();
     var variantText = ($variant.text() || "").replace(/\s+/g, " ");

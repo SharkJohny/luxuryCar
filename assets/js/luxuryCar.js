@@ -25347,6 +25347,12 @@ function resolveValue(paramName, s) {
 }
 function syncToShoptet(state) {
   if (typeof document === "undefined") return { totalSelects: 0, matchedCount: 0, changed: false };
+  try {
+    if (state.znacka && state.model) {
+      sessionStorage.setItem("truckVehicle", state.znacka + " " + state.model);
+    }
+  } catch (e) {
+  }
   const allSelects = document.querySelectorAll("select[data-parameter-id]");
   let changed = false;
   let matchedCount = 0;
@@ -25911,6 +25917,7 @@ function Configurator() {
     step1Done && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(2);
           setTimeout(() => {
@@ -26014,6 +26021,7 @@ function Configurator() {
     })), selectedColor && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(3);
           setTimeout(() => {
@@ -26117,6 +26125,7 @@ function Configurator() {
     selectedLemovanie && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(4);
           setTimeout(() => {
@@ -26491,6 +26500,7 @@ function Configurator() {
     }, errorKey: "nitColor" }), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-boky-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code, " \xB7 ni\u0165: ", selectedNitColor.name))), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg4b", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat4b", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg4b)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 325 250 Q 390 185 505 170 L 680 170 Q 745 170 810 220 L 840 245 Q 860 255 900 255 Q 940 255 960 245 L 990 220 Q 1055 170 1120 170 L 1295 170 Q 1410 185 1475 250 Q 1510 290 1515 365 L 1555 865 Q 1560 950 1490 1005 Q 1445 1040 1330 1040 L 470 1040 Q 355 1040 310 1005 Q 240 950 245 865 L 285 365 Q 290 290 325 250 Z", fill: "url(#mat4b)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 720 182 Q 785 240 785 330 Q 790 375 835 390 L 965 390 Q 1010 375 1015 330 Q 1015 240 1080 182", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "355", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1120", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "1145", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), nasivkyPlacement === "boky+stred" && selectedStredNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedStredPreview || selectedStredNasivka.thumb, x: "740", y: "510", width: "320", height: "270", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : nasivkyPlacement === "boky+stred" ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "none", stroke: "#a8d4ff", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "900", y: "485", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA C"), /* @__PURE__ */ import_react.default.createElement("text", { x: "900", y: "560", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "stredov\xFD horn\xFD prvok / model / s\xE9ria")) : /* @__PURE__ */ import_react.default.createElement("rect", { x: "760", y: "555", width: "280", height: "130", rx: "18", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "470", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1325", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"))), selectedNasivka && selectedNitColor && nasivkyPlacement === "boky+stred" && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setStep4Sub("stred");
           setTimeout(() => {
@@ -26735,6 +26745,7 @@ function Configurator() {
     nasivkyPlacement && nasivkyPlacement !== "nechcem" && (nasivkyPlacement === "boky" && selectedNasivka || nasivkyPlacement === "stred" && selectedStredNasivka || nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka) && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(5);
           setTimeout(() => {
@@ -27094,6 +27105,7 @@ function Configurator() {
     })), doorColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 8, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react.default.createElement("img", { src: doorColor.full, alt: doorColor.code, style: { display: "block", width: "100%", height: "100%", objectFit: "cover" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorColor.code))))), doorColor && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setDoorStep5Sub("lemovanie");
           setTimeout(() => {
@@ -27263,6 +27275,7 @@ function Configurator() {
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 8, textAlign: "center", fontSize: 14, fontWeight: 700, color: "#333" } }, doorLemovanie.code, ". ", doorLemovanie.name)))), doorLemovanie && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => setDoorStep5Sub("nasivky"),
         style: {
           width: "100%",
@@ -27618,6 +27631,7 @@ function Configurator() {
     doorPanelChoice && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(0);
           setTimeout(() => {
@@ -27724,6 +27738,7 @@ function Configurator() {
   } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 22 } }, "\u{1F447}"), /* @__PURE__ */ import_react.default.createElement("span", null, validationErrors.message)), /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement(
     "button",
     {
+      type: "button",
       onClick: () => {
         if (!step1Done) {
           setValidationErrors({ step1: true, step1Msg: "Vyberte zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla", message: "Pros\xEDm, dokon\u010Dite krok 1 \u2014 vyberte zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla." });
@@ -28712,6 +28727,12 @@ function resolveValue2(paramName, s) {
 }
 function syncToShoptet2(state) {
   if (typeof document === "undefined") return { totalSelects: 0, matchedCount: 0, changed: false };
+  try {
+    if (state.znacka && state.model) {
+      sessionStorage.setItem("truckVehicle", state.znacka + " " + state.model);
+    }
+  } catch (e) {
+  }
   const allSelects = document.querySelectorAll("select[data-parameter-id]");
   let changed = false;
   let matchedCount = 0;
@@ -29393,6 +29414,7 @@ function Configurator2() {
     step1Done && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(2);
           setTimeout(() => {
@@ -29515,6 +29537,7 @@ function Configurator2() {
     })), selectedColor && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(3);
           setTimeout(() => {
@@ -29627,6 +29650,7 @@ function Configurator2() {
     selectedLemovanie && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         id: "konfig-lemovanie-pokracovat",
         onClick: () => {
           setOpenSection(4);
@@ -29964,6 +29988,7 @@ function Configurator2() {
     }, errorKey: "nitColor" }), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-boky-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code, " \xB7 ni\u0165: ", selectedNitColor.name))), nasivkyPlacement === "boky+stred" && selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setStep4Sub("stred");
           setTimeout(() => {
@@ -30196,6 +30221,7 @@ function Configurator2() {
     nasivkyPlacement && nasivkyPlacement !== "nechcem" && (nasivkyPlacement === "boky" && selectedNasivka || nasivkyPlacement === "stred" && selectedStredNasivka || nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka) && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(5);
           setTimeout(() => {
@@ -30555,6 +30581,7 @@ function Configurator2() {
     })), doorColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "70%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement("img", { src: doorColor.full, alt: doorColor.code, style: { display: "block", width: "100%", height: "100%", objectFit: "cover" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorColor.code))))), doorColor && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setDoorStep5Sub("lemovanie");
           setTimeout(() => {
@@ -30728,6 +30755,7 @@ function Configurator2() {
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 8, textAlign: "center", fontSize: 14, fontWeight: 700, color: "#333" } }, doorLemovanie.code, ". ", doorLemovanie.name)))), doorLemovanie && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         id: "konfig-door-lemovanie-pokracovat",
         onClick: () => {
           setDoorStep5Sub("nasivky");
@@ -31053,6 +31081,7 @@ function Configurator2() {
     })), doorNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: 200, height: 200, borderRadius: 8, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "1px solid #ddd" } }, doorNitColor ? /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react2.default.createElement("img", { src: doorNasivka.full, alt: doorNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 11, fontWeight: 700 } }, doorNasivka.code))), doorNasivka && doorNitColor && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setDoorStep5Sub("");
           setOpenSection(0);
@@ -31128,6 +31157,7 @@ function Configurator2() {
     doorPanelChoice && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
+        type: "button",
         onClick: () => {
           setOpenSection(0);
           setTimeout(() => {
@@ -31274,6 +31304,7 @@ function Configurator2() {
   } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { borderRight: "1px solid #e0d5b8", padding: "0 6px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 18, color: "#C5A44E", fontWeight: 800, lineHeight: 1 } }, "7\u201320"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, color: "#666", fontWeight: 600, marginTop: 2, lineHeight: 1.2 } }, "dn\xED", /* @__PURE__ */ import_react2.default.createElement("br", null), "v\xFDroba")), /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 18, color: "#C5A44E", fontWeight: 800, lineHeight: 1 } }, "EU"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, color: "#666", fontWeight: 600, marginTop: 2, lineHeight: 1.2 } }, "ru\u010Dne", /* @__PURE__ */ import_react2.default.createElement("br", null), "\u0161it\xE9"))), /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 14, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement(
     "button",
     {
+      type: "button",
       onClick: () => {
         if (!step1Done) {
           setValidationErrors({ step1: true, step1Msg: "Vyberte zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla", message: "Dopl\u0148te zna\u010Dku a model \u2014 bez toho neviem vyrobi\u0165 koberec na mieru." });
@@ -31506,6 +31537,7 @@ function Configurator2() {
   ].filter(Boolean).join(" \xB7 "))), /* @__PURE__ */ import_react2.default.createElement(
     "button",
     {
+      type: "button",
       onClick: () => {
         const el = document.querySelector("[data-pridat-button]");
         if (el) el.click();
@@ -34712,12 +34744,20 @@ function changeDescription() {
   });
   $("span.main-link-surcharges").each(function() {
     const text = $(this).text().split(",");
+    const isTruckRow = /\btruck\b/i.test($(this).closest("tr").text() || "");
+    let truckVehicle = null;
     let newText = "";
     if (text.length > 1) {
       newText += "<ul>";
       $(text).each(function() {
         if (this.includes("TYP")) return;
-        newText += "<li>" + this.replace(/P[rř][ií]platky:\s*/gi, "") + "</li>";
+        const item = String(this).replace(/P[rř][ií]platky:\s*/gi, "").trim();
+        if (isTruckRow && /^Vozidlo\s*[-–:]/i.test(item)) {
+          truckVehicle = item.replace(/^Vozidlo\s*[-–:]\s*/i, "");
+          return;
+        }
+        if (isTruckRow && /Vyberie sa v konfigurátore/i.test(item)) return;
+        newText += "<li>" + item + "</li>";
       });
       newText += "</ul>";
     }
@@ -34725,10 +34765,24 @@ function changeDescription() {
     const infowrap = $("<div>").addClass("info-wrap");
     const model = $("<ul>").addClass("model").appendTo(infowrap);
     const setup = $("<div>").addClass("setup").appendTo(infowrap);
-    $("<li>").text("Zna\u010Dka: " + getBrand).appendTo(model);
-    $("<li  >").text("Model: " + getModel).appendTo(model);
-    $("<li>").text("Rok: " + getYear).appendTo(model);
-    $("<li>").text("Typ: " + getCarType).appendTo(model);
+    const addLine = (label, value) => {
+      if (!value || value === "undefined" || value === "null") return;
+      $("<li>").text(label + ": " + value).appendTo(model);
+    };
+    if (isTruckRow) {
+      let ssVehicle = null;
+      try {
+        ssVehicle = sessionStorage.getItem("truckVehicle");
+      } catch (e) {
+      }
+      if (truckVehicle && /Vyberie sa v konfigurátore/i.test(truckVehicle)) truckVehicle = null;
+      addLine("Vozidlo", ssVehicle || truckVehicle);
+    } else {
+      addLine("Zna\u010Dka", getBrand);
+      addLine("Model", getModel);
+      addLine("Rok", getYear);
+      addLine("Typ", getCarType);
+    }
     var $variant = $(this).closest("tr").find("span.main-link-variant").first();
     var variantText = ($variant.text() || "").replace(/\s+/g, " ");
     var m1 = variantText.match(/farba\s*1\.?\s*vrstvy\s*:\s*([^,]+)/i);
