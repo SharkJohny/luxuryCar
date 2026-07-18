@@ -532,25 +532,25 @@ const FALLBACK_PRICES = {
   BASE: 199,
   MATERIAL: {
     "Prémiová syntetická koža – jednofarebná": 0,
-    "Prémiová syntetická koža – prešívaná": 20,
-    "Prémiová syntetická koža – tónovaná": 20,
-    "Mikrosemiš – jednofarebný": 30,
-    "Mikrosemiš – dvojfarebný": 40,
+    "Prémiová syntetická koža – prešívaná": 10,
+    "Prémiová syntetická koža – tónovaná": 40,
+    "Mikrosemiš – jednofarebný": 40,
+    "Mikrosemiš – dvojfarebný": 50,
   },
   NASIVKY: {
     "nechcem": 0,
-    "stred": 70,
-    "boky": 70,
-    "boky+stred": 100,
+    "stred": 59,
+    "boky": 59,
+    "boky+stred": 95,
   },
   NASIVKY_SAMO: {
     "boky": 70,
     "stred": 70,
   },
-  TAPACIR_BUNDLE: 100,
+  TAPACIR_BUNDLE: 119,
   TAPACIR_SAMO: 179,
-  NASIVKA_DVERE: 50,
-  NASIVKA_DVERE_SAMO: 70,
+  NASIVKA_DVERE: 49,
+  NASIVKA_DVERE_SAMO: 89,
 };
 
 

@@ -326,3 +326,10 @@ bundle. Nová, čistá implementácia:
       do sessionStorage.truckVehicle; Shoptet select Vozidlo má len
       placeholder). Placeholder bullety "… - Vyberie sa v konfigurátore" sa
       u trucku skrývajú. Overené v preview košíku.
+- [x] Cenník skontrolovaný (Downloads xlsx = identický s repo verziou, md5
+      zhoda): test-truck.xml sedí 10/10 položiek. FALLBACK_PRICES v kóde boli
+      zastarané (V4) — zarovnané s cenníkom: materiály 10/40/40/50, nášivky
+      59/59/95, tapacír 119, nášivka dvere 49 (solo 89). Živé ceny sa ďalej
+      čítajú zo Shoptet DOM; fallback je len pre offline/preview.
+      POZN. klientovi: v cenníku nesedí tapacír "samostatná cena" — stĺpec C
+      hovorí 199, poznámka "Bežne 179" — kód drží 179, nech si to ujednotí.
