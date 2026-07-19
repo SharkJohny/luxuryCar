@@ -393,6 +393,16 @@ function Dropdown({ label, value, options, onChange, color, icon, placeholder })
 }
 
 function AccordionSection({ number, title, subtitle, open, done, onClick, children, error, errorMessage }) {
+  const [keepContentMounted, setKeepContentMounted] = useState(open);
+  React.useEffect(() => {
+    if (open) {
+      setKeepContentMounted(true);
+      return undefined;
+    }
+    const timer = setTimeout(() => setKeepContentMounted(false), 480);
+    return () => clearTimeout(timer);
+  }, [open]);
+
   // Determine header background
   let headerBg = "linear-gradient(135deg, #C5A44E, #A8893A)"; // default gold
   if (done) headerBg = "linear-gradient(135deg, #4CAF50, #388E3C)"; // green when complete
@@ -468,18 +478,78 @@ function AccordionSection({ number, title, subtitle, open, done, onClick, childr
         </div>
       )}
       <div style={{
-        maxHeight: open ? 8000 : 0,
-        overflow: open ? "visible" : "hidden",
-        transition: open ? "max-height 0.4s ease" : "max-height 0.3s ease",
+        display: "grid",
+        gridTemplateRows: open ? "1fr" : "0fr",
+        overflow: "hidden",
+        transition: "grid-template-rows 0.46s cubic-bezier(0.22, 1, 0.36, 1)",
         background: "#fff",
         borderRadius: error ? "0 0 7px 7px" : "0 0 8px 8px",
       }}>
-        <div style={{ padding: open ? 24 : "0 24px" }}>
-          {open && children}
+        <div style={{ minHeight: 0, overflow: "hidden" }}>
+          <div style={{
+            padding: open ? 24 : "0 24px",
+            opacity: open ? 1 : 0,
+            transform: open ? "translateY(0)" : "translateY(-6px)",
+            transition: "padding 0.46s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, transform 0.3s ease",
+          }}>
+            {(open || keepContentMounted) && children}
+          </div>
         </div>
       </div>
     </div>
   );
+}
+
+// Plynule prepne hlavny akordeon a pocas zmeny vysky dorovnava scroll.
+// Samostatny oneskoreny scrollIntoView po dokonceni animacie sposoboval druhy
+// skok; priebezne meranie cielovej hlavicky udrzi novu sekciu na jednom mieste.
+function useAccordionTransition(openSection, setOpenSection) {
+  const frameRef = React.useRef(0);
+  const openSectionRef = React.useRef(openSection);
+  openSectionRef.current = openSection;
+
+  React.useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
+
+  return React.useCallback((nextSection) => {
+    cancelAnimationFrame(frameRef.current);
+
+    const current = document.getElementById(`konfig-step-${openSectionRef.current}`);
+    const currentTop = current ? current.getBoundingClientRect().top : 20;
+    const viewportHeight = window.innerHeight || 800;
+    // Ak je hlavicka povodne viditelna, zachovame presne jej vysku. Pri kliknuti
+    // na tlacidlo na konci dlheho kroku je hlavicka mimo obrazovky, preto novy
+    // krok usadime 20 px od hornej hrany.
+    const anchorTop = currentTop >= 12 && currentTop <= viewportHeight * 0.65 ? currentTop : 20;
+    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = reducedMotion ? 0 : 500;
+    let startedAt = null;
+
+    setOpenSection(nextSection);
+
+    const keepTargetAnchored = (now) => {
+      const target = document.getElementById(`konfig-step-${nextSection}`);
+      if (!target) return;
+      if (startedAt === null) startedAt = now;
+
+      const elapsed = now - startedAt;
+      const progress = duration ? Math.min(1, elapsed / duration) : 1;
+      const delta = target.getBoundingClientRect().top - anchorTop;
+      // Na zaciatku jemne, ku koncu presnejsie. Scroll a zmena vysky tak tvoria
+      // jeden pohyb namiesto dvoch po sebe iducich skokov.
+      const correction = progress === 1 ? delta : delta * (0.12 + progress * 0.28);
+      if (Math.abs(correction) > 0.25) window.scrollBy(0, correction);
+
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(keepTargetAnchored);
+      } else if (Math.abs(target.getBoundingClientRect().top - anchorTop) > 0.5) {
+        window.scrollBy(0, target.getBoundingClientRect().top - anchorTop);
+      }
+    };
+
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = requestAnimationFrame(keepTargetAnchored);
+    });
+  }, [setOpenSection]);
 }
 
 function Summary({ selections }) {
@@ -1115,6 +1185,7 @@ function Configurator() {
   const [model, setModel] = useState("");
   const [extras, setExtras] = useState({});
   const [openSection, setOpenSection] = useState(1);
+  const transitionToSection = useAccordionTransition(openSection, setOpenSection);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedLemovanie, setSelectedLemovanie] = useState(null);
@@ -1682,8 +1753,7 @@ function Configurator() {
         {step1Done && (
           <button type="button"
             onClick={() => {
-              setOpenSection(2);
-              setTimeout(() => { const el = document.getElementById("konfig-step-2"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+              transitionToSection(2);
             }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 12,
@@ -1783,8 +1853,7 @@ function Configurator() {
             {selectedColor && (
               <button type="button"
                 onClick={() => {
-                  setOpenSection(3);
-                  setTimeout(() => { const el = document.getElementById("konfig-step-3"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+                  transitionToSection(3);
                 }}
                 style={{
                   width: "100%", padding: "14px 0",
@@ -1878,8 +1947,7 @@ function Configurator() {
         {selectedLemovanie && (
           <button type="button"
             onClick={() => {
-              setOpenSection(4);
-              setTimeout(() => { const el = document.getElementById("konfig-step-4"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+              transitionToSection(4);
             }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 16,
@@ -2027,7 +2095,7 @@ function Configurator() {
                       setNasivkyPlacement(opt.id);
                       if (opt.id === "boky") { setSelectedStredNasivka(null); setSelectedStredNitColor(null); }
                       if (opt.id === "stred") { setSelectedNasivka(null); setSelectedNitColor(null); }
-                      if (opt.id === "nechcem") { setSelectedNasivka(null); setSelectedStredNasivka(null); setSelectedNitColor(null); setSelectedStredNitColor(null); setTimeout(() => { setStep4Sub(""); setOpenSection(5); setTimeout(() => { const el = document.getElementById("konfig-step-5"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450); }, 200); }
+                      if (opt.id === "nechcem") { setSelectedNasivka(null); setSelectedStredNasivka(null); setSelectedNitColor(null); setSelectedStredNitColor(null); setTimeout(() => { setStep4Sub(""); transitionToSection(5); }, 200); }
                       if (opt.id === "boky") {
                         setTimeout(() => setStep4Sub("boky"), 200);
                       }
@@ -2503,7 +2571,7 @@ function Configurator() {
                         setStredSameNitAsSide(true);
                         setValidationErrors(e => ({...e, stredNitColor: false}));
                         // Auto-advance: zavrieť sub-akordeon 4/C a otvoriť krok 5
-                        setTimeout(() => { setStep4Sub(""); setOpenSection(5); setTimeout(() => { const el = document.getElementById("konfig-step-5"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450); }, 300);
+                        setTimeout(() => { setStep4Sub(""); transitionToSection(5); }, 300);
                       } else {
                         setSelectedStredNasivka(null);
                         setSelectedStredNitColor(null);
@@ -2748,8 +2816,7 @@ function Configurator() {
         ) && (
           <button type="button"
             onClick={() => {
-              setOpenSection(5);
-              setTimeout(() => { const el = document.getElementById("konfig-step-5"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+              transitionToSection(5);
             }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 16,

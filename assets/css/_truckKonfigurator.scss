@@ -17,6 +17,10 @@
 // ============================================================================
 
 body.is-truck-konfigurator {
+  .benefitBanner.position--benefitProduct {
+    display: none;
+  }
+
   // Schovat standardní obsah pravého sloupce (cenu, konfigurátor osobáků,
   // parametry, banner upsale), necháme jen náš mount wrapper.
   .p-info-wrapper > *:not(.truck-konfigurator-wrap) {

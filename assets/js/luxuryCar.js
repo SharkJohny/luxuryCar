@@ -24926,6 +24926,15 @@ function Dropdown({ label, value, options, onChange, color, icon, placeholder })
   ))))));
 }
 function AccordionSection({ number, title, subtitle, open, done, onClick, children, error, errorMessage }) {
+  const [keepContentMounted, setKeepContentMounted] = useState(open);
+  import_react.default.useEffect(() => {
+    if (open) {
+      setKeepContentMounted(true);
+      return void 0;
+    }
+    const timer = setTimeout(() => setKeepContentMounted(false), 480);
+    return () => clearTimeout(timer);
+  }, [open]);
   let headerBg = "linear-gradient(135deg, #C5A44E, #A8893A)";
   if (done) headerBg = "linear-gradient(135deg, #4CAF50, #388E3C)";
   const borderColor = error ? "#CC0000" : "#e0d5b8";
@@ -24987,12 +24996,53 @@ function AccordionSection({ number, title, subtitle, open, done, onClick, childr
     gap: 10,
     borderTop: "1px solid #CC0000"
   } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 22 } }, "\u{1F447}"), " ", errorMessage), /* @__PURE__ */ import_react.default.createElement("div", { style: {
-    maxHeight: open ? 8e3 : 0,
-    overflow: open ? "visible" : "hidden",
-    transition: open ? "max-height 0.4s ease" : "max-height 0.3s ease",
+    display: "grid",
+    gridTemplateRows: open ? "1fr" : "0fr",
+    overflow: "hidden",
+    transition: "grid-template-rows 0.46s cubic-bezier(0.22, 1, 0.36, 1)",
     background: "#fff",
     borderRadius: error ? "0 0 7px 7px" : "0 0 8px 8px"
-  } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: open ? 24 : "0 24px" } }, open && children)));
+  } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { minHeight: 0, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: {
+    padding: open ? 24 : "0 24px",
+    opacity: open ? 1 : 0,
+    transform: open ? "translateY(0)" : "translateY(-6px)",
+    transition: "padding 0.46s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, transform 0.3s ease"
+  } }, (open || keepContentMounted) && children))));
+}
+function useAccordionTransition(openSection, setOpenSection) {
+  const frameRef = import_react.default.useRef(0);
+  const openSectionRef = import_react.default.useRef(openSection);
+  openSectionRef.current = openSection;
+  import_react.default.useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
+  return import_react.default.useCallback((nextSection) => {
+    cancelAnimationFrame(frameRef.current);
+    const current = document.getElementById(`konfig-step-${openSectionRef.current}`);
+    const currentTop = current ? current.getBoundingClientRect().top : 20;
+    const viewportHeight = window.innerHeight || 800;
+    const anchorTop = currentTop >= 12 && currentTop <= viewportHeight * 0.65 ? currentTop : 20;
+    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = reducedMotion ? 0 : 500;
+    let startedAt = null;
+    setOpenSection(nextSection);
+    const keepTargetAnchored = (now) => {
+      const target = document.getElementById(`konfig-step-${nextSection}`);
+      if (!target) return;
+      if (startedAt === null) startedAt = now;
+      const elapsed = now - startedAt;
+      const progress = duration ? Math.min(1, elapsed / duration) : 1;
+      const delta = target.getBoundingClientRect().top - anchorTop;
+      const correction = progress === 1 ? delta : delta * (0.12 + progress * 0.28);
+      if (Math.abs(correction) > 0.25) window.scrollBy(0, correction);
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(keepTargetAnchored);
+      } else if (Math.abs(target.getBoundingClientRect().top - anchorTop) > 0.5) {
+        window.scrollBy(0, target.getBoundingClientRect().top - anchorTop);
+      }
+    };
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = requestAnimationFrame(keepTargetAnchored);
+    });
+  }, [setOpenSection]);
 }
 var NITE_FARBY = [
   { code: "2999", name: "\u010Cierna", color: "#2a2a2a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0acce9f17551e29f.png" },
@@ -25390,6 +25440,7 @@ function Configurator() {
   const [model, setModel] = useState("");
   const [extras, setExtras] = useState({});
   const [openSection, setOpenSection] = useState(1);
+  const transitionToSection = useAccordionTransition(openSection, setOpenSection);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedLemovanie, setSelectedLemovanie] = useState(null);
@@ -25919,11 +25970,7 @@ function Configurator() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(2);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-2");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(2);
         },
         style: {
           width: "100%",
@@ -26023,11 +26070,7 @@ function Configurator() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(3);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-3");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(3);
         },
         style: {
           width: "100%",
@@ -26127,11 +26170,7 @@ function Configurator() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(4);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-4");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(4);
         },
         style: {
           width: "100%",
@@ -26313,11 +26352,7 @@ function Configurator() {
               setSelectedStredNitColor(null);
               setTimeout(() => {
                 setStep4Sub("");
-                setOpenSection(5);
-                setTimeout(() => {
-                  const el = document.getElementById("konfig-step-5");
-                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }, 450);
+                transitionToSection(5);
               }, 200);
             }
             if (opt.id === "boky") {
@@ -26590,11 +26625,7 @@ function Configurator() {
             setValidationErrors((e) => ({ ...e, stredNitColor: false }));
             setTimeout(() => {
               setStep4Sub("");
-              setOpenSection(5);
-              setTimeout(() => {
-                const el = document.getElementById("konfig-step-5");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }, 450);
+              transitionToSection(5);
             }, 300);
           } else {
             setSelectedStredNasivka(null);
@@ -26747,11 +26778,7 @@ function Configurator() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(5);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-5");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(5);
         },
         style: {
           width: "100%",
@@ -28319,6 +28346,15 @@ function Dropdown2({ label, value, options, onChange, color, icon, placeholder }
   ))))));
 }
 function AccordionSection2({ number, title, subtitle, open, done, onClick, children, error, errorMessage }) {
+  const [keepContentMounted, setKeepContentMounted] = useState2(open);
+  import_react2.default.useEffect(() => {
+    if (open) {
+      setKeepContentMounted(true);
+      return void 0;
+    }
+    const timer = setTimeout(() => setKeepContentMounted(false), 480);
+    return () => clearTimeout(timer);
+  }, [open]);
   let headerBg = "linear-gradient(135deg, #C5A44E, #A8893A)";
   if (done) headerBg = "linear-gradient(135deg, #4CAF50, #388E3C)";
   const borderColor = error ? "#CC0000" : "#e0d5b8";
@@ -28381,12 +28417,53 @@ function AccordionSection2({ number, title, subtitle, open, done, onClick, child
     gap: 10,
     borderTop: "1px solid #CC0000"
   } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 22 } }, "\u{1F447}"), " ", errorMessage), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
-    maxHeight: open ? 8e3 : 0,
-    overflow: open ? "visible" : "hidden",
-    transition: open ? "max-height 0.4s ease" : "max-height 0.3s ease",
+    display: "grid",
+    gridTemplateRows: open ? "1fr" : "0fr",
+    overflow: "hidden",
+    transition: "grid-template-rows 0.46s cubic-bezier(0.22, 1, 0.36, 1)",
     background: "#fff",
     borderRadius: error ? "0 0 7px 7px" : "0 0 8px 8px"
-  } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: open ? 24 : "0 24px" } }, open && children)));
+  } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { minHeight: 0, overflow: "hidden" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+    padding: open ? 24 : "0 24px",
+    opacity: open ? 1 : 0,
+    transform: open ? "translateY(0)" : "translateY(-6px)",
+    transition: "padding 0.46s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, transform 0.3s ease"
+  } }, (open || keepContentMounted) && children))));
+}
+function useAccordionTransition2(openSection, setOpenSection) {
+  const frameRef = import_react2.default.useRef(0);
+  const openSectionRef = import_react2.default.useRef(openSection);
+  openSectionRef.current = openSection;
+  import_react2.default.useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
+  return import_react2.default.useCallback((nextSection) => {
+    cancelAnimationFrame(frameRef.current);
+    const current = document.getElementById(`konfig-step-${openSectionRef.current}`);
+    const currentTop = current ? current.getBoundingClientRect().top : 20;
+    const viewportHeight = window.innerHeight || 800;
+    const anchorTop = currentTop >= 12 && currentTop <= viewportHeight * 0.65 ? currentTop : 20;
+    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = reducedMotion ? 0 : 500;
+    let startedAt = null;
+    setOpenSection(nextSection);
+    const keepTargetAnchored = (now) => {
+      const target = document.getElementById(`konfig-step-${nextSection}`);
+      if (!target) return;
+      if (startedAt === null) startedAt = now;
+      const elapsed = now - startedAt;
+      const progress = duration ? Math.min(1, elapsed / duration) : 1;
+      const delta = target.getBoundingClientRect().top - anchorTop;
+      const correction = progress === 1 ? delta : delta * (0.12 + progress * 0.28);
+      if (Math.abs(correction) > 0.25) window.scrollBy(0, correction);
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(keepTargetAnchored);
+      } else if (Math.abs(target.getBoundingClientRect().top - anchorTop) > 0.5) {
+        window.scrollBy(0, target.getBoundingClientRect().top - anchorTop);
+      }
+    };
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = requestAnimationFrame(keepTargetAnchored);
+    });
+  }, [setOpenSection]);
 }
 var NITE_FARBY2 = [
   { code: "2999", name: "\u010Cierna", color: "#2a2a2a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/t0acce9f17551e29f.png" },
@@ -28770,6 +28847,7 @@ function Configurator2() {
   const [model, setModel] = useState2("");
   const [extras, setExtras] = useState2({});
   const [openSection, setOpenSection] = useState2(1);
+  const transitionToSection = useAccordionTransition2(openSection, setOpenSection);
   const [selectedMaterial, setSelectedMaterial] = useState2(null);
   const [selectedColor, setSelectedColor] = useState2(null);
   const [selectedLemovanie, setSelectedLemovanie] = useState2(null);
@@ -29416,11 +29494,7 @@ function Configurator2() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(2);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-2");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(2);
         },
         style: {
           width: "100%",
@@ -29539,11 +29613,7 @@ function Configurator2() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(3);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-3");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(3);
         },
         style: {
           width: "100%",
@@ -29653,11 +29723,7 @@ function Configurator2() {
         type: "button",
         id: "konfig-lemovanie-pokracovat",
         onClick: () => {
-          setOpenSection(4);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-4");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(4);
         },
         style: {
           width: "100%",
@@ -29839,11 +29905,7 @@ function Configurator2() {
               setSelectedStredNitColor(null);
               setTimeout(() => {
                 setStep4Sub("");
-                setOpenSection(5);
-                setTimeout(() => {
-                  const el = document.getElementById("konfig-step-5");
-                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }, 450);
+                transitionToSection(5);
               }, 200);
             }
             if (opt.id === "boky") {
@@ -30223,11 +30285,7 @@ function Configurator2() {
       {
         type: "button",
         onClick: () => {
-          setOpenSection(5);
-          setTimeout(() => {
-            const el = document.getElementById("konfig-step-5");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 450);
+          transitionToSection(5);
         },
         style: {
           width: "100%",
