@@ -21,6 +21,13 @@ body.is-truck-konfigurator {
     display: none;
   }
 
+  .basic-description section[style*="#2e1810"][style*="border-radius: 18px"] {
+    h2,
+    p {
+      color: #fff !important;
+    }
+  }
+
   // Schovat standardní obsah pravého sloupce (cenu, konfigurátor osobáků,
   // parametry, banner upsale), necháme jen náš mount wrapper.
   .p-info-wrapper > *:not(.truck-konfigurator-wrap) {

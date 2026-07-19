@@ -6487,6 +6487,10 @@ img.avatar {
 body.is-truck-konfigurator .benefitBanner.position--benefitProduct {
   display: none;
 }
+body.is-truck-konfigurator .basic-description section[style*="#2e1810"][style*="border-radius: 18px"] h2,
+body.is-truck-konfigurator .basic-description section[style*="#2e1810"][style*="border-radius: 18px"] p {
+  color: #fff !important;
+}
 body.is-truck-konfigurator .p-info-wrapper > *:not(.truck-konfigurator-wrap) {
   display: none !important;
 }

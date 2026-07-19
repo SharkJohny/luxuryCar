@@ -29,9 +29,89 @@
 import { VZORKY_SERIES, VZORKY_ITEMS } from "./swatch-data.js";
 
 const MOUNT_ID = "lcd-vzorky-root";
-const DEPOSIT = 5; // EUR / vzorka
 // ID v texte: S-1, H-2, D-18, LUX-10 …
 const ID_RE = /\b(S-\d+|H-\d+|D-\d+|LUX-\d+)\b/;
+
+const I18N = {
+  sk: {
+    currency: "€",
+    fallbackDeposit: 5,
+    previewSuffix: " — neposiela sa, len náhľad",
+    notSent: "Neposiela sa",
+    sent: "Posielame",
+    skipTitle: "Nechcem žiadnu vzorku z tejto série",
+    skipActive: "Nechcem ✓",
+    skipInactive: "Nechcem",
+    close: "Zavrieť",
+    change: "Zmeniť",
+    add: "+ Pridať",
+    empty: "Zatiaľ nemáš vybratú žiadnu vzorku. Klikaj na vzorky v akordeónoch vyššie.",
+    depositInfo: (price) => `Vratná záloha ${price} za každú vzorku. Keď nám vzorky vrátiš, zálohu ti pošleme späť.`,
+    hint: (price) => `Vyber ľubovoľný počet vzoriek (vratná záloha ${price} / vzorka). Opätovný klik výber zruší.`,
+    hintPreview: (price) => `Vyber ľubovoľný počet objednávateľných vzoriek (${price} záloha / vzorka). Náhľady „Neposiela sa“ sa objednať nedajú.`,
+    continueTo: (title) => `Pokračovať na ${title} →`,
+    continueSummary: "Pokračovať na súhrn objednávky →",
+    orderTitle: "Tvoja objednávka vzoriek",
+    depositTotal: "Vratná záloha spolu",
+    shipping: "+ poštovné + poplatok za platbu",
+    selected: "Vybrané vzorky:",
+    note: (price) => `Záloha ${price} / vzorka sa vráti po obdržaní vzoriek späť. Objednávku dokonči kliknutím na „Pridať do košíka“ nižšie.`,
+  },
+  cs: {
+    currency: "Kč",
+    fallbackDeposit: 99,
+    previewSuffix: " — neposílá se, pouze náhled",
+    notSent: "Neposílá se",
+    sent: "Posíláme",
+    skipTitle: "Nechci žádný vzorek z této série",
+    skipActive: "Nechci ✓",
+    skipInactive: "Nechci",
+    close: "Zavřít",
+    change: "Změnit",
+    add: "+ Přidat",
+    empty: "Zatím nemáš vybraný žádný vzorek. Vyber vzorky v sekcích výše.",
+    depositInfo: (price) => `Vratná záloha ${price} za každý vzorek. Jakmile nám vzorky vrátíš, pošleme ti zálohu zpět.`,
+    hint: (price) => `Vyber libovolný počet vzorků (vratná záloha ${price} / vzorek). Opakovaným kliknutím výběr zrušíš.`,
+    hintPreview: (price) => `Vyber libovolný počet objednatelných vzorků (${price} záloha / vzorek). Náhledy „Neposílá se“ nelze objednat.`,
+    continueTo: (title) => `Pokračovat na ${title} →`,
+    continueSummary: "Pokračovat na souhrn objednávky →",
+    orderTitle: "Tvoje objednávka vzorků",
+    depositTotal: "Vratná záloha celkem",
+    shipping: "+ poštovné + poplatek za platbu",
+    selected: "Vybrané vzorky:",
+    note: (price) => `Záloha ${price} / vzorek se vrátí po obdržení vzorků zpět. Objednávku dokonči kliknutím na „Přidat do košíku“ níže.`,
+  },
+};
+
+function pageLanguage() {
+  const htmlLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+  const inputLang = ((document.querySelector('input[name="language"]') || {}).value || "").toLowerCase();
+  const host = (window.location.hostname || "").toLowerCase();
+  return htmlLang.startsWith("cs") || inputLang.startsWith("cs") || host.endsWith(".cz") ? "cs" : "sk";
+}
+
+function formatMoney(value, locale) {
+  return locale.currency === "Kč" ? `${formatWhole(value)} Kč` : `${formatWhole(value)} €`;
+}
+
+function localizedLabel(label, lang) {
+  if (lang !== "cs") return label;
+  const exact = {
+    "Bledo hnedá": "Světle hnědá",
+    "Hnedá káva": "Hnědá káva",
+    "Sivá": "Šedá",
+    "Štandard 29": "Standard 29",
+  };
+  if (exact[label]) return exact[label];
+  return String(label || "")
+    .replace(/Čierna/g, "Černá")
+    .replace(/čiernou/g, "černou")
+    .replace(/čierna/g, "černá")
+    .replace(/prešívaná/g, "prošívaná")
+    .replace(/sivou/g, "šedou")
+    .replace(/bielou/g, "bílou")
+    .replace(/žltou/g, "žlutou");
+}
 
 const SERIES_BY_KEY = Object.fromEntries(VZORKY_SERIES.map((s) => [s.key, s]));
 // ID → poradie v rámci série (na stabilné zoradenie dlaždíc).
@@ -135,15 +215,23 @@ function hideNativeRow(select) {
   else select.classList.add("lcd-vz-native-hidden");
 }
 
-/** Príplatok danej option (€) — z data-atribútu, inak z textu "… 5 €". */
+/** Príplatok danej option — z data-atribútu, inak z textu v EUR/CZK. */
 function optPrice(o) {
   const a = o.getAttribute("data-surcharge-final-price");
   if (a != null && a !== "") {
     const n = parseFloat(a);
     if (!Number.isNaN(n)) return n;
   }
-  const m = (o.textContent || "").match(/(\d+(?:[.,]\d+)?)\s*€/);
-  return m ? parseFloat(m[1].replace(",", ".")) : 0;
+  const m = (o.textContent || "").match(/(\d[\d\s]*(?:[.,]\d+)?)\s*(?:€|EUR|Kč|CZK)/i);
+  return m ? parseFloat(m[1].replace(/\s/g, "").replace(",", ".")) : 0;
+}
+
+function isNoOptionText(text) {
+  return /nechc(?:em|i)/i.test(text || "");
+}
+
+function isYesOptionText(text) {
+  return /chc(?:em|i)/i.test(text || "") && !isNoOptionText(text);
 }
 
 /** "Žiadna vzorka" = PRÁZDNY placeholder ("Vyberte príplatok"), nie explicitné
@@ -154,21 +242,30 @@ function noneOption(select) {
   const opts = Array.from(select.options);
   return (
     opts.find((o) => o.value === "") ||
-    opts.find((o) => /nechcem/i.test(o.textContent || "")) ||
+    opts.find((o) => isNoOptionText(o.textContent)) ||
     opts.find((o) => o.value !== "" && optPrice(o) === 0) ||
     select.options[0]
   );
 }
 
-/** "Chcem" option (+5 €) — kladný príplatok. */
+/** "Chcem/Chci" option — kladný príplatok. */
 function yesOption(select) {
   const opts = Array.from(select.options);
   return (
-    opts.find((o) => /chcem/i.test(o.textContent || "") && !/nechcem/i.test(o.textContent || "")) ||
+    opts.find((o) => isYesOptionText(o.textContent)) ||
     opts.find((o) => optPrice(o) > 0) ||
-    opts.find((o) => o.value !== "" && !/nechcem/i.test(o.textContent || "")) ||
+    opts.find((o) => o.value !== "" && !isNoOptionText(o.textContent)) ||
     null
   );
+}
+
+function depositFromEntries(entries, locale) {
+  for (const entry of entries) {
+    const option = yesOption(entry.select);
+    const price = option ? optPrice(option) : 0;
+    if (price > 0) return price;
+  }
+  return locale.fallbackDeposit;
 }
 
 function injectStyles() {
@@ -278,8 +375,9 @@ body.is-vzorky-konfigurator .p-info-wrapper .add-to-cart{position:static;top:aut
  *  opts.highlight— zvýrazni ako "Posielame" (objednávateľná v sérii s náhľadmi)
  */
 function buildSwatch(id, opts = {}) {
-  const { onPick, onPreview, preview = false, highlight = false } = opts;
+  const { onPick, onPreview, preview = false, highlight = false, locale, lang } = opts;
   const item = VZORKY_ITEMS[id] || {};
+  const label = localizedLabel(item.label || id, lang);
 
   // Bunka: štvorcová dlaždica (button = len obrázok) + popisok POD ňou.
   // Dlaždice tak majú identické rozmery bez ohľadu na dĺžku názvu.
@@ -295,13 +393,13 @@ function buildSwatch(id, opts = {}) {
   btn.dataset.id = id;
   if (preview) btn.setAttribute("aria-disabled", "true");
   else btn.setAttribute("aria-pressed", "false");
-  btn.title = (item.label || id) + (preview ? " — neposiela sa, len náhľad" : "");
+  btn.title = label + (preview ? locale.previewSuffix : "");
 
   const thumb = document.createElement(item.img ? "img" : "span");
   thumb.className = "lcd-vz-thumb";
   if (item.img) {
     thumb.src = item.img;
-    thumb.alt = item.label || id;
+    thumb.alt = label;
     thumb.loading = "lazy";
   }
   btn.appendChild(thumb);
@@ -309,18 +407,18 @@ function buildSwatch(id, opts = {}) {
   if (preview) {
     const tag = document.createElement("span");
     tag.className = "lcd-vz-tag lcd-vz-tag--no";
-    tag.textContent = "Neposiela sa";
+    tag.textContent = locale.notSent;
     btn.appendChild(tag);
   } else if (highlight) {
     const tag = document.createElement("span");
     tag.className = "lcd-vz-tag lcd-vz-tag--send";
-    tag.textContent = "Posielame";
+    tag.textContent = locale.sent;
     btn.appendChild(tag);
   }
 
   const name = document.createElement("div");
   name.className = "lcd-vz-name";
-  name.textContent = item.label || id;
+  name.textContent = label;
 
   cell.append(btn, name);
   cell._btn = btn;
@@ -331,7 +429,7 @@ function buildSwatch(id, opts = {}) {
 }
 
 /** Dlaždica „Nechcem" — prvá v sérii; klik zruší celý výber danej série. */
-function buildSkipTile(onSkip) {
+function buildSkipTile(onSkip, locale) {
   const cell = document.createElement("div");
   cell.className = "lcd-vz-cell";
 
@@ -339,7 +437,7 @@ function buildSkipTile(onSkip) {
   btn.type = "button";
   btn.className = "lcd-vz-skip";
   btn.setAttribute("aria-pressed", "true"); // default: nič nevybrané = aktívna
-  btn.title = "Nechcem žiadnu vzorku z tejto série";
+  btn.title = locale.skipTitle;
 
   const ico = document.createElement("span");
   ico.className = "lcd-vz-skip-ico";
@@ -349,7 +447,7 @@ function buildSkipTile(onSkip) {
   // Popisok POD dlaždicou (mimo buttonu) — ako v návrhu.
   const label = document.createElement("div");
   label.className = "lcd-vz-skip-label";
-  label.textContent = "Nechcem ✓";
+  label.textContent = locale.skipActive;
 
   cell.append(btn, label);
   btn._ico = ico;
@@ -360,11 +458,11 @@ function buildSkipTile(onSkip) {
 }
 
 /** Prepni vizuálny stav „Nechcem" dlaždice (aktívna = v sérii nič nevybrané). */
-function setSkipActive(btn, active) {
+function setSkipActive(btn, active, locale) {
   if (!btn) return;
   btn.setAttribute("aria-pressed", active ? "true" : "false");
   if (btn._ico) btn._ico.textContent = active ? "✓" : "⊘"; // ✓ / ⊘
-  if (btn._label) btn._label.textContent = active ? "Nechcem ✓" : "Nechcem";
+  if (btn._label) btn._label.textContent = active ? locale.skipActive : locale.skipInactive;
 }
 
 function setSelectValue(select, opt) {
@@ -439,26 +537,35 @@ function watchPrices() {
   obs.observe(area, { childList: true, subtree: true, characterData: true });
 }
 
-/** Slovenský plurál: 1 vzorka, 2–4 vzorky, inak vzoriek (podľa návrhu). */
-function pluralVzorka(n) {
+/** Plurál pre počet vzoriek/vzorků. */
+function pluralVzorka(n, lang) {
   const m10 = Math.abs(n) % 10;
   const m100 = Math.abs(n) % 100;
+  if (lang === "cs") {
+    if (n === 1) return "vzorek";
+    if (n >= 2 && n <= 4) return "vzorky";
+    return "vzorků";
+  }
   if (m10 === 1 && m100 !== 11) return "vzorka";
   if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "vzorky";
   return "vzoriek";
 }
 
 /** Kratší popis pre rekapituláciu (LUX-10 → "čierna", inak bez prefixu). */
-function shortLabel(id, label) {
+function shortLabel(id, label, lang) {
   if (!label) return "?";
-  if (id === "LUX-10") return "čierna";
-  return label.replace(/^(Lux Color( \d+)?|Comfort)\s*[—–-]\s*/, "");
+  if (id === "LUX-10") return lang === "cs" ? "černá" : "čierna";
+  return localizedLabel(label, lang).replace(/^(Lux Color( \d+)?|Comfort)\s*[—–-]\s*/, "");
 }
 
 export function renderVzorkyConfigurator(host) {
   injectStyles();
   const entries = findParamSelects();
   if (!entries.length) return false;
+  const lang = pageLanguage();
+  const locale = I18N[lang];
+  const deposit = depositFromEntries(entries, locale);
+  const depositText = formatMoney(deposit, locale);
 
   // poradie dlaždíc v rámci série
   entries.forEach((e) => {
@@ -495,10 +602,10 @@ export function renderVzorkyConfigurator(host) {
       if (st) {
         const accEl = st.closest(".lcd-vz-acc");
         const isOpen = accEl && accEl.classList.contains("is-open");
-        st.textContent = isOpen ? "Zavrieť" : c > 0 ? "Zmeniť" : "+ Pridať";
+        st.textContent = isOpen ? locale.close : c > 0 ? locale.change : locale.add;
       }
       // „Nechcem" dlaždica je aktívna, keď v sérii nie je vybrané nič
-      setSkipActive(skipEls[sk], c === 0);
+      setSkipActive(skipEls[sk], c === 0, locale);
     });
 
     const selected = entries
@@ -506,13 +613,13 @@ export function renderVzorkyConfigurator(host) {
       .sort((a, b) => order.indexOf(a.seriesKey) - order.indexOf(b.seriesKey) || a.idx - b.idx);
     const n = selected.length;
 
-    if (recapEls.count) recapEls.count.textContent = `${n} ${pluralVzorka(n)}`;
-    if (recapEls.total) recapEls.total.textContent = `${n * DEPOSIT} €`;
+    if (recapEls.count) recapEls.count.textContent = `${n} ${pluralVzorka(n, lang)}`;
+    if (recapEls.total) recapEls.total.textContent = formatMoney(n * deposit, locale);
     if (recapEls.desc) {
       recapEls.desc.textContent =
         n === 0
-          ? "Zatiaľ nemáš vybratú žiadnu vzorku. Klikaj na vzorky v akordeónoch vyššie."
-          : `Vratná záloha ${DEPOSIT} € za každú vzorku. Keď nám vzorky vrátiš, zálohu ti pošleme späť.`;
+          ? locale.empty
+          : locale.depositInfo(depositText);
     }
     if (recapEls.selected) recapEls.selected.hidden = n === 0;
     if (recapEls.list) {
@@ -524,7 +631,7 @@ export function renderVzorkyConfigurator(host) {
         const strong = document.createElement("strong");
         strong.textContent = e.id;
         li.appendChild(strong);
-        li.append(` — ${meta.title}: ${shortLabel(e.id, item.label)}`);
+        li.append(` — ${meta.title}: ${shortLabel(e.id, item.label, lang)}`);
         recapEls.list.appendChild(li);
       });
     }
@@ -570,7 +677,7 @@ export function renderVzorkyConfigurator(host) {
     // Stavový pill "Zavrieť / Zmeniť / + Pridať" (podľa návrhu).
     const stateEl = document.createElement("span");
     stateEl.className = "lcd-vz-acc-state";
-    stateEl.textContent = "+ Pridať";
+    stateEl.textContent = locale.add;
     const chev = document.createElement("span");
     chev.className = "lcd-vz-acc-chev";
     head.append(numEl, title, countEl, stateEl, chev);
@@ -582,8 +689,8 @@ export function renderVzorkyConfigurator(host) {
     const hint = document.createElement("p");
     hint.className = "lcd-vz-hint";
     hint.textContent = hasPreview
-      ? "Vyber ľubovoľný počet objednávateľných vzoriek (5 € záloha / vzorka). Náhľady „Neposiela sa“ sa objednať nedajú."
-      : "Vyber ľubovoľný počet vzoriek (vratná záloha 5 € / vzorka). Opätovný klik výber zruší.";
+      ? locale.hintPreview(depositText)
+      : locale.hint(depositText);
     body.appendChild(hint);
     const grid = document.createElement("div");
     grid.className = "lcd-vz-grid";
@@ -595,6 +702,8 @@ export function renderVzorkyConfigurator(host) {
     preview.hidden = true;
     const pvImg = document.createElement("img");
     pvImg.alt = "";
+    const initialPreviewItem = VZORKY_ITEMS[ids[0]] || {};
+    if (initialPreviewItem.img) pvImg.src = initialPreviewItem.img;
     const pvId = document.createElement("div");
     pvId.className = "lcd-vz-preview-id";
     const pvCap = document.createElement("div");
@@ -611,7 +720,7 @@ export function renderVzorkyConfigurator(host) {
       if (!it.img) return;
       pvImg.src = it.img;
       pvId.textContent = pid;
-      pvName.textContent = it.label || pid;
+      pvName.textContent = localizedLabel(it.label || pid, lang);
       preview.hidden = false;
     };
 
@@ -625,7 +734,7 @@ export function renderVzorkyConfigurator(host) {
       });
       recompute();
     };
-    const skipCell = buildSkipTile(onSkip);
+    const skipCell = buildSkipTile(onSkip, locale);
     skipEls[seriesKey] = skipCell._btn;
     grid.appendChild(skipCell);
 
@@ -649,7 +758,7 @@ export function renderVzorkyConfigurator(host) {
           showPreview(id); // veľký náhľad kliknutej vzorky pod mriežkou
           recompute();
         };
-        const cell = buildSwatch(id, { onPick, highlight: hasPreview });
+        const cell = buildSwatch(id, { onPick, highlight: hasPreview, locale, lang });
         if (isYes(e)) cell._btn.setAttribute("aria-pressed", "true");
         swatchRefs.push({ entry: e, btn: cell._btn });
         grid.appendChild(cell);
@@ -660,7 +769,7 @@ export function renderVzorkyConfigurator(host) {
           const none = noneOption(e.select);
           if (none && e.select.value !== none.value) setSelectValue(e.select, none);
         }
-        grid.appendChild(buildSwatch(id, { preview: true, onPreview: showPreview })); // náhľad, nejde vybrať
+        grid.appendChild(buildSwatch(id, { preview: true, onPreview: showPreview, locale, lang })); // náhľad, nejde vybrať
       }
     });
     body.appendChild(grid);
@@ -689,7 +798,7 @@ export function renderVzorkyConfigurator(host) {
       head.setAttribute("aria-expanded", open ? "true" : "false");
       // recompute() sa pri čistom kliknutí na hlavičku nevolá — pill dorovnaj tu.
       const c = entries.filter((e) => e.seriesKey === seriesKey && isYes(e)).length;
-      stateEl.textContent = open ? "Zavrieť" : c > 0 ? "Zmeniť" : "+ Pridať";
+      stateEl.textContent = open ? locale.close : c > 0 ? locale.change : locale.add;
     };
     head.addEventListener("click", () => {
       const willOpen = !acc.classList.contains("is-open");
@@ -706,8 +815,8 @@ export function renderVzorkyConfigurator(host) {
   accordions.forEach((a, i) => {
     const next = accordions[i + 1];
     a.contBtn.textContent = next
-      ? `Pokračovať na ${next.title} →`
-      : "Pokračovať na súhrn objednávky →";
+      ? locale.continueTo(next.title)
+      : locale.continueSummary;
   });
 
   // prvý akordeon otvorený (ako krok 1 konfigurátora)
@@ -724,7 +833,7 @@ export function renderVzorkyConfigurator(host) {
   colL.className = "lcd-vz-recap-col";
   const ebL = document.createElement("div");
   ebL.className = "lcd-vz-recap-eyebrow";
-  ebL.textContent = "Tvoja objednávka vzoriek";
+  ebL.textContent = locale.orderTitle;
   const countBig = document.createElement("div");
   countBig.className = "lcd-vz-recap-count";
   const desc = document.createElement("div");
@@ -735,12 +844,12 @@ export function renderVzorkyConfigurator(host) {
   colR.className = "lcd-vz-recap-col right";
   const ebR = document.createElement("div");
   ebR.className = "lcd-vz-recap-eyebrow";
-  ebR.textContent = "Vratná záloha spolu";
+  ebR.textContent = locale.depositTotal;
   const totalBig = document.createElement("div");
   totalBig.className = "lcd-vz-recap-total";
   const sub = document.createElement("div");
   sub.className = "lcd-vz-recap-sub";
-  sub.textContent = "+ poštovné + poplatok za platbu";
+  sub.textContent = locale.shipping;
   colR.append(ebR, totalBig, sub);
 
   top.append(colL, colR);
@@ -750,7 +859,7 @@ export function renderVzorkyConfigurator(host) {
   selBlock.hidden = true;
   const selEb = document.createElement("div");
   selEb.className = "lcd-vz-recap-eyebrow";
-  selEb.textContent = "Vybrané vzorky:";
+  selEb.textContent = locale.selected;
   const list = document.createElement("ul");
   list.className = "lcd-vz-recap-list";
   selBlock.append(selEb, list);
@@ -759,8 +868,7 @@ export function renderVzorkyConfigurator(host) {
   // pod konfigurátorom (duplicitné tlačidlo v rekapitulácii miatlo).
   const note = document.createElement("p");
   note.className = "lcd-vz-recap-note";
-  note.textContent =
-    "Záloha 5 € / vzorka sa vráti po obdržaní vzoriek späť. Objednávku dokonči kliknutím na „Pridať do košíka“ nižšie.";
+  note.textContent = locale.note(depositText);
 
   recap.append(top, selBlock, note);
   recapEls.count = countBig;

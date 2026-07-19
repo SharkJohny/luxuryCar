@@ -259,6 +259,23 @@ bundle. Nová, čistá implementácia:
       tónovaná 40, mikrosemiš 40/50, nášivky 59/59/95, tapacír 119,
       nášivka dvere 49. RELAX NG validuje.
 
+## CZ import: Vzorkovník + TRUCK zo živého SK feedu (19.7.2026)
+Zdroj: `productsComplete.xml?patternId=-5&partnerId=3&hash=...` (živý SK e-shop).
+- [x] Stiahnutý živý feed, identifikované 2 produkty: id 637 (Vzorkovník Dragonskin,
+      45 SURCHARGE_PARAMETER) a id 640 (autokoberce TRUCK, 19 SURCHARGE_PARAMETER)
+- [x] Kurz + zaokrúhlenie odsúhlasené s klientom: ČNB 24,205 CZK/EUR, psychologické
+      ceny (…90/…99)
+- [x] Prepočet cien: 5€→99 Kč (vzorka záloha), 199€→4799 Kč (TRUCK base) +
+      všetky surcharge hodnoty (materiály, nášivky, tapacír)
+- [x] Kompletný SK→CZ preklad NAME/DESCRIPTION/SURCHARGE_PARAMETER (skript +
+      manuálna kontrola, 0 zvyšných SK-only znakov ľ/ĺ/ô/ŕ/ä)
+- [x] `cz-import/vzorky-a-truck-cz.xml` — 2× SHOPITEM, CZK, VAT 21 %, kategórie
+      500/502 (zhoda s existujúcim test-truck.xml), validuje proti
+      `docs/shoptet-products-complete-v10.rng`
+- [ ] Klient: skontrolovať placeholder ID (9101/9102), CODE (VZORKY-DRAGONSKIN/TRUCK),
+      link na `/luxusni-autokoberce/` v CTA vzorkovníka (odhad slugu, neoverené na CZ webe)
+- [ ] Naimportovať do CZ Shoptetu, overiť kategórie/ceny po importe
+
 ## Truck konfigurátor — pripomienky klienta (kamiony pripomienky.odt, 18.7.2026)
 - [x] Bod 2 ceny VRÁTENÉ na ceníkové (Jan: "ceny neupravovat, sú presne
       z ceníka") — XML 59/59/95, fallback 70/70/100. Strikethrough UI na

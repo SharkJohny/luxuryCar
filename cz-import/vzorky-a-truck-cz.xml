@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SHOP>
+  <SHOPITEM id="9101">
+    <NAME>Vzorkovník Dragonskin – objednávka vzorků</NAME>
+    <GUID>85810d22-836c-11f1-89d9-4103bb44be74</GUID>
+    <DESCRIPTION><![CDATA[<div style="max-width: 1400px; margin: 0px auto; padding: 12px 28px 64px;">
+<div style="display: flex; align-items: flex-start; gap: 10px; background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 10px; padding: 14px 20px; margin-bottom: 40px; font-size: 15px; color: #2e1810; line-height: 1.5;"><span aria-hidden="true" style="font-size: 19px; flex-shrink: 0; line-height: 1.3;">ℹ️</span><span>Vzorky jsou určené pro autokoberce do <strong>osobních automobilů</strong>. Na nákladní vozidla a kamiony vzorky objednat nelze.</span></div>
+<div style="margin-bottom: 58px; background: linear-gradient(135deg, #2e1810 0%, #1a1008 100%); border-radius: 16px; padding: 40px 32px; color: #ffffff;">
+<div style="text-align: center; margin-bottom: 30px;">
+<div style="font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: #c5a44e; font-weight: 800;">Složení materiálu</div>
+<div style="font-size: 33px; font-weight: 900; margin-top: 6px;">5 vrstev maximální odolnosti</div>
+<div style="font-size: 15px; opacity: 0.85; margin-top: 12px; max-width: 680px; margin-left: auto; margin-right: auto; line-height: 1.6;">Pět vrstev spojených lepením pod vysokým tlakem a teplotou, následně prošitých. Pohodlí, tlumení hluku, tepelná izolace, ochrana před vlhkostí a vynikající přilnavost.</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 12px;">
+<div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 164, 78, 0.28); border-radius: 10px; padding: 18px 16px;">
+<div aria-hidden="true" style="font-size: 24px;">🛡️</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #c5a44e; margin: 9px 0px 7px; text-transform: uppercase; letter-spacing: 0.4px;">Kvalitní eko-kůže</div>
+<div style="font-size: 14px; opacity: 0.85; line-height: 1.55;">Prémiová odolná umělá kůže s příjemným povrchem. Pohodlná, snadno se čistí, na dotek působí luxusně.</div>
+</div>
+<div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 164, 78, 0.28); border-radius: 10px; padding: 18px 16px;">
+<div aria-hidden="true" style="font-size: 24px;">🪶</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #c5a44e; margin: 9px 0px 7px; text-transform: uppercase; letter-spacing: 0.4px;">Vysokohustotní pěna</div>
+<div style="font-size: 14px; opacity: 0.85; line-height: 1.55;">Dokonalá měkkost, která zvyšuje pohodlí. Zároveň slouží jako ochranná bariéra.</div>
+</div>
+<div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 164, 78, 0.28); border-radius: 10px; padding: 18px 16px;">
+<div aria-hidden="true" style="font-size: 24px;">🌬️</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #c5a44e; margin: 9px 0px 7px; text-transform: uppercase; letter-spacing: 0.4px;">Prodyšná netkaná vrstva</div>
+<div style="font-size: 14px; opacity: 0.85; line-height: 1.55;">Ultra tenká vrstva netkaného materiálu — opora pro vrchní vrstvy, drží vlákna stabilní i po letech.</div>
+</div>
+<div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 164, 78, 0.28); border-radius: 10px; padding: 18px 16px;">
+<div aria-hidden="true" style="font-size: 24px;">🌱</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #c5a44e; margin: 9px 0px 7px; text-transform: uppercase; letter-spacing: 0.4px;">Ekologický materiál XPE</div>
+<div style="font-size: 14px; opacity: 0.85; line-height: 1.55;">Vrstva z propojeného polyetylenu. Udržuje tvar, izoluje zvuk a je šetrná k životnímu prostředí.</div>
+</div>
+<div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 164, 78, 0.28); border-radius: 10px; padding: 18px 16px;">
+<div aria-hidden="true" style="font-size: 24px;">🔒</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #c5a44e; margin: 9px 0px 7px; text-transform: uppercase; letter-spacing: 0.4px;">Protiskluzová vrstva</div>
+<div style="font-size: 14px; opacity: 0.85; line-height: 1.55;">Nylonová síťovina s protiskluzovými vlastnostmi — koberec se neposouvá, zvyšuje bezpečnost a stabilitu.</div>
+</div>
+</div>
+</div>
+<div style="margin-bottom: 58px;">
+<div style="text-align: center; margin-bottom: 30px;">
+<div style="font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: #a8893a; font-weight: 800;">Dvě úrovně Dragonskin</div>
+<div style="font-size: 33px; font-weight: 900; color: #2e1810; margin-top: 6px; line-height: 1.22;">Basic a Elite — v čem je rozdíl</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: stretch;">
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 14px; padding: 28px 26px; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #a8893a; font-weight: 800;">1 vrstva</div>
+<div style="font-size: 26px; font-weight: 900; color: #2e1810; margin-top: 5px;">Dragonskin Basic</div>
+<div style="font-size: 15px; color: #5b4a3d; line-height: 1.6; margin-top: 11px;">Jednovrstvý luxusní autokoberec — 5vrstvá kompozice Dragonskin (eko-kůže, pěna, netkaná vrstva, XPE, protiskluz). Přesné usazení a spolehlivá ochrana podlahy vozidla.</div>
+</div>
+<div style="background: linear-gradient(135deg, #2e1810 0%, #1a1008 100%); border: 2px solid #c5a44e; border-radius: 14px; padding: 28px 26px; color: #ffffff; box-shadow: rgba(46, 24, 16, 0.22) 0px 10px 28px;">
+<div style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #c5a44e; font-weight: 800;">2 vrstvy</div>
+<div style="font-size: 26px; font-weight: 900; margin-top: 5px;">Dragonskin Elite</div>
+<div style="font-size: 15px; opacity: 0.92; line-height: 1.6; margin-top: 11px;">Dvouvrstvá varianta — k vrstvě Basic přidává druhou vrstvu Lux. <strong style="color: #c5a44e;">Vrstva Lux je 100% vodotěsná</strong> — maximální ochrana proti vodě, sněhu a nečistotám, ideální na zimu i celoroční používání.</div>
+</div>
+</div>
+</div>
+<div style="margin-bottom: 58px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 28px 22px; text-align: center; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 48px; font-weight: 900; color: #c5a44e; line-height: 1;">95 %</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #2e1810; margin-top: 9px; text-transform: uppercase; letter-spacing: 1px;">Krytí podlahy</div>
+<div style="font-size: 14px; color: #5b4a3d; margin-top: 7px; line-height: 1.55;">Nejvyšší krytí na trhu. Chrání hodnotu tvého auta při prodeji.</div>
+</div>
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 28px 22px; text-align: center; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 48px; font-weight: 900; color: #c5a44e; line-height: 1;">100 %</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #2e1810; margin-top: 9px; text-transform: uppercase; letter-spacing: 1px;">Vodotěsná vrstva Lux</div>
+<div style="font-size: 14px; color: #5b4a3d; margin-top: 7px; line-height: 1.55;">Vrchní vrstva Lux z řady Elite je 100% vodotěsná — úplná ochrana před rozlitím.</div>
+</div>
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 28px 22px; text-align: center; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 48px; font-weight: 900; color: #c5a44e; line-height: 1;">1 000+</div>
+<div style="font-size: 14.5px; font-weight: 800; color: #2e1810; margin-top: 9px; text-transform: uppercase; letter-spacing: 1px;">Modelů aut</div>
+<div style="font-size: 14px; color: #5b4a3d; margin-top: 7px; line-height: 1.55;">Připravené šablony pro většinu vozidel — koberce na míru tvého.</div>
+</div>
+</div>
+<div style="margin-bottom: 58px;">
+<div style="text-align: center; margin-bottom: 30px;">
+<div style="font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: #a8893a; font-weight: 800;">Proč Dragonskin</div>
+<div style="font-size: 33px; font-weight: 900; color: #2e1810; margin-top: 6px; line-height: 1.22;">Vyrobené tak, aby vydržely</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 30px; font-weight: 900; color: #c5a44e; font-family: Georgia, 'Times New Roman', serif; line-height: 1;">01</div>
+<div style="font-size: 16.5px; font-weight: 800; color: #2e1810; margin: 9px 0px 8px; text-transform: uppercase; letter-spacing: 0.4px;">Navrženo s dokonalou přesností</div>
+<div style="font-size: 15px; color: #5b4a3d; line-height: 1.6;">Vnitřní rozměry každého vozidla skenujeme 3D laserovým skenerem. Zachytíme každý detail a vytvoříme přesné šablony pro tvé auto — více než 200 minut skenování na vozidlo.</div>
+</div>
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 30px; font-weight: 900; color: #c5a44e; font-family: Georgia, 'Times New Roman', serif; line-height: 1;">02</div>
+<div style="font-size: 16.5px; font-weight: 800; color: #2e1810; margin: 9px 0px 8px; text-transform: uppercase; letter-spacing: 0.4px;">Šité na míru tvého auta</div>
+<div style="font-size: 15px; color: #5b4a3d; line-height: 1.6;">Autokoberce šijeme na objednávku, speciálně pro každé auto zvlášť. Přesné usazení a krytí podlahových i bočních ploch až do 95 % — nejvyšší standard na trhu.</div>
+</div>
+<div style="background: #ffffff; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px; box-shadow: rgba(46, 24, 16, 0.06) 0px 4px 14px;">
+<div style="font-size: 30px; font-weight: 900; color: #c5a44e; font-family: Georgia, 'Times New Roman', serif; line-height: 1;">03</div>
+<div style="font-size: 16.5px; font-weight: 800; color: #2e1810; margin: 9px 0px 8px; text-transform: uppercase; letter-spacing: 0.4px;">Dvojité uchycení pro maximální stabilitu</div>
+<div style="font-size: 15px; color: #5b4a3d; line-height: 1.6;">Každá rohož má na spodní straně našité suché zipy. V balení jsou i klipy na sekundární uchycení pod plastové části — žádný pohyb během jízdy.</div>
+</div>
+</div>
+</div>
+<div>
+<div style="text-align: center; margin-bottom: 30px;">
+<div style="font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: #a8893a; font-weight: 800;">Originál Dragonskin</div>
+<div style="font-size: 33px; font-weight: 900; color: #2e1810; margin-top: 6px; line-height: 1.22;">Proč nám zákazníci důvěřují</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;">
+<div style="background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px 16px; text-align: center;">
+<div style="font-size: 23px; font-weight: 900; color: #2e1810;">2 roky</div>
+<div style="font-size: 12.5px; font-weight: bold; color: #a8893a; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.7px;">Záruka</div>
+</div>
+<div style="background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px 16px; text-align: center;">
+<div style="font-size: 23px; font-weight: 900; color: #2e1810;">25–35 dní</div>
+<div style="font-size: 12.5px; font-weight: bold; color: #a8893a; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.7px;">Dodání</div>
+</div>
+<div style="background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px 16px; text-align: center;">
+<div style="font-size: 23px; font-weight: 900; color: #2e1810;">&lt; 1 hodina</div>
+<div style="font-size: 12.5px; font-weight: bold; color: #a8893a; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.7px;">Odezva podpory</div>
+</div>
+<div style="background: #fdf8ec; border: 1px solid #e0d5b8; border-radius: 12px; padding: 22px 16px; text-align: center;">
+<div style="font-size: 23px; font-weight: 900; color: #2e1810;">až 95 %</div>
+<div style="font-size: 12.5px; font-weight: bold; color: #a8893a; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.7px;">Krytí podlahy</div>
+</div>
+</div>
+<div style="text-align: center;"><a href="https://www.luxurycardesign.cz/luxusni-autokoberce/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 30px; font-size: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.2px; box-shadow: rgba(197, 164, 78, 0.4) 0px 8px 24px;">Zobrazit celou nabídku autokoberců →</a></div>
+</div>
+</div>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <DEFAULT_CATEGORY id="500">Naše produkty</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <IMAGES>
+      <IMAGE description="download">https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/shop/orig/637_download.jpg?6a4198f7</IMAGE>
+      <IMAGE description="download (2)">https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/shop/orig/637-2_download--2.jpg?6a4198fd</IMAGE>
+      <IMAGE description="download (3)">https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/shop/orig/637-3_download--3.jpg?6a419900</IMAGE>
+    </IMAGES>
+    <SURCHARGE_PARAMETERS>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 01 (LUX-01)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 01 [LUX-01] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-01</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 02 (LUX-02)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 02 [LUX-02] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-02</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 03 (LUX-03)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 03 [LUX-03] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-03</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 04 (LUX-04)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 04 [LUX-04] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-04</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 05 (LUX-05)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 05 [LUX-05] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-05</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 06 (LUX-06)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 06 [LUX-06] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-06</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 07 (LUX-07)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 07 [LUX-07] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-07</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 08 (LUX-08)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 08 [LUX-08] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-08</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 09 (LUX-09)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 09 [LUX-09] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-09</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 10 – černá (LUX-10)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 10 – černá [LUX-10] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-10</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 11 (LUX-11)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 11 [LUX-11] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-11</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 12 (LUX-12)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 12 [LUX-12] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-12</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 13 (LUX-13)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 13 [LUX-13] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-13</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 14 (LUX-14)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 14 [LUX-14] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-14</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 15 (LUX-15)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 15 [LUX-15] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-15</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek 2. vrstva – Lux Color 16 (LUX-16)</NAME>
+      <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 16 [LUX-16] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>LUX-16</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Béžová (D-10)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Béžová [D-10] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-10</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Světle hnědá (D-12)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Světle hnědá [D-12] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-12</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Červená (D-14)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Červená [D-14] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-14</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná béžovou (D-4)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná béžovou [D-4] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-4</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná bílou (D-6)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná bílou [D-6] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-6</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná bronzovou (D-9)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná bronzovou [D-9] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-9</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná červenou (D-1)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná červenou [D-1] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-1</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná černou (D-3)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná černou [D-3] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-3</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná modrou (D-2)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná modrou [D-2] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-2</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná šedou (D-5)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná šedou [D-5] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-5</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná zelenou (D-8)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná zelenou [D-8] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-8</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Černá prošívaná žlutou (D-7)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná žlutou [D-7] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-7</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Fialová (D-18)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Fialová [D-18] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-18</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Hnědá káva (D-11)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Hnědá káva [D-11] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-11</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Modrá (D-17)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Modrá [D-17] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-17</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Oranžová (D-16)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Oranžová [D-16] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-16</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Šedá (D-15)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Šedá [D-15] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-15</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Diamond – Vínově červená (D-13)</NAME>
+      <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Vínově červená [D-13] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>D-13</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Hexa – Černá prošívaná červenou (H-1)</NAME>
+      <DESCRIPTION>Přidat vzorek Hexa (1. vrstva) – Černá prošívaná červenou [H-1] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>H-1</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Hexa – Černá prošívaná černou (H-3)</NAME>
+      <DESCRIPTION>Přidat vzorek Hexa (1. vrstva) – Černá prošívaná černou [H-3] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>H-3</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Hexa – Černá prošívaná modrou (H-2)</NAME>
+      <DESCRIPTION>Přidat vzorek Hexa (1. vrstva) – Černá prošívaná modrou [H-2] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>H-2</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Béžová (S-4)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Béžová [S-4] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-4</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Světle hnědá (S-6)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Světle hnědá [S-6] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-6</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Červená (S-8)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Červená [S-8] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-8</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Černá prošívaná béžovou (S-2)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Černá prošívaná béžovou [S-2] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-2</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Černá prošívaná černou (S-3)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Černá prošívaná černou [S-3] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-3</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Hnědá káva (S-5)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Hnědá káva [S-5] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-5</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Standard 29 (S-1)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Standard 29 [S-1] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-1</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Vzorek Stripe – Vínově červená (S-7)</NAME>
+      <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Vínově červená [S-7] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
+      <SHORT_NAME>S-7</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Nechci</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Chci – vratná záloha 99 Kč</NAME><PRICE>99</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    </SURCHARGE_PARAMETERS>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>1</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>visible</VISIBILITY>
+    <META_DESCRIPTION>Objednávka vzorků Dragonskin – Stripe, Hexa, Diamond, 2. vrstva. Každý vzorek samostatně, vratná záloha 99 Kč za vzorek.</META_DESCRIPTION>
+    <UNIT>ks</UNIT>
+    <CODE>VZORKY-DRAGONSKIN</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE>1</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>1</STANDARD_PRICE>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+  </SHOPITEM>
+  <SHOPITEM id="9102">
+    <NAME>luxusní autokoberce TRUCK</NAME>
+    <GUID>85810dcc-836c-11f1-89d9-4103bb44be74</GUID>
+    <DESCRIPTION><![CDATA[<div style="margin-top: 50px;">
+<section style="padding: 70px 28px 30px; max-width: 1200px; margin: 0px auto;">
+<div style="text-align: center; margin-bottom: 40px;">
+<h2 style="font-size: 31px; font-weight: 900; color: #2e1810; margin: 0px; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.25;">8 důvodů, proč zvolit<br />autokoberce na míru</h2>
+<div style="width: 80px; height: 3px; background: linear-gradient(90deg, #c5a44e 0%, #a8893a 100%); margin: 16px auto 0px;">&nbsp;</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;">
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">🚛</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Šité pro konkrétní kamion nebo dodávku</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Koberce se vyrábí podle zvolené značky a modelu vozidla. Nejsou to univerzální rohože, které se musí přizpůsobovat kabině násilím.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">🧼</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Snadná údržba po každé jízdě</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Bláto, prach, sníh nebo rozlitá káva se z povrchu dají jednoduše setřít. Kabina se udržuje čistší bez zbytečného drhnutí.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">💧</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Voděodolný povrch</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Materiál je voděodolný, takže běžná vlhkost zůstává na povrchu a nevsakuje se jako u textilních rohoží. Stačí rychlé utření hadrem.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">🛡️</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Ochrana původní podlahy</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Originální podlaha zůstává lépe chráněná před špínou, vlhkostí a běžným opotřebením. To dává smysl hlavně u vozidel, která jsou denně v provozu.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">🧵</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Kvalitní PU kůže</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Koberce se vyrábí z kvalitní PU kůže, která působí pevně, upraveně a jednoduše se čistí. Je vhodná do kabiny, kde se denně nastupuje, vystupuje a pracuje.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">🎨</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Vzhled podle tvé kabiny</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Doladit se dá barva, lemování, nášivky i provedení dveřních panelů. Kabina tak nepůsobí jen čistší, ale i jednotnější.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">🔧</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">Praktické řešení pro řidiče</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Pokryté jsou hlavní části kabiny, které dostávají nejvíce zabrat — prostor řidiče, spolujezdce, střední část i okolí lůžka podle konkrétního vozidla.</p>
+</div>
+<div style="padding: 22px 16px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 10px; text-align: center; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="font-size: 42px; margin-bottom: 10px; line-height: 1;">✅</div>
+<h4 style="margin: 0px 0px 6px; font-size: 13px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3;">2 roky záruka</h4>
+<p style="margin: 0px; font-size: 12.5px; line-height: 1.55; color: #555555;">Na koberce se vztahuje záruka 2 roky. Při výběru na míru tak nejde o levnou univerzální náhradu, ale o řešení určené pro konkrétní vozidlo.</p>
+</div>
+</div>
+</section>
+<section style="padding: 30px 28px 40px; max-width: 1100px; margin: 0px auto;">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;">
+<div style="text-align: center; padding: 36px 26px; background: linear-gradient(135deg, #2e1810 0%, #1a1008 100%); color: #ffffff; border-radius: 14px; border: 1px solid rgba(197, 164, 78, 0.4); box-shadow: rgba(46, 24, 16, 0.18) 0px 8px 22px;">
+<div style="font-size: 58px; font-weight: 900; color: #c5a44e; line-height: 1; letter-spacing: -1px; font-family: Georgia, serif;">13</div>
+<div style="margin-top: 12px; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a44e;">Značek</div>
+<div style="margin-top: 10px; font-size: 13.5px; line-height: 1.55; opacity: 0.85; color: #ffffff;">V konfigurátoru je dostupných 13 značek tahačů i dodávek.</div>
+</div>
+<div style="text-align: center; padding: 36px 26px; background: linear-gradient(135deg, #2e1810 0%, #1a1008 100%); color: #ffffff; border-radius: 14px; border: 1px solid rgba(197, 164, 78, 0.4); box-shadow: rgba(46, 24, 16, 0.18) 0px 8px 22px;">
+<div style="font-size: 58px; font-weight: 900; color: #c5a44e; line-height: 1; letter-spacing: -1px; font-family: Georgia, serif;">35</div>
+<div style="margin-top: 12px; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a44e;">Modelů</div>
+<div style="margin-top: 10px; font-size: 13.5px; line-height: 1.55; opacity: 0.85; color: #ffffff;">Vybrat se dá z 35 modelů vozidel, pro které se koberce šijí na míru.</div>
+</div>
+<div style="text-align: center; padding: 36px 26px; background: linear-gradient(135deg, #2e1810 0%, #1a1008 100%); color: #ffffff; border-radius: 14px; border: 1px solid rgba(197, 164, 78, 0.4); box-shadow: rgba(46, 24, 16, 0.18) 0px 8px 22px;">
+<div style="font-size: 58px; font-weight: 900; color: #c5a44e; line-height: 1; letter-spacing: -1px; font-family: Georgia, serif;">7–15</div>
+<div style="margin-top: 12px; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a44e;">Dní výroba</div>
+<div style="margin-top: 10px; font-size: 13.5px; line-height: 1.55; opacity: 0.85; color: #ffffff;">Výroba koberců trvá 7 až 15 dní od vytvoření objednávky.</div>
+</div>
+</div>
+</section>
+<section style="padding: 70px 28px; background: #ffffff; border-top: 1px solid rgba(197, 164, 78, 0.15); border-bottom: 1px solid rgba(197, 164, 78, 0.15); margin-top: 40px;">
+<div style="max-width: 1200px; margin: 0px auto;">
+<div style="text-align: center; margin-bottom: 36px;">
+<div style="font-size: 13px; font-weight: 800; color: #c5a44e; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Detaily, na kterých záleží</div>
+<h2 style="font-size: 31px; font-weight: 900; color: #2e1810; margin: 0px; letter-spacing: 0.5px; text-transform: uppercase;">Co koberce v kabině pokrývají</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
+<div style="padding: 22px; background: #fafafa; border: 1px solid rgba(197, 164, 78, 0.2); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 8px; line-height: 1;">🚚</div>
+<h4 style="margin: 0px 0px 8px; font-size: 14.5px; font-weight: 800; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Prostor řidiče</h4>
+<p style="margin: 0px; font-size: 13.5px; line-height: 1.6; color: #555555;">Nejvíce zatížená část kabiny je řešena tak, aby chránila původní podlahu při každodenním nastupování, vystupování a jízdě.</p>
+</div>
+<div style="padding: 22px; background: #fafafa; border: 1px solid rgba(197, 164, 78, 0.2); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 8px; line-height: 1;">🧍</div>
+<h4 style="margin: 0px 0px 8px; font-size: 14.5px; font-weight: 800; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Prostor spolujezdce</h4>
+<p style="margin: 0px; font-size: 13.5px; line-height: 1.6; color: #555555;">Koberec pokračuje i na straně spolujezdce, kde pomáhá udržet kabinu čistší a vizuálně jednotnou.</p>
+</div>
+<div style="padding: 22px; background: #fafafa; border: 1px solid rgba(197, 164, 78, 0.2); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 8px; line-height: 1;">↔️</div>
+<h4 style="margin: 0px 0px 8px; font-size: 14.5px; font-weight: 800; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Středový tunel</h4>
+<p style="margin: 0px; font-size: 13.5px; line-height: 1.6; color: #555555;">Pokud je střední část součástí konkrétní kabiny, koberec se přizpůsobuje i této ploše. Podlaha tak nepůsobí rozdělená na náhodné kusy.</p>
+</div>
+<div style="padding: 22px; background: #fafafa; border: 1px solid rgba(197, 164, 78, 0.2); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 8px; line-height: 1;">🛏️</div>
+<h4 style="margin: 0px 0px 8px; font-size: 14.5px; font-weight: 800; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Okolí lůžka</h4>
+<p style="margin: 0px; font-size: 13.5px; line-height: 1.6; color: #555555;">U tahačů s lůžkem se řeší i část kabiny, kde řidič odpočívá. Cílem je jednodušší údržba a upravenější vzhled prostoru.</p>
+</div>
+<div style="padding: 22px; background: #fafafa; border: 1px solid rgba(197, 164, 78, 0.2); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 8px; line-height: 1;">🦶</div>
+<h4 style="margin: 0px 0px 8px; font-size: 14.5px; font-weight: 800; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Oblast u pedálů</h4>
+<p style="margin: 0px; font-size: 13.5px; line-height: 1.6; color: #555555;">Část u pedálů je zpracována s důrazem na praktické používání. Po montáži je vždy potřeba zkontrolovat volný pohyb pedálů.</p>
+</div>
+<div style="padding: 22px; background: #fafafa; border: 1px solid rgba(197, 164, 78, 0.2); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 8px; line-height: 1;">🚪</div>
+<h4 style="margin: 0px 0px 8px; font-size: 14.5px; font-weight: 800; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Dveřní panely</h4>
+<p style="margin: 0px; font-size: 13.5px; line-height: 1.6; color: #555555;">Podle zvoleného provedení se dají doladit i dveřní panely. Kabina tak může působit více jednotně, nejen jako prostor s vyměněnou podlahou.</p>
+</div>
+</div>
+<div style="margin-top: 24px; padding: 16px 22px; background: #fdf8ec; border: 1px dashed rgba(197, 164, 78, 0.5); border-radius: 10px; font-size: 13px; line-height: 1.6; color: #6b5a3a; text-align: center;"><strong>Poznámka k pokrytí:</strong> U kamionů se neřeší plné boční krytí podlahy jako u některých osobních aut. Důraz je na hlavní pochozí a pohledové části kabiny.</div>
+</div>
+</section>
+<section style="padding: 70px 28px; max-width: 1100px; margin: 0px auto;">
+<div style="text-align: center; margin-bottom: 40px;">
+<div style="font-size: 13px; font-weight: 800; color: #c5a44e; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Proces výroby</div>
+<h2 style="font-size: 31px; font-weight: 900; color: #2e1810; margin: 0px; letter-spacing: 0.5px; text-transform: uppercase;">Od objednávky po doručení</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; align-items: flex-start; gap: 22px; padding: 24px 28px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 12px; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; box-shadow: rgba(197, 164, 78, 0.35) 0px 4px 12px;">1</div>
+<div style="flex: 1 1 0%; min-width: 0px;">
+<h4 style="margin: 0px 0px 6px; font-size: 17px; font-weight: 800; color: #2e1810; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">Krok 1 — Vybere se značka a model</h4>
+<p style="margin: 0px; font-size: 14.5px; line-height: 1.65; color: #444444;">V konfigurátoru se zvolí značka a model tahače nebo dodávky. Dostupných je 13 značek a 35 modelů.</p>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 22px; padding: 24px 28px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 12px; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; box-shadow: rgba(197, 164, 78, 0.35) 0px 4px 12px;">2</div>
+<div style="flex: 1 1 0%; min-width: 0px;">
+<h4 style="margin: 0px 0px 6px; font-size: 17px; font-weight: 800; color: #2e1810; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">Krok 2 — Zvolí se provedení</h4>
+<p style="margin: 0px; font-size: 14.5px; line-height: 1.65; color: #444444;">Vybere se barva, lemování, nášivky a případné provedení dveřních panelů. Díky tomu se koberec přizpůsobí stylu kabiny.</p>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 22px; padding: 24px 28px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 12px; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; box-shadow: rgba(197, 164, 78, 0.35) 0px 4px 12px;">3</div>
+<div style="flex: 1 1 0%; min-width: 0px;">
+<h4 style="margin: 0px 0px 6px; font-size: 17px; font-weight: 800; color: #2e1810; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">Krok 3 — Objednávka se odešle na zpracování</h4>
+<p style="margin: 0px; font-size: 14.5px; line-height: 1.65; color: #444444;">Po dokončení konfigurace se objednávka připraví na výrobu podle zvolených parametrů.</p>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 22px; padding: 24px 28px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 12px; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; box-shadow: rgba(197, 164, 78, 0.35) 0px 4px 12px;">4</div>
+<div style="flex: 1 1 0%; min-width: 0px;">
+<h4 style="margin: 0px 0px 6px; font-size: 17px; font-weight: 800; color: #2e1810; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">Krok 4 — Koberce se šijí na míru</h4>
+<p style="margin: 0px; font-size: 14.5px; line-height: 1.65; color: #444444;">Koberce se vyrábí z kvalitní PU kůže podle konkrétního vozidla a zvoleného provedení.</p>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 22px; padding: 24px 28px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 12px; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; box-shadow: rgba(197, 164, 78, 0.35) 0px 4px 12px;">5</div>
+<div style="flex: 1 1 0%; min-width: 0px;">
+<h4 style="margin: 0px 0px 6px; font-size: 17px; font-weight: 800; color: #2e1810; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">Krok 5 — Hotová sada se zkontroluje a zabalí</h4>
+<p style="margin: 0px; font-size: 14.5px; line-height: 1.65; color: #444444;">Před odesláním se sada připraví na doručení tak, aby přišla kompletní a připravená na montáž.</p>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 22px; padding: 24px 28px; background: #ffffff; border: 1px solid rgba(197, 164, 78, 0.25); border-radius: 12px; box-shadow: rgba(46, 24, 16, 0.05) 0px 3px 10px;">
+<div style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; box-shadow: rgba(197, 164, 78, 0.35) 0px 4px 12px;">6</div>
+<div style="flex: 1 1 0%; min-width: 0px;">
+<h4 style="margin: 0px 0px 6px; font-size: 17px; font-weight: 800; color: #2e1810; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">Krok 6 — Koberce se doručí k tobě</h4>
+<p style="margin: 0px; font-size: 14.5px; line-height: 1.65; color: #444444;">Výroba trvá 7 až 15 dní. Po dokončení se objednávka odešle na doručení.</p>
+</div>
+</div>
+</div>
+</section>
+<section style="padding: 70px 28px; max-width: 1100px; margin: 0px auto;">
+<div style="text-align: center; margin-bottom: 36px;">
+<h2 style="font-size: 31px; font-weight: 900; color: #2e1810; margin: 0px; letter-spacing: 0.5px; text-transform: uppercase;">Personalizace</h2>
+<div style="width: 80px; height: 3px; background: linear-gradient(90deg, #c5a44e 0%, #a8893a 100%); margin: 16px auto 0px;">&nbsp;</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+<div style="padding: 26px 18px; background: #ffffff; border: 1.5px solid #c5a44e; border-radius: 12px; text-align: center; box-shadow: rgba(197, 164, 78, 0.15) 0px 3px 10px;">
+<div style="font-size: 44px; margin-bottom: 10px; line-height: 1;">🎨</div>
+<h4 style="margin: 0px 0px 6px; font-size: 14px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Barva koberců</h4>
+<p style="margin: 0px; font-size: 13px; line-height: 1.6; color: #555555;">Barvu lze vybrat tak, aby ladila s kabinou nebo firemním stylem vozidla.</p>
+</div>
+<div style="padding: 26px 18px; background: #ffffff; border: 1.5px solid #c5a44e; border-radius: 12px; text-align: center; box-shadow: rgba(197, 164, 78, 0.15) 0px 3px 10px;">
+<div style="font-size: 44px; margin-bottom: 10px; line-height: 1;">🧵</div>
+<h4 style="margin: 0px 0px 6px; font-size: 14px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Lemování</h4>
+<p style="margin: 0px; font-size: 13px; line-height: 1.6; color: #555555;">Lemování dotváří celkový vzhled koberce a pomáhá, aby výsledek nepůsobil jako obyčejná pracovní rohož.</p>
+</div>
+<div style="padding: 26px 18px; background: #ffffff; border: 1.5px solid #c5a44e; border-radius: 12px; text-align: center; box-shadow: rgba(197, 164, 78, 0.15) 0px 3px 10px;">
+<div style="font-size: 44px; margin-bottom: 10px; line-height: 1;">🪡</div>
+<h4 style="margin: 0px 0px 6px; font-size: 14px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Nášivky</h4>
+<p style="margin: 0px; font-size: 13px; line-height: 1.6; color: #555555;">Koberec lze doplnit o nášivku, která zvýrazní značku, jméno, logo nebo styl vozidla.</p>
+</div>
+<div style="padding: 26px 18px; background: #ffffff; border: 1.5px solid #c5a44e; border-radius: 12px; text-align: center; box-shadow: rgba(197, 164, 78, 0.15) 0px 3px 10px;">
+<div style="font-size: 44px; margin-bottom: 10px; line-height: 1;">🚪</div>
+<h4 style="margin: 0px 0px 6px; font-size: 14px; font-weight: 900; color: #a8893a; text-transform: uppercase; letter-spacing: 0.7px; line-height: 1.3;">Dveřní panely</h4>
+<p style="margin: 0px; font-size: 13px; line-height: 1.6; color: #555555;">Při zvoleném provedení se dají upravit i dveřní panely, aby kabina působila jednotněji.</p>
+</div>
+</div>
+</section>
+<section style="padding: 80px 28px 90px; background: linear-gradient(135deg, #2e1810 0%, #1a1008 100%); color: #ffffff; margin-top: 40px; border-radius: 18px;">
+<div style="max-width: 760px; margin: 0px auto; text-align: center;">
+<div style="font-size: 13px; font-weight: 800; color: #c5a44e; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;">Připraven vybrat?</div>
+<h2 style="font-size: 34px; font-weight: 900; margin: 0px 0px 16px; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.25;">Vyber si koberce pro svůj<br />kamion nebo dodávku</h2>
+<p style="margin: 0px 0px 14px; font-size: 15.5px; line-height: 1.65; opacity: 0.9;">Zvol značku, model a provedení přímo v konfigurátoru. Koberce se vyrobí na míru z kvalitní PU kůže, výroba trvá 7 až 15 dní a na hotovou sadu se vztahuje záruka 2 roky.</p>
+<p style="margin: 0px 0px 34px; font-size: 14px; line-height: 1.6; opacity: 0.7;">Poskládej si kabinu prakticky, čistě a podle sebe.</p>
+<button style="display: inline-block; padding: 18px 44px; background: linear-gradient(135deg, #c5a44e 0%, #a8893a 100%); color: #ffffff; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.3px; border-radius: 34px; cursor: pointer; box-shadow: rgba(197, 164, 78, 0.45) 0px 10px 28px; border: medium none currentcolor;">🛒 Zahájit konfiguraci</button></div>
+</section>
+</div>]]></DESCRIPTION>
+    <MANUFACTURER>Luxury Car Design</MANUFACTURER>
+    <ADULT>0</ADULT>
+    <ITEM_TYPE>product</ITEM_TYPE>
+    <CATEGORIES>
+      <CATEGORY id="500">Naše produkty</CATEGORY>
+      <CATEGORY id="502">Naše produkty &gt; Autokoberce do kamionu</CATEGORY>
+      <DEFAULT_CATEGORY id="502">Naše produkty &gt; Autokoberce do kamionu</DEFAULT_CATEGORY>
+    </CATEGORIES>
+    <SURCHARGE_PARAMETERS>
+    <SURCHARGE_PARAMETER>
+      <NAME>Materiál</NAME>
+      <DESCRIPTION>Druh povrchu autokoberců</DESCRIPTION>
+      <SHORT_NAME>Materiál</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>1</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Prémiová syntetická kůže – jednobarevná</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Prémiová syntetická kůže – prošívaná</NAME><PRICE>199</PRICE></VALUE>
+        <VALUE><NAME>Prémiová syntetická kůže – tónovaná</NAME><PRICE>990</PRICE></VALUE>
+        <VALUE><NAME>Mikrosemiš – jednobarevný</NAME><PRICE>990</PRICE></VALUE>
+        <VALUE><NAME>Mikrosemiš – dvoubarevný</NAME><PRICE>1199</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Nášivky – umístění</NAME>
+      <DESCRIPTION>Kde budou umístěny nášivky</DESCRIPTION>
+      <SHORT_NAME>Nášivky</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>1</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Bez nášivek</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Jen střed</NAME><PRICE>1399</PRICE></VALUE>
+        <VALUE><NAME>Řidič + spolujezdec</NAME><PRICE>1399</PRICE></VALUE>
+        <VALUE><NAME>Řidič + spolujezdec + střed (BALÍČEK)</NAME><PRICE>2299</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Čalounění dveří</NAME>
+      <DESCRIPTION>Výplně dveřních panelů</DESCRIPTION>
+      <SHORT_NAME>Čalounění</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>1</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Ne, nechci čalounění dveří</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Ano, chci (v konfigurátoru – balíček)</NAME><PRICE>2890</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Nášivka na dveřích</NAME>
+      <DESCRIPTION>Výšivka na dveřním čalounění</DESCRIPTION>
+      <SHORT_NAME>Nášivka dveře</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Ne, nechci nášivku na dveřích</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Ano, chci nášivku na dveřích</NAME><PRICE>1190</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Značka a model</NAME>
+      <DESCRIPTION>Značka a model kamionu – z konfigurátoru</DESCRIPTION>
+      <SHORT_NAME>Vozidlo</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>1</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Typ převodovky</NAME>
+      <DESCRIPTION>Automatická / manuální převodovka</DESCRIPTION>
+      <SHORT_NAME>Převodovka</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Automatická převodovka</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Manuální převodovka</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Typ sedadla spolujezdce</NAME>
+      <DESCRIPTION>Sedadlo spolujezdce (podle značky a modelu)</DESCRIPTION>
+      <SHORT_NAME>Sedadlo</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Počet zásuvek (šuplíků)</NAME>
+      <DESCRIPTION>Jen pro MAN TGX</DESCRIPTION>
+      <SHORT_NAME>Zásuvky</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>1 zásuvka</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2 zásuvky</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Typ parkovací brzdy</NAME>
+      <DESCRIPTION>Elektrická / pneumatická ruční brzda</DESCRIPTION>
+      <SHORT_NAME>Brzda</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Elektrická ruční brzda</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>ADR – pneumatická ruční brzda</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Podlaha</NAME>
+      <DESCRIPTION>Typ podlahy kamionu</DESCRIPTION>
+      <SHORT_NAME>Podlaha</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Barva materiálu</NAME>
+      <DESCRIPTION>Barva + kód vzorku – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Barva</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>1</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Lemování</NAME>
+      <DESCRIPTION>Druh lemování – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Lemování</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>1</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Druh nášivky</NAME>
+      <DESCRIPTION>Výběr konkrétní nášivky – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Nášivka</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Barva nitě</NAME>
+      <DESCRIPTION>Barva nitě pro výšivku – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Niť</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Materiál dveří</NAME>
+      <DESCRIPTION>Materiál čalounění dveří – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Materiál dveře</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Stejný jako koberec</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Barva dveří</NAME>
+      <DESCRIPTION>Barva čalounění dveří – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Barva dveře</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Stejná jako koberec</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Lemování dveří</NAME>
+      <DESCRIPTION>Lemování čalounění dveří – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Lemování dveře</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Stejné jako koberec</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Nášivka dveří – druh</NAME>
+      <DESCRIPTION>Výběr nášivky na dveře – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Nášivka dveře druh</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Stejná jako koberec</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Barva nitě – dveře</NAME>
+      <DESCRIPTION>Barva nitě pro nášivku na dveřích – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Niť dveře</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Stejná jako koberec</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    </SURCHARGE_PARAMETERS>
+    <FLAGS>
+      <FLAG><CODE>new</CODE><ACTIVE>1</ACTIVE></FLAG>
+    </FLAGS>
+    <VISIBILITY>visible</VISIBILITY>
+    <META_DESCRIPTION>Autokoberce na míru pro kamiony a dodávky Luxury Car Design.</META_DESCRIPTION>
+    <ALLOWS_IPLATBA>0</ALLOWS_IPLATBA>
+    <ALLOWS_PAY_ONLINE>1</ALLOWS_PAY_ONLINE>
+    <UNIT>ks</UNIT>
+    <CODE>TRUCK</CODE>
+    <LOGISTIC>
+      <WEIGHT>3.5</WEIGHT>
+    </LOGISTIC>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE>4799</PRICE>
+    <VAT>21</VAT>
+    <STANDARD_PRICE>4799</STANDARD_PRICE>
+    <STOCK>
+      <AMOUNT>999</AMOUNT>
+    </STOCK>
+    <VISIBLE>1</VISIBLE>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Na dotaz</AVAILABILITY_OUT_OF_STOCK>
+  </SHOPITEM>
+</SHOP>

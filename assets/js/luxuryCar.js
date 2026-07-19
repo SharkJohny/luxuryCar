@@ -32064,8 +32064,77 @@ var VZORKY_ITEMS = {
 
 // assets/js/vzorky-konfigurator/index.js
 var MOUNT_ID = "lcd-vzorky-root";
-var DEPOSIT = 5;
 var ID_RE = /\b(S-\d+|H-\d+|D-\d+|LUX-\d+)\b/;
+var I18N = {
+  sk: {
+    currency: "\u20AC",
+    fallbackDeposit: 5,
+    previewSuffix: " \u2014 neposiela sa, len n\xE1h\u013Ead",
+    notSent: "Neposiela sa",
+    sent: "Posielame",
+    skipTitle: "Nechcem \u017Eiadnu vzorku z tejto s\xE9rie",
+    skipActive: "Nechcem \u2713",
+    skipInactive: "Nechcem",
+    close: "Zavrie\u0165",
+    change: "Zmeni\u0165",
+    add: "+ Prida\u0165",
+    empty: "Zatia\u013E nem\xE1\u0161 vybrat\xFA \u017Eiadnu vzorku. Klikaj na vzorky v akorde\xF3noch vy\u0161\u0161ie.",
+    depositInfo: (price2) => `Vratn\xE1 z\xE1loha ${price2} za ka\u017Ed\xFA vzorku. Ke\u010F n\xE1m vzorky vr\xE1ti\u0161, z\xE1lohu ti po\u0161leme sp\xE4\u0165.`,
+    hint: (price2) => `Vyber \u013Eubovo\u013En\xFD po\u010Det vzoriek (vratn\xE1 z\xE1loha ${price2} / vzorka). Op\xE4tovn\xFD klik v\xFDber zru\u0161\xED.`,
+    hintPreview: (price2) => `Vyber \u013Eubovo\u013En\xFD po\u010Det objedn\xE1vate\u013En\xFDch vzoriek (${price2} z\xE1loha / vzorka). N\xE1h\u013Eady \u201ENeposiela sa\u201C sa objedna\u0165 nedaj\xFA.`,
+    continueTo: (title) => `Pokra\u010Dova\u0165 na ${title} \u2192`,
+    continueSummary: "Pokra\u010Dova\u0165 na s\xFAhrn objedn\xE1vky \u2192",
+    orderTitle: "Tvoja objedn\xE1vka vzoriek",
+    depositTotal: "Vratn\xE1 z\xE1loha spolu",
+    shipping: "+ po\u0161tovn\xE9 + poplatok za platbu",
+    selected: "Vybran\xE9 vzorky:",
+    note: (price2) => `Z\xE1loha ${price2} / vzorka sa vr\xE1ti po obdr\u017Ean\xED vzoriek sp\xE4\u0165. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EPrida\u0165 do ko\u0161\xEDka\u201C ni\u017E\u0161ie.`
+  },
+  cs: {
+    currency: "K\u010D",
+    fallbackDeposit: 99,
+    previewSuffix: " \u2014 nepos\xEDl\xE1 se, pouze n\xE1hled",
+    notSent: "Nepos\xEDl\xE1 se",
+    sent: "Pos\xEDl\xE1me",
+    skipTitle: "Nechci \u017E\xE1dn\xFD vzorek z t\xE9to s\xE9rie",
+    skipActive: "Nechci \u2713",
+    skipInactive: "Nechci",
+    close: "Zav\u0159\xEDt",
+    change: "Zm\u011Bnit",
+    add: "+ P\u0159idat",
+    empty: "Zat\xEDm nem\xE1\u0161 vybran\xFD \u017E\xE1dn\xFD vzorek. Vyber vzorky v sekc\xEDch v\xFD\u0161e.",
+    depositInfo: (price2) => `Vratn\xE1 z\xE1loha ${price2} za ka\u017Ed\xFD vzorek. Jakmile n\xE1m vzorky vr\xE1t\xED\u0161, po\u0161leme ti z\xE1lohu zp\u011Bt.`,
+    hint: (price2) => `Vyber libovoln\xFD po\u010Det vzork\u016F (vratn\xE1 z\xE1loha ${price2} / vzorek). Opakovan\xFDm kliknut\xEDm v\xFDb\u011Br zru\u0161\xED\u0161.`,
+    hintPreview: (price2) => `Vyber libovoln\xFD po\u010Det objednateln\xFDch vzork\u016F (${price2} z\xE1loha / vzorek). N\xE1hledy \u201ENepos\xEDl\xE1 se\u201C nelze objednat.`,
+    continueTo: (title) => `Pokra\u010Dovat na ${title} \u2192`,
+    continueSummary: "Pokra\u010Dovat na souhrn objedn\xE1vky \u2192",
+    orderTitle: "Tvoje objedn\xE1vka vzork\u016F",
+    depositTotal: "Vratn\xE1 z\xE1loha celkem",
+    shipping: "+ po\u0161tovn\xE9 + poplatek za platbu",
+    selected: "Vybran\xE9 vzorky:",
+    note: (price2) => `Z\xE1loha ${price2} / vzorek se vr\xE1t\xED po obdr\u017Een\xED vzork\u016F zp\u011Bt. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EP\u0159idat do ko\u0161\xEDku\u201C n\xED\u017Ee.`
+  }
+};
+function pageLanguage() {
+  const htmlLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+  const inputLang = ((document.querySelector('input[name="language"]') || {}).value || "").toLowerCase();
+  const host = (window.location.hostname || "").toLowerCase();
+  return htmlLang.startsWith("cs") || inputLang.startsWith("cs") || host.endsWith(".cz") ? "cs" : "sk";
+}
+function formatMoney(value, locale) {
+  return locale.currency === "K\u010D" ? `${formatWhole(value)} K\u010D` : `${formatWhole(value)} \u20AC`;
+}
+function localizedLabel(label, lang2) {
+  if (lang2 !== "cs") return label;
+  const exact = {
+    "Bledo hned\xE1": "Sv\u011Btle hn\u011Bd\xE1",
+    "Hned\xE1 k\xE1va": "Hn\u011Bd\xE1 k\xE1va",
+    "Siv\xE1": "\u0160ed\xE1",
+    "\u0160tandard 29": "Standard 29"
+  };
+  if (exact[label]) return exact[label];
+  return String(label || "").replace(/Čierna/g, "\u010Cern\xE1").replace(/čiernou/g, "\u010Dernou").replace(/čierna/g, "\u010Dern\xE1").replace(/prešívaná/g, "pro\u0161\xEDvan\xE1").replace(/sivou/g, "\u0161edou").replace(/bielou/g, "b\xEDlou").replace(/žltou/g, "\u017Elutou");
+}
 var SERIES_BY_KEY = Object.fromEntries(VZORKY_SERIES.map((s) => [s.key, s]));
 var ID_ORDER = Object.fromEntries(
   VZORKY_SERIES.flatMap((s) => s.ids.map((id, i) => [id, i]))
@@ -32135,16 +32204,30 @@ function optPrice(o) {
     const n = parseFloat(a);
     if (!Number.isNaN(n)) return n;
   }
-  const m = (o.textContent || "").match(/(\d+(?:[.,]\d+)?)\s*€/);
-  return m ? parseFloat(m[1].replace(",", ".")) : 0;
+  const m = (o.textContent || "").match(/(\d[\d\s]*(?:[.,]\d+)?)\s*(?:€|EUR|Kč|CZK)/i);
+  return m ? parseFloat(m[1].replace(/\s/g, "").replace(",", ".")) : 0;
+}
+function isNoOptionText(text) {
+  return /nechc(?:em|i)/i.test(text || "");
+}
+function isYesOptionText(text) {
+  return /chc(?:em|i)/i.test(text || "") && !isNoOptionText(text);
 }
 function noneOption(select) {
   const opts = Array.from(select.options);
-  return opts.find((o) => o.value === "") || opts.find((o) => /nechcem/i.test(o.textContent || "")) || opts.find((o) => o.value !== "" && optPrice(o) === 0) || select.options[0];
+  return opts.find((o) => o.value === "") || opts.find((o) => isNoOptionText(o.textContent)) || opts.find((o) => o.value !== "" && optPrice(o) === 0) || select.options[0];
 }
 function yesOption(select) {
   const opts = Array.from(select.options);
-  return opts.find((o) => /chcem/i.test(o.textContent || "") && !/nechcem/i.test(o.textContent || "")) || opts.find((o) => optPrice(o) > 0) || opts.find((o) => o.value !== "" && !/nechcem/i.test(o.textContent || "")) || null;
+  return opts.find((o) => isYesOptionText(o.textContent)) || opts.find((o) => optPrice(o) > 0) || opts.find((o) => o.value !== "" && !isNoOptionText(o.textContent)) || null;
+}
+function depositFromEntries(entries, locale) {
+  for (const entry of entries) {
+    const option = yesOption(entry.select);
+    const price2 = option ? optPrice(option) : 0;
+    if (price2 > 0) return price2;
+  }
+  return locale.fallbackDeposit;
 }
 function injectStyles() {
   if (document.getElementById("lcd-vz-style")) return;
@@ -32247,8 +32330,9 @@ body.is-vzorky-konfigurator .p-info-wrapper .add-to-cart{position:static;top:aut
   document.head.appendChild(style);
 }
 function buildSwatch(id, opts = {}) {
-  const { onPick, onPreview, preview = false, highlight = false } = opts;
+  const { onPick, onPreview, preview = false, highlight = false, locale, lang: lang2 } = opts;
   const item = VZORKY_ITEMS[id] || {};
+  const label = localizedLabel(item.label || id, lang2);
   const cell = document.createElement("div");
   cell.className = "lcd-vz-cell" + (preview ? " lcd-vz-cell--preview" : "");
   const btn = document.createElement("button");
@@ -32257,50 +32341,50 @@ function buildSwatch(id, opts = {}) {
   btn.dataset.id = id;
   if (preview) btn.setAttribute("aria-disabled", "true");
   else btn.setAttribute("aria-pressed", "false");
-  btn.title = (item.label || id) + (preview ? " \u2014 neposiela sa, len n\xE1h\u013Ead" : "");
+  btn.title = label + (preview ? locale.previewSuffix : "");
   const thumb = document.createElement(item.img ? "img" : "span");
   thumb.className = "lcd-vz-thumb";
   if (item.img) {
     thumb.src = item.img;
-    thumb.alt = item.label || id;
+    thumb.alt = label;
     thumb.loading = "lazy";
   }
   btn.appendChild(thumb);
   if (preview) {
     const tag = document.createElement("span");
     tag.className = "lcd-vz-tag lcd-vz-tag--no";
-    tag.textContent = "Neposiela sa";
+    tag.textContent = locale.notSent;
     btn.appendChild(tag);
   } else if (highlight) {
     const tag = document.createElement("span");
     tag.className = "lcd-vz-tag lcd-vz-tag--send";
-    tag.textContent = "Posielame";
+    tag.textContent = locale.sent;
     btn.appendChild(tag);
   }
   const name = document.createElement("div");
   name.className = "lcd-vz-name";
-  name.textContent = item.label || id;
+  name.textContent = label;
   cell.append(btn, name);
   cell._btn = btn;
   if (!preview) btn.addEventListener("click", () => onPick(btn));
   else if (onPreview) btn.addEventListener("click", () => onPreview(id));
   return cell;
 }
-function buildSkipTile(onSkip) {
+function buildSkipTile(onSkip, locale) {
   const cell = document.createElement("div");
   cell.className = "lcd-vz-cell";
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "lcd-vz-skip";
   btn.setAttribute("aria-pressed", "true");
-  btn.title = "Nechcem \u017Eiadnu vzorku z tejto s\xE9rie";
+  btn.title = locale.skipTitle;
   const ico = document.createElement("span");
   ico.className = "lcd-vz-skip-ico";
   ico.textContent = "\u2713";
   btn.appendChild(ico);
   const label = document.createElement("div");
   label.className = "lcd-vz-skip-label";
-  label.textContent = "Nechcem \u2713";
+  label.textContent = locale.skipActive;
   cell.append(btn, label);
   btn._ico = ico;
   btn._label = label;
@@ -32308,11 +32392,11 @@ function buildSkipTile(onSkip) {
   btn.addEventListener("click", () => onSkip());
   return cell;
 }
-function setSkipActive(btn, active) {
+function setSkipActive(btn, active, locale) {
   if (!btn) return;
   btn.setAttribute("aria-pressed", active ? "true" : "false");
   if (btn._ico) btn._ico.textContent = active ? "\u2713" : "\u2298";
-  if (btn._label) btn._label.textContent = active ? "Nechcem \u2713" : "Nechcem";
+  if (btn._label) btn._label.textContent = active ? locale.skipActive : locale.skipInactive;
 }
 function setSelectValue(select, opt) {
   if (!opt) return;
@@ -32364,22 +32448,31 @@ function watchPrices() {
   });
   obs.observe(area, { childList: true, subtree: true, characterData: true });
 }
-function pluralVzorka(n) {
+function pluralVzorka(n, lang2) {
   const m10 = Math.abs(n) % 10;
   const m100 = Math.abs(n) % 100;
+  if (lang2 === "cs") {
+    if (n === 1) return "vzorek";
+    if (n >= 2 && n <= 4) return "vzorky";
+    return "vzork\u016F";
+  }
   if (m10 === 1 && m100 !== 11) return "vzorka";
   if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "vzorky";
   return "vzoriek";
 }
-function shortLabel(id, label) {
+function shortLabel(id, label, lang2) {
   if (!label) return "?";
-  if (id === "LUX-10") return "\u010Dierna";
-  return label.replace(/^(Lux Color( \d+)?|Comfort)\s*[—–-]\s*/, "");
+  if (id === "LUX-10") return lang2 === "cs" ? "\u010Dern\xE1" : "\u010Dierna";
+  return localizedLabel(label, lang2).replace(/^(Lux Color( \d+)?|Comfort)\s*[—–-]\s*/, "");
 }
 function renderVzorkyConfigurator(host) {
   injectStyles();
   const entries = findParamSelects();
   if (!entries.length) return false;
+  const lang2 = pageLanguage();
+  const locale = I18N[lang2];
+  const deposit = depositFromEntries(entries, locale);
+  const depositText = formatMoney(deposit, locale);
   entries.forEach((e) => {
     e.idx = e.id in ID_ORDER ? ID_ORDER[e.id] : 999;
   });
@@ -32407,16 +32500,16 @@ function renderVzorkyConfigurator(host) {
       if (st) {
         const accEl = st.closest(".lcd-vz-acc");
         const isOpen = accEl && accEl.classList.contains("is-open");
-        st.textContent = isOpen ? "Zavrie\u0165" : c > 0 ? "Zmeni\u0165" : "+ Prida\u0165";
+        st.textContent = isOpen ? locale.close : c > 0 ? locale.change : locale.add;
       }
-      setSkipActive(skipEls[sk], c === 0);
+      setSkipActive(skipEls[sk], c === 0, locale);
     });
     const selected = entries.filter(isYes).sort((a, b) => order.indexOf(a.seriesKey) - order.indexOf(b.seriesKey) || a.idx - b.idx);
     const n = selected.length;
-    if (recapEls.count) recapEls.count.textContent = `${n} ${pluralVzorka(n)}`;
-    if (recapEls.total) recapEls.total.textContent = `${n * DEPOSIT} \u20AC`;
+    if (recapEls.count) recapEls.count.textContent = `${n} ${pluralVzorka(n, lang2)}`;
+    if (recapEls.total) recapEls.total.textContent = formatMoney(n * deposit, locale);
     if (recapEls.desc) {
-      recapEls.desc.textContent = n === 0 ? "Zatia\u013E nem\xE1\u0161 vybrat\xFA \u017Eiadnu vzorku. Klikaj na vzorky v akorde\xF3noch vy\u0161\u0161ie." : `Vratn\xE1 z\xE1loha ${DEPOSIT} \u20AC za ka\u017Ed\xFA vzorku. Ke\u010F n\xE1m vzorky vr\xE1ti\u0161, z\xE1lohu ti po\u0161leme sp\xE4\u0165.`;
+      recapEls.desc.textContent = n === 0 ? locale.empty : locale.depositInfo(depositText);
     }
     if (recapEls.selected) recapEls.selected.hidden = n === 0;
     if (recapEls.list) {
@@ -32428,7 +32521,7 @@ function renderVzorkyConfigurator(host) {
         const strong = document.createElement("strong");
         strong.textContent = e.id;
         li.appendChild(strong);
-        li.append(` \u2014 ${meta.title}: ${shortLabel(e.id, item.label)}`);
+        li.append(` \u2014 ${meta.title}: ${shortLabel(e.id, item.label, lang2)}`);
         recapEls.list.appendChild(li);
       });
     }
@@ -32463,7 +32556,7 @@ function renderVzorkyConfigurator(host) {
     countEl.hidden = true;
     const stateEl = document.createElement("span");
     stateEl.className = "lcd-vz-acc-state";
-    stateEl.textContent = "+ Prida\u0165";
+    stateEl.textContent = locale.add;
     const chev = document.createElement("span");
     chev.className = "lcd-vz-acc-chev";
     head.append(numEl, title, countEl, stateEl, chev);
@@ -32473,7 +32566,7 @@ function renderVzorkyConfigurator(host) {
     body.className = "lcd-vz-acc-body";
     const hint = document.createElement("p");
     hint.className = "lcd-vz-hint";
-    hint.textContent = hasPreview ? "Vyber \u013Eubovo\u013En\xFD po\u010Det objedn\xE1vate\u013En\xFDch vzoriek (5 \u20AC z\xE1loha / vzorka). N\xE1h\u013Eady \u201ENeposiela sa\u201C sa objedna\u0165 nedaj\xFA." : "Vyber \u013Eubovo\u013En\xFD po\u010Det vzoriek (vratn\xE1 z\xE1loha 5 \u20AC / vzorka). Op\xE4tovn\xFD klik v\xFDber zru\u0161\xED.";
+    hint.textContent = hasPreview ? locale.hintPreview(depositText) : locale.hint(depositText);
     body.appendChild(hint);
     const grid = document.createElement("div");
     grid.className = "lcd-vz-grid";
@@ -32482,6 +32575,8 @@ function renderVzorkyConfigurator(host) {
     preview.hidden = true;
     const pvImg = document.createElement("img");
     pvImg.alt = "";
+    const initialPreviewItem = VZORKY_ITEMS[ids[0]] || {};
+    if (initialPreviewItem.img) pvImg.src = initialPreviewItem.img;
     const pvId = document.createElement("div");
     pvId.className = "lcd-vz-preview-id";
     const pvCap = document.createElement("div");
@@ -32498,7 +32593,7 @@ function renderVzorkyConfigurator(host) {
       if (!it.img) return;
       pvImg.src = it.img;
       pvId.textContent = pid;
-      pvName.textContent = it.label || pid;
+      pvName.textContent = localizedLabel(it.label || pid, lang2);
       preview.hidden = false;
     };
     const swatchRefs = [];
@@ -32510,7 +32605,7 @@ function renderVzorkyConfigurator(host) {
       });
       recompute();
     };
-    const skipCell = buildSkipTile(onSkip);
+    const skipCell = buildSkipTile(onSkip, locale);
     skipEls[seriesKey] = skipCell._btn;
     grid.appendChild(skipCell);
     ids.forEach((id) => {
@@ -32530,7 +32625,7 @@ function renderVzorkyConfigurator(host) {
           showPreview(id);
           recompute();
         };
-        const cell = buildSwatch(id, { onPick, highlight: hasPreview });
+        const cell = buildSwatch(id, { onPick, highlight: hasPreview, locale, lang: lang2 });
         if (isYes(e)) cell._btn.setAttribute("aria-pressed", "true");
         swatchRefs.push({ entry: e, btn: cell._btn });
         grid.appendChild(cell);
@@ -32539,7 +32634,7 @@ function renderVzorkyConfigurator(host) {
           const none = noneOption(e.select);
           if (none && e.select.value !== none.value) setSelectValue(e.select, none);
         }
-        grid.appendChild(buildSwatch(id, { preview: true, onPreview: showPreview }));
+        grid.appendChild(buildSwatch(id, { preview: true, onPreview: showPreview, locale, lang: lang2 }));
       }
     });
     body.appendChild(grid);
@@ -32563,7 +32658,7 @@ function renderVzorkyConfigurator(host) {
       acc.classList.toggle("is-open", open);
       head.setAttribute("aria-expanded", open ? "true" : "false");
       const c = entries.filter((e) => e.seriesKey === seriesKey && isYes(e)).length;
-      stateEl.textContent = open ? "Zavrie\u0165" : c > 0 ? "Zmeni\u0165" : "+ Prida\u0165";
+      stateEl.textContent = open ? locale.close : c > 0 ? locale.change : locale.add;
     };
     head.addEventListener("click", () => {
       const willOpen = !acc.classList.contains("is-open");
@@ -32576,7 +32671,7 @@ function renderVzorkyConfigurator(host) {
   });
   accordions.forEach((a, i) => {
     const next = accordions[i + 1];
-    a.contBtn.textContent = next ? `Pokra\u010Dova\u0165 na ${next.title} \u2192` : "Pokra\u010Dova\u0165 na s\xFAhrn objedn\xE1vky \u2192";
+    a.contBtn.textContent = next ? locale.continueTo(next.title) : locale.continueSummary;
   });
   if (accordions[0]) accordions[0].setOpen(true);
   const recap = document.createElement("div");
@@ -32587,7 +32682,7 @@ function renderVzorkyConfigurator(host) {
   colL.className = "lcd-vz-recap-col";
   const ebL = document.createElement("div");
   ebL.className = "lcd-vz-recap-eyebrow";
-  ebL.textContent = "Tvoja objedn\xE1vka vzoriek";
+  ebL.textContent = locale.orderTitle;
   const countBig = document.createElement("div");
   countBig.className = "lcd-vz-recap-count";
   const desc = document.createElement("div");
@@ -32597,12 +32692,12 @@ function renderVzorkyConfigurator(host) {
   colR.className = "lcd-vz-recap-col right";
   const ebR = document.createElement("div");
   ebR.className = "lcd-vz-recap-eyebrow";
-  ebR.textContent = "Vratn\xE1 z\xE1loha spolu";
+  ebR.textContent = locale.depositTotal;
   const totalBig = document.createElement("div");
   totalBig.className = "lcd-vz-recap-total";
   const sub = document.createElement("div");
   sub.className = "lcd-vz-recap-sub";
-  sub.textContent = "+ po\u0161tovn\xE9 + poplatok za platbu";
+  sub.textContent = locale.shipping;
   colR.append(ebR, totalBig, sub);
   top.append(colL, colR);
   const selBlock = document.createElement("div");
@@ -32610,13 +32705,13 @@ function renderVzorkyConfigurator(host) {
   selBlock.hidden = true;
   const selEb = document.createElement("div");
   selEb.className = "lcd-vz-recap-eyebrow";
-  selEb.textContent = "Vybran\xE9 vzorky:";
+  selEb.textContent = locale.selected;
   const list = document.createElement("ul");
   list.className = "lcd-vz-recap-list";
   selBlock.append(selEb, list);
   const note = document.createElement("p");
   note.className = "lcd-vz-recap-note";
-  note.textContent = "Z\xE1loha 5 \u20AC / vzorka sa vr\xE1ti po obdr\u017Ean\xED vzoriek sp\xE4\u0165. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EPrida\u0165 do ko\u0161\xEDka\u201C ni\u017E\u0161ie.";
+  note.textContent = locale.note(depositText);
   recap.append(top, selBlock, note);
   recapEls.count = countBig;
   recapEls.total = totalBig;
