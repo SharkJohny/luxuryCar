@@ -56,6 +56,11 @@ const I18N = {
     shipping: "+ poštovné + poplatok za platbu",
     selected: "Vybrané vzorky:",
     note: (price) => `Záloha ${price} / vzorka sa vráti po obdržaní vzoriek späť. Objednávku dokonči kliknutím na „Pridať do košíka“ nižšie.`,
+    returnTitle: "Vrátenie vzoriek:",
+    returnBefore: "Stačí vyplniť formulár na odstúpenie od zmluvy, ktorý nájdete ",
+    returnLink: "tu",
+    returnAfter: ", a vzorky nám poslať späť. Zálohu vám buď vrátime na účet, alebo jej hodnotu odpočítame z objednávky.",
+    returnUrl: "/moja-objednavka/",
   },
   cs: {
     currency: "Kč",
@@ -80,6 +85,11 @@ const I18N = {
     shipping: "+ poštovné + poplatek za platbu",
     selected: "Vybrané vzorky:",
     note: (price) => `Záloha ${price} / vzorek se vrátí po obdržení vzorků zpět. Objednávku dokonči kliknutím na „Přidat do košíku“ níže.`,
+    returnTitle: "Vrácení vzorků:",
+    returnBefore: "Stačí vyplnit formulář pro odstoupení od smlouvy, který najdete ",
+    returnLink: "zde",
+    returnAfter: ", a vzorky nám poslat zpět. Zálohu vám buď vrátíme na účet, nebo její hodnotu odečteme z objednávky.",
+    returnUrl: "/moje-objednavka/",
   },
 };
 
@@ -354,6 +364,10 @@ function injectStyles() {
 #${MOUNT_ID} .lcd-vz-recap-list{margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.6}
 #${MOUNT_ID} .lcd-vz-recap-list li strong{color:#fff}
 #${MOUNT_ID} .lcd-vz-recap-note{font-size:11.5px;opacity:.7;margin:14px 0 0}
+#${MOUNT_ID} .lcd-vz-return{margin:10px 0 0;font-size:12px;line-height:1.6;color:rgba(255,255,255,.82)}
+#${MOUNT_ID} .lcd-vz-return strong{color:#C5A44E}
+#${MOUNT_ID} .lcd-vz-return a{display:inline-block;margin:-3px 0;padding:3px 4px;color:#fff;text-decoration:underline;text-decoration-color:#C5A44E;text-underline-offset:3px;font-weight:700}
+#${MOUNT_ID} .lcd-vz-return a:hover{color:#C5A44E}
 
 /* Cena "€ 0" pod rekapituláciou by bola DRUHÁ cena na stránke — total už
  * ukazuje tmavá rekapitulácia. Element len skryjeme; Shoptet doň ďalej
@@ -628,10 +642,7 @@ export function renderVzorkyConfigurator(host) {
         const item = VZORKY_ITEMS[e.id] || {};
         const meta = SERIES_BY_KEY[e.seriesKey] || { title: e.seriesKey };
         const li = document.createElement("li");
-        const strong = document.createElement("strong");
-        strong.textContent = e.id;
-        li.appendChild(strong);
-        li.append(` — ${meta.title}: ${shortLabel(e.id, item.label, lang)}`);
+        li.textContent = `${meta.title}: ${shortLabel(e.id, item.label, lang)}`;
         recapEls.list.appendChild(li);
       });
     }
@@ -870,7 +881,16 @@ export function renderVzorkyConfigurator(host) {
   note.className = "lcd-vz-recap-note";
   note.textContent = locale.note(depositText);
 
-  recap.append(top, selBlock, note);
+  const returnInfo = document.createElement("p");
+  returnInfo.className = "lcd-vz-return";
+  const returnTitle = document.createElement("strong");
+  returnTitle.textContent = `${locale.returnTitle} `;
+  const returnLink = document.createElement("a");
+  returnLink.href = locale.returnUrl;
+  returnLink.textContent = locale.returnLink;
+  returnInfo.append(returnTitle, locale.returnBefore, returnLink, locale.returnAfter);
+
+  recap.append(top, selBlock, note, returnInfo);
   recapEls.count = countBig;
   recapEls.total = totalBig;
   recapEls.desc = desc;

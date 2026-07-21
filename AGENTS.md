@@ -1,14 +1,21 @@
 <!-- shoptet-tool: auto-generated, bezpečné smazat -->
-# AI kontext pro projekt luxurycarsk
+# AI kontext pro projekt luxurycar
 Tento soubor je auto-generovaný nástrojem Shoptet Tool. Slouží jako rychlá
 orientace v projektu pro AI asistenta. Když ho ručně upravíš, při dalším
 otevření projektu se přepíše — případné dlouhodobé poznámky dej do
 `AI-NOTES.md` (ten zůstane nedotčený).
 ## Základní údaje
-- **Název:** luxurycarsk
+- **Název:** luxurycar
 - **URL náhledu:** https://www.luxurycardesign.sk/
 - **Lokální složka:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar`
-- **JS výstup:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar/assets/js/luxuryCar.js`
+- **JS výstup:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar/assets/js/main.js`
+## E-shopy projektu (varianty) — KRITICKÉ
+- **Aktivní e-shop:** Výchozí — https://www.luxurycardesign.sk/
+Tento projekt obsluhuje VÍCE e-shopů na stejném kódu:
+- Výchozí — https://www.luxurycardesign.sk/   ← AKTIVNÍ
+- CZ — https://www.luxurycardesign.cz/
+Veškeré operace (navigate/curl na náhled, screenshoty, admin, kontroly) prováděj
+VÝHRADNĚ proti aktivnímu e-shopu výše. URL jiných variant NIKDY nepoužívej.
 ## SCSS — TOTO edituj (KRITICKÉ)
 - **SCSS entry:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar/assets/css/luxuryCar.scss`
 - **Partialy:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar/assets/css/partials` (`_*.scss`)

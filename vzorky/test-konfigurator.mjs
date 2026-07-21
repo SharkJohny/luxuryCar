@@ -273,9 +273,10 @@ if (recapItems.length === 2) ok("rekapitulácia: 2 položky (D-1 + S-3)");
 else fail(`rekapitulácia má ${recapItems.length} položiek (čakal 2)`);
 // poradie v rekapitulácii: séria (Diamond pred Stripe), v rámci série podľa idx
 const recapText = root.querySelector(".lcd-vz-recap-list").textContent;
-if (/D-1[\s\S]*S-3/.test(recapText)) ok("rekapitulácia zoradená podľa sérií (Diamond → Stripe)");
+if (/Diamond Line:[\s\S]*Stripe Line:/.test(recapText)) ok("rekapitulácia zoradená podľa sérií (Diamond → Stripe)");
 else fail(`zlé poradie rekapitulácie: "${recapText}"`);
-if (/D-1\s*[—–-]\s*Diamond Line:/.test(recapText)) ok("položka rekapitulácie: 'D-1 — Diamond Line: …'");
+if (/Diamond Line:/.test(recapText) && !/\b(?:D|S|H)-\d+\s*[—–-]/.test(recapText))
+  ok("položka rekapitulácie bez interného kódu vzorky");
 else fail(`zlý formát položky: "${recapText}"`);
 // počítadlo v hlavičke Diamond akordeonu = "1 vybraná"
 const diamondAcc = [...series].find((s) => s.querySelector(".lcd-vz-acc-title").textContent === "Diamond Line");

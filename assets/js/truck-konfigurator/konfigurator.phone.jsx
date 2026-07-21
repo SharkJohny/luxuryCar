@@ -9,6 +9,7 @@
 //   4) „Objednať" → syncToShoptet + natívne [data-testid="buttonAddToCart"]
 //   5) `export { Configurator }` pre index.jsx (ErrorBoundary + viewport switch)
 import React from "react";
+import { persistTruckOrderSummary } from "./order-summary.mjs";
 const { useState, useMemo } = React;
 
 // ============================================================
@@ -4050,17 +4051,20 @@ function Configurator() {
             // popup košíka — žiadny alert.
             setValidationErrors({});
 
+            const finalConfiguration = {
+              znacka, model, extras,
+              selectedMaterial, selectedColor,
+              selectedLemovanie, selectedNasivka, selectedNitColor,
+              nasivkyPlacement,
+              selectedStredNasivka, selectedStredNitColor,
+              doorPanelChoice, doorMaterial, doorColor,
+              doorLemovanie, doorWantsNasivka, doorNasivka, doorNitColor,
+              doorSameAsCarpet, doorSameNitAsCarpet, doorSameNasivkaAsCarpet,
+            };
+
             try {
-              syncToShoptet({
-                znacka, model, extras,
-                selectedMaterial, selectedColor,
-                selectedLemovanie, selectedNasivka, selectedNitColor,
-                nasivkyPlacement,
-                selectedStredNasivka, selectedStredNitColor,
-                doorPanelChoice, doorMaterial, doorColor,
-                doorLemovanie, doorWantsNasivka, doorNasivka, doorNitColor,
-                doorSameAsCarpet, doorSameNitAsCarpet, doorSameNasivkaAsCarpet,
-              });
+              syncToShoptet(finalConfiguration);
+              persistTruckOrderSummary(finalConfiguration);
             } catch (err) {
               console.error("[truck-konfig] final sync zlyhal:", err);
             }

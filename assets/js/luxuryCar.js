@@ -24565,6 +24565,89 @@ var import_client = __toESM(require_client());
 
 // assets/js/truck-konfigurator/konfigurator.gen.jsx
 var import_react = __toESM(require_react());
+
+// assets/js/truck-konfigurator/order-summary.mjs
+var EXTRA_LABELS = {
+  prevodovka: "Prevodovka",
+  sedadlo: "Sedadlo spolujazdca",
+  zasuvky: "Po\u010Det z\xE1suviek",
+  brzda: "Parkovacia brzda",
+  podlaha: "Podlaha"
+};
+var PLACEMENT_LABELS = {
+  nechcem: "Bez n\xE1\u0161iviek",
+  stred: "Len stred",
+  boky: "\u0160of\xE9r + spolujazdec",
+  "boky+stred": "\u0160of\xE9r + spolujazdec + stred"
+};
+var SUMMARY_START = "[TRUCK KONFIGUR\xC1CIA]";
+var SUMMARY_END = "[/TRUCK KONFIGUR\xC1CIA]";
+function selectedText(value, preferName = false) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  if (preferName && value.name) return value.name;
+  return value.code || value.name || "";
+}
+function addLine(lines, label, value) {
+  if (value === null || value === void 0 || value === "") return;
+  lines.push(`${label}: ${value}`);
+}
+function buildTruckOrderSummary(state) {
+  const s = state || {};
+  const lines = [];
+  addLine(lines, "Vozidlo", [s.znacka, s.model].filter(Boolean).join(" "));
+  Object.keys(EXTRA_LABELS).forEach((key) => {
+    addLine(lines, EXTRA_LABELS[key], s.extras && s.extras[key]);
+  });
+  const carpetColor = selectedText(s.selectedColor);
+  addLine(lines, "Materi\xE1l kobercov", s.selectedMaterial);
+  addLine(lines, "Farba kobercov", carpetColor);
+  addLine(lines, "Lemovanie kobercov", selectedText(s.selectedLemovanie, true));
+  addLine(lines, "Umiestnenie n\xE1\u0161iviek", PLACEMENT_LABELS[s.nasivkyPlacement]);
+  if (s.selectedNasivka) {
+    addLine(lines, "N\xE1\u0161ivka \u0161of\xE9r + spolujazdec", selectedText(s.selectedNasivka));
+    addLine(lines, "Ni\u0165 \u0161of\xE9r + spolujazdec", selectedText(s.selectedNitColor, true));
+  }
+  if (s.selectedStredNasivka) {
+    addLine(lines, "Stredov\xE1 n\xE1\u0161ivka", selectedText(s.selectedStredNasivka));
+    addLine(lines, "Ni\u0165 stredovej n\xE1\u0161ivky", selectedText(s.selectedStredNitColor, true));
+  }
+  const wantsDoorPanels = s.doorPanelChoice === true || s.doorPanelChoice === "ano";
+  addLine(lines, "Tapac\xEDr dver\xED", wantsDoorPanels ? "\xC1no" : "Nie");
+  if (wantsDoorPanels) {
+    addLine(lines, "Materi\xE1l dver\xED", s.doorMaterial);
+    addLine(lines, "Farba dver\xED", selectedText(s.doorColor));
+    addLine(lines, "Lemovanie dver\xED", selectedText(s.doorLemovanie, true));
+    const wantsDoorPatch = s.doorWantsNasivka === true;
+    addLine(lines, "N\xE1\u0161ivka na dver\xE1ch", wantsDoorPatch ? "\xC1no" : "Nie");
+    if (wantsDoorPatch) {
+      addLine(lines, "Druh n\xE1\u0161ivky na dver\xE1ch", selectedText(s.doorNasivka));
+      addLine(lines, "Ni\u0165 n\xE1\u0161ivky na dver\xE1ch", selectedText(s.doorNitColor, true));
+    }
+  }
+  return lines.join("\n");
+}
+function persistTruckOrderSummary(state) {
+  const summary = buildTruckOrderSummary(state);
+  if (typeof sessionStorage !== "undefined" && summary) {
+    sessionStorage.setItem("truckOrderSummary", summary);
+  }
+  return summary;
+}
+function mergeTruckOrderSummaryIntoNote(currentNote, summary) {
+  const escapedStart = SUMMARY_START.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const escapedEnd = SUMMARY_END.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const withoutOldSummary = String(currentNote || "").replace(new RegExp(`${escapedStart}[\\s\\S]*?${escapedEnd}`, "g"), "").trim();
+  if (!summary) return withoutOldSummary;
+  const block = `${SUMMARY_START}
+${summary}
+${SUMMARY_END}`;
+  return withoutOldSummary ? `${withoutOldSummary}
+
+${block}` : block;
+}
+
+// assets/js/truck-konfigurator/konfigurator.gen.jsx
 var { useState, useMemo } = import_react.default;
 var CONFIG = {
   // Abecedne, TIR pred dodávkou pri rovnakej značke
@@ -27895,30 +27978,32 @@ function Configurator() {
           return;
         }
         setValidationErrors({});
+        const finalConfiguration = {
+          znacka,
+          model,
+          extras,
+          selectedMaterial,
+          selectedColor,
+          selectedLemovanie,
+          selectedNasivka,
+          selectedNitColor,
+          nasivkyPlacement,
+          selectedStredNasivka,
+          selectedStredNitColor,
+          doorPanelChoice,
+          doorMaterial,
+          doorColor,
+          doorLemovanie,
+          doorWantsNasivka,
+          doorNasivka,
+          doorNitColor,
+          doorSameAsCarpet,
+          doorSameNitAsCarpet,
+          doorSameNasivkaAsCarpet
+        };
         try {
-          syncToShoptet({
-            znacka,
-            model,
-            extras,
-            selectedMaterial,
-            selectedColor,
-            selectedLemovanie,
-            selectedNasivka,
-            selectedNitColor,
-            nasivkyPlacement,
-            selectedStredNasivka,
-            selectedStredNitColor,
-            doorPanelChoice,
-            doorMaterial,
-            doorColor,
-            doorLemovanie,
-            doorWantsNasivka,
-            doorNasivka,
-            doorNitColor,
-            doorSameAsCarpet,
-            doorSameNitAsCarpet,
-            doorSameNasivkaAsCarpet
-          });
+          syncToShoptet(finalConfiguration);
+          persistTruckOrderSummary(finalConfiguration);
         } catch (err) {
           console.error("[truck-konfig] final sync zlyhal:", err);
         }
@@ -31492,30 +31577,32 @@ function Configurator2() {
           return;
         }
         setValidationErrors({});
+        const finalConfiguration = {
+          znacka,
+          model,
+          extras,
+          selectedMaterial,
+          selectedColor,
+          selectedLemovanie,
+          selectedNasivka,
+          selectedNitColor,
+          nasivkyPlacement,
+          selectedStredNasivka,
+          selectedStredNitColor,
+          doorPanelChoice,
+          doorMaterial,
+          doorColor,
+          doorLemovanie,
+          doorWantsNasivka,
+          doorNasivka,
+          doorNitColor,
+          doorSameAsCarpet,
+          doorSameNitAsCarpet,
+          doorSameNasivkaAsCarpet
+        };
         try {
-          syncToShoptet2({
-            znacka,
-            model,
-            extras,
-            selectedMaterial,
-            selectedColor,
-            selectedLemovanie,
-            selectedNasivka,
-            selectedNitColor,
-            nasivkyPlacement,
-            selectedStredNasivka,
-            selectedStredNitColor,
-            doorPanelChoice,
-            doorMaterial,
-            doorColor,
-            doorLemovanie,
-            doorWantsNasivka,
-            doorNasivka,
-            doorNitColor,
-            doorSameAsCarpet,
-            doorSameNitAsCarpet,
-            doorSameNasivkaAsCarpet
-          });
+          syncToShoptet2(finalConfiguration);
+          persistTruckOrderSummary(finalConfiguration);
         } catch (err) {
           console.error("[truck-konfig] final sync zlyhal:", err);
         }
@@ -32088,7 +32175,12 @@ var I18N = {
     depositTotal: "Vratn\xE1 z\xE1loha spolu",
     shipping: "+ po\u0161tovn\xE9 + poplatok za platbu",
     selected: "Vybran\xE9 vzorky:",
-    note: (price2) => `Z\xE1loha ${price2} / vzorka sa vr\xE1ti po obdr\u017Ean\xED vzoriek sp\xE4\u0165. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EPrida\u0165 do ko\u0161\xEDka\u201C ni\u017E\u0161ie.`
+    note: (price2) => `Z\xE1loha ${price2} / vzorka sa vr\xE1ti po obdr\u017Ean\xED vzoriek sp\xE4\u0165. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EPrida\u0165 do ko\u0161\xEDka\u201C ni\u017E\u0161ie.`,
+    returnTitle: "Vr\xE1tenie vzoriek:",
+    returnBefore: "Sta\u010D\xED vyplni\u0165 formul\xE1r na odst\xFApenie od zmluvy, ktor\xFD n\xE1jdete ",
+    returnLink: "tu",
+    returnAfter: ", a vzorky n\xE1m posla\u0165 sp\xE4\u0165. Z\xE1lohu v\xE1m bu\u010F vr\xE1time na \xFA\u010Det, alebo jej hodnotu odpo\u010D\xEDtame z objedn\xE1vky.",
+    returnUrl: "/moja-objednavka/"
   },
   cs: {
     currency: "K\u010D",
@@ -32112,7 +32204,12 @@ var I18N = {
     depositTotal: "Vratn\xE1 z\xE1loha celkem",
     shipping: "+ po\u0161tovn\xE9 + poplatek za platbu",
     selected: "Vybran\xE9 vzorky:",
-    note: (price2) => `Z\xE1loha ${price2} / vzorek se vr\xE1t\xED po obdr\u017Een\xED vzork\u016F zp\u011Bt. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EP\u0159idat do ko\u0161\xEDku\u201C n\xED\u017Ee.`
+    note: (price2) => `Z\xE1loha ${price2} / vzorek se vr\xE1t\xED po obdr\u017Een\xED vzork\u016F zp\u011Bt. Objedn\xE1vku dokon\u010Di kliknut\xEDm na \u201EP\u0159idat do ko\u0161\xEDku\u201C n\xED\u017Ee.`,
+    returnTitle: "Vr\xE1cen\xED vzork\u016F:",
+    returnBefore: "Sta\u010D\xED vyplnit formul\xE1\u0159 pro odstoupen\xED od smlouvy, kter\xFD najdete ",
+    returnLink: "zde",
+    returnAfter: ", a vzorky n\xE1m poslat zp\u011Bt. Z\xE1lohu v\xE1m bu\u010F vr\xE1t\xEDme na \xFA\u010Det, nebo jej\xED hodnotu ode\u010Dteme z objedn\xE1vky.",
+    returnUrl: "/moje-objednavka/"
   }
 };
 function pageLanguage() {
@@ -32315,6 +32412,10 @@ function injectStyles() {
 #${MOUNT_ID} .lcd-vz-recap-list{margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.6}
 #${MOUNT_ID} .lcd-vz-recap-list li strong{color:#fff}
 #${MOUNT_ID} .lcd-vz-recap-note{font-size:11.5px;opacity:.7;margin:14px 0 0}
+#${MOUNT_ID} .lcd-vz-return{margin:10px 0 0;font-size:12px;line-height:1.6;color:rgba(255,255,255,.82)}
+#${MOUNT_ID} .lcd-vz-return strong{color:#C5A44E}
+#${MOUNT_ID} .lcd-vz-return a{display:inline-block;margin:-3px 0;padding:3px 4px;color:#fff;text-decoration:underline;text-decoration-color:#C5A44E;text-underline-offset:3px;font-weight:700}
+#${MOUNT_ID} .lcd-vz-return a:hover{color:#C5A44E}
 
 /* Cena "\u20AC 0" pod rekapitul\xE1ciou by bola DRUH\xC1 cena na str\xE1nke \u2014 total u\u017E
  * ukazuje tmav\xE1 rekapitul\xE1cia. Element len skryjeme; Shoptet do\u0148 \u010Falej
@@ -32518,10 +32619,7 @@ function renderVzorkyConfigurator(host) {
         const item = VZORKY_ITEMS[e.id] || {};
         const meta = SERIES_BY_KEY[e.seriesKey] || { title: e.seriesKey };
         const li = document.createElement("li");
-        const strong = document.createElement("strong");
-        strong.textContent = e.id;
-        li.appendChild(strong);
-        li.append(` \u2014 ${meta.title}: ${shortLabel(e.id, item.label, lang2)}`);
+        li.textContent = `${meta.title}: ${shortLabel(e.id, item.label, lang2)}`;
         recapEls.list.appendChild(li);
       });
     }
@@ -32712,7 +32810,15 @@ function renderVzorkyConfigurator(host) {
   const note = document.createElement("p");
   note.className = "lcd-vz-recap-note";
   note.textContent = locale.note(depositText);
-  recap.append(top, selBlock, note);
+  const returnInfo = document.createElement("p");
+  returnInfo.className = "lcd-vz-return";
+  const returnTitle = document.createElement("strong");
+  returnTitle.textContent = `${locale.returnTitle} `;
+  const returnLink = document.createElement("a");
+  returnLink.href = locale.returnUrl;
+  returnLink.textContent = locale.returnLink;
+  returnInfo.append(returnTitle, locale.returnBefore, returnLink, locale.returnAfter);
+  recap.append(top, selBlock, note, returnInfo);
   recapEls.count = countBig;
   recapEls.total = totalBig;
   recapEls.desc = desc;
@@ -34918,7 +35024,7 @@ function changeDescription() {
     const infowrap = $("<div>").addClass("info-wrap");
     const model = $("<ul>").addClass("model").appendTo(infowrap);
     const setup = $("<div>").addClass("setup").appendTo(infowrap);
-    const addLine = (label, value) => {
+    const addLine2 = (label, value) => {
       if (!value || value === "undefined" || value === "null") return;
       $("<li>").text(label + ": " + value).appendTo(model);
     };
@@ -34929,12 +35035,12 @@ function changeDescription() {
       } catch (e) {
       }
       if (truckVehicle && /Vyberie sa v konfigurátore/i.test(truckVehicle)) truckVehicle = null;
-      addLine("Vozidlo", ssVehicle || truckVehicle);
+      addLine2("Vozidlo", ssVehicle || truckVehicle);
     } else {
-      addLine("Zna\u010Dka", getBrand);
-      addLine("Model", getModel);
-      addLine("Rok", getYear);
-      addLine("Typ", getCarType);
+      addLine2("Zna\u010Dka", getBrand);
+      addLine2("Model", getModel);
+      addLine2("Rok", getYear);
+      addLine2("Typ", getCarType);
     }
     var $variant = $(this).closest("tr").find("span.main-link-variant").first();
     var variantText = ($variant.text() || "").replace(/\s+/g, " ");
@@ -36658,25 +36764,25 @@ setTimeout(function() {
 function addNote() {
   if ($(".id--17")[0]) {
     let toNote = function() {
-      const city2 = sessionStorage.getItem("adressDelivery");
-      const fakturacniAdresa = `
-            Adresa zadan\xE1 pro v\xFDpo\u010Det:
-             ` + city2 + `
-      
-     
-        `;
-      const model = `
-            model : ` + sessionStorage.getItem("model") + `  
-        `;
-      let poznamka = $("#remark").val();
-      if (poznamka) {
-        poznamka += `
-
-${model}`;
-      } else {
-        poznamka = model;
+      const $remark = $("#remark");
+      if (!$remark.length) return;
+      let truckSummary = "";
+      let savedModel = "";
+      try {
+        truckSummary = sessionStorage.getItem("truckOrderSummary") || "";
+        savedModel = sessionStorage.getItem("model") || "";
+      } catch (e) {
       }
-      $("#remark").val(poznamka);
+      let note = String($remark.val() || "");
+      if (truckSummary) {
+        note = mergeTruckOrderSummaryIntoNote(note, truckSummary);
+      } else if (savedModel && savedModel !== "undefined" && savedModel !== "null") {
+        const modelLine = `model: ${savedModel}`;
+        if (!note.includes(modelLine)) note = note ? `${note}
+
+${modelLine}` : modelLine;
+      }
+      $remark.val(note);
     };
     console.log("adresa");
     const city = sessionStorage.getItem("model");

@@ -12,6 +12,7 @@
 //   5) `export { Configurator }` aby `index.jsx` (ErrorBoundary wrap) mohol
 //      importovať a renderovať
 import React from "react";
+import { persistTruckOrderSummary } from "./order-summary.mjs";
 const { useState, useMemo } = React;
 
 // ============================================================
@@ -3964,17 +3965,22 @@ function Configurator() {
             // popup košíka — žiadny alert.
             setValidationErrors({});
 
+            const finalConfiguration = {
+              znacka, model, extras,
+              selectedMaterial, selectedColor,
+              selectedLemovanie, selectedNasivka, selectedNitColor,
+              nasivkyPlacement,
+              selectedStredNasivka, selectedStredNitColor,
+              doorPanelChoice, doorMaterial, doorColor,
+              doorLemovanie, doorWantsNasivka, doorNasivka, doorNitColor,
+              doorSameAsCarpet, doorSameNitAsCarpet, doorSameNasivkaAsCarpet,
+            };
+
             try {
-              syncToShoptet({
-                znacka, model, extras,
-                selectedMaterial, selectedColor,
-                selectedLemovanie, selectedNasivka, selectedNitColor,
-                nasivkyPlacement,
-                selectedStredNasivka, selectedStredNitColor,
-                doorPanelChoice, doorMaterial, doorColor,
-                doorLemovanie, doorWantsNasivka, doorNasivka, doorNitColor,
-                doorSameAsCarpet, doorSameNitAsCarpet, doorSameNasivkaAsCarpet,
-              });
+              syncToShoptet(finalConfiguration);
+              // Trvaly vyrobny rozpis sa pri odoslani objednavky prida do
+              // standardnej Shoptet poznamky, aby bol viditelny v administracii.
+              persistTruckOrderSummary(finalConfiguration);
             } catch (err) {
               console.error("[truck-konfig] final sync zlyhal:", err);
             }

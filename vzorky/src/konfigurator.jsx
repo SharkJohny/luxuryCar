@@ -809,7 +809,7 @@ function Summary({ selected, onCopy, copied }) {
               const it = findItem(id);
               return (
                 <li key={id}>
-                  <strong>{id}</strong> — {sectionTitle(id)}: {shortLabel(id, it && it.label)}
+                  {sectionTitle(id)}: {shortLabel(id, it && it.label)}
                 </li>
               );
             })}
@@ -1174,7 +1174,7 @@ function Configurator() {
     if (orderable.length === 0) return;
     const lines = orderable.map((id) => {
       const it = findItem(id);
-      return `• ${id} — ${sectionTitle(id)}: ${shortLabel(id, it && it.label)}`;
+      return `• ${sectionTitle(id)}: ${shortLabel(id, it && it.label)}`;
     });
     const text = [
       "Objednávka vzoriek — Luxury Car Design",

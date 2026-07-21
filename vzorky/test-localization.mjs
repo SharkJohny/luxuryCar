@@ -56,6 +56,11 @@ if (!initialText.includes("5 €") && !initialText.includes("Pokračovať") && !
   ok("česká verze neobsahuje slovenské/eurové texty");
 else fail("česká verze stále obsahuje slovenské/eurové texty");
 
+const returnLink = root && root.querySelector('.lcd-vz-return a[href="/moje-objednavka/"]');
+if (returnLink && root.querySelector(".lcd-vz-return").textContent.includes("vrátíme na účet"))
+  ok("česká informace o vrácení vzorků obsahuje správný formulář");
+else fail("česká informace o vrácení vzorků nebo odkaz na formulář chybí");
+
 const d1 = root && root.querySelector('.lcd-vz-swatch[data-id="D-1"]');
 if (d1 && d1.title.includes("Černá prošívaná červenou")) ok("název barvy je česky");
 else fail("název barvy není česky");

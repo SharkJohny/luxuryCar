@@ -12,6 +12,7 @@ import { initLivePrice } from "./functions/livePrice.js";
 import { initContactForm } from "./components/contactForm.js";
 import "./seo-runtime.js"; // SEO Fáza A — runtime inject (JSON-LD, hreflang, H1, etc.)
 import "./configurator-enhance.js"; // Konfigurátor — best-seller badge na možnostiach
+import { mergeTruckOrderSummaryIntoNote } from "./truck-konfigurator/order-summary.mjs";
 
 let setupData;
 
@@ -954,34 +955,32 @@ function addNote() {
     };
 
     function toNote() {
-      const city = sessionStorage.getItem("adressDelivery");
+      const $remark = $("#remark");
+      if (!$remark.length) return;
 
-      const fakturacniAdresa =
-        `
-            Adresa zadaná pro výpočet:
-             ` +
-        city +
-        `
-      
-     
-        `;
-
-      const model =
-        `
-            model : ` +
-        sessionStorage.getItem("model") +
-        `  
-        `;
-
-      let poznamka = $("#remark").val();
-
-      if (poznamka) {
-        poznamka += `\n\n${model}`;
-      } else {
-        poznamka = model;
+      let truckSummary = "";
+      let savedModel = "";
+      try {
+        truckSummary = sessionStorage.getItem("truckOrderSummary") || "";
+        savedModel = sessionStorage.getItem("model") || "";
+      } catch (e) {
+        // Storage moze byt v sukromnom rezime nedostupne; rucnu poznamku
+        // zakaznika v takom pripade nechame bez zmeny.
       }
 
-      $("#remark").val(poznamka);
+      let note = String($remark.val() || "");
+
+      if (truckSummary) {
+        // postSuccessfulValidation moze prebehnut opakovane. Helper povodny
+        // automaticky blok nahradi, rucnu poznamku zakaznika vsak zachova.
+        note = mergeTruckOrderSummaryIntoNote(note, truckSummary);
+      } else if (savedModel && savedModel !== "undefined" && savedModel !== "null") {
+        // Povodny auto-konfigurator: zachovaj zapis modelu pre bezne autokoberce.
+        const modelLine = `model: ${savedModel}`;
+        if (!note.includes(modelLine)) note = note ? `${note}\n\n${modelLine}` : modelLine;
+      }
+
+      $remark.val(note);
     }
   }
 }
