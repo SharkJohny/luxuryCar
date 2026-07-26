@@ -34,25 +34,27 @@
   }
   .modl-selector-wrap {
     position: relative;
+    // Dekoratívne šípky k výberu značky/modelu. Pôvodných 98×81 pôsobilo
+    // „obrovsky" — zmenšené na decentných 48×40 (pomer zachovaný).
     &::after {
       content: "";
       background-image: url(https://www.luxurycardesign.cz/user/documents/upload/assets/new/arrow-pijl.gif);
-      width: 98px;
-      height: 81px;
+      width: 48px;
+      height: 40px;
       position: absolute;
       right: 37px;
-      top: -30px;
+      top: -12px;
       transform: rotate(83deg);
       background-size: cover;
     }
     &::before {
       content: "";
       background-image: url(https://www.luxurycardesign.cz/user/documents/upload/assets/new/arrow-pijl.gif);
-      width: 98px;
-      height: 81px;
+      width: 48px;
+      height: 40px;
       position: absolute;
       left: 37px;
-      top: -26px;
+      top: -10px;
       transform: rotate(277deg);
 
       background-size: cover;

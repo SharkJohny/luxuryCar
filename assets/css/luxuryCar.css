@@ -856,22 +856,22 @@ a.contact-link {
 .in-index .model-selector.container .modl-selector-wrap::after {
   content: "";
   background-image: url(https://www.luxurycardesign.cz/user/documents/upload/assets/new/arrow-pijl.gif);
-  width: 98px;
-  height: 81px;
+  width: 48px;
+  height: 40px;
   position: absolute;
   right: 37px;
-  top: -30px;
+  top: -12px;
   transform: rotate(83deg);
   background-size: cover;
 }
 .in-index .model-selector.container .modl-selector-wrap::before {
   content: "";
   background-image: url(https://www.luxurycardesign.cz/user/documents/upload/assets/new/arrow-pijl.gif);
-  width: 98px;
-  height: 81px;
+  width: 48px;
+  height: 40px;
   position: absolute;
   left: 37px;
-  top: -26px;
+  top: -10px;
   transform: rotate(277deg);
   background-size: cover;
 }
@@ -3245,6 +3245,7 @@ table.detail-parameters {
   background-color: #fff;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23c5a44e' d='M6 8L0 0h12z'/></svg>");
   background-repeat: no-repeat;
+  background-size: 12px 8px;
   background-position: right 12px center;
   appearance: none;
   -webkit-appearance: none;
@@ -6578,32 +6579,32 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   background-color: #777;
 }
 .can-toggle input[type=checkbox]:focus ~ label .can-toggle__switch:after, .can-toggle input[type=checkbox]:hover ~ label .can-toggle__switch:after {
-  color: rgb(93.5, 93.5, 93.5);
+  color: rgb(36.6666666667%, 36.6666666667%, 36.6666666667%);
 }
 .can-toggle input[type=checkbox]:hover ~ label {
-  color: rgb(106.25, 106.25, 106.25);
+  color: rgb(41.6666666667%, 41.6666666667%, 41.6666666667%);
 }
 .can-toggle input[type=checkbox]:checked ~ label:hover {
-  color: rgb(84.5384615385, 187.8807692308, 72.8192307692);
+  color: rgb(33.1523378582%, 73.6787330317%, 28.556561086%);
 }
 .can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch {
-  background-color: rgb(112.4358974359, 198.8653846154, 102.6346153846);
+  background-color: rgb(44.0925087984%, 77.9864253394%, 40.2488687783%);
 }
 .can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch:after {
-  color: rgb(79.2179487179, 183.0576923077, 67.4423076923);
+  color: rgb(31.0658622423%, 71.7873303167%, 26.4479638009%);
 }
 .can-toggle input[type=checkbox]:checked:focus ~ label .can-toggle__switch, .can-toggle input[type=checkbox]:checked:hover ~ label .can-toggle__switch {
   background-color: #5fc054;
 }
 .can-toggle input[type=checkbox]:checked:focus ~ label .can-toggle__switch:after, .can-toggle input[type=checkbox]:checked:hover ~ label .can-toggle__switch:after {
-  color: rgb(71.1538461538, 164.4230769231, 60.5769230769);
+  color: rgb(27.9034690799%, 64.479638009%, 23.7556561086%);
 }
 .can-toggle label .can-toggle__label-text {
   flex: 1;
 }
 .can-toggle label .can-toggle__switch {
   transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
-  background: rgb(131.75, 131.75, 131.75);
+  background: rgb(51.6666666667%, 51.6666666667%, 51.6666666667%);
 }
 .can-toggle label .can-toggle__switch:before {
   color: rgba(255, 255, 255, 0.5);
@@ -6725,32 +6726,32 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   background-color: #b53e74;
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-1 input[type=checkbox]:hover ~ label .can-toggle__switch:after {
-  color: rgb(143.012345679, 48.987654321, 91.6543209877);
+  color: rgb(56.0832728153%, 19.2108448318%, 35.9428709756%);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:hover ~ label {
-  color: rgb(162.0061728395, 55.4938271605, 103.8271604938);
+  color: rgb(63.5318324861%, 21.762285161%, 40.716533527%);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label:hover {
-  color: rgb(56.699078341, 145.000921659, 105.9622119816);
+  color: rgb(22.2349326828%, 56.8631065329%, 41.5538086202%);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label .can-toggle__switch {
-  background-color: rgb(68.168202765, 174.331797235, 127.3963133641);
+  background-color: rgb(26.7326285353%, 68.3654106804%, 49.9593385741%);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label .can-toggle__switch:after {
-  color: rgb(53.831797235, 137.668202765, 100.6036866359);
+  color: rgb(21.1105087196%, 53.9875304961%, 39.4524261317%);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:focus ~ label .can-toggle__switch, .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:hover ~ label .can-toggle__switch {
   background-color: #3d9c72;
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:hover ~ label .can-toggle__switch:after {
-  color: rgb(46.66359447, 119.33640553, 87.2073732719);
+  color: rgb(18.2994488118%, 46.7985904039%, 34.1989699105%);
 }
 .can-toggle.demo-rebrand-1 label .can-toggle__label-text {
   flex: 1;
 }
 .can-toggle.demo-rebrand-1 label .can-toggle__switch {
   transition: background-color 0.3s ease-in-out;
-  background: rgb(193.3827160494, 75.1172839506, 128.7839506173);
+  background: rgb(75.8363592351%, 29.457758412%, 50.503510046%);
 }
 .can-toggle.demo-rebrand-1 label .can-toggle__switch:before {
   color: rgba(255, 255, 255, 0.6);
@@ -6767,32 +6768,32 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   background-color: #444;
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-2 input[type=checkbox]:hover ~ label .can-toggle__switch:after {
-  color: rgb(42.5, 42.5, 42.5);
+  color: rgb(16.6666666667%, 16.6666666667%, 16.6666666667%);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:hover ~ label {
-  color: rgb(55.25, 55.25, 55.25);
+  color: rgb(21.6666666667%, 21.6666666667%, 21.6666666667%);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked ~ label:hover {
-  color: rgb(98.0152173913, 177.3608695652, 37.3391304348);
+  color: rgb(38.4373401535%, 69.5532821824%, 14.6427962489%);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked ~ label .can-toggle__switch {
-  background-color: rgb(116.6847826087, 210.7391304348, 44.7608695652);
+  background-color: rgb(45.7587382779%, 82.6427962489%, 17.5532821824%);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked ~ label .can-toggle__switch:after {
-  color: rgb(93.3586956522, 168.9347826087, 35.5652173913);
+  color: rgb(36.6112531969%, 66.2489343564%, 13.947144075%);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:focus ~ label .can-toggle__switch, .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:hover ~ label .can-toggle__switch {
   background-color: #69be28;
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:hover ~ label .can-toggle__switch:after {
-  color: rgb(81.7173913043, 147.8695652174, 31.1304347826);
+  color: rgb(32.0460358056%, 57.9880647911%, 12.2080136402%);
 }
 .can-toggle.demo-rebrand-2 label .can-toggle__label-text {
   flex: 1;
 }
 .can-toggle.demo-rebrand-2 label .can-toggle__switch {
   transition: background-color 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  background: rgb(80.75, 80.75, 80.75);
+  background: rgb(31.6666666667%, 31.6666666667%, 31.6666666667%);
 }
 .can-toggle.demo-rebrand-2 label .can-toggle__switch:before {
   color: rgba(255, 255, 255, 0.7);
@@ -7096,4 +7097,5 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
+
 /*# sourceMappingURL=luxuryCar.css.map */
