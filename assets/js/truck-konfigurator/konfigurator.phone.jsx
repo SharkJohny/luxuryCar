@@ -1048,8 +1048,20 @@ function syncToShoptet(state) {
 }
 
 function Configurator() {
-  const [znacka, setZnacka] = useState("");
-  const [model, setModel] = useState("");
+  // Predvýber z hlavného prepínača na homepage (main.js → initVehicleKindSwitch).
+  // Hodnoty validujeme proti CONFIG-u, aby stará/neplatná session nerozbila UI.
+  const lcdPreselect = (() => {
+    try {
+      const b = sessionStorage.getItem("truckBrand");
+      const m = sessionStorage.getItem("truckModel");
+      if (b && CONFIG[b]) {
+        return { znacka: b, model: m && CONFIG[b][m] ? m : "" };
+      }
+    } catch (e) { /* private mode */ }
+    return { znacka: "", model: "" };
+  })();
+  const [znacka, setZnacka] = useState(lcdPreselect.znacka);
+  const [model, setModel] = useState(lcdPreselect.model);
   const [extras, setExtras] = useState({});
   const [openSection, setOpenSection] = useState(1);
   const transitionToSection = useAccordionTransition(openSection, setOpenSection);

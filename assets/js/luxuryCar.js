@@ -25519,8 +25519,19 @@ function syncToShoptet(state) {
   return { totalSelects: allSelects.length, matchedCount, changed };
 }
 function Configurator() {
-  const [znacka, setZnacka] = useState("");
-  const [model, setModel] = useState("");
+  const lcdPreselect = (() => {
+    try {
+      const b = sessionStorage.getItem("truckBrand");
+      const m = sessionStorage.getItem("truckModel");
+      if (b && CONFIG[b]) {
+        return { znacka: b, model: m && CONFIG[b][m] ? m : "" };
+      }
+    } catch (e) {
+    }
+    return { znacka: "", model: "" };
+  })();
+  const [znacka, setZnacka] = useState(lcdPreselect.znacka);
+  const [model, setModel] = useState(lcdPreselect.model);
   const [extras, setExtras] = useState({});
   const [openSection, setOpenSection] = useState(1);
   const transitionToSection = useAccordionTransition(openSection, setOpenSection);
@@ -28928,8 +28939,19 @@ function syncToShoptet2(state) {
   return { totalSelects: allSelects.length, matchedCount, changed };
 }
 function Configurator2() {
-  const [znacka, setZnacka] = useState2("");
-  const [model, setModel] = useState2("");
+  const lcdPreselect = (() => {
+    try {
+      const b = sessionStorage.getItem("truckBrand");
+      const m = sessionStorage.getItem("truckModel");
+      if (b && CONFIG2[b]) {
+        return { znacka: b, model: m && CONFIG2[b][m] ? m : "" };
+      }
+    } catch (e) {
+    }
+    return { znacka: "", model: "" };
+  })();
+  const [znacka, setZnacka] = useState2(lcdPreselect.znacka);
+  const [model, setModel] = useState2(lcdPreselect.model);
   const [extras, setExtras] = useState2({});
   const [openSection, setOpenSection] = useState2(1);
   const transitionToSection = useAccordionTransition2(openSection, setOpenSection);
@@ -36298,6 +36320,76 @@ function initContactForm() {
   }
 })();
 
+// assets/js/truck-konfigurator/truck-brands.js
+var TRUCK_BRANDS = {
+  "Citro\xEBn (dod\xE1vka)": [
+    "Jumper 2007-2014",
+    "Jumper 2014-2025"
+  ],
+  "DAF (TIR)": [
+    "XF 2022-2025",
+    "XF105 2006-2012",
+    "XF106 2013-2016",
+    "XF106 2017-2021",
+    "XG / XG+ 2022-2025"
+  ],
+  "Fiat (dod\xE1vka)": [
+    "Ducato 2007-2025"
+  ],
+  "Ford (TIR)": [
+    "F-MAX 2018-2025"
+  ],
+  "IVECO (TIR)": [
+    "Stralis Hi-Way 2011-2019",
+    "Stralis Hi-Way 2011-2019 \u2013 obytn\xE1 kab\xEDna",
+    "Stralis S-Way 2019-2024",
+    "S-Way 2025"
+  ],
+  "MAN (TIR)": [
+    "TGX 2007-2017",
+    "TGX 2018-2020",
+    "TGX 2021-2025"
+  ],
+  "Mercedes-Benz (TIR)": [
+    "Actros MP2/MP3 (rovn\xE1 podlaha) 2003-2008",
+    "Actros MP4/MP5/MP6 (rovn\xE1 podlaha) 2011-2025",
+    "Actros MP4/MP5/MP6 2021-2025 \u2013 obytn\xE1 kab\xEDna (Solostar)",
+    "Actros MP5/MP6 F (s tunelom) 2021-2025"
+  ],
+  "Mercedes-Benz (dod\xE1vka)": [
+    "Sprinter 2018-2025 (zadn\xFD pohon)"
+  ],
+  "Peugeot (dod\xE1vka)": [
+    "Boxer 2007-2014",
+    "Boxer 2014-2025"
+  ],
+  "Renault (TIR)": [
+    "T Range (rovn\xE1 podlaha) 2013-2025",
+    "T Range (s tunelom) 2013-2025"
+  ],
+  "Renault (dod\xE1vka)": [
+    "Master 2010-2024"
+  ],
+  "Scania (TIR)": [
+    "R 2004-2008",
+    "R 2009-2013",
+    "R 2014-2016",
+    "R 2017-2025",
+    "S 2017-2025"
+  ],
+  "Volvo (TIR)": [
+    "FH (FH13) 2009-2013",
+    "FH4 2013-2021",
+    "FH5 2022-2024",
+    "FH5 Aero 2025"
+  ]
+};
+var TRUCK_PRODUCT_URLS = {
+  sk: "/luxusne-autokoberce-truck/",
+  cs: "/luxusni-autokoberce-truck/"
+};
+var TRUCK_PRODUCT_URL = TRUCK_PRODUCT_URLS.sk;
+
 // assets/js/main.js
 var setupData;
 $.getJSON(optionData.downloadData, function(data) {
@@ -36538,6 +36630,116 @@ function initModelSelect2(texts) {
       saveModel(false);
     });
   }, 1e3);
+  if ($(".in-index")[0]) {
+    try {
+      initVehicleKindSwitch(container, choiceWrap);
+    } catch (e) {
+      console.error("[vehicle-switch] init zlyhal:", e);
+    }
+  }
+}
+function initVehicleKindSwitch(container, choiceWrap) {
+  const isCs = ($("html").attr("lang") || "").toLowerCase().indexOf("cs") === 0;
+  const t = isCs ? { cars: "Osobn\xED vozidla", trucks: "Kamiony a dod\xE1vky", brand: "Zna\u010Dka", model: "Model", cta: "Zvolit model" } : { cars: "Osobn\xE9 vozidl\xE1", trucks: "Kami\xF3ny a dod\xE1vky", brand: "Zna\u010Dka", model: "Model", cta: "Zvoli\u0165 model" };
+  const ICON_CAR = '<svg viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M171.3 96H224v96H111.3l30.4-75.9C146.5 104 158.2 96 171.3 96zM272 192V96h81.2c9.7 0 18.9 4.4 25 12l67.2 84H272zm256.2 1L428.2 68c-18.2-22.8-45.8-36-75-36H171.3c-39.3 0-74.6 23.9-89.1 60.3L40.6 196.4C16.8 205.8 0 228.9 0 256V368c0 17.7 14.3 32 32 32H65.3c7.6 45.4 47.1 80 94.7 80s87.1-34.6 94.7-80H385.3c7.6 45.4 47.1 80 94.7 80s87.1-34.6 94.7-80H608c17.7 0 32-14.3 32-32V320c0-65.2-48.8-119-111.8-127zM434.7 368a48 48 0 1 1 90.5 32 48 48 0 1 1 -90.5-32zM160 336a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>';
+  const ICON_TRUCK = '<svg viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M64 32C28.7 32 0 60.7 0 96V304v80 16c0 44.2 35.8 80 80 80c26.2 0 49.4-12.6 64-32c14.6 19.4 37.8 32 64 32c44.2 0 80-35.8 80-80c0-5.5-.6-10.8-1.6-16H416h33.6c-1 5.2-1.6 10.5-1.6 16c0 44.2 35.8 80 80 80s80-35.8 80-80c0-5.5-.6-10.8-1.6-16H608c17.7 0 32-14.3 32-32V288 272 261.7c0-9.2-3.2-18.2-9-25.3l-58.8-71.8c-10.6-13-26.5-20.5-43.3-20.5H480V96c0-35.3-28.7-64-64-64H64zM585 256H480V192h48.8c2.4 0 4.7 1.1 6.2 2.9L585 256zM528 368a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM176 400a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM80 368a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>';
+  const sw = $("<div>", { class: "lcd-vehicle-switch", role: "tablist" });
+  const mkTab = function(icon, label, active) {
+    return $("<button>", {
+      type: "button",
+      class: "lcd-vehicle-switch__tab" + (active ? " is-active" : ""),
+      role: "tab",
+      "aria-selected": active ? "true" : "false",
+      html: icon + '<span class="lcd-vehicle-switch__name">' + label + "</span>"
+    });
+  };
+  const btnCars = mkTab(ICON_CAR, t.cars, true);
+  const btnTrucks = mkTab(ICON_TRUCK, t.trucks, false);
+  sw.append(btnCars, btnTrucks);
+  sw.insertBefore(choiceWrap);
+  const truckWrap = $("<div>", { class: "modl-selector-wrap lcd-truck-wrap", hidden: true }).insertAfter(choiceWrap);
+  const mkSelect = function(cls, placeholder) {
+    return $(
+      '<div class="surcharge-list ' + cls + ` dm-selector"><div class='selector'><select><option class="notselect">` + placeholder + "</option></select></div></div>"
+    ).appendTo(truckWrap);
+  };
+  mkSelect("truck-brands", t.brand);
+  mkSelect("truck-models", t.model);
+  const truckBtn = $("<div>", { class: "btn choice-Model lcd-truck-go", text: t.cta }).appendTo(truckWrap);
+  const $brand = truckWrap.find(".truck-brands select");
+  const $model = truckWrap.find(".truck-models select");
+  Object.keys(TRUCK_BRANDS).forEach(function(brand) {
+    $("<option>").text(brand).appendTo($brand);
+  });
+  const fillModels = function(brand) {
+    $model.find("option:not(.notselect)").remove();
+    (TRUCK_BRANDS[brand] || []).forEach(function(m) {
+      $("<option>").text(m).appendTo($model);
+    });
+  };
+  $brand.on("change", function(e) {
+    e.stopImmediatePropagation();
+    fillModels($(this).val());
+  });
+  $model.on("change", function(e) {
+    e.stopImmediatePropagation();
+  });
+  try {
+    const savedBrand = sessionStorage.getItem("truckBrand");
+    const savedModel = sessionStorage.getItem("truckModel");
+    if (savedBrand && TRUCK_BRANDS[savedBrand]) {
+      $brand.val(savedBrand);
+      fillModels(savedBrand);
+      if (savedModel && TRUCK_BRANDS[savedBrand].indexOf(savedModel) > -1) $model.val(savedModel);
+    }
+  } catch (e) {
+  }
+  truckBtn.on("click", function() {
+    const brand = $brand.val();
+    const model = $model.val();
+    let invalid = false;
+    if (!brand || brand === t.brand) {
+      truckWrap.find(".truck-brands").addClass("errorToCart");
+      invalid = true;
+    }
+    if (!model || model === t.model) {
+      truckWrap.find(".truck-models").addClass("errorToCart");
+      invalid = true;
+    }
+    if (invalid) {
+      setTimeout(function() {
+        $(".errorToCart").removeClass("errorToCart");
+      }, 2e3);
+      return;
+    }
+    try {
+      sessionStorage.setItem("truckBrand", brand);
+      sessionStorage.setItem("truckModel", model);
+    } catch (e) {
+    }
+    window.location.href = TRUCK_PRODUCT_URLS[isCs ? "cs" : "sk"];
+  });
+  const setKind = function(kind) {
+    const trucks = kind === "trucks";
+    btnCars.toggleClass("is-active", !trucks).attr("aria-selected", String(!trucks));
+    btnTrucks.toggleClass("is-active", trucks).attr("aria-selected", String(trucks));
+    choiceWrap.prop("hidden", trucks);
+    truckWrap.prop("hidden", !trucks);
+    try {
+      sessionStorage.setItem("vehicleKind", kind);
+    } catch (e) {
+    }
+  };
+  btnCars.on("click", function() {
+    setKind("cars");
+  });
+  btnTrucks.on("click", function() {
+    setKind("trucks");
+  });
+  try {
+    if (sessionStorage.getItem("vehicleKind") === "trucks") setKind("trucks");
+  } catch (e) {
+  }
 }
 function saveModel(redirect) {
   console.log("saveModel");

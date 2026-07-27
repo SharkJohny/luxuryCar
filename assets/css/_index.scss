@@ -21,6 +21,68 @@
   border-top-color: rgba(0, 0, 0, 0);
 }
 
+// Hlavný prepínač osobné vozidlá ↔ kamióny (main.js → initVehicleKindSwitch).
+// Decentné piktogramové taby (auto/kamión + názov) — žiadne veľké tlačidlá.
+// Aktívny tab: zlatá farba + podčiarknutie.
+.lcd-vehicle-switch {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin: 0 auto 20px;
+
+  &__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 6px 8px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: none;
+    color: #9a9184;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+
+    svg {
+      width: 52px;
+      height: 26px;
+      display: block;
+    }
+
+    &:hover {
+      color: #6b6253;
+    }
+
+    &.is-active {
+      color: #a8893a;
+      border-bottom-color: #c5a44e;
+    }
+  }
+
+  @media (max-width: 560px) {
+    gap: 20px;
+
+    &__tab {
+      font-size: 11px;
+
+      svg {
+        width: 44px;
+        height: 22px;
+      }
+    }
+  }
+}
+
+.lcd-truck-wrap[hidden],
+.modl-selector-wrap[hidden] {
+  display: none !important;
+}
+
 .in-index .model-selector.container {
   h2 {
     font-size: 24px !important;
@@ -614,6 +676,8 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.years.dm-selector,
 .surcharge-list.models.dm-selector,
 .surcharge-list.brands.dm-selector,
+.surcharge-list.truck-brands.dm-selector,
+.surcharge-list.truck-models.dm-selector,
 .surcharge-list.type-selector {
   select {
     border: 2px solid #e0d5b8;

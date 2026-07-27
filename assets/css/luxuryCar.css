@@ -841,6 +841,60 @@ a.contact-link {
   border-top-color: rgba(0, 0, 0, 0);
 }
 
+.lcd-vehicle-switch {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin: 0 auto 20px;
+}
+.lcd-vehicle-switch__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px 8px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: #9a9184;
+  font-family: "Exo 2", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lcd-vehicle-switch__tab svg {
+  width: 52px;
+  height: 26px;
+  display: block;
+}
+.lcd-vehicle-switch__tab:hover {
+  color: #6b6253;
+}
+.lcd-vehicle-switch__tab.is-active {
+  color: #a8893a;
+  border-bottom-color: #c5a44e;
+}
+@media (max-width: 560px) {
+  .lcd-vehicle-switch {
+    gap: 20px;
+  }
+  .lcd-vehicle-switch__tab {
+    font-size: 11px;
+  }
+  .lcd-vehicle-switch__tab svg {
+    width: 44px;
+    height: 22px;
+  }
+}
+
+.lcd-truck-wrap[hidden],
+.modl-selector-wrap[hidden] {
+  display: none !important;
+}
+
 .in-index .model-selector.container h2 {
   font-size: 24px !important;
   text-transform: uppercase;
@@ -1395,6 +1449,8 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.years.dm-selector select,
 .surcharge-list.models.dm-selector select,
 .surcharge-list.brands.dm-selector select,
+.surcharge-list.truck-brands.dm-selector select,
+.surcharge-list.truck-models.dm-selector select,
 .surcharge-list.type-selector select {
   border: 2px solid #e0d5b8;
   border-radius: 10px;
@@ -1405,6 +1461,8 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.years.dm-selector select:focus,
 .surcharge-list.models.dm-selector select:focus,
 .surcharge-list.brands.dm-selector select:focus,
+.surcharge-list.truck-brands.dm-selector select:focus,
+.surcharge-list.truck-models.dm-selector select:focus,
 .surcharge-list.type-selector select:focus {
   border-color: #C5A44E;
   outline: none;

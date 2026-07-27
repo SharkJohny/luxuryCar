@@ -2,19 +2,20 @@
   "version": "4.15.2",
   "devDependencies": {
     "esbuild": "^0.24.2",
+    "jquery": "^4.0.0",
     "jsdom": "^29.1.1",
     "sharp": "^0.35.2"
   },
   "scripts": {
-    "build": "node truck/build-truck-images.mjs && esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --legal-comments=none --watch",
-    "build:once": "node truck/build-truck-images.mjs && esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --legal-comments=none",
-    "truck:images": "node truck/build-truck-images.mjs",
+    "build": "node truck/build-truck-images.mjs && node truck/build-truck-brands.mjs && esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --legal-comments=none --watch",
+    "build:once": "node truck/build-truck-images.mjs && node truck/build-truck-brands.mjs && esbuild assets/js/main.js --bundle --outfile=assets/js/luxuryCar.js --format=esm --loader:.jsx=jsx --legal-comments=none",
+    "truck:images": "node truck/build-truck-images.mjs && node truck/build-truck-brands.mjs",
     "vzorky:fetch": "bash vzorky/fetch-source.sh",
     "build:vzorky": "node vzorky/build-vzorky.mjs",
     "vzorky:swatches": "node vzorky/build-swatch-assets.mjs",
     "vzorky:test": "node vzorky/test-mount.mjs && node vzorky/test-text.mjs && node vzorky/test-konfigurator.mjs && node vzorky/test-localization.mjs",
     "vzorky:product": "node vzorky/build-product-xml.mjs && xmllint --relaxng docs/shoptet-products-complete-v10.rng vzorky/dist/vzorky-product.xml --noout",
-    "truck:test": "node truck/build-truck-images.mjs && node assets/js/truck-konfigurator/test-order-summary.mjs && node assets/js/truck-konfigurator/test-truck-mount.mjs",
+    "truck:test": "node truck/build-truck-images.mjs && node truck/build-truck-brands.mjs && node assets/js/truck-konfigurator/test-order-summary.mjs && node assets/js/truck-konfigurator/test-vehicle-switch.mjs && node assets/js/truck-konfigurator/test-truck-mount.mjs",
     "voucher:product": "node voucher/build-voucher-xml.mjs && xmllint --relaxng docs/shoptet-products-complete-v10.rng voucher/dist/voucher-products.xml --noout",
     "voucher:test": "node assets/js/voucher-konfigurator/test-voucher-mount.mjs"
   },

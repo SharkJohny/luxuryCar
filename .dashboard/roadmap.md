@@ -350,3 +350,46 @@ Zdroj: `productsComplete.xml?patternId=-5&partnerId=3&hash=...` (živý SK e-sho
       čítajú zo Shoptet DOM; fallback je len pre offline/preview.
       POZN. klientovi: v cenníku nesedí tapacír "samostatná cena" — stĺpec C
       hovorí 199, poznámka "Bežne 179" — kód drží 179, nech si to ujednotí.
+
+## Hlavný prepínač osobáky ↔ kamióny (homepage)
+- [x] truck/build-truck-brands.mjs — značky+modely sa ťahajú priamo z
+      konfigurátora (CONFIG v konfigurator.jsx) do truck-brands.js.
+      13 značiek / 35 modelov. Zapojené do yarn build/build:once/truck:test,
+      takže dáta ostávajú v sync automaticky.
+- [x] main.js → initVehicleKindSwitch: posuvný prepínač nad výberom.
+      Osobácka vetva NEZMENENÁ. Kamiónový panel = REPLIKA kroku 1 truck
+      konfigurátora (Dropdown komponenta): vlastný dropdown, zlatý rámček
+      pri výbere, chevron, zoznam s aktívnou položkou, model až po značke,
+      zelené CTA až po kompletnom výbere.
+- [x] Výber sa ukladá do sessionStorage (truckBrand/truckModel) a konfigurátor
+      si ho predvyplní (validácia proti CONFIG).
+- [x] test-vehicle-switch.mjs — 19 kontrol (render, prepínanie, dropdown
+      interakcia, viditeľnosť modelu/CTA, redirect, session). Zelené.
+- [ ] Overiť vizuál v náhľade — preview servíruje produkčný CDN bundle
+      (project.json override jsFileName=/assets/js/main.js). Prepnúť na
+      /assets/js/luxuryCar.js.
+- [ ] TRUCK_PRODUCT_URL zatiaľ mieri na testovací produkt
+      /luxusne-autokoberce-truck---test-konfigurator/ — po spustení ostrého
+      produktu prepísať v truck-brands.js (resp. build skripte).
+- [x] Prepínač PREROBENÝ podľa pripomienok: (1) taby = piktogramy (SVG auto /
+      kamión) s názvom, aktívny = zlaté podčiarknutie — žiadne veľké pill
+      tlačidlá; (2) kamiónová vetva má IDENTICKÝ dizajn ako osobácke selecty
+      (rovnaký markup surcharge-list/dm-selector + CSS zoznam rozšírený o
+      truck-brands/truck-models) + tlačidlo .btn.choice-Model + errorToCart
+      validácia; dáta ďalej z truck konfigurátora; (3) init volaný ako
+      POSLEDNÝ v initModelSelect a v try/catch — nemôže zhodiť osobáky;
+      truck change handlery so stopImmediatePropagation (globálny saveModel
+      binding by prepisoval sessionStorage osobákov). initModelSelect
+      overený jsdom harnessom: brands aj roky sa plnia, žiadny throw.
+      test-vehicle-switch: 15 kontrol vrátane saveModel interferencie.
+- [x] Prepínač v3 podľa pripomienok: (1) piktogramy nahradené Font Awesome
+      Free ikonami (car-side / truck-moving, CC BY 4.0) — stiahnuté z unpkg,
+      inline SVG; (2) preverené jsdom testom, že preselect z homepage v
+      konfigurátore predvyplní značku+model A zobrazí povinné parametre
+      (prevodovka/sedadlo…, single-option sa auto-vyberie) — funguje;
+      (3) CZ/SK: všetky texty prepínača sú dvojjazyčné, cieľová URL per-lang.
+      Vizuál overený v preview (desktop + mobil screenshot).
+- [x] Cieľová URL OPRAVENÁ na ostré produkty (zo sitemap, oboje 200):
+      SK /luxusne-autokoberce-truck/ (19 surcharge selectov),
+      CZ /luxusni-autokoberce-truck/. Testovací slug
+      ...---test-konfigurator/ sa už nepoužíva.
