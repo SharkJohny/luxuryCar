@@ -6,14 +6,14 @@ otevření projektu se přepíše — případné dlouhodobé poznámky dej do
 `AI-NOTES.md` (ten zůstane nedotčený).
 ## Základní údaje
 - **Název:** luxurycar
-- **URL náhledu:** https://www.luxurycardesign.sk/
+- **URL náhledu:** https://www.luxurycardesign.cz/
 - **Lokální složka:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar`
 - **JS výstup:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar/assets/js/main.js`
 ## E-shopy projektu (varianty) — KRITICKÉ
-- **Aktivní e-shop:** Výchozí — https://www.luxurycardesign.sk/
+- **Aktivní e-shop:** CZ — https://www.luxurycardesign.cz/
 Tento projekt obsluhuje VÍCE e-shopů na stejném kódu:
-- Výchozí — https://www.luxurycardesign.sk/   ← AKTIVNÍ
-- CZ — https://www.luxurycardesign.cz/
+- Výchozí — https://www.luxurycardesign.sk/
+- CZ — https://www.luxurycardesign.cz/   ← AKTIVNÍ
 Veškeré operace (navigate/curl na náhled, screenshoty, admin, kontroly) prováděj
 VÝHRADNĚ proti aktivnímu e-shopu výše. URL jiných variant NIKDY nepoužívej.
 ## SCSS — TOTO edituj (KRITICKÉ)
@@ -91,6 +91,7 @@ assets/js/script.js
 assets/js/seo-runtime.js
 assets/js/truck-konfigurator/app.js
 assets/js/truck-konfigurator/pricing.js
+assets/js/truck-konfigurator/truck-brands.js
 assets/js/voucher-konfigurator/cart.js
 assets/js/voucher-konfigurator/pricing.js
 assets/js/voucher-konfigurator/styles.js

@@ -895,6 +895,61 @@ a.contact-link {
   display: none !important;
 }
 
+.lcd-truck-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 16px;
+  width: min(960px, 100%);
+  max-width: 960px;
+  margin-inline: auto;
+}
+.lcd-truck-wrap::before, .lcd-truck-wrap::after {
+  display: none !important;
+}
+.lcd-truck-wrap .surcharge-list {
+  width: 100%;
+  margin: 0 !important;
+}
+.lcd-truck-wrap .lcd-truck-field-label {
+  display: block;
+  min-height: 18px;
+  margin: 0 0 6px;
+  color: #6f675d;
+  font-family: "Exo 2", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+}
+.lcd-truck-wrap .selector,
+.lcd-truck-wrap select {
+  width: 100% !important;
+}
+.lcd-truck-wrap .lcd-truck-go {
+  width: 100%;
+  min-height: 39px;
+  align-self: end;
+  margin: 0 !important;
+}
+.lcd-truck-wrap.has-extras .lcd-truck-go {
+  grid-column: span 2;
+}
+@media (max-width: 900px) {
+  .lcd-truck-wrap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .lcd-truck-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .lcd-truck-wrap.has-extras .lcd-truck-go {
+    grid-column: auto;
+  }
+}
+
 .in-index .model-selector.container h2 {
   font-size: 24px !important;
   text-transform: uppercase;
@@ -1451,6 +1506,7 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.brands.dm-selector select,
 .surcharge-list.truck-brands.dm-selector select,
 .surcharge-list.truck-models.dm-selector select,
+.surcharge-list.truck-extra.dm-selector select,
 .surcharge-list.type-selector select {
   border: 2px solid #e0d5b8;
   border-radius: 10px;
@@ -1463,6 +1519,7 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.brands.dm-selector select:focus,
 .surcharge-list.truck-brands.dm-selector select:focus,
 .surcharge-list.truck-models.dm-selector select:focus,
+.surcharge-list.truck-extra.dm-selector select:focus,
 .surcharge-list.type-selector select:focus {
   border-color: #C5A44E;
   outline: none;
@@ -6637,32 +6694,32 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   background-color: #777;
 }
 .can-toggle input[type=checkbox]:focus ~ label .can-toggle__switch:after, .can-toggle input[type=checkbox]:hover ~ label .can-toggle__switch:after {
-  color: rgb(36.6666666667%, 36.6666666667%, 36.6666666667%);
+  color: rgb(93.5, 93.5, 93.5);
 }
 .can-toggle input[type=checkbox]:hover ~ label {
-  color: rgb(41.6666666667%, 41.6666666667%, 41.6666666667%);
+  color: rgb(106.25, 106.25, 106.25);
 }
 .can-toggle input[type=checkbox]:checked ~ label:hover {
-  color: rgb(33.1523378582%, 73.6787330317%, 28.556561086%);
+  color: rgb(84.5384615385, 187.8807692308, 72.8192307692);
 }
 .can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch {
-  background-color: rgb(44.0925087984%, 77.9864253394%, 40.2488687783%);
+  background-color: rgb(112.4358974359, 198.8653846154, 102.6346153846);
 }
 .can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch:after {
-  color: rgb(31.0658622423%, 71.7873303167%, 26.4479638009%);
+  color: rgb(79.2179487179, 183.0576923077, 67.4423076923);
 }
 .can-toggle input[type=checkbox]:checked:focus ~ label .can-toggle__switch, .can-toggle input[type=checkbox]:checked:hover ~ label .can-toggle__switch {
   background-color: #5fc054;
 }
 .can-toggle input[type=checkbox]:checked:focus ~ label .can-toggle__switch:after, .can-toggle input[type=checkbox]:checked:hover ~ label .can-toggle__switch:after {
-  color: rgb(27.9034690799%, 64.479638009%, 23.7556561086%);
+  color: rgb(71.1538461538, 164.4230769231, 60.5769230769);
 }
 .can-toggle label .can-toggle__label-text {
   flex: 1;
 }
 .can-toggle label .can-toggle__switch {
   transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
-  background: rgb(51.6666666667%, 51.6666666667%, 51.6666666667%);
+  background: rgb(131.75, 131.75, 131.75);
 }
 .can-toggle label .can-toggle__switch:before {
   color: rgba(255, 255, 255, 0.5);
@@ -6784,32 +6841,32 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   background-color: #b53e74;
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-1 input[type=checkbox]:hover ~ label .can-toggle__switch:after {
-  color: rgb(56.0832728153%, 19.2108448318%, 35.9428709756%);
+  color: rgb(143.012345679, 48.987654321, 91.6543209877);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:hover ~ label {
-  color: rgb(63.5318324861%, 21.762285161%, 40.716533527%);
+  color: rgb(162.0061728395, 55.4938271605, 103.8271604938);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label:hover {
-  color: rgb(22.2349326828%, 56.8631065329%, 41.5538086202%);
+  color: rgb(56.699078341, 145.000921659, 105.9622119816);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label .can-toggle__switch {
-  background-color: rgb(26.7326285353%, 68.3654106804%, 49.9593385741%);
+  background-color: rgb(68.168202765, 174.331797235, 127.3963133641);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label .can-toggle__switch:after {
-  color: rgb(21.1105087196%, 53.9875304961%, 39.4524261317%);
+  color: rgb(53.831797235, 137.668202765, 100.6036866359);
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:focus ~ label .can-toggle__switch, .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:hover ~ label .can-toggle__switch {
   background-color: #3d9c72;
 }
 .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-1 input[type=checkbox]:checked:hover ~ label .can-toggle__switch:after {
-  color: rgb(18.2994488118%, 46.7985904039%, 34.1989699105%);
+  color: rgb(46.66359447, 119.33640553, 87.2073732719);
 }
 .can-toggle.demo-rebrand-1 label .can-toggle__label-text {
   flex: 1;
 }
 .can-toggle.demo-rebrand-1 label .can-toggle__switch {
   transition: background-color 0.3s ease-in-out;
-  background: rgb(75.8363592351%, 29.457758412%, 50.503510046%);
+  background: rgb(193.3827160494, 75.1172839506, 128.7839506173);
 }
 .can-toggle.demo-rebrand-1 label .can-toggle__switch:before {
   color: rgba(255, 255, 255, 0.6);
@@ -6826,32 +6883,32 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   background-color: #444;
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-2 input[type=checkbox]:hover ~ label .can-toggle__switch:after {
-  color: rgb(16.6666666667%, 16.6666666667%, 16.6666666667%);
+  color: rgb(42.5, 42.5, 42.5);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:hover ~ label {
-  color: rgb(21.6666666667%, 21.6666666667%, 21.6666666667%);
+  color: rgb(55.25, 55.25, 55.25);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked ~ label:hover {
-  color: rgb(38.4373401535%, 69.5532821824%, 14.6427962489%);
+  color: rgb(98.0152173913, 177.3608695652, 37.3391304348);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked ~ label .can-toggle__switch {
-  background-color: rgb(45.7587382779%, 82.6427962489%, 17.5532821824%);
+  background-color: rgb(116.6847826087, 210.7391304348, 44.7608695652);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked ~ label .can-toggle__switch:after {
-  color: rgb(36.6112531969%, 66.2489343564%, 13.947144075%);
+  color: rgb(93.3586956522, 168.9347826087, 35.5652173913);
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:focus ~ label .can-toggle__switch, .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:hover ~ label .can-toggle__switch {
   background-color: #69be28;
 }
 .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-2 input[type=checkbox]:checked:hover ~ label .can-toggle__switch:after {
-  color: rgb(32.0460358056%, 57.9880647911%, 12.2080136402%);
+  color: rgb(81.7173913043, 147.8695652174, 31.1304347826);
 }
 .can-toggle.demo-rebrand-2 label .can-toggle__label-text {
   flex: 1;
 }
 .can-toggle.demo-rebrand-2 label .can-toggle__switch {
   transition: background-color 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  background: rgb(31.6666666667%, 31.6666666667%, 31.6666666667%);
+  background: rgb(80.75, 80.75, 80.75);
 }
 .can-toggle.demo-rebrand-2 label .can-toggle__switch:before {
   color: rgba(255, 255, 255, 0.7);
@@ -7155,5 +7212,4 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
-
 /*# sourceMappingURL=luxuryCar.css.map */

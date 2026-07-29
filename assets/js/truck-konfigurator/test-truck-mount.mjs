@@ -52,6 +52,13 @@ async function mountWith(isPhone) {
     { url: "https://www.luxurycardesign.sk/test-truck/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
   );
   const { window } = dom;
+  const prefill = {
+    prevodovka: "Manuálna prevodovka",
+    zasuvky: "2 zásuvky (šuplíky)",
+  };
+  window.sessionStorage.setItem("truckBrand", "MAN (TIR)");
+  window.sessionStorage.setItem("truckModel", "TGX 2007-2017");
+  window.sessionStorage.setItem("truckExtras", JSON.stringify(prefill));
   // matchMedia mock — phone keď width<=768
   window.matchMedia = (q) => ({ matches: isPhone && /max-width:\s*768px/.test(q), media: q, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} });
 
@@ -71,6 +78,48 @@ async function mountWith(isPhone) {
   else ok(`${variant}: mount bez runtime chýb`);
   if (el.children.length > 0 || (el.textContent || "").length > 0) ok(`${variant}: konfigurátor vyrenderoval DOM`);
   else fail(`${variant}: mount element ostal prázdny`);
+  const renderedText = el.textContent || "";
+  if (
+    renderedText.includes("MAN (TIR)") &&
+    renderedText.includes("TGX 2007-2017") &&
+    Object.values(prefill).every((value) => renderedText.includes(value))
+  ) {
+    ok(`${variant}: značka, model aj všetky extra voľby sa predvyplnili zo session`);
+  } else {
+    fail(`${variant}: nekompletný predvýber zo session`);
+  }
+
+  const step1 = window.document.getElementById("konfig-step-1");
+  const visibleOverflowWrappers = step1
+    ? [...step1.querySelectorAll("div")].filter((node) => node.style.overflow === "visible")
+    : [];
+  if (step1 && step1.style.zIndex === "2" && visibleOverflowWrappers.length >= 2) {
+    ok(`${variant}: otvorený akordeón dovolí dropdownu pretiecť cez spodnú hranu`);
+  } else {
+    fail(`${variant}: otvorený akordeón stále orezáva dropdown`);
+  }
+
+  const transmissionTrigger = step1
+    ? [...step1.querySelectorAll("div")].find(
+        (node) => node.textContent.trim() === prefill.prevodovka && node.style.cursor === "pointer",
+      )
+    : null;
+  if (transmissionTrigger) {
+    transmissionTrigger.click();
+    await new Promise((r) => setTimeout(r, 60));
+    const option = [...step1.querySelectorAll("div")].find((node) => node.textContent.trim() === "Automatická prevodovka");
+    let clippedAncestor = null;
+    for (let node = option && option.parentElement; node && node !== step1.parentElement; node = node.parentElement) {
+      if (node.style.overflow === "hidden") {
+        clippedAncestor = node;
+        break;
+      }
+    }
+    if (option && !clippedAncestor) ok(`${variant}: otvorený zoznam nemá orezávajúceho predka`);
+    else fail(`${variant}: zoznam je stále pod overflow:hidden (${clippedAncestor ? clippedAncestor.getAttribute("style") : "možnosť nenájdená"})`);
+  } else {
+    fail(`${variant}: nenašiel sa trigger prevodovky pre test dropdownu`);
+  }
   return window;
 }
 

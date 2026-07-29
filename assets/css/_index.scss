@@ -83,6 +83,69 @@
   display: none !important;
 }
 
+.lcd-truck-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 16px;
+  width: min(960px, 100%);
+  max-width: 960px;
+  margin-inline: auto;
+
+  // Šípky patria k pôvodnému jednoriadkovému výberu osobného auta.
+  // Pri dynamickom truck formulári by prekrývali selecty a tlačidlo.
+  &::before,
+  &::after {
+    display: none !important;
+  }
+
+  .surcharge-list {
+    width: 100%;
+    margin: 0 !important;
+  }
+
+  .lcd-truck-field-label {
+    display: block;
+    min-height: 18px;
+    margin: 0 0 6px;
+    color: #6f675d;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+  }
+
+  .selector,
+  select {
+    width: 100% !important;
+  }
+
+  .lcd-truck-go {
+    width: 100%;
+    min-height: 39px;
+    align-self: end;
+    margin: 0 !important;
+  }
+
+  &.has-extras .lcd-truck-go {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+
+    &.has-extras .lcd-truck-go {
+      grid-column: auto;
+    }
+  }
+}
+
 .in-index .model-selector.container {
   h2 {
     font-size: 24px !important;
@@ -678,6 +741,7 @@ span.bold.fixT.skiptranslate.notranslate {
 .surcharge-list.brands.dm-selector,
 .surcharge-list.truck-brands.dm-selector,
 .surcharge-list.truck-models.dm-selector,
+.surcharge-list.truck-extra.dm-selector,
 .surcharge-list.type-selector {
   select {
     border: 2px solid #e0d5b8;

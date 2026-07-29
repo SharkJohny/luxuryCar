@@ -351,6 +351,28 @@ Zdroj: `productsComplete.xml?patternId=-5&partnerId=3&hash=...` (živý SK e-sho
       POZN. klientovi: v cenníku nesedí tapacír "samostatná cena" — stĺpec C
       hovorí 199, poznámka "Bežne 179" — kód drží 179, nech si to ujednotí.
 
+## Nášivky per pozícia vo feedoch (test-truck.xml + cz-import) — 29.7.2026
+Klient: konfigurátor umožňuje vybrať INÚ nášivku a INÚ farbu nite pre boky
+(šofér+spolujazdec), stred (stredový koberec) aj dvere — feed to nevedel zachytiť
+(stred chýbal úplne, „Nášivka"/„Niť" boli nejednoznačné — niesli len hodnotu bokov).
+Plán: `/Users/sharkjohny/.claude/plans/misty-singing-muffin.md`.
+- [x] Zdroj potvrdený: `NASIVKY` (25 kódov H1-H26/N1/N2/N33) a `NITE_FARBY` (11 farieb)
+      v `konfigurator.jsx:289,597` — jeden zdieľaný katalóg pre všetky 3 pozície
+- [x] `resolveValue()`/`syncToShoptet()` (konfigurator.jsx:1061-1214) potvrdené: písal len
+      boky+dvere, `selectedStredNasivka`/`selectedStredNitColor` sa nikde neukladali
+- [x] 6 informatívnych (cena 0) parametrov v oboch feedoch: `Nášivka boky`/`Niť boky`
+      (rename z `Nášivka`/`Niť`), `Nášivka stred`/`Niť stred` (nové), `Nášivka dvere druh`/
+      `Niť dvere` (zjednotený pravopis CZ, predtým „dveře druh"). Každý s placeholderom,
+      „Bez nášivky"/„Bez nite" a plným katalógom (25 kódov / 11 farieb kód+názov)
+- [x] Priced parametre nedotknuté: `Nášivky` (umiestnenie), `Nášivka dvere`/`Nášivka boky`
+      yes/no zostali ako boli — žiadny konflikt s `pricing.js` matchermi
+- [x] Oba feedy validujú proti `docs/shoptet-products-complete-v10.rng`
+- [ ] Frontend mapping (resolveValue) na nové SHORT_NAME per pozícia — klient si upraví sám
+- [ ] Naimportovať oba feedy do Shoptetu (SK test-truck aj CZ TRUCK) a overiť 6 selectov
+- [ ] Mimo rozsahu, len zaznamenané: CZ `Čalounění` (SHORT_NAME) nesedí s `pricing.js`
+      matcherom `eq("Tapacír","Tapacir")` — cenotvorba na CZ e-shope preto na tomto
+      parametri padá; riešiť samostatne
+
 ## Hlavný prepínač osobáky ↔ kamióny (homepage)
 - [x] truck/build-truck-brands.mjs — značky+modely sa ťahajú priamo z
       konfigurátora (CONFIG v konfigurator.jsx) do truck-brands.js.

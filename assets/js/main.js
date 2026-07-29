@@ -13,7 +13,12 @@ import { initContactForm } from "./components/contactForm.js";
 import "./seo-runtime.js"; // SEO Fáza A — runtime inject (JSON-LD, hreflang, H1, etc.)
 import "./configurator-enhance.js"; // Konfigurátor — best-seller badge na možnostiach
 import { mergeTruckOrderSummaryIntoNote } from "./truck-konfigurator/order-summary.mjs";
-import { TRUCK_BRANDS, TRUCK_PRODUCT_URLS } from "./truck-konfigurator/truck-brands.js";
+import {
+  TRUCK_BRANDS,
+  TRUCK_FIELD_ORDER,
+  TRUCK_PRODUCT_URLS,
+  TRUCK_VEHICLES,
+} from "./truck-konfigurator/truck-brands.js";
 
 let setupData;
 
@@ -404,8 +409,34 @@ function initModelSelect(texts) {
 function initVehicleKindSwitch(container, choiceWrap) {
   const isCs = ($("html").attr("lang") || "").toLowerCase().indexOf("cs") === 0;
   const t = isCs
-    ? { cars: "Osobní vozidla", trucks: "Kamiony a dodávky", brand: "Značka", model: "Model", cta: "Zvolit model" }
-    : { cars: "Osobné vozidlá", trucks: "Kamióny a dodávky", brand: "Značka", model: "Model", cta: "Zvoliť model" };
+    ? {
+        cars: "Osobní vozidla",
+        trucks: "Kamiony a dodávky",
+        brand: "Značka",
+        model: "Model",
+        cta: "Zvolit model",
+        fields: {
+          prevodovka: "Typ převodovky",
+          sedadlo: "Typ sedadla spolujezdce",
+          zasuvky: "Počet zásuvek (šuplíků)",
+          brzda: "Typ parkovací (ruční) brzdy",
+          podlaha: "Typ podlahy",
+        },
+      }
+    : {
+        cars: "Osobné vozidlá",
+        trucks: "Kamióny a dodávky",
+        brand: "Značka",
+        model: "Model",
+        cta: "Zvoliť model",
+        fields: {
+          prevodovka: "Typ prevodovky",
+          sedadlo: "Typ sedadla spolujazdca",
+          zasuvky: "Počet zásuviek (šuplíkov)",
+          brzda: "Typ parkovacej (ručnej) brzdy",
+          podlaha: "Typ podlahy",
+        },
+      };
 
   // Piktogramové taby (auto / kamión) s názvom — decentné, bez veľkých
   // tlačidiel. Aktívny tab = zlatá farba + podčiarknutie.
@@ -434,13 +465,29 @@ function initVehicleKindSwitch(container, choiceWrap) {
   // Kamiónový riadok — IDENTICKÝ markup ako osobácke selecty, aby dedil
   // rovnaké CSS (rámčeky, radius, focus). Len iné dáta.
   const truckWrap = $("<div>", { class: "modl-selector-wrap lcd-truck-wrap", hidden: true }).insertAfter(choiceWrap);
-  const mkSelect = function (cls, placeholder) {
-    return $(
-      '<div class="surcharge-list ' + cls + ' dm-selector">' +
-        "<div class='selector'><select>" +
-        '<option class="notselect">' + placeholder + "</option>" +
-        "</select></div></div>",
-    ).appendTo(truckWrap);
+  let truckSelectId = 0;
+  const mkSelect = function (cls, placeholder, field) {
+    const selectId = "lcd-truck-select-" + (++truckSelectId);
+    const $wrap = $("<div>", {
+      class: "surcharge-list " + cls + " dm-selector",
+      "data-truck-field": field || null,
+    }).appendTo(truckWrap);
+    $("<label>", {
+      class: "lcd-truck-field-label",
+      for: selectId,
+      text: placeholder,
+    }).appendTo($wrap);
+    const $selector = $("<div>", { class: "selector" }).appendTo($wrap);
+    const $select = $("<select>", {
+      id: selectId,
+      "aria-label": placeholder,
+    }).appendTo($selector);
+    $("<option>", {
+      class: "notselect",
+      value: "",
+      text: placeholder,
+    }).appendTo($select);
+    return $wrap;
   };
   mkSelect("truck-brands", t.brand);
   mkSelect("truck-models", t.model);
@@ -460,25 +507,70 @@ function initVehicleKindSwitch(container, choiceWrap) {
     });
   };
 
+  const clearExtras = function () {
+    truckWrap.find(".truck-extra").remove();
+    truckWrap.removeClass("has-extras");
+  };
+
+  // Zobraz presne tie isté podmienené polia ako krok 1 v truck konfigurátore.
+  // Aj jednohodnotové polia zostávajú viditeľné (sú automaticky vybrané),
+  // takže zákazník vidí kompletnú špecifikáciu vozidla.
+  const fillExtras = function (brand, model, savedExtras) {
+    clearExtras();
+    const config = TRUCK_VEHICLES[brand] && TRUCK_VEHICLES[brand][model];
+    if (!config) return;
+
+    TRUCK_FIELD_ORDER.forEach(function (field) {
+      const options = config[field];
+      if (!Array.isArray(options) || !options.length) return;
+      const $wrap = mkSelect("truck-extra truck-extra--" + field, t.fields[field], field);
+      const $select = $wrap.find("select");
+      options.forEach(function (option) {
+        $("<option>").text(option).attr("value", option).appendTo($select);
+      });
+      if (savedExtras && options.indexOf(savedExtras[field]) > -1) {
+        $select.val(savedExtras[field]);
+      } else if (options.length === 1) {
+        $select.val(options[0]);
+      }
+      $select.on("change", function (e) {
+        e.stopImmediatePropagation();
+        $wrap.removeClass("errorToCart");
+      });
+    });
+
+    truckWrap.toggleClass("has-extras", truckWrap.find(".truck-extra").length > 0);
+    // mkSelect pridáva na koniec; CTA má zostať posledná.
+    truckBtn.appendTo(truckWrap);
+  };
+
   // Vlastný change handler MUSÍ bežať prvý a zastaviť ďalšie handlery —
   // globálny binding `$(".surcharge-list select").on("change") → saveModel`
   // by inak prepisoval sessionStorage osobákov hodnotami z kamiónov.
   $brand.on("change", function (e) {
     e.stopImmediatePropagation();
+    $model.val("");
+    clearExtras();
     fillModels($(this).val());
   });
   $model.on("change", function (e) {
     e.stopImmediatePropagation();
+    fillExtras($brand.val(), $(this).val(), {});
   });
 
   // Predvyplň z predchádzajúcej návštevy (späť z konfigurátora)
   try {
     const savedBrand = sessionStorage.getItem("truckBrand");
     const savedModel = sessionStorage.getItem("truckModel");
+    let savedExtras = {};
+    try { savedExtras = JSON.parse(sessionStorage.getItem("truckExtras") || "{}") || {}; } catch (e) { savedExtras = {}; }
     if (savedBrand && TRUCK_BRANDS[savedBrand]) {
       $brand.val(savedBrand);
       fillModels(savedBrand);
-      if (savedModel && TRUCK_BRANDS[savedBrand].indexOf(savedModel) > -1) $model.val(savedModel);
+      if (savedModel && TRUCK_BRANDS[savedBrand].indexOf(savedModel) > -1) {
+        $model.val(savedModel);
+        fillExtras(savedBrand, savedModel, savedExtras);
+      }
     }
   } catch (e) { /* private mode */ }
 
@@ -487,8 +579,20 @@ function initVehicleKindSwitch(container, choiceWrap) {
     const model = $model.val();
     // Rovnaká validácia ako u osobákov — červený rámček, žiadny redirect.
     let invalid = false;
-    if (!brand || brand === t.brand) { truckWrap.find(".truck-brands").addClass("errorToCart"); invalid = true; }
-    if (!model || model === t.model) { truckWrap.find(".truck-models").addClass("errorToCart"); invalid = true; }
+    if (!brand) { truckWrap.find(".truck-brands").addClass("errorToCart"); invalid = true; }
+    if (!model) { truckWrap.find(".truck-models").addClass("errorToCart"); invalid = true; }
+    const extras = {};
+    truckWrap.find(".truck-extra").each(function () {
+      const $field = $(this);
+      const key = $field.attr("data-truck-field");
+      const value = $field.find("select").val();
+      if (!value) {
+        $field.addClass("errorToCart");
+        invalid = true;
+      } else {
+        extras[key] = value;
+      }
+    });
     if (invalid) {
       setTimeout(function () { $(".errorToCart").removeClass("errorToCart"); }, 2000);
       return;
@@ -496,6 +600,7 @@ function initVehicleKindSwitch(container, choiceWrap) {
     try {
       sessionStorage.setItem("truckBrand", brand);
       sessionStorage.setItem("truckModel", model);
+      sessionStorage.setItem("truckExtras", JSON.stringify(extras));
     } catch (e) { /* private mode */ }
     window.location.href = TRUCK_PRODUCT_URLS[isCs ? "cs" : "sk"];
   });

@@ -393,12 +393,23 @@ function Dropdown({ label, value, options, onChange, color, icon, placeholder })
 
 function AccordionSection({ number, title, subtitle, open, done, onClick, children, error, errorMessage }) {
   const [keepContentMounted, setKeepContentMounted] = useState(open);
+  const [allowContentOverflow, setAllowContentOverflow] = useState(open);
   React.useEffect(() => {
     if (open) {
       setKeepContentMounted(true);
       return undefined;
     }
     const timer = setTimeout(() => setKeepContentMounted(false), 480);
+    return () => clearTimeout(timer);
+  }, [open]);
+  React.useEffect(() => {
+    if (!open) {
+      setAllowContentOverflow(false);
+      return undefined;
+    }
+    // Po dokončení animácie výšky musí byť obsah visible, inak sa rozbalené
+    // dropdowny pri spodnej hrane akordeónu fyzicky orežú.
+    const timer = setTimeout(() => setAllowContentOverflow(true), 470);
     return () => clearTimeout(timer);
   }, [open]);
 
@@ -412,6 +423,8 @@ function AccordionSection({ number, title, subtitle, open, done, onClick, childr
   return (
     <div id={`konfig-step-${number}`} style={{
       marginBottom: 8, scrollMarginTop: 20,
+      position: "relative",
+      zIndex: open ? 2 : 1,
       borderRadius: 10,
       border: error ? `3px solid ${borderColor}` : open ? `2px solid #e0d5b8` : "none",
       boxShadow: error ? "0 0 12px rgba(204,0,0,0.25)" : "none",
@@ -480,16 +493,16 @@ function AccordionSection({ number, title, subtitle, open, done, onClick, childr
       <div style={{
         display: "grid",
         gridTemplateRows: open ? "1fr" : "0fr",
-        overflow: "hidden",
+        overflow: allowContentOverflow ? "visible" : "hidden",
         transition: "grid-template-rows 0.46s cubic-bezier(0.22, 1, 0.36, 1)",
         background: "#fff",
         borderRadius: error ? "0 0 7px 7px" : "0 0 8px 8px",
       }}>
-        <div style={{ minHeight: 0, overflow: "hidden" }}>
+        <div style={{ minHeight: 0, overflow: allowContentOverflow ? "visible" : "hidden" }}>
           <div style={{
             padding: open ? 24 : "0 24px",
             opacity: open ? 1 : 0,
-            transform: open ? "translateY(0)" : "translateY(-6px)",
+            transform: open ? "none" : "translateY(-6px)",
             transition: "padding 0.46s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, transform 0.3s ease",
           }}>
             {(open || keepContentMounted) && children}
@@ -868,30 +881,50 @@ const DOOR_PANEL_PHOTO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABgAAAAQA
 // Mapovanie state → Shoptet `data-parameter-name` (= `<SHORT_NAME>`
 // z test-truck.xml) je v `resolveValue`. Strict shortname matching.
 
+function normalizeOptionText(value) {
+  return String(value || "")
+    .replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\bkoza\b/g, "kuze")
+    .replace(/\bjednofarebna\b/g, "jednobarevna")
+    .replace(/\bpresivana\b/g, "prosivana")
+    .replace(/\bjednofarebny\b/g, "jednobarevny")
+    .replace(/\bdvojfarebny\b/g, "dvoubarevny")
+    .replace(/\bnasiviek\b/g, "nasivek")
+    .replace(/\bpouze\b|\blen\b/g, "jen")
+    .replace(/\bsofer\b/g, "ridic")
+    .replace(/\bspolujazdec\b/g, "spolujezdec")
+    .replace(/\bbalik\b|\bbundle\b/g, "balicek")
+    .replace(/\bchcem\b/g, "chci")
+    .replace(/\bnechcem\b/g, "nechci")
+    .replace(/\bnie\b/g, "ne")
+    .replace(/\bdverach\b/g, "dverich")
+    .replace(/\bako\b/g, "jako")
+    .replace(/\bvyberie\b/g, "vybere")
+    .replace(/\bsa\b/g, "se")
+    .replace(/\bkonfiguratore\b/g, "konfiguratoru")
+    .replace(/\brovnaky\b/g, "stejny")
+    .replace(/\brovnaka\b/g, "stejna")
+    .replace(/\brovnake\b/g, "stejne")
+    .replace(/[(),–—-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function findMatchingOption(select, search) {
   if (!search) return null;
   const opts = select.querySelectorAll("option[value]");
-  const searchNorm = String(search).trim().toLowerCase();
+  const searchNorm = normalizeOptionText(search);
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    if (!o.value) continue;
+    const t = normalizeOptionText(o.textContent);
     if (t === searchNorm) return o;
   }
-  // Tolerancia premenovania balík/bundle (admin vs kód): presná zhoda so
-  // zámenou slova MUSÍ bežať pred fuzzy vetvou — fuzzy by "…stred (balík)"
-  // chytila na kratšiu option "Šofér + spolujazdec" a vybrala zlú hodnotu.
-  const swapNorm = searchNorm.includes("balík")
-    ? searchNorm.replace("balík", "bundle")
-    : searchNorm.includes("bundle")
-      ? searchNorm.replace("bundle", "balík")
-      : null;
-  if (swapNorm) {
-    for (const o of opts) {
-      const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
-      if (t === swapNorm) return o;
-    }
-  }
   for (const o of opts) {
-    const t = o.textContent.replace(/\s*[+\-]\s*(?:Kč|€|EUR|CZK)?\s*\d[\d\s]*(?:[.,]\d+)?\s*(?:Kč|€|EUR|CZK)?\s*$/i, "").trim().toLowerCase();
+    if (!o.value) continue;
+    const t = normalizeOptionText(o.textContent);
     if (t.includes(searchNorm) || searchNorm.includes(t)) return o;
   }
   return null;
@@ -913,6 +946,44 @@ function resolveValue(paramName, s) {
     })[s.nasivkyPlacement] || null;
   }
 
+  if (n === "nášivka boky" || n === "nasivka boky") {
+    if (!s.nasivkyPlacement) return null;
+    const hasSideEmbroidery =
+      s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
+    if (!hasSideEmbroidery) return "Bez nášivky";
+    return s.selectedNasivka ? "Nášivka " + s.selectedNasivka.code : null;
+  }
+
+  if (n === "niť boky" || n === "nit boky") {
+    if (!s.nasivkyPlacement) return null;
+    const hasSideEmbroidery =
+      s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
+    if (!hasSideEmbroidery) return "Bez nite";
+    return s.selectedNasivka && s.selectedNitColor
+      ? s.selectedNitColor.code
+      : null;
+  }
+
+  if (n === "nášivka stred" || n === "nasivka stred") {
+    if (!s.nasivkyPlacement) return null;
+    const hasCenterEmbroidery =
+      s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
+    if (!hasCenterEmbroidery) return "Bez nášivky";
+    return s.selectedStredNasivka
+      ? "Nášivka " + s.selectedStredNasivka.code
+      : null;
+  }
+
+  if (n === "niť stred" || n === "nit stred") {
+    if (!s.nasivkyPlacement) return null;
+    const hasCenterEmbroidery =
+      s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
+    if (!hasCenterEmbroidery) return "Bez nite";
+    return s.selectedStredNasivka && s.selectedStredNitColor
+      ? s.selectedStredNitColor.code
+      : null;
+  }
+
   if (n === "tapacír" || n === "tapacir") {
     if (s.doorPanelChoice === "ano") return "Áno chcem (v konfigurátore – balík)";
     // null (krok 5 preskočený) = "nechcem" — Shoptet select Tapacír je POVINNÝ;
@@ -920,7 +991,17 @@ function resolveValue(paramName, s) {
     return "Nie nechcem tapacír dverí";
   }
 
-  if (n === "nášivka dvere" || n === "nasivka dvere") {
+  if (n === "čalounění" || n === "calouneni") {
+    if (s.doorPanelChoice === "ano") return "Ano, chci (v konfigurátoru – balíček)";
+    return "Ne, nechci čalounění dveří";
+  }
+
+  if (
+    n === "nášivka dvere" ||
+    n === "nasivka dvere" ||
+    n === "nášivka dveře" ||
+    n === "nasivka dveře"
+  ) {
     if (s.doorPanelChoice !== "ano") return "Nie nechcem nášivku na dverách";
     if (s.doorWantsNasivka === true) return "Áno chcem nášivku na dverách";
     if (s.doorWantsNasivka === false) return "Nie nechcem nášivku na dverách";
@@ -944,30 +1025,57 @@ function resolveValue(paramName, s) {
     if (!s.selectedNitColor) return null;
     return s.selectedNitColor.code;
   }
-  if (n === "materiál dvere" || n === "material dvere") {
+  if (
+    n === "materiál dvere" ||
+    n === "material dvere" ||
+    n === "materiál dveře" ||
+    n === "material dveře"
+  ) {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnaký ako koberec";
-    return s.doorMaterial || null;
+    return s.doorMaterial ? "Vybere se v konfigurátoru" : null;
   }
-  if (n === "farba dvere") {
+  if (n === "farba dvere" || n === "barva dveře") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnaká ako koberec";
     if (!s.doorMaterial || !s.doorColor) return null;
-    return s.doorMaterial + " / " + s.doorColor.code;
+    return "Vybere se v konfigurátoru";
   }
-  if (n === "lemovanie dvere") {
+  if (n === "lemovanie dvere" || n === "lemování dveře") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.lemovanie) return "Rovnaké ako koberec";
-    return (s.doorLemovanie && s.doorLemovanie.code) || null;
+    return s.doorLemovanie ? "Vybere se v konfigurátoru" : null;
   }
-  if (n === "nášivka dvere druh" || n === "nasivka dvere druh") {
-    if (s.doorPanelChoice !== "ano") return null;
-    if (!s.doorWantsNasivka) return null;
+  if (
+    n === "nášivka dvere druh" ||
+    n === "nasivka dvere druh" ||
+    n === "nášivka dveře druh" ||
+    n === "nasivka dveře druh"
+  ) {
+    if (!s.doorPanelChoice) return null;
+    if (s.doorPanelChoice !== "ano" || s.doorWantsNasivka === false) {
+      return "Bez nášivky";
+    }
+    if (s.doorWantsNasivka === null) return null;
     if (s.doorSameNasivkaAsCarpet) return "Rovnaká ako koberec";
-    return (s.doorNasivka && s.doorNasivka.code) || null;
+    return s.doorNasivka ? "Nášivka " + s.doorNasivka.code : null;
   }
-  if (n === "niť dvere" || n === "nit dvere" || n === "farba nite – dvere" || n === "farba nite - dvere") {
-    if (s.doorPanelChoice !== "ano") return null;
+  if (
+    n === "niť dvere" ||
+    n === "nit dvere" ||
+    n === "niť dveře" ||
+    n === "nit dveře" ||
+    n === "farba nite – dvere" ||
+    n === "farba nite - dvere"
+  ) {
+    if (!s.doorPanelChoice) return null;
+    if (
+      s.doorPanelChoice !== "ano" ||
+      s.doorWantsNasivka === false
+    ) {
+      return "Bez nite";
+    }
+    if (s.doorWantsNasivka === null) return null;
     if (s.doorSameNitAsCarpet) return "Rovnaká ako koberec";
     return (s.doorNitColor && s.doorNitColor.code) || null;
   }
@@ -1055,14 +1163,26 @@ function Configurator() {
       const b = sessionStorage.getItem("truckBrand");
       const m = sessionStorage.getItem("truckModel");
       if (b && CONFIG[b]) {
-        return { znacka: b, model: m && CONFIG[b][m] ? m : "" };
+        const validModel = m && CONFIG[b][m] ? m : "";
+        let savedExtras = {};
+        try { savedExtras = JSON.parse(sessionStorage.getItem("truckExtras") || "{}") || {}; } catch (e) { savedExtras = {}; }
+        const validExtras = {};
+        if (validModel) {
+          FIELD_ORDER.forEach((key) => {
+            const options = CONFIG[b][validModel][key];
+            if (Array.isArray(options) && options.includes(savedExtras[key])) {
+              validExtras[key] = savedExtras[key];
+            }
+          });
+        }
+        return { znacka: b, model: validModel, extras: validExtras };
       }
     } catch (e) { /* private mode */ }
-    return { znacka: "", model: "" };
+    return { znacka: "", model: "", extras: {} };
   })();
   const [znacka, setZnacka] = useState(lcdPreselect.znacka);
   const [model, setModel] = useState(lcdPreselect.model);
-  const [extras, setExtras] = useState({});
+  const [extras, setExtras] = useState(lcdPreselect.extras);
   const [openSection, setOpenSection] = useState(1);
   const transitionToSection = useAccordionTransition(openSection, setOpenSection);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -1533,9 +1653,9 @@ function Configurator() {
 
   // Static product showcase photos (marketing images)
   const productPhotos = [
-    { label: "", img: "91ThIMeaukL.jpg", desc: "" },
-    { label: "", img: "images/misc/misc_175_PHOTO.png", desc: "" },
-    { label: "", img: "images/nasivky/H1_thumb.png", desc: "" },
+    { label: "", img: NASIVKY[0].full, desc: "" },
+    { label: "", img: DOOR_PANEL_PHOTO, desc: "" },
+    { label: "", img: NASIVKY[1].full, desc: "" },
   ];
 
   return (
@@ -2006,13 +2126,15 @@ function Configurator() {
           overflow: "hidden",
           transition: step4Sub === "placement" ? "max-height 0.4s ease" : "max-height 0.3s ease",
           background: "#fafafa",
-          border: step4Sub === "placement" ? "2px solid #e0d5b8" : "none",
-          borderTop: "none", borderRadius: "0 0 8px 8px", marginBottom: 8,
+          borderStyle: "solid",
+          borderColor: step4Sub === "placement" ? "#e0d5b8" : "transparent",
+          borderWidth: step4Sub === "placement" ? "0 2px 2px" : 0,
+          borderRadius: "0 0 8px 8px", marginBottom: 8,
         }}>
           <div style={{ padding: step4Sub === "placement" ? 16 : "0 16px" }}>
             {/* Produktová fotka nášiviek — inside sub-accordion */}
             <div style={{ marginBottom: 12, borderRadius: 10, overflow: "hidden", border: "2px solid #C5A44E" }}>
-              <img src="91ThIMeaukL.jpg" alt="Ukážka nášiviek a výšiviek v kabíne kamióna"
+              <img src={(selectedNasivka || selectedStredNasivka || NASIVKY[0]).full} alt="Ukážka nášiviek a výšiviek v kabíne kamióna"
                 style={{ width: "100%", display: "block", aspectRatio: "16/10", objectFit: "cover", objectPosition: "center 40%", background: "#1a1a1a" }}
                 onError={(e) => { e.target.parentElement.style.display = "none"; }}
               />
@@ -2304,8 +2426,9 @@ function Configurator() {
               overflow: "hidden",
               transition: step4Sub === "boky" ? "max-height 0.4s ease" : "max-height 0.3s ease",
               background: "#fafafa",
-              border: step4Sub === "boky" ? "2px solid #e0d5b8" : "none",
-              borderTop: "none",
+              borderStyle: "solid",
+              borderColor: step4Sub === "boky" ? "#e0d5b8" : "transparent",
+              borderWidth: step4Sub === "boky" ? "0 2px 2px" : 0,
               borderRadius: "0 0 8px 8px",
               marginBottom: 8,
             }}>
@@ -2535,8 +2658,9 @@ function Configurator() {
               overflow: "hidden",
               transition: step4Sub === "stred" ? "max-height 0.4s ease" : "max-height 0.3s ease",
               background: "#fafafa",
-              border: step4Sub === "stred" ? "2px solid #8ab4d4" : "none",
-              borderTop: "none",
+              borderStyle: "solid",
+              borderColor: step4Sub === "stred" ? "#8ab4d4" : "transparent",
+              borderWidth: step4Sub === "stred" ? "0 2px 2px" : 0,
               borderRadius: "0 0 8px 8px",
               marginBottom: 8,
             }}>
@@ -2877,8 +3001,10 @@ function Configurator() {
           overflow: "hidden",
           transition: doorStep5Sub === "choice" ? "max-height 0.4s ease" : "max-height 0.3s ease",
           background: "#fafafa",
-          border: doorStep5Sub === "choice" ? "2px solid #e0d5b8" : "none",
-          borderTop: "none", borderRadius: "0 0 8px 8px", marginBottom: 8,
+          borderStyle: "solid",
+          borderColor: doorStep5Sub === "choice" ? "#e0d5b8" : "transparent",
+          borderWidth: doorStep5Sub === "choice" ? "0 2px 2px" : 0,
+          borderRadius: "0 0 8px 8px", marginBottom: 8,
         }}>
           <div style={{ padding: doorStep5Sub === "choice" ? 16 : "0 16px" }}>
             {/* Fotka dverového panela — vždy viditeľná keď je 5/A otvorený */}
@@ -3011,8 +3137,10 @@ function Configurator() {
               maxHeight: doorStep5Sub === "material" ? 3000 : 0,
               overflow: "hidden",
               transition: doorStep5Sub === "material" ? "max-height 0.4s ease" : "max-height 0.3s ease",
-              border: doorStep5Sub === "material" ? "2px solid #e0d5b8" : "none",
-              borderTop: "none", borderRadius: "0 0 8px 8px",
+              borderStyle: "solid",
+              borderColor: doorStep5Sub === "material" ? "#e0d5b8" : "transparent",
+              borderWidth: doorStep5Sub === "material" ? "0 2px 2px" : 0,
+              borderRadius: "0 0 8px 8px",
             }}>
               <div style={{ padding: doorStep5Sub === "material" ? 16 : "0 16px" }}>
 
@@ -3234,8 +3362,10 @@ function Configurator() {
                   maxHeight: doorStep5Sub === "lemovanie" ? 3000 : 0,
                   overflow: "hidden",
                   transition: doorStep5Sub === "lemovanie" ? "max-height 0.4s ease" : "max-height 0.3s ease",
-                  border: doorStep5Sub === "lemovanie" ? "2px solid #e0d5b8" : "none",
-                  borderTop: "none", borderRadius: "0 0 8px 8px",
+                  borderStyle: "solid",
+                  borderColor: doorStep5Sub === "lemovanie" ? "#e0d5b8" : "transparent",
+                  borderWidth: doorStep5Sub === "lemovanie" ? "0 2px 2px" : 0,
+                  borderRadius: "0 0 8px 8px",
                 }}>
                   <div style={{ padding: doorStep5Sub === "lemovanie" ? 16 : "0 16px" }}>
 
@@ -3425,7 +3555,7 @@ function Configurator() {
                 </div>
 
                 {doorStep5Sub === "nasivky" && (
-                  <div style={{ padding: "14px 14px", background: "#fafafa", borderRadius: "0 0 8px 8px", marginBottom: 8, border: "2px solid #e0d5b8", borderTop: "none" }}>
+                  <div style={{ padding: "14px 14px", background: "#fafafa", borderRadius: "0 0 8px 8px", marginBottom: 8, borderStyle: "solid", borderColor: "#e0d5b8", borderWidth: "0 2px 2px" }}>
                     {/* Fotka dverového panela — ako bude vyzerať s nášivkou */}
                     <div style={{ marginBottom: 14, display: "flex", justifyContent: "center" }}>
                       <div style={{ width: "100%", maxWidth: 320, borderRadius: 10, overflow: "hidden", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(0,0,0,0.18)" }}>
@@ -3550,7 +3680,7 @@ function Configurator() {
                     </div>
 
                     {doorStep5Sub === "nasivky-detail" && (
-                      <div style={{ padding: "14px 14px", background: "#fafafa", borderRadius: "0 0 8px 8px", marginBottom: 8, border: "2px solid #e0d5b8", borderTop: "none" }}>
+                      <div style={{ padding: "14px 14px", background: "#fafafa", borderRadius: "0 0 8px 8px", marginBottom: 8, borderStyle: "solid", borderColor: "#e0d5b8", borderWidth: "0 2px 2px" }}>
 
                     {/* Opacity wrapper for manual selection when same-as is active */}
                     <div id="konfig-door-nasivka-preview" style={{ scrollMarginBottom: "25vh", opacity: doorSameNasivkaAsCarpet ? 0.35 : 1, pointerEvents: doorSameNasivkaAsCarpet ? "none" : "auto" }}>
@@ -4092,6 +4222,10 @@ function Configurator() {
                 "[truck-konfig] POVINNÉ selecty bez hodnoty — submit sa nevykoná:",
                 lcdUnfilled.map((s) => s.dataset.parameterName || s.name),
               );
+              setValidationErrors({
+                message: "Konfiguraci se nepodařilo propsat do košíku. Obnovte prosím stránku a zkuste to znovu.",
+              });
+              return;
             }
 
             const nativeBtn =

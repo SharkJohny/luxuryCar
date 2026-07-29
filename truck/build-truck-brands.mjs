@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /* ---------------------------------------------------------------------------
- * build-truck-brands.mjs — vytiahne značky + modely kamiónov z konfigurátora
+ * build-truck-brands.mjs — vytiahne vozidlá a ich voľby z konfigurátora
  *
  * Zdroj pravdy je `assets/js/truck-konfigurator/konfigurator.jsx` (CONFIG),
  * ktorý sa re-syncuje z klientskeho repa luxusnerohoze-dev/konfigurator.
- * Hlavný prepínač na homepage (main.js → initModelSelect) potrebuje LEN
- * zoznam značiek a modelov — nie 9 MB base64 obrázkov. Preto tento build
- * vygeneruje malý dátový modul:
+ * Hlavný prepínač na homepage (main.js → initModelSelect) potrebuje rovnaké
+ * údaje z kroku 1 ako samotný konfigurátor: značku, model aj podmienené voľby
+ * (prevodovka, sedadlo, zásuvky, brzda, podlaha). CONFIG neobsahuje obrázky,
+ * preto ho môžeme bezpečne zdieľať v malom dátovom module:
  *
  *     assets/js/truck-konfigurator/truck-brands.js   (auto-generovaný)
  *
@@ -66,19 +67,21 @@ if (!brands.length) {
   process.exit(1);
 }
 
-const data = {};
 let modelCount = 0;
 for (const brand of brands) {
   const models = Object.keys(CONFIG[brand] || {});
   modelCount += models.length;
-  data[brand] = models;
 }
 
 const out =
   "/* AUTO-GENEROVANÉ truck/build-truck-brands.mjs — needituj ručne.\n" +
   " * Zdroj: assets/js/truck-konfigurator/konfigurator.jsx (CONFIG).\n" +
   " * Regeneruj: node truck/build-truck-brands.mjs (beží v yarn build). */\n\n" +
-  "export const TRUCK_BRANDS = " + JSON.stringify(data, null, 2) + ";\n\n" +
+  "export const TRUCK_VEHICLES = " + JSON.stringify(CONFIG, null, 2) + ";\n\n" +
+  "export const TRUCK_FIELD_ORDER = [\"prevodovka\", \"sedadlo\", \"zasuvky\", \"brzda\", \"podlaha\"];\n\n" +
+  "export const TRUCK_BRANDS = Object.fromEntries(\n" +
+  "  Object.entries(TRUCK_VEHICLES).map(([brand, models]) => [brand, Object.keys(models)]),\n" +
+  ");\n\n" +
   "/** Produktová stránka truck konfigurátora (cieľ hlavného prepínača).\n" +
   " *  Ostré produkty overené zo sitemap 31.7.2026 (SK aj CZ vracajú 200). */\n" +
   'export const TRUCK_PRODUCT_URLS = {\n' +

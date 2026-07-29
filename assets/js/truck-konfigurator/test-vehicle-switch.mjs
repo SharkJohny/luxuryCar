@@ -4,9 +4,9 @@
  *   - prepínač sa vykreslí NAD riadok selectov,
  *   - default = osobáky (truck wrap skrytý),
  *   - klik na „Kamióny" prepne viditeľnosť a naplní značky z TRUCK_BRANDS,
- *   - výber značky naplní modely,
- *   - CTA bez výberu NEredirectuje (validácia), s výberom uloží session
- *     a pošle na TRUCK_PRODUCT_URL.
+ *   - výber značky naplní modely a model zobrazí všetky podmienené voľby,
+ *   - CTA bez kompletnej špecifikácie NEredirectuje (validácia),
+ *   - kompletný výber uloží značku, model aj extra voľby a presmeruje.
  *
  * Spustenie: node assets/js/truck-konfigurator/test-vehicle-switch.mjs
  */
@@ -30,11 +30,13 @@ const end = mainSrc.indexOf("\nfunction saveModel", start);
 const fnSrc = mainSrc.slice(start, end);
 
 const entry = `
-import { TRUCK_BRANDS, TRUCK_PRODUCT_URLS } from "${join(REPO, "assets/js/truck-konfigurator/truck-brands.js")}";
+import { TRUCK_BRANDS, TRUCK_FIELD_ORDER, TRUCK_PRODUCT_URLS, TRUCK_VEHICLES } from "${join(REPO, "assets/js/truck-konfigurator/truck-brands.js")}";
 ${fnSrc}
 window.__initVehicleKindSwitch = initVehicleKindSwitch;
 window.__TRUCK_BRANDS = TRUCK_BRANDS;
-window.__TRUCK_URL = TRUCK_PRODUCT_URLS.sk;
+window.__TRUCK_FIELD_ORDER = TRUCK_FIELD_ORDER;
+window.__TRUCK_VEHICLES = TRUCK_VEHICLES;
+window.__TRUCK_URL = TRUCK_PRODUCT_URLS.cs;
 `;
 
 const built = await esbuild.build({
@@ -49,12 +51,12 @@ const vc = new VirtualConsole();
 vc.on("jsdomError", (e) => { if (/navigation/i.test(e.message)) navAttempts.push(e.message); });
 
 const dom = new JSDOM(
-  `<!DOCTYPE html><html lang="sk"><body class="in-index">
+  `<!DOCTYPE html><html lang="cs"><body class="in-index">
      <section id="model-selector"><div class="model-selector container">
        <div class="modl-selector-wrap"><div class="btn choice-Model">Zvoliť model</div></div>
      </div></section>
    </body></html>`,
-  { url: "https://www.luxurycardesign.sk/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
+  { url: "https://www.luxurycardesign.cz/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
 );
 const { window: win } = dom;
 const doc = win.document;
@@ -123,24 +125,59 @@ else fail("errorToCart sa nepridal");
 let saveModelCalls = 0;
 win.$(".surcharge-list select").on("change", function () { saveModelCalls++; });
 
-// Výber značky → modely
-const firstBrand = Object.keys(win.__TRUCK_BRANDS)[0];
-win.$(brandSel).val(firstBrand).trigger("change");
+// Výber značky → modely. Scania má prevodovku aj typ sedadla s viacerými
+// možnosťami, takže na nej overíme kompletnú špecifikáciu.
+const selectedBrand = "Scania (TIR)";
+const selectedModel = "R 2014-2016";
+win.$(brandSel).val(selectedBrand).trigger("change");
 if (saveModelCalls === 0) ok("truck change NEspúšťa globálny saveModel binding");
 else fail("truck change pretiekol do saveModel bindingu");
 
 const models = modelSel.querySelectorAll("option:not(.notselect)").length;
-if (models === win.__TRUCK_BRANDS[firstBrand].length) ok(`modely pre "${firstBrand}" naplnené (${models})`);
-else fail(`modelov ${models}, čakané ${win.__TRUCK_BRANDS[firstBrand].length}`);
+if (models === win.__TRUCK_BRANDS[selectedBrand].length) ok(`modely pre "${selectedBrand}" naplnené (${models})`);
+else fail(`modelov ${models}, čakané ${win.__TRUCK_BRANDS[selectedBrand].length}`);
 
-// Kompletný výber → redirect + session
-const firstModel = win.__TRUCK_BRANDS[firstBrand][0];
-win.$(modelSel).val(firstModel);
+win.$(modelSel).val(selectedModel).trigger("change");
+const config = win.__TRUCK_VEHICLES[selectedBrand][selectedModel];
+const requiredFields = win.__TRUCK_FIELD_ORDER.filter((key) => Array.isArray(config[key]) && config[key].length);
+const extraWraps = [...truckWrap.querySelectorAll(".truck-extra")];
+if (extraWraps.length === requiredFields.length) ok(`zobrazené všetky podmienené polia (${requiredFields.length})`);
+else fail(`extra polí ${extraWraps.length}, čakané ${requiredFields.length}`);
+if (truckWrap.classList.contains("has-extras")) ok("layout sa po zobrazení detailov prepne do viacriadkovej mriežky");
+else fail("truck wrap nemá stav has-extras");
+requiredFields.forEach((key) => {
+  const select = truckWrap.querySelector(`[data-truck-field="${key}"] select`);
+  const label = truckWrap.querySelector(`[data-truck-field="${key}"] .lcd-truck-field-label`);
+  const options = select ? [...select.options].filter((o) => !o.classList.contains("notselect")).map((o) => o.value) : [];
+  if (JSON.stringify(options) === JSON.stringify(config[key])) ok(`${key}: všetky možnosti (${options.length})`);
+  else fail(`${key}: možnosti nesedia`);
+  if (label && label.textContent.trim()) ok(`${key}: viditeľný názov poľa`);
+  else fail(`${key}: chýba viditeľný názov poľa`);
+});
+
+// Značka+model bez extra volieb stále nesmú pokračovať.
+click(cta);
+if (navAttempts.length === 0) ok("CTA bez povinných detailov NEredirectuje");
+else fail("CTA redirectlo bez povinných detailov");
+if (extraWraps.every((el) => el.classList.contains("errorToCart"))) ok("validácia označí všetky chýbajúce detaily");
+else fail("validácia neoznačila všetky chýbajúce detaily");
+
+// Kompletný výber → redirect + celá špecifikácia v session
+const selectedExtras = {};
+requiredFields.forEach((key) => {
+  const value = config[key][0];
+  selectedExtras[key] = value;
+  win.$(truckWrap.querySelector(`[data-truck-field="${key}"] select`)).val(value).trigger("change");
+});
 click(cta);
 if (navAttempts.length === 1) ok("CTA s výberom spustí redirect na truck konfigurátor");
 else fail(`redirect zlyhal (pokusov: ${navAttempts.length})`);
-if (win.sessionStorage.getItem("truckBrand") === firstBrand && win.sessionStorage.getItem("truckModel") === firstModel) {
-  ok("značka+model uložené do sessionStorage (predvyplní konfigurátor)");
+if (
+  win.sessionStorage.getItem("truckBrand") === selectedBrand &&
+  win.sessionStorage.getItem("truckModel") === selectedModel &&
+  win.sessionStorage.getItem("truckExtras") === JSON.stringify(selectedExtras)
+) {
+  ok("celá špecifikácia uložená do sessionStorage (predvyplní konfigurátor)");
 } else fail("sessionStorage nesedí");
 
 console.log(process.exitCode ? "\nVÝSLEDOK: FAIL" : "\nVÝSLEDOK: OK");

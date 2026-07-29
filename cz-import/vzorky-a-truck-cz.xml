@@ -1047,25 +1047,123 @@
       </VALUES>
     </SURCHARGE_PARAMETER>
     <SURCHARGE_PARAMETER>
-      <NAME>Druh nášivky</NAME>
-      <DESCRIPTION>Výběr konkrétní nášivky – nemění cenu</DESCRIPTION>
-      <SHORT_NAME>Nášivka</SHORT_NAME>
+      <NAME>Druh nášivky – boky</NAME>
+      <DESCRIPTION>Výběr konkrétní nášivky pro řidiče a spolujezdce – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Nášivka boky</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
       <VALUES>
         <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Bez nášivky</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H1</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H2</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H3</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H4</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H5</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H6</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H7</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H8</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H9</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H10</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H11</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H12</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H15</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H16</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H17</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H18</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H19</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H21</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H23</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H24</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H25</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H26</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N1</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N2</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N33</NAME><PRICE>0</PRICE></VALUE>
       </VALUES>
     </SURCHARGE_PARAMETER>
     <SURCHARGE_PARAMETER>
-      <NAME>Barva nitě</NAME>
-      <DESCRIPTION>Barva nitě pro výšivku – nemění cenu</DESCRIPTION>
-      <SHORT_NAME>Niť</SHORT_NAME>
+      <NAME>Barva nitě – boky</NAME>
+      <DESCRIPTION>Barva nitě pro výšivku řidiče a spolujezdce – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Niť boky</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
       <VALUES>
         <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Bez nitě</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2999 – Černá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2901 – Stříbrná</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3738 – Světle šedá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3546 – Béžová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3617 – Světle hnědá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3504 – Tmavě hnědá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3501 – Hořčicová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2824 – Červená</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2866 – Fialová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3842 – Modrá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2840 – Zelená</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Druh nášivky – střed</NAME>
+      <DESCRIPTION>Výběr konkrétní nášivky pro středový koberec – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Nášivka stred</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Bez nášivky</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H1</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H2</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H3</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H4</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H5</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H6</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H7</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H8</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H9</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H10</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H11</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H12</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H15</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H16</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H17</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H18</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H19</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H21</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H23</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H24</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H25</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H26</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N1</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N2</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N33</NAME><PRICE>0</PRICE></VALUE>
+      </VALUES>
+    </SURCHARGE_PARAMETER>
+    <SURCHARGE_PARAMETER>
+      <NAME>Barva nitě – střed</NAME>
+      <DESCRIPTION>Barva nitě pro středovou nášivku – nemění cenu</DESCRIPTION>
+      <SHORT_NAME>Niť stred</SHORT_NAME>
+      <CURRENCY>CZK</CURRENCY>
+      <INCLUDING_VAT>1</INCLUDING_VAT>
+      <REQUIRED_VALUE>0</REQUIRED_VALUE>
+      <VALUES>
+        <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Bez nitě</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2999 – Černá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2901 – Stříbrná</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3738 – Světle šedá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3546 – Béžová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3617 – Světle hnědá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3504 – Tmavě hnědá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3501 – Hořčicová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2824 – Červená</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2866 – Fialová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3842 – Modrá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2840 – Zelená</NAME><PRICE>0</PRICE></VALUE>
       </VALUES>
     </SURCHARGE_PARAMETER>
     <SURCHARGE_PARAMETER>
@@ -1107,25 +1205,63 @@
     <SURCHARGE_PARAMETER>
       <NAME>Nášivka dveří – druh</NAME>
       <DESCRIPTION>Výběr nášivky na dveře – nemění cenu</DESCRIPTION>
-      <SHORT_NAME>Nášivka dveře druh</SHORT_NAME>
+      <SHORT_NAME>Nášivka dvere druh</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
       <VALUES>
         <VALUE><NAME>Stejná jako koberec</NAME><PRICE>0</PRICE></VALUE>
         <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Bez nášivky</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H1</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H2</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H3</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H4</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H5</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H6</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H7</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H8</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H9</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H10</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H11</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H12</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H15</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H16</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H17</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H18</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H19</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H21</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H23</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H24</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H25</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka H26</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N1</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N2</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Nášivka N33</NAME><PRICE>0</PRICE></VALUE>
       </VALUES>
     </SURCHARGE_PARAMETER>
     <SURCHARGE_PARAMETER>
       <NAME>Barva nitě – dveře</NAME>
       <DESCRIPTION>Barva nitě pro nášivku na dveřích – nemění cenu</DESCRIPTION>
-      <SHORT_NAME>Niť dveře</SHORT_NAME>
+      <SHORT_NAME>Niť dvere</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
       <VALUES>
         <VALUE><NAME>Stejná jako koberec</NAME><PRICE>0</PRICE></VALUE>
         <VALUE><NAME>Vybere se v konfigurátoru</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>Bez nitě</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2999 – Černá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2901 – Stříbrná</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3738 – Světle šedá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3546 – Béžová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3617 – Světle hnědá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3504 – Tmavě hnědá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3501 – Hořčicová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2824 – Červená</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2866 – Fialová</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>3842 – Modrá</NAME><PRICE>0</PRICE></VALUE>
+        <VALUE><NAME>2840 – Zelená</NAME><PRICE>0</PRICE></VALUE>
       </VALUES>
     </SURCHARGE_PARAMETER>
     </SURCHARGE_PARAMETERS>
