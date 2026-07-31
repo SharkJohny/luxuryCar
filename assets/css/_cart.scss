@@ -118,6 +118,53 @@ span.btn.btn-block.btn-default.toggle-contacts a {
     }
   }
 }
+
+.lcd-truck-cart-summary {
+  display: grid;
+  width: min(780px, 100%);
+  margin-top: 14px;
+  gap: 12px;
+}
+
+.lcd-truck-cart-summary__group {
+  padding: 14px 16px;
+  border: 1px solid #e6dcc8;
+  border-radius: 10px;
+  background: #fbfaf7;
+
+  h4 {
+    margin: 0 0 10px;
+    color: #2e1810;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: minmax(185px, 0.75fr) minmax(220px, 1.25fr);
+    margin: 0;
+    gap: 6px 14px;
+  }
+
+  dt,
+  dd {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  dt {
+    color: #6d625d;
+    font-weight: 600;
+  }
+
+  dd {
+    color: #2e1810;
+    font-weight: 700;
+  }
+}
+
 @media (max-width: 768px) {
   .cart-table tr > td:nth-child(odd) {
     text-align: right;
@@ -131,6 +178,22 @@ span.btn.btn-block.btn-default.toggle-contacts a {
   }
   span.quantity {
     max-width: 120px;
+  }
+
+  .lcd-truck-cart-summary__group {
+    padding: 13px;
+
+    dl {
+      display: block;
+    }
+
+    dt {
+      margin-top: 8px;
+    }
+
+    dt:first-child {
+      margin-top: 0;
+    }
   }
 }
 .id--17,

@@ -6,22 +6,46 @@ import { JSDOM } from "jsdom";
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
 const SELECTS_SK = `
-  <select data-parameter-id="403" data-parameter-name="Nášivka boky">
+  <select data-parameter-id="346" data-parameter-name="Typ materiálu">
+    <option value=""></option><option value="premium">Prémiová syntetická koža – prešívaná +€10</option>
+  </select>
+  <select data-parameter-id="376" data-parameter-name="Farba materiálu">
+    <option value=""></option><option value="custom">Vyberie sa v konfigurátore +€0</option>
+  </select>
+  <select data-parameter-id="379" data-parameter-name="Farba lemovania">
+    <option value=""></option><option value="custom">Vyberie sa v konfigurátore +€0</option>
+  </select>
+  <select data-parameter-id="349" data-parameter-name="Rozloženie nášiviek">
+    <option value=""></option><option value="bundle">Šofér + spolujazdec + stred (BALÍK) +€95</option>
+  </select>
+  <select data-parameter-id="403" data-parameter-name="Typ nášiviek na boky">
     <option value=""></option><option value="no">Bez nášivky +€0</option><option value="h2">Nášivka H2 +€0</option>
   </select>
-  <select data-parameter-id="409" data-parameter-name="Nášivka stred">
+  <select data-parameter-id="409" data-parameter-name="Typ nášivky na stred">
     <option value=""></option><option value="no">Bez nášivky +€0</option><option value="h3">Nášivka H3 +€0</option>
   </select>
-  <select data-parameter-id="406" data-parameter-name="Niť boky">
+  <select data-parameter-id="406" data-parameter-name="Farba nášiviek na boky">
     <option value=""></option><option value="no">Bez nite +€0</option><option value="2901">2901 – Strieborná +€0</option>
   </select>
-  <select data-parameter-id="412" data-parameter-name="Niť stred">
+  <select data-parameter-id="412" data-parameter-name="Farba nášivky na stred">
     <option value=""></option><option value="no">Bez nite +€0</option><option value="2824">2824 – Červená +€0</option>
   </select>
-  <select data-parameter-id="397" data-parameter-name="Nášivka dvere druh">
+  <select data-parameter-id="355" data-parameter-name="Nášivky na tapacír">
+    <option value=""></option><option value="no">Nie nechcem nášivku na dverách +€0</option><option value="yes">Áno chcem nášivku na dverách +€49</option>
+  </select>
+  <select data-parameter-id="388" data-parameter-name="Typ materiálu tapacíru">
+    <option value=""></option><option value="same">Rovnaký ako koberec +€0</option><option value="custom">Vyberie sa v konfigurátore +€0</option>
+  </select>
+  <select data-parameter-id="391" data-parameter-name="Farba materiálu tapacíru">
+    <option value=""></option><option value="same">Rovnaká ako koberec +€0</option><option value="custom">Vyberie sa v konfigurátore +€0</option>
+  </select>
+  <select data-parameter-id="394" data-parameter-name="Farba lemovania tapacíru">
+    <option value=""></option><option value="same">Rovnaké ako koberec +€0</option><option value="custom">Vyberie sa v konfigurátore +€0</option>
+  </select>
+  <select data-parameter-id="397" data-parameter-name="Typ nášivky na tapacír">
     <option value=""></option><option value="same">Rovnaká ako koberec +€0</option><option value="no">Bez nášivky +€0</option><option value="h4">Nášivka H4 +€0</option>
   </select>
-  <select data-parameter-id="400" data-parameter-name="Niť dvere">
+  <select data-parameter-id="400" data-parameter-name="Farba nášiviek na tapacíre">
     <option value=""></option><option value="same">Rovnaká ako koberec +€0</option><option value="no">Bez nite +€0</option><option value="3842">3842 – Modrá +€0</option>
   </select>
 `;
@@ -61,6 +85,19 @@ const SELECTS_CZ = `
     <option value=""></option><option value="same">Stejné jako koberec +0 Kč</option><option value="custom">Vybere se v konfigurátoru +0 Kč</option>
   </select>
 `;
+
+const SELECTS_CZ_RENAMED = [
+  ["Nášivka dveře druh", "Typ nášivky na tapacír"],
+  ["Nášivka dveře", "Nášivky na tapacír"],
+  ["Materiál dveře", "Typ materiálu tapacíru"],
+  ["Barva dveře", "Barva materiálu tapacíru"],
+  ["Lemování dveře", "Barva lemování tapacíru"],
+  ["Niť dveře", "Barva nášivek na tapacíru"],
+  ["Nášivka boky", "Typ nášivek na boky"],
+  ["Niť boky", "Barva nášivek na boky"],
+  ["Nášivka stred", "Typ nášivky na střed"],
+  ["Niť stred", "Barva nášivky na střed"],
+].reduce((html, [oldName, newName]) => html.replaceAll(oldName, newName), SELECTS_CZ);
 
 function loadSync(sourceName) {
   const source = readFileSync(join(ROOT, sourceName), "utf8");
@@ -102,6 +139,9 @@ const manualState = {
   znacka: "Scania (TIR)",
   model: "R 2016-2023",
   extras: {},
+  selectedMaterial: "Prémiová syntetická koža – prešívaná",
+  selectedColor: { code: "K2" },
+  selectedLemovanie: { code: "L-1" },
   nasivkyPlacement: "boky+stred",
   selectedNasivka: { code: "H2" },
   selectedNitColor: { code: "2901" },
@@ -123,12 +163,20 @@ for (const sourceName of ["konfigurator.jsx", "konfigurator.phone.jsx"]) {
   const helperSource = loadSync(sourceName);
   const manual = syncValues(helperSource, manualState);
 
-  expectStartsWith(manual, "Nášivka boky", "Nášivka H2", sourceName);
-  expectStartsWith(manual, "Niť boky", "2901", sourceName);
-  expectStartsWith(manual, "Nášivka stred", "Nášivka H3", sourceName);
-  expectStartsWith(manual, "Niť stred", "2824", sourceName);
-  expectStartsWith(manual, "Nášivka dvere druh", "Nášivka H4", sourceName);
-  expectStartsWith(manual, "Niť dvere", "3842", sourceName);
+  expectStartsWith(manual, "Typ materiálu", "Prémiová syntetická koža", sourceName);
+  expectStartsWith(manual, "Farba materiálu", "Vyberie sa", sourceName);
+  expectStartsWith(manual, "Farba lemovania", "Vyberie sa", sourceName);
+  expectStartsWith(manual, "Rozloženie nášiviek", "Šofér + spolujazdec + stred", sourceName);
+  expectStartsWith(manual, "Typ nášiviek na boky", "Nášivka H2", sourceName);
+  expectStartsWith(manual, "Farba nášiviek na boky", "2901", sourceName);
+  expectStartsWith(manual, "Typ nášivky na stred", "Nášivka H3", sourceName);
+  expectStartsWith(manual, "Farba nášivky na stred", "2824", sourceName);
+  expectStartsWith(manual, "Nášivky na tapacír", "Áno chcem", sourceName);
+  expectStartsWith(manual, "Typ materiálu tapacíru", "Vyberie sa", sourceName);
+  expectStartsWith(manual, "Farba materiálu tapacíru", "Vyberie sa", sourceName);
+  expectStartsWith(manual, "Farba lemovania tapacíru", "Vyberie sa", sourceName);
+  expectStartsWith(manual, "Typ nášivky na tapacír", "Nášivka H4", sourceName);
+  expectStartsWith(manual, "Farba nášiviek na tapacíre", "3842", sourceName);
 
   const none = syncValues(helperSource, {
     ...manualState,
@@ -143,10 +191,10 @@ for (const sourceName of ["konfigurator.jsx", "konfigurator.phone.jsx"]) {
     doorNitColor: null,
   });
 
-  for (const name of ["Nášivka boky", "Nášivka stred", "Nášivka dvere druh"]) {
+  for (const name of ["Typ nášiviek na boky", "Typ nášivky na stred", "Typ nášivky na tapacír"]) {
     expectStartsWith(none, name, "Bez nášivky", sourceName);
   }
-  for (const name of ["Niť boky", "Niť stred", "Niť dvere"]) {
+  for (const name of ["Farba nášiviek na boky", "Farba nášivky na stred", "Farba nášiviek na tapacíre"]) {
     expectStartsWith(none, name, "Bez nite", sourceName);
   }
 
@@ -167,6 +215,23 @@ for (const sourceName of ["konfigurator.jsx", "konfigurator.phone.jsx"]) {
   expectStartsWith(manualCz, "Lemování dveře", "Vybere se", sourceName);
   expectStartsWith(manualCz, "Nášivka dveře druh", "Nášivka H4", sourceName);
   expectStartsWith(manualCz, "Niť dveře", "3842", sourceName);
+
+  const renamedCz = syncValues(
+    helperSource,
+    manualState,
+    SELECTS_CZ_RENAMED,
+    "https://www.luxurycardesign.cz/luxusni-autokoberce-truck/",
+  );
+  expectStartsWith(renamedCz, "Typ nášivek na boky", "Nášivka H2", sourceName);
+  expectStartsWith(renamedCz, "Barva nášivek na boky", "2901", sourceName);
+  expectStartsWith(renamedCz, "Typ nášivky na střed", "Nášivka H3", sourceName);
+  expectStartsWith(renamedCz, "Barva nášivky na střed", "2824", sourceName);
+  expectStartsWith(renamedCz, "Nášivky na tapacír", "Ano, chci", sourceName);
+  expectStartsWith(renamedCz, "Typ materiálu tapacíru", "Vybere se", sourceName);
+  expectStartsWith(renamedCz, "Barva materiálu tapacíru", "Vybere se", sourceName);
+  expectStartsWith(renamedCz, "Barva lemování tapacíru", "Vybere se", sourceName);
+  expectStartsWith(renamedCz, "Typ nášivky na tapacír", "Nášivka H4", sourceName);
+  expectStartsWith(renamedCz, "Barva nášivek na tapacíru", "3842", sourceName);
 
   const sameCz = syncValues(
     helperSource,

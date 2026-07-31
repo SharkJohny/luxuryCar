@@ -90,11 +90,11 @@ assets/js/reviews-data.js
 assets/js/script.js
 assets/js/seo-runtime.js
 assets/js/truck-konfigurator/app.js
-assets/js/truck-konfigurator/description.js
 assets/js/truck-konfigurator/pricing.js
 assets/js/truck-konfigurator/truck-brands.js
 assets/js/voucher-konfigurator/cart.js
 assets/js/voucher-konfigurator/pricing.js
+assets/js/voucher-konfigurator/styles.js
 assets/js/vzorky-konfigurator/index.js
 seo-faza-a/h1-visible.css
 ```

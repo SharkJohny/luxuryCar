@@ -158,7 +158,7 @@ const PRICING_LINES = [
   {
     key: "material",
     // Iba "Materiál" / "Material" – NIE "Materiál dvere" (informatívny).
-    matcher: eq("Materiál", "Material"),
+    matcher: eq("Materiál", "Material", "Typ materiálu"),
     getOption: (s) => s.selectedMaterial || null,
     label: (opt) => (opt ? `Materiál: ${opt}` : "Materiál (nevybrané)"),
   },
@@ -166,7 +166,7 @@ const PRICING_LINES = [
     key: "nasivky_placement",
     // Plurál "Nášivky" – NIE singular "Nášivka" (= druh, bez ceny)
     // a NIE "Nášivka dvere" (= door panel nášivka, iný riadok).
-    matcher: eq("Nášivky", "Nasivky"),
+    matcher: eq("Nášivky", "Nasivky", "Rozloženie nášiviek"),
     getOption: (s) => {
       if (!s.nasivkyPlacement) return null;
       return (
@@ -196,7 +196,7 @@ const PRICING_LINES = [
     key: "door_nasivka",
     // Iba "Nášivka dvere" (yes/no s cenou) – NIE "Nášivka dvere druh"
     // (= druh nášivky na dverách, informatívny bez ceny).
-    matcher: eq("Nášivka dvere", "Nasivka dvere"),
+    matcher: eq("Nášivka dvere", "Nasivka dvere", "Nášivky na tapacír"),
     getOption: (s) => {
       if (s.doorPanelChoice !== "ano") return null;
       if (s.doorWantsNasivka === true) return "Áno chcem nášivku na dverách";

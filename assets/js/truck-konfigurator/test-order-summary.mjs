@@ -1,5 +1,10 @@
 import assert from "node:assert/strict";
-import { buildTruckOrderSummary, mergeTruckOrderSummaryIntoNote } from "./order-summary.mjs";
+import {
+  buildTruckOrderSummary,
+  detectTruckSummaryLanguage,
+  mergeTruckOrderSummaryIntoNote,
+  parseTruckOrderSummary,
+} from "./order-summary.mjs";
 
 const summary = buildTruckOrderSummary({
   znacka: "DAF (TIR)",
@@ -23,26 +28,86 @@ const summary = buildTruckOrderSummary({
   doorWantsNasivka: true,
   doorNasivka: { code: "H1" },
   doorNitColor: { code: "N2", name: "Červená" },
+  doorSameAsCarpet: { material: true, lemovanie: true },
+  doorSameNasivkaAsCarpet: true,
+  doorSameNitAsCarpet: true,
 });
 
 [
-  "Vehicle: DAF (TIR) XF 2022-2025",
-  "Transmission: Automatická prevodovka",
-  "Carpet colour: K2",
-  "Driver + passenger embroidery code: H1",
-  "Centre embroidery code: H4",
-  "Door upholstery: Yes",
-  "Door upholstery colour: A4",
-  "Door embroidery code: H1",
+  "ŠPECIFIKÁCIA VOZIDLA",
+  "- Vozidlo: DAF (TIR) XF 2022-2025",
+  "- Typ prevodovky: Automatická prevodovka",
+  "KOBERČEKY POD SEDAČKY",
+  "- Typ a farba materiálu: Prémiová syntetická koža – prešívaná – K2",
+  "- Typ nášiviek na boky: H1",
+  "- Typ nášivky na stred: H4",
+  "TAPACÍR DVERÍ",
+  "- Typ a farba materiálu: Rovnaký ako koberčeky – Prémiová syntetická koža – prešívaná – K2",
+  "- Nášivky na tapacír: Chcem",
+  "- Typ nášivky na tapacír: Rovnaká ako na koberčekoch – H1",
 ].forEach((line) => assert.ok(summary.includes(line), `Chýba riadok: ${line}`));
 
 assert.ok(!summary.includes("undefined"));
 assert.ok(!summary.includes("[object Object]"));
 
+const groups = parseTruckOrderSummary(summary);
+assert.deepEqual(groups.map((group) => group.heading), [
+  "ŠPECIFIKÁCIA VOZIDLA",
+  "KOBERČEKY POD SEDAČKY",
+  "TAPACÍR DVERÍ",
+]);
+
+const noDoorSummary = buildTruckOrderSummary({
+  selectedMaterial: "Mikrosemiš – jednofarebný",
+  selectedColor: { code: "1NUB" },
+  selectedLemovanie: { name: "Čierne lemovanie" },
+  nasivkyPlacement: "nechcem",
+  doorPanelChoice: "nie",
+});
+assert.ok(!noDoorSummary.includes("TAPACÍR DVERÍ"), "nevybraný tapacír sa nesmie zobraziť");
+
+const czechSummary = buildTruckOrderSummary({
+  znacka: "DAF (TIR)",
+  model: "XF 2022-2025",
+  extras: { prevodovka: "Automatická převodovka" },
+  selectedMaterial: "Prémiová syntetická kůže – prošívaná",
+  selectedColor: { code: "K2" },
+  selectedLemovanie: { name: "Červené lemování" },
+  nasivkyPlacement: "boky+stred",
+  selectedNasivka: { code: "H1" },
+  selectedNitColor: { name: "Červená" },
+  selectedStredNasivka: { code: "H4" },
+  selectedStredNitColor: { name: "Černá" },
+  doorPanelChoice: "ano",
+  doorWantsNasivka: false,
+  doorSameAsCarpet: { material: true, lemovanie: true },
+}, "cs");
+
+[
+  "SPECIFIKACE VOZIDLA",
+  "- Typ převodovky: Automatická převodovka",
+  "KOBEREČKY POD SEDAČKY",
+  "- Typ a barva materiálu: Prémiová syntetická kůže – prošívaná – K2",
+  "- Rozložení nášivek: Řidič + spolujezdec + střed",
+  "TAPACÍR DVEŘÍ",
+  "- Typ a barva materiálu: Stejný jako koberečky – Prémiová syntetická kůže – prošívaná – K2",
+  "- Nášivky na tapacír: Nechci",
+].forEach((line) => assert.ok(czechSummary.includes(line), `V českém souhrnu chybí řádek: ${line}`));
+
+const czechNote = mergeTruckOrderSummaryIntoNote("Zavolejte před doručením.", czechSummary);
+assert.match(czechNote, /\[KONFIGURACE KAMIONU\]/);
+assert.doesNotMatch(czechNote, /KONFIGURÁCIA KAMIÓNA/);
+
+globalThis.window = { location: { hostname: "www.luxurycardesign.cz" } };
+assert.equal(detectTruckSummaryLanguage(), "cs", "CZ doména musí automaticky použít češtinu");
+globalThis.window = { location: { hostname: "www.luxurycardesign.sk" } };
+assert.equal(detectTruckSummaryLanguage(), "sk", "SK doména musí automaticky použít slovenštinu");
+delete globalThis.window;
+
 const once = mergeTruckOrderSummaryIntoNote("Prosím zavolať pred doručením.", summary);
 const twice = mergeTruckOrderSummaryIntoNote(once, summary);
 assert.equal(twice, once, "automatický blok sa pri opakovanom odoslaní nesmie duplikovať");
 assert.ok(twice.startsWith("Prosím zavolať pred doručením."), "ručná poznámka zákazníka sa musí zachovať");
-assert.equal((twice.match(/\[TRUCK CONFIGURATION\]/g) || []).length, 1);
+assert.equal((twice.match(/\[KONFIGURÁCIA KAMIÓNA\]/g) || []).length, 1);
 
 console.log("✓ súhrn truck konfigurácie obsahuje všetky výrobné voľby");

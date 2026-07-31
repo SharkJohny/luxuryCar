@@ -1,3 +1,5 @@
+import { parseTruckOrderSummary } from "../truck-konfigurator/order-summary.mjs";
+
 export function initCart(texts) {
   console.log("Initializing cart with texts:", texts);
   console.log("Cart initialized");
@@ -59,6 +61,16 @@ function changeDescription() {
   const getCarType = sessionStorage.getItem("carType");
   console.log("Changing description for cart items");
 
+  let truckSummary = "";
+  try {
+    truckSummary = sessionStorage.getItem("truckOrderSummary") || "";
+  } catch (e) {
+    // Storage môže byť v súkromnom režime nedostupné; použije sa pôvodný výpis.
+  }
+  const truckRowCount = $("span.main-link-surcharges").filter(function () {
+    return /\btruck\b/i.test($(this).closest("tr").text() || "");
+  }).length;
+
   // Fallback pre samostatne produkty BEZ surcharges (Premium/Klasik kufrove rohoze):
   // formatuj span.main-link-variant na bullety "Farba 1./2. vrstvy".
   $("tr").each(function () {
@@ -83,6 +95,23 @@ function changeDescription() {
     // Truck produkt: vozidlo NIE je v sessionStorage (tú plní autokoberce
     // konfigurátor), ale v surcharge parametri "Vozidlo: <značka model>".
     const isTruckRow = /\btruck\b/i.test($(this).closest("tr").text() || "");
+    if (isTruckRow && truckSummary && truckRowCount === 1) {
+      const groups = parseTruckOrderSummary(truckSummary);
+      if (groups.length) {
+        const $summary = $("<div>").addClass("lcd-truck-cart-summary");
+        groups.forEach(function (group) {
+          const $group = $("<section>").addClass("lcd-truck-cart-summary__group").appendTo($summary);
+          $("<h4>").text(group.heading).appendTo($group);
+          const $list = $("<dl>").appendTo($group);
+          group.items.forEach(function (item) {
+            $("<dt>").text(item.label).appendTo($list);
+            $("<dd>").text(item.value).appendTo($list);
+          });
+        });
+        $(this).empty().append($summary);
+        return;
+      }
+    }
     let truckVehicle = null;
     let newText = "";
     if (text.length > 1) {

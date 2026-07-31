@@ -24567,21 +24567,104 @@ var import_client = __toESM(require_client());
 var import_react = __toESM(require_react());
 
 // assets/js/truck-konfigurator/order-summary.mjs
-var EXTRA_LABELS = {
-  prevodovka: "Transmission",
-  sedadlo: "Passenger seat",
-  zasuvky: "Number of drawers",
-  brzda: "Parking brake",
-  podlaha: "Floor"
+var SUMMARY_TEXTS = {
+  sk: {
+    headings: {
+      vehicle: "\u0160PECIFIK\xC1CIA VOZIDLA",
+      carpets: "KOBER\u010CEKY POD SEDA\u010CKY",
+      doors: "TAPAC\xCDR DVER\xCD"
+    },
+    labels: {
+      vehicle: "Vozidlo",
+      materialColor: "Typ a farba materi\xE1lu",
+      edgingColor: "Farba lemovania",
+      embroideryPlacement: "Rozlo\u017Eenie n\xE1\u0161iviek",
+      centrePatchType: "Typ n\xE1\u0161ivky na stred",
+      centrePatchColor: "Farba n\xE1\u0161ivky na stred",
+      sidePatchType: "Typ n\xE1\u0161iviek na boky",
+      sidePatchColor: "Farba n\xE1\u0161iviek na boky",
+      doorPatches: "N\xE1\u0161ivky na tapac\xEDr",
+      doorPatchType: "Typ n\xE1\u0161ivky na tapac\xEDr",
+      doorPatchColor: "Farba n\xE1\u0161iviek na tapac\xEDre"
+    },
+    extras: {
+      prevodovka: "Typ prevodovky",
+      sedadlo: "Typ sedadla spolujazdca",
+      zasuvky: "Po\u010Det z\xE1suviek",
+      brzda: "Typ parkovacej brzdy",
+      podlaha: "Typ podlahy"
+    },
+    placements: {
+      nechcem: "Bez n\xE1\u0161iviek",
+      stred: "Len stred",
+      boky: "\u0160of\xE9r + spolujazdec",
+      "boky+stred": "\u0160of\xE9r + spolujazdec + stred"
+    },
+    noPatch: "Bez n\xE1\u0161ivky",
+    yes: "Chcem",
+    no: "Nechcem",
+    sameMaterial: "Rovnak\xFD ako kober\u010Deky",
+    sameEdging: "Rovnak\xE1 ako farba lemovania kober\u010Dekov",
+    samePatch: "Rovnak\xE1 ako na kober\u010Dekoch",
+    markerStart: "[KONFIGUR\xC1CIA KAMI\xD3NA]",
+    markerEnd: "[/KONFIGUR\xC1CIA KAMI\xD3NA]"
+  },
+  cs: {
+    headings: {
+      vehicle: "SPECIFIKACE VOZIDLA",
+      carpets: "KOBERE\u010CKY POD SEDA\u010CKY",
+      doors: "TAPAC\xCDR DVE\u0158\xCD"
+    },
+    labels: {
+      vehicle: "Vozidlo",
+      materialColor: "Typ a barva materi\xE1lu",
+      edgingColor: "Barva lemov\xE1n\xED",
+      embroideryPlacement: "Rozlo\u017Een\xED n\xE1\u0161ivek",
+      centrePatchType: "Typ n\xE1\u0161ivky na st\u0159ed",
+      centrePatchColor: "Barva n\xE1\u0161ivky na st\u0159ed",
+      sidePatchType: "Typ n\xE1\u0161ivek na boky",
+      sidePatchColor: "Barva n\xE1\u0161ivek na boky",
+      doorPatches: "N\xE1\u0161ivky na tapac\xEDr",
+      doorPatchType: "Typ n\xE1\u0161ivky na tapac\xEDr",
+      doorPatchColor: "Barva n\xE1\u0161ivek na tapac\xEDru"
+    },
+    extras: {
+      prevodovka: "Typ p\u0159evodovky",
+      sedadlo: "Typ sedadla spolujezdce",
+      zasuvky: "Po\u010Det z\xE1suvek",
+      brzda: "Typ parkovac\xED brzdy",
+      podlaha: "Typ podlahy"
+    },
+    placements: {
+      nechcem: "Bez n\xE1\u0161ivek",
+      stred: "Pouze st\u0159ed",
+      boky: "\u0158idi\u010D + spolujezdec",
+      "boky+stred": "\u0158idi\u010D + spolujezdec + st\u0159ed"
+    },
+    noPatch: "Bez n\xE1\u0161ivky",
+    yes: "Chci",
+    no: "Nechci",
+    sameMaterial: "Stejn\xFD jako kobere\u010Dky",
+    sameEdging: "Stejn\xE1 jako barva lemov\xE1n\xED kobere\u010Dk\u016F",
+    samePatch: "Stejn\xE1 jako na kobere\u010Dc\xEDch",
+    markerStart: "[KONFIGURACE KAMIONU]",
+    markerEnd: "[/KONFIGURACE KAMIONU]"
+  }
 };
-var PLACEMENT_LABELS = {
-  nechcem: "No embroidery",
-  stred: "Centre only",
-  boky: "Driver + passenger",
-  "boky+stred": "Driver + passenger + centre"
-};
-var SUMMARY_START = "[TRUCK CONFIGURATION]";
-var SUMMARY_END = "[/TRUCK CONFIGURATION]";
+function detectTruckSummaryLanguage() {
+  if (typeof window === "undefined") return "sk";
+  try {
+    const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+    if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return "cs";
+    if (hostname === "luxurycardesign.sk" || hostname.endsWith(".luxurycardesign.sk")) return "sk";
+    const dlEntry = Array.isArray(window.dataLayer) ? window.dataLayer.find((entry) => entry && entry.shoptet) : null;
+    if (dlEntry && (dlEntry.shoptet.language === "cs" || String(dlEntry.shoptet.projectId) === "704436")) {
+      return "cs";
+    }
+  } catch (e) {
+  }
+  return "sk";
+}
 function selectedText(value, preferName = false) {
   if (!value) return "";
   if (typeof value === "string") return value;
@@ -24590,63 +24673,114 @@ function selectedText(value, preferName = false) {
 }
 function addLine(lines, label, value) {
   if (value === null || value === void 0 || value === "") return;
-  lines.push(`${label}: ${value}`);
+  lines.push(`- ${label}: ${value}`);
 }
-function buildTruckOrderSummary(state) {
-  const s = state || {};
-  const lines = [];
-  addLine(lines, "Vehicle", [s.znacka, s.model].filter(Boolean).join(" "));
-  Object.keys(EXTRA_LABELS).forEach((key) => {
-    addLine(lines, EXTRA_LABELS[key], s.extras && s.extras[key]);
-  });
-  const carpetColor = selectedText(s.selectedColor);
+function materialAndColor(material, color) {
+  return [material, selectedText(color, true)].filter(Boolean).join(" \u2013 ");
+}
+function hasSideEmbroidery(placement) {
+  return placement === "boky" || placement === "boky+stred";
+}
+function hasCentreEmbroidery(placement) {
+  return placement === "stred" || placement === "boky+stred";
+}
+function addGroup(lines, heading, entries) {
+  const group = [];
+  entries(group);
+  if (!group.length) return;
   if (lines.length) lines.push("");
-  addLine(lines, "Carpet material", s.selectedMaterial);
-  addLine(lines, "Carpet colour", carpetColor);
-  addLine(lines, "Carpet edging", selectedText(s.selectedLemovanie, true));
-  lines.push("");
-  addLine(lines, "Embroidery placement", PLACEMENT_LABELS[s.nasivkyPlacement]);
-  if (s.selectedNasivka) {
-    addLine(lines, "Driver + passenger embroidery code", selectedText(s.selectedNasivka));
-    addLine(lines, "Driver + passenger thread", selectedText(s.selectedNitColor, true));
-  }
-  if (s.selectedStredNasivka) {
-    addLine(lines, "Centre embroidery code", selectedText(s.selectedStredNasivka));
-    addLine(lines, "Centre embroidery thread", selectedText(s.selectedStredNitColor, true));
-  }
+  lines.push(heading, ...group);
+}
+function buildTruckOrderSummary(state, language4 = detectTruckSummaryLanguage()) {
+  const s = state || {};
+  const texts = SUMMARY_TEXTS[language4] || SUMMARY_TEXTS.sk;
+  const lines = [];
+  const carpetMaterial = materialAndColor(s.selectedMaterial, s.selectedColor);
+  const carpetEdging = selectedText(s.selectedLemovanie, true);
+  const sideEmbroidery = hasSideEmbroidery(s.nasivkyPlacement);
+  const centreEmbroidery = hasCentreEmbroidery(s.nasivkyPlacement);
+  addGroup(lines, texts.headings.vehicle, (group) => {
+    addLine(group, texts.labels.vehicle, [s.znacka, s.model].filter(Boolean).join(" "));
+    Object.keys(texts.extras).forEach((key) => {
+      addLine(group, texts.extras[key], s.extras && s.extras[key]);
+    });
+  });
+  addGroup(lines, texts.headings.carpets, (group) => {
+    addLine(group, texts.labels.materialColor, carpetMaterial);
+    addLine(group, texts.labels.edgingColor, carpetEdging);
+    addLine(group, texts.labels.embroideryPlacement, texts.placements[s.nasivkyPlacement]);
+    addLine(group, texts.labels.centrePatchType, centreEmbroidery ? selectedText(s.selectedStredNasivka) : texts.noPatch);
+    addLine(group, texts.labels.centrePatchColor, centreEmbroidery ? selectedText(s.selectedStredNitColor, true) : texts.noPatch);
+    addLine(group, texts.labels.sidePatchType, sideEmbroidery ? selectedText(s.selectedNasivka) : texts.noPatch);
+    addLine(group, texts.labels.sidePatchColor, sideEmbroidery ? selectedText(s.selectedNitColor, true) : texts.noPatch);
+  });
   const wantsDoorPanels = s.doorPanelChoice === true || s.doorPanelChoice === "ano";
-  lines.push("");
-  addLine(lines, "Door upholstery", wantsDoorPanels ? "Yes" : "No");
   if (wantsDoorPanels) {
-    addLine(lines, "Door upholstery material", s.doorMaterial);
-    addLine(lines, "Door upholstery colour", selectedText(s.doorColor));
-    addLine(lines, "Door upholstery edging", selectedText(s.doorLemovanie, true));
     const wantsDoorPatch = s.doorWantsNasivka === true;
-    addLine(lines, "Door embroidery", wantsDoorPatch ? "Yes" : "No");
-    if (wantsDoorPatch) {
-      addLine(lines, "Door embroidery code", selectedText(s.doorNasivka));
-      addLine(lines, "Door embroidery thread", selectedText(s.doorNitColor, true));
-    }
+    const doorMaterial = materialAndColor(s.doorMaterial, s.doorColor);
+    const doorMaterialValue = s.doorSameAsCarpet && s.doorSameAsCarpet.material ? `${texts.sameMaterial} \u2013 ${carpetMaterial}` : doorMaterial;
+    const doorEdging = selectedText(s.doorLemovanie, true);
+    const doorEdgingValue = s.doorSameAsCarpet && s.doorSameAsCarpet.lemovanie ? `${texts.sameEdging} \u2013 ${carpetEdging}` : doorEdging;
+    const doorPatch = s.doorSameNasivkaAsCarpet ? `${texts.samePatch} \u2013 ${selectedText(s.doorNasivka)}` : selectedText(s.doorNasivka);
+    const doorPatchColor = s.doorSameNitAsCarpet ? `${texts.samePatch} \u2013 ${selectedText(s.doorNitColor, true)}` : selectedText(s.doorNitColor, true);
+    addGroup(lines, texts.headings.doors, (group) => {
+      addLine(group, texts.labels.materialColor, doorMaterialValue);
+      addLine(group, texts.labels.edgingColor, doorEdgingValue);
+      addLine(group, texts.labels.doorPatches, wantsDoorPatch ? texts.yes : texts.no);
+      if (wantsDoorPatch) {
+        addLine(group, texts.labels.doorPatchType, doorPatch);
+        addLine(group, texts.labels.doorPatchColor, doorPatchColor);
+      }
+    });
   }
   return lines.join("\n");
 }
+function parseTruckOrderSummary(summary) {
+  const groups = [];
+  let current = null;
+  String(summary || "").split(/\r?\n/).forEach((rawLine) => {
+    const line = rawLine.trim();
+    if (!line) return;
+    if (!line.startsWith("- ")) {
+      current = { heading: line, items: [] };
+      groups.push(current);
+      return;
+    }
+    if (!current) return;
+    const item = line.slice(2);
+    const separator = item.indexOf(":");
+    if (separator < 0) return;
+    current.items.push({
+      label: item.slice(0, separator).trim(),
+      value: item.slice(separator + 1).trim()
+    });
+  });
+  return groups.filter((group) => group.items.length);
+}
 function persistTruckOrderSummary(state) {
-  const summary = buildTruckOrderSummary(state);
+  const summary = buildTruckOrderSummary(state, detectTruckSummaryLanguage());
   if (typeof sessionStorage !== "undefined" && summary) {
     sessionStorage.setItem("truckOrderSummary", summary);
   }
   return summary;
 }
 function mergeTruckOrderSummaryIntoNote(currentNote, summary) {
-  const escapedStart = SUMMARY_START.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const escapedEnd = SUMMARY_END.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const legacyStart = "[TRUCK KONFIGUR\xC1CIA]".replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const legacyEnd = "[/TRUCK KONFIGUR\xC1CIA]".replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const withoutOldSummary = String(currentNote || "").replace(new RegExp(`${escapedStart}[\\s\\S]*?${escapedEnd}`, "g"), "").replace(new RegExp(`${legacyStart}[\\s\\S]*?${legacyEnd}`, "g"), "").trim();
+  const texts = /^SPECIFIKACE VOZIDLA\b/m.test(String(summary || "")) ? SUMMARY_TEXTS.cs : SUMMARY_TEXTS.sk;
+  const markerPairs = [
+    [SUMMARY_TEXTS.sk.markerStart, SUMMARY_TEXTS.sk.markerEnd],
+    [SUMMARY_TEXTS.cs.markerStart, SUMMARY_TEXTS.cs.markerEnd],
+    ["[TRUCK CONFIGURATION]", "[/TRUCK CONFIGURATION]"],
+    ["[TRUCK KONFIGUR\xC1CIA]", "[/TRUCK KONFIGUR\xC1CIA]"]
+  ];
+  const withoutOldSummary = markerPairs.reduce((note, [start, end]) => {
+    const escapedStart = start.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const escapedEnd = end.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return note.replace(new RegExp(`${escapedStart}[\\s\\S]*?${escapedEnd}`, "g"), "");
+  }, String(currentNote || "")).trim();
   if (!summary) return withoutOldSummary;
-  const block = `${SUMMARY_START}
+  const block = `${texts.markerStart}
 ${summary}
-${SUMMARY_END}`;
+${texts.markerEnd}`;
   return withoutOldSummary ? `${withoutOldSummary}
 
 ${block}` : block;
@@ -25412,8 +25546,8 @@ function findMatchingOption(select, search) {
 }
 function resolveValue(paramName, s) {
   const n = String(paramName || "").trim().toLowerCase();
-  if (n === "materi\xE1l" || n === "material") return s.selectedMaterial || null;
-  if (n === "n\xE1\u0161ivky" || n === "nasivky") {
+  if (n === "materi\xE1l" || n === "material" || n === "typ materi\xE1lu" || n === "typ materi\xE1lu kobere\u010Dk\u016F") return s.selectedMaterial || null;
+  if (n === "n\xE1\u0161ivky" || n === "nasivky" || n === "rozlo\u017Eenie n\xE1\u0161iviek" || n === "rozlo\u017Een\xED n\xE1\u0161ivek") {
     if (!s.nasivkyPlacement) return null;
     return {
       nechcem: "Bez n\xE1\u0161iviek",
@@ -25422,25 +25556,25 @@ function resolveValue(paramName, s) {
       "boky+stred": "\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"
     }[s.nasivkyPlacement] || null;
   }
-  if (n === "n\xE1\u0161ivka boky" || n === "nasivka boky") {
+  if (n === "n\xE1\u0161ivka boky" || n === "nasivka boky" || n === "typ n\xE1\u0161iviek na boky" || n === "typ n\xE1\u0161ivek na boky") {
     if (!s.nasivkyPlacement) return null;
-    const hasSideEmbroidery = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
-    if (!hasSideEmbroidery) return "Bez n\xE1\u0161ivky";
+    const hasSideEmbroidery2 = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
+    if (!hasSideEmbroidery2) return "Bez n\xE1\u0161ivky";
     return s.selectedNasivka ? "N\xE1\u0161ivka " + s.selectedNasivka.code : null;
   }
-  if (n === "ni\u0165 boky" || n === "nit boky") {
+  if (n === "ni\u0165 boky" || n === "nit boky" || n === "farba n\xE1\u0161iviek na boky" || n === "barva n\xE1\u0161ivek na boky") {
     if (!s.nasivkyPlacement) return null;
-    const hasSideEmbroidery = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
-    if (!hasSideEmbroidery) return "Bez nite";
+    const hasSideEmbroidery2 = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
+    if (!hasSideEmbroidery2) return "Bez nite";
     return s.selectedNasivka && s.selectedNitColor ? s.selectedNitColor.code : null;
   }
-  if (n === "n\xE1\u0161ivka stred" || n === "nasivka stred") {
+  if (n === "n\xE1\u0161ivka stred" || n === "nasivka stred" || n === "typ n\xE1\u0161ivky na stred" || n === "typ n\xE1\u0161ivky na st\u0159ed") {
     if (!s.nasivkyPlacement) return null;
     const hasCenterEmbroidery = s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
     if (!hasCenterEmbroidery) return "Bez n\xE1\u0161ivky";
     return s.selectedStredNasivka ? "N\xE1\u0161ivka " + s.selectedStredNasivka.code : null;
   }
-  if (n === "ni\u0165 stred" || n === "nit stred") {
+  if (n === "ni\u0165 stred" || n === "nit stred" || n === "farba n\xE1\u0161ivky na stred" || n === "barva n\xE1\u0161ivky na st\u0159ed") {
     if (!s.nasivkyPlacement) return null;
     const hasCenterEmbroidery = s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
     if (!hasCenterEmbroidery) return "Bez nite";
@@ -25454,17 +25588,17 @@ function resolveValue(paramName, s) {
     if (s.doorPanelChoice === "ano") return "Ano, chci (v konfigur\xE1toru \u2013 bal\xED\u010Dek)";
     return "Ne, nechci \u010Daloun\u011Bn\xED dve\u0159\xED";
   }
-  if (n === "n\xE1\u0161ivka dvere" || n === "nasivka dvere" || n === "n\xE1\u0161ivka dve\u0159e" || n === "nasivka dve\u0159e") {
+  if (n === "n\xE1\u0161ivka dvere" || n === "nasivka dvere" || n === "n\xE1\u0161ivka dve\u0159e" || n === "nasivka dve\u0159e" || n === "n\xE1\u0161ivky na tapac\xEDr") {
     if (s.doorPanelChoice !== "ano") return "Nie nechcem n\xE1\u0161ivku na dver\xE1ch";
     if (s.doorWantsNasivka === true) return "\xC1no chcem n\xE1\u0161ivku na dver\xE1ch";
     if (s.doorWantsNasivka === false) return "Nie nechcem n\xE1\u0161ivku na dver\xE1ch";
     return null;
   }
-  if (n === "farba") {
+  if (n === "farba" || n === "farba materi\xE1lu" || n === "barva materi\xE1lu") {
     if (!s.selectedMaterial || !s.selectedColor) return null;
     return s.selectedMaterial + " / " + s.selectedColor.code;
   }
-  if (n === "lemovanie") {
+  if (n === "lemovanie" || n === "farba lemovania" || n === "barva lemov\xE1n\xED") {
     if (!s.selectedLemovanie) return null;
     return s.selectedLemovanie.code;
   }
@@ -25476,23 +25610,23 @@ function resolveValue(paramName, s) {
     if (!s.selectedNitColor) return null;
     return s.selectedNitColor.code;
   }
-  if (n === "materi\xE1l dvere" || n === "material dvere" || n === "materi\xE1l dve\u0159e" || n === "material dve\u0159e") {
+  if (n === "materi\xE1l dvere" || n === "material dvere" || n === "materi\xE1l dve\u0159e" || n === "material dve\u0159e" || n === "typ materi\xE1lu tapac\xEDru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnak\xFD ako koberec";
     return s.doorMaterial ? "Vybere se v konfigur\xE1toru" : null;
   }
-  if (n === "farba dvere" || n === "barva dve\u0159e") {
+  if (n === "farba dvere" || n === "barva dve\u0159e" || n === "farba materi\xE1lu tapac\xEDru" || n === "barva materi\xE1lu tapac\xEDru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnak\xE1 ako koberec";
     if (!s.doorMaterial || !s.doorColor) return null;
     return "Vybere se v konfigur\xE1toru";
   }
-  if (n === "lemovanie dvere" || n === "lemov\xE1n\xED dve\u0159e") {
+  if (n === "lemovanie dvere" || n === "lemov\xE1n\xED dve\u0159e" || n === "farba lemovania tapac\xEDru" || n === "barva lemov\xE1n\xED tapac\xEDru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.lemovanie) return "Rovnak\xE9 ako koberec";
     return s.doorLemovanie ? "Vybere se v konfigur\xE1toru" : null;
   }
-  if (n === "n\xE1\u0161ivka dvere druh" || n === "nasivka dvere druh" || n === "n\xE1\u0161ivka dve\u0159e druh" || n === "nasivka dve\u0159e druh") {
+  if (n === "n\xE1\u0161ivka dvere druh" || n === "nasivka dvere druh" || n === "n\xE1\u0161ivka dve\u0159e druh" || n === "nasivka dve\u0159e druh" || n === "typ n\xE1\u0161ivky na tapac\xEDr") {
     if (!s.doorPanelChoice) return null;
     if (s.doorPanelChoice !== "ano" || s.doorWantsNasivka === false) {
       return "Bez n\xE1\u0161ivky";
@@ -25501,7 +25635,7 @@ function resolveValue(paramName, s) {
     if (s.doorSameNasivkaAsCarpet) return "Rovnak\xE1 ako koberec";
     return s.doorNasivka ? "N\xE1\u0161ivka " + s.doorNasivka.code : null;
   }
-  if (n === "ni\u0165 dvere" || n === "nit dvere" || n === "ni\u0165 dve\u0159e" || n === "nit dve\u0159e" || n === "farba nite \u2013 dvere" || n === "farba nite - dvere") {
+  if (n === "ni\u0165 dvere" || n === "nit dvere" || n === "ni\u0165 dve\u0159e" || n === "nit dve\u0159e" || n === "farba nite \u2013 dvere" || n === "farba nite - dvere" || n === "farba n\xE1\u0161iviek na tapac\xEDre" || n === "barva n\xE1\u0161ivek na tapac\xEDru") {
     if (!s.doorPanelChoice) return null;
     if (s.doorPanelChoice !== "ano" || s.doorWantsNasivka === false) {
       return "Bez nite";
@@ -28984,8 +29118,8 @@ function findMatchingOption2(select, search) {
 }
 function resolveValue2(paramName, s) {
   const n = String(paramName || "").trim().toLowerCase();
-  if (n === "materi\xE1l" || n === "material") return s.selectedMaterial || null;
-  if (n === "n\xE1\u0161ivky" || n === "nasivky") {
+  if (n === "materi\xE1l" || n === "material" || n === "typ materi\xE1lu" || n === "typ materi\xE1lu kobere\u010Dk\u016F") return s.selectedMaterial || null;
+  if (n === "n\xE1\u0161ivky" || n === "nasivky" || n === "rozlo\u017Eenie n\xE1\u0161iviek" || n === "rozlo\u017Een\xED n\xE1\u0161ivek") {
     if (!s.nasivkyPlacement) return null;
     return {
       nechcem: "Bez n\xE1\u0161iviek",
@@ -28994,25 +29128,25 @@ function resolveValue2(paramName, s) {
       "boky+stred": "\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"
     }[s.nasivkyPlacement] || null;
   }
-  if (n === "n\xE1\u0161ivka boky" || n === "nasivka boky") {
+  if (n === "n\xE1\u0161ivka boky" || n === "nasivka boky" || n === "typ n\xE1\u0161iviek na boky" || n === "typ n\xE1\u0161ivek na boky") {
     if (!s.nasivkyPlacement) return null;
-    const hasSideEmbroidery = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
-    if (!hasSideEmbroidery) return "Bez n\xE1\u0161ivky";
+    const hasSideEmbroidery2 = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
+    if (!hasSideEmbroidery2) return "Bez n\xE1\u0161ivky";
     return s.selectedNasivka ? "N\xE1\u0161ivka " + s.selectedNasivka.code : null;
   }
-  if (n === "ni\u0165 boky" || n === "nit boky") {
+  if (n === "ni\u0165 boky" || n === "nit boky" || n === "farba n\xE1\u0161iviek na boky" || n === "barva n\xE1\u0161ivek na boky") {
     if (!s.nasivkyPlacement) return null;
-    const hasSideEmbroidery = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
-    if (!hasSideEmbroidery) return "Bez nite";
+    const hasSideEmbroidery2 = s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
+    if (!hasSideEmbroidery2) return "Bez nite";
     return s.selectedNasivka && s.selectedNitColor ? s.selectedNitColor.code : null;
   }
-  if (n === "n\xE1\u0161ivka stred" || n === "nasivka stred") {
+  if (n === "n\xE1\u0161ivka stred" || n === "nasivka stred" || n === "typ n\xE1\u0161ivky na stred" || n === "typ n\xE1\u0161ivky na st\u0159ed") {
     if (!s.nasivkyPlacement) return null;
     const hasCenterEmbroidery = s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
     if (!hasCenterEmbroidery) return "Bez n\xE1\u0161ivky";
     return s.selectedStredNasivka ? "N\xE1\u0161ivka " + s.selectedStredNasivka.code : null;
   }
-  if (n === "ni\u0165 stred" || n === "nit stred") {
+  if (n === "ni\u0165 stred" || n === "nit stred" || n === "farba n\xE1\u0161ivky na stred" || n === "barva n\xE1\u0161ivky na st\u0159ed") {
     if (!s.nasivkyPlacement) return null;
     const hasCenterEmbroidery = s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
     if (!hasCenterEmbroidery) return "Bez nite";
@@ -29026,17 +29160,17 @@ function resolveValue2(paramName, s) {
     if (s.doorPanelChoice === "ano") return "Ano, chci (v konfigur\xE1toru \u2013 bal\xED\u010Dek)";
     return "Ne, nechci \u010Daloun\u011Bn\xED dve\u0159\xED";
   }
-  if (n === "n\xE1\u0161ivka dvere" || n === "nasivka dvere" || n === "n\xE1\u0161ivka dve\u0159e" || n === "nasivka dve\u0159e") {
+  if (n === "n\xE1\u0161ivka dvere" || n === "nasivka dvere" || n === "n\xE1\u0161ivka dve\u0159e" || n === "nasivka dve\u0159e" || n === "n\xE1\u0161ivky na tapac\xEDr") {
     if (s.doorPanelChoice !== "ano") return "Nie nechcem n\xE1\u0161ivku na dver\xE1ch";
     if (s.doorWantsNasivka === true) return "\xC1no chcem n\xE1\u0161ivku na dver\xE1ch";
     if (s.doorWantsNasivka === false) return "Nie nechcem n\xE1\u0161ivku na dver\xE1ch";
     return null;
   }
-  if (n === "farba") {
+  if (n === "farba" || n === "farba materi\xE1lu" || n === "barva materi\xE1lu") {
     if (!s.selectedMaterial || !s.selectedColor) return null;
     return s.selectedMaterial + " / " + s.selectedColor.code;
   }
-  if (n === "lemovanie") {
+  if (n === "lemovanie" || n === "farba lemovania" || n === "barva lemov\xE1n\xED") {
     if (!s.selectedLemovanie) return null;
     return s.selectedLemovanie.code;
   }
@@ -29048,23 +29182,23 @@ function resolveValue2(paramName, s) {
     if (!s.selectedNitColor) return null;
     return s.selectedNitColor.code;
   }
-  if (n === "materi\xE1l dvere" || n === "material dvere" || n === "materi\xE1l dve\u0159e" || n === "material dve\u0159e") {
+  if (n === "materi\xE1l dvere" || n === "material dvere" || n === "materi\xE1l dve\u0159e" || n === "material dve\u0159e" || n === "typ materi\xE1lu tapac\xEDru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnak\xFD ako koberec";
     return s.doorMaterial ? "Vybere se v konfigur\xE1toru" : null;
   }
-  if (n === "farba dvere" || n === "barva dve\u0159e") {
+  if (n === "farba dvere" || n === "barva dve\u0159e" || n === "farba materi\xE1lu tapac\xEDru" || n === "barva materi\xE1lu tapac\xEDru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnak\xE1 ako koberec";
     if (!s.doorMaterial || !s.doorColor) return null;
     return "Vybere se v konfigur\xE1toru";
   }
-  if (n === "lemovanie dvere" || n === "lemov\xE1n\xED dve\u0159e") {
+  if (n === "lemovanie dvere" || n === "lemov\xE1n\xED dve\u0159e" || n === "farba lemovania tapac\xEDru" || n === "barva lemov\xE1n\xED tapac\xEDru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.lemovanie) return "Rovnak\xE9 ako koberec";
     return s.doorLemovanie ? "Vybere se v konfigur\xE1toru" : null;
   }
-  if (n === "n\xE1\u0161ivka dvere druh" || n === "nasivka dvere druh" || n === "n\xE1\u0161ivka dve\u0159e druh" || n === "nasivka dve\u0159e druh") {
+  if (n === "n\xE1\u0161ivka dvere druh" || n === "nasivka dvere druh" || n === "n\xE1\u0161ivka dve\u0159e druh" || n === "nasivka dve\u0159e druh" || n === "typ n\xE1\u0161ivky na tapac\xEDr") {
     if (!s.doorPanelChoice) return null;
     if (s.doorPanelChoice !== "ano" || s.doorWantsNasivka === false) {
       return "Bez n\xE1\u0161ivky";
@@ -29073,7 +29207,7 @@ function resolveValue2(paramName, s) {
     if (s.doorSameNasivkaAsCarpet) return "Rovnak\xE1 ako koberec";
     return s.doorNasivka ? "N\xE1\u0161ivka " + s.doorNasivka.code : null;
   }
-  if (n === "ni\u0165 dvere" || n === "nit dvere" || n === "ni\u0165 dve\u0159e" || n === "nit dve\u0159e" || n === "farba nite \u2013 dvere" || n === "farba nite - dvere") {
+  if (n === "ni\u0165 dvere" || n === "nit dvere" || n === "ni\u0165 dve\u0159e" || n === "nit dve\u0159e" || n === "farba nite \u2013 dvere" || n === "farba nite - dvere" || n === "farba n\xE1\u0161iviek na tapac\xEDre" || n === "barva n\xE1\u0161ivek na tapac\xEDru") {
     if (!s.doorPanelChoice) return null;
     if (s.doorPanelChoice !== "ano" || s.doorWantsNasivka === false) {
       return "Bez nite";
@@ -35198,6 +35332,14 @@ function changeDescription() {
   const getYear = sessionStorage.getItem("Year");
   const getCarType = sessionStorage.getItem("carType");
   console.log("Changing description for cart items");
+  let truckSummary = "";
+  try {
+    truckSummary = sessionStorage.getItem("truckOrderSummary") || "";
+  } catch (e) {
+  }
+  const truckRowCount = $("span.main-link-surcharges").filter(function() {
+    return /\btruck\b/i.test($(this).closest("tr").text() || "");
+  }).length;
   $("tr").each(function() {
     var $row = $(this);
     if ($row.find("span.main-link-surcharges").length) return;
@@ -35217,6 +35359,23 @@ function changeDescription() {
   $("span.main-link-surcharges").each(function() {
     const text = $(this).text().split(",");
     const isTruckRow = /\btruck\b/i.test($(this).closest("tr").text() || "");
+    if (isTruckRow && truckSummary && truckRowCount === 1) {
+      const groups = parseTruckOrderSummary(truckSummary);
+      if (groups.length) {
+        const $summary = $("<div>").addClass("lcd-truck-cart-summary");
+        groups.forEach(function(group) {
+          const $group = $("<section>").addClass("lcd-truck-cart-summary__group").appendTo($summary);
+          $("<h4>").text(group.heading).appendTo($group);
+          const $list = $("<dl>").appendTo($group);
+          group.items.forEach(function(item) {
+            $("<dt>").text(item.label).appendTo($list);
+            $("<dd>").text(item.value).appendTo($list);
+          });
+        });
+        $(this).empty().append($summary);
+        return;
+      }
+    }
     let truckVehicle = null;
     let newText = "";
     if (text.length > 1) {

@@ -972,9 +972,14 @@ function resolveValue(paramName, s) {
   const n = String(paramName || "").trim().toLowerCase();
 
   // Cenotvorné parametre (test-truck.xml SHORT_NAMEs)
-  if (n === "materiál" || n === "material") return s.selectedMaterial || null;
+  if (
+    n === "materiál" ||
+    n === "material" ||
+    n === "typ materiálu" ||
+    n === "typ materiálu koberečků"
+  ) return s.selectedMaterial || null;
 
-  if (n === "nášivky" || n === "nasivky") {
+  if (n === "nášivky" || n === "nasivky" || n === "rozloženie nášiviek" || n === "rozložení nášivek") {
     if (!s.nasivkyPlacement) return null;
     return ({
       nechcem: "Bez nášiviek",
@@ -984,7 +989,7 @@ function resolveValue(paramName, s) {
     })[s.nasivkyPlacement] || null;
   }
 
-  if (n === "nášivka boky" || n === "nasivka boky") {
+  if (n === "nášivka boky" || n === "nasivka boky" || n === "typ nášiviek na boky" || n === "typ nášivek na boky") {
     if (!s.nasivkyPlacement) return null;
     const hasSideEmbroidery =
       s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
@@ -992,7 +997,7 @@ function resolveValue(paramName, s) {
     return s.selectedNasivka ? "Nášivka " + s.selectedNasivka.code : null;
   }
 
-  if (n === "niť boky" || n === "nit boky") {
+  if (n === "niť boky" || n === "nit boky" || n === "farba nášiviek na boky" || n === "barva nášivek na boky") {
     if (!s.nasivkyPlacement) return null;
     const hasSideEmbroidery =
       s.nasivkyPlacement === "boky" || s.nasivkyPlacement === "boky+stred";
@@ -1002,7 +1007,7 @@ function resolveValue(paramName, s) {
       : null;
   }
 
-  if (n === "nášivka stred" || n === "nasivka stred") {
+  if (n === "nášivka stred" || n === "nasivka stred" || n === "typ nášivky na stred" || n === "typ nášivky na střed") {
     if (!s.nasivkyPlacement) return null;
     const hasCenterEmbroidery =
       s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
@@ -1012,7 +1017,7 @@ function resolveValue(paramName, s) {
       : null;
   }
 
-  if (n === "niť stred" || n === "nit stred") {
+  if (n === "niť stred" || n === "nit stred" || n === "farba nášivky na stred" || n === "barva nášivky na střed") {
     if (!s.nasivkyPlacement) return null;
     const hasCenterEmbroidery =
       s.nasivkyPlacement === "stred" || s.nasivkyPlacement === "boky+stred";
@@ -1038,7 +1043,8 @@ function resolveValue(paramName, s) {
     n === "nášivka dvere" ||
     n === "nasivka dvere" ||
     n === "nášivka dveře" ||
-    n === "nasivka dveře"
+    n === "nasivka dveře" ||
+    n === "nášivky na tapacír"
   ) {
     if (s.doorPanelChoice !== "ano") return "Nie nechcem nášivku na dverách";
     if (s.doorWantsNasivka === true) return "Áno chcem nášivku na dverách";
@@ -1047,11 +1053,11 @@ function resolveValue(paramName, s) {
   }
 
   // Informatívne (PRICE=0)
-  if (n === "farba") {
+  if (n === "farba" || n === "farba materiálu" || n === "barva materiálu") {
     if (!s.selectedMaterial || !s.selectedColor) return null;
     return s.selectedMaterial + " / " + s.selectedColor.code;
   }
-  if (n === "lemovanie") {
+  if (n === "lemovanie" || n === "farba lemovania" || n === "barva lemování") {
     if (!s.selectedLemovanie) return null;
     return s.selectedLemovanie.code;
   }
@@ -1067,19 +1073,20 @@ function resolveValue(paramName, s) {
     n === "materiál dvere" ||
     n === "material dvere" ||
     n === "materiál dveře" ||
-    n === "material dveře"
+    n === "material dveře" ||
+    n === "typ materiálu tapacíru"
   ) {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnaký ako koberec";
     return s.doorMaterial ? "Vybere se v konfigurátoru" : null;
   }
-  if (n === "farba dvere" || n === "barva dveře") {
+  if (n === "farba dvere" || n === "barva dveře" || n === "farba materiálu tapacíru" || n === "barva materiálu tapacíru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.material) return "Rovnaká ako koberec";
     if (!s.doorMaterial || !s.doorColor) return null;
     return "Vybere se v konfigurátoru";
   }
-  if (n === "lemovanie dvere" || n === "lemování dveře") {
+  if (n === "lemovanie dvere" || n === "lemování dveře" || n === "farba lemovania tapacíru" || n === "barva lemování tapacíru") {
     if (s.doorPanelChoice !== "ano") return null;
     if (s.doorSameAsCarpet && s.doorSameAsCarpet.lemovanie) return "Rovnaké ako koberec";
     return s.doorLemovanie ? "Vybere se v konfigurátoru" : null;
@@ -1088,7 +1095,8 @@ function resolveValue(paramName, s) {
     n === "nášivka dvere druh" ||
     n === "nasivka dvere druh" ||
     n === "nášivka dveře druh" ||
-    n === "nasivka dveře druh"
+    n === "nasivka dveře druh" ||
+    n === "typ nášivky na tapacír"
   ) {
     if (!s.doorPanelChoice) return null;
     if (s.doorPanelChoice !== "ano" || s.doorWantsNasivka === false) {
@@ -1104,7 +1112,9 @@ function resolveValue(paramName, s) {
     n === "niť dveře" ||
     n === "nit dveře" ||
     n === "farba nite – dvere" ||
-    n === "farba nite - dvere"
+    n === "farba nite - dvere" ||
+    n === "farba nášiviek na tapacíre" ||
+    n === "barva nášivek na tapacíru"
   ) {
     if (!s.doorPanelChoice) return null;
     if (
