@@ -39,7 +39,7 @@ const surcharge = `
   <meta itemprop="price" content="199">
 `;
 
-async function mountWith(isPhone) {
+async function mountWith(isPhone, vehicle) {
   const errors = [];
   const vc = new VirtualConsole();
   vc.on("jsdomError", (e) => errors.push(e.message));
@@ -52,12 +52,9 @@ async function mountWith(isPhone) {
     { url: "https://www.luxurycardesign.sk/test-truck/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
   );
   const { window } = dom;
-  const prefill = {
-    prevodovka: "Manuálna prevodovka",
-    zasuvky: "2 zásuvky (šuplíky)",
-  };
-  window.sessionStorage.setItem("truckBrand", "MAN (TIR)");
-  window.sessionStorage.setItem("truckModel", "TGX 2007-2017");
+  const { brand, model, prefill, expectsDoorUpholstery } = vehicle;
+  window.sessionStorage.setItem("truckBrand", brand);
+  window.sessionStorage.setItem("truckModel", model);
   window.sessionStorage.setItem("truckExtras", JSON.stringify(prefill));
   // matchMedia mock — phone keď width<=768
   window.matchMedia = (q) => ({ matches: isPhone && /max-width:\s*768px/.test(q), media: q, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} });
@@ -80,13 +77,22 @@ async function mountWith(isPhone) {
   else fail(`${variant}: mount element ostal prázdny`);
   const renderedText = el.textContent || "";
   if (
-    renderedText.includes("MAN (TIR)") &&
-    renderedText.includes("TGX 2007-2017") &&
+    renderedText.includes(brand) &&
+    renderedText.includes(model) &&
     Object.values(prefill).every((value) => renderedText.includes(value))
   ) {
     ok(`${variant}: značka, model aj všetky extra voľby sa predvyplnili zo session`);
   } else {
     fail(`${variant}: nekompletný predvýber zo session`);
+  }
+
+  const doorStep = window.document.getElementById("konfig-step-5");
+  if (expectsDoorUpholstery && doorStep) {
+    ok(`${variant}: kamión ponúka krok Tapacír dverí`);
+  } else if (!expectsDoorUpholstery && !doorStep) {
+    ok(`${variant}: dodávka neponúka krok Tapacír dverí`);
+  } else {
+    fail(`${variant}: nesprávna dostupnosť kroku Tapacír dverí pre ${brand} (${doorStep ? doorStep.textContent.trim().slice(0, 80) : "krok chýba"})`);
   }
 
   const step1 = window.document.getElementById("konfig-step-1");
@@ -99,12 +105,14 @@ async function mountWith(isPhone) {
     fail(`${variant}: otvorený akordeón stále orezáva dropdown`);
   }
 
-  const transmissionTrigger = step1
+  const transmissionTrigger = prefill.prevodovka && step1
     ? [...step1.querySelectorAll("div")].find(
         (node) => node.textContent.trim() === prefill.prevodovka && node.style.cursor === "pointer",
       )
     : null;
-  if (transmissionTrigger) {
+  if (!prefill.prevodovka) {
+    ok(`${variant}: vozidlo bez prevodovky nevyžaduje test dropdownu`);
+  } else if (transmissionTrigger) {
     transmissionTrigger.click();
     await new Promise((r) => setTimeout(r, 60));
     const option = [...step1.querySelectorAll("div")].find((node) => node.textContent.trim() === "Automatická prevodovka");
@@ -123,7 +131,25 @@ async function mountWith(isPhone) {
   return window;
 }
 
-await mountWith(false); // desktop
-await mountWith(true);  // phone
+const truck = {
+  brand: "MAN (TIR)",
+  model: "TGX 2007-2017",
+  prefill: {
+    prevodovka: "Manuálna prevodovka",
+    zasuvky: "2 zásuvky (šuplíky)",
+  },
+  expectsDoorUpholstery: true,
+};
+const van = {
+  brand: "Fiat (dodávka)",
+  model: "Ducato 2007-2025",
+  prefill: {},
+  expectsDoorUpholstery: false,
+};
+
+await mountWith(false, truck); // desktop kamión
+await mountWith(true, truck);  // phone kamión
+await mountWith(false, van);   // desktop dodávka
+await mountWith(true, van);    // phone dodávka
 
 console.log(process.exitCode ? "\nVÝSLEDOK: FAIL" : "\nVÝSLEDOK: OK");

@@ -25770,6 +25770,34 @@ function Configurator() {
   const [step4Sub, setStep4Sub] = useState("placement");
   const [doorStep5Sub, setDoorStep5Sub] = useState("choice");
   const [validationErrors, setValidationErrors] = useState({});
+  const doorUpholsteryAvailable = /\(TIR\)/i.test(znacka || "");
+  const continueAfterEmbroidery = () => {
+    if (doorUpholsteryAvailable) {
+      transitionToSection(5);
+      return;
+    }
+    setOpenSection(0);
+    setTimeout(() => {
+      const el = document.getElementById("konfig-suhrn");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
+  };
+  import_react.default.useEffect(() => {
+    if (doorUpholsteryAvailable) return;
+    setDoorPanelChoice(null);
+    setDoorMaterial(null);
+    setDoorColor(null);
+    setDoorLemovanie(null);
+    setDoorWantsNasivka(null);
+    setDoorNasivka(null);
+    setDoorNitColor(null);
+    setDoorSameAsCarpet({ material: false, lemovanie: false });
+    setDoorSameNitAsCarpet(false);
+    setDoorSameNasivkaAsCarpet(false);
+    setDoorStep5Sub("choice");
+    setValidationErrors((prev) => prev && prev.step5sub ? {} : prev);
+    if (openSection === 5) setOpenSection(0);
+  }, [doorUpholsteryAvailable]);
   const [PRICES, setPrices] = useState(() => readShoptetPrices(FALLBACK_PRICES));
   import_react.default.useEffect(() => {
     const fromDom = readShoptetPrices(FALLBACK_PRICES);
@@ -25784,13 +25812,13 @@ function Configurator() {
     selectedNitColor,
     selectedStredNasivka,
     selectedStredNitColor,
-    doorPanelChoice,
-    doorMaterial,
-    doorColor,
-    doorLemovanie,
-    doorWantsNasivka,
-    doorNasivka,
-    doorNitColor
+    doorPanelChoice: doorUpholsteryAvailable ? doorPanelChoice : null,
+    doorMaterial: doorUpholsteryAvailable ? doorMaterial : null,
+    doorColor: doorUpholsteryAvailable ? doorColor : null,
+    doorLemovanie: doorUpholsteryAvailable ? doorLemovanie : null,
+    doorWantsNasivka: doorUpholsteryAvailable ? doorWantsNasivka : null,
+    doorNasivka: doorUpholsteryAvailable ? doorNasivka : null,
+    doorNitColor: doorUpholsteryAvailable ? doorNitColor : null
   }, PRICES), [
     selectedMaterial,
     selectedColor,
@@ -25807,6 +25835,7 @@ function Configurator() {
     doorWantsNasivka,
     doorNasivka,
     doorNitColor,
+    doorUpholsteryAvailable,
     PRICES
   ]);
   import_react.default.useEffect(() => {
@@ -25852,16 +25881,16 @@ function Configurator() {
         nasivkyPlacement,
         selectedStredNasivka,
         selectedStredNitColor,
-        doorPanelChoice,
-        doorMaterial,
-        doorColor,
-        doorLemovanie,
-        doorWantsNasivka,
-        doorNasivka,
-        doorNitColor,
-        doorSameAsCarpet,
-        doorSameNitAsCarpet,
-        doorSameNasivkaAsCarpet
+        doorPanelChoice: doorUpholsteryAvailable ? doorPanelChoice : null,
+        doorMaterial: doorUpholsteryAvailable ? doorMaterial : null,
+        doorColor: doorUpholsteryAvailable ? doorColor : null,
+        doorLemovanie: doorUpholsteryAvailable ? doorLemovanie : null,
+        doorWantsNasivka: doorUpholsteryAvailable ? doorWantsNasivka : null,
+        doorNasivka: doorUpholsteryAvailable ? doorNasivka : null,
+        doorNitColor: doorUpholsteryAvailable ? doorNitColor : null,
+        doorSameAsCarpet: doorUpholsteryAvailable ? doorSameAsCarpet : { material: false, lemovanie: false },
+        doorSameNitAsCarpet: doorUpholsteryAvailable ? doorSameNitAsCarpet : false,
+        doorSameNasivkaAsCarpet: doorUpholsteryAvailable ? doorSameNasivkaAsCarpet : false
       });
     } catch (e) {
       console.error("[truck-konfig] syncToShoptet zlyhal:", e);
@@ -25887,7 +25916,8 @@ function Configurator() {
     doorNitColor,
     doorSameAsCarpet,
     doorSameNitAsCarpet,
-    doorSameNasivkaAsCarpet
+    doorSameNasivkaAsCarpet,
+    doorUpholsteryAvailable
   ]);
   const brands = Object.keys(CONFIG);
   const models = znacka ? Object.keys(CONFIG[znacka]) : [];
@@ -26658,7 +26688,7 @@ function Configurator() {
               setSelectedStredNitColor(null);
               setTimeout(() => {
                 setStep4Sub("");
-                transitionToSection(5);
+                continueAfterEmbroidery();
               }, 200);
             }
             if (opt.id === "boky") {
@@ -26933,7 +26963,7 @@ function Configurator() {
             setValidationErrors((e) => ({ ...e, stredNitColor: false }));
             setTimeout(() => {
               setStep4Sub("");
-              transitionToSection(5);
+              continueAfterEmbroidery();
             }, 300);
           } else {
             setSelectedStredNasivka(null);
@@ -27102,7 +27132,7 @@ function Configurator() {
             return;
           }
           setValidationErrors({});
-          transitionToSection(5);
+          continueAfterEmbroidery();
         },
         style: {
           width: "100%",
@@ -27123,7 +27153,7 @@ function Configurator() {
       },
       "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
     )
-  ), /* @__PURE__ */ import_react.default.createElement(
+  ), doorUpholsteryAvailable && /* @__PURE__ */ import_react.default.createElement(
     AccordionSection,
     {
       number: 5,
@@ -28197,7 +28227,7 @@ function Configurator() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
           setValidationErrors({ step5sub: "5b", message: "Pros\xEDm, vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("material");
@@ -28207,7 +28237,7 @@ function Configurator() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && !doorLemovanie) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && !doorLemovanie) {
           setValidationErrors({ step5sub: "5c", message: "Pros\xEDm, vyberte lemovanie pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("lemovanie");
@@ -28217,7 +28247,7 @@ function Configurator() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && doorWantsNasivka === null) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && doorWantsNasivka === null) {
           setValidationErrors({ step5sub: "5d", message: "Pros\xEDm, rozhodnite sa, \u010Di chcete n\xE1\u0161ivku na dverov\xE9 panely." });
           setOpenSection(5);
           setDoorStep5Sub("nasivky");
@@ -28227,7 +28257,7 @@ function Configurator() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && doorWantsNasivka === true && !doorNasivka) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && doorWantsNasivka === true && !doorNasivka) {
           setValidationErrors({ step5sub: "5d", message: "Pros\xEDm, vyberte n\xE1\u0161ivku na dverov\xE9 panely." });
           setOpenSection(5);
           setDoorStep5Sub("nasivky");
@@ -28237,7 +28267,7 @@ function Configurator() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && doorNasivka && !doorNitColor) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && doorNasivka && !doorNitColor) {
           setValidationErrors({ step5sub: "5d", doorNitColor: true, message: "Pros\xEDm, vyberte farbu nite pre dverov\xFA n\xE1\u0161ivku." });
           setOpenSection(5);
           setDoorStep5Sub("nasivky");
@@ -28260,16 +28290,16 @@ function Configurator() {
           nasivkyPlacement,
           selectedStredNasivka,
           selectedStredNitColor,
-          doorPanelChoice,
-          doorMaterial,
-          doorColor,
-          doorLemovanie,
-          doorWantsNasivka,
-          doorNasivka,
-          doorNitColor,
-          doorSameAsCarpet,
-          doorSameNitAsCarpet,
-          doorSameNasivkaAsCarpet
+          doorPanelChoice: doorUpholsteryAvailable ? doorPanelChoice : null,
+          doorMaterial: doorUpholsteryAvailable ? doorMaterial : null,
+          doorColor: doorUpholsteryAvailable ? doorColor : null,
+          doorLemovanie: doorUpholsteryAvailable ? doorLemovanie : null,
+          doorWantsNasivka: doorUpholsteryAvailable ? doorWantsNasivka : null,
+          doorNasivka: doorUpholsteryAvailable ? doorNasivka : null,
+          doorNitColor: doorUpholsteryAvailable ? doorNitColor : null,
+          doorSameAsCarpet: doorUpholsteryAvailable ? doorSameAsCarpet : { material: false, lemovanie: false },
+          doorSameNitAsCarpet: doorUpholsteryAvailable ? doorSameNitAsCarpet : false,
+          doorSameNasivkaAsCarpet: doorUpholsteryAvailable ? doorSameNasivkaAsCarpet : false
         };
         try {
           syncToShoptet(finalConfiguration);
@@ -29349,6 +29379,34 @@ function Configurator2() {
   const [step4Sub, setStep4Sub] = useState2("placement");
   const [doorStep5Sub, setDoorStep5Sub] = useState2("choice");
   const [validationErrors, setValidationErrors] = useState2({});
+  const doorUpholsteryAvailable = /\(TIR\)/i.test(znacka || "");
+  const continueAfterEmbroidery = () => {
+    if (doorUpholsteryAvailable) {
+      transitionToSection(5);
+      return;
+    }
+    setOpenSection(0);
+    setTimeout(() => {
+      const el = document.getElementById("konfig-suhrn");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
+  };
+  import_react2.default.useEffect(() => {
+    if (doorUpholsteryAvailable) return;
+    setDoorPanelChoice(null);
+    setDoorMaterial(null);
+    setDoorColor(null);
+    setDoorLemovanie(null);
+    setDoorWantsNasivka(null);
+    setDoorNasivka(null);
+    setDoorNitColor(null);
+    setDoorSameAsCarpet({ material: false, lemovanie: false });
+    setDoorSameNitAsCarpet(false);
+    setDoorSameNasivkaAsCarpet(false);
+    setDoorStep5Sub("choice");
+    setValidationErrors((prev) => prev && prev.step5sub ? {} : prev);
+    if (openSection === 5) setOpenSection(0);
+  }, [doorUpholsteryAvailable]);
   const [PRICES, setPrices] = useState2(() => readShoptetPrices2(FALLBACK_PRICES2));
   import_react2.default.useEffect(() => {
     const fromDom = readShoptetPrices2(FALLBACK_PRICES2);
@@ -29366,13 +29424,13 @@ function Configurator2() {
     selectedNitColor,
     selectedStredNasivka,
     selectedStredNitColor,
-    doorPanelChoice,
-    doorMaterial,
-    doorColor,
-    doorLemovanie,
-    doorWantsNasivka,
-    doorNasivka,
-    doorNitColor
+    doorPanelChoice: doorUpholsteryAvailable ? doorPanelChoice : null,
+    doorMaterial: doorUpholsteryAvailable ? doorMaterial : null,
+    doorColor: doorUpholsteryAvailable ? doorColor : null,
+    doorLemovanie: doorUpholsteryAvailable ? doorLemovanie : null,
+    doorWantsNasivka: doorUpholsteryAvailable ? doorWantsNasivka : null,
+    doorNasivka: doorUpholsteryAvailable ? doorNasivka : null,
+    doorNitColor: doorUpholsteryAvailable ? doorNitColor : null
   }, PRICES), [
     znacka,
     model,
@@ -29392,6 +29450,7 @@ function Configurator2() {
     doorWantsNasivka,
     doorNasivka,
     doorNitColor,
+    doorUpholsteryAvailable,
     PRICES
   ]);
   import_react2.default.useEffect(() => {
@@ -29432,16 +29491,16 @@ function Configurator2() {
         nasivkyPlacement,
         selectedStredNasivka,
         selectedStredNitColor,
-        doorPanelChoice,
-        doorMaterial,
-        doorColor,
-        doorLemovanie,
-        doorWantsNasivka,
-        doorNasivka,
-        doorNitColor,
-        doorSameAsCarpet,
-        doorSameNitAsCarpet,
-        doorSameNasivkaAsCarpet
+        doorPanelChoice: doorUpholsteryAvailable ? doorPanelChoice : null,
+        doorMaterial: doorUpholsteryAvailable ? doorMaterial : null,
+        doorColor: doorUpholsteryAvailable ? doorColor : null,
+        doorLemovanie: doorUpholsteryAvailable ? doorLemovanie : null,
+        doorWantsNasivka: doorUpholsteryAvailable ? doorWantsNasivka : null,
+        doorNasivka: doorUpholsteryAvailable ? doorNasivka : null,
+        doorNitColor: doorUpholsteryAvailable ? doorNitColor : null,
+        doorSameAsCarpet: doorUpholsteryAvailable ? doorSameAsCarpet : { material: false, lemovanie: false },
+        doorSameNitAsCarpet: doorUpholsteryAvailable ? doorSameNitAsCarpet : false,
+        doorSameNasivkaAsCarpet: doorUpholsteryAvailable ? doorSameNasivkaAsCarpet : false
       });
     } catch (e) {
       console.error("[truck-konfig] syncToShoptet zlyhal:", e);
@@ -29467,7 +29526,8 @@ function Configurator2() {
     doorNitColor,
     doorSameAsCarpet,
     doorSameNitAsCarpet,
-    doorSameNasivkaAsCarpet
+    doorSameNasivkaAsCarpet,
+    doorUpholsteryAvailable
   ]);
   const brands = Object.keys(CONFIG2);
   const models = znacka ? Object.keys(CONFIG2[znacka]) : [];
@@ -29499,7 +29559,7 @@ function Configurator2() {
   const step1Done = znacka && model && allExtrasSelected;
   const [orderCompletedScrolled, setOrderCompletedScrolled] = import_react2.default.useState(false);
   import_react2.default.useEffect(() => {
-    const isComplete = step1Done && selectedColor && selectedLemovanie && nasivkyPlacement && doorPanelChoice && (nasivkyPlacement === "nechcem" || (nasivkyPlacement === "stred" ? !!selectedStredNasivka : !!selectedNasivka)) && (doorPanelChoice === "nie" || !!doorMaterial);
+    const isComplete = step1Done && selectedColor && selectedLemovanie && nasivkyPlacement && (!doorUpholsteryAvailable || doorPanelChoice) && (nasivkyPlacement === "nechcem" || (nasivkyPlacement === "stred" ? !!selectedStredNasivka : !!selectedNasivka)) && (!doorUpholsteryAvailable || doorPanelChoice === "nie" || !!doorMaterial);
     if (isComplete && !orderCompletedScrolled) {
       setOrderCompletedScrolled(true);
       setTimeout(() => {
@@ -29512,7 +29572,7 @@ function Configurator2() {
         }
       }, 500);
     }
-  }, [step1Done, selectedColor, selectedLemovanie, nasivkyPlacement, doorPanelChoice, selectedNasivka, selectedStredNasivka, doorMaterial, orderCompletedScrolled]);
+  }, [step1Done, selectedColor, selectedLemovanie, nasivkyPlacement, doorPanelChoice, selectedNasivka, selectedStredNasivka, doorMaterial, doorUpholsteryAvailable, orderCompletedScrolled]);
   import_react2.default.useEffect(() => {
     setValidationErrors((prev) => {
       if (!prev || Object.keys(prev).length === 0) return prev;
@@ -30284,7 +30344,7 @@ function Configurator2() {
               setSelectedStredNitColor(null);
               setTimeout(() => {
                 setStep4Sub("");
-                transitionToSection(5);
+                continueAfterEmbroidery();
               }, 200);
             }
             if (opt.id === "boky") {
@@ -30682,7 +30742,7 @@ function Configurator2() {
             return;
           }
           setValidationErrors({});
-          transitionToSection(5);
+          continueAfterEmbroidery();
         },
         style: {
           width: "100%",
@@ -30703,7 +30763,7 @@ function Configurator2() {
       },
       "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
     )
-  ), /* @__PURE__ */ import_react2.default.createElement(
+  ), doorUpholsteryAvailable && /* @__PURE__ */ import_react2.default.createElement(
     AccordionSection2,
     {
       number: 5,
@@ -31848,7 +31908,7 @@ function Configurator2() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
           setValidationErrors({ step5sub: "5b", message: "Pros\xEDm, vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("material");
@@ -31858,7 +31918,7 @@ function Configurator2() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && !doorLemovanie) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && !doorLemovanie) {
           setValidationErrors({ step5sub: "5c", message: "Pros\xEDm, vyberte lemovanie pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("lemovanie");
@@ -31868,7 +31928,7 @@ function Configurator2() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && doorWantsNasivka === null) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && doorWantsNasivka === null) {
           setValidationErrors({ step5sub: "5d", message: "Pros\xEDm, rozhodnite sa, \u010Di chcete n\xE1\u0161ivku na dverov\xE9 panely." });
           setOpenSection(5);
           setDoorStep5Sub("nasivky");
@@ -31878,7 +31938,7 @@ function Configurator2() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && doorWantsNasivka === true && !doorNasivka) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && doorWantsNasivka === true && !doorNasivka) {
           setValidationErrors({ step5sub: "5d", message: "Pros\xEDm, vyberte n\xE1\u0161ivku na dverov\xE9 panely." });
           setOpenSection(5);
           setDoorStep5Sub("nasivky");
@@ -31888,7 +31948,7 @@ function Configurator2() {
           }, 450);
           return;
         }
-        if (doorPanelChoice === "ano" && doorNasivka && !doorNitColor) {
+        if (doorUpholsteryAvailable && doorPanelChoice === "ano" && doorNasivka && !doorNitColor) {
           setValidationErrors({ step5sub: "5d", doorNitColor: true, message: "Pros\xEDm, vyberte farbu nite pre dverov\xFA n\xE1\u0161ivku." });
           setOpenSection(5);
           setDoorStep5Sub("nasivky");
@@ -31911,16 +31971,16 @@ function Configurator2() {
           nasivkyPlacement,
           selectedStredNasivka,
           selectedStredNitColor,
-          doorPanelChoice,
-          doorMaterial,
-          doorColor,
-          doorLemovanie,
-          doorWantsNasivka,
-          doorNasivka,
-          doorNitColor,
-          doorSameAsCarpet,
-          doorSameNitAsCarpet,
-          doorSameNasivkaAsCarpet
+          doorPanelChoice: doorUpholsteryAvailable ? doorPanelChoice : null,
+          doorMaterial: doorUpholsteryAvailable ? doorMaterial : null,
+          doorColor: doorUpholsteryAvailable ? doorColor : null,
+          doorLemovanie: doorUpholsteryAvailable ? doorLemovanie : null,
+          doorWantsNasivka: doorUpholsteryAvailable ? doorWantsNasivka : null,
+          doorNasivka: doorUpholsteryAvailable ? doorNasivka : null,
+          doorNitColor: doorUpholsteryAvailable ? doorNitColor : null,
+          doorSameAsCarpet: doorUpholsteryAvailable ? doorSameAsCarpet : { material: false, lemovanie: false },
+          doorSameNitAsCarpet: doorUpholsteryAvailable ? doorSameNitAsCarpet : false,
+          doorSameNasivkaAsCarpet: doorUpholsteryAvailable ? doorSameNasivkaAsCarpet : false
         };
         try {
           syncToShoptet2(finalConfiguration);
