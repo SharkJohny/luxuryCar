@@ -1707,6 +1707,34 @@ function isTruckConfiguratorPage() {
 function mountTruckConfigurator() {
   $("body").addClass("is-truck-konfigurator");
 
+  // Nadpis konfigurátoru patří k nativním produktovým fotografiím Shoptetu.
+  // Vkládáme ho přímo před jejich galerii, aby byl na desktopu i mobilu vždy
+  // ve správném pořadí a React konfigurátor si nevytvářel vlastní galerii.
+  const ensureTruckGalleryHeading = () => {
+    if (document.getElementById("truck-gallery-heading")) return;
+
+    const $gallery = $(".p-image-wrapper .p-image").first();
+    if (!$gallery.length) return;
+
+    const isCzechShop = /\.cz$/i.test(window.location.hostname || "");
+    const $heading = $("<div>", {
+      id: "truck-gallery-heading",
+      class: "truck-gallery-heading",
+    });
+
+    $("<div>", { class: "truck-gallery-heading__brand", text: "LUXURY CAR DESIGN" }).appendTo($heading);
+    $("<div>", {
+      class: "truck-gallery-heading__title",
+      text: isCzechShop ? "LUXUSNÍ AUTOKOBERCE" : "LUXUSNÉ AUTOKOBERCE",
+    }).appendTo($heading);
+    $("<div>", {
+      class: "truck-gallery-heading__subtitle",
+      text: "DRAGONSKIN BASIC DIAMOND LINE",
+    }).appendTo($heading);
+
+    $heading.insertBefore($gallery);
+  };
+
   // Verbose log pre vývoj – každá zmena stavu konfigurátora vypíše
   // rozpis ceny do konzoly. Na produkcii vypnuté (iba na localhoste).
   try {
@@ -1723,6 +1751,8 @@ function mountTruckConfigurator() {
   } catch (e) { /* ignore */ }
 
   const placeMountNode = () => {
+    ensureTruckGalleryHeading();
+
     const $host = $(".col-xs-12.col-lg-6.p-info-wrapper").first().length
       ? $(".col-xs-12.col-lg-6.p-info-wrapper").first()
       : $(".p-info-wrapper").first();

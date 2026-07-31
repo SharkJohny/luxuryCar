@@ -24568,20 +24568,20 @@ var import_react = __toESM(require_react());
 
 // assets/js/truck-konfigurator/order-summary.mjs
 var EXTRA_LABELS = {
-  prevodovka: "Prevodovka",
-  sedadlo: "Sedadlo spolujazdca",
-  zasuvky: "Po\u010Det z\xE1suviek",
-  brzda: "Parkovacia brzda",
-  podlaha: "Podlaha"
+  prevodovka: "Transmission",
+  sedadlo: "Passenger seat",
+  zasuvky: "Number of drawers",
+  brzda: "Parking brake",
+  podlaha: "Floor"
 };
 var PLACEMENT_LABELS = {
-  nechcem: "Bez n\xE1\u0161iviek",
-  stred: "Len stred",
-  boky: "\u0160of\xE9r + spolujazdec",
-  "boky+stred": "\u0160of\xE9r + spolujazdec + stred"
+  nechcem: "No embroidery",
+  stred: "Centre only",
+  boky: "Driver + passenger",
+  "boky+stred": "Driver + passenger + centre"
 };
-var SUMMARY_START = "[TRUCK KONFIGUR\xC1CIA]";
-var SUMMARY_END = "[/TRUCK KONFIGUR\xC1CIA]";
+var SUMMARY_START = "[TRUCK CONFIGURATION]";
+var SUMMARY_END = "[/TRUCK CONFIGURATION]";
 function selectedText(value, preferName = false) {
   if (!value) return "";
   if (typeof value === "string") return value;
@@ -24595,34 +24595,37 @@ function addLine(lines, label, value) {
 function buildTruckOrderSummary(state) {
   const s = state || {};
   const lines = [];
-  addLine(lines, "Vozidlo", [s.znacka, s.model].filter(Boolean).join(" "));
+  addLine(lines, "Vehicle", [s.znacka, s.model].filter(Boolean).join(" "));
   Object.keys(EXTRA_LABELS).forEach((key) => {
     addLine(lines, EXTRA_LABELS[key], s.extras && s.extras[key]);
   });
   const carpetColor = selectedText(s.selectedColor);
-  addLine(lines, "Materi\xE1l kobercov", s.selectedMaterial);
-  addLine(lines, "Farba kobercov", carpetColor);
-  addLine(lines, "Lemovanie kobercov", selectedText(s.selectedLemovanie, true));
-  addLine(lines, "Umiestnenie n\xE1\u0161iviek", PLACEMENT_LABELS[s.nasivkyPlacement]);
+  if (lines.length) lines.push("");
+  addLine(lines, "Carpet material", s.selectedMaterial);
+  addLine(lines, "Carpet colour", carpetColor);
+  addLine(lines, "Carpet edging", selectedText(s.selectedLemovanie, true));
+  lines.push("");
+  addLine(lines, "Embroidery placement", PLACEMENT_LABELS[s.nasivkyPlacement]);
   if (s.selectedNasivka) {
-    addLine(lines, "N\xE1\u0161ivka \u0161of\xE9r + spolujazdec", selectedText(s.selectedNasivka));
-    addLine(lines, "Ni\u0165 \u0161of\xE9r + spolujazdec", selectedText(s.selectedNitColor, true));
+    addLine(lines, "Driver + passenger embroidery code", selectedText(s.selectedNasivka));
+    addLine(lines, "Driver + passenger thread", selectedText(s.selectedNitColor, true));
   }
   if (s.selectedStredNasivka) {
-    addLine(lines, "Stredov\xE1 n\xE1\u0161ivka", selectedText(s.selectedStredNasivka));
-    addLine(lines, "Ni\u0165 stredovej n\xE1\u0161ivky", selectedText(s.selectedStredNitColor, true));
+    addLine(lines, "Centre embroidery code", selectedText(s.selectedStredNasivka));
+    addLine(lines, "Centre embroidery thread", selectedText(s.selectedStredNitColor, true));
   }
   const wantsDoorPanels = s.doorPanelChoice === true || s.doorPanelChoice === "ano";
-  addLine(lines, "Tapac\xEDr dver\xED", wantsDoorPanels ? "\xC1no" : "Nie");
+  lines.push("");
+  addLine(lines, "Door upholstery", wantsDoorPanels ? "Yes" : "No");
   if (wantsDoorPanels) {
-    addLine(lines, "Materi\xE1l dver\xED", s.doorMaterial);
-    addLine(lines, "Farba dver\xED", selectedText(s.doorColor));
-    addLine(lines, "Lemovanie dver\xED", selectedText(s.doorLemovanie, true));
+    addLine(lines, "Door upholstery material", s.doorMaterial);
+    addLine(lines, "Door upholstery colour", selectedText(s.doorColor));
+    addLine(lines, "Door upholstery edging", selectedText(s.doorLemovanie, true));
     const wantsDoorPatch = s.doorWantsNasivka === true;
-    addLine(lines, "N\xE1\u0161ivka na dver\xE1ch", wantsDoorPatch ? "\xC1no" : "Nie");
+    addLine(lines, "Door embroidery", wantsDoorPatch ? "Yes" : "No");
     if (wantsDoorPatch) {
-      addLine(lines, "Druh n\xE1\u0161ivky na dver\xE1ch", selectedText(s.doorNasivka));
-      addLine(lines, "Ni\u0165 n\xE1\u0161ivky na dver\xE1ch", selectedText(s.doorNitColor, true));
+      addLine(lines, "Door embroidery code", selectedText(s.doorNasivka));
+      addLine(lines, "Door embroidery thread", selectedText(s.doorNitColor, true));
     }
   }
   return lines.join("\n");
@@ -24637,7 +24640,9 @@ function persistTruckOrderSummary(state) {
 function mergeTruckOrderSummaryIntoNote(currentNote, summary) {
   const escapedStart = SUMMARY_START.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const escapedEnd = SUMMARY_END.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const withoutOldSummary = String(currentNote || "").replace(new RegExp(`${escapedStart}[\\s\\S]*?${escapedEnd}`, "g"), "").trim();
+  const legacyStart = "[TRUCK KONFIGUR\xC1CIA]".replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const legacyEnd = "[/TRUCK KONFIGUR\xC1CIA]".replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const withoutOldSummary = String(currentNote || "").replace(new RegExp(`${escapedStart}[\\s\\S]*?${escapedEnd}`, "g"), "").replace(new RegExp(`${legacyStart}[\\s\\S]*?${legacyEnd}`, "g"), "").trim();
   if (!summary) return withoutOldSummary;
   const block = `${SUMMARY_START}
 ${summary}
@@ -25154,7 +25159,11 @@ var NITE_FARBY = [
 function detectLang() {
   if (typeof window === "undefined") return "sk";
   try {
-    const dl = window.dataLayer && window.dataLayer[0] && window.dataLayer[0].shoptet;
+    const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+    if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return "cs";
+    if (hostname === "luxurycardesign.sk" || hostname.endsWith(".luxurycardesign.sk")) return "sk";
+    const dlEntry = Array.isArray(window.dataLayer) ? window.dataLayer.find((entry) => entry && entry.shoptet) : null;
+    const dl = dlEntry && dlEntry.shoptet;
     if (!dl) return "sk";
     if (String(dl.projectId) === "704436") return "cs";
     if (dl.language === "cs" || dl.language === "sk" || dl.language === "pl") {
@@ -26021,25 +26030,11 @@ function Configurator() {
   const handleExtraChange = (key, val) => {
     setExtras((prev) => ({ ...prev, [key]: val }));
   };
-  const [activePhoto, setActivePhoto] = useState(0);
-  const productPhotos = [
-    { label: "", icon: "\u{1F69B}", desc: "" },
-    { label: "", icon: "\u{1F6AA}", desc: "" },
-    { label: "", icon: "\u{1F9F5}", desc: "" }
-  ];
   return /* @__PURE__ */ import_react.default.createElement("div", { style: { maxWidth: 1280, margin: "0 auto", padding: "20px 20px", fontFamily: "'Segoe UI', Arial, sans-serif" } }, /* @__PURE__ */ import_react.default.createElement("style", null, `
         .konfig-layout {
           display: flex;
           gap: 30px;
           align-items: flex-start;
-        }
-        .konfig-left {
-          flex: 1 1 420px;
-          min-width: 320px;
-          max-width: 560px;
-          position: sticky;
-          top: 20px;
-          z-index: 1;
         }
         .konfig-right {
           flex: 1 1 480px;
@@ -26051,12 +26046,6 @@ function Configurator() {
           .konfig-layout {
             flex-direction: column;
           }
-          .konfig-left {
-            position: static !important;
-            max-width: 100% !important;
-            min-width: 0 !important;
-            width: 100%;
-          }
           .konfig-right {
             min-width: 0 !important;
             width: 100%;
@@ -26066,7 +26055,7 @@ function Configurator() {
           0%, 100% { box-shadow: 0 6px 24px rgba(76,175,80,0.5); }
           50% { box-shadow: 0 0 32px rgba(76,175,80,0.85), 0 6px 24px rgba(76,175,80,0.55); }
         }
-      `), /* @__PURE__ */ import_react.default.createElement("div", { style: { textAlign: "center", marginBottom: 24 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 13, color: "#C5A44E", fontWeight: 700, letterSpacing: 3, marginBottom: 4 } }, "LUXURY CAR DESIGN"), /* @__PURE__ */ import_react.default.createElement("h1", { style: { margin: 0, fontSize: 24, color: "#333", fontWeight: 300 } }, "LUXUSN\xC9 AUTOKOBERCE"), /* @__PURE__ */ import_react.default.createElement("h2", { style: { margin: "4px 0 0", fontSize: 18, color: "#C5A44E", fontWeight: 300 } }, "DRAGONSKIN BASIC DIAMOND LINE")), /* @__PURE__ */ import_react.default.createElement("div", { className: "konfig-layout" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "konfig-right" }, /* @__PURE__ */ import_react.default.createElement(
+      `), /* @__PURE__ */ import_react.default.createElement("div", { className: "konfig-layout" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "konfig-right" }, /* @__PURE__ */ import_react.default.createElement(
     AccordionSection,
     {
       number: 1,
@@ -26119,11 +26108,20 @@ function Configurator() {
         }
       );
     }),
-    step1Done && /* @__PURE__ */ import_react.default.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!step1Done) {
+            setValidationErrors({
+              step1: true,
+              step1Msg: "Vyberte zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla",
+              message: "Dopl\u0148te zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla."
+            });
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(2);
         },
         style: {
@@ -26219,11 +26217,21 @@ function Configurator() {
         ),
         /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, fontWeight: 600, textAlign: "center", padding: "5px 2px", color: "#555", background: isActive ? "#fdf8ec" : "#f5f5f5" } }, swatch.code)
       );
-    })), selectedColor && /* @__PURE__ */ import_react.default.createElement(
+    }))),
+    /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!selectedMaterial || !selectedColor) {
+            setValidationErrors({
+              step2: true,
+              step2Msg: "Vyberte materi\xE1l a farbu koberca",
+              message: "Vyberte materi\xE1l a farbu kobercov."
+            });
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(3);
         },
         style: {
@@ -26241,7 +26249,7 @@ function Configurator() {
         }
       },
       "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
-    )),
+    ),
     selectedColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 20, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 400, height: 400, borderRadius: 8, overflow: "hidden", maxWidth: "100%", position: "relative" } }, /* @__PURE__ */ import_react.default.createElement(
       "img",
       {
@@ -26319,11 +26327,20 @@ function Configurator() {
       fontWeight: 700,
       color: "#333"
     } }, selectedLemovanie.code, ". ", selectedLemovanie.name))),
-    selectedLemovanie && /* @__PURE__ */ import_react.default.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!selectedLemovanie) {
+            setValidationErrors({
+              step3: true,
+              step3Msg: "Vyberte typ lemovania",
+              message: "Vyberte farbu lemovania kobercov."
+            });
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(4);
         },
         style: {
@@ -26341,7 +26358,7 @@ function Configurator() {
           fontStyle: "italic"
         }
       },
-      "Pokra\u010Dova\u0165"
+      "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
     )
   ), /* @__PURE__ */ import_react.default.createElement(
     AccordionSection,
@@ -26533,11 +26550,11 @@ function Configurator() {
           }
         },
         /* @__PURE__ */ import_react.default.createElement("span", null, isActive && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), opt.label),
-        /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " $", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
+        /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
           fontSize: 18,
           fontWeight: 800,
           color: opt.price > 0 ? "#2E1810" : "#888"
-        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " $", CURRENCY))
+        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " ", CURRENCY))
       );
     })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
@@ -26930,11 +26947,27 @@ function Configurator() {
         }
       }
     ), selectedStredNasivka && !stredSameAsSide && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-stred-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code, " \xB7 ni\u0165: ", selectedStredNitColor.name))), selectedStredNasivka && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg4c", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat4c", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg4c)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 325 250 Q 390 185 505 170 L 680 170 Q 745 170 810 220 L 840 245 Q 860 255 900 255 Q 940 255 960 245 L 990 220 Q 1055 170 1120 170 L 1295 170 Q 1410 185 1475 250 Q 1510 290 1515 365 L 1555 865 Q 1560 950 1490 1005 Q 1445 1040 1330 1040 L 470 1040 Q 355 1040 310 1005 Q 240 950 245 865 L 285 365 Q 290 290 325 250 Z", fill: "url(#mat4c)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 720 182 Q 785 240 785 330 Q 790 375 835 390 L 965 390 Q 1010 375 1015 330 Q 1015 240 1080 182", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), selectedNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "355", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "515", y: "435", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA A"), /* @__PURE__ */ import_react.default.createElement("text", { x: "515", y: "478", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "horn\xE1 \u013Eav\xE1 n\xE1\u0161ivka / logo")), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1120", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), selectedNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "1145", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1305", y: "435", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA B"), /* @__PURE__ */ import_react.default.createElement("text", { x: "1305", y: "478", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "horn\xE1 prav\xE1 n\xE1\u0161ivka / logo")), /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedStredPreview || selectedStredNasivka.thumb, x: "740", y: "510", width: "320", height: "270", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "470", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1325", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"))))))),
-    nasivkyPlacement && nasivkyPlacement !== "nechcem" && (nasivkyPlacement === "boky" && selectedNasivka || nasivkyPlacement === "stred" && selectedStredNasivka || nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka) && /* @__PURE__ */ import_react.default.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!nasivkyPlacement) {
+            setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie n\xE1\u0161iviek." });
+            setStep4Sub("placement");
+            return;
+          }
+          if ((nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && (!selectedNasivka || !selectedNitColor)) {
+            setValidationErrors({ step4sub: "4b", message: "Vyberte n\xE1\u0161ivku a farbu nite pre \u0161of\xE9ra a spolujazdca." });
+            setStep4Sub("boky");
+            return;
+          }
+          if ((nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred") && (!selectedStredNasivka || !selectedStredNitColor)) {
+            setValidationErrors({ step4sub: "4c", message: "Vyberte stredov\xFA n\xE1\u0161ivku a farbu nite." });
+            setStep4Sub("stred");
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(5);
         },
         style: {
@@ -26960,10 +26993,10 @@ function Configurator() {
     AccordionSection,
     {
       number: 5,
-      title: "V\xFDplne dverov\xFDch panelov",
+      title: "Tapac\xEDr dver\xED",
       error: false,
       errorMessage: null,
-      subtitle: doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " \u2013 " + doorColor.code : ""}${doorNasivka ? " \xB7 " + doorNasivka.code + (doorNitColor ? " (ni\u0165: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez v\xFDpln\xED" : null,
+      subtitle: doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " \u2013 " + doorColor.code : ""}${doorNasivka ? " \xB7 " + doorNasivka.code + (doorNitColor ? " (ni\u0165: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez tapac\xEDru" : null,
       open: openSection === 5,
       done: doorPanelChoice !== null,
       onClick: () => {
@@ -27006,7 +27039,7 @@ function Configurator() {
         }
       },
       /* @__PURE__ */ import_react.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/A"),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Prajete si v\xFDplne dver\xED?"), doorStep5Sub !== "choice" && doorPanelChoice && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorPanelChoice === "ano" ? "\xC1no, prajem si v\xFDplne dver\xED" : "\u010Eakujem, nie")),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Prajete si tapac\xEDr dver\xED?"), doorStep5Sub !== "choice" && doorPanelChoice && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorPanelChoice === "ano" ? "\xC1no, prajem si tapac\xEDr dver\xED" : "\u010Eakujem, nie")),
       doorPanelChoice && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "choice" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: {
@@ -27031,7 +27064,7 @@ function Configurator() {
       display: "flex",
       alignItems: "center",
       gap: 12
-    } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 22 } }, "\u2753"), /* @__PURE__ */ import_react.default.createElement("span", null, "Prajete si v\xFDplne do dverov\xFDch panelov?")), /* @__PURE__ */ import_react.default.createElement(
+    } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 22 } }, "\u2753"), /* @__PURE__ */ import_react.default.createElement("span", null, "Prajete si tapac\xEDr dver\xED?")), /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
         onClick: () => {
@@ -27078,7 +27111,7 @@ function Configurator() {
         textTransform: "uppercase",
         whiteSpace: "nowrap"
       } }, "\u2B50 Ob\u013E\xFAben\xE1 vo\u013Eba"),
-      /* @__PURE__ */ import_react.default.createElement("span", null, doorPanelChoice === "ano" && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "\xC1no, prajem si v\xFDplne dver\xED"),
+      /* @__PURE__ */ import_react.default.createElement("span", null, doorPanelChoice === "ano" && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "\xC1no, prajem si tapac\xEDr dver\xED"),
       /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.TAPACIR_SAMO, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", PRICES.TAPACIR_BUNDLE, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
         fontSize: 10,
         fontWeight: 800,
@@ -27145,7 +27178,7 @@ function Configurator() {
         }
       },
       /* @__PURE__ */ import_react.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/B"),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Materi\xE1l a farba v\xFDpln\xED"), doorStep5Sub !== "material" && doorColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorSameAsCarpet.material ? `${doorMaterial} \u2013 ${doorColor.code} (rovnako ako Luxusn\xE9 autokoberce)` : `${doorMaterial} \u2013 ${doorColor.code}`)),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Materi\xE1l a farba tapac\xEDru"), doorStep5Sub !== "material" && doorColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorSameAsCarpet.material ? `${doorMaterial} \u2013 ${doorColor.code} (rovnako ako Luxusn\xE9 autokoberce)` : `${doorMaterial} \u2013 ${doorColor.code}`)),
       doorColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "material" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: {
@@ -27156,7 +27189,7 @@ function Configurator() {
       borderColor: doorStep5Sub === "material" ? "#e0d5b8" : "transparent",
       borderWidth: doorStep5Sub === "material" ? "0 2px 2px" : 0,
       borderRadius: "0 0 8px 8px"
-    } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: doorStep5Sub === "material" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F3A8}"), /* @__PURE__ */ import_react.default.createElement("span", null, "Vyberte materi\xE1l a farbu pre v\xFDplne dver\xED:")), selectedColor && /* @__PURE__ */ import_react.default.createElement(
+    } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: doorStep5Sub === "material" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F3A8}"), /* @__PURE__ */ import_react.default.createElement("span", null, "Vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED:")), selectedColor && /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
         onClick: () => {
@@ -27341,7 +27374,7 @@ function Configurator() {
         }
       },
       /* @__PURE__ */ import_react.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/C"),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Lemovanie v\xFDpln\xED"), doorStep5Sub !== "lemovanie" && doorLemovanie && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorLemovanie.name, doorSameAsCarpet.lemovanie ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Lemovanie tapac\xEDru"), doorStep5Sub !== "lemovanie" && doorLemovanie && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorLemovanie.name, doorSameAsCarpet.lemovanie ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
       doorLemovanie && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "lemovanie" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: {
@@ -27352,7 +27385,7 @@ function Configurator() {
       borderColor: doorStep5Sub === "lemovanie" ? "#e0d5b8" : "transparent",
       borderWidth: doorStep5Sub === "lemovanie" ? "0 2px 2px" : 0,
       borderRadius: "0 0 8px 8px"
-    } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: doorStep5Sub === "lemovanie" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react.default.createElement("span", null, "Vyberte farbu lemovania pre v\xFDplne dver\xED:")), selectedLemovanie && /* @__PURE__ */ import_react.default.createElement(
+    } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: doorStep5Sub === "lemovanie" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react.default.createElement("span", null, "Vyberte farbu lemovania pre tapac\xEDr dver\xED:")), selectedLemovanie && /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
         onClick: () => {
@@ -27815,11 +27848,37 @@ function Configurator() {
       }
     ),
     doorNasivka && doorNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-door-nasivka-preview-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, aspectRatio: "1/1", borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorNasivka.code, " \xB7 ni\u0165: ", doorNitColor.name))),
-    doorPanelChoice && /* @__PURE__ */ import_react.default.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (doorPanelChoice === null) {
+            setValidationErrors({ step5sub: "5a", message: "Vyberte, \u010Di si prajete tapac\xEDr dver\xED." });
+            setDoorStep5Sub("choice");
+            return;
+          }
+          if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
+            setValidationErrors({ step5sub: "5b", message: "Vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED." });
+            setDoorStep5Sub("material");
+            return;
+          }
+          if (doorPanelChoice === "ano" && !doorLemovanie) {
+            setValidationErrors({ step5sub: "5c", message: "Vyberte lemovanie pre tapac\xEDr dver\xED." });
+            setDoorStep5Sub("lemovanie");
+            return;
+          }
+          if (doorPanelChoice === "ano" && doorWantsNasivka === null) {
+            setValidationErrors({ step5sub: "5d", message: "Vyberte, \u010Di chcete n\xE1\u0161ivku na tapac\xEDr dver\xED." });
+            setDoorStep5Sub("nasivky");
+            return;
+          }
+          if (doorPanelChoice === "ano" && doorWantsNasivka && (!doorNasivka || !doorNitColor)) {
+            setValidationErrors({ step5sub: "5d", message: "Vyberte n\xE1\u0161ivku a farbu nite pre tapac\xEDr dver\xED." });
+            setDoorStep5Sub("nasivky");
+            return;
+          }
+          setValidationErrors({});
           setOpenSection(0);
           setTimeout(() => {
             const el = document.getElementById("konfig-suhrn");
@@ -28005,7 +28064,7 @@ function Configurator() {
           return;
         }
         if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
-          setValidationErrors({ step5sub: "5b", message: "Pros\xEDm, vyberte materi\xE1l a farbu dverov\xFDch panelov." });
+          setValidationErrors({ step5sub: "5b", message: "Pros\xEDm, vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("material");
           setTimeout(() => {
@@ -28015,7 +28074,7 @@ function Configurator() {
           return;
         }
         if (doorPanelChoice === "ano" && !doorLemovanie) {
-          setValidationErrors({ step5sub: "5c", message: "Pros\xEDm, vyberte lemovanie dverov\xFDch panelov." });
+          setValidationErrors({ step5sub: "5c", message: "Pros\xEDm, vyberte lemovanie pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("lemovanie");
           setTimeout(() => {
@@ -28601,7 +28660,7 @@ function AccordionSection2({ number, title, subtitle, open, done, onClick, child
     background: "#fff",
     borderRadius: error ? "0 0 7px 7px" : "0 0 8px 8px"
   } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { minHeight: 0, overflow: allowContentOverflow ? "visible" : "hidden" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
-    padding: open ? 24 : "0 24px",
+    padding: open ? "22px 16px" : "0 16px",
     opacity: open ? 1 : 0,
     transform: open ? "none" : "translateY(-6px)",
     transition: "padding 0.46s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, transform 0.3s ease"
@@ -28655,6 +28714,23 @@ var NITE_FARBY2 = [
   { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
   { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
 ];
+function detectCurrencySymbol() {
+  if (typeof window === "undefined") return "\u20AC";
+  try {
+    const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+    if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return "K\u010D";
+    if (hostname === "luxurycardesign.sk" || hostname.endsWith(".luxurycardesign.sk")) return "\u20AC";
+    const currencyMeta = typeof document !== "undefined" ? document.querySelector('meta[itemprop="priceCurrency"], meta[property="product:price:currency"]') : null;
+    const currencyCode = currencyMeta ? String(currencyMeta.getAttribute("content") || "").toUpperCase() : "";
+    if (currencyCode === "CZK" || currencyCode === "K\u010C") return "K\u010D";
+    const dlEntry = Array.isArray(window.dataLayer) ? window.dataLayer.find((entry) => entry && entry.shoptet) : null;
+    if (dlEntry && String(dlEntry.shoptet.projectId) === "704436") return "K\u010D";
+    if (dlEntry && dlEntry.shoptet.language === "cs") return "K\u010D";
+  } catch (e) {
+  }
+  return "\u20AC";
+}
+var CURRENCY2 = detectCurrencySymbol();
 var FALLBACK_PRICES2 = {
   BASE: 199,
   MATERIAL: {
@@ -28784,6 +28860,9 @@ function readShoptetPrices2(fallback) {
 }
 function calculatePrice2(state, PRICES) {
   const {
+    znacka,
+    model,
+    extras,
     selectedMaterial,
     selectedColor,
     selectedLemovanie,
@@ -28802,6 +28881,18 @@ function calculatePrice2(state, PRICES) {
   } = state;
   const breakdown = [];
   let total = PRICES.BASE;
+  const vehicleDetails = [znacka, model];
+  FIELD_ORDER2.forEach((key) => {
+    if (extras && extras[key]) vehicleDetails.push(`${FIELD_META2[key].label}: ${extras[key]}`);
+  });
+  if (vehicleDetails.some(Boolean)) {
+    breakdown.push({
+      label: "Vozidlo",
+      subLabel: vehicleDetails.filter(Boolean).join(" \xB7 "),
+      amount: 0,
+      type: "info"
+    });
+  }
   breakdown.push({ label: "Luxusn\xE9 autokoberce (z\xE1klad)", amount: PRICES.BASE, type: "base" });
   if (selectedMaterial && PRICES.MATERIAL[selectedMaterial] !== void 0) {
     const matPrice = PRICES.MATERIAL[selectedMaterial];
@@ -29130,6 +29221,9 @@ function Configurator2() {
     setPrices(fromDom);
   }, []);
   const pricing = useMemo2(() => calculatePrice2({
+    znacka,
+    model,
+    extras,
     selectedMaterial,
     selectedColor,
     selectedLemovanie,
@@ -29146,6 +29240,9 @@ function Configurator2() {
     doorNasivka,
     doorNitColor
   }, PRICES), [
+    znacka,
+    model,
+    extras,
     selectedMaterial,
     selectedColor,
     selectedLemovanie,
@@ -29457,7 +29554,7 @@ function Configurator2() {
       boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
       textTransform: "uppercase",
       whiteSpace: "nowrap"
-    } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+    }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
     /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12 } }, sameAsValue.thumb && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
       width: 56,
       height: 56,
@@ -29524,12 +29621,6 @@ function Configurator2() {
   const handleExtraChange = (key, val) => {
     setExtras((prev) => ({ ...prev, [key]: val }));
   };
-  const [activePhoto, setActivePhoto] = useState2(0);
-  const productPhotos = [
-    { label: "", img: NASIVKY2[0].full, desc: "" },
-    { label: "", img: DOOR_PANEL_PHOTO2, desc: "" },
-    { label: "", img: NASIVKY2[1].full, desc: "" }
-  ];
   return /* @__PURE__ */ import_react2.default.createElement("div", { style: { maxWidth: 480, margin: "0 auto", padding: "12px 12px calc(92px + env(safe-area-inset-bottom)) 12px", fontFamily: "'Segoe UI', Arial, sans-serif" } }, /* @__PURE__ */ import_react2.default.createElement("style", null, `
         .konfig-layout {
           display: flex;
@@ -29539,9 +29630,6 @@ function Configurator2() {
         }
         .konfig-suhrn-details[open] .konfig-suhrn-chevron {
           transform: rotate(90deg);
-        }
-        .konfig-left {
-          width: 100%;
         }
         .konfig-right {
           width: 100%;
@@ -29564,116 +29652,7 @@ function Configurator2() {
           display: flex; align-items: center; gap: 10px;
           box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
         }
-      `), /* @__PURE__ */ import_react2.default.createElement("div", { style: { textAlign: "center", marginBottom: 14 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, color: "#C5A44E", fontWeight: 700, letterSpacing: 2, marginBottom: 2 } }, "LUXURY CAR DESIGN"), /* @__PURE__ */ import_react2.default.createElement("h1", { style: { margin: 0, fontSize: 20, color: "#333", fontWeight: 400 } }, "LUXUSN\xC9 AUTOKOBERCE"), /* @__PURE__ */ import_react2.default.createElement("h2", { style: { margin: "2px 0 0", fontSize: 13, color: "#C5A44E", fontWeight: 400 } }, "DRAGONSKIN BASIC DIAMOND LINE")), /* @__PURE__ */ import_react2.default.createElement("div", { className: "konfig-layout" }, /* @__PURE__ */ import_react2.default.createElement("div", { className: "konfig-left" }, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
-    width: "100%",
-    aspectRatio: "16/10",
-    borderRadius: 10,
-    overflow: "hidden",
-    border: "2px solid #C5A44E",
-    background: "#1a1a1a",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative"
-  } }, /* @__PURE__ */ import_react2.default.createElement(
-    "img",
-    {
-      src: productPhotos[activePhoto].img,
-      alt: productPhotos[activePhoto].label,
-      style: {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        display: "block"
-      },
-      onError: (e) => {
-        e.target.style.display = "none";
-      }
-    }
-  ), /* @__PURE__ */ import_react2.default.createElement(
-    "div",
-    {
-      onClick: () => setActivePhoto((activePhoto - 1 + productPhotos.length) % productPhotos.length),
-      style: {
-        position: "absolute",
-        left: 6,
-        top: "50%",
-        transform: "translateY(-50%)",
-        width: 44,
-        height: 44,
-        borderRadius: "50%",
-        background: "rgba(0,0,0,0.65)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-        color: "#fff",
-        fontSize: 22,
-        fontWeight: 700
-      }
-    },
-    "\u2039"
-  ), /* @__PURE__ */ import_react2.default.createElement(
-    "div",
-    {
-      onClick: () => setActivePhoto((activePhoto + 1) % productPhotos.length),
-      style: {
-        position: "absolute",
-        right: 6,
-        top: "50%",
-        transform: "translateY(-50%)",
-        width: 44,
-        height: 44,
-        borderRadius: "50%",
-        background: "rgba(0,0,0,0.65)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-        color: "#fff",
-        fontSize: 22,
-        fontWeight: 700
-      }
-    },
-    "\u203A"
-  ), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
-    position: "absolute",
-    bottom: 8,
-    left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    gap: 6
-  } }, productPhotos.map((_, i) => /* @__PURE__ */ import_react2.default.createElement("div", { key: i, style: {
-    width: i === activePhoto ? 22 : 8,
-    height: 8,
-    borderRadius: 4,
-    background: i === activePhoto ? "#C5A44E" : "rgba(255,255,255,0.35)",
-    transition: "all 0.2s"
-  } })))), /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", gap: 6, marginTop: 8 } }, productPhotos.map((photo, i) => /* @__PURE__ */ import_react2.default.createElement(
-    "div",
-    {
-      key: i,
-      onClick: () => setActivePhoto(i),
-      style: {
-        flex: 1,
-        height: 56,
-        borderRadius: 6,
-        overflow: "hidden",
-        cursor: "pointer",
-        border: i === activePhoto ? "2px solid #C5A44E" : "1px solid #333",
-        background: "#1a1a1a",
-        transition: "all 0.2s"
-      }
-    },
-    /* @__PURE__ */ import_react2.default.createElement(
-      "img",
-      {
-        src: photo.img,
-        alt: photo.label,
-        style: { width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: i === activePhoto ? 1 : 0.7 }
-      }
-    )
-  )))), /* @__PURE__ */ import_react2.default.createElement("div", { className: "konfig-right" }, /* @__PURE__ */ import_react2.default.createElement(
+      `), /* @__PURE__ */ import_react2.default.createElement("div", { className: "konfig-layout" }, /* @__PURE__ */ import_react2.default.createElement("div", { className: "konfig-right" }, /* @__PURE__ */ import_react2.default.createElement(
     AccordionSection2,
     {
       number: 1,
@@ -29726,11 +29705,20 @@ function Configurator2() {
         }
       );
     }),
-    step1Done && /* @__PURE__ */ import_react2.default.createElement(
+    /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!step1Done) {
+            setValidationErrors({
+              step1: true,
+              step1Msg: "Vyberte zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla",
+              message: "Dopl\u0148te zna\u010Dku, model a \u0161pecifik\xE1ciu vozidla."
+            });
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(2);
         },
         style: {
@@ -29815,7 +29803,7 @@ function Configurator2() {
           fontWeight: 800,
           color: PRICES.MATERIAL[matName] > 0 ? "#C5A44E" : "#666",
           marginTop: 2
-        } }, PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} \u20AC` : "v cene"))
+        } }, PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} ${CURRENCY2}` : "v cene"))
       );
     })),
     selectedMaterial && /* @__PURE__ */ import_react2.default.createElement(import_react2.default.Fragment, null, /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-color-picker", style: { scrollMarginTop: 20, fontSize: 15, fontWeight: 700, color: "#2E1810", marginTop: 20, marginBottom: 12, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 17 } }, "\u{1F3A8}"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Vyberte farbu materi\xE1lu:")), /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 16, justifyContent: "center" } }, MATERIALS2[selectedMaterial].map((swatch) => {
@@ -29845,11 +29833,21 @@ function Configurator2() {
         ),
         /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 10, fontWeight: 600, textAlign: "center", padding: "4px 0", color: "#555", background: isActive ? "#fdf8ec" : "#f5f5f5" } }, swatch.code)
       );
-    })), selectedColor && /* @__PURE__ */ import_react2.default.createElement(
+    }))),
+    /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!selectedMaterial || !selectedColor) {
+            setValidationErrors({
+              step2: true,
+              step2Msg: "Vyberte materi\xE1l a farbu koberca",
+              message: "Vyberte materi\xE1l a farbu kobercov."
+            });
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(3);
         },
         style: {
@@ -29866,8 +29864,8 @@ function Configurator2() {
           fontStyle: "italic"
         }
       },
-      "Pokra\u010Dova\u0165"
-    )),
+      "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
+    ),
     selectedColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 20, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "70%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 400, position: "relative" } }, /* @__PURE__ */ import_react2.default.createElement(
       "img",
       {
@@ -29954,12 +29952,21 @@ function Configurator2() {
       fontWeight: 700,
       color: "#333"
     } }, selectedLemovanie.code, ". ", selectedLemovanie.name))),
-    selectedLemovanie && /* @__PURE__ */ import_react2.default.createElement(
+    /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
         id: "konfig-lemovanie-pokracovat",
         onClick: () => {
+          if (!selectedLemovanie) {
+            setValidationErrors({
+              step3: true,
+              step3Msg: "Vyberte typ lemovania",
+              message: "Vyberte farbu lemovania kobercov."
+            });
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(4);
         },
         style: {
@@ -30104,9 +30111,9 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, nasivkyPlacement === "boky+stred" && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\u0160of\xE9r + spolujazdec + stred"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.NASIVKY["boky+stred"], " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.NASIVKY["boky+stred"], " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
         fontSize: 11,
         fontWeight: 900,
         color: "#fff",
@@ -30115,7 +30122,7 @@ function Configurator2() {
         borderRadius: 12,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\xDASPORA ", PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"], " \u20AC"))
+      } }, "\xDASPORA ", PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"], " ", CURRENCY2))
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 10 } }, [
       { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky, rrp: PRICES.NASIVKY_SAMO.boky },
       { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred, rrp: PRICES.NASIVKY_SAMO.stred },
@@ -30169,11 +30176,11 @@ function Configurator2() {
           }
         },
         /* @__PURE__ */ import_react2.default.createElement("span", null, isActive && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), opt.label),
-        /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+        /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
           fontSize: 18,
           fontWeight: 800,
           color: opt.price > 0 ? "#2E1810" : "#888"
-        } }, opt.price > 0 ? `+ ${opt.price} \u20AC` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " \u20AC"))
+        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY2}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " ", CURRENCY2))
       );
     })))), false),
     (nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && /* @__PURE__ */ import_react2.default.createElement(import_react2.default.Fragment, null, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30411,7 +30418,7 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12 } }, selectedNasivka.thumb && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
         width: 56,
         height: 56,
@@ -30520,11 +30527,27 @@ function Configurator2() {
         }
       }
     ), selectedStredNasivka && !stredSameAsSide && selectedStredNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-stred-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code, " \xB7 ni\u0165: ", selectedStredNitColor.name))), false)))),
-    nasivkyPlacement && nasivkyPlacement !== "nechcem" && (nasivkyPlacement === "boky" && selectedNasivka || nasivkyPlacement === "stred" && selectedStredNasivka || nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka) && /* @__PURE__ */ import_react2.default.createElement(
+    /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (!nasivkyPlacement) {
+            setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie n\xE1\u0161iviek." });
+            setStep4Sub("placement");
+            return;
+          }
+          if ((nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && (!selectedNasivka || !selectedNitColor)) {
+            setValidationErrors({ step4sub: "4b", message: "Vyberte n\xE1\u0161ivku a farbu nite pre \u0161of\xE9ra a spolujazdca." });
+            setStep4Sub("boky");
+            return;
+          }
+          if ((nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred") && (!selectedStredNasivka || !selectedStredNitColor)) {
+            setValidationErrors({ step4sub: "4c", message: "Vyberte stredov\xFA n\xE1\u0161ivku a farbu nite." });
+            setStep4Sub("stred");
+            return;
+          }
+          setValidationErrors({});
           transitionToSection(5);
         },
         style: {
@@ -30550,10 +30573,10 @@ function Configurator2() {
     AccordionSection2,
     {
       number: 5,
-      title: "V\xFDplne dverov\xFDch panelov",
+      title: "Tapac\xEDr dver\xED",
       error: false,
       errorMessage: null,
-      subtitle: doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " \u2013 " + doorColor.code : ""}${doorNasivka ? " \xB7 " + doorNasivka.code + (doorNitColor ? " (ni\u0165: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez v\xFDpln\xED" : null,
+      subtitle: doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " \u2013 " + doorColor.code : ""}${doorNasivka ? " \xB7 " + doorNasivka.code + (doorNitColor ? " (ni\u0165: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez tapac\xEDru" : null,
       open: openSection === 5,
       done: doorPanelChoice !== null,
       onClick: () => {
@@ -30596,7 +30619,7 @@ function Configurator2() {
         }
       },
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/A"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Prajete si v\xFDplne dver\xED?"), doorStep5Sub !== "choice" && doorPanelChoice && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorPanelChoice === "ano" ? "\xC1no, prajem si v\xFDplne dver\xED" : "\u010Eakujem, nie")),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Prajete si tapac\xEDr dver\xED?"), doorStep5Sub !== "choice" && doorPanelChoice && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorPanelChoice === "ano" ? "\xC1no, prajem si tapac\xEDr dver\xED" : "\u010Eakujem, nie")),
       doorPanelChoice && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "choice" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30623,7 +30646,7 @@ function Configurator2() {
       justifyContent: "center",
       gap: 10,
       textAlign: "center"
-    } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 22, color: "#CC0000", lineHeight: 1, flexShrink: 0 } }, "\u2753"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Prajete si v\xFDplne tapac\xEDrov dver\xED ?")), /* @__PURE__ */ import_react2.default.createElement(
+    } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 22, color: "#CC0000", lineHeight: 1, flexShrink: 0 } }, "\u2753"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Prajete si tapac\xEDr dver\xED?")), /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
         onClick: () => {
@@ -30660,9 +30683,9 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, doorPanelChoice === "ano" && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\xC1no, prajem si v\xFDplne dver\xED"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.TAPACIR_SAMO, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.TAPACIR_BUNDLE, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, doorPanelChoice === "ano" && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\xC1no, prajem si tapac\xEDr dver\xED"),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.TAPACIR_SAMO, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.TAPACIR_BUNDLE, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
         fontSize: 11,
         fontWeight: 900,
         color: "#fff",
@@ -30671,7 +30694,7 @@ function Configurator2() {
         borderRadius: 12,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\xDASPORA ", PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE, " \u20AC"))
+      } }, "\xDASPORA ", PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE, " ", CURRENCY2))
     ), /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
@@ -30727,7 +30750,7 @@ function Configurator2() {
         }
       },
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/B"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Materi\xE1l a farba v\xFDpln\xED"), doorStep5Sub !== "material" && doorColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorSameAsCarpet.material ? `${doorMaterial} \u2013 ${doorColor.code} (rovnako ako Luxusn\xE9 autokoberce)` : `${doorMaterial} \u2013 ${doorColor.code}`)),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Materi\xE1l a farba tapac\xEDru"), doorStep5Sub !== "material" && doorColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorSameAsCarpet.material ? `${doorMaterial} \u2013 ${doorColor.code} (rovnako ako Luxusn\xE9 autokoberce)` : `${doorMaterial} \u2013 ${doorColor.code}`)),
       doorColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "material" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30738,7 +30761,7 @@ function Configurator2() {
       borderColor: doorStep5Sub === "material" ? "#e0d5b8" : "transparent",
       borderWidth: doorStep5Sub === "material" ? "0 2px 2px" : 0,
       borderRadius: "0 0 8px 8px"
-    } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: doorStep5Sub === "material" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F3A8}"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Vyberte materi\xE1l a farbu pre v\xFDplne dver\xED:")), selectedColor && /* @__PURE__ */ import_react2.default.createElement(
+    } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: doorStep5Sub === "material" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F3A8}"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED:")), selectedColor && /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
         onClick: () => {
@@ -30788,7 +30811,7 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12 } }, selectedColor.swatch && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
         width: 56,
         height: 56,
@@ -30931,7 +30954,7 @@ function Configurator2() {
         }
       },
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/C"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Lemovanie v\xFDpln\xED"), doorStep5Sub !== "lemovanie" && doorLemovanie && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorLemovanie.name, doorSameAsCarpet.lemovanie ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Lemovanie tapac\xEDru"), doorStep5Sub !== "lemovanie" && doorLemovanie && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorLemovanie.name, doorSameAsCarpet.lemovanie ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
       doorLemovanie && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "lemovanie" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30942,7 +30965,7 @@ function Configurator2() {
       borderColor: doorStep5Sub === "lemovanie" ? "#e0d5b8" : "transparent",
       borderWidth: doorStep5Sub === "lemovanie" ? "0 2px 2px" : 0,
       borderRadius: "0 0 8px 8px"
-    } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: doorStep5Sub === "lemovanie" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Vyberte farbu lemovania pre v\xFDplne dver\xED:")), selectedLemovanie && /* @__PURE__ */ import_react2.default.createElement(
+    } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: doorStep5Sub === "lemovanie" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Vyberte farbu lemovania pre tapac\xEDr dver\xED:")), selectedLemovanie && /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
         onClick: () => {
@@ -30990,7 +31013,7 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12 } }, selectedLemovanie.swatch && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
         width: 72,
         height: 40,
@@ -31169,9 +31192,9 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, doorWantsNasivka === true && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\xC1no, prajem si n\xE1\u0161ivky na panely"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKA_DVERE_SAMO, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.NASIVKA_DVERE, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKA_DVERE_SAMO, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.NASIVKA_DVERE, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
         fontSize: 11,
         fontWeight: 900,
         color: "#fff",
@@ -31180,7 +31203,7 @@ function Configurator2() {
         borderRadius: 12,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\xDASPORA ", PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE, " \u20AC"))
+      } }, "\xDASPORA ", PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE, " ", CURRENCY2))
     ), /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
@@ -31339,7 +31362,7 @@ function Configurator2() {
         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
-      } }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
+      }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
         width: 56,
         height: 56,
@@ -31455,11 +31478,37 @@ function Configurator2() {
       }
     ),
     doorNasivka && doorNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-door-nasivka-preview-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorNasivka.code, " \xB7 ni\u0165: ", doorNitColor.name))),
-    doorPanelChoice && /* @__PURE__ */ import_react2.default.createElement(
+    /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => {
+          if (doorPanelChoice === null) {
+            setValidationErrors({ step5sub: "5a", message: "Vyberte, \u010Di si prajete tapac\xEDr dver\xED." });
+            setDoorStep5Sub("choice");
+            return;
+          }
+          if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
+            setValidationErrors({ step5sub: "5b", message: "Vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED." });
+            setDoorStep5Sub("material");
+            return;
+          }
+          if (doorPanelChoice === "ano" && !doorLemovanie) {
+            setValidationErrors({ step5sub: "5c", message: "Vyberte lemovanie pre tapac\xEDr dver\xED." });
+            setDoorStep5Sub("lemovanie");
+            return;
+          }
+          if (doorPanelChoice === "ano" && doorWantsNasivka === null) {
+            setValidationErrors({ step5sub: "5d", message: "Vyberte, \u010Di chcete n\xE1\u0161ivku na tapac\xEDr dver\xED." });
+            setDoorStep5Sub("nasivky");
+            return;
+          }
+          if (doorPanelChoice === "ano" && doorWantsNasivka && (!doorNasivka || !doorNitColor)) {
+            setValidationErrors({ step5sub: "5d", message: "Vyberte n\xE1\u0161ivku a farbu nite pre tapac\xEDr dver\xED." });
+            setDoorStep5Sub("nasivky");
+            return;
+          }
+          setValidationErrors({});
           setOpenSection(0);
           setTimeout(() => {
             const el = document.getElementById("konfig-suhrn");
@@ -31483,7 +31532,7 @@ function Configurator2() {
         onMouseOver: (e) => e.target.style.transform = "scale(1.01)",
         onMouseOut: (e) => e.target.style.transform = "scale(1)"
       },
-      "Prejs\u0165 na \u010Fal\u0161\xED krok \u2192"
+      "Prejs\u0165 na s\xFAhrn objedn\xE1vky \u2192"
     )
   ), /* @__PURE__ */ import_react2.default.createElement("details", { id: "konfig-suhrn", className: "konfig-suhrn-details", style: {
     marginTop: 16,
@@ -31519,17 +31568,8 @@ function Configurator2() {
         e.currentTarget.style.background = "linear-gradient(135deg, rgba(197,164,78,0.08), rgba(197,164,78,0.18))";
       }
     },
-    /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { className: "konfig-suhrn-chevron", style: { fontSize: 14, color: "#C5A44E", transition: "transform 0.25s", display: "inline-block" } }, "\u25B6"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { whiteSpace: "nowrap" } }, "S\xDAHRN OBJEDN\xC1VKY"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 11, color: "#888", fontWeight: 600, whiteSpace: "nowrap" } }, "(", pricing.breakdown.length, " ", pricing.breakdown.length === 1 ? "polo\u017Eka" : pricing.breakdown.length < 5 ? "polo\u017Eky" : "polo\u017Eiek", ")")),
-    /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " \u20AC"), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
-      fontSize: 9,
-      fontWeight: 700,
-      color: "#fff",
-      background: "#C5A44E",
-      padding: "3px 8px",
-      borderRadius: 10,
-      letterSpacing: 0.5,
-      textTransform: "uppercase"
-    } }, "Detail"))
+    /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { className: "konfig-suhrn-chevron", style: { fontSize: 14, color: "#C5A44E", transition: "transform 0.25s", display: "inline-block" } }, "\u25B6"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, "S\xDAHRN OBJEDN\xC1VKY")),
+    /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " ", CURRENCY2))
   ), /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "0 16px 14px" } }, pricing.breakdown.map((item, idx) => /* @__PURE__ */ import_react2.default.createElement("div", { key: idx, style: {
     display: "flex",
     justifyContent: "space-between",
@@ -31556,11 +31596,11 @@ function Configurator2() {
     fontSize: 13,
     color: "#999",
     textDecoration: "line-through"
-  } }, item.originalAmount, " \u20AC"), item.type === "info" ? /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#666", fontWeight: 600 } }, "v cene") : /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+  } }, item.originalAmount, " ", CURRENCY2), item.type === "info" ? /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#666", fontWeight: 600 } }, "v cene") : /* @__PURE__ */ import_react2.default.createElement("span", { style: {
     fontSize: 16,
     fontWeight: 700,
     color: item.type === "bundle" ? "#4CAF50" : "#2E1810"
-  } }, item.amount, " \u20AC")))), pricing.savings > 0 && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  } }, item.amount, " ", CURRENCY2)))), pricing.savings > 0 && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     marginTop: 12,
     padding: "10px 14px",
     background: "#E8F5E9",
@@ -31569,7 +31609,7 @@ function Configurator2() {
     justifyContent: "space-between",
     alignItems: "center",
     gap: 8
-  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#2E7D32", fontWeight: 600, lineHeight: 1.35 } }, "\u2713 V\u010Faka konfigur\xE1cii s Luxusn\xFDmi autokobercami pod sedadl\xE1 ste u\u0161etrili"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" } }, pricing.savings, " \u20AC (", Math.round(pricing.savings / pricing.originalTotal * 100), "%)")), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#2E7D32", fontWeight: 600, lineHeight: 1.35 } }, "\u2713 V\u010Faka konfigur\xE1cii s Luxusn\xFDmi autokobercami pod sedadl\xE1 ste u\u0161etrili"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" } }, pricing.savings, " ", CURRENCY2, " (", Math.round(pricing.savings / pricing.originalTotal * 100), "%)")), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     marginTop: 14,
     padding: "16px 18px",
     background: "linear-gradient(135deg, #2E1810, #4a2a1a)",
@@ -31578,7 +31618,7 @@ function Configurator2() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
-  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 700, letterSpacing: 1 } }, "CELKOM"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 26, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " \u20AC")))), validationErrors.message && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 700, letterSpacing: 1 } }, "CELKOM"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 26, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " ", CURRENCY2)))), validationErrors.message && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     margin: "12px 0",
     padding: "14px 18px",
     borderRadius: 10,
@@ -31592,17 +31632,7 @@ function Configurator2() {
     alignItems: "center",
     justifyContent: "center",
     gap: 10
-  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 22 } }, "\u{1F447}"), /* @__PURE__ */ import_react2.default.createElement("span", null, validationErrors.message)), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
-    marginTop: 14,
-    background: "#fff",
-    border: "1px solid #e0d5b8",
-    borderRadius: 10,
-    padding: "12px 14px",
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 10,
-    textAlign: "center"
-  } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { borderRight: "1px solid #e0d5b8", padding: "0 6px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 18, color: "#C5A44E", fontWeight: 800, lineHeight: 1 } }, "7\u201320"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, color: "#666", fontWeight: 600, marginTop: 2, lineHeight: 1.2 } }, "dn\xED", /* @__PURE__ */ import_react2.default.createElement("br", null), "v\xFDroba")), /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 18, color: "#C5A44E", fontWeight: 800, lineHeight: 1 } }, "EU"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, color: "#666", fontWeight: 600, marginTop: 2, lineHeight: 1.2 } }, "ru\u010Dne", /* @__PURE__ */ import_react2.default.createElement("br", null), "\u0161it\xE9"))), /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 14, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement(
+  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 22 } }, "\u{1F447}"), /* @__PURE__ */ import_react2.default.createElement("span", null, validationErrors.message)), /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginTop: 14, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement(
     "button",
     {
       type: "button",
@@ -31685,7 +31715,7 @@ function Configurator2() {
           return;
         }
         if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
-          setValidationErrors({ step5sub: "5b", message: "Pros\xEDm, vyberte materi\xE1l a farbu dverov\xFDch panelov." });
+          setValidationErrors({ step5sub: "5b", message: "Pros\xEDm, vyberte materi\xE1l a farbu pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("material");
           setTimeout(() => {
@@ -31695,7 +31725,7 @@ function Configurator2() {
           return;
         }
         if (doorPanelChoice === "ano" && !doorLemovanie) {
-          setValidationErrors({ step5sub: "5c", message: "Pros\xEDm, vyberte lemovanie dverov\xFDch panelov." });
+          setValidationErrors({ step5sub: "5c", message: "Pros\xEDm, vyberte lemovanie pre tapac\xEDr dver\xED." });
           setOpenSection(5);
           setDoorStep5Sub("lemovanie");
           setTimeout(() => {
@@ -31829,7 +31859,7 @@ function Configurator2() {
       }
     },
     "Objedna\u0165"
-  )))), /* @__PURE__ */ import_react2.default.createElement("div", { className: "phone-stickybar" }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", lineHeight: 1.15, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 10, color: "#666", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" } }, "Celkom"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: "#2E1810" } }, pricing.total, " \u20AC"), (znacka || model || selectedMaterial || selectedColor) && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  )))), /* @__PURE__ */ import_react2.default.createElement("div", { className: "phone-stickybar" }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", lineHeight: 1.15, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 10, color: "#666", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" } }, "Celkom"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: "#2E1810" } }, pricing.total, " ", CURRENCY2), (znacka || model || selectedMaterial || selectedColor) && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     fontSize: 10,
     color: "#666",
     marginTop: 2,
@@ -34700,6 +34730,26 @@ function isTruckConfiguratorPage() {
 }
 function mountTruckConfigurator() {
   $("body").addClass("is-truck-konfigurator");
+  const ensureTruckGalleryHeading = () => {
+    if (document.getElementById("truck-gallery-heading")) return;
+    const $gallery = $(".p-image-wrapper .p-image").first();
+    if (!$gallery.length) return;
+    const isCzechShop = /\.cz$/i.test(window.location.hostname || "");
+    const $heading = $("<div>", {
+      id: "truck-gallery-heading",
+      class: "truck-gallery-heading"
+    });
+    $("<div>", { class: "truck-gallery-heading__brand", text: "LUXURY CAR DESIGN" }).appendTo($heading);
+    $("<div>", {
+      class: "truck-gallery-heading__title",
+      text: isCzechShop ? "LUXUSN\xCD AUTOKOBERCE" : "LUXUSN\xC9 AUTOKOBERCE"
+    }).appendTo($heading);
+    $("<div>", {
+      class: "truck-gallery-heading__subtitle",
+      text: "DRAGONSKIN BASIC DIAMOND LINE"
+    }).appendTo($heading);
+    $heading.insertBefore($gallery);
+  };
   try {
     const host = window.location && window.location.hostname || "";
     if (/^localhost$|^127\.0\.0\.1$|\.local$/i.test(host)) {
@@ -34712,6 +34762,7 @@ function mountTruckConfigurator() {
   } catch (e) {
   }
   const placeMountNode = () => {
+    ensureTruckGalleryHeading();
     const $host = $(".col-xs-12.col-lg-6.p-info-wrapper").first().length ? $(".col-xs-12.col-lg-6.p-info-wrapper").first() : $(".p-info-wrapper").first();
     if (!$host.length) return null;
     $host.addClass("active");

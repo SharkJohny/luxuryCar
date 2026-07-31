@@ -6,14 +6,14 @@ otevření projektu se přepíše — případné dlouhodobé poznámky dej do
 `AI-NOTES.md` (ten zůstane nedotčený).
 ## Základní údaje
 - **Název:** luxurycar
-- **URL náhledu:** https://www.luxurycardesign.cz/
+- **URL náhledu:** https://www.luxurycardesign.sk/
 - **Lokální složka:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar`
 - **JS výstup:** `/Users/sharkjohny/Dev/shoptet/spt-luxuryCar/assets/js/main.js`
 ## E-shopy projektu (varianty) — KRITICKÉ
-- **Aktivní e-shop:** CZ — https://www.luxurycardesign.cz/
+- **Aktivní e-shop:** Výchozí — https://www.luxurycardesign.sk/
 Tento projekt obsluhuje VÍCE e-shopů na stejném kódu:
-- Výchozí — https://www.luxurycardesign.sk/
-- CZ — https://www.luxurycardesign.cz/   ← AKTIVNÍ
+- Výchozí — https://www.luxurycardesign.sk/   ← AKTIVNÍ
+- CZ — https://www.luxurycardesign.cz/
 Veškeré operace (navigate/curl na náhled, screenshoty, admin, kontroly) prováděj
 VÝHRADNĚ proti aktivnímu e-shopu výše. URL jiných variant NIKDY nepoužívej.
 ## SCSS — TOTO edituj (KRITICKÉ)
@@ -90,11 +90,11 @@ assets/js/reviews-data.js
 assets/js/script.js
 assets/js/seo-runtime.js
 assets/js/truck-konfigurator/app.js
+assets/js/truck-konfigurator/description.js
 assets/js/truck-konfigurator/pricing.js
 assets/js/truck-konfigurator/truck-brands.js
 assets/js/voucher-konfigurator/cart.js
 assets/js/voucher-konfigurator/pricing.js
-assets/js/voucher-konfigurator/styles.js
 assets/js/vzorky-konfigurator/index.js
 seo-faza-a/h1-visible.css
 ```

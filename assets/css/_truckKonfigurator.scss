@@ -34,6 +34,279 @@ body.is-truck-konfigurator {
     display: none !important;
   }
 
+  // Titulek konfigurátoru je součástí levého sloupce a stojí přímo nad
+  // nativní galerií produktu. Fotografie tak dál kompletně spravuje Shoptet.
+  .truck-gallery-heading {
+    margin: 0 0 20px;
+    padding: 4px 12px 0;
+    text-align: center;
+  }
+
+  .truck-gallery-heading__brand {
+    margin-bottom: 4px;
+    color: #c5a44e;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  .truck-gallery-heading__title {
+    color: #333;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+
+  .truck-gallery-heading__subtitle {
+    margin-top: 4px;
+    color: #c5a44e;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.25;
+  }
+
+  .truck-description {
+    margin-top: 32px;
+    overflow: hidden;
+    color: #2e1810;
+    background: #fff;
+    font-family: "Source Sans 3", sans-serif;
+  }
+
+  .truck-description__section {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 68px 42px;
+  }
+
+  .truck-description__section--intro,
+  .truck-description__section--process,
+  .truck-description__section--personalization {
+    background: #fbfaf7;
+  }
+
+  .truck-description__heading {
+    max-width: 760px;
+    margin: 0 auto 38px;
+    text-align: center;
+
+    h2 {
+      margin: 6px 0 12px;
+      color: #2e1810;
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    p {
+      max-width: 680px;
+      margin: 0 auto;
+      color: #67564f;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+  }
+
+  .truck-description__kicker {
+    color: #b48c2f;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .truck-description__grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  .truck-description__grid--benefits,
+  .truck-description__grid--coverage {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .truck-description__grid--personalization,
+  .truck-description__grid--stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .truck-description__card {
+    padding: 24px;
+    border: 1px solid #eadfca;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(46, 24, 16, 0.05);
+
+    h4 {
+      margin: 0 0 7px;
+      color: #2e1810;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    p {
+      margin: 0;
+      color: #6c5b54;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  .truck-description__icon {
+    margin-bottom: 15px;
+    font-size: 34px;
+    line-height: 1;
+  }
+
+  .truck-description__section--stats {
+    max-width: none;
+    padding-block: 34px;
+    color: #fff;
+    background: #2e1810;
+  }
+
+  .truck-description__grid--stats {
+    width: min(1096px, 100%);
+    margin: 0 auto;
+  }
+
+  .truck-description__stat {
+    padding: 20px 16px;
+    border: 1px solid rgba(197, 164, 78, 0.35);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.035);
+    text-align: center;
+
+    > div:first-child {
+      color: #d5b65f;
+      font-size: 43px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    > div:nth-child(2) {
+      margin-top: 10px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    > div:last-child {
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+  }
+
+  .truck-description__section--coverage {
+    background: #fff;
+  }
+
+  .truck-description__note {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-left: 4px solid #c5a44e;
+    border-radius: 0 10px 10px 0;
+    color: #67564f;
+    background: #f7f2e7;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .truck-description__process-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .truck-description__process-step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 22px;
+    border: 1px solid #eadfca;
+    border-radius: 14px;
+    background: #fff;
+
+    > div:first-child {
+      display: flex;
+      flex: 0 0 50px;
+      width: 50px;
+      height: 50px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, #c5a44e, #9d7726);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    h4 {
+      margin: 1px 0 6px;
+      color: #2e1810;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    p {
+      margin: 0;
+      color: #6c5b54;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  .truck-description__section--cta {
+    max-width: 1096px;
+    margin: 24px auto 48px;
+    border-radius: 18px;
+    color: #fff;
+    background: #2e1810;
+    text-align: center;
+
+    h2 {
+      margin: 8px 0 12px;
+      color: #fff;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    p {
+      max-width: 620px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+  }
+
+  .truck-description__cta-button {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 15px 28px;
+    border: 0;
+    border-radius: 9px;
+    color: #2e1810;
+    background: linear-gradient(135deg, #d8ba61, #b48c2f);
+    box-shadow: 0 8px 24px rgba(197, 164, 78, 0.25);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: #2e1810;
+      text-decoration: none;
+    }
+  }
+
   .truck-konfigurator-wrap {
     position: relative;
     width: 100%;
@@ -58,6 +331,293 @@ body.is-truck-konfigurator {
     .konfig-right {
       width: 100% !important;
       max-width: 100% !important;
+    }
+
+    // Klient chce, aby odporúčaná voľba na mobile naozaj „kričala".
+    // Inline prototyp používa zlatú, ktorá splývala s akordeónmi.
+    .konfig-popular-badge {
+      background: linear-gradient(135deg, #d71920, #a40005) !important;
+      color: #fff !important;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 3px 10px rgba(164, 0, 5, 0.45) !important;
+    }
+
+    // Skrytý obsah zavretého <details> vyraď aj z layoutu. Predíde to
+    // falošnému pretekaniu cez zaoblený obal súhrnu na mobile.
+    details.konfig-suhrn-details:not([open]) > :not(summary) {
+      display: none;
+    }
+  }
+
+  // Popis produktu je uložený v Shoptete s desktopovými inline styly.
+  // Mobilní pravidla proto používají !important a jsou omezená jen na
+  // truck produkt, aby neovlivnila popisy ostatních produktů.
+  @media (max-width: 768px) {
+    .truck-gallery-heading {
+      margin-bottom: 14px;
+      padding: 0 8px;
+    }
+
+    .truck-gallery-heading__brand {
+      margin-bottom: 2px;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .truck-gallery-heading__title {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .truck-gallery-heading__subtitle {
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .truck-description {
+      margin-top: 18px;
+    }
+
+    .truck-description__process-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #description {
+      margin-top: 20px;
+
+      .description-inner,
+      .basic-description {
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 0;
+      }
+
+      .basic-description > div {
+        margin-top: 18px !important;
+      }
+
+      .basic-description > div > section {
+        max-width: 100% !important;
+        margin-top: 0 !important;
+        padding: 36px 16px !important;
+      }
+
+      .basic-description > div > section h2 {
+        font-size: 23px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.15px !important;
+        text-wrap: balance;
+      }
+
+      .basic-description > div > section h4 {
+        font-size: 14px !important;
+        line-height: 1.35 !important;
+        letter-spacing: 0.35px !important;
+      }
+
+      .basic-description > div > section p {
+        font-size: 13.5px !important;
+        line-height: 1.55 !important;
+      }
+
+      // 1. Výhody: namísto čtyř nečitelných sloupců kompaktní řádky.
+      .basic-description > div > section:nth-of-type(1) {
+        padding-top: 28px !important;
+        padding-bottom: 24px !important;
+
+        > div:first-child {
+          margin-bottom: 24px !important;
+        }
+
+        > div:nth-child(2) {
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 12px !important;
+
+          > div {
+            display: grid !important;
+            grid-template-columns: 42px minmax(0, 1fr) !important;
+            column-gap: 12px !important;
+            row-gap: 4px !important;
+            align-items: start !important;
+            padding: 16px !important;
+            text-align: left !important;
+
+            > div:first-child {
+              grid-column: 1;
+              grid-row: 1 / span 2;
+              margin: 0 !important;
+              font-size: 31px !important;
+            }
+
+            > h4,
+            > p {
+              grid-column: 2;
+              min-width: 0;
+            }
+          }
+        }
+      }
+
+      // 2. Čísla: každý údaj je na mobilu samostatný horizontální panel.
+      .basic-description > div > section:nth-of-type(2) {
+        padding-top: 12px !important;
+        padding-bottom: 28px !important;
+
+        > div {
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 12px !important;
+
+          > div {
+            display: grid !important;
+            grid-template-columns: 82px minmax(0, 1fr) !important;
+            column-gap: 14px !important;
+            row-gap: 4px !important;
+            align-items: center !important;
+            padding: 18px !important;
+            text-align: left !important;
+
+            > div:first-child {
+              grid-column: 1;
+              grid-row: 1 / span 2;
+              font-size: 38px !important;
+              text-align: center;
+            }
+
+            > div:nth-child(2),
+            > div:nth-child(3) {
+              grid-column: 2;
+              margin-top: 0 !important;
+            }
+
+            > div:nth-child(2) {
+              font-size: 13px !important;
+              letter-spacing: 1px !important;
+            }
+
+            > div:nth-child(3) {
+              font-size: 13px !important;
+              line-height: 1.45 !important;
+            }
+          }
+        }
+      }
+
+      // 3. Pokrytí kabiny.
+      .basic-description > div > section:nth-of-type(3) {
+        padding-block: 36px !important;
+
+        > div > div:first-child {
+          margin-bottom: 24px !important;
+        }
+
+        > div > div:nth-child(2) {
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 12px !important;
+
+          > div {
+            display: grid !important;
+            grid-template-columns: 38px minmax(0, 1fr) !important;
+            column-gap: 12px !important;
+            row-gap: 4px !important;
+            padding: 16px !important;
+
+            > div:first-child {
+              grid-column: 1;
+              grid-row: 1 / span 2;
+              margin: 0 !important;
+              font-size: 29px !important;
+            }
+
+            > h4,
+            > p {
+              grid-column: 2;
+              min-width: 0;
+            }
+          }
+        }
+
+        > div > div:last-child {
+          margin-top: 14px !important;
+          padding: 14px 16px !important;
+          text-align: left !important;
+        }
+      }
+
+      // 4. Výrobní proces: menší číslo i mezery, text zůstává čitelný.
+      .basic-description > div > section:nth-of-type(4) {
+        > div:first-child {
+          margin-bottom: 24px !important;
+        }
+
+        > div:nth-child(2) {
+          gap: 12px !important;
+
+          > div {
+            gap: 14px !important;
+            padding: 16px !important;
+
+            > div:first-child {
+              width: 44px !important;
+              height: 44px !important;
+              font-size: 20px !important;
+            }
+          }
+        }
+      }
+
+      // 5. Personalizace: stejné kompaktní řádky jako výhody.
+      .basic-description > div > section:nth-of-type(5) {
+        > div:first-child {
+          margin-bottom: 24px !important;
+        }
+
+        > div:nth-child(2) {
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 12px !important;
+
+          > div {
+            display: grid !important;
+            grid-template-columns: 42px minmax(0, 1fr) !important;
+            column-gap: 12px !important;
+            row-gap: 4px !important;
+            padding: 16px !important;
+            text-align: left !important;
+
+            > div:first-child {
+              grid-column: 1;
+              grid-row: 1 / span 2;
+              margin: 0 !important;
+              font-size: 31px !important;
+            }
+
+            > h4,
+            > p {
+              grid-column: 2;
+              min-width: 0;
+            }
+          }
+        }
+      }
+
+      // 6. Závěrečné CTA.
+      .basic-description > div > section:nth-of-type(6) {
+        margin-top: 12px !important;
+        padding: 40px 20px 46px !important;
+        border-radius: 14px !important;
+
+        h2 {
+          font-size: 25px !important;
+        }
+
+        button {
+          display: block !important;
+          width: 100% !important;
+          margin-top: 26px !important;
+          padding: 16px 18px !important;
+          font-size: 14px !important;
+        }
+      }
     }
   }
 }

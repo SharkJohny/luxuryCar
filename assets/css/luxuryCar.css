@@ -6610,6 +6610,240 @@ body.is-truck-konfigurator .basic-description section[style*="#2e1810"][style*="
 body.is-truck-konfigurator .p-info-wrapper > *:not(.truck-konfigurator-wrap) {
   display: none !important;
 }
+body.is-truck-konfigurator .truck-gallery-heading {
+  margin: 0 0 20px;
+  padding: 4px 12px 0;
+  text-align: center;
+}
+body.is-truck-konfigurator .truck-gallery-heading__brand {
+  margin-bottom: 4px;
+  color: #c5a44e;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+body.is-truck-konfigurator .truck-gallery-heading__title {
+  color: #333;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+body.is-truck-konfigurator .truck-gallery-heading__subtitle {
+  margin-top: 4px;
+  color: #c5a44e;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.25;
+}
+body.is-truck-konfigurator .truck-description {
+  margin-top: 32px;
+  overflow: hidden;
+  color: #2e1810;
+  background: #fff;
+  font-family: "Source Sans 3", sans-serif;
+}
+body.is-truck-konfigurator .truck-description__section {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 68px 42px;
+}
+body.is-truck-konfigurator .truck-description__section--intro,
+body.is-truck-konfigurator .truck-description__section--process,
+body.is-truck-konfigurator .truck-description__section--personalization {
+  background: #fbfaf7;
+}
+body.is-truck-konfigurator .truck-description__heading {
+  max-width: 760px;
+  margin: 0 auto 38px;
+  text-align: center;
+}
+body.is-truck-konfigurator .truck-description__heading h2 {
+  margin: 6px 0 12px;
+  color: #2e1810;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+body.is-truck-konfigurator .truck-description__heading p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: #67564f;
+  font-size: 17px;
+  line-height: 1.55;
+}
+body.is-truck-konfigurator .truck-description__kicker {
+  color: #b48c2f;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+body.is-truck-konfigurator .truck-description__grid {
+  display: grid;
+  gap: 18px;
+}
+body.is-truck-konfigurator .truck-description__grid--benefits,
+body.is-truck-konfigurator .truck-description__grid--coverage {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+body.is-truck-konfigurator .truck-description__grid--personalization,
+body.is-truck-konfigurator .truck-description__grid--stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+body.is-truck-konfigurator .truck-description__card {
+  padding: 24px;
+  border: 1px solid #eadfca;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(46, 24, 16, 0.05);
+}
+body.is-truck-konfigurator .truck-description__card h4 {
+  margin: 0 0 7px;
+  color: #2e1810;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+body.is-truck-konfigurator .truck-description__card p {
+  margin: 0;
+  color: #6c5b54;
+  font-size: 14px;
+  line-height: 1.5;
+}
+body.is-truck-konfigurator .truck-description__icon {
+  margin-bottom: 15px;
+  font-size: 34px;
+  line-height: 1;
+}
+body.is-truck-konfigurator .truck-description__section--stats {
+  max-width: none;
+  padding-block: 34px;
+  color: #fff;
+  background: #2e1810;
+}
+body.is-truck-konfigurator .truck-description__grid--stats {
+  width: min(1096px, 100%);
+  margin: 0 auto;
+}
+body.is-truck-konfigurator .truck-description__stat {
+  padding: 20px 16px;
+  border: 1px solid rgba(197, 164, 78, 0.35);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  text-align: center;
+}
+body.is-truck-konfigurator .truck-description__stat > div:first-child {
+  color: #d5b65f;
+  font-size: 43px;
+  font-weight: 800;
+  line-height: 1;
+}
+body.is-truck-konfigurator .truck-description__stat > div:nth-child(2) {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+body.is-truck-konfigurator .truck-description__stat > div:last-child {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.4;
+}
+body.is-truck-konfigurator .truck-description__section--coverage {
+  background: #fff;
+}
+body.is-truck-konfigurator .truck-description__note {
+  margin-top: 20px;
+  padding: 16px 20px;
+  border-left: 4px solid #c5a44e;
+  border-radius: 0 10px 10px 0;
+  color: #67564f;
+  background: #f7f2e7;
+  font-size: 14px;
+  text-align: center;
+}
+body.is-truck-konfigurator .truck-description__process-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+body.is-truck-konfigurator .truck-description__process-step {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 22px;
+  border: 1px solid #eadfca;
+  border-radius: 14px;
+  background: #fff;
+}
+body.is-truck-konfigurator .truck-description__process-step > div:first-child {
+  display: flex;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #c5a44e, #9d7726);
+  font-size: 22px;
+  font-weight: 800;
+}
+body.is-truck-konfigurator .truck-description__process-step h4 {
+  margin: 1px 0 6px;
+  color: #2e1810;
+  font-size: 15px;
+  font-weight: 800;
+}
+body.is-truck-konfigurator .truck-description__process-step p {
+  margin: 0;
+  color: #6c5b54;
+  font-size: 14px;
+  line-height: 1.5;
+}
+body.is-truck-konfigurator .truck-description__section--cta {
+  max-width: 1096px;
+  margin: 24px auto 48px;
+  border-radius: 18px;
+  color: #fff;
+  background: #2e1810;
+  text-align: center;
+}
+body.is-truck-konfigurator .truck-description__section--cta h2 {
+  margin: 8px 0 12px;
+  color: #fff;
+  font-size: 34px;
+  font-weight: 800;
+}
+body.is-truck-konfigurator .truck-description__section--cta p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 16px;
+  line-height: 1.55;
+}
+body.is-truck-konfigurator .truck-description__cta-button {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 15px 28px;
+  border: 0;
+  border-radius: 9px;
+  color: #2e1810;
+  background: linear-gradient(135deg, #d8ba61, #b48c2f);
+  box-shadow: 0 8px 24px rgba(197, 164, 78, 0.25);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-decoration: none;
+  cursor: pointer;
+}
+body.is-truck-konfigurator .truck-description__cta-button:hover, body.is-truck-konfigurator .truck-description__cta-button:focus {
+  color: #2e1810;
+  text-decoration: none;
+}
 body.is-truck-konfigurator .truck-konfigurator-wrap {
   position: relative;
   width: 100%;
@@ -6629,6 +6863,229 @@ body.is-truck-konfigurator #truck-konfigurator-root .konfig-layout {
 body.is-truck-konfigurator #truck-konfigurator-root .konfig-right {
   width: 100% !important;
   max-width: 100% !important;
+}
+body.is-truck-konfigurator #truck-konfigurator-root .konfig-popular-badge {
+  background: linear-gradient(135deg, #d71920, #a40005) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 3px 10px rgba(164, 0, 5, 0.45) !important;
+}
+body.is-truck-konfigurator #truck-konfigurator-root details.konfig-suhrn-details:not([open]) > :not(summary) {
+  display: none;
+}
+@media (max-width: 768px) {
+  body.is-truck-konfigurator .truck-gallery-heading {
+    margin-bottom: 14px;
+    padding: 0 8px;
+  }
+  body.is-truck-konfigurator .truck-gallery-heading__brand {
+    margin-bottom: 2px;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  body.is-truck-konfigurator .truck-gallery-heading__title {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  body.is-truck-konfigurator .truck-gallery-heading__subtitle {
+    margin-top: 2px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  body.is-truck-konfigurator .truck-description {
+    margin-top: 18px;
+  }
+  body.is-truck-konfigurator .truck-description__process-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  body.is-truck-konfigurator #description {
+    margin-top: 20px;
+  }
+  body.is-truck-konfigurator #description .description-inner,
+  body.is-truck-konfigurator #description .basic-description {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: 0;
+  }
+  body.is-truck-konfigurator #description .basic-description > div {
+    margin-top: 18px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section {
+    max-width: 100% !important;
+    margin-top: 0 !important;
+    padding: 36px 16px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section h2 {
+    font-size: 23px !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.15px !important;
+    text-wrap: balance;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section h4 {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.35px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section p {
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) {
+    padding-top: 28px !important;
+    padding-bottom: 24px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) > div:first-child {
+    margin-bottom: 24px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) > div:nth-child(2) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) > div:nth-child(2) > div {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    column-gap: 12px !important;
+    row-gap: 4px !important;
+    align-items: start !important;
+    padding: 16px !important;
+    text-align: left !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) > div:nth-child(2) > div > div:first-child {
+    grid-column: 1;
+    grid-row: 1/span 2;
+    margin: 0 !important;
+    font-size: 31px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) > div:nth-child(2) > div > h4,
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(1) > div:nth-child(2) > div > p {
+    grid-column: 2;
+    min-width: 0;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) {
+    padding-top: 12px !important;
+    padding-bottom: 28px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div > div {
+    display: grid !important;
+    grid-template-columns: 82px minmax(0, 1fr) !important;
+    column-gap: 14px !important;
+    row-gap: 4px !important;
+    align-items: center !important;
+    padding: 18px !important;
+    text-align: left !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div > div > div:first-child {
+    grid-column: 1;
+    grid-row: 1/span 2;
+    font-size: 38px !important;
+    text-align: center;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div > div > div:nth-child(2),
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div > div > div:nth-child(3) {
+    grid-column: 2;
+    margin-top: 0 !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div > div > div:nth-child(2) {
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(2) > div > div > div:nth-child(3) {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) {
+    padding-block: 36px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:first-child {
+    margin-bottom: 24px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:nth-child(2) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:nth-child(2) > div {
+    display: grid !important;
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+    column-gap: 12px !important;
+    row-gap: 4px !important;
+    padding: 16px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:nth-child(2) > div > div:first-child {
+    grid-column: 1;
+    grid-row: 1/span 2;
+    margin: 0 !important;
+    font-size: 29px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:nth-child(2) > div > h4,
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:nth-child(2) > div > p {
+    grid-column: 2;
+    min-width: 0;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(3) > div > div:last-child {
+    margin-top: 14px !important;
+    padding: 14px 16px !important;
+    text-align: left !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(4) > div:first-child {
+    margin-bottom: 24px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(4) > div:nth-child(2) {
+    gap: 12px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(4) > div:nth-child(2) > div {
+    gap: 14px !important;
+    padding: 16px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(4) > div:nth-child(2) > div > div:first-child {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(5) > div:first-child {
+    margin-bottom: 24px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(5) > div:nth-child(2) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(5) > div:nth-child(2) > div {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    column-gap: 12px !important;
+    row-gap: 4px !important;
+    padding: 16px !important;
+    text-align: left !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(5) > div:nth-child(2) > div > div:first-child {
+    grid-column: 1;
+    grid-row: 1/span 2;
+    margin: 0 !important;
+    font-size: 31px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(5) > div:nth-child(2) > div > h4,
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(5) > div:nth-child(2) > div > p {
+    grid-column: 2;
+    min-width: 0;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(6) {
+    margin-top: 12px !important;
+    padding: 40px 20px 46px !important;
+    border-radius: 14px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(6) h2 {
+    font-size: 25px !important;
+  }
+  body.is-truck-konfigurator #description .basic-description > div > section:nth-of-type(6) button {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 26px !important;
+    padding: 16px 18px !important;
+    font-size: 14px !important;
+  }
 }
 
 .can-toggle {

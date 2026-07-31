@@ -712,7 +712,14 @@ const TEXTS = {
 function detectLang() {
   if (typeof window === "undefined") return "sk";
   try {
-    const dl = window.dataLayer && window.dataLayer[0] && window.dataLayer[0].shoptet;
+    const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+    if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return "cs";
+    if (hostname === "luxurycardesign.sk" || hostname.endsWith(".luxurycardesign.sk")) return "sk";
+
+    const dlEntry = Array.isArray(window.dataLayer)
+      ? window.dataLayer.find((entry) => entry && entry.shoptet)
+      : null;
+    const dl = dlEntry && dlEntry.shoptet;
     if (!dl) return "sk";
     if (String(dl.projectId) === "704436") return "cs";
     if (dl.language === "cs" || dl.language === "sk" || dl.language === "pl") {
@@ -1757,16 +1764,6 @@ function Configurator() {
     setExtras((prev) => ({ ...prev, [key]: val }));
   };
 
-  // Product gallery state
-  const [activePhoto, setActivePhoto] = useState(0);
-
-  // Static product showcase photos (marketing images)
-  const productPhotos = [
-    { label: "", icon: "🚛", desc: "" },
-    { label: "", icon: "🚪", desc: "" },
-    { label: "", icon: "🧵", desc: "" },
-  ];
-
   return (
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "20px 20px", fontFamily: "'Segoe UI', Arial, sans-serif" }}>
       <style>{`
@@ -1774,14 +1771,6 @@ function Configurator() {
           display: flex;
           gap: 30px;
           align-items: flex-start;
-        }
-        .konfig-left {
-          flex: 1 1 420px;
-          min-width: 320px;
-          max-width: 560px;
-          position: sticky;
-          top: 20px;
-          z-index: 1;
         }
         .konfig-right {
           flex: 1 1 480px;
@@ -1793,12 +1782,6 @@ function Configurator() {
           .konfig-layout {
             flex-direction: column;
           }
-          .konfig-left {
-            position: static !important;
-            max-width: 100% !important;
-            min-width: 0 !important;
-            width: 100%;
-          }
           .konfig-right {
             min-width: 0 !important;
             width: 100%;
@@ -1809,20 +1792,7 @@ function Configurator() {
           50% { box-shadow: 0 0 32px rgba(76,175,80,0.85), 0 6px 24px rgba(76,175,80,0.55); }
         }
       `}</style>
-      {/* Header — centered above both columns */}
-      <div style={{ textAlign: "center", marginBottom: 24 }}>
-        <div style={{ fontSize: 13, color: "#C5A44E", fontWeight: 700, letterSpacing: 3, marginBottom: 4 }}>LUXURY CAR DESIGN</div>
-        <h1 style={{ margin: 0, fontSize: 24, color: "#333", fontWeight: 300 }}>
-          LUXUSNÉ AUTOKOBERCE
-        </h1>
-        <h2 style={{ margin: "4px 0 0", fontSize: 18, color: "#C5A44E", fontWeight: 300 }}>
-          DRAGONSKIN BASIC DIAMOND LINE
-        </h2>
-      </div>
-
-      {/* ============================================================ */}
-      {/* 2-STĹPCOVÝ LAYOUT: Fotka vľavo | Konfigurátor vpravo        */}
-      {/* ============================================================ */}
+      {/* Samotný konfigurátor; nadpis a fotografie zajišťuje Shoptet. */}
       <div className="konfig-layout">
 
 
@@ -1883,9 +1853,17 @@ function Configurator() {
         })}
 
         {/* Button to proceed */}
-        {step1Done && (
-          <button type="button"
+        <button type="button"
             onClick={() => {
+              if (!step1Done) {
+                setValidationErrors({
+                  step1: true,
+                  step1Msg: "Vyberte značku, model a špecifikáciu vozidla",
+                  message: "Doplňte značku, model a špecifikáciu vozidla.",
+                });
+                return;
+              }
+              setValidationErrors({});
               transitionToSection(2);
             }}
             style={{
@@ -1900,7 +1878,6 @@ function Configurator() {
           >
             Pokračovať na ďalší krok
           </button>
-        )}
       </AccordionSection>
 
       {/* STEP 2: Materiál a farba */}
@@ -1982,25 +1959,33 @@ function Configurator() {
               })}
             </div>
 
-            {/* Tlačidlo ďalej */}
-            {selectedColor && (
-              <button type="button"
-                onClick={() => {
-                  transitionToSection(3);
-                }}
-                style={{
-                  width: "100%", padding: "14px 0",
-                  background: "linear-gradient(135deg, #4CAF50, #388E3C)",
-                  color: "#fff", border: "none", borderRadius: 8,
-                  fontSize: 15, fontWeight: 700, cursor: "pointer",
-                  letterSpacing: 1, fontStyle: "italic",
-                }}
-              >
-                Pokračovať na ďalší krok
-              </button>
-            )}
           </>
         )}
+
+        {/* Tlačidlo ďalej je dostupné aj pred výberom. */}
+        <button type="button"
+          onClick={() => {
+            if (!selectedMaterial || !selectedColor) {
+              setValidationErrors({
+                step2: true,
+                step2Msg: "Vyberte materiál a farbu koberca",
+                message: "Vyberte materiál a farbu kobercov.",
+              });
+              return;
+            }
+            setValidationErrors({});
+            transitionToSection(3);
+          }}
+          style={{
+            width: "100%", padding: "14px 0",
+            background: "linear-gradient(135deg, #4CAF50, #388E3C)",
+            color: "#fff", border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 700, cursor: "pointer",
+            letterSpacing: 1, fontStyle: "italic",
+          }}
+        >
+          Pokračovať na ďalší krok
+        </button>
 
         {/* Veľký náhľad vybranej vzorky - pod akordéonom */}
         {selectedColor && (
@@ -2076,10 +2061,18 @@ function Configurator() {
           </div>
         )}
 
-        {/* Tlačidlo ďalej */}
-        {selectedLemovanie && (
-          <button type="button"
+        {/* Tlačidlo ďalej je dostupné aj pred výberom. */}
+        <button type="button"
             onClick={() => {
+              if (!selectedLemovanie) {
+                setValidationErrors({
+                  step3: true,
+                  step3Msg: "Vyberte typ lemovania",
+                  message: "Vyberte farbu lemovania kobercov.",
+                });
+                return;
+              }
+              setValidationErrors({});
               transitionToSection(4);
             }}
             style={{
@@ -2090,9 +2083,8 @@ function Configurator() {
               letterSpacing: 1, fontStyle: "italic",
             }}
           >
-            Pokračovať
+            Pokračovať na ďalší krok
           </button>
-        )}
       </AccordionSection>
 
       {/* STEP 4: Nášivky */}
@@ -2251,7 +2243,7 @@ function Configurator() {
                     <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                       {opt.rrp > opt.price && (
                         <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                          {opt.rrp} ${CURRENCY}
+                          {opt.rrp} {CURRENCY}
                         </span>
                       )}
                       <span style={{
@@ -2262,7 +2254,7 @@ function Configurator() {
                       </span>
                       {opt.rrp > opt.price && (
                         <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" }}>
-                          −{opt.rrp - opt.price} ${CURRENCY}
+                          −{opt.rrp - opt.price} {CURRENCY}
                         </span>
                       )}
                     </span>
@@ -2945,14 +2937,25 @@ function Configurator() {
           </>
         )}
 
-        {/* Pokračovať button */}
-        {nasivkyPlacement && nasivkyPlacement !== "nechcem" && (
-          (nasivkyPlacement === "boky" && selectedNasivka) ||
-          (nasivkyPlacement === "stred" && selectedStredNasivka) ||
-          (nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka)
-        ) && (
-          <button type="button"
+        {/* Pokračovanie je viditeľné stále a neúplný podkrok zvýrazní. */}
+        <button type="button"
             onClick={() => {
+              if (!nasivkyPlacement) {
+                setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie nášiviek." });
+                setStep4Sub("placement");
+                return;
+              }
+              if ((nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && (!selectedNasivka || !selectedNitColor)) {
+                setValidationErrors({ step4sub: "4b", message: "Vyberte nášivku a farbu nite pre šoféra a spolujazdca." });
+                setStep4Sub("boky");
+                return;
+              }
+              if ((nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred") && (!selectedStredNasivka || !selectedStredNitColor)) {
+                setValidationErrors({ step4sub: "4c", message: "Vyberte stredovú nášivku a farbu nite." });
+                setStep4Sub("stred");
+                return;
+              }
+              setValidationErrors({});
               transitionToSection(5);
             }}
             style={{
@@ -2967,7 +2970,6 @@ function Configurator() {
           >
             Pokračovať na ďalší krok
           </button>
-        )}
       </AccordionSection>
 
       {/* ============================================================ */}
@@ -2975,10 +2977,10 @@ function Configurator() {
       {/* ============================================================ */}
       <AccordionSection
         number={5}
-        title="Výplne dverových panelov"
+        title="Tapacír dverí"
         error={false}
         errorMessage={null}
-        subtitle={doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " – " + doorColor.code : ""}${doorNasivka ? " · " + doorNasivka.code + (doorNitColor ? " (niť: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez výplní" : null}
+        subtitle={doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " – " + doorColor.code : ""}${doorNasivka ? " · " + doorNasivka.code + (doorNitColor ? " (niť: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez tapacíru" : null}
         open={openSection === 5}
         done={doorPanelChoice !== null}
         onClick={() => { if (step1Done) { if (openSection === 5) { setOpenSection(0); } else { setOpenSection(5); if (doorPanelChoice) { setDoorStep5Sub(""); } else if (!doorStep5Sub) { setDoorStep5Sub("choice"); } } } }}
@@ -3004,10 +3006,10 @@ function Configurator() {
         >
           <div style={{ minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>5/A</div>
           <div style={{ flex: 1 }}>
-            <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Prajete si výplne dverí?</div>
+            <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Prajete si tapacír dverí?</div>
             {doorStep5Sub !== "choice" && doorPanelChoice && (
               <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
-                {doorPanelChoice === "ano" ? "Áno, prajem si výplne dverí" : "Ďakujem, nie"}
+                {doorPanelChoice === "ano" ? "Áno, prajem si tapacír dverí" : "Ďakujem, nie"}
               </div>
             )}
           </div>
@@ -3041,7 +3043,7 @@ function Configurator() {
               display: "flex", alignItems: "center", gap: 12,
             }}>
               <span style={{ fontSize: 22 }}>❓</span>
-              <span>Prajete si výplne do dverových panelov?</span>
+              <span>Prajete si tapacír dverí?</span>
             </div>
 
             {/* "Áno, prajem si výplne dverí" — klasická voľba s badgom "Najobľúbenejšie" */}
@@ -3072,7 +3074,7 @@ function Configurator() {
               }}>⭐ Obľúbená voľba</div>
               <span>
                 {doorPanelChoice === "ano" && <span style={{ marginRight: 6 }}>✓</span>}
-                Áno, prajem si výplne dverí
+                Áno, prajem si tapacír dverí
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                 <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
@@ -3141,7 +3143,7 @@ function Configurator() {
             >
               <div style={{ minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>5/B</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Materiál a farba výplní</div>
+                <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Materiál a farba tapacíru</div>
                 {doorStep5Sub !== "material" && doorColor && (
                   <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
                     {doorSameAsCarpet.material ? `${doorMaterial} – ${doorColor.code} (rovnako ako Luxusné autokoberce)` : `${doorMaterial} – ${doorColor.code}`}
@@ -3168,7 +3170,7 @@ function Configurator() {
                 {/* Label first */}
                 <div style={{ fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ fontSize: 18 }}>🎨</span>
-                  <span>Vyberte materiál a farbu pre výplne dverí:</span>
+                  <span>Vyberte materiál a farbu pre tapacír dverí:</span>
                 </div>
 
                 {/* Premium same-as CTA — FIRST option */}
@@ -3355,7 +3357,7 @@ function Configurator() {
                 >
                   <div style={{ minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>5/C</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Lemovanie výplní</div>
+                    <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Lemovanie tapacíru</div>
                     {doorStep5Sub !== "lemovanie" && doorLemovanie && (
                       <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
                         {doorLemovanie.name}{doorSameAsCarpet.lemovanie ? " (rovnako ako Luxusné autokoberce)" : ""}
@@ -3382,7 +3384,7 @@ function Configurator() {
                     {/* Label first */}
                     <div style={{ fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ fontSize: 18 }}>🧵</span>
-                      <span>Vyberte farbu lemovania pre výplne dverí:</span>
+                      <span>Vyberte farbu lemovania pre tapacír dverí:</span>
                     </div>
 
                     {/* Premium same-as CTA — FIRST option */}
@@ -3877,10 +3879,38 @@ function Configurator() {
           </div>
         )}
 
-{/* Dokončiť button */}
-        {doorPanelChoice && (
-          <button type="button"
-            onClick={() => { setOpenSection(0); setTimeout(() => { const el = document.getElementById("konfig-suhrn"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300); }}
+{/* Dokončiť button — viditeľný vždy, neúplný výber zastaví validácia. */}
+        <button type="button"
+            onClick={() => {
+              if (doorPanelChoice === null) {
+                setValidationErrors({ step5sub: "5a", message: "Vyberte, či si prajete tapacír dverí." });
+                setDoorStep5Sub("choice");
+                return;
+              }
+              if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
+                setValidationErrors({ step5sub: "5b", message: "Vyberte materiál a farbu pre tapacír dverí." });
+                setDoorStep5Sub("material");
+                return;
+              }
+              if (doorPanelChoice === "ano" && !doorLemovanie) {
+                setValidationErrors({ step5sub: "5c", message: "Vyberte lemovanie pre tapacír dverí." });
+                setDoorStep5Sub("lemovanie");
+                return;
+              }
+              if (doorPanelChoice === "ano" && doorWantsNasivka === null) {
+                setValidationErrors({ step5sub: "5d", message: "Vyberte, či chcete nášivku na tapacír dverí." });
+                setDoorStep5Sub("nasivky");
+                return;
+              }
+              if (doorPanelChoice === "ano" && doorWantsNasivka && (!doorNasivka || !doorNitColor)) {
+                setValidationErrors({ step5sub: "5d", message: "Vyberte nášivku a farbu nite pre tapacír dverí." });
+                setDoorStep5Sub("nasivky");
+                return;
+              }
+              setValidationErrors({});
+              setOpenSection(0);
+              setTimeout(() => { const el = document.getElementById("konfig-suhrn"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300);
+            }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 16,
               background: "linear-gradient(135deg, #4CAF50, #388E3C)",
@@ -3893,7 +3923,6 @@ function Configurator() {
           >
             Prejsť na ďalší krok →
           </button>
-        )}
       </AccordionSection>
 
       {/* ============================================================ */}
@@ -4072,13 +4101,13 @@ function Configurator() {
             // alebo zvolí "nie", ide rovno do košíka. Keď zvolí "áno",
             // nasledujúce kontroly vynútia dokončenie všetkých podkrokov (bod 6).
             if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
-              setValidationErrors({ step5sub: "5b", message: "Prosím, vyberte materiál a farbu dverových panelov." });
+              setValidationErrors({ step5sub: "5b", message: "Prosím, vyberte materiál a farbu pre tapacír dverí." });
               setOpenSection(5); setDoorStep5Sub("material");
               setTimeout(() => { const el = document.getElementById("konfig-sub-5b"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
               return;
             }
             if (doorPanelChoice === "ano" && !doorLemovanie) {
-              setValidationErrors({ step5sub: "5c", message: "Prosím, vyberte lemovanie dverových panelov." });
+              setValidationErrors({ step5sub: "5c", message: "Prosím, vyberte lemovanie pre tapacír dverí." });
               setOpenSection(5); setDoorStep5Sub("lemovanie");
               setTimeout(() => { const el = document.getElementById("konfig-sub-5c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
               return;

@@ -500,7 +500,7 @@ function AccordionSection({ number, title, subtitle, open, done, onClick, childr
       }}>
         <div style={{ minHeight: 0, overflow: allowContentOverflow ? "visible" : "hidden" }}>
           <div style={{
-            padding: open ? 24 : "0 24px",
+            padding: open ? "22px 16px" : "0 16px",
             opacity: open ? 1 : 0,
             transform: open ? "none" : "translateY(-6px)",
             transition: "padding 0.46s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, transform 0.3s ease",
@@ -607,6 +607,30 @@ const NITE_FARBY = [
 // Farba NEMENÍ cenu (bod 2), lemovanie NEMENÍ cenu (bod 3),
 // druh nášivky ani farba nite NEMENIA cenu (bod 4b, 4c, 5b, 5c)
 // ============================================================
+function detectCurrencySymbol() {
+  if (typeof window === "undefined") return "€";
+  try {
+    const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+    if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return "Kč";
+    if (hostname === "luxurycardesign.sk" || hostname.endsWith(".luxurycardesign.sk")) return "€";
+
+    const currencyMeta = typeof document !== "undefined"
+      ? document.querySelector('meta[itemprop="priceCurrency"], meta[property="product:price:currency"]')
+      : null;
+    const currencyCode = currencyMeta ? String(currencyMeta.getAttribute("content") || "").toUpperCase() : "";
+    if (currencyCode === "CZK" || currencyCode === "KČ") return "Kč";
+
+    const dlEntry = Array.isArray(window.dataLayer)
+      ? window.dataLayer.find((entry) => entry && entry.shoptet)
+      : null;
+    if (dlEntry && String(dlEntry.shoptet.projectId) === "704436") return "Kč";
+    if (dlEntry && dlEntry.shoptet.language === "cs") return "Kč";
+  } catch (e) { /* ignore */ }
+  return "€";
+}
+
+const CURRENCY = detectCurrencySymbol();
+
 const FALLBACK_PRICES = {
   BASE: 199,
   MATERIAL: {
@@ -776,6 +800,7 @@ function readShoptetPrices(fallback) {
 
 function calculatePrice(state, PRICES) {
   const {
+    znacka, model, extras,
     selectedMaterial, selectedColor, selectedLemovanie,
     nasivkyPlacement, selectedNasivka, selectedNitColor, selectedStredNasivka, selectedStredNitColor,
     doorPanelChoice, doorMaterial, doorColor, doorLemovanie,
@@ -784,6 +809,19 @@ function calculatePrice(state, PRICES) {
 
   const breakdown = [];
   let total = PRICES.BASE;
+
+  const vehicleDetails = [znacka, model];
+  FIELD_ORDER.forEach((key) => {
+    if (extras && extras[key]) vehicleDetails.push(`${FIELD_META[key].label}: ${extras[key]}`);
+  });
+  if (vehicleDetails.some(Boolean)) {
+    breakdown.push({
+      label: "Vozidlo",
+      subLabel: vehicleDetails.filter(Boolean).join(" · "),
+      amount: 0,
+      type: "info",
+    });
+  }
   breakdown.push({ label: "Luxusné autokoberce (základ)", amount: PRICES.BASE, type: "base" });
 
   if (selectedMaterial && PRICES.MATERIAL[selectedMaterial] !== undefined) {
@@ -1250,6 +1288,9 @@ function Configurator() {
   // CENOVÁ KALKULÁCIA — automaticky sa prepočítava pri každej zmene
   // ============================================================
   const pricing = useMemo(() => calculatePrice({
+    znacka: znacka,
+    model: model,
+    extras: extras,
     selectedMaterial: selectedMaterial,
     selectedColor: selectedColor,
     selectedLemovanie: selectedLemovanie,
@@ -1266,6 +1307,7 @@ function Configurator() {
     doorNasivka: doorNasivka,
     doorNitColor: doorNitColor,
   }, PRICES), [
+    znacka, model, extras,
     selectedMaterial, selectedColor, selectedLemovanie,
     nasivkyPlacement, selectedNasivka, selectedNitColor, selectedStredNasivka, selectedStredNitColor,
     doorPanelChoice, doorMaterial, doorColor, doorLemovanie,
@@ -1572,7 +1614,7 @@ function Configurator() {
               padding: "4px 10px", borderRadius: 10,
               boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
               textTransform: "uppercase", whiteSpace: "nowrap",
-            }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
           )}
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             {sameAsValue.thumb && (
@@ -1648,16 +1690,6 @@ function Configurator() {
     setExtras((prev) => ({ ...prev, [key]: val }));
   };
 
-  // Product gallery state
-  const [activePhoto, setActivePhoto] = useState(0);
-
-  // Static product showcase photos (marketing images)
-  const productPhotos = [
-    { label: "", img: NASIVKY[0].full, desc: "" },
-    { label: "", img: DOOR_PANEL_PHOTO, desc: "" },
-    { label: "", img: NASIVKY[1].full, desc: "" },
-  ];
-
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", padding: "12px 12px calc(92px + env(safe-area-inset-bottom)) 12px", fontFamily: "'Segoe UI', Arial, sans-serif" }}>
       <style>{`
@@ -1669,9 +1701,6 @@ function Configurator() {
         }
         .konfig-suhrn-details[open] .konfig-suhrn-chevron {
           transform: rotate(90deg);
-        }
-        .konfig-left {
-          width: 100%;
         }
         .konfig-right {
           width: 100%;
@@ -1695,92 +1724,8 @@ function Configurator() {
           box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
         }
       `}</style>
-      {/* Header — kompaktný pre mobil, čitateľné fontSizes pre 60+ vodičov */}
-      <div style={{ textAlign: "center", marginBottom: 14 }}>
-        <div style={{ fontSize: 11, color: "#C5A44E", fontWeight: 700, letterSpacing: 2, marginBottom: 2 }}>LUXURY CAR DESIGN</div>
-        <h1 style={{ margin: 0, fontSize: 20, color: "#333", fontWeight: 400 }}>
-          LUXUSNÉ AUTOKOBERCE
-        </h1>
-        <h2 style={{ margin: "2px 0 0", fontSize: 13, color: "#C5A44E", fontWeight: 400 }}>
-          DRAGONSKIN BASIC DIAMOND LINE
-        </h2>
-      </div>
-
-      {/* ============================================================ */}
-      {/* SINGLE COLUMN MOBILE LAYOUT                                   */}
-      {/* ============================================================ */}
+      {/* Samotný konfigurátor; nadpis a fotografie zajišťuje Shoptet. */}
       <div className="konfig-layout">
-
-        {/* ====== TOP: Produktové fotky (kompaktnejšie pre mobil) ====== */}
-        <div className="konfig-left">
-          {/* Hlavná produktová fotka — full width 16:10 (originál) */}
-          <div style={{
-            width: "100%", aspectRatio: "16/10", borderRadius: 10, overflow: "hidden",
-            border: "2px solid #C5A44E", background: "#1a1a1a",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            position: "relative",
-          }}>
-            <img
-              src={productPhotos[activePhoto].img}
-              alt={productPhotos[activePhoto].label}
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", display: "block",
-              }}
-              onError={(e) => { e.target.style.display = "none"; }}
-            />
-            {/* Väčšie tap-friendly šípky */}
-            <div onClick={() => setActivePhoto((activePhoto - 1 + productPhotos.length) % productPhotos.length)}
-              style={{
-                position: "absolute", left: 6, top: "50%", transform: "translateY(-50%)",
-                width: 44, height: 44, borderRadius: "50%", background: "rgba(0,0,0,0.65)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                cursor: "pointer", color: "#fff", fontSize: 22, fontWeight: 700,
-              }}>‹</div>
-            <div onClick={() => setActivePhoto((activePhoto + 1) % productPhotos.length)}
-              style={{
-                position: "absolute", right: 6, top: "50%", transform: "translateY(-50%)",
-                width: 44, height: 44, borderRadius: "50%", background: "rgba(0,0,0,0.65)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                cursor: "pointer", color: "#fff", fontSize: 22, fontWeight: 700,
-              }}>›</div>
-            {/* Indikátor pozície */}
-            <div style={{
-              position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
-              display: "flex", gap: 6,
-            }}>
-              {productPhotos.map((_, i) => (
-                <div key={i} style={{
-                  width: i === activePhoto ? 22 : 8, height: 8, borderRadius: 4,
-                  background: i === activePhoto ? "#C5A44E" : "rgba(255,255,255,0.35)",
-                  transition: "all 0.2s",
-                }} />
-              ))}
-            </div>
-          </div>
-
-          {/* Thumbnail strip — fotky z hlavnej galérie */}
-          <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-            {productPhotos.map((photo, i) => (
-              <div key={i}
-                onClick={() => setActivePhoto(i)}
-                style={{
-                  flex: 1, height: 56, borderRadius: 6, overflow: "hidden", cursor: "pointer",
-                  border: i === activePhoto ? "2px solid #C5A44E" : "1px solid #333",
-                  background: "#1a1a1a",
-                  transition: "all 0.2s",
-                }}>
-                <img
-                  src={photo.img}
-                  alt={photo.label}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: i === activePhoto ? 1 : 0.7 }}
-                />
-              </div>
-            ))}
-          </div>
-
-        </div>
-
         {/* ====== PRAVÝ STĹPEC: Konfigurátor ====== */}
         <div className="konfig-right">
 
@@ -1837,10 +1782,18 @@ function Configurator() {
           );
         })}
 
-        {/* Button to proceed */}
-        {step1Done && (
-          <button type="button"
+        {/* Tlačidlo je viditeľné vždy; neúplný krok zastaví validácia. */}
+        <button type="button"
             onClick={() => {
+              if (!step1Done) {
+                setValidationErrors({
+                  step1: true,
+                  step1Msg: "Vyberte značku, model a špecifikáciu vozidla",
+                  message: "Doplňte značku, model a špecifikáciu vozidla.",
+                });
+                return;
+              }
+              setValidationErrors({});
               transitionToSection(2);
             }}
             style={{
@@ -1855,7 +1808,6 @@ function Configurator() {
           >
             Pokračovať na ďalší krok
           </button>
-        )}
       </AccordionSection>
 
       {/* STEP 2: Materiál a farba */}
@@ -1918,7 +1870,7 @@ function Configurator() {
                     color: PRICES.MATERIAL[matName] > 0 ? "#C5A44E" : "#666",
                     marginTop: 2,
                   }}>
-                    {PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} €` : "v cene"}
+                    {PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} ${CURRENCY}` : "v cene"}
                   </div>
                 </div>
               </div>
@@ -1956,25 +1908,33 @@ function Configurator() {
               })}
             </div>
 
-            {/* Tlačidlo ďalej */}
-            {selectedColor && (
-              <button type="button"
-                onClick={() => {
-                  transitionToSection(3);
-                }}
-                style={{
-                  width: "100%", padding: "14px 0",
-                  background: "linear-gradient(135deg, #4CAF50, #388E3C)",
-                  color: "#fff", border: "none", borderRadius: 8,
-                  fontSize: 15, fontWeight: 700, cursor: "pointer",
-                  letterSpacing: 1, fontStyle: "italic",
-                }}
-              >
-                Pokračovať
-              </button>
-            )}
           </>
         )}
+
+        {/* Tlačidlo ďalej je dostupné aj pred výberom. */}
+        <button type="button"
+          onClick={() => {
+            if (!selectedMaterial || !selectedColor) {
+              setValidationErrors({
+                step2: true,
+                step2Msg: "Vyberte materiál a farbu koberca",
+                message: "Vyberte materiál a farbu kobercov.",
+              });
+              return;
+            }
+            setValidationErrors({});
+            transitionToSection(3);
+          }}
+          style={{
+            width: "100%", padding: "14px 0",
+            background: "linear-gradient(135deg, #4CAF50, #388E3C)",
+            color: "#fff", border: "none", borderRadius: 8,
+            fontSize: 15, fontWeight: 700, cursor: "pointer",
+            letterSpacing: 1, fontStyle: "italic",
+          }}
+        >
+          Pokračovať na ďalší krok
+        </button>
 
         {/* Veľký náhľad vybranej vzorky - pod akordéonom (1:1, 70% šírky = o 30% menší pre phone) */}
         {selectedColor && (
@@ -2056,11 +2016,19 @@ function Configurator() {
           </div>
         )}
 
-        {/* Tlačidlo ďalej */}
-        {selectedLemovanie && (
-          <button type="button"
+        {/* Tlačidlo ďalej je dostupné aj pred výberom. */}
+        <button type="button"
             id="konfig-lemovanie-pokracovat"
             onClick={() => {
+              if (!selectedLemovanie) {
+                setValidationErrors({
+                  step3: true,
+                  step3Msg: "Vyberte typ lemovania",
+                  message: "Vyberte farbu lemovania kobercov.",
+                });
+                return;
+              }
+              setValidationErrors({});
               transitionToSection(4);
             }}
             style={{
@@ -2073,7 +2041,6 @@ function Configurator() {
           >
             Pokračovať na ďalší krok
           </button>
-        )}
       </AccordionSection>
 
       {/* STEP 4: Nášivky */}
@@ -2176,24 +2143,24 @@ function Configurator() {
                 padding: "4px 10px", borderRadius: 10,
                 boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                 textTransform: "uppercase", whiteSpace: "nowrap",
-              }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
               <div style={{ fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 }}>
                 {nasivkyPlacement === "boky+stred" && <span style={{ marginRight: 6, color: "#4CAF50" }}>✓</span>}
                 Šofér + spolujazdec + stred
               </div>
               <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
                 <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                  {PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred} €
+                  {PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred} {CURRENCY}
                 </span>
                 <span style={{ fontSize: 20, fontWeight: 900, color: "#C5A44E" }}>
-                  + {PRICES.NASIVKY["boky+stred"]} €
+                  + {PRICES.NASIVKY["boky+stred"]} {CURRENCY}
                 </span>
                 <span style={{
                   fontSize: 11, fontWeight: 900, color: "#fff",
                   background: "#4CAF50", padding: "4px 10px", borderRadius: 12,
                   letterSpacing: 0.5, whiteSpace: "nowrap",
                 }}>
-                  ÚSPORA {(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred) - PRICES.NASIVKY["boky+stred"]} €
+                  ÚSPORA {(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred) - PRICES.NASIVKY["boky+stred"]} {CURRENCY}
                 </span>
               </div>
             </div>
@@ -2232,18 +2199,18 @@ function Configurator() {
                     <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                       {opt.rrp > opt.price && (
                         <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                          {opt.rrp} €
+                          {opt.rrp} {CURRENCY}
                         </span>
                       )}
                       <span style={{
                         fontSize: 18, fontWeight: 800,
                         color: opt.price > 0 ? "#2E1810" : "#888",
                       }}>
-                        {opt.price > 0 ? `+ ${opt.price} €` : "v cene"}
+                        {opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"}
                       </span>
                       {opt.rrp > opt.price && (
                         <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" }}>
-                          −{opt.rrp - opt.price} €
+                          −{opt.rrp - opt.price} {CURRENCY}
                         </span>
                       )}
                     </span>
@@ -2713,7 +2680,7 @@ function Configurator() {
                         padding: "4px 10px", borderRadius: 10,
                         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                         textTransform: "uppercase", whiteSpace: "nowrap",
-                      }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
                     )}
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                       {selectedNasivka.thumb && (
@@ -2924,14 +2891,25 @@ function Configurator() {
           </>
         )}
 
-        {/* Pokračovať button — vždy keď je vyplnená nasivka */}
-        {nasivkyPlacement && nasivkyPlacement !== "nechcem" && (
-          (nasivkyPlacement === "boky" && selectedNasivka) ||
-          (nasivkyPlacement === "stred" && selectedStredNasivka) ||
-          (nasivkyPlacement === "boky+stred" && selectedNasivka && selectedStredNasivka)
-        ) && (
-          <button type="button"
+        {/* Pokračovanie je viditeľné stále a neúplný podkrok zvýrazní. */}
+        <button type="button"
             onClick={() => {
+              if (!nasivkyPlacement) {
+                setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie nášiviek." });
+                setStep4Sub("placement");
+                return;
+              }
+              if ((nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && (!selectedNasivka || !selectedNitColor)) {
+                setValidationErrors({ step4sub: "4b", message: "Vyberte nášivku a farbu nite pre šoféra a spolujazdca." });
+                setStep4Sub("boky");
+                return;
+              }
+              if ((nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred") && (!selectedStredNasivka || !selectedStredNitColor)) {
+                setValidationErrors({ step4sub: "4c", message: "Vyberte stredovú nášivku a farbu nite." });
+                setStep4Sub("stred");
+                return;
+              }
+              setValidationErrors({});
               transitionToSection(5);
             }}
             style={{
@@ -2946,7 +2924,6 @@ function Configurator() {
           >
             Pokračovať na ďalší krok
           </button>
-        )}
       </AccordionSection>
 
       {/* ============================================================ */}
@@ -2954,10 +2931,10 @@ function Configurator() {
       {/* ============================================================ */}
       <AccordionSection
         number={5}
-        title="Výplne dverových panelov"
+        title="Tapacír dverí"
         error={false}
         errorMessage={null}
-        subtitle={doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " – " + doorColor.code : ""}${doorNasivka ? " · " + doorNasivka.code + (doorNitColor ? " (niť: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez výplní" : null}
+        subtitle={doorPanelChoice === "ano" ? `${doorMaterial || ""}${doorColor ? " – " + doorColor.code : ""}${doorNasivka ? " · " + doorNasivka.code + (doorNitColor ? " (niť: " + doorNitColor.code + ")" : "") : ""}` : doorPanelChoice === "nie" ? "Bez tapacíru" : null}
         open={openSection === 5}
         done={doorPanelChoice !== null}
         onClick={() => { if (step1Done) { if (openSection === 5) { setOpenSection(0); } else { setOpenSection(5); if (doorPanelChoice) { setDoorStep5Sub(""); } else if (!doorStep5Sub) { setDoorStep5Sub("choice"); } } } }}
@@ -2983,10 +2960,10 @@ function Configurator() {
         >
           <div style={{ minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>5/A</div>
           <div style={{ flex: 1 }}>
-            <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Prajete si výplne dverí?</div>
+            <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Prajete si tapacír dverí?</div>
             {doorStep5Sub !== "choice" && doorPanelChoice && (
               <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
-                {doorPanelChoice === "ano" ? "Áno, prajem si výplne dverí" : "Ďakujem, nie"}
+                {doorPanelChoice === "ano" ? "Áno, prajem si tapacír dverí" : "Ďakujem, nie"}
               </div>
             )}
           </div>
@@ -3021,7 +2998,7 @@ function Configurator() {
               textAlign: "center",
             }}>
               <span style={{ fontSize: 22, color: "#CC0000", lineHeight: 1, flexShrink: 0 }}>❓</span>
-              <span>Prajete si výplne tapacírov dverí ?</span>
+              <span>Prajete si tapacír dverí?</span>
             </div>
 
             {/* "Áno, prajem si výplne dverí" — vertikálny stack pre 375px */}
@@ -3049,24 +3026,24 @@ function Configurator() {
                 padding: "4px 10px", borderRadius: 10,
                 boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                 textTransform: "uppercase", whiteSpace: "nowrap",
-              }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
               <div style={{ fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 }}>
                 {doorPanelChoice === "ano" && <span style={{ marginRight: 6, color: "#4CAF50" }}>✓</span>}
-                Áno, prajem si výplne dverí
+                Áno, prajem si tapacír dverí
               </div>
               <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
                 <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                  {PRICES.TAPACIR_SAMO} €
+                  {PRICES.TAPACIR_SAMO} {CURRENCY}
                 </span>
                 <span style={{ fontSize: 20, fontWeight: 900, color: "#C5A44E" }}>
-                  + {PRICES.TAPACIR_BUNDLE} €
+                  + {PRICES.TAPACIR_BUNDLE} {CURRENCY}
                 </span>
                 <span style={{
                   fontSize: 11, fontWeight: 900, color: "#fff",
                   background: "#4CAF50", padding: "4px 10px", borderRadius: 12,
                   letterSpacing: 0.5, whiteSpace: "nowrap",
                 }}>
-                  ÚSPORA {PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE} €
+                  ÚSPORA {PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE} {CURRENCY}
                 </span>
               </div>
             </div>
@@ -3120,7 +3097,7 @@ function Configurator() {
             >
               <div style={{ minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>5/B</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Materiál a farba výplní</div>
+                <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Materiál a farba tapacíru</div>
                 {doorStep5Sub !== "material" && doorColor && (
                   <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
                     {doorSameAsCarpet.material ? `${doorMaterial} – ${doorColor.code} (rovnako ako Luxusné autokoberce)` : `${doorMaterial} – ${doorColor.code}`}
@@ -3147,7 +3124,7 @@ function Configurator() {
                 {/* Label first */}
                 <div style={{ fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ fontSize: 18 }}>🎨</span>
-                  <span>Vyberte materiál a farbu pre výplne dverí:</span>
+                  <span>Vyberte materiál a farbu pre tapacír dverí:</span>
                 </div>
 
                 {/* Premium same-as CTA — FIRST option */}
@@ -3184,7 +3161,7 @@ function Configurator() {
                         padding: "4px 10px", borderRadius: 10,
                         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                         textTransform: "uppercase", whiteSpace: "nowrap",
-                      }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
                     )}
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                       {selectedColor.swatch && (
@@ -3345,7 +3322,7 @@ function Configurator() {
                 >
                   <div style={{ minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>5/C</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Lemovanie výplní</div>
+                    <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Lemovanie tapacíru</div>
                     {doorStep5Sub !== "lemovanie" && doorLemovanie && (
                       <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
                         {doorLemovanie.name}{doorSameAsCarpet.lemovanie ? " (rovnako ako Luxusné autokoberce)" : ""}
@@ -3372,7 +3349,7 @@ function Configurator() {
                     {/* Label first */}
                     <div style={{ fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ fontSize: 18 }}>🧵</span>
-                      <span>Vyberte farbu lemovania pre výplne dverí:</span>
+                      <span>Vyberte farbu lemovania pre tapacír dverí:</span>
                     </div>
 
                     {/* Premium same-as CTA — FIRST option */}
@@ -3407,7 +3384,7 @@ function Configurator() {
                             padding: "4px 10px", borderRadius: 10,
                             boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                             textTransform: "uppercase", whiteSpace: "nowrap",
-                          }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
                         )}
                         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                           {selectedLemovanie.swatch && (
@@ -3596,24 +3573,24 @@ function Configurator() {
                         padding: "4px 10px", borderRadius: 10,
                         boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                         textTransform: "uppercase", whiteSpace: "nowrap",
-                      }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
                       <div style={{ fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 }}>
                         {doorWantsNasivka === true && <span style={{ marginRight: 6, color: "#4CAF50" }}>✓</span>}
                         Áno, prajem si nášivky na panely
                       </div>
                       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
                         <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                          {PRICES.NASIVKA_DVERE_SAMO} €
+                          {PRICES.NASIVKA_DVERE_SAMO} {CURRENCY}
                         </span>
                         <span style={{ fontSize: 20, fontWeight: 900, color: "#C5A44E" }}>
-                          + {PRICES.NASIVKA_DVERE} €
+                          + {PRICES.NASIVKA_DVERE} {CURRENCY}
                         </span>
                         <span style={{
                           fontSize: 11, fontWeight: 900, color: "#fff",
                           background: "#4CAF50", padding: "4px 10px", borderRadius: 12,
                           letterSpacing: 0.5, whiteSpace: "nowrap",
                         }}>
-                          ÚSPORA {PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE} €
+                          ÚSPORA {PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE} {CURRENCY}
                         </span>
                       </div>
                     </div>
@@ -3770,7 +3747,7 @@ function Configurator() {
                             padding: "4px 10px", borderRadius: 10,
                             boxShadow: "0 2px 6px rgba(197,164,78,0.35)",
                             textTransform: "uppercase", whiteSpace: "nowrap",
-                          }}>★ Najobľúbenejšie</div>
+            }} className="konfig-popular-badge">★ Najobľúbenejšie</div>
                         )}
                         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                           <div style={{
@@ -3917,10 +3894,38 @@ function Configurator() {
           </div>
         )}
 
-{/* Dokončiť button */}
-        {doorPanelChoice && (
-          <button type="button"
-            onClick={() => { setOpenSection(0); setTimeout(() => { const el = document.getElementById("konfig-suhrn"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300); }}
+{/* Dokončiť button — viditeľný vždy, neúplný výber zastaví validácia. */}
+        <button type="button"
+            onClick={() => {
+              if (doorPanelChoice === null) {
+                setValidationErrors({ step5sub: "5a", message: "Vyberte, či si prajete tapacír dverí." });
+                setDoorStep5Sub("choice");
+                return;
+              }
+              if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
+                setValidationErrors({ step5sub: "5b", message: "Vyberte materiál a farbu pre tapacír dverí." });
+                setDoorStep5Sub("material");
+                return;
+              }
+              if (doorPanelChoice === "ano" && !doorLemovanie) {
+                setValidationErrors({ step5sub: "5c", message: "Vyberte lemovanie pre tapacír dverí." });
+                setDoorStep5Sub("lemovanie");
+                return;
+              }
+              if (doorPanelChoice === "ano" && doorWantsNasivka === null) {
+                setValidationErrors({ step5sub: "5d", message: "Vyberte, či chcete nášivku na tapacír dverí." });
+                setDoorStep5Sub("nasivky");
+                return;
+              }
+              if (doorPanelChoice === "ano" && doorWantsNasivka && (!doorNasivka || !doorNitColor)) {
+                setValidationErrors({ step5sub: "5d", message: "Vyberte nášivku a farbu nite pre tapacír dverí." });
+                setDoorStep5Sub("nasivky");
+                return;
+              }
+              setValidationErrors({});
+              setOpenSection(0);
+              setTimeout(() => { const el = document.getElementById("konfig-suhrn"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300);
+            }}
             style={{
               width: "100%", padding: "14px 0", marginTop: 16,
               background: "linear-gradient(135deg, #4CAF50, #388E3C)",
@@ -3931,9 +3936,8 @@ function Configurator() {
             onMouseOver={(e) => e.target.style.transform = "scale(1.01)"}
             onMouseOut={(e) => e.target.style.transform = "scale(1)"}
           >
-            Prejsť na ďalší krok →
+            Prejsť na súhrn objednávky →
           </button>
-        )}
       </AccordionSection>
 
       {/* ============================================================ */}
@@ -3964,18 +3968,10 @@ function Configurator() {
         >
           <span style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 }}>
             <span className="konfig-suhrn-chevron" style={{ fontSize: 14, color: "#C5A44E", transition: "transform 0.25s", display: "inline-block" }}>▶</span>
-            <span style={{ whiteSpace: "nowrap" }}>SÚHRN OBJEDNÁVKY</span>
-            <span style={{ fontSize: 11, color: "#888", fontWeight: 600, whiteSpace: "nowrap" }}>
-              ({pricing.breakdown.length} {pricing.breakdown.length === 1 ? "položka" : pricing.breakdown.length < 5 ? "položky" : "položiek"})
-            </span>
+            <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>SÚHRN OBJEDNÁVKY</span>
           </span>
           <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-            <span style={{ fontSize: 16, fontWeight: 900, color: "#C5A44E" }}>{pricing.total} €</span>
-            <span style={{
-              fontSize: 9, fontWeight: 700, color: "#fff",
-              background: "#C5A44E", padding: "3px 8px", borderRadius: 10,
-              letterSpacing: 0.5, textTransform: "uppercase",
-            }}>Detail</span>
+            <span style={{ fontSize: 16, fontWeight: 900, color: "#C5A44E" }}>{pricing.total} {CURRENCY}</span>
           </span>
         </summary>
         <div style={{ padding: "0 16px 14px" }}>
@@ -4012,7 +4008,7 @@ function Configurator() {
                 <span style={{
                   fontSize: 13, color: "#999", textDecoration: "line-through",
                 }}>
-                  {item.originalAmount} €
+                  {item.originalAmount} {CURRENCY}
                 </span>
               )}
               {item.type === "info" ? (
@@ -4022,7 +4018,7 @@ function Configurator() {
                   fontSize: 16, fontWeight: 700,
                   color: item.type === "bundle" ? "#4CAF50" : "#2E1810",
                 }}>
-                  {item.amount} €
+                  {item.amount} {CURRENCY}
                 </span>
               )}
             </span>
@@ -4039,7 +4035,7 @@ function Configurator() {
               ✓ Vďaka konfigurácii s Luxusnými autokobercami pod sedadlá ste ušetrili
             </span>
             <span style={{ fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" }}>
-              {pricing.savings} € ({Math.round((pricing.savings / pricing.originalTotal) * 100)}%)
+              {pricing.savings} {CURRENCY} ({Math.round((pricing.savings / pricing.originalTotal) * 100)}%)
             </span>
           </div>
         )}
@@ -4052,7 +4048,7 @@ function Configurator() {
         }}>
           <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: 1 }}>CELKOM</span>
           <span style={{ fontSize: 26, fontWeight: 900, color: "#C5A44E" }}>
-            {pricing.total} €
+            {pricing.total} {CURRENCY}
           </span>
         </div>
         </div>
@@ -4073,28 +4069,6 @@ function Configurator() {
           <span>{validationErrors.message}</span>
         </div>
       )}
-
-      {/* Trust strip — viditeľný v momente najväčšej úzkosti (pred CTA) */}
-      <div style={{
-        marginTop: 14,
-        background: "#fff",
-        border: "1px solid #e0d5b8",
-        borderRadius: 10,
-        padding: "12px 14px",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 10,
-        textAlign: "center",
-      }}>
-        <div style={{ borderRight: "1px solid #e0d5b8", padding: "0 6px" }}>
-          <div style={{ fontSize: 18, color: "#C5A44E", fontWeight: 800, lineHeight: 1 }}>7–20</div>
-          <div style={{ fontSize: 11, color: "#666", fontWeight: 600, marginTop: 2, lineHeight: 1.2 }}>dní<br/>výroba</div>
-        </div>
-        <div>
-          <div style={{ fontSize: 18, color: "#C5A44E", fontWeight: 800, lineHeight: 1 }}>EU</div>
-          <div style={{ fontSize: 11, color: "#666", fontWeight: 600, marginTop: 2, lineHeight: 1.2 }}>ručne<br/>šité</div>
-        </div>
-      </div>
 
       <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
         <button type="button"
@@ -4158,13 +4132,13 @@ function Configurator() {
             // alebo zvolí "nie", ide rovno do košíka. Keď zvolí "áno",
             // nasledujúce kontroly vynútia dokončenie všetkých podkrokov (bod 6).
             if (doorPanelChoice === "ano" && (!doorMaterial || !doorColor)) {
-              setValidationErrors({ step5sub: "5b", message: "Prosím, vyberte materiál a farbu dverových panelov." });
+              setValidationErrors({ step5sub: "5b", message: "Prosím, vyberte materiál a farbu pre tapacír dverí." });
               setOpenSection(5); setDoorStep5Sub("material");
               setTimeout(() => { const el = document.getElementById("konfig-sub-5b"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
               return;
             }
             if (doorPanelChoice === "ano" && !doorLemovanie) {
-              setValidationErrors({ step5sub: "5c", message: "Prosím, vyberte lemovanie dverových panelov." });
+              setValidationErrors({ step5sub: "5c", message: "Prosím, vyberte lemovanie pre tapacír dverí." });
               setOpenSection(5); setDoorStep5Sub("lemovanie");
               setTimeout(() => { const el = document.getElementById("konfig-sub-5c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
               return;
@@ -4292,7 +4266,7 @@ function Configurator() {
             Celkom
           </div>
           <div style={{ fontSize: 20, fontWeight: 900, color: "#2E1810" }}>
-            {pricing.total} €
+            {pricing.total} {CURRENCY}
           </div>
           {(znacka || model || selectedMaterial || selectedColor) && (
             <div style={{

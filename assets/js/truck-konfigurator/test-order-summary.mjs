@@ -26,14 +26,14 @@ const summary = buildTruckOrderSummary({
 });
 
 [
-  "Vozidlo: DAF (TIR) XF 2022-2025",
-  "Prevodovka: Automatická prevodovka",
-  "Farba kobercov: K2",
-  "Nášivka šofér + spolujazdec: H1",
-  "Stredová nášivka: H4",
-  "Tapacír dverí: Áno",
-  "Farba dverí: A4",
-  "Druh nášivky na dverách: H1",
+  "Vehicle: DAF (TIR) XF 2022-2025",
+  "Transmission: Automatická prevodovka",
+  "Carpet colour: K2",
+  "Driver + passenger embroidery code: H1",
+  "Centre embroidery code: H4",
+  "Door upholstery: Yes",
+  "Door upholstery colour: A4",
+  "Door embroidery code: H1",
 ].forEach((line) => assert.ok(summary.includes(line), `Chýba riadok: ${line}`));
 
 assert.ok(!summary.includes("undefined"));
@@ -43,6 +43,6 @@ const once = mergeTruckOrderSummaryIntoNote("Prosím zavolať pred doručením."
 const twice = mergeTruckOrderSummaryIntoNote(once, summary);
 assert.equal(twice, once, "automatický blok sa pri opakovanom odoslaní nesmie duplikovať");
 assert.ok(twice.startsWith("Prosím zavolať pred doručením."), "ručná poznámka zákazníka sa musí zachovať");
-assert.equal((twice.match(/\[TRUCK KONFIGURÁCIA\]/g) || []).length, 1);
+assert.equal((twice.match(/\[TRUCK CONFIGURATION\]/g) || []).length, 1);
 
 console.log("✓ súhrn truck konfigurácie obsahuje všetky výrobné voľby");
