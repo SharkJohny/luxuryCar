@@ -35056,6 +35056,262 @@ function initStickyPhotos() {
   updatePosition();
 }
 
+// assets/js/truck-konfigurator/truck-brands.js
+var TRUCK_VEHICLES = {
+  "Citro\xEBn (dod\xE1vka)": {
+    "Jumper 2007-2014": {},
+    "Jumper 2014-2025": {}
+  },
+  "DAF (TIR)": {
+    "XF 2022-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca CINEMA",
+        "Sedadlo spolujazdca odpru\u017Een\xE9"
+      ]
+    },
+    "XF105 2006-2012": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ]
+    },
+    "XF106 2013-2016": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ]
+    },
+    "XF106 2017-2021": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "XG / XG+ 2022-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca CINEMA",
+        "Sedadlo spolujazdca odpru\u017Een\xE9"
+      ]
+    }
+  },
+  "Fiat (dod\xE1vka)": {
+    "Ducato 2007-2025": {}
+  },
+  "Ford (TIR)": {
+    "F-MAX 2018-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    }
+  },
+  "IVECO (TIR)": {
+    "Stralis Hi-Way 2011-2019": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "Stralis Hi-Way 2011-2019 \u2013 obytn\xE1 kab\xEDna": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "Stralis S-Way 2019-2024": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "S-Way 2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    }
+  },
+  "MAN (TIR)": {
+    "TGX 2007-2017": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ],
+      "zasuvky": [
+        "1 z\xE1suvka (\u0161upl\xEDk)",
+        "2 z\xE1suvky (\u0161upl\xEDky)"
+      ]
+    },
+    "TGX 2018-2020": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ],
+      "zasuvky": [
+        "1 z\xE1suvka (\u0161upl\xEDk)",
+        "2 z\xE1suvky (\u0161upl\xEDky)"
+      ]
+    },
+    "TGX 2021-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "brzda": [
+        "Elektrick\xE1 ru\u010Dn\xE1 brzda umiestnen\xE1 na palubnej doske",
+        "ADR \u2013 pneumatick\xE1 ru\u010Dn\xE1 brzda umiestnen\xE1 v podlahe ved\u013Ea sedadla vodi\u010Da"
+      ]
+    }
+  },
+  "Mercedes-Benz (TIR)": {
+    "Actros MP2/MP3 (rovn\xE1 podlaha) 2003-2008": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9 (taburet)"
+      ]
+    },
+    "Actros MP4/MP5/MP6 (rovn\xE1 podlaha) 2011-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9 (taburet)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9/oto\u010Dn\xE9/pneumatick\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
+      ]
+    },
+    "Actros MP4/MP5/MP6 2021-2025 \u2013 obytn\xE1 kab\xEDna (Solostar)": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "Actros MP5/MP6 F (s tunelom) 2021-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9 (taburet)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9/oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
+      ]
+    }
+  },
+  "Mercedes-Benz (dod\xE1vka)": {
+    "Sprinter 2018-2025 (zadn\xFD pohon)": {
+      "sedadlo": [
+        "Sedadlo spolujazdca 1-miestne",
+        "Sedadlo spolujazdca 2-miestne"
+      ]
+    }
+  },
+  "Peugeot (dod\xE1vka)": {
+    "Boxer 2007-2014": {},
+    "Boxer 2014-2025": {}
+  },
+  "Renault (TIR)": {
+    "T Range (rovn\xE1 podlaha) 2013-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "T Range (s tunelom) 2013-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    }
+  },
+  "Renault (dod\xE1vka)": {
+    "Master 2010-2024": {
+      "sedadlo": [
+        "Bez sedadla spolujazdca",
+        "Sedadlo spolujazdca 1-miestne",
+        "Sedadlo spolujazdca 2-miestne"
+      ]
+    }
+  },
+  "Scania (TIR)": {
+    "R 2004-2008": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9"
+      ]
+    },
+    "R 2009-2013": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9"
+      ]
+    },
+    "R 2014-2016": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9 (taburet)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a \u2013 ako u vodi\u010Da)"
+      ]
+    },
+    "R 2017-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9 (taburet)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9/oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9 + oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
+      ]
+    },
+    "S 2017-2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ],
+      "sedadlo": [
+        "Sedadlo spolujazdca pevn\xE9 (taburet)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)",
+        "Sedadlo spolujazdca odpru\u017Een\xE9 + oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
+      ]
+    }
+  },
+  "Volvo (TIR)": {
+    "FH (FH13) 2009-2013": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka",
+        "Manu\xE1lna prevodovka"
+      ]
+    },
+    "FH4 2013-2021": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "FH5 2022-2024": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    },
+    "FH5 Aero 2025": {
+      "prevodovka": [
+        "Automatick\xE1 prevodovka"
+      ]
+    }
+  }
+};
+var TRUCK_FIELD_ORDER = ["prevodovka", "sedadlo", "zasuvky", "brzda", "podlaha"];
+var TRUCK_BRANDS = Object.fromEntries(
+  Object.entries(TRUCK_VEHICLES).map(([brand, models]) => [brand, Object.keys(models)])
+);
+var TRUCK_PRODUCT_URLS = {
+  sk: "/luxusne-autokoberce-truck/",
+  cs: "/luxusni-autokoberce-truck/"
+};
+var TRUCK_PRODUCT_URL = TRUCK_PRODUCT_URLS.sk;
+
 // assets/js/components/header.js
 function initHeader() {
   $(".top-navigation-bar-menu-helper").empty();
@@ -35092,7 +35348,30 @@ function initHeader() {
   $("body").on("click", function() {
     $flags.removeClass("open");
   });
+  initTruckMenuItem();
   headerFixProdukt();
+}
+function initTruckMenuItem() {
+  const shoptet2 = window.dataLayer?.find((entry) => entry?.shoptet)?.shoptet || {};
+  const isCz = String(shoptet2.projectId) === "704436" || shoptet2.language === "cs" || window.location.hostname.endsWith(".cz");
+  const href = isCz ? TRUCK_PRODUCT_URLS.cs : TRUCK_PRODUCT_URLS.sk;
+  const label = isCz ? "Kamiony a dod\xE1vky" : "Kami\xF3ny a dod\xE1vky";
+  const subtitle = isCz ? "Autokoberce na m\xEDru" : "Autokoberce na mieru";
+  const $menu = $("#menu-widget");
+  if (!$menu.length || $menu.children(".mebu-wrap--truck").length) return;
+  const image = "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/shop/big/2452-2_luxusne-autokoberce-do-kamionu-4-luxury-car-design-1x1.png?ff=1&x=1024&y=1024&q=85&ts=6a6bb789&sg=38cb01fe";
+  const $wrap = $("<div>", { class: "mebu-wrap mebu-wrap--truck" });
+  const $text = $("<div>", { class: "menu" }).appendTo($wrap);
+  const $list = $("<ul>").appendTo($text);
+  $("<li>", { class: "main" }).append($("<a>", { href, text: label })).appendTo($list);
+  $("<li>").append($("<a>", { href, text: subtitle })).appendTo($list);
+  const $pictureLink = $("<a>", { href }).appendTo($wrap);
+  const $picture = $("<div>", { class: "picture" }).appendTo($pictureLink);
+  $("<img>", { src: image, alt: `${subtitle} \u2013 ${label}`, loading: "eager" }).appendTo($picture);
+  const $title = $("<div>", { class: "title" }).appendTo($picture);
+  $("<div>", { class: "header", text: label }).appendTo($title);
+  $("<div>", { class: "prefix", text: subtitle }).appendTo($title);
+  $wrap.appendTo($menu);
 }
 headerFixProdukt();
 function headerFixProdukt() {
@@ -36741,262 +37020,6 @@ function initContactForm() {
     run();
   }
 })();
-
-// assets/js/truck-konfigurator/truck-brands.js
-var TRUCK_VEHICLES = {
-  "Citro\xEBn (dod\xE1vka)": {
-    "Jumper 2007-2014": {},
-    "Jumper 2014-2025": {}
-  },
-  "DAF (TIR)": {
-    "XF 2022-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca CINEMA",
-        "Sedadlo spolujazdca odpru\u017Een\xE9"
-      ]
-    },
-    "XF105 2006-2012": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ]
-    },
-    "XF106 2013-2016": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ]
-    },
-    "XF106 2017-2021": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "XG / XG+ 2022-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca CINEMA",
-        "Sedadlo spolujazdca odpru\u017Een\xE9"
-      ]
-    }
-  },
-  "Fiat (dod\xE1vka)": {
-    "Ducato 2007-2025": {}
-  },
-  "Ford (TIR)": {
-    "F-MAX 2018-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    }
-  },
-  "IVECO (TIR)": {
-    "Stralis Hi-Way 2011-2019": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "Stralis Hi-Way 2011-2019 \u2013 obytn\xE1 kab\xEDna": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "Stralis S-Way 2019-2024": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "S-Way 2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    }
-  },
-  "MAN (TIR)": {
-    "TGX 2007-2017": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ],
-      "zasuvky": [
-        "1 z\xE1suvka (\u0161upl\xEDk)",
-        "2 z\xE1suvky (\u0161upl\xEDky)"
-      ]
-    },
-    "TGX 2018-2020": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ],
-      "zasuvky": [
-        "1 z\xE1suvka (\u0161upl\xEDk)",
-        "2 z\xE1suvky (\u0161upl\xEDky)"
-      ]
-    },
-    "TGX 2021-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "brzda": [
-        "Elektrick\xE1 ru\u010Dn\xE1 brzda umiestnen\xE1 na palubnej doske",
-        "ADR \u2013 pneumatick\xE1 ru\u010Dn\xE1 brzda umiestnen\xE1 v podlahe ved\u013Ea sedadla vodi\u010Da"
-      ]
-    }
-  },
-  "Mercedes-Benz (TIR)": {
-    "Actros MP2/MP3 (rovn\xE1 podlaha) 2003-2008": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9 (taburet)"
-      ]
-    },
-    "Actros MP4/MP5/MP6 (rovn\xE1 podlaha) 2011-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9 (taburet)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9/oto\u010Dn\xE9/pneumatick\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
-      ]
-    },
-    "Actros MP4/MP5/MP6 2021-2025 \u2013 obytn\xE1 kab\xEDna (Solostar)": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "Actros MP5/MP6 F (s tunelom) 2021-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9 (taburet)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9/oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
-      ]
-    }
-  },
-  "Mercedes-Benz (dod\xE1vka)": {
-    "Sprinter 2018-2025 (zadn\xFD pohon)": {
-      "sedadlo": [
-        "Sedadlo spolujazdca 1-miestne",
-        "Sedadlo spolujazdca 2-miestne"
-      ]
-    }
-  },
-  "Peugeot (dod\xE1vka)": {
-    "Boxer 2007-2014": {},
-    "Boxer 2014-2025": {}
-  },
-  "Renault (TIR)": {
-    "T Range (rovn\xE1 podlaha) 2013-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "T Range (s tunelom) 2013-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    }
-  },
-  "Renault (dod\xE1vka)": {
-    "Master 2010-2024": {
-      "sedadlo": [
-        "Bez sedadla spolujazdca",
-        "Sedadlo spolujazdca 1-miestne",
-        "Sedadlo spolujazdca 2-miestne"
-      ]
-    }
-  },
-  "Scania (TIR)": {
-    "R 2004-2008": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9"
-      ]
-    },
-    "R 2009-2013": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9"
-      ]
-    },
-    "R 2014-2016": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9 (taburet)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a \u2013 ako u vodi\u010Da)"
-      ]
-    },
-    "R 2017-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9 (taburet)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9/oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9 + oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
-      ]
-    },
-    "S 2017-2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ],
-      "sedadlo": [
-        "Sedadlo spolujazdca pevn\xE9 (taburet)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)",
-        "Sedadlo spolujazdca odpru\u017Een\xE9 + oto\u010Dn\xE9 (ve\u013Ek\xE1 z\xE1klad\u0148a)"
-      ]
-    }
-  },
-  "Volvo (TIR)": {
-    "FH (FH13) 2009-2013": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka",
-        "Manu\xE1lna prevodovka"
-      ]
-    },
-    "FH4 2013-2021": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "FH5 2022-2024": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    },
-    "FH5 Aero 2025": {
-      "prevodovka": [
-        "Automatick\xE1 prevodovka"
-      ]
-    }
-  }
-};
-var TRUCK_FIELD_ORDER = ["prevodovka", "sedadlo", "zasuvky", "brzda", "podlaha"];
-var TRUCK_BRANDS = Object.fromEntries(
-  Object.entries(TRUCK_VEHICLES).map(([brand, models]) => [brand, Object.keys(models)])
-);
-var TRUCK_PRODUCT_URLS = {
-  sk: "/luxusne-autokoberce-truck/",
-  cs: "/luxusni-autokoberce-truck/"
-};
-var TRUCK_PRODUCT_URL = TRUCK_PRODUCT_URLS.sk;
 
 // assets/js/main.js
 var setupData;

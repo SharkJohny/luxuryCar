@@ -1,3 +1,5 @@
+import { TRUCK_PRODUCT_URLS } from "../truck-konfigurator/truck-brands.js";
+
 export function initHeader() {
   $(".top-navigation-bar-menu-helper").empty();
   $("ul.top-navigation-bar-menu li").addClass("cropped").clone().appendTo(".top-navigation-bar-menu-helper");
@@ -48,7 +50,44 @@ export function initHeader() {
   $("body").on("click", function () {
     $flags.removeClass("open");
   });
+  initTruckMenuItem();
   headerFixProdukt();
+}
+
+function initTruckMenuItem() {
+  const shoptet = window.dataLayer?.find((entry) => entry?.shoptet)?.shoptet || {};
+  const isCz =
+    String(shoptet.projectId) === "704436" ||
+    shoptet.language === "cs" ||
+    window.location.hostname.endsWith(".cz");
+  const href = isCz ? TRUCK_PRODUCT_URLS.cs : TRUCK_PRODUCT_URLS.sk;
+  const label = isCz ? "Kamiony a dodávky" : "Kamióny a dodávky";
+  const subtitle = isCz ? "Autokoberce na míru" : "Autokoberce na mieru";
+  const $menu = $("#menu-widget");
+
+  if (!$menu.length || $menu.children(".mebu-wrap--truck").length) return;
+
+  const image =
+    "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/shop/big/2452-2_luxusne-autokoberce-do-kamionu-4-luxury-car-design-1x1.png?ff=1&x=1024&y=1024&q=85&ts=6a6bb789&sg=38cb01fe";
+  const $wrap = $("<div>", { class: "mebu-wrap mebu-wrap--truck" });
+  const $text = $("<div>", { class: "menu" }).appendTo($wrap);
+  const $list = $("<ul>").appendTo($text);
+
+  $("<li>", { class: "main" })
+    .append($("<a>", { href, text: label }))
+    .appendTo($list);
+  $("<li>")
+    .append($("<a>", { href, text: subtitle }))
+    .appendTo($list);
+
+  const $pictureLink = $("<a>", { href }).appendTo($wrap);
+  const $picture = $("<div>", { class: "picture" }).appendTo($pictureLink);
+  $("<img>", { src: image, alt: `${subtitle} – ${label}`, loading: "eager" }).appendTo($picture);
+  const $title = $("<div>", { class: "title" }).appendTo($picture);
+  $("<div>", { class: "header", text: label }).appendTo($title);
+  $("<div>", { class: "prefix", text: subtitle }).appendTo($title);
+
+  $wrap.appendTo($menu);
 }
 
 headerFixProdukt();

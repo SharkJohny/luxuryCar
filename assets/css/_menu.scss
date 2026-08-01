@@ -38,6 +38,10 @@ div#menu-widget {
       text-transform: uppercase;
       padding: 5px 0;
     }
+
+    img {
+      display: block;
+    }
     .prefix {
       font-size: 10px;
     }
@@ -49,6 +53,12 @@ div#menu-widget {
   a {
     color: black;
     text-transform: uppercase;
+  }
+
+  .mebu-wrap--truck .picture img {
+    width: 200px;
+    height: 124px;
+    object-fit: cover;
   }
 }
 
@@ -66,6 +76,10 @@ div#menu-widget {
     margin-right: 0px;
     text-align: left;
     width: 50%;
+  }
+  div#menu-widget .mebu-wrap--truck .picture img {
+    width: 150px;
+    height: 94px;
   }
   .language-flags-mobile {
     padding: 15px 30px;
