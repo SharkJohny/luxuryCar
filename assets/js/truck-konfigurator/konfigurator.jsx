@@ -745,6 +745,13 @@ function T(key, fallback) {
  * konfigurátor — aktuálne vyhodnotené raz pri load-e modulu.
  */
 const CURRENCY = detectLang() === "cs" ? "Kč" : "€";
+const PRICE_FORMATTER = new Intl.NumberFormat(CURRENCY === "Kč" ? "cs-CZ" : "sk-SK", {
+  maximumFractionDigits: 2,
+});
+
+function formatPrice(amount) {
+  return `${PRICE_FORMATTER.format(amount)} ${CURRENCY}`;
+}
 
 const FALLBACK_PRICES = {
   BASE: 199,
@@ -1975,7 +1982,7 @@ function Configurator() {
                     color: PRICES.MATERIAL[matName] > 0 ? "#2E1810" : "#888",
                     whiteSpace: "nowrap",
                   }}>
-                    {PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} ${CURRENCY}` : "v cene"}
+                    {PRICES.MATERIAL[matName] > 0 ? `+ ${formatPrice(PRICES.MATERIAL[matName])}` : "v cene"}
                   </div>
                 </div>
               </div>
@@ -2244,17 +2251,17 @@ function Configurator() {
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                 <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                  {PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred} {CURRENCY}
+                  {formatPrice(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred)}
                 </span>
                 <span style={{ fontSize: 18, fontWeight: 800, color: "#2E1810" }}>
-                  + {PRICES.NASIVKY["boky+stred"]} {CURRENCY}
+                  + {formatPrice(PRICES.NASIVKY["boky+stred"])}
                 </span>
                 <span style={{
                   fontSize: 10, fontWeight: 800, color: "#fff",
                   background: "#4CAF50", padding: "3px 8px", borderRadius: 10,
                   letterSpacing: 0.5, whiteSpace: "nowrap",
                 }}>
-                  −{(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred) - PRICES.NASIVKY["boky+stred"]} {CURRENCY}
+                  −{formatPrice((PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred) - PRICES.NASIVKY["boky+stred"])}
                 </span>
               </span>
             </div>
@@ -2293,18 +2300,18 @@ function Configurator() {
                     <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                       {opt.rrp > opt.price && (
                         <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                          {opt.rrp} {CURRENCY}
+                          {formatPrice(opt.rrp)}
                         </span>
                       )}
                       <span style={{
                         fontSize: 18, fontWeight: 800,
                         color: opt.price > 0 ? "#2E1810" : "#888",
                       }}>
-                        {opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"}
+                        {opt.price > 0 ? `+ ${formatPrice(opt.price)}` : "v cene"}
                       </span>
                       {opt.rrp > opt.price && (
                         <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" }}>
-                          −{opt.rrp - opt.price} {CURRENCY}
+                          −{formatPrice(opt.rrp - opt.price)}
                         </span>
                       )}
                     </span>
@@ -3129,17 +3136,17 @@ function Configurator() {
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                 <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                  {PRICES.TAPACIR_SAMO} {CURRENCY}
+                  {formatPrice(PRICES.TAPACIR_SAMO)}
                 </span>
                 <span style={{ fontSize: 18, fontWeight: 800, color: "#2E1810" }}>
-                  + {PRICES.TAPACIR_BUNDLE} {CURRENCY}
+                  + {formatPrice(PRICES.TAPACIR_BUNDLE)}
                 </span>
                 <span style={{
                   fontSize: 10, fontWeight: 800, color: "#fff",
                   background: "#4CAF50", padding: "3px 8px", borderRadius: 10,
                   letterSpacing: 0.5, whiteSpace: "nowrap",
                 }}>
-                  −{PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE} {CURRENCY}
+                  −{formatPrice(PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE)}
                 </span>
               </span>
             </div>
@@ -3646,17 +3653,17 @@ function Configurator() {
                       </span>
                       <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                         <span style={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
-                          {PRICES.NASIVKA_DVERE_SAMO} {CURRENCY}
+                          {formatPrice(PRICES.NASIVKA_DVERE_SAMO)}
                         </span>
                         <span style={{ fontSize: 18, fontWeight: 800, color: "#2E1810" }}>
-                          + {PRICES.NASIVKA_DVERE} {CURRENCY}
+                          + {formatPrice(PRICES.NASIVKA_DVERE)}
                         </span>
                         <span style={{
                           fontSize: 10, fontWeight: 800, color: "#fff",
                           background: "#4CAF50", padding: "3px 8px", borderRadius: 10,
                           letterSpacing: 0.5, whiteSpace: "nowrap",
                         }}>
-                          −{PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE} {CURRENCY}
+                          −{formatPrice(PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE)}
                         </span>
                       </span>
                     </div>
@@ -4030,7 +4037,7 @@ function Configurator() {
                 <span style={{
                   fontSize: 13, color: "#999", textDecoration: "line-through",
                 }}>
-                  {item.originalAmount} {CURRENCY}
+                  {formatPrice(item.originalAmount)}
                 </span>
               )}
               {item.type === "info" ? (
@@ -4040,7 +4047,7 @@ function Configurator() {
                   fontSize: 16, fontWeight: 700,
                   color: item.type === "bundle" ? "#4CAF50" : "#2E1810",
                 }}>
-                  {item.amount} {CURRENCY}
+                  {formatPrice(item.amount)}
                 </span>
               )}
             </span>
@@ -4057,7 +4064,7 @@ function Configurator() {
               ✓ Vďaka konfigurácii s Luxusnými autokobercami pod sedadlá ste ušetrili
             </span>
             <span style={{ fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" }}>
-              {pricing.savings} {CURRENCY} ({Math.round((pricing.savings / pricing.originalTotal) * 100)}%)
+              {formatPrice(pricing.savings)} ({Math.round((pricing.savings / pricing.originalTotal) * 100)}%)
             </span>
           </div>
         )}
@@ -4070,7 +4077,7 @@ function Configurator() {
         }}>
           <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: 1 }}>CELKOM</span>
           <span style={{ fontSize: 26, fontWeight: 900, color: "#C5A44E" }}>
-            {pricing.total} {CURRENCY}
+            {formatPrice(pricing.total)}
           </span>
         </div>
       </div>

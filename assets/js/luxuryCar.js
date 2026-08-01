@@ -25308,6 +25308,12 @@ function detectLang() {
   return "sk";
 }
 var CURRENCY = detectLang() === "cs" ? "K\u010D" : "\u20AC";
+var PRICE_FORMATTER = new Intl.NumberFormat(CURRENCY === "K\u010D" ? "cs-CZ" : "sk-SK", {
+  maximumFractionDigits: 2
+});
+function formatPrice(amount) {
+  return `${PRICE_FORMATTER.format(amount)} ${CURRENCY}`;
+}
 var FALLBACK_PRICES = {
   BASE: 199,
   MATERIAL: {
@@ -26351,7 +26357,7 @@ function Configurator() {
           fontWeight: 800,
           color: PRICES.MATERIAL[matName] > 0 ? "#2E1810" : "#888",
           whiteSpace: "nowrap"
-        } }, PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} ${CURRENCY}` : "v cene"))
+        } }, PRICES.MATERIAL[matName] > 0 ? `+ ${formatPrice(PRICES.MATERIAL[matName])}` : "v cene"))
       );
     })),
     selectedMaterial && /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 16, justifyContent: "center" } }, MATERIALS[selectedMaterial].map((swatch) => {
@@ -26651,7 +26657,7 @@ function Configurator() {
         whiteSpace: "nowrap"
       } }, "\u2B50 Ob\u013E\xFAben\xE1 vo\u013Eba"),
       /* @__PURE__ */ import_react.default.createElement("span", null, nasivkyPlacement === "boky+stred" && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "\u0160of\xE9r + spolujazdec + stred"),
-      /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", PRICES.NASIVKY["boky+stred"], " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred)), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", formatPrice(PRICES.NASIVKY["boky+stred"])), /* @__PURE__ */ import_react.default.createElement("span", { style: {
         fontSize: 10,
         fontWeight: 800,
         color: "#fff",
@@ -26660,7 +26666,7 @@ function Configurator() {
         borderRadius: 10,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\u2212", PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"], " ", CURRENCY))
+      } }, "\u2212", formatPrice(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"])))
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 10 } }, [
       { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky, rrp: PRICES.NASIVKY_SAMO.boky },
       { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred, rrp: PRICES.NASIVKY_SAMO.stred },
@@ -26714,11 +26720,11 @@ function Configurator() {
           }
         },
         /* @__PURE__ */ import_react.default.createElement("span", null, isActive && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), opt.label),
-        /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
+        /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice(opt.rrp)), /* @__PURE__ */ import_react.default.createElement("span", { style: {
           fontSize: 18,
           fontWeight: 800,
           color: opt.price > 0 ? "#2E1810" : "#888"
-        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " ", CURRENCY))
+        } }, opt.price > 0 ? `+ ${formatPrice(opt.price)}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", formatPrice(opt.rrp - opt.price)))
       );
     })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
@@ -27276,7 +27282,7 @@ function Configurator() {
         whiteSpace: "nowrap"
       } }, "\u2B50 Ob\u013E\xFAben\xE1 vo\u013Eba"),
       /* @__PURE__ */ import_react.default.createElement("span", null, doorPanelChoice === "ano" && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "\xC1no, prajem si tapac\xEDr dver\xED"),
-      /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.TAPACIR_SAMO, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", PRICES.TAPACIR_BUNDLE, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice(PRICES.TAPACIR_SAMO)), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", formatPrice(PRICES.TAPACIR_BUNDLE)), /* @__PURE__ */ import_react.default.createElement("span", { style: {
         fontSize: 10,
         fontWeight: 800,
         color: "#fff",
@@ -27285,7 +27291,7 @@ function Configurator() {
         borderRadius: 10,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\u2212", PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE, " ", CURRENCY))
+      } }, "\u2212", formatPrice(PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE)))
     ), /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
@@ -27767,7 +27773,7 @@ function Configurator() {
         whiteSpace: "nowrap"
       } }, "\u2B50 Ob\u013E\xFAben\xE1 vo\u013Eba"),
       /* @__PURE__ */ import_react.default.createElement("span", null, doorWantsNasivka === true && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "\xC1no, prajem si n\xE1\u0161ivky na panely"),
-      /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKA_DVERE_SAMO, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", PRICES.NASIVKA_DVERE, " ", CURRENCY), /* @__PURE__ */ import_react.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice(PRICES.NASIVKA_DVERE_SAMO)), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "#2E1810" } }, "+ ", formatPrice(PRICES.NASIVKA_DVERE)), /* @__PURE__ */ import_react.default.createElement("span", { style: {
         fontSize: 10,
         fontWeight: 800,
         color: "#fff",
@@ -27776,7 +27782,7 @@ function Configurator() {
         borderRadius: 10,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\u2212", PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE, " ", CURRENCY))
+      } }, "\u2212", formatPrice(PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE)))
     ), doorWantsNasivka !== true && /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
@@ -28109,11 +28115,11 @@ function Configurator() {
     fontSize: 13,
     color: "#999",
     textDecoration: "line-through"
-  } }, item.originalAmount, " ", CURRENCY), item.type === "info" ? /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#666", fontWeight: 600 } }, "v cene") : /* @__PURE__ */ import_react.default.createElement("span", { style: {
+  } }, formatPrice(item.originalAmount)), item.type === "info" ? /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#666", fontWeight: 600 } }, "v cene") : /* @__PURE__ */ import_react.default.createElement("span", { style: {
     fontSize: 16,
     fontWeight: 700,
     color: item.type === "bundle" ? "#4CAF50" : "#2E1810"
-  } }, item.amount, " ", CURRENCY)))), pricing.savings > 0 && /* @__PURE__ */ import_react.default.createElement("div", { style: {
+  } }, formatPrice(item.amount))))), pricing.savings > 0 && /* @__PURE__ */ import_react.default.createElement("div", { style: {
     marginTop: 12,
     padding: "10px 14px",
     background: "#E8F5E9",
@@ -28122,7 +28128,7 @@ function Configurator() {
     justifyContent: "space-between",
     alignItems: "center",
     gap: 8
-  } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#2E7D32", fontWeight: 600, lineHeight: 1.35 } }, "\u2713 V\u010Faka konfigur\xE1cii s Luxusn\xFDmi autokobercami pod sedadl\xE1 ste u\u0161etrili"), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" } }, pricing.savings, " ", CURRENCY, " (", Math.round(pricing.savings / pricing.originalTotal * 100), "%)")), /* @__PURE__ */ import_react.default.createElement("div", { style: {
+  } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 13, color: "#2E7D32", fontWeight: 600, lineHeight: 1.35 } }, "\u2713 V\u010Faka konfigur\xE1cii s Luxusn\xFDmi autokobercami pod sedadl\xE1 ste u\u0161etrili"), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" } }, formatPrice(pricing.savings), " (", Math.round(pricing.savings / pricing.originalTotal * 100), "%)")), /* @__PURE__ */ import_react.default.createElement("div", { style: {
     marginTop: 14,
     padding: "16px 18px",
     background: "linear-gradient(135deg, #2E1810, #4a2a1a)",
@@ -28131,7 +28137,7 @@ function Configurator() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
-  } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 16, fontWeight: 700, letterSpacing: 1 } }, "CELKOM"), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 26, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " ", CURRENCY))), validationErrors.message && /* @__PURE__ */ import_react.default.createElement("div", { style: {
+  } }, /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 16, fontWeight: 700, letterSpacing: 1 } }, "CELKOM"), /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 26, fontWeight: 900, color: "#C5A44E" } }, formatPrice(pricing.total)))), validationErrors.message && /* @__PURE__ */ import_react.default.createElement("div", { style: {
     margin: "12px 0",
     padding: "14px 18px",
     borderRadius: 10,
@@ -28895,6 +28901,12 @@ function detectCurrencySymbol() {
   return "\u20AC";
 }
 var CURRENCY2 = detectCurrencySymbol();
+var PRICE_FORMATTER2 = new Intl.NumberFormat(CURRENCY2 === "K\u010D" ? "cs-CZ" : "sk-SK", {
+  maximumFractionDigits: 2
+});
+function formatPrice2(amount) {
+  return `${PRICE_FORMATTER2.format(amount)} ${CURRENCY2}`;
+}
 var FALLBACK_PRICES2 = {
   BASE: 199,
   MATERIAL: {
@@ -29997,7 +30009,7 @@ function Configurator2() {
           fontWeight: 800,
           color: PRICES.MATERIAL[matName] > 0 ? "#C5A44E" : "#666",
           marginTop: 2
-        } }, PRICES.MATERIAL[matName] > 0 ? `+ ${PRICES.MATERIAL[matName]} ${CURRENCY2}` : "v cene"))
+        } }, PRICES.MATERIAL[matName] > 0 ? `+ ${formatPrice2(PRICES.MATERIAL[matName])}` : "v cene"))
       );
     })),
     selectedMaterial && /* @__PURE__ */ import_react2.default.createElement(import_react2.default.Fragment, null, /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-color-picker", style: { scrollMarginTop: 20, fontSize: 15, fontWeight: 700, color: "#2E1810", marginTop: 20, marginBottom: 12, display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 17 } }, "\u{1F3A8}"), /* @__PURE__ */ import_react2.default.createElement("span", null, "Vyberte farbu materi\xE1lu:")), /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 16, justifyContent: "center" } }, MATERIALS2[selectedMaterial].map((swatch) => {
@@ -30307,7 +30319,7 @@ function Configurator2() {
         whiteSpace: "nowrap"
       }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, nasivkyPlacement === "boky+stred" && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\u0160of\xE9r + spolujazdec + stred"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.NASIVKY["boky+stred"], " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice2(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred)), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", formatPrice2(PRICES.NASIVKY["boky+stred"])), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
         fontSize: 11,
         fontWeight: 900,
         color: "#fff",
@@ -30316,7 +30328,7 @@ function Configurator2() {
         borderRadius: 12,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\xDASPORA ", PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"], " ", CURRENCY2))
+      } }, "\xDASPORA ", formatPrice2(PRICES.NASIVKY_SAMO.boky + PRICES.NASIVKY_SAMO.stred - PRICES.NASIVKY["boky+stred"])))
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 10 } }, [
       { id: "boky", label: "\u0160of\xE9r + spolujazdec", price: PRICES.NASIVKY.boky, rrp: PRICES.NASIVKY_SAMO.boky },
       { id: "stred", label: "Len stred", price: PRICES.NASIVKY.stred, rrp: PRICES.NASIVKY_SAMO.stred },
@@ -30370,11 +30382,11 @@ function Configurator2() {
           }
         },
         /* @__PURE__ */ import_react2.default.createElement("span", null, isActive && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), opt.label),
-        /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, opt.rrp, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+        /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice2(opt.rrp)), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
           fontSize: 18,
           fontWeight: 800,
           color: opt.price > 0 ? "#2E1810" : "#888"
-        } }, opt.price > 0 ? `+ ${opt.price} ${CURRENCY2}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", opt.rrp - opt.price, " ", CURRENCY2))
+        } }, opt.price > 0 ? `+ ${formatPrice2(opt.price)}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", formatPrice2(opt.rrp - opt.price)))
       );
     })))), false),
     (nasivkyPlacement === "boky" || nasivkyPlacement === "boky+stred") && /* @__PURE__ */ import_react2.default.createElement(import_react2.default.Fragment, null, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30879,7 +30891,7 @@ function Configurator2() {
         whiteSpace: "nowrap"
       }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, doorPanelChoice === "ano" && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\xC1no, prajem si tapac\xEDr dver\xED"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.TAPACIR_SAMO, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.TAPACIR_BUNDLE, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice2(PRICES.TAPACIR_SAMO)), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", formatPrice2(PRICES.TAPACIR_BUNDLE)), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
         fontSize: 11,
         fontWeight: 900,
         color: "#fff",
@@ -30888,7 +30900,7 @@ function Configurator2() {
         borderRadius: 12,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\xDASPORA ", PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE, " ", CURRENCY2))
+      } }, "\xDASPORA ", formatPrice2(PRICES.TAPACIR_SAMO - PRICES.TAPACIR_BUNDLE)))
     ), /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
@@ -31388,7 +31400,7 @@ function Configurator2() {
         whiteSpace: "nowrap"
       }, className: "konfig-popular-badge" }, "\u2605 Najob\u013E\xFAbenej\u0161ie"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: "#2E1810", lineHeight: 1.3 } }, doorWantsNasivka === true && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6, color: "#4CAF50" } }, "\u2713"), "\xC1no, prajem si n\xE1\u0161ivky na panely"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, PRICES.NASIVKA_DVERE_SAMO, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", PRICES.NASIVKA_DVERE, " ", CURRENCY2), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#999", textDecoration: "line-through" } }, formatPrice2(PRICES.NASIVKA_DVERE_SAMO)), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "#C5A44E" } }, "+ ", formatPrice2(PRICES.NASIVKA_DVERE)), /* @__PURE__ */ import_react2.default.createElement("span", { style: {
         fontSize: 11,
         fontWeight: 900,
         color: "#fff",
@@ -31397,7 +31409,7 @@ function Configurator2() {
         borderRadius: 12,
         letterSpacing: 0.5,
         whiteSpace: "nowrap"
-      } }, "\xDASPORA ", PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE, " ", CURRENCY2))
+      } }, "\xDASPORA ", formatPrice2(PRICES.NASIVKA_DVERE_SAMO - PRICES.NASIVKA_DVERE)))
     ), /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
@@ -31763,7 +31775,7 @@ function Configurator2() {
       }
     },
     /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { className: "konfig-suhrn-chevron", style: { fontSize: 14, color: "#C5A44E", transition: "transform 0.25s", display: "inline-block" } }, "\u25B6"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, "S\xDAHRN OBJEDN\xC1VKY")),
-    /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " ", CURRENCY2))
+    /* @__PURE__ */ import_react2.default.createElement("span", { style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 900, color: "#C5A44E" } }, formatPrice2(pricing.total)))
   ), /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "0 16px 14px" } }, pricing.breakdown.map((item, idx) => /* @__PURE__ */ import_react2.default.createElement("div", { key: idx, style: {
     display: "flex",
     justifyContent: "space-between",
@@ -31790,11 +31802,11 @@ function Configurator2() {
     fontSize: 13,
     color: "#999",
     textDecoration: "line-through"
-  } }, item.originalAmount, " ", CURRENCY2), item.type === "info" ? /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#666", fontWeight: 600 } }, "v cene") : /* @__PURE__ */ import_react2.default.createElement("span", { style: {
+  } }, formatPrice2(item.originalAmount)), item.type === "info" ? /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#666", fontWeight: 600 } }, "v cene") : /* @__PURE__ */ import_react2.default.createElement("span", { style: {
     fontSize: 16,
     fontWeight: 700,
     color: item.type === "bundle" ? "#4CAF50" : "#2E1810"
-  } }, item.amount, " ", CURRENCY2)))), pricing.savings > 0 && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  } }, formatPrice2(item.amount))))), pricing.savings > 0 && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     marginTop: 12,
     padding: "10px 14px",
     background: "#E8F5E9",
@@ -31803,7 +31815,7 @@ function Configurator2() {
     justifyContent: "space-between",
     alignItems: "center",
     gap: 8
-  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#2E7D32", fontWeight: 600, lineHeight: 1.35 } }, "\u2713 V\u010Faka konfigur\xE1cii s Luxusn\xFDmi autokobercami pod sedadl\xE1 ste u\u0161etrili"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" } }, pricing.savings, " ", CURRENCY2, " (", Math.round(pricing.savings / pricing.originalTotal * 100), "%)")), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 13, color: "#2E7D32", fontWeight: 600, lineHeight: 1.35 } }, "\u2713 V\u010Faka konfigur\xE1cii s Luxusn\xFDmi autokobercami pod sedadl\xE1 ste u\u0161etrili"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 15, fontWeight: 800, color: "#2E7D32", whiteSpace: "nowrap" } }, formatPrice2(pricing.savings), " (", Math.round(pricing.savings / pricing.originalTotal * 100), "%)")), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     marginTop: 14,
     padding: "16px 18px",
     background: "linear-gradient(135deg, #2E1810, #4a2a1a)",
@@ -31812,7 +31824,7 @@ function Configurator2() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
-  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 700, letterSpacing: 1 } }, "CELKOM"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 26, fontWeight: 900, color: "#C5A44E" } }, pricing.total, " ", CURRENCY2)))), validationErrors.message && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 16, fontWeight: 700, letterSpacing: 1 } }, "CELKOM"), /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 26, fontWeight: 900, color: "#C5A44E" } }, formatPrice2(pricing.total))))), validationErrors.message && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     margin: "12px 0",
     padding: "14px 18px",
     borderRadius: 10,
@@ -32053,7 +32065,7 @@ function Configurator2() {
       }
     },
     "Objedna\u0165"
-  )))), /* @__PURE__ */ import_react2.default.createElement("div", { className: "phone-stickybar" }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", lineHeight: 1.15, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 10, color: "#666", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" } }, "Celkom"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: "#2E1810" } }, pricing.total, " ", CURRENCY2), (znacka || model || selectedMaterial || selectedColor) && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
+  )))), /* @__PURE__ */ import_react2.default.createElement("div", { className: "phone-stickybar" }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", lineHeight: 1.15, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 10, color: "#666", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" } }, "Celkom"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: "#2E1810" } }, formatPrice2(pricing.total)), (znacka || model || selectedMaterial || selectedColor) && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
     fontSize: 10,
     color: "#666",
     marginTop: 2,
@@ -36069,7 +36081,7 @@ function readBasePriceFromDom() {
   const num = Number(normalized);
   return Number.isFinite(num) && num > 0 ? num : null;
 }
-function formatPrice(value) {
+function formatPrice3(value) {
   const cfg = window.shoptet && window.shoptet.config || {};
   const thousandSep = cfg.thousandSeparator || " ";
   const currency = cfg.currencySymbol || "K\u010D";
@@ -36091,8 +36103,8 @@ function applyLivePrice() {
   const $holder = $(PRICE_HOLDER_SEL).first();
   if (!$holder.length) return;
   const $inner = $holder.find(".calculated-price");
-  if ($inner.length) $inner.text(formatPrice(total));
-  else $holder.text(formatPrice(total));
+  if ($inner.length) $inner.text(formatPrice3(total));
+  else $holder.text(formatPrice3(total));
   document.dispatchEvent(new CustomEvent("LuxuryCarPriceRecalculated", {
     detail: { basePrice, surcharge, total }
   }));

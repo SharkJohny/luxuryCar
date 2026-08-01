@@ -247,7 +247,8 @@ export function formatEur(amount, currency = "EUR") {
   if (amount === null || amount === undefined || Number.isNaN(amount)) return "—";
   const rounded = Math.round(amount * 100) / 100;
   const sym = currency === "CZK" ? "Kč" : "€";
-  return `${rounded} ${sym}`;
+  const locale = currency === "CZK" ? "cs-CZ" : "sk-SK";
+  return `${new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(rounded)} ${sym}`;
 }
 
 // ============================================================

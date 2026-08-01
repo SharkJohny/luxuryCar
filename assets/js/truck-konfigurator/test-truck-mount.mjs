@@ -36,7 +36,7 @@ const surcharge = `
     <option value="">Vyberte príplatok</option>
     <option value="10">Prémiová syntetická koža – prešívaná + 20 €</option>
   </select>
-  <meta itemprop="price" content="199">
+  <meta itemprop="price" content="12500">
 `;
 
 async function mountWith(isPhone, vehicle) {
@@ -46,10 +46,10 @@ async function mountWith(isPhone, vehicle) {
   vc.on("error", (...a) => { const s = a.join(" "); if (/truck-konfig|Error|render/i.test(s)) errors.push(s); });
 
   const dom = new JSDOM(
-    `<!DOCTYPE html><html><body>
+    `<!DOCTYPE html><html lang="cs"><body>
        <div class="p-info-wrapper">${surcharge}<div id="tk-mount"></div></div>
      </body></html>`,
-    { url: "https://www.luxurycardesign.sk/test-truck/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
+    { url: "https://www.luxurycardesign.cz/test-truck/", runScripts: "outside-only", pretendToBeVisual: true, virtualConsole: vc },
   );
   const { window } = dom;
   const { brand, model, prefill, expectsDoorUpholstery } = vehicle;
@@ -76,6 +76,11 @@ async function mountWith(isPhone, vehicle) {
   if (el.children.length > 0 || (el.textContent || "").length > 0) ok(`${variant}: konfigurátor vyrenderoval DOM`);
   else fail(`${variant}: mount element ostal prázdny`);
   const renderedText = el.textContent || "";
+  if (renderedText.includes("12\u00a0500 Kč")) {
+    ok(`${variant}: česká cena obsahuje tisícovou mezeru`);
+  } else {
+    fail(`${variant}: česká cena nemá očekávaný formát 12 500 Kč`);
+  }
   if (
     renderedText.includes(brand) &&
     renderedText.includes(model) &&
