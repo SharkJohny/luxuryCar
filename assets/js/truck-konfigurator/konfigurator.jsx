@@ -608,6 +608,40 @@ const NITE_FARBY = [
   { code: "2840", name: "Zelená", color: "#4a8a4a", thumb: "data:image/png;base64,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" },
 ];
 
+const THREAD_COLOR_NAMES_CS = {
+  "2999": "Černá",
+  "2901": "Stříbrná",
+  "3738": "Světle šedá",
+  "3546": "Béžová",
+  "3617": "Světle hnědá",
+  "3504": "Tmavě hnědá",
+  "3501": "Hořčicová",
+  "2824": "Červená",
+  "2866": "Fialová",
+  "3842": "Modrá",
+  "2840": "Zelená",
+};
+
+function isCzechTruckConfigurator() {
+  if (typeof window === "undefined") return false;
+  const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+  if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return true;
+  const dlEntry = Array.isArray(window.dataLayer)
+    ? window.dataLayer.find((entry) => entry && entry.shoptet)
+    : null;
+  return Boolean(dlEntry && (String(dlEntry.shoptet.projectId) === "704436" || dlEntry.shoptet.language === "cs"));
+}
+
+function threadUiText(sk, cs) {
+  return isCzechTruckConfigurator() ? cs : sk;
+}
+
+function threadColorName(threadColor) {
+  if (!threadColor) return "";
+  if (isCzechTruckConfigurator()) return THREAD_COLOR_NAMES_CS[threadColor.code] || threadColor.name;
+  return threadColor.name;
+}
+
 // ============================================================
 // CENY — konfigurovateľné, upravuj podľa cenníka
 // Farba NEMENÍ cenu (bod 2), lemovanie NEMENÍ cenu (bod 3),
@@ -753,7 +787,7 @@ function formatPrice(amount) {
   return `${PRICE_FORMATTER.format(amount)} ${CURRENCY}`;
 }
 
-const FALLBACK_PRICES = {
+const FALLBACK_PRICES_EUR = {
   BASE: 199,
   MATERIAL: {
     "Prémiová syntetická koža – jednofarebná": 0,
@@ -777,6 +811,35 @@ const FALLBACK_PRICES = {
   NASIVKA_DVERE: 49,
   NASIVKA_DVERE_SAMO: 89,
 };
+
+// CZ ceník pro chvíli, kdy Shoptet ještě nevykreslil příplatkové selecty.
+// Při běžném provozu mají vždy přednost živé částky z DOMu níže.
+const FALLBACK_PRICES_CZK = {
+  BASE: 4799,
+  MATERIAL: {
+    "Prémiová syntetická koža – jednofarebná": 0,
+    "Prémiová syntetická koža – prešívaná": 199,
+    "Prémiová syntetická koža – tónovaná": 990,
+    "Mikrosemiš – jednofarebný": 990,
+    "Mikrosemiš – dvojfarebný": 1199,
+  },
+  NASIVKY: {
+    "nechcem": 0,
+    "stred": 1399,
+    "boky": 1399,
+    "boky+stred": 2299,
+  },
+  NASIVKY_SAMO: {
+    "boky": 1690,
+    "stred": 1690,
+  },
+  TAPACIR_BUNDLE: 2890,
+  TAPACIR_SAMO: 4390,
+  NASIVKA_DVERE: 1190,
+  NASIVKA_DVERE_SAMO: 2190,
+};
+
+const FALLBACK_PRICES = CURRENCY === "Kč" ? FALLBACK_PRICES_CZK : FALLBACK_PRICES_EUR;
 
 
 // ============================================================
@@ -848,21 +911,33 @@ function readShoptetPrices(fallback) {
   // Helper – nájde prvý zhodný option text v `bucket` podľa kľúčových slov
   function findByText(bucket, ...keywords) {
     if (!bucket) return undefined;
+    const normalizedKeywords = keywords.map((word) => normalizeOptionText(word));
     for (const k of Object.keys(bucket)) {
-      const kl = k.toLowerCase();
-      if (keywords.every((w) => kl.includes(w.toLowerCase()))) return bucket[k];
+      const normalizedKey = normalizeOptionText(k);
+      if (normalizedKeywords.every((word) => normalizedKey.includes(word))) return bucket[k];
     }
     return undefined;
+  }
+
+  function findBucket(...names) {
+    for (const name of names) {
+      if (map[name]) return map[name];
+    }
+    const normalizedNames = names.map((name) => normalizeOptionText(name));
+    for (const name of Object.keys(map)) {
+      if (normalizedNames.includes(normalizeOptionText(name))) return map[name];
+    }
+    return {};
   }
 
   function pick(domVal, fallbackVal) {
     return Number.isFinite(domVal) ? domVal : fallbackVal;
   }
 
-  const matBucket = map["Materiál"] || map["Material"] || {};
-  const nasBucket = map["Nášivky"] || map["Nasivky"] || {};
-  const tapBucket = map["Tapacír"] || map["Tapacir"] || {};
-  const dverNasBucket = map["Nášivka dvere"] || map["Nasivka dvere"] || {};
+  const matBucket = findBucket("Materiál", "Material", "Typ materiálu", "Typ materiálu koberečků");
+  const nasBucket = findBucket("Nášivky", "Nasivky", "Rozloženie nášiviek", "Rozložení nášivek");
+  const tapBucket = findBucket("Tapacír", "Tapacir", "Čalounění", "Calouneni");
+  const dverNasBucket = findBucket("Nášivka dvere", "Nasivka dvere", "Nášivka dveře", "Nasivka dveře", "Nášivky na tapacír");
 
   const fbMat = (fallback.MATERIAL) || {};
   const fbNas = (fallback.NASIVKY) || {};
@@ -871,34 +946,45 @@ function readShoptetPrices(fallback) {
     BASE: pick(base, fallback.BASE),
     MATERIAL: {
       "Prémiová syntetická koža – jednofarebná": pick(
-        matBucket["Prémiová syntetická koža – jednofarebná"],
+        matBucket["Prémiová syntetická koža – jednofarebná"] ??
+          matBucket["Prémiová syntetická kůže – jednobarevná"] ??
+          findByText(matBucket, "prémiová", "syntetická", "kůže", "jednobarevná"),
         fbMat["Prémiová syntetická koža – jednofarebná"],
       ),
       "Prémiová syntetická koža – prešívaná": pick(
-        matBucket["Prémiová syntetická koža – prešívaná"],
+        matBucket["Prémiová syntetická koža – prešívaná"] ??
+          matBucket["Prémiová syntetická kůže – prošívaná"] ??
+          findByText(matBucket, "prémiová", "syntetická", "kůže", "prošívaná"),
         fbMat["Prémiová syntetická koža – prešívaná"],
       ),
       "Prémiová syntetická koža – tónovaná": pick(
-        matBucket["Prémiová syntetická koža – tónovaná"],
+        matBucket["Prémiová syntetická koža – tónovaná"] ??
+          matBucket["Prémiová syntetická kůže – tónovaná"] ??
+          findByText(matBucket, "prémiová", "syntetická", "kůže", "tónovaná"),
         fbMat["Prémiová syntetická koža – tónovaná"],
       ),
       "Mikrosemiš – jednofarebný": pick(
-        matBucket["Mikrosemiš – jednofarebný"],
+        matBucket["Mikrosemiš – jednofarebný"] ??
+          matBucket["Mikrosemiš – jednobarevný"] ??
+          findByText(matBucket, "mikrosemiš", "jednobarevný"),
         fbMat["Mikrosemiš – jednofarebný"],
       ),
       "Mikrosemiš – dvojfarebný": pick(
-        matBucket["Mikrosemiš – dvojfarebný"],
+        matBucket["Mikrosemiš – dvojfarebný"] ??
+          matBucket["Mikrosemiš – dvoubarevný"] ??
+          findByText(matBucket, "mikrosemiš", "dvoubarevný"),
         fbMat["Mikrosemiš – dvojfarebný"],
       ),
     },
     NASIVKY: {
-      nechcem: pick(nasBucket["Bez nášiviek"], fbNas.nechcem),
-      stred: pick(nasBucket["Len stred"], fbNas.stred),
-      boky: pick(nasBucket["Šofér + spolujazdec"], fbNas.boky),
+      nechcem: pick(nasBucket["Bez nášiviek"] ?? nasBucket["Bez nášivek"] ?? findByText(nasBucket, "bez", "nášivek"), fbNas.nechcem),
+      stred: pick(nasBucket["Len stred"] ?? nasBucket["Jen střed"] ?? findByText(nasBucket, "jen", "střed"), fbNas.stred),
+      boky: pick(nasBucket["Šofér + spolujazdec"] ?? nasBucket["Řidič + spolujezdec"] ?? findByText(nasBucket, "řidič", "spolujezdec"), fbNas.boky),
       "boky+stred": pick(
         nasBucket["Šofér + spolujazdec + stred (BALÍK)"] ??
           nasBucket["Šofér + spolujazdec + stred (BUNDLE)"] ??
-          findByText(nasBucket, "šofér", "spolujazdec", "stred"),
+          nasBucket["Řidič + spolujezdec + střed (BALÍČEK)"] ??
+          findByText(nasBucket, "řidič", "spolujezdec", "střed"),
         fbNas["boky+stred"],
       ),
     },
@@ -906,14 +992,15 @@ function readShoptetPrices(fallback) {
     TAPACIR_BUNDLE: pick(
       tapBucket["Áno chcem (v konfigurátore – balík)"] ??
         tapBucket["Áno chcem (v konfigurátore – bundle)"] ??
-        findByText(tapBucket, "áno", "balík") ??
-        findByText(tapBucket, "áno", "bundle"),
+        tapBucket["Ano, chci (v konfigurátoru – balíček)"] ??
+        findByText(tapBucket, "ano", "chci", "konfigurátoru", "balíček"),
       fallback.TAPACIR_BUNDLE,
     ),
     TAPACIR_SAMO: fallback.TAPACIR_SAMO,
     NASIVKA_DVERE: pick(
       dverNasBucket["Áno chcem nášivku na dverách"] ??
-        findByText(dverNasBucket, "áno", "dverách"),
+        dverNasBucket["Ano, chci nášivku na dveřích"] ??
+        findByText(dverNasBucket, "ano", "chci", "nášivku", "dveřích"),
       fallback.NASIVKA_DVERE,
     ),
     NASIVKA_DVERE_SAMO: fallback.NASIVKA_DVERE_SAMO,
@@ -959,12 +1046,12 @@ function calculatePrice(state, PRICES) {
       // subLabel: kódy nášiviek + farby nití
       const details = [];
       if (nasivkyPlacement === "boky" && selectedNasivka) {
-        details.push(selectedNasivka.code + (selectedNitColor ? " · niť: " + selectedNitColor.name : ""));
+        details.push(selectedNasivka.code + (selectedNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(selectedNitColor) : ""));
       } else if (nasivkyPlacement === "stred" && selectedStredNasivka) {
-        details.push(selectedStredNasivka.code + (selectedStredNitColor ? " · niť: " + selectedStredNitColor.name : ""));
+        details.push(selectedStredNasivka.code + (selectedStredNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(selectedStredNitColor) : ""));
       } else if (nasivkyPlacement === "boky+stred") {
-        if (selectedNasivka) details.push("Boky: " + selectedNasivka.code + (selectedNitColor ? " (niť: " + selectedNitColor.name + ")" : ""));
-        if (selectedStredNasivka) details.push("Stred: " + selectedStredNasivka.code + (selectedStredNitColor ? " (niť: " + selectedStredNitColor.name + ")" : ""));
+        if (selectedNasivka) details.push("Boky: " + selectedNasivka.code + (selectedNitColor ? ` (${threadUiText("niť", "nit")}: ` + threadColorName(selectedNitColor) + ")" : ""));
+        if (selectedStredNasivka) details.push("Stred: " + selectedStredNasivka.code + (selectedStredNitColor ? ` (${threadUiText("niť", "nit")}: ` + threadColorName(selectedStredNitColor) + ")" : ""));
       }
       breakdown.push({
         label: label,
@@ -992,7 +1079,7 @@ function calculatePrice(state, PRICES) {
 
   if (doorWantsNasivka === true) {
     total += PRICES.NASIVKA_DVERE;
-    const nasSubLabel = doorNasivka ? (doorNasivka.code + (doorNitColor ? " · niť: " + doorNitColor.name : "")) : null;
+    const nasSubLabel = doorNasivka ? (doorNasivka.code + (doorNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(doorNitColor) : "")) : null;
     breakdown.push({
       label: "Nášivka na dverách",
       subLabel: nasSubLabel,
@@ -1720,7 +1807,7 @@ function Configurator() {
         ) : (
           <span style={{ fontSize: 18 }}>🧵</span>
         )}
-        <span>{label ? label.replace(/^\d+\.\s*/, "") : "Farba nite (výšivky):"}</span>
+        <span>{label ? label.replace(/^\d+\.\s*/, "") : threadUiText("Farba nite (výšivky):", "Barva nitě (výšivky):")}</span>
       </div>
       {/* Same-as voľba — klasická karta + badge "Najobľúbenejšie" */}
       {sameAsLabel && sameAsValue && (
@@ -1754,14 +1841,14 @@ function Configurator() {
               border: sameAsActive ? "2px solid #4CAF50" : "1px solid #e8dfc0",
               flexShrink: 0, background: "#fff",
             }}>
-              <img src={sameAsValue.thumb} alt={sameAsValue.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              <img src={sameAsValue.thumb} alt={threadColorName(sameAsValue)} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
           )}
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: sameAsActive ? "#2E7D32" : "#2E1810", lineHeight: 1.3 }}>
               {sameAsActive && <span style={{ marginRight: 6 }}>✓</span>}{sameAsLabel}
             </div>
-            <div style={{ fontSize: 12, color: sameAsActive ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 }}>{sameAsValue.name}</div>
+            <div style={{ fontSize: 12, color: sameAsActive ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 }}>{threadColorName(sameAsValue)}</div>
           </div>
           <div style={{ flexShrink: 0 }}>
             <div style={{
@@ -1793,13 +1880,13 @@ function Configurator() {
               <img src={nit.thumb} alt={nit.code}
                 style={{ width: "100%", height: 95, objectFit: "cover", display: "block", background: "#fff" }} />
               <div style={{ fontSize: 11, fontWeight: 600, textAlign: "center", padding: "5px 2px", color: "#555", background: isActive ? "#fdf8ec" : "#f5f5f5" }}>
-                {nit.name}
+                {threadColorName(nit)}
               </div>
             </div>
           );
         })}
       </div>
-      {value && <div style={{ fontSize: 16, color: "#555", marginTop: 6 }}>Vybraná niť: <strong style={{ color: "#2E1810" }}>{value.name} ({value.code})</strong></div>}
+      {value && <div style={{ fontSize: 16, color: "#555", marginTop: 6 }}>{threadUiText("Vybraná niť:", "Vybraná nit:")} <strong style={{ color: "#2E1810" }}>{threadColorName(value)} ({value.code})</strong></div>}
       </div>{/* end opacity wrapper */}
     </div>
   );
@@ -2479,7 +2566,7 @@ function Configurator() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Nášivka na strane šoféra a spolujazdca</div>
                 {step4Sub !== "boky" && selectedNasivka && (
-                  <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>{selectedNasivka.code}{selectedNitColor ? " · niť: " + selectedNitColor.name : ""}</div>
+                  <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>{selectedNasivka.code}{selectedNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(selectedNitColor) : ""}</div>
                 )}
               </div>
               {selectedNasivka && selectedNitColor && (
@@ -2567,7 +2654,7 @@ function Configurator() {
                 <div id="konfig-sub-4b2" style={{ scrollMarginTop: 20 }} />
                 {/* Farba nite */}
                 {selectedNasivka && (
-                  <NitColorPicker label="2. Farba nite pre nášivku (šofér a spolujazdec):" questionNumber={2} value={selectedNitColor} onChange={(v) => {
+                  <NitColorPicker label={threadUiText("2. Farba nite pre nášivku (šofér a spolujazdec):", "2. Barva nitě pro nášivku (řidič a spolujezdec):")} questionNumber={2} value={selectedNitColor} onChange={(v) => {
                     setSelectedNitColor(v);
                     setValidationErrors(e => ({...e, nitColor: false}));
                     // Bez auto-advance — user klikne Pokračovať na ďalší krok manuálne
@@ -2584,10 +2671,32 @@ function Configurator() {
                     <div style={{ width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" }}>
                       <TintedNasivka src={selectedNasivka.full} color={selectedNitColor.color} style={{ display: "block", width: "100%", height: "100%", objectFit: "contain" }} />
                       <div style={{ position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
-                        {selectedNasivka.code} · niť: {selectedNitColor.name}
+                        {selectedNasivka.code} · {threadUiText("niť", "nit")}: {threadColorName(selectedNitColor)}
                       </div>
                     </div>
                   </div>
+                )}
+
+                {/* Potvrdenie bokov patrí medzi biely detail nášivky a čierny náhľad kabíny. */}
+                {selectedNasivka && selectedNitColor && nasivkyPlacement === "boky+stred" && (
+                  <button type="button"
+                    data-konfig-action="continue-side-embroidery"
+                    onClick={() => {
+                      setStep4Sub("stred");
+                      setTimeout(() => { const el = document.getElementById("konfig-sub-4c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
+                    }}
+                    style={{
+                      width: "100%", padding: "12px 0", marginTop: 14, marginBottom: 14,
+                      background: "linear-gradient(135deg, #4CAF50, #388E3C)",
+                      color: "#fff", border: "none", borderRadius: 8,
+                      fontSize: 15, fontWeight: 700, cursor: "pointer",
+                      letterSpacing: 0.5, transition: "all 0.2s",
+                    }}
+                    onMouseOver={(e) => e.target.style.transform = "scale(1.01)"}
+                    onMouseOut={(e) => e.target.style.transform = "scale(1)"}
+                  >
+                    {threadUiText("Pokračovať na ďalší krok", "Pokračovat na další krok")}
+                  </button>
                 )}
 
                 {/* SVG náhľad kabíny — duplikát z 4/A */}
@@ -2658,26 +2767,6 @@ function Configurator() {
                   </div>
                 )}
 
-                {/* Tlačidlo na potvrdenie a prechod na stred */}
-                {selectedNasivka && selectedNitColor && nasivkyPlacement === "boky+stred" && (
-                  <button type="button"
-                    onClick={() => {
-                      setStep4Sub("stred");
-                      setTimeout(() => { const el = document.getElementById("konfig-sub-4c"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 450);
-                    }}
-                    style={{
-                      width: "100%", padding: "12px 0", marginTop: 14,
-                      background: "linear-gradient(135deg, #4CAF50, #388E3C)",
-                      color: "#fff", border: "none", borderRadius: 8,
-                      fontSize: 15, fontWeight: 700, cursor: "pointer",
-                      letterSpacing: 0.5, transition: "all 0.2s",
-                    }}
-                    onMouseOver={(e) => e.target.style.transform = "scale(1.01)"}
-                    onMouseOut={(e) => e.target.style.transform = "scale(1)"}
-                  >
-                    Pokračovať na ďalší krok
-                  </button>
-                )}
               </div>
             </div>
             </div>
@@ -2712,7 +2801,7 @@ function Configurator() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Nášivka — stredový koberec</div>
                 {step4Sub !== "stred" && selectedStredNasivka && (
-                  <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>{selectedStredNasivka.code}{selectedStredNitColor ? " · niť: " + selectedStredNitColor.name : ""}{stredSameAsSide ? " (rovnako ako šofér + spolujazdec)" : ""}</div>
+                  <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>{selectedStredNasivka.code}{selectedStredNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(selectedStredNitColor) : ""}{stredSameAsSide ? " (rovnako ako šofér + spolujazdec)" : ""}</div>
                 )}
               </div>
               {selectedStredNasivka && selectedStredNitColor && (
@@ -2800,7 +2889,7 @@ function Configurator() {
                         {stredSameAsSide && <span style={{ marginRight: 6 }}>✓</span>}Rovnaká nášivka + niť ako šofér a spolujazdec
                       </div>
                       <div style={{ fontSize: 12, color: stredSameAsSide ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 }}>
-                        {selectedNasivka.code}{selectedNitColor ? " · niť: " + selectedNitColor.name : ""}
+                        {selectedNasivka.code}{selectedNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(selectedNitColor) : ""}
                       </div>
                     </div>
                     <div style={{ flexShrink: 0 }}>
@@ -2876,7 +2965,7 @@ function Configurator() {
                 {selectedStredNasivka && !stredSameAsSide && (
                   <NitColorPicker
                     questionNumber={2}
-                    label="Farba nite pre stredovú nášivku:"
+                    label={threadUiText("Farba nite pre stredovú nášivku:", "Barva nitě pro středovou nášivku:")}
                     value={selectedStredNitColor}
                     onChange={(v) => {
                       setStredSameAsSide(false);
@@ -2889,7 +2978,7 @@ function Configurator() {
                       }
                     }}
                     errorKey="stredNitColor"
-                    sameAsLabel="Rovnaká ako šofér + spolujazdec"
+                    sameAsLabel={threadUiText("Rovnaká ako šofér + spolujazdec", "Stejná jako řidič + spolujezdec")}
                     sameAsValue={selectedNitColor}
                     sameAsActive={stredSameNitAsSide}
                     onSameAsToggle={() => {
@@ -2907,7 +2996,7 @@ function Configurator() {
                     <div style={{ width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" }}>
                       <TintedNasivka src={selectedStredNasivka.full} color={selectedStredNitColor.color} style={{ display: "block", width: "100%", height: "100%", objectFit: "contain" }} />
                       <div style={{ position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
-                        Stred: {selectedStredNasivka.code} · niť: {selectedStredNitColor.name}
+                        Stred: {selectedStredNasivka.code} · {threadUiText("niť", "nit")}: {threadColorName(selectedStredNitColor)}
                       </div>
                     </div>
                   </div>
@@ -2996,6 +3085,7 @@ function Configurator() {
 
         {/* Pokračovanie je viditeľné stále a neúplný podkrok zvýrazní. */}
         <button type="button"
+            data-konfig-action="continue-embroidery"
             onClick={() => {
               if (!nasivkyPlacement) {
                 setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie nášiviek." });
@@ -3025,7 +3115,7 @@ function Configurator() {
             onMouseOver={(e) => e.target.style.transform = "scale(1.01)"}
             onMouseOut={(e) => e.target.style.transform = "scale(1)"}
           >
-            Pokračovať na ďalší krok
+            {threadUiText("Pokračovať na ďalší krok", "Pokračovat na další krok")}
           </button>
       </AccordionSection>
 
@@ -3552,7 +3642,13 @@ function Configurator() {
                     {/* Next step button */}
                     {doorLemovanie && (
                       <button type="button"
-                        onClick={() => setDoorStep5Sub("nasivky")}
+                        onClick={() => {
+                          setDoorStep5Sub("nasivky");
+                          setTimeout(() => {
+                            const el = document.getElementById("konfig-sub-5d");
+                            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }, 450);
+                        }}
                         style={{
                           width: "100%", padding: "12px 0", marginTop: 8,
                           background: "linear-gradient(135deg, #4CAF50, #388E3C)",
@@ -3720,7 +3816,7 @@ function Configurator() {
                       <div style={{ flex: 1 }}>
                         <div style={{ fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 }}>Motív nášivky a farba nite</div>
                         {doorStep5Sub !== "nasivky-detail" && doorNasivka && (
-                          <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>{doorNasivka.code}{doorNitColor ? " · niť: " + doorNitColor.name : ""}{doorSameNitAsCarpet ? " (rovnako ako Luxusné autokoberce)" : ""}</div>
+                          <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>{doorNasivka.code}{doorNitColor ? ` · ${threadUiText("niť", "nit")}: ` + threadColorName(doorNitColor) : ""}{doorSameNitAsCarpet ? " (rovnako ako Luxusné autokoberce)" : ""}</div>
                         )}
                       </div>
                       {doorNasivka && doorNitColor && (
@@ -3906,13 +4002,13 @@ function Configurator() {
         {doorNasivka && (
           <NitColorPicker
             questionNumber={2}
-            label="Farba nite pre nášivku dverí:"
+            label={threadUiText("Farba nite pre nášivku dverí:", "Barva nitě pro nášivku dveří:")}
             value={doorNitColor}
             onChange={(v) => { setDoorSameNitAsCarpet(false); setDoorNitColor(v); setValidationErrors(e => ({...e, doorNitColor: false})); }}
             errorKey="doorNitColor"
             sameAsLabel={selectedNitColor && selectedStredNitColor && selectedNitColor.name !== selectedStredNitColor.name
-              ? "Rovnaká ako na stranu šoféra a spolujazdca"
-              : "Rovnaká ako na Luxusných autokobercoch"}
+              ? threadUiText("Rovnaká ako na stranu šoféra a spolujazdca", "Stejná jako u řidiče a spolujezdce")
+              : threadUiText("Rovnaká ako na Luxusných autokobercoch", "Stejná jako na luxusních autokobercích")}
             sameAsValue={selectedNitColor || selectedStredNitColor}
             sameAsActive={doorSameNitAsCarpet}
             onSameAsToggle={() => {
@@ -3931,7 +4027,7 @@ function Configurator() {
             <div style={{ width: 280, aspectRatio: "1/1", borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" }}>
               <TintedNasivka src={doorNasivka.full} color={doorNitColor.color} style={{ display: "block", width: "100%", height: "100%", objectFit: "contain" }} />
               <div style={{ position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
-                {doorNasivka.code} · niť: {doorNitColor.name}
+                {doorNasivka.code} · {threadUiText("niť", "nit")}: {threadColorName(doorNitColor)}
               </div>
             </div>
           </div>

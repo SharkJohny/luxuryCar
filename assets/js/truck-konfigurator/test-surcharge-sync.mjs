@@ -51,6 +51,21 @@ const SELECTS_SK = `
 `;
 
 const SELECTS_CZ = `
+  <select data-parameter-id="material" data-parameter-name="Materiál">
+    <option value=""></option>
+    <option value="plain">Prémiová syntetická kůže – jednobarevná +0 Kč</option>
+    <option value="stitched">Prémiová syntetická kůže – prošívaná +199 Kč</option>
+    <option value="tinted">Prémiová syntetická kůže – tónovaná +990 Kč</option>
+    <option value="micro-one">Mikrosemiš – jednobarevný +990 Kč</option>
+    <option value="micro-two">Mikrosemiš – dvoubarevný +1 199 Kč</option>
+  </select>
+  <select data-parameter-id="embroidery" data-parameter-name="Nášivky">
+    <option value=""></option>
+    <option value="none">Bez nášivek +0 Kč</option>
+    <option value="center">Jen střed +1 399 Kč</option>
+    <option value="sides">Řidič + spolujezdec +1 399 Kč</option>
+    <option value="all">Řidič + spolujezdec + střed (BALÍČEK) +2 299 Kč</option>
+  </select>
   <select data-parameter-id="343" data-parameter-name="Nášivka boky">
     <option value=""></option><option value="no">Bez nášivky +0 Kč</option><option value="h2">Nášivka H2 +0 Kč</option>
   </select>
@@ -70,10 +85,10 @@ const SELECTS_CZ = `
     <option value=""></option><option value="same">Stejná jako koberec +0 Kč</option><option value="no">Bez nitě +0 Kč</option><option value="3842">3842 – Modrá +0 Kč</option>
   </select>
   <select data-parameter-id="301" data-parameter-name="Čalounění">
-    <option value=""></option><option value="no">Ne, nechci čalounění dveří +0 Kč</option><option value="yes">Ano, chci (v konfigurátoru – balíček) +0 Kč</option>
+    <option value=""></option><option value="no">Ne, nechci čalounění dveří +0 Kč</option><option value="yes">Ano, chci (v konfigurátoru – balíček) +2890 Kč</option>
   </select>
   <select data-parameter-id="door-embroidery" data-parameter-name="Nášivka dveře">
-    <option value=""></option><option value="no">Ne, nechci nášivku na dveřích +0 Kč</option><option value="yes">Ano, chci nášivku na dveřích +0 Kč</option>
+    <option value=""></option><option value="no">Ne, nechci nášivku na dveřích +0 Kč</option><option value="yes">Ano, chci nášivku na dveřích +1190 Kč</option>
   </select>
   <select data-parameter-id="door-material" data-parameter-name="Materiál dveře">
     <option value=""></option><option value="same">Stejný jako koberec +0 Kč</option><option value="custom">Vybere se v konfigurátoru +0 Kč</option>
@@ -107,6 +122,39 @@ function loadSync(sourceName) {
     throw new Error(`${sourceName}: sync helpery sa nepodarilo nájsť`);
   }
   return source.slice(start, end);
+}
+
+function readCzechPrices(sourceName, selects) {
+  const source = readFileSync(join(ROOT, sourceName), "utf8");
+  const pricingStart = Math.max(
+    source.indexOf("function detectLang()"),
+    source.indexOf("function detectCurrencySymbol()"),
+  );
+  const pricingEnd = source.indexOf("function calculatePrice(state, PRICES)");
+  const normalizeStart = source.indexOf("function normalizeOptionText");
+  const normalizeEnd = source.indexOf("function findMatchingOption", normalizeStart);
+  if (pricingStart < 0 || pricingEnd < 0 || normalizeStart < 0 || normalizeEnd < 0) {
+    throw new Error(`${sourceName}: cenové helpery sa nepodarilo nájsť`);
+  }
+  const dom = new JSDOM(
+    `<head><meta itemprop="price" content="5807"></head><body>${selects}</body>`,
+    { url: "https://www.luxurycardesign.cz/luxusni-autokoberce-truck/" },
+  );
+  const helpers = new Function(
+    "window",
+    "document",
+    `${source.slice(pricingStart, pricingEnd)}\n${source.slice(normalizeStart, normalizeEnd)}\nreturn { readShoptetPrices, FALLBACK_PRICES };`,
+  )(dom.window, dom.window.document);
+  return {
+    live: helpers.readShoptetPrices(helpers.FALLBACK_PRICES),
+    fallback: helpers.FALLBACK_PRICES,
+  };
+}
+
+function expectPrice(actual, expected, label, sourceName) {
+  if (actual !== expected) {
+    throw new Error(`${sourceName}: ${label} = ${actual}, očakávané ${expected}`);
+  }
 }
 
 function syncValues(helperSource, state, selects = SELECTS_SK, url = "https://www.luxurycardesign.sk/luxusne-autokoberce-truck/") {
@@ -250,5 +298,14 @@ for (const sourceName of ["konfigurator.jsx", "konfigurator.phone.jsx"]) {
   expectStartsWith(sameCz, "Nášivka dveře druh", "Stejná jako koberec", sourceName);
   expectStartsWith(sameCz, "Niť dveře", "Stejná jako koberec", sourceName);
 
-  console.log(`✓ ${sourceName}: slovenské i české příplatkové parametry se synchronizují`);
+  const czechPrices = readCzechPrices(sourceName, SELECTS_CZ);
+  expectPrice(czechPrices.live.MATERIAL["Prémiová syntetická koža – prešívaná"], 199, "CZ prošívaný materiál z DOMu", sourceName);
+  expectPrice(czechPrices.live.MATERIAL["Mikrosemiš – jednofarebný"], 990, "CZ mikrosemiš z DOMu", sourceName);
+  expectPrice(czechPrices.live.NASIVKY["boky+stred"], 2299, "CZ nášivky z DOMu", sourceName);
+  expectPrice(czechPrices.live.TAPACIR_BUNDLE, 2890, "CZ čalounění z DOMu", sourceName);
+  expectPrice(czechPrices.live.NASIVKA_DVERE, 1190, "CZ nášivka dveří z DOMu", sourceName);
+  expectPrice(czechPrices.fallback.BASE, 4799, "CZ fallback základ", sourceName);
+  expectPrice(czechPrices.fallback.NASIVKY["boky+stred"], 2299, "CZ fallback nášivky", sourceName);
+
+  console.log(`✓ ${sourceName}: slovenské i české příplatkové parametry a ceny se synchronizují`);
 }

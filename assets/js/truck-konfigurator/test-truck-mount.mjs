@@ -11,6 +11,7 @@
  */
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
 import { JSDOM, VirtualConsole } from "jsdom";
 import * as esbuild from "esbuild";
 
@@ -18,6 +19,51 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const ENTRY = join(ROOT, "index.jsx");
 const fail = (m) => { console.error("✗ " + m); process.exitCode = 1; };
 const ok = (m) => console.log("✓ " + m);
+
+const desktopSource = readFileSync(join(ROOT, "konfigurator.jsx"), "utf8");
+const phoneSource = readFileSync(join(ROOT, "konfigurator.phone.jsx"), "utf8");
+const whitePreviewIndex = desktopSource.indexOf('id="konfig-nasivka-preview-boky-nit"');
+const betweenPreviewButtonIndex = desktopSource.indexOf('data-konfig-action="continue-side-embroidery"');
+const blackPreviewIndex = desktopSource.indexOf("{/* SVG náhľad kabíny — duplikát z 4/A */}", whitePreviewIndex);
+const belowBlackButtonIndex = desktopSource.indexOf('data-konfig-action="continue-embroidery"', blackPreviewIndex);
+if (
+  whitePreviewIndex !== -1 &&
+  whitePreviewIndex < betweenPreviewButtonIndex &&
+  betweenPreviewButtonIndex < blackPreviewIndex &&
+  blackPreviewIndex < belowBlackButtonIndex
+) {
+  ok("DESKTOP: první tlačítko je mezi bílým a černým náhledem, druhé pod černým náhledem");
+} else {
+  fail("DESKTOP: nesprávné pořadí náhledů a tlačítek v kroku nášivek");
+}
+
+for (const [variant, source] of [["DESKTOP", desktopSource], ["PHONE", phoneSource]]) {
+  const step5cIndex = source.indexOf('id="konfig-sub-5c"');
+  const continue5cIndex = source.indexOf("{/* Next step button */}", step5cIndex);
+  const step5dIndex = source.indexOf('id="konfig-sub-5d"', continue5cIndex);
+  const continue5cSource = source.slice(continue5cIndex, step5dIndex);
+  if (
+    step5cIndex !== -1 &&
+    continue5cIndex !== -1 &&
+    step5dIndex !== -1 &&
+    continue5cSource.includes('setDoorStep5Sub("nasivky")') &&
+    continue5cSource.includes('getElementById("konfig-sub-5d")') &&
+    continue5cSource.includes('scrollIntoView({ behavior: "smooth", block: "start" })')
+  ) {
+    ok(`${variant}: tlačítko v 5/C otevře a odroluje na krok 5/D`);
+  } else {
+    fail(`${variant}: tlačítko v 5/C neposouvá na krok 5/D`);
+  }
+}
+
+const czechThreadNames = ["Černá", "Stříbrná", "Světle šedá", "Béžová", "Světle hnědá", "Tmavě hnědá", "Hořčicová", "Červená", "Fialová", "Modrá", "Zelená"];
+for (const [variant, source] of [["DESKTOP", desktopSource], ["PHONE", phoneSource]]) {
+  if (czechThreadNames.every((name) => source.includes(`\"${name}\"`)) && source.includes("threadColorName(nit)")) {
+    ok(`${variant}: obsahuje české názvy nití a používá je ve výběru`);
+  } else {
+    fail(`${variant}: české názvy nití nejsou kompletní nebo se nevykreslují`);
+  }
+}
 
 const built = await esbuild.build({
   entryPoints: [ENTRY],

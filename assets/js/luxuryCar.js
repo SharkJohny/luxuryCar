@@ -25290,6 +25290,34 @@ var NITE_FARBY = [
   { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
   { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
 ];
+var THREAD_COLOR_NAMES_CS = {
+  "2999": "\u010Cern\xE1",
+  "2901": "St\u0159\xEDbrn\xE1",
+  "3738": "Sv\u011Btle \u0161ed\xE1",
+  "3546": "B\xE9\u017Eov\xE1",
+  "3617": "Sv\u011Btle hn\u011Bd\xE1",
+  "3504": "Tmav\u011B hn\u011Bd\xE1",
+  "3501": "Ho\u0159\u010Dicov\xE1",
+  "2824": "\u010Cerven\xE1",
+  "2866": "Fialov\xE1",
+  "3842": "Modr\xE1",
+  "2840": "Zelen\xE1"
+};
+function isCzechTruckConfigurator() {
+  if (typeof window === "undefined") return false;
+  const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+  if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return true;
+  const dlEntry = Array.isArray(window.dataLayer) ? window.dataLayer.find((entry) => entry && entry.shoptet) : null;
+  return Boolean(dlEntry && (String(dlEntry.shoptet.projectId) === "704436" || dlEntry.shoptet.language === "cs"));
+}
+function threadUiText(sk, cs) {
+  return isCzechTruckConfigurator() ? cs : sk;
+}
+function threadColorName(threadColor) {
+  if (!threadColor) return "";
+  if (isCzechTruckConfigurator()) return THREAD_COLOR_NAMES_CS[threadColor.code] || threadColor.name;
+  return threadColor.name;
+}
 function detectLang() {
   if (typeof window === "undefined") return "sk";
   try {
@@ -25314,7 +25342,7 @@ var PRICE_FORMATTER = new Intl.NumberFormat(CURRENCY === "K\u010D" ? "cs-CZ" : "
 function formatPrice(amount) {
   return `${PRICE_FORMATTER.format(amount)} ${CURRENCY}`;
 }
-var FALLBACK_PRICES = {
+var FALLBACK_PRICES_EUR = {
   BASE: 199,
   MATERIAL: {
     "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": 0,
@@ -25338,6 +25366,31 @@ var FALLBACK_PRICES = {
   NASIVKA_DVERE: 49,
   NASIVKA_DVERE_SAMO: 89
 };
+var FALLBACK_PRICES_CZK = {
+  BASE: 4799,
+  MATERIAL: {
+    "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": 0,
+    "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1": 199,
+    "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1": 990,
+    "Mikrosemi\u0161 \u2013 jednofarebn\xFD": 990,
+    "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": 1199
+  },
+  NASIVKY: {
+    "nechcem": 0,
+    "stred": 1399,
+    "boky": 1399,
+    "boky+stred": 2299
+  },
+  NASIVKY_SAMO: {
+    "boky": 1690,
+    "stred": 1690
+  },
+  TAPACIR_BUNDLE: 2890,
+  TAPACIR_SAMO: 4390,
+  NASIVKA_DVERE: 1190,
+  NASIVKA_DVERE_SAMO: 2190
+};
+var FALLBACK_PRICES = CURRENCY === "K\u010D" ? FALLBACK_PRICES_CZK : FALLBACK_PRICES_EUR;
 var PRICE_SUFFIX_RE = /\s*([+\-])\s*(?:Kč|€|EUR|CZK)?\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(?:Kč|€|EUR|CZK)?\s*$/i;
 function _parseOptionPrice(text) {
   if (!text) return { price: 0, clean: "" };
@@ -25380,62 +25433,73 @@ function readShoptetPrices(fallback) {
   const base = _readBasePrice();
   function findByText(bucket, ...keywords) {
     if (!bucket) return void 0;
+    const normalizedKeywords = keywords.map((word) => normalizeOptionText(word));
     for (const k of Object.keys(bucket)) {
-      const kl = k.toLowerCase();
-      if (keywords.every((w) => kl.includes(w.toLowerCase()))) return bucket[k];
+      const normalizedKey = normalizeOptionText(k);
+      if (normalizedKeywords.every((word) => normalizedKey.includes(word))) return bucket[k];
     }
     return void 0;
+  }
+  function findBucket(...names) {
+    for (const name of names) {
+      if (map[name]) return map[name];
+    }
+    const normalizedNames = names.map((name) => normalizeOptionText(name));
+    for (const name of Object.keys(map)) {
+      if (normalizedNames.includes(normalizeOptionText(name))) return map[name];
+    }
+    return {};
   }
   function pick(domVal, fallbackVal) {
     return Number.isFinite(domVal) ? domVal : fallbackVal;
   }
-  const matBucket = map["Materi\xE1l"] || map["Material"] || {};
-  const nasBucket = map["N\xE1\u0161ivky"] || map["Nasivky"] || {};
-  const tapBucket = map["Tapac\xEDr"] || map["Tapacir"] || {};
-  const dverNasBucket = map["N\xE1\u0161ivka dvere"] || map["Nasivka dvere"] || {};
+  const matBucket = findBucket("Materi\xE1l", "Material", "Typ materi\xE1lu", "Typ materi\xE1lu kobere\u010Dk\u016F");
+  const nasBucket = findBucket("N\xE1\u0161ivky", "Nasivky", "Rozlo\u017Eenie n\xE1\u0161iviek", "Rozlo\u017Een\xED n\xE1\u0161ivek");
+  const tapBucket = findBucket("Tapac\xEDr", "Tapacir", "\u010Caloun\u011Bn\xED", "Calouneni");
+  const dverNasBucket = findBucket("N\xE1\u0161ivka dvere", "Nasivka dvere", "N\xE1\u0161ivka dve\u0159e", "Nasivka dve\u0159e", "N\xE1\u0161ivky na tapac\xEDr");
   const fbMat = fallback.MATERIAL || {};
   const fbNas = fallback.NASIVKY || {};
   return {
     BASE: pick(base, fallback.BASE),
     MATERIAL: {
       "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": pick(
-        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1"],
+        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1"] ?? matBucket["Pr\xE9miov\xE1 syntetick\xE1 k\u016F\u017Ee \u2013 jednobarevn\xE1"] ?? findByText(matBucket, "pr\xE9miov\xE1", "syntetick\xE1", "k\u016F\u017Ee", "jednobarevn\xE1"),
         fbMat["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1"]
       ),
       "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1": pick(
-        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1"],
+        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1"] ?? matBucket["Pr\xE9miov\xE1 syntetick\xE1 k\u016F\u017Ee \u2013 pro\u0161\xEDvan\xE1"] ?? findByText(matBucket, "pr\xE9miov\xE1", "syntetick\xE1", "k\u016F\u017Ee", "pro\u0161\xEDvan\xE1"),
         fbMat["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1"]
       ),
       "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1": pick(
-        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1"],
+        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1"] ?? matBucket["Pr\xE9miov\xE1 syntetick\xE1 k\u016F\u017Ee \u2013 t\xF3novan\xE1"] ?? findByText(matBucket, "pr\xE9miov\xE1", "syntetick\xE1", "k\u016F\u017Ee", "t\xF3novan\xE1"),
         fbMat["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1"]
       ),
       "Mikrosemi\u0161 \u2013 jednofarebn\xFD": pick(
-        matBucket["Mikrosemi\u0161 \u2013 jednofarebn\xFD"],
+        matBucket["Mikrosemi\u0161 \u2013 jednofarebn\xFD"] ?? matBucket["Mikrosemi\u0161 \u2013 jednobarevn\xFD"] ?? findByText(matBucket, "mikrosemi\u0161", "jednobarevn\xFD"),
         fbMat["Mikrosemi\u0161 \u2013 jednofarebn\xFD"]
       ),
       "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": pick(
-        matBucket["Mikrosemi\u0161 \u2013 dvojfarebn\xFD"],
+        matBucket["Mikrosemi\u0161 \u2013 dvojfarebn\xFD"] ?? matBucket["Mikrosemi\u0161 \u2013 dvoubarevn\xFD"] ?? findByText(matBucket, "mikrosemi\u0161", "dvoubarevn\xFD"),
         fbMat["Mikrosemi\u0161 \u2013 dvojfarebn\xFD"]
       )
     },
     NASIVKY: {
-      nechcem: pick(nasBucket["Bez n\xE1\u0161iviek"], fbNas.nechcem),
-      stred: pick(nasBucket["Len stred"], fbNas.stred),
-      boky: pick(nasBucket["\u0160of\xE9r + spolujazdec"], fbNas.boky),
+      nechcem: pick(nasBucket["Bez n\xE1\u0161iviek"] ?? nasBucket["Bez n\xE1\u0161ivek"] ?? findByText(nasBucket, "bez", "n\xE1\u0161ivek"), fbNas.nechcem),
+      stred: pick(nasBucket["Len stred"] ?? nasBucket["Jen st\u0159ed"] ?? findByText(nasBucket, "jen", "st\u0159ed"), fbNas.stred),
+      boky: pick(nasBucket["\u0160of\xE9r + spolujazdec"] ?? nasBucket["\u0158idi\u010D + spolujezdec"] ?? findByText(nasBucket, "\u0159idi\u010D", "spolujezdec"), fbNas.boky),
       "boky+stred": pick(
-        nasBucket["\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"] ?? nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? findByText(nasBucket, "\u0161of\xE9r", "spolujazdec", "stred"),
+        nasBucket["\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"] ?? nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? nasBucket["\u0158idi\u010D + spolujezdec + st\u0159ed (BAL\xCD\u010CEK)"] ?? findByText(nasBucket, "\u0159idi\u010D", "spolujezdec", "st\u0159ed"),
         fbNas["boky+stred"]
       )
     },
     NASIVKY_SAMO: fallback.NASIVKY_SAMO || {},
     TAPACIR_BUNDLE: pick(
-      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)"] ?? tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? findByText(tapBucket, "\xE1no", "bal\xEDk") ?? findByText(tapBucket, "\xE1no", "bundle"),
+      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)"] ?? tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? tapBucket["Ano, chci (v konfigur\xE1toru \u2013 bal\xED\u010Dek)"] ?? findByText(tapBucket, "ano", "chci", "konfigur\xE1toru", "bal\xED\u010Dek"),
       fallback.TAPACIR_BUNDLE
     ),
     TAPACIR_SAMO: fallback.TAPACIR_SAMO,
     NASIVKA_DVERE: pick(
-      dverNasBucket["\xC1no chcem n\xE1\u0161ivku na dver\xE1ch"] ?? findByText(dverNasBucket, "\xE1no", "dver\xE1ch"),
+      dverNasBucket["\xC1no chcem n\xE1\u0161ivku na dver\xE1ch"] ?? dverNasBucket["Ano, chci n\xE1\u0161ivku na dve\u0159\xEDch"] ?? findByText(dverNasBucket, "ano", "chci", "n\xE1\u0161ivku", "dve\u0159\xEDch"),
       fallback.NASIVKA_DVERE
     ),
     NASIVKA_DVERE_SAMO: fallback.NASIVKA_DVERE_SAMO
@@ -25483,12 +25547,12 @@ function calculatePrice(state, PRICES) {
       const isBundle = nasivkyPlacement === "boky+stred";
       const details = [];
       if (nasivkyPlacement === "boky" && selectedNasivka) {
-        details.push(selectedNasivka.code + (selectedNitColor ? " \xB7 ni\u0165: " + selectedNitColor.name : ""));
+        details.push(selectedNasivka.code + (selectedNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedNitColor) : ""));
       } else if (nasivkyPlacement === "stred" && selectedStredNasivka) {
-        details.push(selectedStredNasivka.code + (selectedStredNitColor ? " \xB7 ni\u0165: " + selectedStredNitColor.name : ""));
+        details.push(selectedStredNasivka.code + (selectedStredNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedStredNitColor) : ""));
       } else if (nasivkyPlacement === "boky+stred") {
-        if (selectedNasivka) details.push("Boky: " + selectedNasivka.code + (selectedNitColor ? " (ni\u0165: " + selectedNitColor.name + ")" : ""));
-        if (selectedStredNasivka) details.push("Stred: " + selectedStredNasivka.code + (selectedStredNitColor ? " (ni\u0165: " + selectedStredNitColor.name + ")" : ""));
+        if (selectedNasivka) details.push("Boky: " + selectedNasivka.code + (selectedNitColor ? ` (${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedNitColor) + ")" : ""));
+        if (selectedStredNasivka) details.push("Stred: " + selectedStredNasivka.code + (selectedStredNitColor ? ` (${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedStredNitColor) + ")" : ""));
       }
       breakdown.push({
         label,
@@ -25514,7 +25578,7 @@ function calculatePrice(state, PRICES) {
   }
   if (doorWantsNasivka === true) {
     total += PRICES.NASIVKA_DVERE;
-    const nasSubLabel = doorNasivka ? doorNasivka.code + (doorNitColor ? " \xB7 ni\u0165: " + doorNitColor.name : "") : null;
+    const nasSubLabel = doorNasivka ? doorNasivka.code + (doorNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(doorNitColor) : "") : null;
     breakdown.push({
       label: "N\xE1\u0161ivka na dver\xE1ch",
       subLabel: nasSubLabel,
@@ -26095,7 +26159,7 @@ function Configurator() {
     fontSize: 14,
     fontWeight: 800,
     flexShrink: 0
-  } }, questionNumber) : /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react.default.createElement("span", null, label ? label.replace(/^\d+\.\s*/, "") : "Farba nite (v\xFD\u0161ivky):")), sameAsLabel && sameAsValue && /* @__PURE__ */ import_react.default.createElement(
+  } }, questionNumber) : /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react.default.createElement("span", null, label ? label.replace(/^\d+\.\s*/, "") : threadUiText("Farba nite (v\xFD\u0161ivky):", "Barva nit\u011B (v\xFD\u0161ivky):"))), sameAsLabel && sameAsValue && /* @__PURE__ */ import_react.default.createElement(
     "div",
     {
       onClick: () => onSameAsToggle && onSameAsToggle(),
@@ -26137,8 +26201,8 @@ function Configurator() {
       border: sameAsActive ? "2px solid #4CAF50" : "1px solid #e8dfc0",
       flexShrink: 0,
       background: "#fff"
-    } }, /* @__PURE__ */ import_react.default.createElement("img", { src: sameAsValue.thumb, alt: sameAsValue.name, style: { width: "100%", height: "100%", objectFit: "contain" } })),
-    /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: sameAsActive ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, sameAsActive && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), sameAsLabel), /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 12, color: sameAsActive ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, sameAsValue.name)),
+    } }, /* @__PURE__ */ import_react.default.createElement("img", { src: sameAsValue.thumb, alt: threadColorName(sameAsValue), style: { width: "100%", height: "100%", objectFit: "contain" } })),
+    /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: sameAsActive ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, sameAsActive && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), sameAsLabel), /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 12, color: sameAsActive ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, threadColorName(sameAsValue))),
     /* @__PURE__ */ import_react.default.createElement("div", { style: { flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: {
       display: "inline-flex",
       alignItems: "center",
@@ -26185,9 +26249,9 @@ function Configurator() {
           style: { width: "100%", height: 95, objectFit: "cover", display: "block", background: "#fff" }
         }
       ),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, fontWeight: 600, textAlign: "center", padding: "5px 2px", color: "#555", background: isActive ? "#fdf8ec" : "#f5f5f5" } }, nit.name)
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, fontWeight: 600, textAlign: "center", padding: "5px 2px", color: "#555", background: isActive ? "#fdf8ec" : "#f5f5f5" } }, threadColorName(nit))
     );
-  })), value && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, color: "#555", marginTop: 6 } }, "Vybran\xE1 ni\u0165: ", /* @__PURE__ */ import_react.default.createElement("strong", { style: { color: "#2E1810" } }, value.name, " (", value.code, ")"))));
+  })), value && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, color: "#555", marginTop: 6 } }, threadUiText("Vybran\xE1 ni\u0165:", "Vybran\xE1 nit:"), " ", /* @__PURE__ */ import_react.default.createElement("strong", { style: { color: "#2E1810" } }, threadColorName(value), " (", value.code, ")"))));
   const handleBrandChange = (val) => {
     setZnacka(val);
     setModel("");
@@ -26791,7 +26855,7 @@ function Configurator() {
         }
       },
       /* @__PURE__ */ import_react.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "4/B"),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka na strane \u0161of\xE9ra a spolujazdca"), step4Sub !== "boky" && selectedNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedNasivka.code, selectedNitColor ? " \xB7 ni\u0165: " + selectedNitColor.name : "")),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka na strane \u0161of\xE9ra a spolujazdca"), step4Sub !== "boky" && selectedNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedNasivka.code, selectedNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedNitColor) : "")),
       selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: step4Sub === "boky" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: {
@@ -26860,7 +26924,7 @@ function Configurator() {
     })), selectedNasivka && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-boky", style: { scrollMarginBottom: "25vh", marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 8, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "1px solid #ddd" } }, selectedNitColor ? /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react.default.createElement("img", { src: selectedNasivka.full, alt: selectedNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code))), selectedNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: {
       borderTop: "1px dashed #d4c488",
       margin: "24px 0 20px 0"
-    } }), /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-sub-4b2", style: { scrollMarginTop: 20 } }), selectedNasivka && /* @__PURE__ */ import_react.default.createElement(NitColorPicker, { label: "2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", questionNumber: 2, value: selectedNitColor, onChange: (v) => {
+    } }), /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-sub-4b2", style: { scrollMarginTop: 20 } }), selectedNasivka && /* @__PURE__ */ import_react.default.createElement(NitColorPicker, { label: threadUiText("2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", "2. Barva nit\u011B pro n\xE1\u0161ivku (\u0159idi\u010D a spolujezdec):"), questionNumber: 2, value: selectedNitColor, onChange: (v) => {
       setSelectedNitColor(v);
       setValidationErrors((e) => ({ ...e, nitColor: false }));
       if (!bokyNitScrolled) {
@@ -26875,10 +26939,11 @@ function Configurator() {
           }
         }, 200);
       }
-    }, errorKey: "nitColor" }), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-boky-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code, " \xB7 ni\u0165: ", selectedNitColor.name))), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg4b", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat4b", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg4b)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 325 250 Q 390 185 505 170 L 680 170 Q 745 170 810 220 L 840 245 Q 860 255 900 255 Q 940 255 960 245 L 990 220 Q 1055 170 1120 170 L 1295 170 Q 1410 185 1475 250 Q 1510 290 1515 365 L 1555 865 Q 1560 950 1490 1005 Q 1445 1040 1330 1040 L 470 1040 Q 355 1040 310 1005 Q 240 950 245 865 L 285 365 Q 290 290 325 250 Z", fill: "url(#mat4b)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 720 182 Q 785 240 785 330 Q 790 375 835 390 L 965 390 Q 1010 375 1015 330 Q 1015 240 1080 182", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "355", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1120", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "1145", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), nasivkyPlacement === "boky+stred" && selectedStredNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedStredPreview || selectedStredNasivka.thumb, x: "740", y: "510", width: "320", height: "270", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : nasivkyPlacement === "boky+stred" ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "none", stroke: "#a8d4ff", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "900", y: "485", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA C"), /* @__PURE__ */ import_react.default.createElement("text", { x: "900", y: "560", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "stredov\xFD horn\xFD prvok / model / s\xE9ria")) : /* @__PURE__ */ import_react.default.createElement("rect", { x: "760", y: "555", width: "280", height: "130", rx: "18", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "470", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1325", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"))), selectedNasivka && selectedNitColor && nasivkyPlacement === "boky+stred" && /* @__PURE__ */ import_react.default.createElement(
+    }, errorKey: "nitColor" }), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-boky-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code, " \xB7 ", threadUiText("ni\u0165", "nit"), ": ", threadColorName(selectedNitColor)))), selectedNasivka && selectedNitColor && nasivkyPlacement === "boky+stred" && /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
+        "data-konfig-action": "continue-side-embroidery",
         onClick: () => {
           setStep4Sub("stred");
           setTimeout(() => {
@@ -26890,6 +26955,7 @@ function Configurator() {
           width: "100%",
           padding: "12px 0",
           marginTop: 14,
+          marginBottom: 14,
           background: "linear-gradient(135deg, #4CAF50, #388E3C)",
           color: "#fff",
           border: "none",
@@ -26903,8 +26969,8 @@ function Configurator() {
         onMouseOver: (e) => e.target.style.transform = "scale(1.01)",
         onMouseOut: (e) => e.target.style.transform = "scale(1)"
       },
-      "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
-    ))))),
+      threadUiText("Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok", "Pokra\u010Dovat na dal\u0161\xED krok")
+    ), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg4b", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat4b", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg4b)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 325 250 Q 390 185 505 170 L 680 170 Q 745 170 810 220 L 840 245 Q 860 255 900 255 Q 940 255 960 245 L 990 220 Q 1055 170 1120 170 L 1295 170 Q 1410 185 1475 250 Q 1510 290 1515 365 L 1555 865 Q 1560 950 1490 1005 Q 1445 1040 1330 1040 L 470 1040 Q 355 1040 310 1005 Q 240 950 245 865 L 285 365 Q 290 290 325 250 Z", fill: "url(#mat4b)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 720 182 Q 785 240 785 330 Q 790 375 835 390 L 965 390 Q 1010 375 1015 330 Q 1015 240 1080 182", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4b3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "355", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1120", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "1145", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), nasivkyPlacement === "boky+stred" && selectedStredNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedStredPreview || selectedStredNasivka.thumb, x: "740", y: "510", width: "320", height: "270", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : nasivkyPlacement === "boky+stred" ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "none", stroke: "#a8d4ff", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "900", y: "485", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA C"), /* @__PURE__ */ import_react.default.createElement("text", { x: "900", y: "560", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "stredov\xFD horn\xFD prvok / model / s\xE9ria")) : /* @__PURE__ */ import_react.default.createElement("rect", { x: "760", y: "555", width: "280", height: "130", rx: "18", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "470", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1325", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"))))))),
     (nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred" && selectedNasivka) && /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", { style: {
       border: validationErrors.step4sub === "4c" ? "3px solid #CC0000" : "none",
       boxShadow: validationErrors.step4sub === "4c" ? "0 0 12px rgba(204,0,0,0.25)" : "none",
@@ -26931,7 +26997,7 @@ function Configurator() {
         }
       },
       /* @__PURE__ */ import_react.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "4/C"),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka \u2014 stredov\xFD koberec"), step4Sub !== "stred" && selectedStredNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedStredNasivka.code, selectedStredNitColor ? " \xB7 ni\u0165: " + selectedStredNitColor.name : "", stredSameAsSide ? " (rovnako ako \u0161of\xE9r + spolujazdec)" : "")),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka \u2014 stredov\xFD koberec"), step4Sub !== "stred" && selectedStredNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedStredNasivka.code, selectedStredNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedStredNitColor) : "", stredSameAsSide ? " (rovnako ako \u0161of\xE9r + spolujazdec)" : "")),
       selectedStredNasivka && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: step4Sub === "stred" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: {
@@ -27016,7 +27082,7 @@ function Configurator() {
         flexShrink: 0,
         background: "#fff"
       } }, /* @__PURE__ */ import_react.default.createElement("img", { src: selectedNasivka.thumb, alt: "", style: { width: "100%", height: "100%", objectFit: "contain" } })),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: stredSameAsSide ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, stredSameAsSide && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "Rovnak\xE1 n\xE1\u0161ivka + ni\u0165 ako \u0161of\xE9r a spolujazdec"), /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 12, color: stredSameAsSide ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, selectedNasivka.code, selectedNitColor ? " \xB7 ni\u0165: " + selectedNitColor.name : "")),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: stredSameAsSide ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, stredSameAsSide && /* @__PURE__ */ import_react.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "Rovnak\xE1 n\xE1\u0161ivka + ni\u0165 ako \u0161of\xE9r a spolujazdec"), /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 12, color: stredSameAsSide ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, selectedNasivka.code, selectedNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(selectedNitColor) : "")),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { flexShrink: 0 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: {
         display: "inline-flex",
         alignItems: "center",
@@ -27081,7 +27147,7 @@ function Configurator() {
       NitColorPicker,
       {
         questionNumber: 2,
-        label: "Farba nite pre stredov\xFA n\xE1\u0161ivku:",
+        label: threadUiText("Farba nite pre stredov\xFA n\xE1\u0161ivku:", "Barva nit\u011B pro st\u0159edovou n\xE1\u0161ivku:"),
         value: selectedStredNitColor,
         onChange: (v) => {
           setStredSameAsSide(false);
@@ -27102,7 +27168,7 @@ function Configurator() {
           }
         },
         errorKey: "stredNitColor",
-        sameAsLabel: "Rovnak\xE1 ako \u0161of\xE9r + spolujazdec",
+        sameAsLabel: threadUiText("Rovnak\xE1 ako \u0161of\xE9r + spolujazdec", "Stejn\xE1 jako \u0159idi\u010D + spolujezdec"),
         sameAsValue: selectedNitColor,
         sameAsActive: stredSameNitAsSide,
         onSameAsToggle: () => {
@@ -27116,11 +27182,12 @@ function Configurator() {
           }
         }
       }
-    ), selectedStredNasivka && !stredSameAsSide && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-stred-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code, " \xB7 ni\u0165: ", selectedStredNitColor.name))), selectedStredNasivka && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg4c", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat4c", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg4c)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 325 250 Q 390 185 505 170 L 680 170 Q 745 170 810 220 L 840 245 Q 860 255 900 255 Q 940 255 960 245 L 990 220 Q 1055 170 1120 170 L 1295 170 Q 1410 185 1475 250 Q 1510 290 1515 365 L 1555 865 Q 1560 950 1490 1005 Q 1445 1040 1330 1040 L 470 1040 Q 355 1040 310 1005 Q 240 950 245 865 L 285 365 Q 290 290 325 250 Z", fill: "url(#mat4c)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 720 182 Q 785 240 785 330 Q 790 375 835 390 L 965 390 Q 1010 375 1015 330 Q 1015 240 1080 182", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), selectedNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "355", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "515", y: "435", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA A"), /* @__PURE__ */ import_react.default.createElement("text", { x: "515", y: "478", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "horn\xE1 \u013Eav\xE1 n\xE1\u0161ivka / logo")), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1120", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), selectedNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "1145", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1305", y: "435", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA B"), /* @__PURE__ */ import_react.default.createElement("text", { x: "1305", y: "478", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "horn\xE1 prav\xE1 n\xE1\u0161ivka / logo")), /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedStredPreview || selectedStredNasivka.thumb, x: "740", y: "510", width: "320", height: "270", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "470", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1325", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"))))))),
+    ), selectedStredNasivka && !stredSameAsSide && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-nasivka-preview-stred-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, height: 280, borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code, " \xB7 ", threadUiText("ni\u0165", "nit"), ": ", threadColorName(selectedStredNitColor)))), selectedStredNasivka && selectedStredNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg4c", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat4c", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg4c)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 325 250 Q 390 185 505 170 L 680 170 Q 745 170 810 220 L 840 245 Q 860 255 900 255 Q 940 255 960 245 L 990 220 Q 1055 170 1120 170 L 1295 170 Q 1410 185 1475 250 Q 1510 290 1515 365 L 1555 865 Q 1560 950 1490 1005 Q 1445 1040 1330 1040 L 470 1040 Q 355 1040 310 1005 Q 240 950 245 865 L 285 365 Q 290 290 325 250 Z", fill: "url(#mat4c)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 720 182 Q 785 240 785 330 Q 790 375 835 390 L 965 390 Q 1010 375 1015 330 Q 1015 240 1080 182", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p4c3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), selectedNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "355", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "350", y: "450", width: "330", height: "185", rx: "10", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "515", y: "435", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA A"), /* @__PURE__ */ import_react.default.createElement("text", { x: "515", y: "478", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "horn\xE1 \u013Eav\xE1 n\xE1\u0161ivka / logo")), /* @__PURE__ */ import_react.default.createElement("rect", { x: "1120", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), selectedNasivka ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedSidePreview || selectedNasivka.thumb, x: "1145", y: "455", width: "320", height: "175", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("rect", { x: "1140", y: "450", width: "330", height: "185", rx: "10", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1305", y: "435", textAnchor: "middle", fill: "#f5f5f5", fontSize: "24", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "Z\xD3NA B"), /* @__PURE__ */ import_react.default.createElement("text", { x: "1305", y: "478", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "horn\xE1 prav\xE1 n\xE1\u0161ivka / logo")), /* @__PURE__ */ import_react.default.createElement("rect", { x: "705", y: "465", width: "390", height: "360", rx: "26", fill: "none", stroke: "#5a7b98", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "735", y: "505", width: "330", height: "280", rx: "10", fill: "rgba(107,93,62,0.25)", stroke: "#C5A44E", strokeWidth: "4" }), /* @__PURE__ */ import_react.default.createElement("image", { href: tintedStredPreview || selectedStredNasivka.thumb, x: "740", y: "510", width: "320", height: "270", preserveAspectRatio: "xMidYMid meet", opacity: "0.9" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "470", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "470", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "170", ry: "112", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("ellipse", { cx: "1325", cy: "850", rx: "145", ry: "92", fill: "none", stroke: "#f0f0f0", strokeWidth: "4", strokeDasharray: "16 10" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1325", y: "858", textAnchor: "middle", fill: "#f5f5f5", fontSize: "28", fontWeight: "700", fontFamily: "Arial, Helvetica, sans-serif", letterSpacing: "1" }, "SEDADLO"))))))),
     /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         type: "button",
+        "data-konfig-action": "continue-embroidery",
         onClick: () => {
           if (!nasivkyPlacement) {
             setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie n\xE1\u0161iviek." });
@@ -27157,7 +27224,7 @@ function Configurator() {
         onMouseOver: (e) => e.target.style.transform = "scale(1.01)",
         onMouseOut: (e) => e.target.style.transform = "scale(1)"
       },
-      "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
+      threadUiText("Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok", "Pokra\u010Dovat na dal\u0161\xED krok")
     )
   ), doorUpholsteryAvailable && /* @__PURE__ */ import_react.default.createElement(
     AccordionSection,
@@ -27666,7 +27733,13 @@ function Configurator() {
       "button",
       {
         type: "button",
-        onClick: () => setDoorStep5Sub("nasivky"),
+        onClick: () => {
+          setDoorStep5Sub("nasivky");
+          setTimeout(() => {
+            const el = document.getElementById("konfig-sub-5d");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 450);
+        },
         style: {
           width: "100%",
           padding: "12px 0",
@@ -27845,7 +27918,7 @@ function Configurator() {
         }
       },
       /* @__PURE__ */ import_react.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/E"),
-      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Mot\xEDv n\xE1\u0161ivky a farba nite"), doorStep5Sub !== "nasivky-detail" && doorNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorNasivka.code, doorNitColor ? " \xB7 ni\u0165: " + doorNitColor.name : "", doorSameNitAsCarpet ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
+      /* @__PURE__ */ import_react.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Mot\xEDv n\xE1\u0161ivky a farba nite"), doorStep5Sub !== "nasivky-detail" && doorNasivka && /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorNasivka.code, doorNitColor ? ` \xB7 ${threadUiText("ni\u0165", "nit")}: ` + threadColorName(doorNitColor) : "", doorSameNitAsCarpet ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
       doorNasivka && doorNitColor && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "nasivky-detail" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), doorStep5Sub === "nasivky-detail" && /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: "14px 14px", background: "#fafafa", borderRadius: "0 0 8px 8px", marginBottom: 8, borderStyle: "solid", borderColor: "#e0d5b8", borderWidth: "0 2px 2px" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { opacity: doorSameNasivkaAsCarpet ? 0.35 : 1, pointerEvents: doorSameNasivkaAsCarpet ? "none" : "auto" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 10 } }, /* @__PURE__ */ import_react.default.createElement("span", { style: {
@@ -27993,7 +28066,7 @@ function Configurator() {
       NitColorPicker,
       {
         questionNumber: 2,
-        label: "Farba nite pre n\xE1\u0161ivku dver\xED:",
+        label: threadUiText("Farba nite pre n\xE1\u0161ivku dver\xED:", "Barva nit\u011B pro n\xE1\u0161ivku dve\u0159\xED:"),
         value: doorNitColor,
         onChange: (v) => {
           setDoorSameNitAsCarpet(false);
@@ -28001,7 +28074,7 @@ function Configurator() {
           setValidationErrors((e) => ({ ...e, doorNitColor: false }));
         },
         errorKey: "doorNitColor",
-        sameAsLabel: selectedNitColor && selectedStredNitColor && selectedNitColor.name !== selectedStredNitColor.name ? "Rovnak\xE1 ako na stranu \u0161of\xE9ra a spolujazdca" : "Rovnak\xE1 ako na Luxusn\xFDch autokobercoch",
+        sameAsLabel: selectedNitColor && selectedStredNitColor && selectedNitColor.name !== selectedStredNitColor.name ? threadUiText("Rovnak\xE1 ako na stranu \u0161of\xE9ra a spolujazdca", "Stejn\xE1 jako u \u0159idi\u010De a spolujezdce") : threadUiText("Rovnak\xE1 ako na Luxusn\xFDch autokobercoch", "Stejn\xE1 jako na luxusn\xEDch autokoberc\xEDch"),
         sameAsValue: selectedNitColor || selectedStredNitColor,
         sameAsActive: doorSameNitAsCarpet,
         onSameAsToggle: () => {
@@ -28017,7 +28090,7 @@ function Configurator() {
         }
       }
     ),
-    doorNasivka && doorNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-door-nasivka-preview-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, aspectRatio: "1/1", borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorNasivka.code, " \xB7 ni\u0165: ", doorNitColor.name))),
+    doorNasivka && doorNitColor && /* @__PURE__ */ import_react.default.createElement("div", { id: "konfig-door-nasivka-preview-nit", style: { scrollMarginBottom: "25vh", marginTop: 16, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { width: 280, aspectRatio: "1/1", borderRadius: 10, overflow: "hidden", maxWidth: "100%", position: "relative", background: "#fff", border: "2px solid #C5A44E", boxShadow: "0 4px 16px rgba(197,164,78,0.25)" } }, /* @__PURE__ */ import_react.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorNasivka.code, " \xB7 ", threadUiText("ni\u0165", "nit"), ": ", threadColorName(doorNitColor)))),
     /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
@@ -28884,6 +28957,34 @@ var NITE_FARBY2 = [
   { code: "3842", name: "Modr\xE1", color: "#3a6a9a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/ta5a8c5328d085199.png" },
   { code: "2840", name: "Zelen\xE1", color: "#4a8a4a", thumb: "https://cdn.myshoptet.com/usr/www.luxurycardesign.cz/user/documents/upload/assets/config/taff9c1c2781e9998.png" }
 ];
+var THREAD_COLOR_NAMES_CS2 = {
+  "2999": "\u010Cern\xE1",
+  "2901": "St\u0159\xEDbrn\xE1",
+  "3738": "Sv\u011Btle \u0161ed\xE1",
+  "3546": "B\xE9\u017Eov\xE1",
+  "3617": "Sv\u011Btle hn\u011Bd\xE1",
+  "3504": "Tmav\u011B hn\u011Bd\xE1",
+  "3501": "Ho\u0159\u010Dicov\xE1",
+  "2824": "\u010Cerven\xE1",
+  "2866": "Fialov\xE1",
+  "3842": "Modr\xE1",
+  "2840": "Zelen\xE1"
+};
+function isCzechTruckConfigurator2() {
+  if (typeof window === "undefined") return false;
+  const hostname = String(window.location && window.location.hostname || "").toLowerCase();
+  if (hostname === "luxurycardesign.cz" || hostname.endsWith(".luxurycardesign.cz")) return true;
+  const dlEntry = Array.isArray(window.dataLayer) ? window.dataLayer.find((entry) => entry && entry.shoptet) : null;
+  return Boolean(dlEntry && (String(dlEntry.shoptet.projectId) === "704436" || dlEntry.shoptet.language === "cs"));
+}
+function threadUiText2(sk, cs) {
+  return isCzechTruckConfigurator2() ? cs : sk;
+}
+function threadColorName2(threadColor) {
+  if (!threadColor) return "";
+  if (isCzechTruckConfigurator2()) return THREAD_COLOR_NAMES_CS2[threadColor.code] || threadColor.name;
+  return threadColor.name;
+}
 function detectCurrencySymbol() {
   if (typeof window === "undefined") return "\u20AC";
   try {
@@ -28907,7 +29008,7 @@ var PRICE_FORMATTER2 = new Intl.NumberFormat(CURRENCY2 === "K\u010D" ? "cs-CZ" :
 function formatPrice2(amount) {
   return `${PRICE_FORMATTER2.format(amount)} ${CURRENCY2}`;
 }
-var FALLBACK_PRICES2 = {
+var FALLBACK_PRICES_EUR2 = {
   BASE: 199,
   MATERIAL: {
     "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": 0,
@@ -28931,6 +29032,31 @@ var FALLBACK_PRICES2 = {
   NASIVKA_DVERE: 49,
   NASIVKA_DVERE_SAMO: 89
 };
+var FALLBACK_PRICES_CZK2 = {
+  BASE: 4799,
+  MATERIAL: {
+    "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": 0,
+    "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1": 199,
+    "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1": 990,
+    "Mikrosemi\u0161 \u2013 jednofarebn\xFD": 990,
+    "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": 1199
+  },
+  NASIVKY: {
+    "nechcem": 0,
+    "stred": 1399,
+    "boky": 1399,
+    "boky+stred": 2299
+  },
+  NASIVKY_SAMO: {
+    "boky": 1690,
+    "stred": 1690
+  },
+  TAPACIR_BUNDLE: 2890,
+  TAPACIR_SAMO: 4390,
+  NASIVKA_DVERE: 1190,
+  NASIVKA_DVERE_SAMO: 2190
+};
+var FALLBACK_PRICES2 = CURRENCY2 === "K\u010D" ? FALLBACK_PRICES_CZK2 : FALLBACK_PRICES_EUR2;
 var PRICE_SUFFIX_RE2 = /\s*([+\-])\s*(?:Kč|€|EUR|CZK)?\s*(\d[\d\s ]*(?:[.,]\d+)?)\s*(?:Kč|€|EUR|CZK)?\s*$/i;
 function _parseOptionPrice2(text) {
   if (!text) return { price: 0, clean: "" };
@@ -28973,62 +29099,73 @@ function readShoptetPrices2(fallback) {
   const base = _readBasePrice2();
   function findByText(bucket, ...keywords) {
     if (!bucket) return void 0;
+    const normalizedKeywords = keywords.map((word) => normalizeOptionText2(word));
     for (const k of Object.keys(bucket)) {
-      const kl = k.toLowerCase();
-      if (keywords.every((w) => kl.includes(w.toLowerCase()))) return bucket[k];
+      const normalizedKey = normalizeOptionText2(k);
+      if (normalizedKeywords.every((word) => normalizedKey.includes(word))) return bucket[k];
     }
     return void 0;
+  }
+  function findBucket(...names) {
+    for (const name of names) {
+      if (map[name]) return map[name];
+    }
+    const normalizedNames = names.map((name) => normalizeOptionText2(name));
+    for (const name of Object.keys(map)) {
+      if (normalizedNames.includes(normalizeOptionText2(name))) return map[name];
+    }
+    return {};
   }
   function pick(domVal, fallbackVal) {
     return Number.isFinite(domVal) ? domVal : fallbackVal;
   }
-  const matBucket = map["Materi\xE1l"] || map["Material"] || {};
-  const nasBucket = map["N\xE1\u0161ivky"] || map["Nasivky"] || {};
-  const tapBucket = map["Tapac\xEDr"] || map["Tapacir"] || {};
-  const dverNasBucket = map["N\xE1\u0161ivka dvere"] || map["Nasivka dvere"] || {};
+  const matBucket = findBucket("Materi\xE1l", "Material", "Typ materi\xE1lu", "Typ materi\xE1lu kobere\u010Dk\u016F");
+  const nasBucket = findBucket("N\xE1\u0161ivky", "Nasivky", "Rozlo\u017Eenie n\xE1\u0161iviek", "Rozlo\u017Een\xED n\xE1\u0161ivek");
+  const tapBucket = findBucket("Tapac\xEDr", "Tapacir", "\u010Caloun\u011Bn\xED", "Calouneni");
+  const dverNasBucket = findBucket("N\xE1\u0161ivka dvere", "Nasivka dvere", "N\xE1\u0161ivka dve\u0159e", "Nasivka dve\u0159e", "N\xE1\u0161ivky na tapac\xEDr");
   const fbMat = fallback.MATERIAL || {};
   const fbNas = fallback.NASIVKY || {};
   return {
     BASE: pick(base, fallback.BASE),
     MATERIAL: {
       "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1": pick(
-        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1"],
+        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1"] ?? matBucket["Pr\xE9miov\xE1 syntetick\xE1 k\u016F\u017Ee \u2013 jednobarevn\xE1"] ?? findByText(matBucket, "pr\xE9miov\xE1", "syntetick\xE1", "k\u016F\u017Ee", "jednobarevn\xE1"),
         fbMat["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 jednofarebn\xE1"]
       ),
       "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1": pick(
-        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1"],
+        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1"] ?? matBucket["Pr\xE9miov\xE1 syntetick\xE1 k\u016F\u017Ee \u2013 pro\u0161\xEDvan\xE1"] ?? findByText(matBucket, "pr\xE9miov\xE1", "syntetick\xE1", "k\u016F\u017Ee", "pro\u0161\xEDvan\xE1"),
         fbMat["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 pre\u0161\xEDvan\xE1"]
       ),
       "Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1": pick(
-        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1"],
+        matBucket["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1"] ?? matBucket["Pr\xE9miov\xE1 syntetick\xE1 k\u016F\u017Ee \u2013 t\xF3novan\xE1"] ?? findByText(matBucket, "pr\xE9miov\xE1", "syntetick\xE1", "k\u016F\u017Ee", "t\xF3novan\xE1"),
         fbMat["Pr\xE9miov\xE1 syntetick\xE1 ko\u017Ea \u2013 t\xF3novan\xE1"]
       ),
       "Mikrosemi\u0161 \u2013 jednofarebn\xFD": pick(
-        matBucket["Mikrosemi\u0161 \u2013 jednofarebn\xFD"],
+        matBucket["Mikrosemi\u0161 \u2013 jednofarebn\xFD"] ?? matBucket["Mikrosemi\u0161 \u2013 jednobarevn\xFD"] ?? findByText(matBucket, "mikrosemi\u0161", "jednobarevn\xFD"),
         fbMat["Mikrosemi\u0161 \u2013 jednofarebn\xFD"]
       ),
       "Mikrosemi\u0161 \u2013 dvojfarebn\xFD": pick(
-        matBucket["Mikrosemi\u0161 \u2013 dvojfarebn\xFD"],
+        matBucket["Mikrosemi\u0161 \u2013 dvojfarebn\xFD"] ?? matBucket["Mikrosemi\u0161 \u2013 dvoubarevn\xFD"] ?? findByText(matBucket, "mikrosemi\u0161", "dvoubarevn\xFD"),
         fbMat["Mikrosemi\u0161 \u2013 dvojfarebn\xFD"]
       )
     },
     NASIVKY: {
-      nechcem: pick(nasBucket["Bez n\xE1\u0161iviek"], fbNas.nechcem),
-      stred: pick(nasBucket["Len stred"], fbNas.stred),
-      boky: pick(nasBucket["\u0160of\xE9r + spolujazdec"], fbNas.boky),
+      nechcem: pick(nasBucket["Bez n\xE1\u0161iviek"] ?? nasBucket["Bez n\xE1\u0161ivek"] ?? findByText(nasBucket, "bez", "n\xE1\u0161ivek"), fbNas.nechcem),
+      stred: pick(nasBucket["Len stred"] ?? nasBucket["Jen st\u0159ed"] ?? findByText(nasBucket, "jen", "st\u0159ed"), fbNas.stred),
+      boky: pick(nasBucket["\u0160of\xE9r + spolujazdec"] ?? nasBucket["\u0158idi\u010D + spolujezdec"] ?? findByText(nasBucket, "\u0159idi\u010D", "spolujezdec"), fbNas.boky),
       "boky+stred": pick(
-        nasBucket["\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"] ?? nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? findByText(nasBucket, "\u0161of\xE9r", "spolujazdec", "stred"),
+        nasBucket["\u0160of\xE9r + spolujazdec + stred (BAL\xCDK)"] ?? nasBucket["\u0160of\xE9r + spolujazdec + stred (BUNDLE)"] ?? nasBucket["\u0158idi\u010D + spolujezdec + st\u0159ed (BAL\xCD\u010CEK)"] ?? findByText(nasBucket, "\u0159idi\u010D", "spolujezdec", "st\u0159ed"),
         fbNas["boky+stred"]
       )
     },
     NASIVKY_SAMO: fallback.NASIVKY_SAMO || {},
     TAPACIR_BUNDLE: pick(
-      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)"] ?? tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? findByText(tapBucket, "\xE1no", "bal\xEDk") ?? findByText(tapBucket, "\xE1no", "bundle"),
+      tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bal\xEDk)"] ?? tapBucket["\xC1no chcem (v konfigur\xE1tore \u2013 bundle)"] ?? tapBucket["Ano, chci (v konfigur\xE1toru \u2013 bal\xED\u010Dek)"] ?? findByText(tapBucket, "ano", "chci", "konfigur\xE1toru", "bal\xED\u010Dek"),
       fallback.TAPACIR_BUNDLE
     ),
     TAPACIR_SAMO: fallback.TAPACIR_SAMO,
     NASIVKA_DVERE: pick(
-      dverNasBucket["\xC1no chcem n\xE1\u0161ivku na dver\xE1ch"] ?? findByText(dverNasBucket, "\xE1no", "dver\xE1ch"),
+      dverNasBucket["\xC1no chcem n\xE1\u0161ivku na dver\xE1ch"] ?? dverNasBucket["Ano, chci n\xE1\u0161ivku na dve\u0159\xEDch"] ?? findByText(dverNasBucket, "ano", "chci", "n\xE1\u0161ivku", "dve\u0159\xEDch"),
       fallback.NASIVKA_DVERE
     ),
     NASIVKA_DVERE_SAMO: fallback.NASIVKA_DVERE_SAMO
@@ -29091,12 +29228,12 @@ function calculatePrice2(state, PRICES) {
       const isBundle = nasivkyPlacement === "boky+stred";
       const details = [];
       if (nasivkyPlacement === "boky" && selectedNasivka) {
-        details.push(selectedNasivka.code + (selectedNitColor ? " \xB7 ni\u0165: " + selectedNitColor.name : ""));
+        details.push(selectedNasivka.code + (selectedNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedNitColor) : ""));
       } else if (nasivkyPlacement === "stred" && selectedStredNasivka) {
-        details.push(selectedStredNasivka.code + (selectedStredNitColor ? " \xB7 ni\u0165: " + selectedStredNitColor.name : ""));
+        details.push(selectedStredNasivka.code + (selectedStredNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedStredNitColor) : ""));
       } else if (nasivkyPlacement === "boky+stred") {
-        if (selectedNasivka) details.push("Boky: " + selectedNasivka.code + (selectedNitColor ? " (ni\u0165: " + selectedNitColor.name + ")" : ""));
-        if (selectedStredNasivka) details.push("Stred: " + selectedStredNasivka.code + (selectedStredNitColor ? " (ni\u0165: " + selectedStredNitColor.name + ")" : ""));
+        if (selectedNasivka) details.push("Boky: " + selectedNasivka.code + (selectedNitColor ? ` (${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedNitColor) + ")" : ""));
+        if (selectedStredNasivka) details.push("Stred: " + selectedStredNasivka.code + (selectedStredNitColor ? ` (${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedStredNitColor) + ")" : ""));
       }
       breakdown.push({
         label,
@@ -29122,7 +29259,7 @@ function calculatePrice2(state, PRICES) {
   }
   if (doorWantsNasivka === true) {
     total += PRICES.NASIVKA_DVERE;
-    const nasSubLabel = doorNasivka ? doorNasivka.code + (doorNitColor ? " \xB7 ni\u0165: " + doorNitColor.name : "") : null;
+    const nasSubLabel = doorNasivka ? doorNasivka.code + (doorNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(doorNitColor) : "") : null;
     breakdown.push({
       label: "N\xE1\u0161ivka na dver\xE1ch",
       subLabel: nasSubLabel,
@@ -29727,7 +29864,7 @@ function Configurator2() {
     fontSize: 14,
     fontWeight: 800,
     flexShrink: 0
-  } }, questionNumber) : /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react2.default.createElement("span", null, label ? label.replace(/^\d+\.\s*/, "") : "Farba nite (v\xFD\u0161ivky):")), sameAsLabel && sameAsValue && /* @__PURE__ */ import_react2.default.createElement(
+  } }, questionNumber) : /* @__PURE__ */ import_react2.default.createElement("span", { style: { fontSize: 18 } }, "\u{1F9F5}"), /* @__PURE__ */ import_react2.default.createElement("span", null, label ? label.replace(/^\d+\.\s*/, "") : threadUiText2("Farba nite (v\xFD\u0161ivky):", "Barva nit\u011B (v\xFD\u0161ivky):"))), sameAsLabel && sameAsValue && /* @__PURE__ */ import_react2.default.createElement(
     "div",
     {
       onClick: () => onSameAsToggle && onSameAsToggle(),
@@ -29769,7 +29906,7 @@ function Configurator2() {
       border: sameAsActive ? "2px solid #4CAF50" : "1px solid #e8dfc0",
       flexShrink: 0,
       background: "#fff"
-    } }, /* @__PURE__ */ import_react2.default.createElement("img", { src: sameAsValue.thumb, alt: sameAsValue.name, style: { width: "100%", height: "100%", objectFit: "contain" } })), /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: sameAsActive ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, sameAsActive && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), sameAsLabel), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 12, color: sameAsActive ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, sameAsValue.name))),
+    } }, /* @__PURE__ */ import_react2.default.createElement("img", { src: sameAsValue.thumb, alt: threadColorName2(sameAsValue), style: { width: "100%", height: "100%", objectFit: "contain" } })), /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: sameAsActive ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, sameAsActive && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), sameAsLabel), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 12, color: sameAsActive ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, threadColorName2(sameAsValue)))),
     /* @__PURE__ */ import_react2.default.createElement("div", { style: {
       width: "100%",
       textAlign: "center",
@@ -29812,9 +29949,9 @@ function Configurator2() {
           style: { width: "100%", aspectRatio: "1/1", objectFit: "contain", display: "block", background: "#fff", padding: 4 }
         }
       ),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 12, fontWeight: 700, textAlign: "center", padding: "6px 4px", color: "#2E1810", background: isActive ? "#fdf8ec" : "#f5f5f5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", lineHeight: 1.2 } }, nit.name)
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 12, fontWeight: 700, textAlign: "center", padding: "6px 4px", color: "#2E1810", background: isActive ? "#fdf8ec" : "#f5f5f5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", lineHeight: 1.2 } }, threadColorName2(nit))
     );
-  })), value && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, color: "#555", marginTop: 6 } }, "Vybran\xE1 ni\u0165: ", /* @__PURE__ */ import_react2.default.createElement("strong", { style: { color: "#2E1810" } }, value.name, " (", value.code, ")"))));
+  })), value && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, color: "#555", marginTop: 6 } }, threadUiText2("Vybran\xE1 ni\u0165:", "Vybran\xE1 nit:"), " ", /* @__PURE__ */ import_react2.default.createElement("strong", { style: { color: "#2E1810" } }, threadColorName2(value), " (", value.code, ")"))));
   const handleBrandChange = (val) => {
     setZnacka(val);
     setModel("");
@@ -30414,7 +30551,7 @@ function Configurator2() {
         }
       },
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "4/B"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka na strane \u0161of\xE9ra a spolujazdca"), step4Sub !== "boky" && selectedNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedNasivka.code, selectedNitColor ? " \xB7 ni\u0165: " + selectedNitColor.name : "")),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka na strane \u0161of\xE9ra a spolujazdca"), step4Sub !== "boky" && selectedNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedNasivka.code, selectedNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedNitColor) : "")),
       selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: step4Sub === "boky" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30484,7 +30621,7 @@ function Configurator2() {
     })), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-boky", style: { scrollMarginBottom: "25vh", marginTop: 8, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, selectedNitColor ? /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }) : /* @__PURE__ */ import_react2.default.createElement("img", { src: selectedNasivka.full, alt: selectedNasivka.code, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code))), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: {
       borderTop: "1px dashed #d4c488",
       margin: "24px 0 20px 0"
-    } }), /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-sub-4b2", style: { scrollMarginTop: 20 } }), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement(NitColorPicker, { label: "2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", questionNumber: 2, value: selectedNitColor, onChange: (v) => {
+    } }), /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-sub-4b2", style: { scrollMarginTop: 20 } }), selectedNasivka && /* @__PURE__ */ import_react2.default.createElement(NitColorPicker, { label: threadUiText2("2. Farba nite pre n\xE1\u0161ivku (\u0161of\xE9r a spolujazdec):", "2. Barva nit\u011B pro n\xE1\u0161ivku (\u0159idi\u010D a spolujezdec):"), questionNumber: 2, value: selectedNitColor, onChange: (v) => {
       setSelectedNitColor(v);
       setValidationErrors((e) => ({ ...e, nitColor: false }));
       if (!bokyNitScrolled) {
@@ -30499,7 +30636,7 @@ function Configurator2() {
           }
         }, 200);
       }
-    }, errorKey: "nitColor" }), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-boky-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code, " \xB7 ni\u0165: ", selectedNitColor.name))), nasivkyPlacement === "boky+stred" && selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement(
+    }, errorKey: "nitColor" }), selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-boky-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedNasivka.full, color: selectedNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, selectedNasivka.code, " \xB7 ", threadUiText2("ni\u0165", "nit"), ": ", threadColorName2(selectedNitColor)))), nasivkyPlacement === "boky+stred" && selectedNasivka && selectedNitColor && /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
@@ -30526,7 +30663,7 @@ function Configurator2() {
           textTransform: "uppercase"
         }
       },
-      "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
+      threadUiText2("Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok", "Pokra\u010Dovat na dal\u0161\xED krok")
     ), false)))),
     (nasivkyPlacement === "stred" || nasivkyPlacement === "boky+stred" && selectedNasivka) && /* @__PURE__ */ import_react2.default.createElement(import_react2.default.Fragment, null, /* @__PURE__ */ import_react2.default.createElement("div", { style: {
       border: validationErrors.step4sub === "4c" ? "3px solid #CC0000" : "none",
@@ -30553,7 +30690,7 @@ function Configurator2() {
         }
       },
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "4/C"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka \u2014 stredov\xFD koberec"), step4Sub !== "stred" && selectedStredNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedStredNasivka.code, selectedStredNitColor ? " \xB7 ni\u0165: " + selectedStredNitColor.name : "", stredSameAsSide ? " (rovnako ako \u0161of\xE9r + spolujazdec)" : "")),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "N\xE1\u0161ivka \u2014 stredov\xFD koberec"), step4Sub !== "stred" && selectedStredNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, selectedStredNasivka.code, selectedStredNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedStredNitColor) : "", stredSameAsSide ? " (rovnako ako \u0161of\xE9r + spolujazdec)" : "")),
       selectedStredNasivka && selectedStredNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: step4Sub === "stred" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), /* @__PURE__ */ import_react2.default.createElement("div", { style: {
@@ -30633,7 +30770,7 @@ function Configurator2() {
         border: stredSameAsSide ? "2px solid #4CAF50" : "1px solid #e8dfc0",
         flexShrink: 0,
         background: "#fff"
-      } }, /* @__PURE__ */ import_react2.default.createElement("img", { src: selectedNasivka.thumb, alt: "", style: { width: "100%", height: "100%", objectFit: "contain" } })), /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: stredSameAsSide ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, stredSameAsSide && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "Rovnak\xE1 n\xE1\u0161ivka + ni\u0165 ako \u0161of\xE9r a spolujazdec"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 12, color: stredSameAsSide ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, selectedNasivka.code, selectedNitColor ? " \xB7 ni\u0165: " + selectedNitColor.name : ""))),
+      } }, /* @__PURE__ */ import_react2.default.createElement("img", { src: selectedNasivka.thumb, alt: "", style: { width: "100%", height: "100%", objectFit: "contain" } })), /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 14, fontWeight: 700, color: stredSameAsSide ? "#2E7D32" : "#2E1810", lineHeight: 1.3 } }, stredSameAsSide && /* @__PURE__ */ import_react2.default.createElement("span", { style: { marginRight: 6 } }, "\u2713"), "Rovnak\xE1 n\xE1\u0161ivka + ni\u0165 ako \u0161of\xE9r a spolujazdec"), /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 12, color: stredSameAsSide ? "#388E3C" : "#888", marginTop: 3, fontWeight: 500 } }, selectedNasivka.code, selectedNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(selectedNitColor) : ""))),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: {
         width: "100%",
         textAlign: "center",
@@ -30697,7 +30834,7 @@ function Configurator2() {
       NitColorPicker,
       {
         questionNumber: 2,
-        label: "Farba nite pre stredov\xFA n\xE1\u0161ivku:",
+        label: threadUiText2("Farba nite pre stredov\xFA n\xE1\u0161ivku:", "Barva nit\u011B pro st\u0159edovou n\xE1\u0161ivku:"),
         value: selectedStredNitColor,
         onChange: (v) => {
           setStredSameAsSide(false);
@@ -30718,7 +30855,7 @@ function Configurator2() {
           }
         },
         errorKey: "stredNitColor",
-        sameAsLabel: "Rovnak\xE1 ako \u0161of\xE9r + spolujazdec",
+        sameAsLabel: threadUiText2("Rovnak\xE1 ako \u0161of\xE9r + spolujazdec", "Stejn\xE1 jako \u0159idi\u010D + spolujezdec"),
         sameAsValue: selectedNitColor,
         sameAsActive: stredSameNitAsSide,
         onSameAsToggle: () => {
@@ -30732,11 +30869,12 @@ function Configurator2() {
           }
         }
       }
-    ), selectedStredNasivka && !stredSameAsSide && selectedStredNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-stred-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code, " \xB7 ni\u0165: ", selectedStredNitColor.name))), false)))),
+    ), selectedStredNasivka && !stredSameAsSide && selectedStredNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-nasivka-preview-stred-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: selectedStredNasivka.full, color: selectedStredNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "Stred: ", selectedStredNasivka.code, " \xB7 ", threadUiText2("ni\u0165", "nit"), ": ", threadColorName2(selectedStredNitColor)))), false)))),
     /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
         type: "button",
+        "data-konfig-action": "continue-embroidery",
         onClick: () => {
           if (!nasivkyPlacement) {
             setValidationErrors({ step4sub: "4a", message: "Vyberte umiestnenie n\xE1\u0161iviek." });
@@ -30773,7 +30911,7 @@ function Configurator2() {
         onMouseOver: (e) => e.target.style.transform = "scale(1.01)",
         onMouseOut: (e) => e.target.style.transform = "scale(1)"
       },
-      "Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok"
+      threadUiText2("Pokra\u010Dova\u0165 na \u010Fal\u0161\xED krok", "Pokra\u010Dovat na dal\u0161\xED krok")
     )
   ), doorUpholsteryAvailable && /* @__PURE__ */ import_react2.default.createElement(
     AccordionSection2,
@@ -31472,7 +31610,7 @@ function Configurator2() {
         }
       },
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { minWidth: 32, height: 24, borderRadius: 12, padding: "0 6px", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 } }, "5/E"),
-      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Mot\xEDv n\xE1\u0161ivky a farba nite"), doorStep5Sub !== "nasivky-detail" && doorNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorNasivka.code, doorNitColor ? " \xB7 ni\u0165: " + doorNitColor.name : "", doorSameNitAsCarpet ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
+      /* @__PURE__ */ import_react2.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontWeight: 700, fontSize: 13, textTransform: "uppercase", letterSpacing: 0.5 } }, "Mot\xEDv n\xE1\u0161ivky a farba nite"), doorStep5Sub !== "nasivky-detail" && doorNasivka && /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 11, opacity: 0.85, marginTop: 2 } }, doorNasivka.code, doorNitColor ? ` \xB7 ${threadUiText2("ni\u0165", "nit")}: ` + threadColorName2(doorNitColor) : "", doorSameNitAsCarpet ? " (rovnako ako Luxusn\xE9 autokoberce)" : "")),
       doorNasivka && doorNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "5px 14px", borderRadius: 6, background: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", border: "1px solid rgba(255,255,255,0.5)" } }, "Zmeni\u0165"),
       /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 16, transition: "transform 0.3s", transform: doorStep5Sub === "nasivky-detail" ? "rotate(180deg)" : "rotate(0deg)" } }, "\u25BC")
     ), doorStep5Sub === "nasivky-detail" && /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: "14px 14px", background: "#fafafa", borderRadius: "0 0 8px 8px", marginBottom: 8, borderStyle: "solid", borderColor: "#e0d5b8", borderWidth: "0 2px 2px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-door-nasivka-preview", style: { scrollMarginBottom: "25vh", opacity: doorSameNasivkaAsCarpet ? 0.35 : 1, pointerEvents: doorSameNasivkaAsCarpet ? "none" : "auto" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: "#2E1810", marginBottom: 14, display: "flex", alignItems: "center", gap: 10 } }, /* @__PURE__ */ import_react2.default.createElement("span", { style: {
@@ -31647,7 +31785,7 @@ function Configurator2() {
       NitColorPicker,
       {
         questionNumber: 2,
-        label: "Farba nite pre n\xE1\u0161ivku dver\xED:",
+        label: threadUiText2("Farba nite pre n\xE1\u0161ivku dver\xED:", "Barva nit\u011B pro n\xE1\u0161ivku dve\u0159\xED:"),
         value: doorNitColor,
         onChange: (v) => {
           setDoorSameNitAsCarpet(false);
@@ -31667,7 +31805,7 @@ function Configurator2() {
           }
         },
         errorKey: "doorNitColor",
-        sameAsLabel: selectedNitColor && selectedStredNitColor && selectedNitColor.name !== selectedStredNitColor.name ? "Rovnak\xE1 ako na stranu \u0161of\xE9ra a spolujazdca" : "Rovnak\xE1 ako na Luxusn\xFDch autokobercoch",
+        sameAsLabel: selectedNitColor && selectedStredNitColor && selectedNitColor.name !== selectedStredNitColor.name ? threadUiText2("Rovnak\xE1 ako na stranu \u0161of\xE9ra a spolujazdca", "Stejn\xE1 jako u \u0159idi\u010De a spolujezdce") : threadUiText2("Rovnak\xE1 ako na Luxusn\xFDch autokobercoch", "Stejn\xE1 jako na luxusn\xEDch autokoberc\xEDch"),
         sameAsValue: selectedNitColor || selectedStredNitColor,
         sameAsActive: doorSameNitAsCarpet,
         onSameAsToggle: () => {
@@ -31683,7 +31821,7 @@ function Configurator2() {
         }
       }
     ),
-    doorNasivka && doorNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-door-nasivka-preview-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorNasivka.code, " \xB7 ni\u0165: ", doorNitColor.name))),
+    doorNasivka && doorNitColor && /* @__PURE__ */ import_react2.default.createElement("div", { id: "konfig-door-nasivka-preview-nit", style: { scrollMarginBottom: "25vh", marginTop: 12, marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { width: "60%", aspectRatio: "1/1", borderRadius: 8, overflow: "hidden", maxWidth: 280, position: "relative", background: "#fff", border: "1px solid #ddd" } }, /* @__PURE__ */ import_react2.default.createElement(TintedNasivka, { src: doorNasivka.full, color: doorNitColor.color, style: { display: "block", width: "100%", height: "100%", objectFit: "contain" } }), /* @__PURE__ */ import_react2.default.createElement("div", { style: { position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, doorNasivka.code, " \xB7 ", threadUiText2("ni\u0165", "nit"), ": ", threadColorName2(doorNitColor)))),
     /* @__PURE__ */ import_react2.default.createElement(
       "button",
       {
