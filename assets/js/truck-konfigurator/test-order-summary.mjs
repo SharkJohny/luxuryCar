@@ -40,11 +40,14 @@ const summary = buildTruckOrderSummary({
   "KOBERČEKY POD SEDAČKY",
   "- Typ a farba materiálu: Prémiová syntetická koža – prešívaná – K2",
   "- Typ nášiviek na boky: H1",
+  "- Farba nášiviek na boky: N2 – Červená",
   "- Typ nášivky na stred: H4",
+  "- Farba nášivky na stred: N1 – Čierna",
   "TAPACÍR DVERÍ",
   "- Typ a farba materiálu: Rovnaký ako koberčeky – Prémiová syntetická koža – prešívaná – K2",
   "- Nášivky na tapacír: Chcem",
   "- Typ nášivky na tapacír: Rovnaká ako na koberčekoch – H1",
+  "- Farba nášiviek na tapacíre: Rovnaká ako na koberčekoch – N2 – Červená",
 ].forEach((line) => assert.ok(summary.includes(line), `Chýba riadok: ${line}`));
 
 assert.ok(!summary.includes("undefined"));
@@ -56,6 +59,21 @@ assert.deepEqual(groups.map((group) => group.heading), [
   "KOBERČEKY POD SEDAČKY",
   "TAPACÍR DVERÍ",
 ]);
+
+const legacyCzechGroups = parseTruckOrderSummary([
+  "SPECIFIKACE VOZIDLA",
+  "- Vozidlo: DAF (TIR) XF105 2006-2012",
+  "",
+  "KOBEREČKY POD SEDAČKY",
+  "- Barva nášivky na střed: Tmavohnedá",
+  "- Barva nášivek na boky: Strieborná",
+  "",
+  "TAPACÍR DVEŘÍ",
+  "- Barva nášivek na tapacíru: Stejná jako na koberečcích – Strieborná",
+].join("\n"));
+assert.equal(legacyCzechGroups[1].items[0].value, "3504 – Tmavě hnědá");
+assert.equal(legacyCzechGroups[1].items[1].value, "2901 – Stříbrná");
+assert.equal(legacyCzechGroups[2].items[0].value, "Stejná jako na koberečcích – 2901 – Stříbrná");
 
 const noDoorSummary = buildTruckOrderSummary({
   selectedMaterial: "Mikrosemiš – jednofarebný",
@@ -75,9 +93,9 @@ const czechSummary = buildTruckOrderSummary({
   selectedLemovanie: { name: "Červené lemování" },
   nasivkyPlacement: "boky+stred",
   selectedNasivka: { code: "H1" },
-  selectedNitColor: { name: "Červená" },
+  selectedNitColor: { code: "2901", name: "Strieborná" },
   selectedStredNasivka: { code: "H4" },
-  selectedStredNitColor: { name: "Černá" },
+  selectedStredNitColor: { code: "3504", name: "Tmavohnedá" },
   doorPanelChoice: "ano",
   doorWantsNasivka: false,
   doorSameAsCarpet: { material: true, lemovanie: true },
@@ -89,6 +107,8 @@ const czechSummary = buildTruckOrderSummary({
   "KOBEREČKY POD SEDAČKY",
   "- Typ a barva materiálu: Prémiová syntetická kůže – prošívaná – K2",
   "- Rozložení nášivek: Řidič + spolujezdec + střed",
+  "- Barva nášivek na boky: 2901 – Stříbrná",
+  "- Barva nášivky na střed: 3504 – Tmavě hnědá",
   "TAPACÍR DVEŘÍ",
   "- Typ a barva materiálu: Stejný jako koberečky – Prémiová syntetická kůže – prošívaná – K2",
   "- Nášivky na tapacír: Nechci",

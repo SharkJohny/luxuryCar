@@ -83,6 +83,35 @@ const SUMMARY_TEXTS = {
   },
 };
 
+const THREAD_COLOR_NAMES = {
+  sk: {
+    "2999": "Čierna",
+    "2901": "Strieborná",
+    "3738": "Svetlo sivá",
+    "3546": "Béžová",
+    "3617": "Svetlohnedá",
+    "3504": "Tmavohnedá",
+    "3501": "Horčicová",
+    "2824": "Červená",
+    "2866": "Fialová",
+    "3842": "Modrá",
+    "2840": "Zelená",
+  },
+  cs: {
+    "2999": "Černá",
+    "2901": "Stříbrná",
+    "3738": "Světle šedá",
+    "3546": "Béžová",
+    "3617": "Světle hnědá",
+    "3504": "Tmavě hnědá",
+    "3501": "Hořčicová",
+    "2824": "Červená",
+    "2866": "Fialová",
+    "3842": "Modrá",
+    "2840": "Zelená",
+  },
+};
+
 export function detectTruckSummaryLanguage() {
   if (typeof window === "undefined") return "sk";
   try {
@@ -105,6 +134,40 @@ function selectedText(value, preferName = false) {
   if (typeof value === "string") return value;
   if (preferName && value.name) return value.name;
   return value.code || value.name || "";
+}
+
+function selectedThreadColor(value, language) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  const code = String(value.code || "").trim();
+  const localizedNames = THREAD_COLOR_NAMES[language] || THREAD_COLOR_NAMES.sk;
+  const name = String(localizedNames[code] || value.name || "").trim();
+  if (!code) return name;
+  const nameAlreadyHasCode = name === code || [" ", "-", "–", "—", ":"]
+    .some((separator) => name.startsWith(code + separator));
+  if (!name || nameAlreadyHasCode) return name || code;
+  return `${code} – ${name}`;
+}
+
+function enrichThreadColorText(value, language) {
+  const text = String(value || "").trim();
+  if (!text) return text;
+  const localizedNames = THREAD_COLOR_NAMES[language] || THREAD_COLOR_NAMES.sk;
+
+  for (const code of Object.keys(localizedNames)) {
+    const knownNames = [...new Set([
+      THREAD_COLOR_NAMES.sk[code],
+      THREAD_COLOR_NAMES.cs[code],
+    ].filter(Boolean))];
+    for (const knownName of knownNames) {
+      if (text === knownName) return `${code} – ${localizedNames[code]}`;
+      const suffix = ` – ${knownName}`;
+      if (text.endsWith(suffix)) {
+        return `${text.slice(0, -knownName.length)}${code} – ${localizedNames[code]}`;
+      }
+    }
+  }
+  return text;
 }
 
 function addLine(lines, label, value) {
@@ -143,6 +206,7 @@ export function buildTruckOrderSummary(state, language = detectTruckSummaryLangu
   const lines = [];
   const carpetMaterial = materialAndColor(s.selectedMaterial, s.selectedColor);
   const carpetEdging = selectedText(s.selectedLemovanie, true);
+  const threadColor = (value) => selectedThreadColor(value, language);
   const sideEmbroidery = hasSideEmbroidery(s.nasivkyPlacement);
   const centreEmbroidery = hasCentreEmbroidery(s.nasivkyPlacement);
 
@@ -158,9 +222,9 @@ export function buildTruckOrderSummary(state, language = detectTruckSummaryLangu
     addLine(group, texts.labels.edgingColor, carpetEdging);
     addLine(group, texts.labels.embroideryPlacement, texts.placements[s.nasivkyPlacement]);
     addLine(group, texts.labels.centrePatchType, centreEmbroidery ? selectedText(s.selectedStredNasivka) : texts.noPatch);
-    addLine(group, texts.labels.centrePatchColor, centreEmbroidery ? selectedText(s.selectedStredNitColor, true) : texts.noPatch);
+    addLine(group, texts.labels.centrePatchColor, centreEmbroidery ? threadColor(s.selectedStredNitColor) : texts.noPatch);
     addLine(group, texts.labels.sidePatchType, sideEmbroidery ? selectedText(s.selectedNasivka) : texts.noPatch);
-    addLine(group, texts.labels.sidePatchColor, sideEmbroidery ? selectedText(s.selectedNitColor, true) : texts.noPatch);
+    addLine(group, texts.labels.sidePatchColor, sideEmbroidery ? threadColor(s.selectedNitColor) : texts.noPatch);
   });
 
   const wantsDoorPanels = s.doorPanelChoice === true || s.doorPanelChoice === "ano";
@@ -178,8 +242,8 @@ export function buildTruckOrderSummary(state, language = detectTruckSummaryLangu
       ? `${texts.samePatch} – ${selectedText(s.doorNasivka)}`
       : selectedText(s.doorNasivka);
     const doorPatchColor = s.doorSameNitAsCarpet
-      ? `${texts.samePatch} – ${selectedText(s.doorNitColor, true)}`
-      : selectedText(s.doorNitColor, true);
+      ? `${texts.samePatch} – ${threadColor(s.doorNitColor)}`
+      : threadColor(s.doorNitColor);
 
     addGroup(lines, texts.headings.doors, (group) => {
       addLine(group, texts.labels.materialColor, doorMaterialValue);
@@ -198,6 +262,15 @@ export function buildTruckOrderSummary(state, language = detectTruckSummaryLangu
 export function parseTruckOrderSummary(summary) {
   const groups = [];
   let current = null;
+  const language = /^SPECIFIKACE VOZIDLA\b/m.test(String(summary || "")) ? "cs" : "sk";
+  const colorLabels = new Set([
+    SUMMARY_TEXTS.sk.labels.centrePatchColor,
+    SUMMARY_TEXTS.sk.labels.sidePatchColor,
+    SUMMARY_TEXTS.sk.labels.doorPatchColor,
+    SUMMARY_TEXTS.cs.labels.centrePatchColor,
+    SUMMARY_TEXTS.cs.labels.sidePatchColor,
+    SUMMARY_TEXTS.cs.labels.doorPatchColor,
+  ]);
 
   String(summary || "").split(/\r?\n/).forEach((rawLine) => {
     const line = rawLine.trim();
@@ -211,9 +284,11 @@ export function parseTruckOrderSummary(summary) {
     const item = line.slice(2);
     const separator = item.indexOf(":");
     if (separator < 0) return;
+    const label = item.slice(0, separator).trim();
+    const rawValue = item.slice(separator + 1).trim();
     current.items.push({
-      label: item.slice(0, separator).trim(),
-      value: item.slice(separator + 1).trim(),
+      label,
+      value: colorLabels.has(label) ? enrichThreadColorText(rawValue, language) : rawValue,
     });
   });
 

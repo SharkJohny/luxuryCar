@@ -32,9 +32,9 @@ sessionStorage.setItem("truckOrderSummary", buildTruckOrderSummary({
   selectedLemovanie: { name: "Červené lemovanie" },
   nasivkyPlacement: "boky+stred",
   selectedNasivka: { code: "H1" },
-  selectedNitColor: { name: "Červená" },
+  selectedNitColor: { code: "2901", name: "Strieborná" },
   selectedStredNasivka: { code: "H4" },
-  selectedStredNitColor: { name: "Čierna" },
+  selectedStredNitColor: { code: "3504", name: "Tmavohnedá" },
   doorPanelChoice: "ano",
   doorMaterial: "Prémiová syntetická koža – prešívaná",
   doorColor: { code: "K2" },
@@ -56,6 +56,8 @@ assert.deepEqual(groups.map((group) => group.querySelector("h4")?.textContent), 
 assert.match(document.body.textContent, /Typ a farba materiálu/);
 assert.match(document.body.textContent, /Rovnaký ako koberčeky/);
 assert.match(document.body.textContent, /Nášivky na tapacír\s*Nechcem/);
+assert.match(document.body.textContent, /2901 – Strieborná/);
+assert.match(document.body.textContent, /3504 – Tmavohnedá/);
 assert.doesNotMatch(document.body.textContent, /Vyberie sa v konfigurátore/);
 
 console.log("✓ košík vykresľuje truck konfiguráciu v prehľadných skupinách");
