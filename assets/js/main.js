@@ -344,16 +344,10 @@ function initModelSelect(texts) {
     $(other_option).appendTo(".years select");
   }
 
-  // Při inicializaci si poznač, že probíhá načítání
-  let isInitializing = true;
-
+  // Obnova hodnot ze sessionStorage výše používá jen .val(), takže sama
+  // change nevyvolá. Handler proto může být aktivní ihned; časový zámek by
+  // blokoval skutečného uživatele, který značku vybere rychle po načtení.
   $(".brands select").on("change", function () {
-    // Pokud probíhá inicializace, ignoruj change event
-    if (isInitializing) {
-      console.log("Ignoruji change event během inicializace pro:", $(this).val());
-      return;
-    }
-
     console.log("Spouští se change event pro značku:", $(this).val());
 
     if ($(this).val() === cstm_znacka.at(1)) {
@@ -369,21 +363,14 @@ function initModelSelect(texts) {
     }
   });
 
-  // Po dokončení inicializace povol change eventy
-  setTimeout(() => {
-    isInitializing = false;
-    console.log("Inicializace dokončena, change eventy povoleny");
-  }, 2500); // Prodlouženo na 2.5 sekundy
-
   $(".btn.choice-Model").on("click", function () {
     saveModel(true);
   });
-  setTimeout(() => {
-    $(".surcharge-list select").on("change", function () {
-      console.log("change");
-      saveModel(false);
-    });
-  }, 1000);
+  // Ukládej i první rychlou změnu provedenou po vykreslení formuláře.
+  $(".surcharge-list select").on("change", function () {
+    console.log("change");
+    saveModel(false);
+  });
 
   // Hlavný prepínač osobné vozidlá ↔ kamióny (len homepage). Volané ako
   // POSLEDNÉ a v try/catch — nesmie za žiadnych okolností zhodiť výber

@@ -36228,9 +36228,9 @@ function lcdOpenStep(el) {
 }
 function lcdHighlightStep(el) {
   var $s = $(el);
-  $s.addClass("lcd-needs-fill");
+  $s.addClass("lcd-needs-fill selection-required");
   setTimeout(function() {
-    $s.removeClass("lcd-needs-fill");
+    $s.removeClass("lcd-needs-fill selection-required");
   }, 3e3);
 }
 function lcdFirstUnfilled(uptoIndex) {
@@ -37367,12 +37367,7 @@ function initModelSelect2(texts) {
   if (!getYear || !otherVariants.includes(getYear)) {
     $(other_option).appendTo(".years select");
   }
-  let isInitializing = true;
   $(".brands select").on("change", function() {
-    if (isInitializing) {
-      console.log("Ignoruji change event b\u011Bhem inicializace pro:", $(this).val());
-      return;
-    }
     console.log("Spou\u0161t\xED se change event pro zna\u010Dku:", $(this).val());
     if ($(this).val() === cstm_znacka.at(1)) {
       $(".models option:not(.notselect)").remove();
@@ -37386,19 +37381,13 @@ function initModelSelect2(texts) {
       }
     }
   });
-  setTimeout(() => {
-    isInitializing = false;
-    console.log("Inicializace dokon\u010Dena, change eventy povoleny");
-  }, 2500);
   $(".btn.choice-Model").on("click", function() {
     saveModel(true);
   });
-  setTimeout(() => {
-    $(".surcharge-list select").on("change", function() {
-      console.log("change");
-      saveModel(false);
-    });
-  }, 1e3);
+  $(".surcharge-list select").on("change", function() {
+    console.log("change");
+    saveModel(false);
+  });
   if ($(".in-index")[0]) {
     try {
       initVehicleKindSwitch(container, choiceWrap);

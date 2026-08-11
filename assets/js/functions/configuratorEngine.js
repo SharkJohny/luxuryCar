@@ -224,8 +224,10 @@ function lcdOpenStep(el) {
 /** Cerveno zvyrazni krok + vyzva na doplnenie. */
 function lcdHighlightStep(el) {
   var $s = $(el);
-  $s.addClass("lcd-needs-fill");
-  setTimeout(function () { $s.removeClass("lcd-needs-fill"); }, 3000);
+  $s.addClass("lcd-needs-fill selection-required");
+  setTimeout(function () {
+    $s.removeClass("lcd-needs-fill selection-required");
+  }, 3000);
 }
 
 /** Vrati prvy nevyplneny krok 0..uptoIndex, alebo null. */
