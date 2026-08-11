@@ -2289,7 +2289,7 @@ function Configurator() {
           <div style={{ padding: step4Sub === "placement" ? 16 : "0 16px" }}>
             {/* Produktová fotka nášiviek — inside sub-accordion */}
             <div style={{ marginBottom: 12, borderRadius: 10, overflow: "hidden", border: "2px solid #C5A44E" }}>
-              <img src={(selectedNasivka || selectedStredNasivka || NASIVKY[0]).full} alt="Ukážka nášiviek a výšiviek v kabíne kamióna"
+              <img src="https://cdn.jsdelivr.net/gh/luxusnerohoze-dev/konfigurator@331fc3c7d0a40015cd84e4b3c2da503debc3558d/91ThIMeaukL.jpg" alt="Ukážka nášiviek a výšiviek v kabíne kamióna"
                 style={{ width: "100%", display: "block", aspectRatio: "16/10", objectFit: "cover", objectPosition: "center 40%", background: "#1a1a1a" }}
                 onError={(e) => { e.target.parentElement.style.display = "none"; }}
               />

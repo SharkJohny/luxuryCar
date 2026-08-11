@@ -75,6 +75,7 @@ assets/js/configurator-enhance.js
 assets/js/functions/configuratorEngine.js
 assets/js/functions/errorToCart.js
 assets/js/functions/livePrice.js
+assets/js/functions/shoptetContext.js
 assets/js/functions/stickyphotos.js
 assets/js/functions/validation.js
 assets/js/functions/video-play-again.js
@@ -94,7 +95,6 @@ assets/js/truck-konfigurator/pricing.js
 assets/js/truck-konfigurator/truck-brands.js
 assets/js/voucher-konfigurator/cart.js
 assets/js/voucher-konfigurator/pricing.js
-assets/js/voucher-konfigurator/styles.js
 assets/js/vzorky-konfigurator/index.js
 seo-faza-a/h1-visible.css
 ```

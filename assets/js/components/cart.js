@@ -1,4 +1,5 @@
 import { parseTruckOrderSummary } from "../truck-konfigurator/order-summary.mjs";
+import { getShoptetContext } from "../functions/shoptetContext.js";
 
 export function initCart(texts) {
   console.log("Initializing cart with texts:", texts);
@@ -174,7 +175,7 @@ function changeDescription() {
 function chechCupon(texts) {
   console.log(texts);
   console.log("Checking coupon code in cart -----------------------");
-  const getCode = shoptetData.cartInfo.discountCoupon.code;
+  const getCode = getShoptetContext().cartInfo?.discountCoupon?.code || "";
   let chechCupon = false;
   if (getCode == "LUX10") {
     console.log("Checking coupon code:", getCode);

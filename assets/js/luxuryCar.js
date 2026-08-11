@@ -23588,9 +23588,26 @@ var optionData = {
   downloadData: "https://cdn.myshoptet.com/usr/www.luxurycardesign.sk/user/documents/upload/data.json?" + timestamp
 };
 
+// assets/js/functions/shoptetContext.js
+function getShoptetContext() {
+  const legacy = typeof window !== "undefined" && window.shoptetData && typeof window.shoptetData === "object" ? window.shoptetData : {};
+  const layerEntry = typeof window !== "undefined" && Array.isArray(window.dataLayer) ? window.dataLayer.find((entry) => entry && entry.shoptet) : null;
+  const layer = layerEntry?.shoptet || {};
+  const bodyProductId = typeof document !== "undefined" ? document.body?.className.match(/(?:^|\s)id-(\d+)(?:\s|$)/)?.[1] : null;
+  return {
+    projectId: legacy.projectId ?? layer.projectId ?? null,
+    language: legacy.language ?? layer.language ?? (typeof document !== "undefined" ? document.documentElement.lang : "") ?? "",
+    productId: Number(
+      legacy.product?.id ?? layer.product?.id ?? bodyProductId ?? 0
+    ),
+    cartInfo: legacy.cartInfo ?? layer.cartInfo ?? null
+  };
+}
+
 // assets/js/components/index.js
 function intIndex() {
-  const lang2 = dataLayer[0].shoptet.projectId == 704436 ? "cs" : shoptetData.language || dataLayer[0].shoptet.language;
+  const context = getShoptetContext();
+  const lang2 = String(context.projectId) === "704436" ? "cs" : context.language;
   function initTwentyTwenty() {
     $(".twentytwenty-container").twentytwenty({
       before_label: lang2 === "cs" ? "Potom" : "Po",
@@ -24107,15 +24124,18 @@ function accordion() {
 var twoLayersProducts;
 var boxsParameterIds2;
 var oneLayerProducts;
-var language2 = dataLayer[0].shoptet.projectId == 704436 ? "cs" : shoptetData.language || dataLayer[0].shoptet.language;
+var shoptetContext = getShoptetContext();
+var projectId = String(shoptetContext.projectId || "");
+var productId = shoptetContext.productId;
+var language2 = projectId === "704436" ? "cs" : shoptetContext.language;
 if ($(".type-product")[0]) {
-  twoLayersProducts = shoptetData.product.id == 601 || shoptetData.product.id == 604 || shoptetData.product.id == 607;
+  twoLayersProducts = productId == 601 || productId == 604 || productId == 607;
   boxsParameterIds2 = [94, 97, 104];
-  oneLayerProducts = shoptetData.product.id == 598 || shoptetData.product.id == 610 || shoptetData.product.id == 613;
-  if (dataLayer[0].shoptet.projectId == "581408") {
+  oneLayerProducts = productId == 598 || productId == 610 || productId == 613;
+  if (projectId === "581408") {
     $(".custom-footer__banner10").hide();
-    twoLayersProducts = shoptetData.product.id == 2406 || shoptetData.product.id == 2409 || shoptetData.product.id == 2412;
-    oneLayerProducts = shoptetData.product.id == 2403 || shoptetData.product.id == 2415 || shoptetData.product.id == 2418;
+    twoLayersProducts = productId == 2406 || productId == 2409 || productId == 2412;
+    oneLayerProducts = productId == 2403 || productId == 2415 || productId == 2418;
     boxsParameterIds2 = [66, 69, 78, 104];
   }
 }
@@ -26730,7 +26750,7 @@ function Configurator() {
     } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { padding: step4Sub === "placement" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, borderRadius: 10, overflow: "hidden", border: "2px solid #C5A44E" } }, /* @__PURE__ */ import_react.default.createElement(
       "img",
       {
-        src: (selectedNasivka || selectedStredNasivka || NASIVKY[0]).full,
+        src: "https://cdn.jsdelivr.net/gh/luxusnerohoze-dev/konfigurator@331fc3c7d0a40015cd84e4b3c2da503debc3558d/91ThIMeaukL.jpg",
         alt: "Uk\xE1\u017Eka n\xE1\u0161iviek a v\xFD\u0161iviek v kab\xEDne kami\xF3na",
         style: { width: "100%", display: "block", aspectRatio: "16/10", objectFit: "cover", objectPosition: "center 40%", background: "#1a1a1a" },
         onError: (e) => {
@@ -30466,7 +30486,7 @@ function Configurator2() {
     } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { padding: step4Sub === "placement" ? 16 : "0 16px" } }, /* @__PURE__ */ import_react2.default.createElement("div", { style: { marginBottom: 12, borderRadius: 10, overflow: "hidden", border: "2px solid #C5A44E" } }, /* @__PURE__ */ import_react2.default.createElement(
       "img",
       {
-        src: (selectedNasivka || selectedStredNasivka || NASIVKY2[0]).full,
+        src: "https://cdn.jsdelivr.net/gh/luxusnerohoze-dev/konfigurator@331fc3c7d0a40015cd84e4b3c2da503debc3558d/91ThIMeaukL.jpg",
         alt: "Uk\xE1\u017Eka n\xE1\u0161iviek a v\xFD\u0161iviek v kab\xEDne kami\xF3na",
         style: { width: "100%", display: "block", aspectRatio: "16/10", objectFit: "cover", objectPosition: "center 40%", background: "#1a1a1a" },
         onError: (e) => {
@@ -34148,8 +34168,10 @@ var boxy = 91;
 var box1 = 94;
 var box2 = 97;
 var boxsPrice = [];
-var language3 = dataLayer[0].shoptet.projectId == 704436 ? "cs" : shoptetData.language || dataLayer[0].shoptet.language;
-if (dataLayer[0].shoptet.projectId == "581408") {
+var shoptetContext2 = getShoptetContext();
+var projectId2 = String(shoptetContext2.projectId || "");
+var language3 = projectId2 === "704436" ? "cs" : shoptetContext2.language;
+if (projectId2 === "581408") {
   koberce = 60;
   boxy = 63;
   box1 = 66;
@@ -34333,9 +34355,10 @@ function initProduct(setupData2, texts) {
 function priplatky(setupData2, texts) {
   if (!$(".type-detail").length) return;
   let order = 6;
-  if (shoptetData.product.id == 598 || shoptetData.product.id == 610 || shoptetData.product.id == 613) {
+  const productId2 = getShoptetContext().productId;
+  if (productId2 == 598 || productId2 == 610 || productId2 == 613) {
     order = 4;
-  } else if (shoptetData.product.id == 2403 || shoptetData.product.id == 2415 || shoptetData.product.id == 2418) {
+  } else if (productId2 == 2403 || productId2 == 2415 || productId2 == 2418) {
     order = 4;
   }
   if ($(".type-detail").length) {
@@ -35987,7 +36010,7 @@ function changeDescription() {
 function chechCupon(texts) {
   console.log(texts);
   console.log("Checking coupon code in cart -----------------------");
-  const getCode = shoptetData.cartInfo.discountCoupon.code;
+  const getCode = getShoptetContext().cartInfo?.discountCoupon?.code || "";
   let chechCupon2 = false;
   if (getCode == "LUX10") {
     console.log("Checking coupon code:", getCode);

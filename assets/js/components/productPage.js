@@ -9,6 +9,7 @@ import {
   isVoucherPage,
   mountVoucherConfigurator,
 } from "../voucher-konfigurator/index.jsx";
+import { getShoptetContext } from "../functions/shoptetContext.js";
 
 window.addEventListener(
   "error",
@@ -35,8 +36,10 @@ let box1 = 94;
 let box2 = 97;
 let boxsPrice = [];
 
-const language = dataLayer[0].shoptet.projectId == 704436 ? "cs" : shoptetData.language || dataLayer[0].shoptet.language;
-if (dataLayer[0].shoptet.projectId == "581408") {
+const shoptetContext = getShoptetContext();
+const projectId = String(shoptetContext.projectId || "");
+const language = projectId === "704436" ? "cs" : shoptetContext.language;
+if (projectId === "581408") {
   koberce = 60;
   boxy = 63;
   box1 = 66;
@@ -342,10 +345,11 @@ export function initProduct(setupData, texts) {
 function priplatky(setupData, texts) {
   if (!$(".type-detail").length) return;
   let order = 6;
+  const productId = getShoptetContext().productId;
 
-  if (shoptetData.product.id == 598 || shoptetData.product.id == 610 || shoptetData.product.id == 613) {
+  if (productId == 598 || productId == 610 || productId == 613) {
     order = 4;
-  } else if (shoptetData.product.id == 2403 || shoptetData.product.id == 2415 || shoptetData.product.id == 2418) {
+  } else if (productId == 2403 || productId == 2415 || productId == 2418) {
     order = 4;
   }
 

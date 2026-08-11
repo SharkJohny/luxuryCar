@@ -1,17 +1,22 @@
+import { getShoptetContext } from "../functions/shoptetContext.js";
+
 let twoLayersProducts;
 let boxsParameterIds;
 let oneLayerProducts;
 
-const language = dataLayer[0].shoptet.projectId == 704436 ? "cs" : shoptetData.language || dataLayer[0].shoptet.language;
+const shoptetContext = getShoptetContext();
+const projectId = String(shoptetContext.projectId || "");
+const productId = shoptetContext.productId;
+const language = projectId === "704436" ? "cs" : shoptetContext.language;
 
 if ($(".type-product")[0]) {
-  twoLayersProducts = shoptetData.product.id == 601 || shoptetData.product.id == 604 || shoptetData.product.id == 607;
+  twoLayersProducts = productId == 601 || productId == 604 || productId == 607;
   boxsParameterIds = [94, 97, 104];
-  oneLayerProducts = shoptetData.product.id == 598 || shoptetData.product.id == 610 || shoptetData.product.id == 613;
-  if (dataLayer[0].shoptet.projectId == "581408") {
+  oneLayerProducts = productId == 598 || productId == 610 || productId == 613;
+  if (projectId === "581408") {
     $(".custom-footer__banner10").hide();
-    twoLayersProducts = shoptetData.product.id == 2406 || shoptetData.product.id == 2409 || shoptetData.product.id == 2412;
-    oneLayerProducts = shoptetData.product.id == 2403 || shoptetData.product.id == 2415 || shoptetData.product.id == 2418;
+    twoLayersProducts = productId == 2406 || productId == 2409 || productId == 2412;
+    oneLayerProducts = productId == 2403 || productId == 2415 || productId == 2418;
     boxsParameterIds = [66, 69, 78, 104];
   }
 }

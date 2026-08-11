@@ -22,6 +22,14 @@ const ok = (m) => console.log("✓ " + m);
 
 const desktopSource = readFileSync(join(ROOT, "konfigurator.jsx"), "utf8");
 const phoneSource = readFileSync(join(ROOT, "konfigurator.phone.jsx"), "utf8");
+const originalStep4Photo = "331fc3c7d0a40015cd84e4b3c2da503debc3558d/91ThIMeaukL.jpg";
+for (const [variant, source] of [["DESKTOP", desktopSource], ["PHONE", phoneSource]]) {
+  if (source.includes(originalStep4Photo)) {
+    ok(`${variant}: krok 4 začíná původní fotografií kabiny s nášivkami`);
+  } else {
+    fail(`${variant}: v kroku 4 chybí původní fotografie kabiny s nášivkami`);
+  }
+}
 const whitePreviewIndex = desktopSource.indexOf('id="konfig-nasivka-preview-boky-nit"');
 const betweenPreviewButtonIndex = desktopSource.indexOf('data-konfig-action="continue-side-embroidery"');
 const blackPreviewIndex = desktopSource.indexOf("{/* SVG náhľad kabíny — duplikát z 4/A */}", whitePreviewIndex);

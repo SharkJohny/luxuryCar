@@ -1,5 +1,8 @@
+import { getShoptetContext } from "../functions/shoptetContext.js";
+
 export function intIndex() {
-  const lang = dataLayer[0].shoptet.projectId == 704436 ? "cs" : (shoptetData.language || dataLayer[0].shoptet.language);
+  const context = getShoptetContext();
+  const lang = String(context.projectId) === "704436" ? "cs" : context.language;
   function initTwentyTwenty() {
     $(".twentytwenty-container").twentytwenty({
       before_label: lang === "cs" ? "Potom" : "Po",
