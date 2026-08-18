@@ -60,6 +60,69 @@ div#menu-widget {
     height: 124px;
     object-fit: cover;
   }
+
+  // CTA pás vzorkovníka — vizuálne odlíšený od kategórií (nie je kategória).
+  a.menu-widget-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    // Panel je shrink-to-fit — min-content + min-width:100% zabráni tomu, aby
+    // text CTA rozšíril celé menu; pás sa dotiahne na šírku panelu.
+    width: min-content;
+    min-width: 100%;
+    margin-bottom: 20px;
+    padding: 14px 24px 14px 18px;
+    background: #1a1a1a;
+    color: white;
+    border-radius: 20px 0 0 20px;
+    text-align: left;
+    text-transform: none;
+    text-decoration: none;
+    .menu-widget-cta__swatches {
+      display: flex;
+      flex: none;
+      img {
+        display: block;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #1a1a1a;
+        margin-left: -10px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+    .menu-widget-cta__body {
+      display: flex;
+      flex-direction: column;
+      // Strop, aby dlhší text nerozťahoval celý (shrink-to-fit) menu widget.
+      max-width: 240px;
+      flex: 1;
+      min-width: 0;
+      strong {
+        font-size: 15px;
+        text-transform: uppercase;
+      }
+      span {
+        font-size: 12px;
+        color: #d5d5d5;
+      }
+    }
+    .menu-widget-cta__button {
+      flex: none;
+      margin-left: auto;
+      padding: 8px 16px;
+      background: var(--gradient);
+      color: black;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -80,6 +143,19 @@ div#menu-widget {
   div#menu-widget .mebu-wrap--truck .picture img {
     width: 150px;
     height: 94px;
+  }
+  div#menu-widget a.menu-widget-cta {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 16px;
+    .menu-widget-cta__body {
+      max-width: none;
+    }
+    .menu-widget-cta__button {
+      margin-left: 0;
+      width: 100%;
+      text-align: center;
+    }
   }
   .language-flags-mobile {
     padding: 15px 30px;

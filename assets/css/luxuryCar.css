@@ -6369,6 +6369,64 @@ div#menu-widget .mebu-wrap--truck .picture img {
   height: 124px;
   object-fit: cover;
 }
+div#menu-widget a.menu-widget-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min-content;
+  min-width: 100%;
+  margin-bottom: 20px;
+  padding: 14px 24px 14px 18px;
+  background: #1a1a1a;
+  color: white;
+  border-radius: 20px 0 0 20px;
+  text-align: left;
+  text-transform: none;
+  text-decoration: none;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__swatches {
+  display: flex;
+  flex: none;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__swatches img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1a1a1a;
+  margin-left: -10px;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__swatches img:first-child {
+  margin-left: 0;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__body {
+  display: flex;
+  flex-direction: column;
+  max-width: 240px;
+  flex: 1;
+  min-width: 0;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__body strong {
+  font-size: 15px;
+  text-transform: uppercase;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__body span {
+  font-size: 12px;
+  color: #d5d5d5;
+}
+div#menu-widget a.menu-widget-cta .menu-widget-cta__button {
+  flex: none;
+  margin-left: auto;
+  padding: 8px 16px;
+  background: var(--gradient);
+  color: black;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  white-space: nowrap;
+}
 
 @media (max-width: 768px) {
   div#menu-widget {
@@ -6386,6 +6444,19 @@ div#menu-widget .mebu-wrap--truck .picture img {
   div#menu-widget .mebu-wrap--truck .picture img {
     width: 150px;
     height: 94px;
+  }
+  div#menu-widget a.menu-widget-cta {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  div#menu-widget a.menu-widget-cta .menu-widget-cta__body {
+    max-width: none;
+  }
+  div#menu-widget a.menu-widget-cta .menu-widget-cta__button {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
   }
   .language-flags-mobile {
     padding: 15px 30px;
@@ -7734,4 +7805,4 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
-/*# sourceMappingURL=luxuryCar.css.map?v=fc9360db */
+/*# sourceMappingURL=luxuryCar.css.map?v=c68a1fbc */

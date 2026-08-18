@@ -415,3 +415,14 @@ Plán: `/Users/sharkjohny/.claude/plans/misty-singing-muffin.md`.
       SK /luxusne-autokoberce-truck/ (19 surcharge selectov),
       CZ /luxusni-autokoberce-truck/. Testovací slug
       ...---test-konfigurator/ sa už nepoužíva.
+
+## Menu widget — CTA na vzorkovník (18.8.2026)
+- [x] CTA pás `.menu-widget-cta` na spodku #menu-widget (JS injekcia v
+      header.js, ako truck dlaždica) — 4 reálne swatche z uploadu
+      /user/documents/upload/assets/config/ (D-1, S-1, H-1, LUX-01), text
+      krátky claim + tlačidlo na produkt vzorkovníka.
+      SK aj CZ URL overené (200 + klik v preview naviguje na produkt).
+- [x] Copy prepísané po pripomienke klienta — pôvodné „Nevíte vybrat barvu?"
+      bol slovakizmus. Teraz SK „Neviete, akú farbu?" / CZ „Nevíte, jakou barvu?"
+      + kratší podtext „Záloha 99 Kč se vrací." (CZ panel je užší ako SK,
+      dlhší text sa lámal na 4 riadky). Overené na CZ desktop aj mobile.

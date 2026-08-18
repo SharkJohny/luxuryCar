@@ -35580,7 +35580,41 @@ function initHeader() {
     $flags.removeClass("open");
   });
   initTruckMenuItem();
+  initVzorkyMenuCta();
   headerFixProdukt();
+}
+var VZORKY_PRODUCT_URLS = {
+  sk: "/vzorkovnik-dragonskin---objednavka-vzoriek/",
+  cs: "/vzorkovnik-dragonskin---objednavka-vzorku/"
+};
+var VZORKY_SWATCH_BASE = "https://www.luxurycardesign.sk/user/documents/upload/assets/config/";
+var VZORKY_CTA_SWATCHES = ["D-1", "S-1", "H-1", "LUX-01"];
+function initVzorkyMenuCta() {
+  const $menu = $("#menu-widget");
+  if (!$menu.length || $menu.children(".menu-widget-cta").length) return;
+  const shoptet2 = window.dataLayer?.find((entry) => entry?.shoptet)?.shoptet || {};
+  const isCz = String(shoptet2.projectId) === "704436" || shoptet2.language === "cs" || window.location.hostname.endsWith(".cz");
+  const t = isCz ? {
+    href: VZORKY_PRODUCT_URLS.cs,
+    head: "Nev\xEDte, jakou barvu?",
+    text: "Z\xE1loha 99 K\u010D se vrac\xED.",
+    cta: "Objednat vzorky"
+  } : {
+    href: VZORKY_PRODUCT_URLS.sk,
+    head: "Neviete, ak\xFA farbu?",
+    text: "Z\xE1loha 5 \u20AC sa vracia.",
+    cta: "Objedna\u0165 vzorky"
+  };
+  const $cta = $("<a>", { class: "menu-widget-cta", href: t.href });
+  const $swatches = $("<div>", { class: "menu-widget-cta__swatches" }).appendTo($cta);
+  VZORKY_CTA_SWATCHES.forEach((id) => {
+    $("<img>", { src: `${VZORKY_SWATCH_BASE}${id}.jpg`, alt: "", loading: "lazy" }).appendTo($swatches);
+  });
+  const $body = $("<div>", { class: "menu-widget-cta__body" }).appendTo($cta);
+  $("<strong>", { text: t.head }).appendTo($body);
+  $("<span>", { text: t.text }).appendTo($body);
+  $("<span>", { class: "menu-widget-cta__button", text: t.cta }).appendTo($cta);
+  $cta.appendTo($menu);
 }
 function initTruckMenuItem() {
   const shoptet2 = window.dataLayer?.find((entry) => entry?.shoptet)?.shoptet || {};
