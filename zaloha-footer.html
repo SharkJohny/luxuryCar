@@ -27,8 +27,47 @@ const numberReviews = 36
 <script id='base' data-author-name='Jan Kučera' data-author-email='info(a)jankucera.work' data-author-website='jankucera.work' type='text/javascript' src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/api/base/jkbase.js?v=1.16"></script>
 <script id='cars' data-author-name='Jan Kučera' data-author-email='info(a)jankucera.work' data-author-website='jankucera.work' type='text/javascript' src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/cars.js?v=1.4"></script>
 <script id='poznamka' data-author-name='Jan Kučera' data-author-email='info(a)jankucera.work' data-author-website='jankucera.work' type='text/javascript'   src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/api/productNote/ProductNote.js?v=23#DEBUG_TIMESTAMP#"></script>
-<script id='JKscript' data-author-name='Jan Kučera' data-author-email='info(a)jankucera.work' data-author-website='jankucera.work' type='text/javascript' src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/luxuryCar.js?v=20260812000157#DEBUG_TIMESTAMP#"></script>
+<script id='JKscript' data-author-name='Jan Kučera' data-author-email='info(a)jankucera.work' data-author-website='jankucera.work' type='text/javascript' src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/js/luxuryCar.js?v=20260818020456#DEBUG_TIMESTAMP#"></script>
 <script>(function(){function l(){if(window.smartsupp){smartsupp('language','sk');}else{setTimeout(l,300);}}l();})();</script>
 
 <!-- Luxia chat -->
 <script src="https://luxia-9061.rostiapp.cz/widget.js" data-server="https://luxia-9061.rostiapp.cz" defer></script>
+
+<!-- lcd-konfig-fix -->
+<style>
+.parameter-cars .selector select{width:150px !important;}
+.parameter-cars .banner-header .save.lcd-badge6{display:inline-flex;align-items:center;gap:8px;background:#1d9d54;color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;text-transform:uppercase;white-space:nowrap;}
+.parameter-cars .banner-header .save.lcd-badge6 strong{font-size:15px;font-weight:800;color:#fff;}
+.parameter-cars .banner-header .save.lcd-badge6 .lcd-save-pct{background:rgba(0,0,0,.28);border-radius:6px;padding:2px 8px;font-size:12px;}
+.parameter-cars .price-wrap .lcd-price-main{display:flex;align-items:baseline;gap:6px;white-space:nowrap;}
+.parameter-cars .price-wrap .lcd-price-main .price{white-space:nowrap;font-weight:800;}
+.parameter-cars .price-wrap .lcd-price-rrp{white-space:nowrap;color:#8a857d;font-size:12px;margin-top:2px;}
+.parameter-cars .price-wrap .lcd-price-rrp strong{text-decoration:line-through;color:#8a857d;font-weight:600;}
+.box-config .parameter-wrap{border-radius:10px !important;width:auto !important;margin:0 20px 8px !important;padding:0 20px !important;box-sizing:border-box;align-items:center !important;}
+.parameter-wrap.boxs .banner-header{align-items:center;}
+.parameter-wrap.boxs .banner-header>span{font-size:21px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#1a1a1a;}
+.parameter-wrap.boxs .banner-header>span.lcd-sub6{font-size:11px !important;font-weight:600 !important;letter-spacing:2px !important;color:#a89468 !important;margin:3px 0 6px !important;}
+.parameter-wrap.boxs .banner-header .price{font-size:26px;font-weight:800;color:#111 !important;}
+.parameter-wrap.boxs .banner-header .price .price-recommended{font-size:15px;font-weight:400;color:#999 !important;}
+.parameter-wrap.boxs .banner-header .save.lcd-badge6{width:auto !important;justify-content:center;}
+.parameter-wrap.boxs .upsale-button{position:relative;}
+.parameter-wrap.boxs .upsale-button.lcd-top::before{content:attr(data-lcd-top);position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#c49b31,#e0c877);color:#1c140d;font-size:11px;font-weight:700;letter-spacing:1px;padding:6px 12px;border-radius:8px;z-index:2;}
+.parameter-wrap.trunk .lcd-trunk-premium .lcd-upsale-badge{display:none !important;}
+.parameter-wrap.boxs > .image-wrap{display:none !important;}
+</style>
+<script>
+(function(){var CZ=location.host.indexOf(".cz")>-1;
+function fmt(n,s){var c=(String(s).match(/[^\d\s.,\u00A0]+$/)||[""])[0];return Math.round(n).toLocaleString("sk-SK").replace(/\u00A0/g," ")+" "+c;}
+function lcdFix(){document.querySelectorAll(".parameter-cars .banner-header .save:not(.lcd-badge6)").forEach(function(el){if(el.querySelector(".lcd-save-label"))return;var t=(el.textContent||"").replace(/\u00A0/g," ").trim();var m=t.match(/^(.*?)([0-9][0-9 ]*(?:€|Kč))\s*$/);if(!m)return;el.innerHTML='<span class="lcd-save-label">'+m[1].trim()+'</span><strong>'+m[2].trim()+'</strong>';el.classList.add("lcd-badge6");});}
+function bx(){var cards=document.querySelectorAll(".parameter-wrap.boxs .upsale-button"),one=null;
+cards.forEach(function(c){var h=c.querySelector(".banner-header");if(!h)return;var t=(h.textContent||"").toLowerCase(),ti=h.querySelector(":scope > span");
+if(ti&&!h.querySelector(".lcd-sub6")){var s=t.indexOf("1x box")>-1?"PRAKTICKÝ ORGANIZÉR":t.indexOf("2x box")>-1?(CZ?"DVOJNÁSOBNÝ PROSTOR":"DVOJITÁ KAPACITA"):null;if(s){var e=document.createElement("span");e.className="lcd-sub6";e.textContent=s;ti.insertAdjacentElement("afterend",e);}}
+var sv=h.querySelector(".save.lcd-badge6");if(sv&&!sv.querySelector(".lcd-save-pct")){var a=parseFloat(sv.getAttribute("data-save")||"0"),r=h.querySelector(".price-recommended"),b=r?parseFloat(r.getAttribute("data-recommended")||"0"):0;if(a>0&&b>0){var p=document.createElement("span");p.className="lcd-save-pct";p.textContent="\u2212"+Math.round(a/b*100)+" %";sv.appendChild(p);}}
+if(t.indexOf("1x box")>-1)one=c;
+if(t.indexOf("2x box")>-1&&!c.classList.contains("lcd-top")){c.classList.add("lcd-top");c.setAttribute("data-lcd-top",CZ?"\u2605 NEJOBJEDNÁVANĚJŠÍ":"\u2605 NAJOBJEDNÁVANEJŠIE");}});
+if(one){var os=one.querySelector(".save"),ost=os?os.querySelector("strong"):null,op=one.querySelector(".lcd-save-pct"),ov=os?parseFloat(os.getAttribute("data-save")||"0"):0;
+cards.forEach(function(c){if(!/2x box/i.test(c.textContent||""))return;var s2=c.querySelector(".save");if(!s2||s2.getAttribute("data-lcd-x2")||!ov||!ost)return;var st=s2.querySelector("strong");if(!st)return;st.textContent=fmt(ov*2,ost.textContent);var p2=s2.querySelector(".lcd-save-pct");if(p2&&op)p2.textContent=op.textContent;s2.setAttribute("data-lcd-x2","1");});}}
+function tr(){document.querySelectorAll(".parameter-wrap.trunk").forEach(function(sec){var k=[].slice.call(sec.querySelectorAll(".upsale-button")).filter(function(c){return /klasik/i.test((c.querySelector(".lcd-card-title")||{}).textContent||"");})[0];if(!k||k.querySelector(".lcd-upsale-badge"))return;var s=sec.querySelector(".lcd-upsale-badge");if(s)k.insertBefore(s.cloneNode(true),k.firstChild);});}
+function run(){lcdFix();bx();tr();}
+try{new MutationObserver(run).observe(document.body,{childList:true,subtree:true});}catch(e){}run();})();
+</script>

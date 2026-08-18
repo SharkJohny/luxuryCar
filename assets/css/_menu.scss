@@ -131,9 +131,14 @@ div#menu-widget {
     top: 46px;
   }
   div#menu-widget {
-    overflow: scroll;
-
-    // max-height: 600px;
+    // Bez stropu výšky nemá `overflow` čo scrollovať — panel len pretiekol pod
+    // spodok obrazovky. Strop = výška okna mínus lišta (46px = top panelu).
+    max-height: calc(100vh - 46px);
+    max-height: calc(100dvh - 46px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   div#menu-widget .menu {
     margin-right: 0px;

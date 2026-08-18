@@ -426,3 +426,8 @@ Plán: `/Users/sharkjohny/.claude/plans/misty-singing-muffin.md`.
       bol slovakizmus. Teraz SK „Neviete, akú farbu?" / CZ „Nevíte, jakou barvu?"
       + kratší podtext „Záloha 99 Kč se vrací." (CZ panel je užší ako SK,
       dlhší text sa lámal na 4 riadky). Overené na CZ desktop aj mobile.
+- [x] Mobil: menu sa nedalo scrollovať — `overflow: scroll` bez stropu výšky
+      nemá čo scrollovať, panel len pretiekol pod spodok obrazovky. Doplnené
+      `max-height: calc(100dvh - 46px)` (+ vh fallback), `overflow-y: auto`,
+      `overscroll-behavior: contain`. Overené dočasným stropom 400px:
+      kontajner reálne odscrolloval o 511px na CTA.

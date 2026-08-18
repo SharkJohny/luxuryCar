@@ -6434,7 +6434,12 @@ div#menu-widget a.menu-widget-cta .menu-widget-cta__button {
     top: 46px;
   }
   div#menu-widget {
-    overflow: scroll;
+    max-height: calc(100vh - 46px);
+    max-height: calc(100dvh - 46px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   div#menu-widget .menu {
     margin-right: 0px;
@@ -7805,4 +7810,4 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
-/*# sourceMappingURL=luxuryCar.css.map?v=c68a1fbc */
+/*# sourceMappingURL=luxuryCar.css.map?v=9ad43366 */
