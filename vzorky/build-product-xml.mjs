@@ -101,7 +101,10 @@ function surchargeParam(s) {
     "    <SURCHARGE_PARAMETER>",
     `      <NAME>${esc(name)}</NAME>`,
     `      <DESCRIPTION>${esc(desc)}</DESCRIPTION>`,
-    `      <SHORT_NAME>${esc(s.id)}</SHORT_NAME>`,
+    // SHORT_NAME je to, čo Shoptet ukáže zákazníkovi v riadku parametra AJ
+    // v objednávke — samotné "D-10" mu nič nehovorí, musí tam byť farba kože
+    // aj farba šitia. Kód necháme v zátvorke kvôli baleniu vzoriek.
+    `      <SHORT_NAME>${esc(`${s.line} – ${cleanLabel(s.label)} (${s.id})`)}</SHORT_NAME>`,
     "      <CURRENCY>EUR</CURRENCY>",
     "      <INCLUDING_VAT>1</INCLUDING_VAT>",
     "      <REQUIRED_VALUE>0</REQUIRED_VALUE>",

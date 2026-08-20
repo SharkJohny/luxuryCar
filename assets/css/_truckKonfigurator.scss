@@ -34,37 +34,6 @@ body.is-truck-konfigurator {
     display: none !important;
   }
 
-  // Titulek konfigurátoru je součástí levého sloupce a stojí přímo nad
-  // nativní galerií produktu. Fotografie tak dál kompletně spravuje Shoptet.
-  .truck-gallery-heading {
-    margin: 0 0 20px;
-    padding: 4px 12px 0;
-    text-align: center;
-  }
-
-  .truck-gallery-heading__brand {
-    margin-bottom: 4px;
-    color: #c5a44e;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
-  }
-
-  .truck-gallery-heading__title {
-    color: #333;
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 1.2;
-  }
-
-  .truck-gallery-heading__subtitle {
-    margin-top: 4px;
-    color: #c5a44e;
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.25;
-  }
-
   .truck-description {
     margin-top: 32px;
     overflow: hidden;
@@ -353,28 +322,6 @@ body.is-truck-konfigurator {
   // Mobilní pravidla proto používají !important a jsou omezená jen na
   // truck produkt, aby neovlivnila popisy ostatních produktů.
   @media (max-width: 768px) {
-    .truck-gallery-heading {
-      margin-bottom: 14px;
-      padding: 0 8px;
-    }
-
-    .truck-gallery-heading__brand {
-      margin-bottom: 2px;
-      font-size: 11px;
-      letter-spacing: 2px;
-    }
-
-    .truck-gallery-heading__title {
-      font-size: 20px;
-      font-weight: 400;
-    }
-
-    .truck-gallery-heading__subtitle {
-      margin-top: 2px;
-      font-size: 13px;
-      font-weight: 400;
-    }
-
     .truck-description {
       margin-top: 18px;
     }

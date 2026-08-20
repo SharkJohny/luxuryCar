@@ -623,7 +623,12 @@ function saveModel(redirect) {
       sessionStorage.setItem("Brand", Brand);
       if (Model !== "Model") {
         sessionStorage.setItem("Model", Model);
-        sessionStorage.setItem("model", Brand + " " + Model + " " + Year + " " + type);
+        // Na strankach bez auto-konfiguratora su vsetky selecty prazdne — bez
+        // tejto poistky sa ulozilo "undefined undefined undefined undefined"
+        // a taky riadok potom skoncil v poznamke objednavky.
+        if (Brand && Model && Year && type) {
+          sessionStorage.setItem("model", Brand + " " + Model + " " + Year + " " + type);
+        }
       }
       sessionStorage.setItem("Year", Year);
       sessionStorage.setItem("carType", type);
@@ -1153,6 +1158,15 @@ function dinamicPictures() {
   changeImage(); // Inicializace při načtení stránky
 }
 
+/** Model je pouzitelny do poznamky, len ked ma vsetky styri casti vyplnene.
+ *  Na strankach bez auto-konfiguratora (vzorkovnik, truck) saveModel ulozi
+ *  "undefined undefined undefined undefined" — taky zapis do objednavky nepatri. */
+function isUsableSavedModel(savedModel) {
+  const value = String(savedModel || "").trim();
+  if (!value || value === "undefined" || value === "null") return false;
+  return !/\b(undefined|null)\b/.test(value);
+}
+
 function addNote() {
   if ($(".id--17")[0]) {
     console.log("adresa");
@@ -1204,7 +1218,7 @@ function addNote() {
         // postSuccessfulValidation moze prebehnut opakovane. Helper povodny
         // automaticky blok nahradi, rucnu poznamku zakaznika vsak zachova.
         note = mergeTruckOrderSummaryIntoNote(note, truckSummary);
-      } else if (savedModel && savedModel !== "undefined" && savedModel !== "null") {
+      } else if (isUsableSavedModel(savedModel)) {
         // Povodny auto-konfigurator: zachovaj zapis modelu pre bezne autokoberce.
         const modelLine = `model: ${savedModel}`;
         if (!note.includes(modelLine)) note = note ? `${note}\n\n${modelLine}` : modelLine;

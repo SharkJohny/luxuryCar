@@ -6751,31 +6751,6 @@ body.is-truck-konfigurator .basic-description section[style*="#2e1810"][style*="
 body.is-truck-konfigurator .p-info-wrapper > *:not(.truck-konfigurator-wrap) {
   display: none !important;
 }
-body.is-truck-konfigurator .truck-gallery-heading {
-  margin: 0 0 20px;
-  padding: 4px 12px 0;
-  text-align: center;
-}
-body.is-truck-konfigurator .truck-gallery-heading__brand {
-  margin-bottom: 4px;
-  color: #c5a44e;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
-body.is-truck-konfigurator .truck-gallery-heading__title {
-  color: #333;
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.2;
-}
-body.is-truck-konfigurator .truck-gallery-heading__subtitle {
-  margin-top: 4px;
-  color: #c5a44e;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.25;
-}
 body.is-truck-konfigurator .truck-description {
   margin-top: 32px;
   overflow: hidden;
@@ -7015,24 +6990,6 @@ body.is-truck-konfigurator #truck-konfigurator-root details.konfig-suhrn-details
   display: none;
 }
 @media (max-width: 768px) {
-  body.is-truck-konfigurator .truck-gallery-heading {
-    margin-bottom: 14px;
-    padding: 0 8px;
-  }
-  body.is-truck-konfigurator .truck-gallery-heading__brand {
-    margin-bottom: 2px;
-    font-size: 11px;
-    letter-spacing: 2px;
-  }
-  body.is-truck-konfigurator .truck-gallery-heading__title {
-    font-size: 20px;
-    font-weight: 400;
-  }
-  body.is-truck-konfigurator .truck-gallery-heading__subtitle {
-    margin-top: 2px;
-    font-size: 13px;
-    font-weight: 400;
-  }
   body.is-truck-konfigurator .truck-description {
     margin-top: 18px;
   }
@@ -7810,4 +7767,4 @@ section#model-selector {
 #cboxLoadedContent .cookiesSetting__item__text {
   color: #fff;
 }
-/*# sourceMappingURL=luxuryCar.css.map?v=9ad43366 */
+/*# sourceMappingURL=luxuryCar.css.map?v=6b1f6954 */

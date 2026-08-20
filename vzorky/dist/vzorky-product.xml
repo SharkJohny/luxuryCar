@@ -2,7 +2,7 @@
 <SHOP>
   <SHOPITEM id="3100">
     <NAME>Vzorkovník Dragonskin – objednávka vzoriek</NAME>
-    <GUID>15bdc8f0-a76b-43fb-9e6b-9f2c9b9c247a</GUID>
+    <GUID>178eef81-d7a9-4653-923b-40804afdf478</GUID>
     <SHORT_DESCRIPTION><![CDATA[<p>Objednávka materiálových vzoriek Dragonskin (autokoberce do osobných áut). Každú vzorku, ktorú chceš dostať, samostatne zaškrtni (Chcem). Môžeš si tak objednať ľubovoľný počet vzoriek naraz. Každá vzorka = vratná záloha 5 €, ktorú vrátime po obdržaní vzoriek späť.</p>]]></SHORT_DESCRIPTION>
     <DESCRIPTION><![CDATA[<p>Vzorkovník: tri série 1. vrstvy – <strong>Stripe Line</strong>, <strong>Hexa Line</strong>, <strong>Diamond Line</strong> – a <strong>2. vrstva</strong> (Lux Color). Každá vzorka má vlastné políčko – zaškrtni „Chcem“ pri každej vzorke, ktorú chceš dostať. Cena 5 € je vratná záloha za vzorku. Vzorky sú určené pre autokoberce do osobných automobilov (nie kamióny).</p>]]></DESCRIPTION>
     <MANUFACTURER>Luxury Car Design</MANUFACTURER>
@@ -16,7 +16,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Štandard 29 (S-1)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Štandard 29 [S-1] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-1</SHORT_NAME>
+      <SHORT_NAME>Stripe – Štandard 29 (S-1)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -28,7 +28,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Čierna prešívaná béžovou (S-2)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Čierna prešívaná béžovou [S-2] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-2</SHORT_NAME>
+      <SHORT_NAME>Stripe – Čierna prešívaná béžovou (S-2)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -40,7 +40,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Čierna prešívaná čiernou (S-3)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Čierna prešívaná čiernou [S-3] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-3</SHORT_NAME>
+      <SHORT_NAME>Stripe – Čierna prešívaná čiernou (S-3)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -52,7 +52,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Béžová (S-4)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Béžová [S-4] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-4</SHORT_NAME>
+      <SHORT_NAME>Stripe – Béžová (S-4)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -64,7 +64,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Hnedá káva (S-5)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Hnedá káva [S-5] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-5</SHORT_NAME>
+      <SHORT_NAME>Stripe – Hnedá káva (S-5)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -76,7 +76,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Bledo hnedá (S-6)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Bledo hnedá [S-6] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-6</SHORT_NAME>
+      <SHORT_NAME>Stripe – Bledo hnedá (S-6)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -88,7 +88,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Vínovo červená (S-7)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Vínovo červená [S-7] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-7</SHORT_NAME>
+      <SHORT_NAME>Stripe – Vínovo červená (S-7)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -100,7 +100,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Stripe – Červená (S-8)</NAME>
       <DESCRIPTION>Pridať vzorku Stripe (1. vrstva) – Červená [S-8] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>S-8</SHORT_NAME>
+      <SHORT_NAME>Stripe – Červená (S-8)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -112,7 +112,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Hexa – Čierna prešívaná červenou (H-1)</NAME>
       <DESCRIPTION>Pridať vzorku Hexa (1. vrstva) – Čierna prešívaná červenou [H-1] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>H-1</SHORT_NAME>
+      <SHORT_NAME>Hexa – Čierna prešívaná červenou (H-1)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -124,7 +124,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Hexa – Čierna prešívaná modrou (H-2)</NAME>
       <DESCRIPTION>Pridať vzorku Hexa (1. vrstva) – Čierna prešívaná modrou [H-2] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>H-2</SHORT_NAME>
+      <SHORT_NAME>Hexa – Čierna prešívaná modrou (H-2)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -136,7 +136,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Hexa – Čierna prešívaná čiernou (H-3)</NAME>
       <DESCRIPTION>Pridať vzorku Hexa (1. vrstva) – Čierna prešívaná čiernou [H-3] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>H-3</SHORT_NAME>
+      <SHORT_NAME>Hexa – Čierna prešívaná čiernou (H-3)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -148,7 +148,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná červenou (D-1)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná červenou [D-1] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-1</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná červenou (D-1)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -160,7 +160,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná modrou (D-2)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná modrou [D-2] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-2</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná modrou (D-2)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -172,7 +172,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná čiernou (D-3)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná čiernou [D-3] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-3</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná čiernou (D-3)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -184,7 +184,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná béžovou (D-4)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná béžovou [D-4] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-4</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná béžovou (D-4)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -196,7 +196,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná sivou (D-5)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná sivou [D-5] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-5</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná sivou (D-5)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -208,7 +208,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná bielou (D-6)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná bielou [D-6] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-6</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná bielou (D-6)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -220,7 +220,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná žltou (D-7)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná žltou [D-7] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-7</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná žltou (D-7)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -232,7 +232,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná zelenou (D-8)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná zelenou [D-8] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-8</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná zelenou (D-8)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -244,7 +244,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Čierna prešívaná bronzovou (D-9)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Čierna prešívaná bronzovou [D-9] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-9</SHORT_NAME>
+      <SHORT_NAME>Diamond – Čierna prešívaná bronzovou (D-9)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -256,7 +256,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Béžová (D-10)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Béžová [D-10] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-10</SHORT_NAME>
+      <SHORT_NAME>Diamond – Béžová (D-10)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -268,7 +268,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Hnedá káva (D-11)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Hnedá káva [D-11] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-11</SHORT_NAME>
+      <SHORT_NAME>Diamond – Hnedá káva (D-11)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -280,7 +280,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Bledo hnedá (D-12)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Bledo hnedá [D-12] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-12</SHORT_NAME>
+      <SHORT_NAME>Diamond – Bledo hnedá (D-12)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -292,7 +292,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Vínovo červená (D-13)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Vínovo červená [D-13] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-13</SHORT_NAME>
+      <SHORT_NAME>Diamond – Vínovo červená (D-13)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -304,7 +304,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Červená (D-14)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Červená [D-14] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-14</SHORT_NAME>
+      <SHORT_NAME>Diamond – Červená (D-14)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -316,7 +316,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Sivá (D-15)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Sivá [D-15] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-15</SHORT_NAME>
+      <SHORT_NAME>Diamond – Sivá (D-15)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -328,7 +328,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Oranžová (D-16)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Oranžová [D-16] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-16</SHORT_NAME>
+      <SHORT_NAME>Diamond – Oranžová (D-16)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -340,7 +340,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Modrá (D-17)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Modrá [D-17] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-17</SHORT_NAME>
+      <SHORT_NAME>Diamond – Modrá (D-17)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -352,7 +352,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka Diamond – Fialová (D-18)</NAME>
       <DESCRIPTION>Pridať vzorku Diamond (1. vrstva) – Fialová [D-18] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>D-18</SHORT_NAME>
+      <SHORT_NAME>Diamond – Fialová (D-18)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -364,7 +364,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorka 2. vrstva – Lux Color 10 – čierna (LUX-10)</NAME>
       <DESCRIPTION>Pridať vzorku 2. vrstva (2. vrstva) – Lux Color 10 – čierna [LUX-10] do objednávky. Vratná záloha 5 € (vrátime po obdržaní vzoriek späť).</DESCRIPTION>
-      <SHORT_NAME>LUX-10</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 10 – čierna (LUX-10)</SHORT_NAME>
       <CURRENCY>EUR</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>

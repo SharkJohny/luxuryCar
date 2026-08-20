@@ -431,3 +431,29 @@ Plán: `/Users/sharkjohny/.claude/plans/misty-singing-muffin.md`.
       `max-height: calc(100dvh - 46px)` (+ vh fallback), `overflow-y: auto`,
       `overscroll-behavior: contain`. Overené dočasným stropom 400px:
       kontajner reálne odscrolloval o 511px na CTA.
+
+## Pripomienky klienta k vzorkovníku + kamiónom (20.8.2026)
+- [x] Poznámka objednávky „model: undefined undefined undefined undefined":
+      `saveModel()` (main.js) ukladal reťazec aj keď selecty auto-konfigurátora
+      na stránke nie sú (vzorkovník/truck). Guard: ukladá len s vyplnenými
+      Brand+Model+Year+type; `toNote()` navyše cez `isUsableSavedModel()`
+      odmieta akýkoľvek reťazec s „undefined"/„null".
+- [x] Názvy vzoriek v objednávke: Shoptet zobrazuje SHORT_NAME, ktorý bol len
+      kód („LUX-01"). Teraz SHORT_NAME = séria + farba kože prešívaná farbou
+      šitia + kód v zátvorke. Zmenené v `vzorky/build-product-xml.mjs` (SK,
+      pregenerované, validuje) aj v `cz-import/vzorky-a-truck-cz.xml`
+      (45 parametrov prepísaných, validuje). NUTNÝ RE-IMPORT feedu.
+- [x] Kamióny: 3-riadkový nadpis nad galériou (LUXURY CAR DESIGN / LUXUSNÉ
+      AUTOKOBERCE / DRAGONSKIN BASIC DIAMOND LINE) odstránený — JS
+      (`ensureTruckGalleryHeading` v productPage.js) aj CSS
+      (`.truck-gallery-heading*` v _truckKonfigurator.scss).
+- [ ] Cena vzorkovníka 0,01 € / 1 Kč: ide o ADMIN nastavenie základnej ceny,
+      nie o kód. Naše JS zaokrúhľuje len ZOBRAZENÚ cenu — v objednávke cent
+      zostáva. Pôvodná poznámka hovorí, že 0,01 € bolo zvolené preto, že
+      Shoptet nulový produkt nezobrazí — treba v admine overiť cenu 0.
+- [ ] „Popisky nie sú vycentrované a dokončené, pozor na pozadie" — čaká na
+      spresnenie (ktoré popisky/stránka); náhľadový server bol počas úpravy
+      nedostupný, vizuál sa nedal skontrolovať.
+- [ ] `yarn vzorky:test` padá 5 kontrol (skip dlaždica, odznačenie D-2,
+      LUX-01, počítadlo Diamond) — overené `git stash`om, že padá aj bez
+      dnešných zmien. Samostatná regresia na doriešenie.

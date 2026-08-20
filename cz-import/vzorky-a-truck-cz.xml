@@ -139,7 +139,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 01 (LUX-01)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 01 [LUX-01] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-01</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 01 (LUX-01)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -151,7 +151,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 02 (LUX-02)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 02 [LUX-02] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-02</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 02 (LUX-02)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -163,7 +163,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 03 (LUX-03)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 03 [LUX-03] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-03</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 03 (LUX-03)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -175,7 +175,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 04 (LUX-04)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 04 [LUX-04] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-04</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 04 (LUX-04)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -187,7 +187,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 05 (LUX-05)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 05 [LUX-05] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-05</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 05 (LUX-05)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -199,7 +199,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 06 (LUX-06)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 06 [LUX-06] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-06</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 06 (LUX-06)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -211,7 +211,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 07 (LUX-07)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 07 [LUX-07] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-07</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 07 (LUX-07)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -223,7 +223,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 08 (LUX-08)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 08 [LUX-08] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-08</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 08 (LUX-08)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -235,7 +235,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 09 (LUX-09)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 09 [LUX-09] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-09</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 09 (LUX-09)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -247,7 +247,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 10 – černá (LUX-10)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 10 – černá [LUX-10] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-10</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 10 – černá (LUX-10)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -259,7 +259,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 11 (LUX-11)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 11 [LUX-11] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-11</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 11 (LUX-11)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -271,7 +271,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 12 (LUX-12)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 12 [LUX-12] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-12</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 12 (LUX-12)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -283,7 +283,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 13 (LUX-13)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 13 [LUX-13] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-13</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 13 (LUX-13)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -295,7 +295,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 14 (LUX-14)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 14 [LUX-14] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-14</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 14 (LUX-14)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -307,7 +307,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 15 (LUX-15)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 15 [LUX-15] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-15</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 15 (LUX-15)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -319,7 +319,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek 2. vrstva – Lux Color 16 (LUX-16)</NAME>
       <DESCRIPTION>Přidat vzorek 2. vrstva (2. vrstva) – Lux Color 16 [LUX-16] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>LUX-16</SHORT_NAME>
+      <SHORT_NAME>2. vrstva – Lux Color 16 (LUX-16)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -331,7 +331,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Béžová (D-10)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Béžová [D-10] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-10</SHORT_NAME>
+      <SHORT_NAME>Diamond – Béžová (D-10)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -343,7 +343,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Světle hnědá (D-12)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Světle hnědá [D-12] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-12</SHORT_NAME>
+      <SHORT_NAME>Diamond – Světle hnědá (D-12)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -355,7 +355,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Červená (D-14)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Červená [D-14] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-14</SHORT_NAME>
+      <SHORT_NAME>Diamond – Červená (D-14)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -367,7 +367,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná béžovou (D-4)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná béžovou [D-4] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-4</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná béžovou (D-4)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -379,7 +379,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná bílou (D-6)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná bílou [D-6] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-6</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná bílou (D-6)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -391,7 +391,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná bronzovou (D-9)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná bronzovou [D-9] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-9</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná bronzovou (D-9)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -403,7 +403,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná červenou (D-1)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná červenou [D-1] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-1</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná červenou (D-1)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -415,7 +415,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná černou (D-3)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná černou [D-3] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-3</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná černou (D-3)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -427,7 +427,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná modrou (D-2)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná modrou [D-2] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-2</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná modrou (D-2)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -439,7 +439,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná šedou (D-5)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná šedou [D-5] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-5</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná šedou (D-5)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -451,7 +451,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná zelenou (D-8)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná zelenou [D-8] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-8</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná zelenou (D-8)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -463,7 +463,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Černá prošívaná žlutou (D-7)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Černá prošívaná žlutou [D-7] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-7</SHORT_NAME>
+      <SHORT_NAME>Diamond – Černá prošívaná žlutou (D-7)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -475,7 +475,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Fialová (D-18)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Fialová [D-18] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-18</SHORT_NAME>
+      <SHORT_NAME>Diamond – Fialová (D-18)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -487,7 +487,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Hnědá káva (D-11)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Hnědá káva [D-11] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-11</SHORT_NAME>
+      <SHORT_NAME>Diamond – Hnědá káva (D-11)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -499,7 +499,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Modrá (D-17)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Modrá [D-17] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-17</SHORT_NAME>
+      <SHORT_NAME>Diamond – Modrá (D-17)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -511,7 +511,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Oranžová (D-16)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Oranžová [D-16] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-16</SHORT_NAME>
+      <SHORT_NAME>Diamond – Oranžová (D-16)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -523,7 +523,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Šedá (D-15)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Šedá [D-15] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-15</SHORT_NAME>
+      <SHORT_NAME>Diamond – Šedá (D-15)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -535,7 +535,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Diamond – Vínově červená (D-13)</NAME>
       <DESCRIPTION>Přidat vzorek Diamond (1. vrstva) – Vínově červená [D-13] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>D-13</SHORT_NAME>
+      <SHORT_NAME>Diamond – Vínově červená (D-13)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -547,7 +547,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Hexa – Černá prošívaná červenou (H-1)</NAME>
       <DESCRIPTION>Přidat vzorek Hexa (1. vrstva) – Černá prošívaná červenou [H-1] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>H-1</SHORT_NAME>
+      <SHORT_NAME>Hexa – Černá prošívaná červenou (H-1)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -559,7 +559,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Hexa – Černá prošívaná černou (H-3)</NAME>
       <DESCRIPTION>Přidat vzorek Hexa (1. vrstva) – Černá prošívaná černou [H-3] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>H-3</SHORT_NAME>
+      <SHORT_NAME>Hexa – Černá prošívaná černou (H-3)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -571,7 +571,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Hexa – Černá prošívaná modrou (H-2)</NAME>
       <DESCRIPTION>Přidat vzorek Hexa (1. vrstva) – Černá prošívaná modrou [H-2] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>H-2</SHORT_NAME>
+      <SHORT_NAME>Hexa – Černá prošívaná modrou (H-2)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -583,7 +583,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Béžová (S-4)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Béžová [S-4] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-4</SHORT_NAME>
+      <SHORT_NAME>Stripe – Béžová (S-4)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -595,7 +595,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Světle hnědá (S-6)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Světle hnědá [S-6] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-6</SHORT_NAME>
+      <SHORT_NAME>Stripe – Světle hnědá (S-6)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -607,7 +607,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Červená (S-8)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Červená [S-8] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-8</SHORT_NAME>
+      <SHORT_NAME>Stripe – Červená (S-8)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -619,7 +619,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Černá prošívaná béžovou (S-2)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Černá prošívaná béžovou [S-2] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-2</SHORT_NAME>
+      <SHORT_NAME>Stripe – Černá prošívaná béžovou (S-2)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -631,7 +631,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Černá prošívaná černou (S-3)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Černá prošívaná černou [S-3] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-3</SHORT_NAME>
+      <SHORT_NAME>Stripe – Černá prošívaná černou (S-3)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -643,7 +643,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Hnědá káva (S-5)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Hnědá káva [S-5] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-5</SHORT_NAME>
+      <SHORT_NAME>Stripe – Hnědá káva (S-5)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -655,7 +655,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Standard 29 (S-1)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Standard 29 [S-1] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-1</SHORT_NAME>
+      <SHORT_NAME>Stripe – Standard 29 (S-1)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>
@@ -667,7 +667,7 @@
     <SURCHARGE_PARAMETER>
       <NAME>Vzorek Stripe – Vínově červená (S-7)</NAME>
       <DESCRIPTION>Přidat vzorek Stripe (1. vrstva) – Vínově červená [S-7] do objednávky. Vratná záloha 99 Kč (vrátíme po obdržení vzorků zpět).</DESCRIPTION>
-      <SHORT_NAME>S-7</SHORT_NAME>
+      <SHORT_NAME>Stripe – Vínově červená (S-7)</SHORT_NAME>
       <CURRENCY>CZK</CURRENCY>
       <INCLUDING_VAT>1</INCLUDING_VAT>
       <REQUIRED_VALUE>0</REQUIRED_VALUE>

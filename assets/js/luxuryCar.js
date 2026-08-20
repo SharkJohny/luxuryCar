@@ -35167,26 +35167,6 @@ function isTruckConfiguratorPage() {
 }
 function mountTruckConfigurator() {
   $("body").addClass("is-truck-konfigurator");
-  const ensureTruckGalleryHeading = () => {
-    if (document.getElementById("truck-gallery-heading")) return;
-    const $gallery = $(".p-image-wrapper .p-image").first();
-    if (!$gallery.length) return;
-    const isCzechShop = /\.cz$/i.test(window.location.hostname || "");
-    const $heading = $("<div>", {
-      id: "truck-gallery-heading",
-      class: "truck-gallery-heading"
-    });
-    $("<div>", { class: "truck-gallery-heading__brand", text: "LUXURY CAR DESIGN" }).appendTo($heading);
-    $("<div>", {
-      class: "truck-gallery-heading__title",
-      text: isCzechShop ? "LUXUSN\xCD AUTOKOBERCE" : "LUXUSN\xC9 AUTOKOBERCE"
-    }).appendTo($heading);
-    $("<div>", {
-      class: "truck-gallery-heading__subtitle",
-      text: "DRAGONSKIN BASIC DIAMOND LINE"
-    }).appendTo($heading);
-    $heading.insertBefore($gallery);
-  };
   try {
     const host = window.location && window.location.hostname || "";
     if (/^localhost$|^127\.0\.0\.1$|\.local$/i.test(host)) {
@@ -35199,7 +35179,6 @@ function mountTruckConfigurator() {
   } catch (e) {
   }
   const placeMountNode = () => {
-    ensureTruckGalleryHeading();
     const $host = $(".col-xs-12.col-lg-6.p-info-wrapper").first().length ? $(".col-xs-12.col-lg-6.p-info-wrapper").first() : $(".p-info-wrapper").first();
     if (!$host.length) return null;
     $host.addClass("active");
@@ -37737,7 +37716,9 @@ function saveModel(redirect) {
       sessionStorage.setItem("Brand", Brand);
       if (Model !== "Model") {
         sessionStorage.setItem("Model", Model);
-        sessionStorage.setItem("model", Brand + " " + Model + " " + Year + " " + type);
+        if (Brand && Model && Year && type) {
+          sessionStorage.setItem("model", Brand + " " + Model + " " + Year + " " + type);
+        }
       }
       sessionStorage.setItem("Year", Year);
       sessionStorage.setItem("carType", type);
@@ -37947,6 +37928,11 @@ setTimeout(function() {
   $(logoGoogle).appendTo(".review-item-long");
   $("#google-reviews br").remove();
 }, 2500);
+function isUsableSavedModel(savedModel) {
+  const value = String(savedModel || "").trim();
+  if (!value || value === "undefined" || value === "null") return false;
+  return !/\b(undefined|null)\b/.test(value);
+}
 function addNote() {
   if ($(".id--17")[0]) {
     let toNote = function() {
@@ -37962,7 +37948,7 @@ function addNote() {
       let note = String($remark.val() || "");
       if (truckSummary) {
         note = mergeTruckOrderSummaryIntoNote(note, truckSummary);
-      } else if (savedModel && savedModel !== "undefined" && savedModel !== "null") {
+      } else if (isUsableSavedModel(savedModel)) {
         const modelLine = `model: ${savedModel}`;
         if (!note.includes(modelLine)) note = note ? `${note}
 
