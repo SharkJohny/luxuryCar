@@ -2,7 +2,22 @@ import { LCDH_REELS } from "./lcdHome-reels.js";
 import { LCDH_MARKUP } from "./lcdHome-markup.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 gsap.registerPlugin(ScrollTrigger);
+/* Lenis smooth scroll - LEN desktop (rada kamarata: pod tablet breakpoint vypnute) */
+var lcdhLenisMQ = matchMedia("(min-width:1025px) and (hover:hover) and (pointer:fine)");
+var lcdhLenis = null;
+function lcdhLenisRaf(t){ if (lcdhLenis) { lcdhLenis.raf(t); requestAnimationFrame(lcdhLenisRaf); } }
+function lcdhLenisSync(){
+  if (lcdhLenisMQ.matches && !lcdhLenis) {
+    lcdhLenis = new Lenis({ lerp: 0.12 });
+    lcdhLenis.on("scroll", ScrollTrigger.update);
+    requestAnimationFrame(lcdhLenisRaf);
+  } else if (!lcdhLenisMQ.matches && lcdhLenis) { lcdhLenis.destroy(); lcdhLenis = null; }
+}
+lcdhLenisSync();
+lcdhLenisMQ.addEventListener("change", lcdhLenisSync);
+window.__lcdhLenis = function(){ return lcdhLenis; };
 /* lcdHome.js - GENEROVANE extract-lcd-home.py, RUCNE NEEDITUJ.
    Zdroj: hp-tpl.html
    Obal riesi to, ze povodny <script> v navrhu bezal az ZA markupom.
@@ -632,6 +647,31 @@ gsap.registerPlugin(ScrollTrigger);
       });
     },1600);
   });
+
+  /* trustbar: hover zobrazi fotku pri kurzore (len hover zariadenia) */
+  (function(){
+    if(!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    var bunky=LCDH.querySelectorAll('.tstrip .ts[data-peek]');
+    if(!bunky.length) return;
+    var im=document.createElement('img');
+    im.className='ts-peek'; im.alt=''; im.decoding='async';
+    document.body.appendChild(im);
+    function poloz(e){
+      var w=im.offsetWidth||400, h=im.offsetHeight||400;
+      var x=Math.min(e.clientX+22, innerWidth-w-14);
+      var y=Math.min(Math.max(e.clientY-h/2,14), innerHeight-h-14);
+      im.style.transform='translate('+x+'px,'+y+'px) scale('+(im.classList.contains('on')?1:0.94)+')';
+      im.style.left='0'; im.style.top='0';
+    }
+    [].forEach.call(bunky,function(b){
+      b.addEventListener('mouseenter',function(e){
+        if(im.getAttribute('src')!==b.dataset.peek) im.src=b.dataset.peek;
+        poloz(e); im.classList.add('on');
+      });
+      b.addEventListener('mousemove',poloz);
+      b.addEventListener('mouseleave',function(){ im.classList.remove('on'); });
+    });
+  })();
 
   /* --- reveal --- */
   var io=new IntersectionObserver(function(es){

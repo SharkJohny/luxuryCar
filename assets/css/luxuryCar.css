@@ -8205,6 +8205,15 @@ section#model-selector {
 }
 #lcd-home .btn.ghost:hover {border-color:var(--gold)
 }
+#lcd-home .hero .btn.ghost, #lcd-home .truck .btn.ghost {
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  border-color:rgba(255,255,255,.35)
+}
+#lcd-home .hero .btn.ghost:hover, #lcd-home .truck .btn.ghost:hover {
+  background:linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,.10));
+  border-color:rgba(255,255,255,.6)
+}
 /* ---------- KONFIGURATOR (dvíha sa cez hero) ---------- */
 #lcd-home .konf {position:relative;z-index:5;margin-top:-72px;padding:0 var(--pad)
 }
@@ -8348,6 +8357,17 @@ section#model-selector {
   padding:clamp(12px,1.6vw,18px) 8px;text-align:center
 }
 #lcd-home .tstrip .ts + .ts {border-left:1px solid var(--line)
+}
+#lcd-home .ts-peek {position:fixed;left:0;top:0;width:min(400px,32vw);aspect-ratio:1/1;object-fit:cover;
+  border-radius:16px;border:1px solid rgba(230,200,119,.5);box-shadow:0 24px 60px rgba(20,15,5,.35);
+  pointer-events:none;z-index:120;opacity:0;
+  transition:opacity .22s ease,transform .18s ease-out;will-change:transform
+}
+#lcd-home .ts-peek.on {opacity:1
+}
+@media(hover:none) {
+  #lcd-home .ts-peek {display:none
+  }
 }
 #lcd-home .tstrip .num {font-family:var(--disp);font-weight:800;line-height:1;color:var(--gold-lo);
   font-size:clamp(19px,2.9vw,32px);font-variant-numeric:tabular-nums;white-space:nowrap
