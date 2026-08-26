@@ -1,3 +1,4 @@
+import { LCDH_REELS } from "./lcdHome-reels.js";
 import { LCDH_MARKUP } from "./lcdHome-markup.js";
 /* lcdHome.js - GENEROVANE extract-lcd-home.py, RUCNE NEEDITUJ.
    Zdroj: hp-tpl.html
@@ -62,6 +63,29 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         "#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
       document.head.appendChild(lcdhSt);
       document.body.classList.add("lcdh-on");
+      /* modul 07: VSETKY SK reels z kanala (nahradza staticke dlazdice) */
+      try {
+        if (typeof LCDH_REELS !== "undefined" && LCDH_REELS.length) {
+          var lcdhVids = lcdhRoot.querySelector("#vids");
+          if (lcdhVids) {
+            var lcdhFrag = document.createDocumentFragment();
+            LCDH_REELS.forEach(function (r) {
+              var b = document.createElement("button");
+              b.type = "button"; b.className = "vid"; b.setAttribute("data-yt", r[0]);
+              var im = document.createElement("img");
+              im.loading = "lazy"; im.alt = "";
+              im.src = "https://i.ytimg.com/vi/" + r[0] + "/oar2.jpg";
+              im.onerror = function(){ this.onerror=null; this.src="https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg"; };
+              var pl = document.createElement("span"); pl.className = "play";
+              var cp = document.createElement("span"); cp.className = "cap"; cp.textContent = r[1];
+              b.appendChild(im); b.appendChild(pl); b.appendChild(cp);
+              lcdhFrag.appendChild(b);
+            });
+            lcdhVids.innerHTML = "";
+            lcdhVids.appendChild(lcdhFrag);
+          }
+        }
+      } catch (e) {}
       lcdhAdoptujSelector(lcdhRoot);
     }
     var LCDH = document.getElementById("lcd-home");
@@ -118,6 +142,14 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     if(!lb) return;
     function open(id,title,src){
       last=src;
+      if(id && id.indexOf('.mp4')>-1){
+        fr.innerHTML='<video src="'+id+'" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video>';
+        cap.textContent=title||'';
+        lb.hidden=false;
+        requestAnimationFrame(function(){ lb.classList.add('on') });
+        document.body.style.overflow='hidden';
+        return;
+      }
       fr.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id
         +'?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="'+(title||'Video')
         +'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"'
@@ -163,6 +195,30 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     document.getElementById('vidPrev').onclick=function(){vids.scrollBy({left:-vstep()*2,behavior:'smooth'})};
     document.getElementById('vidNext').onclick=function(){vids.scrollBy({left:vstep()*2,behavior:'smooth'})};
   }
+  /* coverflow: stredna karta vpredu, bocne miznu do 'strechy' */
+  function lcdhCoverflow(cont, sel){
+    if(!cont) return;
+    var ticking=false;
+    function upd(){
+      ticking=false;
+      var mid=cont.getBoundingClientRect().left + cont.clientWidth/2;
+      [].forEach.call(cont.querySelectorAll(sel),function(el){
+        var r=el.getBoundingClientRect();
+        var c=r.left + r.width/2;
+        var d=Math.max(-1, Math.min(1,(c-mid)/(r.width*1.15)));
+        var a=Math.abs(d);
+        el.style.transform='rotateY('+(-d*16)+'deg) translateZ('+(-a*95)+'px) scale('+(1-a*0.10)+')';
+        el.style.zIndex=String(100-Math.round(a*40));
+      });
+    }
+    function req(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } }
+    cont.addEventListener('scroll',req,{passive:true});
+    addEventListener('resize',req);
+    req(); setTimeout(req,400); setTimeout(req,1200);
+  }
+  lcdhCoverflow(LCDH.querySelector('.deck.refs'),'.ref');
+  lcdhCoverflow(document.getElementById('vids'),'.vid');
+
   /* produktove decky — nekonecny slider (klikanim sa toci dokola ako retaz) */
   [].forEach.call(LCDH.querySelectorAll('.deckwrap'),function(w){
     var d=w.querySelector('.deck'), nav=w.querySelector('.decknav'),
@@ -175,9 +231,22 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     function overflows(){ return oneW-gap() > d.clientWidth+6 }
     function normalize(){
       if(!loop||!oneW) return;
-      /* obsah je identicky, takze skok o jednu sadu je nevideitelny */
-      if(d.scrollLeft < oneW*0.5) d.scrollLeft += oneW;
-      else if(d.scrollLeft > oneW*1.5) d.scrollLeft -= oneW;
+      /* obsah je identicky, takze skok o jednu sadu je nevideitelny;
+         stredne pasmo je [1.5w, 2.5w] z celkovych 5 sad */
+      while(d.scrollLeft < oneW*1.5) d.scrollLeft += oneW;
+      while(d.scrollLeft > oneW*2.5) d.scrollLeft -= oneW;
+    }
+    /* iOS: scrollLeft sa pocas momentum nedodrzi -> normalizuj az v uplnom pokoji */
+    var idleT=null, lastX=-1;
+    function idleWatch(){
+      cancelAnimationFrame(idleT);
+      var stable=0;
+      (function tick(){
+        if(Math.abs(d.scrollLeft-lastX)<1){ stable++; } else { stable=0; }
+        lastX=d.scrollLeft;
+        if(stable>=6){ normalize(); return; }
+        idleT=requestAnimationFrame(tick);
+      })();
     }
     function build(){
       measure();
@@ -186,22 +255,24 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       if(noloop) return;
       if(n && !loop){
         var pre=document.createDocumentFragment(), post=document.createDocumentFragment();
-        orig.forEach(function(el){
-          [pre,post].forEach(function(frag){
-            var c=el.cloneNode(true);
-            c.setAttribute('aria-hidden','true'); c.setAttribute('data-clone','1'); c.tabIndex=-1;
-            c.classList.add('on');           /* klon vznika az po reveal observeri */
-            frag.appendChild(c);
+        for(var kk=0;kk<2;kk++){
+          orig.forEach(function(el){
+            [pre,post].forEach(function(frag){
+              var c=el.cloneNode(true);
+              c.setAttribute('aria-hidden','true'); c.setAttribute('data-clone','1'); c.tabIndex=-1;
+              c.classList.add('on');         /* klon vznika az po reveal observeri */
+              frag.appendChild(c);
+            });
           });
-        });
+        }
         d.appendChild(post); d.insertBefore(pre, d.firstChild);
-        loop=true; d.scrollLeft=oneW;
+        loop=true; d.scrollLeft=oneW*2;
       } else if(!n && loop){
         [].slice.call(d.querySelectorAll('[data-clone]')).forEach(function(e){e.remove()});
         loop=false; d.scrollLeft=0;
       } else if(loop){ normalize(); }
     }
-    d.addEventListener('scroll',function(){ clearTimeout(t); t=setTimeout(normalize,140) },{passive:true});
+    d.addEventListener('scroll',function(){ clearTimeout(t); t=setTimeout(idleWatch,80) },{passive:true});
     if(b.length){
       b[0].onclick=function(){ normalize(); d.scrollBy({left:-step(),behavior:'smooth'}) };
       b[1].onclick=function(){ normalize(); d.scrollBy({left:step(),behavior:'smooth'}) };

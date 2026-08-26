@@ -411,6 +411,10 @@
 }
 #lcd-home .hero .cta {display:inline-flex;margin-top:clamp(26px,3.4vw,38px)
 }
+#lcd-home .vid, #lcd-home .ref-v {-webkit-touch-callout:none;-webkit-user-select:none;user-select:none
+}
+#lcd-home .vid *, #lcd-home .ref-v * {pointer-events:none
+}
 #lcd-home .btn {display:inline-flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:800;
   text-transform:uppercase;letter-spacing:.09em;font-size:13px;padding:16px 30px;border-radius:12px;
   background:linear-gradient(100deg,var(--gold-lo),var(--gold-hi) 48%,var(--gold));color:#17130a;
@@ -592,6 +596,10 @@
   padding:8px 2px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;perspective:1400px
 }
 #lcd-home .deck::-webkit-scrollbar {display:none
+}
+#lcd-home .deck.refs, #lcd-home .vids {perspective:1000px
+}
+#lcd-home .deck.refs>.ref, #lcd-home .vids>.vid {transition:transform .18s ease-out;will-change:transform
 }
 #lcd-home .deck>.pc {scroll-snap-align:start;flex:0 0 clamp(228px,23.5%,292px)
 }
@@ -1814,6 +1822,11 @@
 @media(max-width:760px){#lcd-home .chapter{padding-top:64px !important;padding-bottom:64px !important}}
 #lcd-home .row{margin-left:0 !important;margin-right:0 !important}
 #lcd-home .btn{line-height:inherit !important;text-align:inherit}
+#lcd-home .btn{padding:16px 30px !important}
+#lcd-home .btn.go{padding:0 !important}
+#lcd-home .pf-cta{padding:0 30px !important}
+@media(max-width:640px){#lcd-home .pf-cta{padding:0 20px !important}}
+#lcd-home .mat-toggle{padding:13px 24px !important}
 #lcd-home button{line-height:normal}
 #lcd-home .revhead .stars{display:block;gap:normal;font-size:inherit;line-height:inherit}
 #lcd-home .row > *{padding-left:0 !important;padding-right:0 !important}
