@@ -1926,8 +1926,8 @@
 @media(min-width:761px){
   /* PC (Michal): 4 bunky vedla seba (Znacka/Model/Rok/Typ), tlacidlo dole na celu sirku;
      kamionove extra polia sa zalamuju a CENTRUJU (flex), tlacidlo nemeni poziciu */
-  #lcd-home .lcdh-konf-slot .modl-selector-wrap{display:flex;flex-wrap:wrap;justify-content:center;
-    align-items:flex-end;gap:16px 18px}
+  #lcd-home .lcdh-konf-slot .modl-selector-wrap{display:flex;flex-direction:row;flex-wrap:wrap;
+    justify-content:center;align-items:flex-end;gap:16px 18px}
   #lcd-home .lcdh-konf-slot .modl-selector-wrap .surcharge-list{flex:0 1 calc(25% - 14px);min-width:170px}
   #lcd-home .lcdh-konf-slot .btn.choice-Model{flex:0 0 100%;margin:6px 0 0;padding:0 26px;white-space:nowrap}
   /* prepinac ako velky posuvnik na celu sirku karty */
