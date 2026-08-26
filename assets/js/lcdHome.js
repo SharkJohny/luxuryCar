@@ -1,5 +1,8 @@
 import { LCDH_REELS } from "./lcdHome-reels.js";
 import { LCDH_MARKUP } from "./lcdHome-markup.js";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 /* lcdHome.js - GENEROVANE extract-lcd-home.py, RUCNE NEEDITUJ.
    Zdroj: hp-tpl.html
    Obal riesi to, ze povodny <script> v navrhu bezal az ZA markupom.
@@ -828,12 +831,30 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
   }
   matAuto();
   MATMQ.addEventListener('change',function(){
+    if(MATMQ.matches) lcdhStOff(); else lcdhStOn();
     matOpen=0; explode(0);
     if(matToggle){ matToggle.classList.remove('on'); matToggle.textContent='Rozložiť materiál'; }
     matAuto();
   });
   addEventListener('resize',function(){explode(lastOpen)});
   explode(0);
+  /* GSAP pilot: scrub vyhladeny progres scrollu -> existujuca spojita explode(o) */
+  function lcdhStOn(){
+    if(window.__lcdhST||MATMQ.matches||!stage||!expCard) return;
+    if(typeof ScrollTrigger==='undefined') return;
+    window.__lcdhST=ScrollTrigger.create({
+      trigger:stage, start:'top top', end:'bottom bottom', scrub:0.6,
+      onUpdate:function(self){
+        var p=self.progress;
+        var o=p<.22?p/.22:(p<.86?1:Math.max(0,1-(p-.86)/.14));
+        o=o<0?0:o>1?1:o; o=o*o*(3-2*o);
+        explode(o);
+        if(matProg) matProg.style.width=Math.round(o*100)+'%';
+      }
+    });
+  }
+  function lcdhStOff(){ if(window.__lcdhST){ window.__lcdhST.kill(); window.__lcdhST=null; } }
+  lcdhStOn();
   var ticking=false;
   function frame(){
     ticking=false;
@@ -842,7 +863,7 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       /* hero sa pri scrolle nehybe (Michal 2026-08-26) */ }
     if(truckBg){ var tr=truckBg.parentNode.getBoundingClientRect();
       if(tr.bottom>0&&tr.top<vh) truckBg.style.transform='translate3d(0,'+((vh/2-(tr.top+tr.height/2))*0.09)+'px,0)'; }
-    if(stage&&expCard&&!MATMQ.matches){
+    if(stage&&expCard&&!MATMQ.matches&&!window.__lcdhST){
       var r=stage.getBoundingClientRect();
       var p=Math.min(1,Math.max(0,(-r.top)/(r.height-vh)));
       var o=p<.22?p/.22:(p<.86?1:Math.max(0,1-(p-.86)/.14));

@@ -9551,6 +9551,10 @@ section#model-selector {
   }
   #lcd-home .mbox {transition:transform .75s cubic-bezier(.2,.7,.2,1)
   }
+  @media(min-width:901px) {
+    #lcd-home .mbox {transition:none
+    }
+  }
   #lcd-home .mat-hint {display:none
   }
   #lcd-home .mat-toggle {display:inline-flex
