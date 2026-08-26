@@ -20,7 +20,7 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       if (!karta) return;
       var stareMiesto = ms.closest("section") && !root.contains(ms.closest("section"))
                         ? ms.closest("section") : ms.parentElement;
-      [".tabs", "#fields", ".konf-note"].forEach(function (s) {
+      [".tabs", "#fields"].forEach(function (s) {
         var e = karta.querySelector(s);
         if (e) e.style.display = "none";
       });
