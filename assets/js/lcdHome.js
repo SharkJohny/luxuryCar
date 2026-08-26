@@ -28,6 +28,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       slot.className = "lcdh-konf-slot";
       karta.appendChild(slot);
       slot.appendChild(ms);
+      var pozn = karta.querySelector(".konf-note");
+      if (pozn) karta.appendChild(pozn);   /* poznamka patri POD tlacidlo (navrh) */
       if (stareMiesto && stareMiesto !== ms) stareMiesto.style.display = "none";
     }, 250);
   }

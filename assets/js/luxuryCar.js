@@ -26880,7 +26880,7 @@ function Configurator() {
           color: opt.price > 0 ? "#2E1810" : "#888"
         } }, opt.price > 0 ? `+ ${formatPrice(opt.price)}` : "v cene"), opt.rrp > opt.price && /* @__PURE__ */ import_react.default.createElement("span", { style: { fontSize: 10, fontWeight: 800, color: "#fff", background: "#4CAF50", padding: "3px 8px", borderRadius: 10, letterSpacing: 0.5, whiteSpace: "nowrap" } }, "\u2212", formatPrice(opt.rrp - opt.price)))
       );
-    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 325 250\n                Q 390 185 505 170 L 680 170\n                Q 745 170 810 220 L 840 245\n                Q 860 255 900 255\n                Q 940 255 960 245 L 990 220\n                Q 1055 170 1120 170 L 1295 170\n                Q 1410 185 1475 250\n                Q 1510 290 1515 365 L 1555 865\n                Q 1560 950 1490 1005\n                Q 1445 1040 1330 1040 L 470 1040\n                Q 355 1040 310 1005\n                Q 240 950 245 865 L 285 365\n                Q 290 290 325 250 Z\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\n                M 720 182\n                Q 785 240 785 330 Q 790 375 835 390\n                L 965 390\n                Q 1010 375 1015 330 Q 1015 240 1080 182\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
+    })))), nasivkyPlacement && nasivkyPlacement !== "nechcem" && /* @__PURE__ */ import_react.default.createElement("div", { style: { marginBottom: 12, display: "flex", justifyContent: "center" } }, /* @__PURE__ */ import_react.default.createElement("svg", { viewBox: "0 0 1800 1200", style: { width: "100%", borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ import_react.default.createElement("defs", null, /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "bg", x1: "0", y1: "0", x2: "1", y2: "0" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#111214" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "50%", stopColor: "#18191c" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#101114" })), /* @__PURE__ */ import_react.default.createElement("linearGradient", { id: "mat", x1: "0", y1: "0", x2: "0", y2: "1" }, /* @__PURE__ */ import_react.default.createElement("stop", { offset: "0%", stopColor: "#464646" }), /* @__PURE__ */ import_react.default.createElement("stop", { offset: "100%", stopColor: "#3a3a3a" }))), /* @__PURE__ */ import_react.default.createElement("rect", { width: "1800", height: "1200", fill: "url(#bg)" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "38", y: "38", width: "1724", height: "1124", rx: "34", fill: "none", stroke: "#565656", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("g", { opacity: "0.95" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "1570", cy: "115", r: "32", fill: "#232323", stroke: "#8c8c8c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M 1570 72 L 1559 104 L 1570 96 L 1581 104 Z", fill: "#ffffff" }), /* @__PURE__ */ import_react.default.createElement("text", { x: "1570", y: "172", textAnchor: "middle", fill: "#d0d0d0", fontSize: "18", fontFamily: "Arial, Helvetica, sans-serif" }, "PREDOK")), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 325 250\r\n                Q 390 185 505 170 L 680 170\r\n                Q 745 170 810 220 L 840 245\r\n                Q 860 255 900 255\r\n                Q 940 255 960 245 L 990 220\r\n                Q 1055 170 1120 170 L 1295 170\r\n                Q 1410 185 1475 250\r\n                Q 1510 290 1515 365 L 1555 865\r\n                Q 1560 950 1490 1005\r\n                Q 1445 1040 1330 1040 L 470 1040\r\n                Q 355 1040 310 1005\r\n                Q 240 950 245 865 L 285 365\r\n                Q 290 290 325 250 Z\r\n              ", fill: "url(#mat)", stroke: "#8a8a8a", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("path", { d: "\r\n                M 720 182\r\n                Q 785 240 785 330 Q 790 375 835 390\r\n                L 965 390\r\n                Q 1010 375 1015 330 Q 1015 240 1080 182\r\n              ", fill: "none", stroke: "#8a8a8a", strokeOpacity: "0.45", strokeWidth: "2", strokeDasharray: "10 9" }), /* @__PURE__ */ import_react.default.createElement("g", { transform: "translate(430 235)", opacity: "0.9" }, /* @__PURE__ */ import_react.default.createElement("rect", { x: "0", y: "0", width: "52", height: "72", rx: "9", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "66", y: "-4", width: "74", height: "76", rx: "10", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement("rect", { x: "160", y: "-22", width: "48", height: "120", rx: "8", fill: "none", stroke: "#bdbdbd", strokeWidth: "2" }), [10, 20, 30, 40].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p1-" + x, x1: x, y1: "8", x2: x, y2: "64", stroke: "#bdbdbd", strokeWidth: "2" })), [78, 88, 98, 108, 118, 128].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p2-" + x, x1: x, y1: "8", x2: x, y2: "62", stroke: "#bdbdbd", strokeWidth: "2" })), [172, 182, 192].map((x) => /* @__PURE__ */ import_react.default.createElement("line", { key: "p3-" + x, x1: x, y1: "-12", x2: x, y2: "88", stroke: "#bdbdbd", strokeWidth: "2" }))), /* @__PURE__ */ import_react.default.createElement("rect", { x: "330", y: "390", width: "370", height: "255", rx: "28", fill: "none", stroke: "#6c6c6c", strokeWidth: "2" }), /* @__PURE__ */ import_react.default.createElement(
       "rect",
       {
         x: "350",
@@ -35237,7 +35237,7 @@ function initStickyPhotos() {
     }
   }
   function updatePosition() {
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollY2 = window.pageYOffset || document.documentElement.scrollTop;
     imageWrapperHeight = imageWrapper.offsetHeight;
     productTopHeight = productTop.offsetHeight;
     productTopTop = productTop.getBoundingClientRect().top + window.pageYOffset;
@@ -35245,10 +35245,10 @@ function initStickyPhotos() {
     const maxScroll = productTopHeight - imageWrapperHeight;
     let translateY = 0;
     const stickyStart = initialOffsetTop - stickyOffset;
-    if (scrollY < stickyStart) {
+    if (scrollY2 < stickyStart) {
       translateY = 0;
     } else {
-      translateY = Math.min(scrollY - stickyStart, maxScroll);
+      translateY = Math.min(scrollY2 - stickyStart, maxScroll);
     }
     imageWrapper.style.transform = `translateY(${translateY}px)`;
     ticking = false;
@@ -37262,6 +37262,923 @@ function initContactForm() {
     document.addEventListener("DOMContentLoaded", run);
   } else {
     run();
+  }
+})();
+
+// assets/js/lcdHome-markup.js
+var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in">\n    <button class="burg" id="burg" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>\n    <a class="lang" href="https://www.luxurycardesign.cz/"></a>\n    <a class="logo" href="/" aria-label="Luxury Car Design"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/logo.png" alt="Luxury Car Design"></a>\n    <div class="side">\n      <a class="kont" href="/kontakty/">Kontakt</a>\n      <a class="cart" href="/kosik/" aria-label="Ko\u0161\xEDk">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8h15l-1.1 10.2a2 2 0 01-2 1.8H7.6a2 2 0 01-2-1.8z"/><path d="M8.8 8V6.4a3.2 3.2 0 016.4 0V8"/></svg>\n      </a>\n    </div>\n  </div>\n</header>\n\n<div class="mega-ovl" id="megaOvl"></div>\n<nav class="mega" id="mega" aria-label="Hlavn\xE9 menu">\n  <div class="m-x" id="megaX">&times;</div>\n  <div class="lc">\n    <div class="lc-t"><b>Vyberte si luxusn\xE9</b><span>autokoberce na mieru</span></div>\n    <div class="lc-orn"><i></i></div>\n\n    <div class="lc-sek"><span>Pre osobn\xE9 aut\xE1</span></div>\n    <a class="lc-hero" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/">\n      <div class="lc-skl">\n        <div class="lc-dl"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set1.jpg" alt=""><div class="lc-lbl">Koberce pod sedadl\xE1</div></div>\n        <div class="lc-plus">+</div>\n        <div class="lc-dl"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set2.jpg" alt=""><div class="lc-lbl">Roho\u017E do kufra</div></div>\n        <div class="lc-plus">+</div>\n        <div class="lc-dl"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set3.jpg" alt=""><div class="lc-lbl">Box do kufra</div></div>\n      </div>\n      <div class="lc-spodok">\n        <div class="lc-k">Vytvorte si vlastn\xFD set so z\u013Eavou</div>\n        <div class="lc-s">Vyberte si rozlo\u017Eenie a farbu materi\xE1lu, bud\xFA u\u0161it\xE9 na mieru V\xE1\u0161ho auta.</div>\n        <span class="lc-btn">Vytvori\u0165 vlastn\xFD set</span>\n      </div>\n    </a>\n\n    <div class="lc-sek"><span>Alebo si vyberte konkr\xE9tny produkt</span></div>\n    <div class="lc-typy">\n      <a class="lc-typ" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-diamond-line/"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-jed.jpg" alt=""><div class="lc-in"><div class="lc-n">Jednovrstvov\xE9 autokoberce</div></div></a>\n      <a class="lc-typ" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-dvoj.jpg" alt=""><div class="lc-in"><div class="lc-n">Dvojvrstvov\xE9 autokoberce</div></div></a>\n    </div>\n\n    <div class="lc-sek"><span>Do kufra</span></div>\n    <div class="lc-g3">\n      <a class="lc-card" href="https://www.luxurycardesign.sk/luxusny-koberced-do-kufra-dragonskin-klasik/"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-k1.jpg" alt="">\n        <div class="lc-b"><div class="lc-nm">Autokoberce do kufra klasik</div><div class="lc-hr"></div><div class="lc-vars">Diamond &middot; Stripe &middot; Hexa</div></div></a>\n      <a class="lc-card" href="https://www.luxurycardesign.sk/luxusny-koberced-do-kufra-dragonskin-premium/"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-k2.jpg" alt="">\n        <div class="lc-b"><div class="lc-nm">Autokoberce do kufra premium</div><div class="lc-hr"></div><div class="lc-vars">Diamond &middot; Stripe &middot; Hexa</div></div></a>\n      <a class="lc-card" href="https://www.luxurycardesign.sk/luxusny-boxi-do-kufra/"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-k3.jpg" alt="">\n        <div class="lc-b"><div class="lc-nm">Boxy do kufra</div><div class="lc-hr"></div><div class="lc-vars">Diamond</div></div></a>\n    </div>\n\n    <div class="lc-sek"><span>Pre kami\xF3ny, dod\xE1vky a n\xE1kladn\xE9 aut\xE1</span></div>\n    <a class="lc-truck" href="https://www.luxurycardesign.sk/luxusne-autokoberce-truck/">\n      <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-truck.jpg" alt="">\n      <div class="lc-ov"><div class="lc-k">M\xE1te kami\xF3n alebo dod\xE1vku?</div><div class="lc-s">Pon\xFAkame autokoberce na mieru aj pre Va\u0161e pracovn\xE9 auto.</div><span class="lc-btn">Nakonfigurova\u0165 koberce na mieru</span></div>\n    </a>\n\n    <div class="lc-sek"><span>Nie ste si ist\xED farbou?</span></div>\n    <a class="lc-vz" href="https://www.luxurycardesign.sk/vzorkovnik-dragonskin---objednavka-vzoriek/"><div class="lc-vzin">\n      <div class="lc-vzeb">Vzorkovn\xEDk Dragonskin</div>\n      <div class="lc-fan">\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw1.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw2.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw3.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw4.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw5.jpg)"></i>\n      </div>\n      <h3>Neviete, ak\xFA farbu?</h3>\n      <p>Po\u0161leme V\xE1m vzorky na adresu \u2014 farbu aj \u0161trukt\xFAru<br>si pozriete priamo vo svojom aute.</p>\n      <span class="lc-btn">Objedna\u0165 vzorky</span>\n    </div></a>\n  </div>\n</nav>\n<!-- ================= HERO ================= -->\n<main id="hlavne"><header class="hero">\n  <div class="bg" id="heroBg"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/hero.jpg" alt="Luxusn\xE9 autokoberce DragonSkin v interi\xE9ri vozidla"></div>\n  <div class="in">\n    <h1>Luxusn\xE9 autokoberce <em>\u0161it\xE9 na mieru</em></h1>\n    <p class="sub">Vyberte si z najv\xE4\u010D\u0161ej ponuky luxusn\xFDch autokobercov</p>\n    <div class="cta" style="gap:12px;flex-wrap:wrap"><a class="btn" href="#konf">Presne toto potrebujem!</a><a class="btn ghost" href="#produkty" style="color:#fff;border-color:rgba(255,255,255,.45)">Pozrie\u0165 koberce</a></div>\n  </div>\n</header>\n\n<!-- ================= KONFIGURATOR ================= -->\n<section class="konf" id="konf">\n  <div class="card" id="konfCard">\n    <div class="eyebrow">Konfigur\xE1tor</div>\n    <h2 style="margin-top:12px">Povedzte n\xE1m, \u010Do \u0161of\xE9rujete</h2>\n    <p class="konf-lede">Vyberte zna\u010Dku a model. Uk\xE1\u017Eeme V\xE1m set, ktor\xFD sadne na milimeter \u2014 aj s cenou.</p>\n    <div class="tabs" id="tabs">\n      <span class="pill"></span>\n      <button class="tab on" data-i="0" type="button">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13"/><path d="M3 13h18v4a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H6v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-4z"/><circle cx="7" cy="15.5" r=".7" fill="currentColor"/><circle cx="17" cy="15.5" r=".7" fill="currentColor"/></svg>\n        Osobn\xE9 vozidl\xE1</button>\n      <button class="tab" data-i="1" type="button">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10v9H2z"/><path d="M12 10h4.2l2.8 3.2V16H12z"/><circle cx="6" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/></svg>\n        Kami\xF3ny a dod\xE1vky</button>\n    </div>\n    <div class="fields" id="fields">\n      <div class="field" data-err="Vyberte zna\u010Dku vozidla."><label>Zna\u010Dka</label><div class="fake" data-a="Zna\u010Dka" data-b="Zna\u010Dka">Zna\u010Dka</div><span class="ferr"></span></div>\n      <div class="field" data-err="Vyberte model." data-err-b="Vyberte model / rad."><label data-a="Model" data-b="Model / rad">Model</label><div class="fake" data-a="Model" data-b="Model">Model</div><span class="ferr"></span></div>\n      <div class="field hide" data-err="Vyberte rok v\xFDroby." data-err-b="Vyberte typ prevodovky."><label data-a="Rok v\xFDroby" data-b="Typ prevodovky">Rok v\xFDroby</label><div class="fake" data-a="Rok v\xFDroby" data-b="Typ prevodovky">Rok v\xFDroby</div><span class="ferr"></span></div>\n      <div class="field hide" data-err="Vyberte typ karos\xE9rie." data-err-b="Zvo\u013Ete po\u010Det z\xE1suviek."><label data-a="Typ karos\xE9rie" data-b="Po\u010Det z\xE1suviek (\u0161upl\xEDkov)">Typ karos\xE9rie</label><div class="fake" data-a="Typ karos\xE9rie" data-b="Po\u010Det z\xE1suviek (\u0161upl\xEDkov)">Typ karos\xE9rie</div><span class="ferr"></span></div>\n      <div class="field go"><a class="btn go" href="#produkty" data-href-a="#produkty" data-href-b="https://www.luxurycardesign.sk/luxusne-autokoberce-truck/" data-a="Zvoli\u0165 model" data-b="Zvoli\u0165 model">Zvoli\u0165 model</a></div>\n    </div>\n    <p class="konf-note" id="konfNote">\u0160abl\xF3ny m\xE1me pre viac ne\u017E 1000 modelov osobn\xFDch \xE1ut.</p>\n  </div>\n</section>\n\n<!-- ================= CISLA ================= -->\n<section class="chapter trustbar"><div class="wrap">\n  <div class="tstrip rv">\n    <div class="ts"><span class="num" data-count="100" data-suffix="%">100%</span><b>podlahy &middot; 95 % bokov</b></div>\n    <div class="ts"><span class="num" data-count="100" data-suffix="%">100%</span><b>vyroben\xE9 na mieru</b></div>\n    <div class="ts"><span class="num" data-count="1000" data-suffix="+">1000+</span><b>modelov vozidiel</b></div>\n  </div>\n</div></section>\n\n<!-- ================= KAMIONY (NOVE NA HP) ================= -->\n<section class="truck" id="kamiony">\n  <div class="bg" id="truckBg"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/truck.jpg" alt="Autokoberce do kami\xF3nu"></div>\n  <div class="in">\n    <div class="tcopy">\n      <span class="new">\u0164aha\u010De \xB7 dod\xE1vky \xB7 pracovn\xE9 vozidl\xE1</span>\n      <h2>Autokoberce do <em>kami\xF3nov a dod\xE1vok</em></h2>\n      <p class="lede">Kab\xEDna je Va\u0161a druh\xE1 kancel\xE1ria. Do kami\xF3nov a dod\xE1vok preto pon\xFAkame vlastn\xE9 druhy odoln\xFDch materi\xE1lov \u2014 navrhnut\xE9 na ka\u017Edodenn\xE9 pou\u017E\xEDvanie.</p>\n      <div class="row">\n        <a class="btn" href="#konf">Zvoli\u0165 model vozidla</a>\n      </div>\n      <div class="tspecs">\n        <div><b>\u0164aha\u010De</b>Scania \xB7 Volvo \xB7 DAF \xB7 MAN a \u010Fal\u0161ie</div>\n        <div><b>Dod\xE1vky</b>Sprinter \xB7 Transit \xB7 Crafter a \u010Fal\u0161ie</div>\n        <div><b>Na mieru</b>Pod\u013Ea presn\xFDch 3D \u0161abl\xF3n</div>\n      </div>\n    </div>\n    <div class="tphoto"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/truck.jpg" alt="Autokoberce do kab\xEDny kami\xF3na" loading="lazy"></div>\n    <aside class="tcard">\n      <div class="eyebrow" style="color:var(--gold-hi)">\u010Co dostanete</div>\n      <ul>\n        <li>5 druhov materi\xE1lov, spolu viac ne\u017E 50 farieb</li>\n        <li>Vyroben\xE9 na mieru konkr\xE9tneho modelu</li>\n        <li>Na v\xFDber 13 druhov lemovania</li>\n        <li>N\xE1\u0161ivka alebo logo \u2014 aj s v\xFDberom farby</li>\n        <li>Dodanie do 14 \u2013 18 dn\xED</li>\n      </ul>\n      <a class="btn ghost" style="color:#fff;border-color:rgba(230,200,119,.45);margin-top:18px" href="#konf">Pozrie\u0165 cenu pre moje auto</a>\n    </aside>\n  </div>\n</section>\n\n<!-- ================= PRED A PO ================= -->\n<section class="chapter" id="predapo"><div class="wrap">\n  <div class="rule rv"><span class="n">01 \u2014 Pred a po</span></div>\n  <h2 class="rv">To ist\xE9 auto. In\xE1 liga.</h2>\n  <p class="lede rv" style="margin-top:14px">V\u013Eavo po mont\xE1\u017Ei, vpravo p\xF4vodn\xFD stav. Rovnak\xE9 svetlo, rovnak\xFD uhol \u2014 jedin\xFD rozdiel s\xFA koberce.</p>\n  <div class="rv ba-wrap" style="margin-top:30px">\n    <div class="ba" id="ba">\n      <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/ba-before.jpg" alt="Interi\xE9r vozidla bez luxusn\xFDch autokobercov">\n      <img class="top" id="baTop" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/ba-after.jpg" alt="Ten ist\xFD interi\xE9r s luxusn\xFDmi autokobercami">\n      <span class="ba-lab l">Po</span>\n      <span class="ba-lab r">Predt\xFDm</span>\n      <span class="ba-line" id="baLine" style="left:50%"></span>\n      <button class="ba-h" id="baH" type="button" role="slider" tabindex="0"\n        aria-label="Posuvn\xEDk porovnania pred a po" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"\n        style="left:50%">&#8596;</button>\n    </div>\n    <div class="ba-hint">Potiahnite posuvn\xEDk</div>\n  </div>\n</div></section>\n\n<!-- ================= PRODUKTY OSOBNE ================= -->\n<section class="chapter" style="padding-top:0" id="produkty" style="padding-top:0 !important"><div class="wrap">\n  <div class="rule rv"><span class="n">02 \u2014 Pre osobn\xE9 aut\xE1</span></div>\n  <h2 class="rv">Luxusn\xE9 autokoberce \u0161it\xE9 na mieru</h2>\n  <p class="lede rv" style="margin-top:14px">Vyberte si z najv\xE4\u010D\u0161ej ponuky luxusn\xFDch autokobercov.</p>\n  <div class="deckwrap" style="margin-top:30px">\n  <div class="deck">\n    <a class="pc" href="#produkty"><div class="ph"><span class="tag">Najobjedn\xE1vanej\u0161ie</span><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/p-dd.jpg" alt="Dvojvrstvov\xE9 autokoberce"></div>\n      <div class="cap"><div class="k">Dvojvrstvov\xE9</div><div class="v">Diamond, Stripe, Hexaline</div></div></a>\n    <a class="pc" href="#produkty"><div class="ph"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/p-js.jpg" alt="Jednovrstvov\xE9 Stripe-Line"></div>\n      <div class="cap"><div class="k">Jednovrstvov\xE9</div><div class="v">Stripe-Line</div></div></a>\n    <a class="pc" href="#produkty"><div class="ph"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/p-jh.jpg" alt="Jednovrstvov\xE9 Hexa-Line"></div>\n      <div class="cap"><div class="k">Jednovrstvov\xE9</div><div class="v">Hexa-Line</div></div></a>\n    <a class="pc" href="#produkty"><div class="ph"><span class="tag alt">Odpor\xFA\u010Dame</span><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/p-jd.jpg" alt="Jednovrstvov\xE9 Diamond-Line"></div>\n      <div class="cap"><div class="k">Jednovrstvov\xE9</div><div class="v">Diamond-Line</div></div></a>\n  </div>\n    <div class="decknav">\n      <button type="button" aria-label="Sp\xE4\u0165"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>\n      <button type="button" aria-label="\u010Ealej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>\n    </div>\n  </div>\n</div></section>\n\n<!-- ================= VZORKY ================= -->\n<section class="vz" id="vzorky">\n  <div class="in">\n    <div>\n      <div class="eyebrow">Vzorkovn\xEDk DragonSkin</div>\n      <h2>Neviete sa rozhodn\xFA\u0165 pre farbu?</h2>\n      <p>Po\u0161leme V\xE1m vzorky na adresu. Farbu, pre\u0161\xEDvanie aj \u0161trukt\xFAru si pozriete priamo\n      vo svojom aute \u2014 pri dennom aj ve\u010Dernom svetle, nie na fotke z monitora.</p>\n      <div class="row">\n        <a class="btn" href="https://www.luxurycardesign.sk/vzorkovnik-dragonskin---objednavka-vzoriek/">Objedna\u0165 vzorky</a>\n        <span class="note">Doru\u010Denie po celej SK aj \u010CR</span>\n      </div>\n    </div>\n    <div class="fan">\n      <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw1.jpg)"></i>\n      <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw2.jpg)"></i>\n      <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw3.jpg)"></i>\n      <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw4.jpg)"></i>\n      <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw5.jpg)"></i>\n    </div>\n  </div>\n</section>\n\n<!-- ================= POROVNANIE ================= -->\n<section class="chapter after-dark" id="porovnanie"><div class="wrap">\n  <div class="rule rv"><span class="n">03 \u2014 Porovnanie s konkurenciou</span></div>\n  <h2 class="rv">Napodobeniny, ale nikdy neprekonan\xE9</h2>\n  <p class="lede rv" style="margin-top:14px">Origin\xE1lne Luxusn\xE9 autokoberce Dragonskin od Luxury Car Design s\xFA pred\xE1van\xE9 v\xFDhradne na na\u0161ej webovej str\xE1nke. Nikdy nezni\u017Eujeme kvalitu kv\xF4li cene.</p>\n  <div class="cmp rv" style="margin-top:34px">\n    <div class="cmp-vs">VS</div>\n    <div class="cmp-col us">\n      <div class="ph"><span class="tag">Dragonskin</span><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/cmp1.jpg" alt="Origin\xE1lne autokoberce Dragonskin"></div>\n      <div class="name">Origin\xE1lne luxusn\xE9 autokoberce</div>\n      <div class="price">od 209 \u20AC</div>\n      <ul>\n        <li><span class="ic">\u2713</span><span><b>Materi\xE1l</b>Bez z\xE1pachu, prvotriedna ekoko\u017Ea, rozpoznate\u013En\xE1 hr\xFAbkou a m\xE4kkos\u0165ou</span></li>\n        <li><span class="ic">\u2713</span><span><b>Uchytenie</b>Tesn\xE9 uchytenie, \u017Eiadny pohyb po\u010Das jazdy</span></li>\n        <li><span class="ic">\u2713</span><span><b>Trvanlivos\u0165</b>Vydr\u017Eia po\u010Das celej \u017Eivotnosti vozidla</span></li>\n        <li><span class="ic">\u2713</span><span><b>Zips a klipy</b>Zipsy na\u0161it\xE9 na spodnej strane, v balen\xED p\xE1ska so zipsom aj klipy</span></li>\n        <li><span class="ic">\u2713</span><span><b>Skenovanie vozidla</b>Viac ako 200 min\xFAt na jeden model</span></li>\n      </ul>\n    </div>\n    <div class="cmp-col them">\n      <div class="ph"><span class="tag">Konkurencia</span><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/cmp2.jpg" alt="Napodobeniny autokobercov"></div>\n      <div class="name">Napodobeniny z marketplace</div>\n      <div class="price">50 \u20AC \u2013 129 \u20AC</div>\n      <ul>\n        <li><span class="ic">\u2715</span><span><b>Materi\xE1l</b>Lacn\xFD tenk\xFD plast, ktor\xFD sa l\xE1me a vytv\xE1ra chemick\xFD z\xE1pach</span></li>\n        <li><span class="ic">\u2715</span><span><b>Uchytenie</b>Vo\u013En\xE9 uchytenie, roho\u017E sa pos\xFAva a prek\xE1\u017Ea</span></li>\n        <li><span class="ic">\u2715</span><span><b>Trvanlivos\u0165</b>Praskliny a z\xE1hyby v priebehu nieko\u013Ek\xFDch t\xFD\u017Ed\u0148ov</span></li>\n        <li><span class="ic">\u2715</span><span><b>Zips a klipy</b>Nie s\xFA s\xFA\u010Das\u0165ou</span></li>\n        <li><span class="ic">\u2715</span><span><b>Skenovanie vozidla</b>Menej ako 30 min\xFAt</span></li>\n      </ul>\n    </div>\n  </div>\n</div></section>\n\n<!-- ================= REFERENCNE VIDEA ================= -->\n<section class="chapter" style="padding-top:0" id="referencie" style="padding-top:0 !important"><div class="wrap">\n  <div class="rule rv"><span class="n">04 \u2014 Na vlastn\xE9 o\u010Di</span></div>\n  <h2 class="rv">Ako to vyzer\xE1 v skuto\u010Dnosti</h2>\n  <p class="lede rv" style="margin-top:14px">Recenzie od z\xE1kazn\xEDkov aj priame porovnanie s k\xF3piou z \xE1zijsk\xE9ho marketplace. Ni\u010D naaran\u017Eovan\xE9.</p>\n  <div class="deckwrap rv" data-noloop style="margin-top:26px">\n  <div class="deck refs">\n      <figure class="ref">\n        <button type="button" class="ref-v" data-yt="tFmHKCJibJw" data-cap="Prv\xE9 dojmy z\xE1kazn\xEDka zo Slovenska po mont\xE1\u017Ei kobercov" aria-label="Prehra\u0165 video: Prv\xE9 dojmy z\xE1kazn\xEDka zo Slovenska po mont\xE1\u017Ei kobercov">\n          <video src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/refv-sk.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>\n          <span class="ref-badge">Recenzia</span>\n          <span class="ref-play"></span>\n          <span class="ref-cap"><i>Recenzia</i>Prv\xE9 dojmy z\xE1kazn\xEDka zo Slovenska</span>\n        </button>\n      </figure>\n      <figure class="ref">\n        <button type="button" class="ref-v" data-yt="x77yNjcqiGA" data-cap="Recenzia od Andreja" aria-label="Prehra\u0165 video: Recenzia od Andreja">\n          <video src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/refv-andrej.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>\n          <span class="ref-badge">Recenzia</span>\n          <span class="ref-play"></span>\n          <span class="ref-cap"><i>Recenzia</i>Recenzia od Andreja</span>\n        </button>\n      </figure>\n      <figure class="ref">\n        <button type="button" class="ref-v" data-yt="vFdGE1jNXH8" data-cap="Recenzia z\xE1kazn\xEDka z \u010Ceska: prv\xE9 dojmy po mont\xE1\u017Ei" aria-label="Prehra\u0165 video: Recenzia z\xE1kazn\xEDka z \u010Ceska: prv\xE9 dojmy po mont\xE1\u017Ei">\n          <video src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/refv-cz.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>\n          <span class="ref-badge">Recenzia</span>\n          <span class="ref-play"></span>\n          <span class="ref-cap"><i>Recenzia</i>Prv\xE9 dojmy z\xE1kazn\xEDka z \u010Ceska</span>\n        </button>\n      </figure>\n      <figure class="ref">\n        <button type="button" class="ref-v" data-yt="gPwXwXgj4Lc" data-cap="Pre\u010Do lacn\xE1 k\xF3pia autokobercov nevydr\u017E\xED" aria-label="Prehra\u0165 video: Pre\u010Do lacn\xE1 k\xF3pia autokobercov nevydr\u017E\xED">\n          <video src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/refv-porovnanie.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>\n          <span class="ref-badge vs">Porovnanie</span>\n          <span class="ref-play"></span>\n          <span class="ref-cap"><i>Porovnanie</i>Pre\u010Do lacn\xE1 k\xF3pia nevydr\u017E\xED</span>\n        </button>\n      </figure>\n      <figure class="ref">\n        <button type="button" class="ref-v" data-yt="wIu7RXBo2A4" data-cap="Rozdiel medzi na\u0161imi kober\u010Dekmi a napodobeninami" aria-label="Prehra\u0165 video: Rozdiel medzi na\u0161imi kober\u010Dekmi a napodobeninami">\n          <video src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/refv-porov2.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>\n          <span class="ref-badge vs">Porovnanie</span>\n          <span class="ref-play"></span>\n          <span class="ref-cap"><i>Porovnanie</i>Na\u0161e koberce vs. napodobeniny</span>\n        </button>\n      </figure>\n      <figure class="ref">\n        <button type="button" class="ref-v" data-yt="L0wRsTfyw54" data-cap="Pr\xE9miov\xE9 autokoberce \u0161it\xE9 na mieru \u2014 Mercedes GLE" aria-label="Prehra\u0165 video: Pr\xE9miov\xE9 autokoberce \u0161it\xE9 na mieru \u2014 Mercedes GLE">\n          <video src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/refv-gle.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>\n          <span class="ref-badge">Uk\xE1\u017Eka</span>\n          <span class="ref-play"></span>\n          <span class="ref-cap"><i>Uk\xE1\u017Eka</i>Mercedes GLE na mieru</span>\n        </button>\n      </figure>\n  </div>\n    <div class="decknav">\n      <button type="button" aria-label="Predch\xE1dzaj\xFAce video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>\n      <button type="button" aria-label="\u010Eal\u0161ie video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>\n    </div>\n  </div>\n</div></section>\n\n<!-- ================= RECENZIE ================= -->\n<section class="chapter" style="padding-top:0 !important"><div class="wrap">\n  <div class="rule rv"><span class="n">05 \u2014 \u010Co hovoria na\u0161i z\xE1kazn\xEDci</span></div>\n  <div class="revhead rv">\n    <svg class="gmark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg>\n    <span class="score">5,0</span>\n    <div class="col"><span class="stars">\u2605\u2605\u2605\u2605\u2605</span><span class="sub">89 recenzi\xED na Google &middot; hodnotenie 5,0</span></div>\n    <span class="cta"><a class="btn ghost">Nap\xEDsa\u0165 recenziu</a><a class="btn ghost">V\u0161etky recenzie</a></span>\n  </div>\n  <div class="revwrap rv">\n    <div class="revs" id="revs">\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Nem\xE1m slov.Som maxim\xE1lne ale \u017Ee maxim\xE1lne spokojn\xFD.Roho\u017Ee vyzeraj\xFA \xFAplne skvelo.\u010Ci u\u017E dizajnovo aj \u010Do sa t\xFDka materi\xE1lu.Krasne mi sadli do auta \u010Doho som sa b\xE1l \u017Ee nebud\xFA sedie\u0165.A kr\xE1sne pasuj\xFA.Takze m\xF4\u017Eem len a len odporu\u010Di\u0165 ka\u017Ed\xE9mu kto by v\xE1hal.Dakujem Firme Luxury Car Design aj za r\xFDchlu\u2026</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv0-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv0-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv0-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">MM</span><span class="meta"><b>Majlo Mario</b><i>Pred 8 t\xFD\u017Ed\u0148ami</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>M\xE1m koberce Dragon skit od Luxury Car design a som s nimi nad mieru spokojn\xFD ihne\u010F po in\u0161tal\xE1cii sadli a o\u017Eivili priestor m\xF4jho interi\xE9ru, \u010Distia sa jednoducho sta\u010D\xED pou\u017Ei\u0165 v podstate len vlhk\xFA handri\u010Dku a za kr\xE1tky \u010Das m\xE1te vy\u010Disten\xE9 cel\xE9 auto. V balen\xED dostanete aj sadu nieko\u013Ek\xFDch klipov na\u2026</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv1-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv1-1.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">PP</span><span class="meta"><b>Pavol Pap\xFAch</b><i>Pred 34 t\xFD\u017Ed\u0148ami</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Ve\u013Emi seri\xF3zne jednanie , r\xFDchla a ve\u013Emi \xFAstretov\xE1 reakcia na reklam\xE1ciu ktor\xE1 sa t\xFDkala rozmeru zadnej roho\u017Ee na Ssangyong TORRES 2023. Bolo to nov\xE9 auto na ktor\xE9 e\u0161te neboli matrice na \u0161itie a dorie\u0161ili dodanie novej roho\u017Ee . T\xFAto firmu m\xF4\u017Eem len odporu\u010Di\u0165 v\u0161etk\xFDm \u010Do chc\xFA ma\u0165 luxusn\xE9 koberce\u2026</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv2-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv2-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv2-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">FV</span><span class="meta"><b>Frantisek Varga</b><i>Pred 34 t\xFD\u017Ed\u0148ami</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Tak tedy, toto jsem ne\u010Dekal, to je n\xE1dhera, ale dal bych 4,5 hv\u011Bzd, v\u017Edy je co zlep\u0161ovat, na z\xE1hyby pod p\u0159edn\xED sedadla na\u0161\xEDt such\xFD zip a na zadn\xED zase ud\u011Blat je cca o 20 cm del\u0161\xED, tak\xE9 to co se str\u010D\xED pod p\u0159edn\xED seda\u010Dky, upevn\u011Bn\xED je tak\xE9 n\u011Bkdy slo\u017Eit\xE9, ale pou\u010Fte sami, za mne - skv\u011Bl\xE9. +2</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv3-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv3-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv3-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">MF</span><span class="meta"><b>Milan Funt\xED\u010Dek</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Mus\xEDm v prvom rade pochv\xE1li\u0165 majite\u013Ea, ke\u010F som vybavoval boli sviatky a e\u0161te sobota ve\u010Der cca 21:30 v \u010Dete pom\xF4\u017Ee v\xE1m? \u010Cak\xE1te bota ktor\xFD odpovie, nie! Majite\u013E odpisoval rie\u0161il, nede\u013Eu volal, hne\u010F v\u0161etko promtne rie\u0161en\xE9, \u017Eiadne natahovacky, ni\u010D, pekne rovno povedal, \u017Ee to bude trva\u0165 4a\u017E5 t\xFD\u017Ed\u0148ov,\u2026</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv4-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv4-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv4-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">PK</span><span class="meta"><b>Peter Kucek</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Kober\u010Deky do aut\xE1 s\xFA skuto\u010Dne kr\xE1sne, hrub\xE1 ko\u017Ea a na nej druh\xE1 vrstva, siv\xE1 mel\xEDrovan\xE1, dodali interi\xE9ru ten spr\xE1vny \u0161mrnc. Kvalita ko\u017Ee aj pre\u0161\xEDvania je skuto\u010Dne vysok\xE1, fotky a recenzie na str\xE1nke zodpovedaj\xFA re\xE1lnym produktom, nejde o \u017Eiadne \u010D\xEDnske napodobeniny. Z\xE1rove\u0148 je p\xE1n \u0160vanc\xE1r\u2026</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv5-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv5-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv5-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">MR</span><span class="meta"><b>maria rentkova</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Mus\xEDm vychv\xE1lit Luxury Car Design, byl jsem v\xEDc ne\u017E mile p\u0159ekvapen.Kobere\u010Dky jsou nejen kr\xE1sn\u011B zpracovan\xE9, ale i sed\xED na 100%. Nem\u011Bl jsem \u017E\xE1dn\xE9 probl\xE9my s polo\u017Een\xEDm.Opravdu moc chv\xE1l\xEDm a p\u0159eji v\xEDce spokojen\xFDch z\xE1kazn\xEDk\u016F.Smek\xE1m klobouk \u{1F642}. S pozdravem a p\u0159\xE1n\xEDm Strnad Pavel.</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv6-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv6-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv6-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">PS</span><span class="meta"><b>Pavel Strnad</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Profesion\xE1lny pr\xEDstup, r\xFDchla reakcia,lep\u0161ie pre z\xE1kazn\xEDkov je materi\xE1l vidie\u0165 a chyti\u0165 na \u017Eivo mal som t\xFAto mo\u017Enos\u0165 v\u010Faka \xFAstretovosti predajcu. \u0160abl\xF3ny s\xFA super v\u0161etko perfektn\xE9 sadlo na svoje miesto. Jedna hviezdi\u010Dka dole len za pred\u013A\u017Een\xFA dobu dod\xE1vky. Bolo to pre chorobu vo v\xFDrobe. S \u010Dim som\u2026</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv7-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv7-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv7-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">DJ</span><span class="meta"><b>Daniel Jan\u010Di</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Ozna\u010Den\xED koberc\u016F jako Luxury je opravdu v\xFDsti\u017En\xE9 a tyto koberce jsou opravdu luxusn\xED v\xFDrobek, jak kvalitou zpracov\xE1n\xED tak designem. M\xE1m je ve v\u0161ech sv\xFDch autech a funguj\xED naprosto skv\u011Ble i v n\xE1ro\u010Dn\xFDch u\u017Eitkov\xFDch vlastnostech. Naprost\xE1 spokojenost. +2</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv8-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv8-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv8-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">DU</span><span class="meta"><b>David Ulrych</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Odpor\xFA\u010Dam p\xE1n ve\u013Emi ochotn\xFD pom\xF4\u017Ee s objedn\xE1vkou a roho\u017Ee pri\u0161li v poriadku kr\xE1sne a detailne spracovan\xE9. N\xE1m u\u017E zdobia na\u0161u q5 \u{1F642} Luxury Car Design Vlastn\xEDk 23. 8. 2023 \u010Eakujeme za objedn\xE1vku ,a te\u0161\xEDme sa na \u010Fal\u0161iu spolupr\xE1cu \u{1F642} Upravi\u0165 Odstr\xE1ni\u0165</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv9-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv9-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv9-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">KS</span><span class="meta"><b>Katar\xEDna Smolkov\xE1</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Seri\xF3zne jednanie a ako p\xE1n s\u013E\xFAbil tak aj bolo preto\u017Ee som sa ob\xE1val kvality .Vyzeraju ve\u013Emi pekne luxusne a s\xFA aj kvalitne vypracovan\xE9 .Co sa t\xFDka monta\u017Ee- r\xFDchle a jednoduch\xE9 ke\u010F\u017Ee sedia \xFAplne na mieru .Mozem len odpor\xFAcit \u{1F44D}</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv10-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv10-1.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv10-2.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">EH</span><span class="meta"><b>emil herko</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n        <article class="rev">\n          <span class="qm">&ldquo;</span>\n          <div class="st">\u2605\u2605\u2605\u2605\u2605</div>\n          <p>Dobr\xFD den, cht\u011Bla bych pod\u011Bkovat za ochotu pri objedn\xE1v\xE1n\xED, velmi detailn\xED vysv\u011Btlen\xED cel\xE9 m\xE9 objedn\xE1vky ,d\u011Bkuji moc za n\xE1dhern\u011B propracovan\xE9 koberce , p\u0159esn\u011B sed\xED jak maj\xED ,vypadaj\xED kr\xE1sn\u011B. Jste super obchod ,v\u0159ele doporu\u010Duji</p>\n          <div class="shots"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv11-0.jpg" alt="" loading="lazy"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/rv11-1.jpg" alt="" loading="lazy"></div>\n          <div class="foot"><span class="av">D\u010C</span><span class="meta"><b>Daniela \u010Cervenkova</b><i>Overen\xFD z\xE1kazn\xEDk</i></span><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.7-.4-3.9H24v7.1h12.1c-.2 1.8-1.6 4.6-4.5 6.5l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8.1 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/><path fill="#EA4335" d="M24 9.9c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.8 29.9 2 24 2 15.4 2 8.1 6.9 4.3 14l7.1 5.5C13.3 13.7 18.2 9.9 24 9.9z"/></svg></div>\n        </article>\n    </div>\n    <div class="revnav">\n      <button type="button" id="revPrev" aria-label="Predch\xE1dzaj\xFAca recenzia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>\n      <button type="button" id="revNext" aria-label="\u010Eal\u0161ia recenzia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>\n    </div>\n  </div>\n</div></section>\n\n<!-- ================= DO KUFRA ================= -->\n<section class="chapter" style="padding-top:0" id="kufor" style="padding-top:0 !important"><div class="wrap">\n  <div class="rule rv"><span class="n">06 \u2014 Do kufra</span></div>\n  <h2 class="rv">Na mieru vyroben\xE9 koberce do kufra</h2>\n  <p class="lede rv" style="margin-top:14px">Chr\xE1\u0148te V\xE1\u0161 kufor pred rozliatymi tekutinami, \u0161pinou a mastnotou so \u0161t\xFDlom.</p>\n  <div class="deckwrap" style="margin-top:30px">\n  <div class="deck">\n    <a class="pc" href="#produkty"><div class="ph"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/k-df.jpg" alt="Premium Diamond cel\xFD kufor"></div>\n      <div class="cap"><div class="k">Premium Diamond</div><div class="v">Cel\xFD kufor</div></div></a>\n    <a class="pc" href="#produkty"><div class="ph"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/k-s.jpg" alt="Klasik Stripe na dno"></div>\n      <div class="cap"><div class="k">Klasik Stripe</div><div class="v">Na dno</div></div></a>\n    <a class="pc" href="#produkty"><div class="ph"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/k-hf.jpg" alt="Premium Hexa cel\xFD kufor"></div>\n      <div class="cap"><div class="k">Premium Hexa</div><div class="v">Cel\xFD kufor</div></div></a>\n    <a class="pc" href="#produkty"><div class="ph"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/k-box.jpg" alt="Boxy do kufra"></div>\n      <div class="cap"><div class="k">Boxy do kufra</div><div class="v">Diamond</div></div></a>\n  </div>\n    <div class="decknav">\n      <button type="button" aria-label="Sp\xE4\u0165"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>\n      <button type="button" aria-label="\u010Ealej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>\n    </div>\n  </div>\n</div></section>\n\n<!-- ================= VLASTNY SET ================= -->\n<section class="setb" id="set">\n  <div class="in">\n    <div class="eyebrow">V\xFDhodn\xFD set</div>\n    <h2>Vytvorte si vlastn\xFD set so z\u013Eavou</h2>\n    <p class="lede">Koberce pod sedadl\xE1, roho\u017E do kufra a box. Ke\u010F si ich zoberiete spolu,\n    vyjd\xFA V\xE1s lacnej\u0161ie ne\u017E po kusoch \u2014 a v\u0161etko bude vyroben\xE9 na mieru V\xE1\u0161ho auta.</p>\n\n    <div class="setrow">\n      <div class="item"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set1.jpg" alt="Koberce pod sedadl\xE1" loading="lazy"><span class="k">Koberce pod sedadl\xE1</span></div>\n      <span class="plus">+</span>\n      <div class="item"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set2.jpg" alt="Roho\u017E do kufra" loading="lazy"><span class="k">Roho\u017E do kufra</span></div>\n      <span class="plus">+</span>\n      <div class="item"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set3.jpg" alt="Box do kufra" loading="lazy"><span class="k">Box do kufra</span></div>\n    </div>\n\n    <div class="row">\n      <a class="btn bigcta" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/">\n        <b>Vytvori\u0165 vlastn\xFD set</b>\n        <i>Cena setu je ni\u017E\u0161ia ne\u017E s\xFA\u010Det kusov</i></a>\n    </div>\n  </div>\n</section>\n\n<!-- ================= VIDEA ================= -->\n<section class="chapter after-dark" id="realita"><div class="wrap">\n  <div class="rule rv"><span class="n">07 \u2014 Realita luxusn\xFDch autokobercov</span></div>\n  <h2 class="rv">Pozrite sa, ako funguj\xFA v praxi</h2>\n  <p class="lede rv" style="margin-top:14px">\u017Diadne renderovan\xE9 vizualiz\xE1cie \u2014 re\xE1lne mont\xE1\u017Ee, re\xE1lne aut\xE1, re\xE1lni z\xE1kazn\xEDci.</p>\n  <div class="vidwrap rv" style="margin-top:30px">\n    <div class="vids" id="vids">\n      <button type="button" class="vid" data-yt="snb_QNjkcIs"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/yt-snb_QNjkcIs.jpg" alt="" loading="lazy"><span class="play"></span><span class="cap">Perfektn\xE1 in\u0161tal\xE1cia kober\u010Dekov na milimeter</span></button>\n      <button type="button" class="vid" data-yt="GBTJhZg7RVQ"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/yt-GBTJhZg7RVQ.jpg" alt="" loading="lazy"><span class="play"></span><span class="cap">Dvojvrstvov\xE9 kober\u010Deky pre dlhodob\xFA svie\u017Eos\u0165</span></button>\n      <button type="button" class="vid" data-yt="m1IitFACh1Y"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/yt-m1IitFACh1Y.jpg" alt="" loading="lazy"><span class="play"></span><span class="cap">In\u0161tal\xE1cia na mieru pre V-klasu XL</span></button>\n      <button type="button" class="vid" data-yt="U0EwvHlSp68"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/yt-U0EwvHlSp68.jpg" alt="" loading="lazy"><span class="play"></span><span class="cap">\u017Dehlenie kober\u010Dekov? Nie je potrebn\xE9</span></button>\n      <button type="button" class="vid" data-yt="7CqlM-Ma6es"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/yt-7CqlM-Ma6es.jpg" alt="" loading="lazy"><span class="play"></span><span class="cap">Tri rozdiely, ktor\xE9 n\xE1s odli\u0161uj\xFA</span></button>\n      <button type="button" class="vid" data-yt="jzzZrIgF4PY"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/yt-jzzZrIgF4PY.jpg" alt="" loading="lazy"><span class="play"></span><span class="cap">V\xE1\u017Eime si V\xE1\u0161 \u010Das a z\xE1ujem</span></button>\n    </div>\n    <div class="vidnav">\n      <button type="button" id="vidPrev" aria-label="Predch\xE1dzaj\xFAce video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>\n      <button type="button" id="vidNext" aria-label="\u010Eal\u0161ie video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>\n    </div>\n  </div>\n</div></section>\n<!-- ================= 01-05 STICKY ================= -->\n<section id="ocakavat">\n  <div class="stage2" id="stage2">\n    <div class="pin2">\n      <div class="pinhead">\n        <div class="rule"><span class="n">08 \u2014 \u010Co o\u010Dak\xE1va\u0165</span></div>\n        <h2>P\xE4\u0165 vec\xED, ktor\xE9 robia rozdiel</h2>\n      </div>\n      <div class="pintop">\n        <span class="chip">100 % podlahy &middot; 95 % bokov</span>\n        <span class="chip">Sadn\xFA bez \xFAprav</span>\n        <span class="chip">Nezasahuj\xFA do ped\xE1lov</span>\n        <span class="chip">Such\xE9 zipsy aj klipy</span>\n        <span class="chip">Ve\u013Ek\xE1 p\xE4tn\xE1 podlo\u017Eka</span>\n      </div>\n      <div class="pinmain">\n      <div class="s2-media">\n        <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f01.jpg" alt="" data-i="0" class="on">\n        <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f02.jpg" alt="" data-i="1">\n        <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f03.jpg" alt="" data-i="2">\n        <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f04.jpg" alt="" data-i="3">\n        <img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f05.jpg" alt="" data-i="4">\n        <span class="s2-big" id="s2Big">01</span>\n      </div>\n      <div class="s2-body">\n        <div class="s2-rail" id="s2Rail">\n        <button type="button" data-i="0" class="on"><span>01</span></button>\n        <button type="button" data-i="1"><span>02</span></button>\n        <button type="button" data-i="2"><span>03</span></button>\n        <button type="button" data-i="3"><span>04</span></button>\n        <button type="button" data-i="4"><span>05</span></button>\n        </div>\n        <div class="s2-col">\n        <div class="s2-texts">\n        <div class="s2-t on" data-i="0">\n          <div class="k">Presnos\u0165</div>\n          <h3>Navrhnut\xE9 s dokonalou presnos\u0165ou</h3>\n          <p>Vn\xFAtorn\xE9 rozmery vozidiel s\xFA zmeran\xE9 do posledn\xE9ho detailu a preveden\xE9 do presn\xFDch \u0161abl\xF3n. Pre v\xE4\u010D\u0161inu modelov s\xFA \u0161abl\xF3ny hotov\xE9 a d\xF4kladne odsk\xFA\u0161an\xE9 \u2014 Vy nikam nechod\xEDte a ni\u010D nemeriate, sta\u010D\xED vybra\u0165 model.</p>\n        </div>\n        <div class="s2-t" data-i="1">\n          <div class="k">Na mieru</div>\n          <h3>\u0160it\xE9 na mieru V\xE1\u0161ho vozidla</h3>\n          <p>Luxusn\xE9 autokoberce s\xFA \u0161it\xE9 na mieru a prec\xEDzne prisp\xF4soben\xE9 presn\xFDm rozmerom ka\u017Ed\xE9ho vozidla. Vyr\xE1baj\xFA sa na objedn\xE1vku \u0161peci\xE1lne pre ka\u017Ed\xE9 vozidlo zvl\xE1\u0161\u0165. T\xFDm je zaru\u010Den\xE1 dokonal\xE1 presnos\u0165 a ochrana \u2014 pokryj\xFA cel\xFA podlahu a bo\u010Dn\xE9 plochy a\u017E do 95 %.</p>\n        </div>\n        <div class="s2-t" data-i="2">\n          <div class="k">Komfort</div>\n          <h3>Komfort a odolnos\u0165 bez kompromisov</h3>\n          <p>Ve\u013Ek\xE1, vysokokvalitn\xE1 p\xE4tn\xE1 podlo\u017Eka je umiestnen\xE1 v oblasti, kde chodidl\xE1 prirodzene spo\u010D\xEDvaj\xFA, \u010D\xEDm sa zvy\u0161uje pohodlie a odolnos\u0165 pri jazde. Objavte znova jazdu s bezkonkuren\u010Dn\xFDm komfortom a luxusom.</p>\n        </div>\n        <div class="s2-t" data-i="3">\n          <div class="k">Bezpe\u010Dnos\u0165</div>\n          <h3>Vynikaj\xFAca kompatibilita a bezpe\u010Dnos\u0165</h3>\n          <p>Luxusn\xE9 autokoberce nezasahuj\xFA do k\u013E\xFA\u010Dov\xFDch \u010Dast\xED V\xE1\u0161ho vozidla, ako s\xFA ped\xE1le, v\xFDduchy pod sedadlami, ko\u013Eajnice a svetl\xE1 pod zadn\xFDmi sedadlami. Jednoducho \u201Ezapadn\xFA na svoje miesto\u201C.</p>\n        </div>\n        <div class="s2-t" data-i="4">\n          <div class="k">Uchytenie</div>\n          <h3>Dvojit\xE9 uchytenie pre maxim\xE1lnu stabilitu</h3>\n          <p>Na spodnej strane ka\u017Edej roho\u017Ee s\xFA na\u0161it\xE9 such\xE9 zipsy \u2014 to je s\xFA\u010Das\u0165 u\u0161itia koberca. V balen\xED n\xE1jdete obojstrann\xFA lepiacu p\xE1sku so such\xFDm zipsom a klipy, ktor\xFDmi koberec uchyt\xEDte pod plastov\xE9 \u010Dasti vo vozidle.</p>\n        </div>\n        </div>\n        <div class="s2-thumbs" id="s2Thumbs"></div>\n        </div>\n      </div>\n      </div>\n      <div class="pinfoot">\n        <span class="pf-hint">Rolujte<span> \u2014 kroky sa menia</span></span>\n        <span class="pf-bar"><i id="s2Prog"></i></span>\n        <a class="btn pf-cta" href="#konf">Zvoli\u0165 model vozidla</a>\n      </div>\n    </div>\n  </div>\n  <div class="s2-mob" id="s2Mob"></div>\n</section>\n\n<!-- ================= EXPLODED MATERIAL ================= -->\n<section class="mat" id="material">\n  <div class="stage" id="stage">\n    <div class="pin">\n      <div class="pinhead">\n        <div class="rule"><span class="n">09 \u2014 Materi\xE1l</span></div>\n        <h2>Materi\xE1l, ktor\xFD dr\u017E\xED tvar aj po rokoch</h2>\n        <p class="lede">Nepremokav\xFD, ne\u0161m\xFDka sa a tlm\xED hluk z cesty. Navrchu pr\xE9miov\xE1 ekoko\u017Ea, na spodku proti\u0161mykov\xE1 vrstva. Rolujte a pozrite si rez.</p>\n      </div>\n      <div class="pintop">\n        <span class="chip">Nepremokav\xFD</span>\n        <span class="chip">Ne\u0161m\xFDka sa</span>\n        <span class="chip">Tlm\xED hluk z cesty</span>\n        <span class="chip">Sta\u010D\xED utrie\u0165</span>\n        <span class="chip">Dr\u017E\xED tvar</span>\n      </div>\n      <div class="pinmain">\n      <div id="matWrap">\n        <div class="matmark">DragonSkin<i>Rez materi\xE1lom</i></div>\n        <div class="mgs"></div>\n        <div class="exp" id="exp">\n          <div class="mbox" data-l="0" data-t="0.0656" style="--t:16px;--cf:rgb(50,51,63);--cb:rgb(28,28,35);--cl1:rgb(60,60,72);--cl2:rgb(37,38,47);--cr:rgb(29,30,37);--ct1:rgb(83,84,97);--ct2:rgb(55,56,67);--cbt:rgb(24,24,30)">\n            <div class="mf fr"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/flat1.jpg" alt="Kvalitn\xE1 ekoko\u017Ea" loading="lazy"></div>\n            <div class="mf bk"></div>\n            <i class="me lf"></i><i class="me rt"></i><i class="me tp"></i><i class="me bt"></i>\n            <button class="hot" data-l="0" style="left:12%;top:81%" aria-label="Vrstva 1">1</button>\n          </div>\n          <div class="mbox" data-l="1" data-t="0.088" style="--t:16px;--cf:rgb(240,240,240);--cb:rgb(132,132,132);--cl1:rgb(240,240,240);--cl2:rgb(178,178,178);--cr:rgb(139,139,139);--ct1:rgb(255,255,255);--ct2:rgb(226,226,226);--cbt:rgb(115,115,115)">\n            <div class="mf fr"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/flat2.jpg" alt="Vysokohustotn\xE1 pena" loading="lazy"></div>\n            <div class="mf bk"></div>\n            <i class="me lf"></i><i class="me rt"></i><i class="me tp"></i><i class="me bt"></i>\n            <button class="hot" data-l="1" style="left:12%;top:81%" aria-label="Vrstva 2">2</button>\n          </div>\n          <div class="mbox" data-l="2" data-t="0.0243" style="--t:16px;--cf:rgb(241,241,243);--cb:rgb(133,133,134);--cl1:rgb(241,241,243);--cl2:rgb(178,178,180);--cr:rgb(140,140,141);--ct1:rgb(255,255,255);--ct2:rgb(227,227,229);--cbt:rgb(116,116,117)">\n            <div class="mf fr"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/flat3.jpg" alt="Priedu\u0161n\xE1 netkan\xE1 vrstva" loading="lazy"></div>\n            <div class="mf bk"></div>\n            <i class="me lf"></i><i class="me rt"></i><i class="me tp"></i><i class="me bt"></i>\n            <button class="hot" data-l="2" style="left:12%;top:81%" aria-label="Vrstva 3">3</button>\n          </div>\n          <div class="mbox" data-l="3" data-t="0.076" style="--t:16px;--cf:rgb(246,245,244);--cb:rgb(135,135,134);--cl1:rgb(246,245,244);--cl2:rgb(182,181,181);--cr:rgb(143,142,142);--ct1:rgb(255,255,255);--ct2:rgb(231,230,230);--cbt:rgb(118,118,117)">\n            <div class="mf fr"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/flat4.jpg" alt="Ekologick\xFD materi\xE1l XPE" loading="lazy"></div>\n            <div class="mf bk"></div>\n            <i class="me lf"></i><i class="me rt"></i><i class="me tp"></i><i class="me bt"></i>\n            <button class="hot" data-l="3" style="left:12%;top:81%" aria-label="Vrstva 4">4</button>\n          </div>\n          <div class="mbox" data-l="4" data-t="0.0658" style="--t:16px;--cf:rgb(30,30,30);--cb:rgb(16,16,16);--cl1:rgb(40,40,40);--cl2:rgb(22,22,22);--cr:rgb(17,17,17);--ct1:rgb(62,62,62);--ct2:rgb(37,37,37);--cbt:rgb(14,14,14)">\n            <div class="mf fr"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/flat5.jpg" alt="Proti\u0161mykov\xE1 vrstva" loading="lazy"></div>\n            <div class="mf bk"></div>\n            <i class="me lf"></i><i class="me rt"></i><i class="me tp"></i><i class="me bt"></i>\n            <button class="hot" data-l="4" style="left:12%;top:81%" aria-label="Vrstva 5">5</button>\n          </div>\n        </div>\n        <div class="matline"><span>Zv\xE4\u010D\u0161en\xFD rez materi\xE1lom</span></div>\n        <div class="mat-hint">Rolujte a materi\xE1l sa rozlo\u017E\xED</div>\n        <button class="mat-toggle" id="matToggle" type="button">Rozlo\u017Ei\u0165 materi\xE1l</button>\n      </div>\n      <div class="legend" id="legend">\n        <div class="leg" data-l="0">\n          <button type="button" class="leg-h" aria-expanded="false"><span class="no">1</span><span class="sw" style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/tex5.jpg)"></span><span class="k">Kvalitn\xE1 ekoko\u017Ea</span><span class="i">Povrch</span><span class="leg-x"></span></button>\n          <div class="leg-d"><p>T\xE1to vrstva je vyroben\xE1 z pr\xE9miovej, odolnej umelej ko\u017Ee s pr\xEDjemn\xFDm povrchom. Je pohodln\xE1, \u013Eahko sa \u010Dist\xED a je pr\xEDjemn\xE1 na dotyk \u2014 poskytuje dokonal\xFD luxus a eleganciu.</p></div>\n        </div>\n        <div class="leg" data-l="1">\n          <button type="button" class="leg-h" aria-expanded="false"><span class="no">2</span><span class="sw" style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/tex4.jpg)"></span><span class="k">Vysokohustotn\xE1 pena</span><span class="i">Komfort</span><span class="leg-x"></span></button>\n          <div class="leg-d"><p>\u010Eal\u0161ia vrstva poskytuje dokonal\xFA m\xE4kkos\u0165, ktor\xE1 zvy\u0161uje pohodlie a z\xE1rove\u0148 sl\xFA\u017Ei ako ochrann\xE1 bari\xE9ra.</p></div>\n        </div>\n        <div class="leg" data-l="2">\n          <button type="button" class="leg-h" aria-expanded="false"><span class="no">3</span><span class="sw" style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/tex3.jpg)"></span><span class="k">Priedu\u0161n\xE1 netkan\xE1 vrstva</span><span class="i">Priedu\u0161nos\u0165</span><span class="leg-x"></span></button>\n          <div class="leg-d"><p>Tretia vrstva pozost\xE1va z ultratenkej vrstvy priedu\u0161n\xE9ho netkan\xE9ho materi\xE1lu, ktor\xFD poskytuje oporu pre vrchn\xE9 vrstvy. Zabezpe\u010Duje, aby vl\xE1kna pou\u017Eit\xE9 v kobercoch zostali pevn\xE9 a stabiln\xE9 aj pri dlhodobom pou\u017E\xEDvan\xED.</p></div>\n        </div>\n        <div class="leg" data-l="3">\n          <button type="button" class="leg-h" aria-expanded="false"><span class="no">4</span><span class="sw" style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/tex2.jpg)"></span><span class="k">Ekologick\xFD materi\xE1l XPE</span><span class="i">Izol\xE1cia</span><span class="leg-x"></span></button>\n          <div class="leg-d"><p>Vrstva z prepojen\xE9ho polyetyl\xE9nu umo\u017E\u0148uje, aby koberce udr\u017Eali svoj p\xF4vodn\xFD tvar, a z\xE1rove\u0148 zlep\u0161uje schopnos\u0165 izolova\u0165 zvuk. Tento materi\xE1l je \u0161etrn\xFD k \u017Eivotn\xE9mu prostrediu.</p></div>\n        </div>\n        <div class="leg" data-l="4">\n          <button type="button" class="leg-h" aria-expanded="false"><span class="no">5</span><span class="sw" style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/tex1.jpg)"></span><span class="k">Proti\u0161mykov\xE1 vrstva</span><span class="i">Spodok</span><span class="leg-x"></span></button>\n          <div class="leg-d"><p>Materi\xE1l zo sie\u0165oviny vyroben\xFD z nylonu s proti\u0161mykov\xFDmi vlastnos\u0165ami pom\xE1ha upevni\u0165 koberec na podlahe auta, \u010D\xEDm zais\u0165uje, \u017Ee sa nebude pos\xFAva\u0165. To zvy\u0161uje bezpe\u010Dnos\u0165 a stabilitu po\u010Das jazdy.</p></div>\n        </div>\n      </div>\n      </div>\n      <div class="pinfoot">\n        <span class="pf-hint">Rolujte<span> \u2014 vrstvy sa rozlo\u017Eia</span></span>\n        <span class="pf-bar"><i id="matProg"></i></span>\n        <a class="btn pf-cta" href="#konf">Zvoli\u0165 model vozidla</a>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- ================= FAQ ================= -->\n<section class="chapter faqsec"><div class="wrap">\n  <div class="rule rv" id="faqtop"><span class="n">10 \u2014 Na \u010Do sa n\xE1s naj\u010Dastej\u0161ie p\xFDtate</span></div>\n  <div class="faq rv" id="faq"></div>\n</div></section>\n\n<!-- ================= ZAVER ================= -->\n<section class="end">\n  <div class="endbg"><img src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/hero.jpg" alt="" loading="lazy"></div>\n  <div class="eyebrow">Luxury Car Design</div>\n  <h2 style="margin-top:14px">K\xFApi\u0165 a ne\u010Daka\u0165!</h2>\n  <p class="lede">Luxusn\xE9 autokoberce na mieru V\xE1\u0161ho vozidla \u2014 pod\u013Ea presn\xFDch 3D \u0161abl\xF3n pre V\xE1\u0161 model. Pre osobn\xE9 aut\xE1, kami\xF3ny aj dod\xE1vky.</p>\n  <div class="end-cta">\n    <a class="btn" href="#konf">Zada\u0165 \xFAdaje o vozidle</a>\n    <a class="btn ghost" href="#produkty" style="color:#fff;border-color:rgba(230,200,119,.45)">Pozrie\u0165 koberce</a>\n  </div>\n</section>\n\n</main>\n\n<div class="lb" id="lb" hidden>\n  <button class="lb-x" id="lbX" type="button" aria-label="Zavrie\u0165 video">&times;</button>\n  <div class="lb-in">\n    <div class="lb-frame" id="lbFrame"></div>\n    <div class="lb-cap" id="lbCap"></div>\n  </div>\n</div>\n\n</div>\n';
+
+// assets/js/lcdHome.js
+(function() {
+  if (window.__LCD_HOME_INIT__) return;
+  window.__LCD_HOME_INIT__ = true;
+  function lcdhAdoptujSelector(root) {
+    var pokusy = 0;
+    var t = setInterval(function() {
+      pokusy++;
+      var ms = document.querySelector("body.lcdh-on .overall-wrapper > section .model-selector, .model-selector");
+      if (!ms) {
+        if (pokusy > 40) clearInterval(t);
+        return;
+      }
+      clearInterval(t);
+      if (root.contains(ms)) return;
+      var karta = root.querySelector("#konfCard");
+      if (!karta) return;
+      var stareMiesto = ms.closest("section") && !root.contains(ms.closest("section")) ? ms.closest("section") : ms.parentElement;
+      [".tabs", "#fields"].forEach(function(s) {
+        var e = karta.querySelector(s);
+        if (e) e.style.display = "none";
+      });
+      var slot = document.createElement("div");
+      slot.className = "lcdh-konf-slot";
+      karta.appendChild(slot);
+      slot.appendChild(ms);
+      var pozn = karta.querySelector(".konf-note");
+      if (pozn) karta.appendChild(pozn);
+      if (stareMiesto && stareMiesto !== ms) stareMiesto.style.display = "none";
+    }, 250);
+  }
+  function boot() {
+    if (location.hostname.indexOf("luxurycardesign.sk") === -1) return;
+    if (!document.body || !document.body.classList.contains("in-index")) return;
+    if (!document.getElementById("lcd-home")) {
+      var lcdhHost = document.querySelector(".overall-wrapper") || document.body;
+      var lcdhKotva = lcdhHost.querySelector(".content-wrapper.homepage-box, .content-wrapper.container") || document.getElementById("footer");
+      var lcdhWrap = document.createElement("div");
+      lcdhWrap.innerHTML = LCDH_MARKUP;
+      var lcdhRoot = lcdhWrap.firstElementChild;
+      if (!lcdhRoot) return;
+      lcdhHost.insertBefore(lcdhRoot, lcdhKotva);
+      var lcdhSt = document.createElement("style");
+      lcdhSt.id = "lcdh-gate";
+      lcdhSt.textContent = "body.lcdh-on .content-wrapper.homepage-box,body.lcdh-on .content-wrapper.container,body.lcdh-on .lcd-reviews-widget,body.lcdh-on #header{display:none !important}#lcd-home .lcdh-konf-slot{margin-top:18px;text-align:left}#lcd-home .lcdh-konf-slot .model-selector > h2,#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
+      document.head.appendChild(lcdhSt);
+      document.body.classList.add("lcdh-on");
+      lcdhAdoptujSelector(lcdhRoot);
+    }
+    var LCDH = document.getElementById("lcd-home");
+    function lcdhSmoothAnchor(e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1);
+      if (!id) return;
+      var t = document.getElementById(id);
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    LCDH.addEventListener("click", lcdhSmoothAnchor);
+    (function() {
+      (function() {
+        var L = [].slice.call(LCDH.querySelectorAll(".leg")), H = [].slice.call(LCDH.querySelectorAll(".exp .hot"));
+        function set(i, on) {
+          if (L[i]) L[i].classList.toggle("on", on);
+          if (H[i]) H[i].classList.toggle("on", on);
+        }
+        L.forEach(function(el, i) {
+          el.addEventListener("mouseenter", function() {
+            set(i, true);
+          });
+          el.addEventListener("mouseleave", function() {
+            set(i, false);
+          });
+          var h = el.querySelector(".leg-h"), d = el.querySelector(".leg-d");
+          if (!h || !d) return;
+          h.addEventListener("click", function() {
+            var open = h.getAttribute("aria-expanded") === "true";
+            L.forEach(function(o) {
+              var oh = o.querySelector(".leg-h"), od = o.querySelector(".leg-d");
+              if (oh && od) {
+                oh.setAttribute("aria-expanded", "false");
+                od.style.maxHeight = "0px";
+              }
+            });
+            if (!open) {
+              h.setAttribute("aria-expanded", "true");
+              d.style.maxHeight = d.scrollHeight + "px";
+            }
+          });
+        });
+        addEventListener("resize", function() {
+          L.forEach(function(o) {
+            var oh = o.querySelector(".leg-h"), od = o.querySelector(".leg-d");
+            if (oh && od && oh.getAttribute("aria-expanded") === "true") od.style.maxHeight = od.scrollHeight + "px";
+          });
+        });
+        H.forEach(function(el, i) {
+          el.addEventListener("mouseenter", function() {
+            set(i, true);
+          });
+          el.addEventListener("mouseleave", function() {
+            set(i, false);
+          });
+          el.addEventListener("click", function() {
+            if (L[i]) L[i].scrollIntoView({ block: "center", behavior: "smooth" });
+          });
+        });
+      })();
+      (function() {
+        var lb = document.getElementById("lb"), fr = document.getElementById("lbFrame"), cap = document.getElementById("lbCap"), last = null;
+        if (!lb) return;
+        function open(id, title, src) {
+          last = src;
+          fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="' + (title || "Video") + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+          cap.textContent = title || "";
+          lb.hidden = false;
+          requestAnimationFrame(function() {
+            lb.classList.add("on");
+          });
+          document.body.style.overflow = "hidden";
+          var x = document.getElementById("lbX");
+          if (x) x.focus();
+        }
+        function close() {
+          lb.classList.remove("on");
+          document.body.style.overflow = "";
+          setTimeout(function() {
+            lb.hidden = true;
+            fr.innerHTML = "";
+          }, 300);
+          if (last && last.focus) last.focus();
+        }
+        [].forEach.call(LCDH.querySelectorAll(".ref-v"), function(a) {
+          a.addEventListener("click", function(e) {
+            var id = a.dataset.yt;
+            if (!id) return;
+            e.preventDefault();
+            open(id, a.dataset.cap || "", a);
+          });
+        });
+        [].forEach.call(LCDH.querySelectorAll(".vid"), function(a) {
+          a.addEventListener("click", function(e) {
+            var id = a.dataset.yt;
+            if (!id) return;
+            e.preventDefault();
+            var c = a.querySelector(".cap");
+            open(id, c ? c.textContent.trim() : "", a);
+          });
+        });
+        lb.addEventListener("click", function(e) {
+          if (e.target === lb || e.target === document.getElementById("lbX") || e.target.closest(".lb-x")) close();
+        });
+        addEventListener("keydown", function(e) {
+          if (e.key === "Escape" && !lb.hidden) close();
+        });
+      })();
+      var vids = document.getElementById("vids");
+      if (vids) {
+        var vstep = function() {
+          var c = vids.querySelector(".vid");
+          return c ? c.getBoundingClientRect().width + 16 : 220;
+        };
+        document.getElementById("vidPrev").onclick = function() {
+          vids.scrollBy({ left: -vstep() * 2, behavior: "smooth" });
+        };
+        document.getElementById("vidNext").onclick = function() {
+          vids.scrollBy({ left: vstep() * 2, behavior: "smooth" });
+        };
+      }
+      [].forEach.call(LCDH.querySelectorAll(".deckwrap"), function(w) {
+        var d = w.querySelector(".deck"), nav = w.querySelector(".decknav"), b = nav ? nav.querySelectorAll("button") : [], orig = [].slice.call(d.children), loop = false, oneW = 0, t = null, noloop = w.hasAttribute("data-noloop");
+        function gap() {
+          return parseFloat(getComputedStyle(d).columnGap) || 16;
+        }
+        function step2() {
+          var c = d.querySelector(".pc,.ref");
+          return c ? c.getBoundingClientRect().width + gap() : 280;
+        }
+        function measure() {
+          oneW = 0;
+          orig.forEach(function(el) {
+            oneW += el.getBoundingClientRect().width + gap();
+          });
+        }
+        function overflows() {
+          return oneW - gap() > d.clientWidth + 6;
+        }
+        function normalize() {
+          if (!loop || !oneW) return;
+          if (d.scrollLeft < oneW * 0.5) d.scrollLeft += oneW;
+          else if (d.scrollLeft > oneW * 1.5) d.scrollLeft -= oneW;
+        }
+        function build() {
+          measure();
+          var n = overflows();
+          if (nav) nav.style.display = n ? "flex" : "none";
+          if (noloop) return;
+          if (n && !loop) {
+            var pre = document.createDocumentFragment(), post = document.createDocumentFragment();
+            orig.forEach(function(el) {
+              [pre, post].forEach(function(frag) {
+                var c = el.cloneNode(true);
+                c.setAttribute("aria-hidden", "true");
+                c.setAttribute("data-clone", "1");
+                c.tabIndex = -1;
+                c.classList.add("on");
+                frag.appendChild(c);
+              });
+            });
+            d.appendChild(post);
+            d.insertBefore(pre, d.firstChild);
+            loop = true;
+            d.scrollLeft = oneW;
+          } else if (!n && loop) {
+            [].slice.call(d.querySelectorAll("[data-clone]")).forEach(function(e) {
+              e.remove();
+            });
+            loop = false;
+            d.scrollLeft = 0;
+          } else if (loop) {
+            normalize();
+          }
+        }
+        d.addEventListener("scroll", function() {
+          clearTimeout(t);
+          t = setTimeout(normalize, 140);
+        }, { passive: true });
+        if (b.length) {
+          b[0].onclick = function() {
+            normalize();
+            d.scrollBy({ left: -step2(), behavior: "smooth" });
+          };
+          b[1].onclick = function() {
+            normalize();
+            d.scrollBy({ left: step2(), behavior: "smooth" });
+          };
+        }
+        build();
+        var rt = null;
+        addEventListener("resize", function() {
+          clearTimeout(rt);
+          rt = setTimeout(build, 160);
+        });
+        setTimeout(build, 400);
+      });
+      (function() {
+        var ba = document.getElementById("ba"), top = document.getElementById("baTop"), line = document.getElementById("baLine"), h = document.getElementById("baH");
+        if (!ba) return;
+        var pos = 50, drag = false;
+        function set(v, mark) {
+          pos = Math.max(0, Math.min(100, v));
+          top.style.clipPath = "inset(0 " + (100 - pos).toFixed(2) + "% 0 0)";
+          line.style.left = pos.toFixed(2) + "%";
+          h.style.left = pos.toFixed(2) + "%";
+          h.setAttribute("aria-valuenow", Math.round(pos));
+          if (mark) ba.classList.add("moved");
+        }
+        function xTo(e) {
+          var r = ba.getBoundingClientRect();
+          return (e.clientX - r.left) / r.width * 100;
+        }
+        function ease(on) {
+          var t = on ? "clip-path .45s cubic-bezier(.2,.7,.2,1)" : "";
+          top.style.transition = t;
+          line.style.transition = h.style.transition = on ? "left .45s cubic-bezier(.2,.7,.2,1)" : "";
+        }
+        ba.addEventListener("pointerdown", function(e) {
+          drag = true;
+          ease(false);
+          try {
+            ba.setPointerCapture(e.pointerId);
+          } catch (_) {
+          }
+          set(xTo(e), true);
+          e.preventDefault();
+        });
+        ba.addEventListener("pointermove", function(e) {
+          if (drag || e.pointerType === "mouse") {
+            ease(false);
+            set(xTo(e), true);
+          }
+        });
+        ba.addEventListener("pointerleave", function(e) {
+          if (e.pointerType === "mouse" && !drag) {
+            ease(true);
+            set(50, true);
+            setTimeout(function() {
+              ease(false);
+            }, 500);
+          }
+        });
+        ["pointerup", "pointercancel"].forEach(function(t) {
+          ba.addEventListener(t, function(e) {
+            drag = false;
+            try {
+              ba.releasePointerCapture(e.pointerId);
+            } catch (_) {
+            }
+          });
+        });
+        h.addEventListener("keydown", function(e) {
+          var d = e.key === "ArrowLeft" ? -3 : e.key === "ArrowRight" ? 3 : 0;
+          if (d) {
+            e.preventDefault();
+            set(pos + d, true);
+          }
+        });
+        set(50, false);
+        var hintEl = ba.parentNode.querySelector(".ba-hint");
+        if (hintEl && matchMedia("(hover: hover) and (pointer: fine)").matches)
+          hintEl.textContent = "Prejdite my\u0161ou cez fotku";
+        if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          var done = false;
+          var io2 = new IntersectionObserver(function(en) {
+            if (!en[0].isIntersecting || done) return;
+            done = true;
+            io2.disconnect();
+            var steps = [[70, 420], [32, 760], [50, 1120]];
+            steps.forEach(function(st) {
+              setTimeout(function() {
+                if (!ba.classList.contains("moved")) {
+                  top.style.transition = "clip-path .55s cubic-bezier(.2,.7,.2,1)";
+                  line.style.transition = h.style.transition = "left .55s cubic-bezier(.2,.7,.2,1)";
+                  set(st[0], false);
+                  setTimeout(function() {
+                    top.style.transition = line.style.transition = h.style.transition = "";
+                  }, 600);
+                }
+              }, st[1]);
+            });
+          }, { threshold: 0.45 });
+          io2.observe(ba);
+        }
+      })();
+      (function() {
+        var deck = LCDH.querySelector(".deck.refs");
+        var vs = [].slice.call(LCDH.querySelectorAll(".ref-v video"));
+        if (!vs.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var MOB = matchMedia("(max-width:820px)"), onScreen = false, cards = deck ? [].slice.call(deck.children) : [];
+        function play(v) {
+          var r = v.play();
+          if (r && r.catch) r.catch(function() {
+          });
+        }
+        function mid() {
+          if (!deck) return -1;
+          var c = deck.scrollLeft + deck.clientWidth / 2, best = -1, bd = 1e9;
+          cards.forEach(function(el, i) {
+            var d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - c);
+            if (d < bd) {
+              bd = d;
+              best = i;
+            }
+          });
+          return best;
+        }
+        function sync() {
+          if (!deck) return;
+          var m = MOB.matches ? mid() : -1;
+          cards.forEach(function(el, i) {
+            el.classList.toggle("mid", MOB.matches && i === m);
+            var v = el.querySelector("video");
+            if (!v) return;
+            onScreen ? play(v) : v.pause();
+          });
+        }
+        function center(i) {
+          if (!deck || !cards[i]) return;
+          deck.scrollLeft = cards[i].offsetLeft + cards[i].offsetWidth / 2 - deck.clientWidth / 2;
+        }
+        if (deck) {
+          var st = null;
+          deck.addEventListener("scroll", function() {
+            clearTimeout(st);
+            st = setTimeout(sync, 90);
+          }, { passive: true });
+          MOB.addEventListener("change", function() {
+            if (MOB.matches) center(0);
+            sync();
+          });
+          addEventListener("resize", function() {
+            clearTimeout(st);
+            st = setTimeout(sync, 160);
+          });
+          if ("IntersectionObserver" in window) {
+            new IntersectionObserver(function(en) {
+              onScreen = en[0].isIntersecting;
+              sync();
+            }, { threshold: 0.15 }).observe(deck);
+          } else {
+            onScreen = true;
+          }
+          requestAnimationFrame(function() {
+            if (MOB.matches) center(0);
+            sync();
+          });
+        } else {
+          vs.forEach(play);
+        }
+      })();
+      function nekonecnyPas(track2) {
+        if (!track2 || track2.children.length < 4) return;
+        var cs = getComputedStyle(track2), gap = parseFloat(cs.columnGap || cs.gap) || 0;
+        function w(el) {
+          return el.getBoundingClientRect().width + gap;
+        }
+        function room() {
+          return track2.scrollWidth - track2.clientWidth - track2.scrollLeft;
+        }
+        function fix() {
+          if (track2.scrollWidth - track2.clientWidth < 12) return;
+          var snap = track2.style.scrollSnapType;
+          track2.style.scrollSnapType = "none";
+          var g = 0;
+          while (track2.scrollLeft < w(track2.firstElementChild) * 2.4 && g++ < 12) {
+            var last = track2.lastElementChild, lw = w(last);
+            track2.insertBefore(last, track2.firstElementChild);
+            track2.scrollLeft += lw;
+          }
+          g = 0;
+          while (room() < w(track2.lastElementChild) * 2.4 && g++ < 12) {
+            var first = track2.firstElementChild, fw = w(first);
+            track2.appendChild(first);
+            track2.scrollLeft -= fw;
+          }
+          requestAnimationFrame(function() {
+            track2.style.scrollSnapType = snap || "";
+          });
+        }
+        var t = null;
+        function later(ms) {
+          clearTimeout(t);
+          t = setTimeout(fix, ms);
+        }
+        track2.addEventListener("scroll", function() {
+          var edge = w(track2.firstElementChild) * 0.4;
+          if (track2.scrollLeft < edge || room() < edge) fix();
+          else later(90);
+        }, { passive: true });
+        if ("onscrollend" in window) track2.addEventListener("scrollend", function() {
+          fix();
+        });
+        addEventListener("resize", function() {
+          later(220);
+        });
+        requestAnimationFrame(function() {
+          fix();
+          requestAnimationFrame(fix);
+        });
+      }
+      nekonecnyPas(LCDH.querySelector(".deck.refs"));
+      nekonecnyPas(document.getElementById("revs"));
+      var revs = document.getElementById("revs");
+      if (revs) {
+        var step = function() {
+          var c = revs.querySelector(".rev");
+          return c ? c.getBoundingClientRect().width + 16 : 300;
+        };
+        document.getElementById("revPrev").onclick = function() {
+          revs.scrollBy({ left: -step(), behavior: "smooth" });
+        };
+        document.getElementById("revNext").onclick = function() {
+          revs.scrollBy({ left: step(), behavior: "smooth" });
+        };
+      }
+      var fieldsEl = document.getElementById("fields"), konfNote = document.getElementById("konfNote");
+      var FS = fieldsEl ? [].slice.call(fieldsEl.querySelectorAll(".field:not(.go)")) : [], goBtn = fieldsEl ? fieldsEl.querySelector(".btn.go") : null, mode = "a";
+      var BASEN = { a: 4, b: 2 }, BASE = 4;
+      var SAMPLE = {
+        a: ["Audi", "A6 Avant (C7)", "2011 \u2013 2018", "Kombi"],
+        b: ["MAN (TIR)", "TGX 2018-2020", "Automatick\xE1", "2 z\xE1suvky"]
+      };
+      var EXTRA = { a: 0, b: 2 };
+      var NOTE = {
+        a: "\u0160abl\xF3ny m\xE1me pre viac ne\u017E 1000 modelov osobn\xFDch \xE1ut.",
+        b: "\u0164aha\u010De aj dod\xE1vky \u2014 Scania, Volvo, DAF, MAN, Sprinter, Transit, Crafter a \u010Fal\u0161ie. Po\u010Det krokov z\xE1vis\xED od vozidla \u2014 uk\xE1\u017Eeme len tie, ktor\xE9 s\xFA pre\u0148 potrebn\xE9."
+      };
+      function clearErr(f) {
+        f.classList.remove("err");
+      }
+      function showErr(f) {
+        var msg = f.dataset[mode === "b" && f.dataset.errB ? "errB" : "err"] || "Toto pole je potrebn\xE9 vyplni\u0165.";
+        var e = f.querySelector(".ferr");
+        if (e) e.textContent = msg;
+        f.classList.remove("err");
+        void f.offsetWidth;
+        f.classList.add("err");
+      }
+      function konfReset() {
+        BASE = BASEN[mode];
+        if (goBtn) {
+          var h = mode === "b" ? goBtn.dataset.hrefB : goBtn.dataset.hrefA;
+          if (h) goBtn.setAttribute("href", h);
+        }
+        FS.forEach(function(f, i) {
+          f.classList.remove("done", "err", "pop");
+          f.classList.toggle("hide", i >= BASE);
+          var fk = f.querySelector(".fake");
+          if (fk) fk.textContent = fk.dataset[mode] || fk.textContent;
+          var lb = f.querySelector("label");
+          if (lb && lb.dataset[mode]) lb.textContent = lb.dataset[mode];
+        });
+        if (konfNote) konfNote.textContent = NOTE[mode];
+      }
+      function revealExtras() {
+        for (var i = BASE; i < FS.length; i++) {
+          var on = i < BASE + (EXTRA[mode] || 0);
+          if (on && FS[i].classList.contains("hide")) {
+            FS[i].classList.remove("hide");
+            FS[i].classList.add("pop");
+          } else if (!on) {
+            FS[i].classList.add("hide");
+            FS[i].classList.remove("done", "err");
+          }
+        }
+      }
+      FS.forEach(function(f, i) {
+        var fk = f.querySelector(".fake");
+        if (!fk) return;
+        fk.addEventListener("click", function() {
+          f.classList.add("done");
+          clearErr(f);
+          fk.textContent = SAMPLE[mode][i] || fk.textContent;
+          if (i === BASE - 1) revealExtras();
+        });
+      });
+      if (goBtn) goBtn.addEventListener("click", function(e) {
+        var miss = FS.filter(function(f) {
+          return !f.classList.contains("hide") && !f.classList.contains("done");
+        });
+        if (!miss.length) return;
+        e.preventDefault();
+        miss.forEach(showErr);
+        var r = miss[0].getBoundingClientRect();
+        if (r.top < 70 || r.bottom > innerHeight) miss[0].scrollIntoView({ block: "center", behavior: "smooth" });
+      });
+      if (FS.length) konfReset();
+      var tabs = document.getElementById("tabs");
+      if (tabs) tabs.addEventListener("click", function(e) {
+        var b = e.target.closest(".tab");
+        if (!b) return;
+        tabs.querySelectorAll(".tab").forEach(function(t) {
+          t.classList.toggle("on", t === b);
+        });
+        var truck = b.dataset.i === "1";
+        tabs.classList.toggle("two", truck);
+        mode = truck ? "b" : "a";
+        LCDH.querySelectorAll("#fields [data-a]").forEach(function(el) {
+          el.textContent = truck ? el.dataset.b : el.dataset.a;
+        });
+        konfReset();
+      });
+      var bg = document.getElementById("burg"), mega = document.getElementById("mega"), ovl = document.getElementById("megaOvl"), mx = document.getElementById("megaX");
+      function megaSet(o) {
+        mega.classList.toggle("open", o);
+        ovl.classList.toggle("open", o);
+        bg.setAttribute("aria-expanded", o ? "true" : "false");
+        document.body.style.overflow = o ? "hidden" : "";
+      }
+      if (bg) bg.addEventListener("click", function() {
+        megaSet(!mega.classList.contains("open"));
+      });
+      if (ovl) ovl.addEventListener("click", function() {
+        megaSet(false);
+      });
+      if (mx) mx.addEventListener("click", function() {
+        megaSet(false);
+      });
+      mega.querySelectorAll("a").forEach(function(a) {
+        a.addEventListener("click", function() {
+          megaSet(false);
+        });
+      });
+      LCDH.querySelectorAll(".hdr nav a").forEach(function(a) {
+        a.addEventListener("click", function() {
+          LCDH.querySelector(".hdr").classList.remove("open");
+        });
+      });
+      var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var Q = [
+        ["Ako si m\xF4\u017Eem objedna\u0165?", "Vyberte model vozidla v konfigur\xE1tore, zvo\u013Ete prevedenie a farbu. Zvy\u0161ok vybav\xEDme my."],
+        ["Bud\xFA tieto koberce pasova\u0165 do m\xF4jho auta?", "\xC1no. \u0160ij\xFA sa pod\u013Ea hotov\xFDch \u0161abl\xF3n pre konkr\xE9tny model, rok a typ karos\xE9rie \u2014 preto sadn\xFA na milimeter."],
+        ["Videli ste podobne vyzeraj\xFAce koberce online. Pre\u010Do pr\xE1ve Luxury Car Design?", "Rozdiel je v materi\xE1li, presnosti a uchyten\xED \u2014 pozrite si sekciu Porovnanie vy\u0161\u0161ie."],
+        ["Pon\xFAkate kober\u010Deky pre moje auto? \u010Co ak moje auto nie je v zozname?", "M\xE1me viac ne\u017E 1000 modelov. Ak V\xE1\u0161 ch\xFDba, ozvite sa \u2014 \u0161abl\xF3nu vieme doskenova\u0165."],
+        ["Z \u010Doho s\xFA luxusn\xE9 autokoberce vyroben\xE9?", "Navrchu je pr\xE9miov\xE1 ekoko\u017Ea, na spodku proti\u0161mykov\xE1 vrstva. Materi\xE1l je nepremokav\xFD, tlm\xED hluk a nekr\xFAti sa."],
+        ["Ako sa koberce uchyt\xE1vaj\xFA?", "Na spodnej strane koberca s\xFA na\u0161it\xE9 such\xE9 zipsy. V balen\xED n\xE1jdete obojstrann\xFA lepiacu p\xE1sku so such\xFDm zipsom a klipy na uchytenie pod plastov\xE9 \u010Dasti."],
+        ["Ako sa luxusn\xE9 koberce \u010Distia?", "Sta\u010D\xED ich vybra\u0165, utrie\u0165 vlhkou handrou a necha\u0165 uschn\xFA\u0165. \u017Dehli\u0165 netreba."],
+        ["S\xFA roho\u017Ee do ka\u017Ed\xE9ho po\u010Dasia?", "\xC1no. Materi\xE1l je nepremokav\xFD \u2014 voda, sneh aj blato ostan\xFA na koberci a nedostan\xFA sa do \u010Dal\xFAnenia. Po zime sta\u010D\xED koberec vybra\u0165 a opl\xE1chnu\u0165."],
+        ["Ko\u013Eko stoj\xED po\u0161tovn\xE9?", "Po\u0161tovn\xE9 a podmienky dopravy n\xE1jdete v ko\u0161\xEDku pri dokon\u010Den\xED objedn\xE1vky."],
+        ["S\xFA dostupn\xE9 aj \u0161peci\xE1lne pre\u0161\xEDvania alebo farby?", "\xC1no, farbu materi\xE1lu aj pre\u0161\xEDvania si zvol\xEDte v konfigur\xE1tore."],
+        ["\u010Co robi\u0165, ak koberce nesedia alebo ak je bal\xEDk po\u0161koden\xFD?", "Nap\xED\u0161te n\xE1m \u2014 reagujeme do hodiny a vyrie\u0161ime to."],
+        ["Ak\xE1 je z\xE1ruka na koberce?", "Koberce s\xFA navrhnut\xE9 tak, aby vydr\u017Eali po\u010Das celej \u017Eivotnosti vozidla."]
+      ];
+      var faq = document.getElementById("faq");
+      Q.forEach(function(q, i) {
+        var d = document.createElement("details");
+        d.innerHTML = '<summary><span class="i">' + String(i + 1).padStart(2, "0") + '</span><span class="t"></span><span class="p">+</span></summary><div class="a"></div>';
+        d.querySelector(".t").textContent = q[0];
+        d.querySelector(".a").textContent = q[1];
+        faq.appendChild(d);
+      });
+      var io = new IntersectionObserver(function(es) {
+        es.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add("on");
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+      LCDH.querySelectorAll(".rv,.pc,.cmpc").forEach(function(e) {
+        io.observe(e);
+      });
+      var kc = document.getElementById("konfCard");
+      new IntersectionObserver(
+        function(es) {
+          es.forEach(function(e) {
+            if (e.isIntersecting) kc.classList.add("on");
+          });
+        },
+        { threshold: 0.25 }
+      ).observe(kc);
+      LCDH.querySelectorAll("[data-count]").forEach(function(el) {
+        var done = false;
+        new IntersectionObserver(function(es) {
+          es.forEach(function(e) {
+            if (!e.isIntersecting || done) return;
+            done = true;
+            var to = +el.dataset.count, suf = el.dataset.suffix || "", pre = el.dataset.prefix || "", dec = +(el.dataset.dec || 0), t0 = null;
+            function fmt(x) {
+              return dec ? x.toFixed(dec).replace(".", ",") : String(Math.round(x));
+            }
+            if (RM) {
+              el.textContent = pre + fmt(to) + suf;
+              return;
+            }
+            function tick(t) {
+              t0 = t0 || t;
+              var p = Math.min(1, (t - t0) / 1100);
+              el.textContent = pre + fmt(to * (1 - Math.pow(1 - p, 3))) + suf;
+              if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          });
+        }, { threshold: 0.6 }).observe(el);
+      });
+      var stage2 = document.getElementById("stage2");
+      if (stage2) {
+        let s2set = function(i) {
+          if (i === s2cur) return;
+          s2cur = i;
+          s2imgs.forEach(function(e, k) {
+            e.classList.toggle("on", k === i);
+          });
+          s2texts.forEach(function(e, k) {
+            e.classList.toggle("on", k === i);
+          });
+          s2btns.forEach(function(e, k) {
+            e.classList.toggle("on", k === i);
+            e.classList.toggle("done", k < i);
+          });
+          s2thumbs.forEach(function(e, k) {
+            e.classList.toggle("on", k === i);
+          });
+          s2big.textContent = String(i + 1).padStart(2, "0");
+        };
+        var s2imgs = [].slice.call(LCDH.querySelectorAll(".s2-media img")), s2texts = [].slice.call(LCDH.querySelectorAll(".s2-t")), s2btns = [].slice.call(LCDH.querySelectorAll(".s2-rail button")), s2big = document.getElementById("s2Big"), s2prog = document.getElementById("s2Prog"), s2cur = -1;
+        var s2th = document.getElementById("s2Thumbs"), s2thumbs = [];
+        if (s2th) {
+          s2imgs.forEach(function(img, i) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.dataset.i = i;
+            b.setAttribute("aria-label", "Krok " + (i + 1));
+            var im = document.createElement("img");
+            im.src = img.getAttribute("src");
+            im.alt = "";
+            im.loading = "lazy";
+            var no = document.createElement("b");
+            no.textContent = String(i + 1).padStart(2, "0");
+            b.appendChild(im);
+            b.appendChild(no);
+            s2th.appendChild(b);
+            s2thumbs.push(b);
+          });
+        }
+        stage2.style.height = s2imgs.length * 62 + "vh";
+        s2btns.concat(s2thumbs).forEach(function(b) {
+          b.addEventListener("click", function() {
+            var i = +b.dataset.i, r = stage2.getBoundingClientRect(), top = r.top + scrollY;
+            scrollTo({ top: top + (stage2.offsetHeight - innerHeight) * ((i + 0.5) / s2imgs.length), behavior: "smooth" });
+          });
+        });
+        var s2frame = function() {
+          var r = stage2.getBoundingClientRect();
+          var p = Math.min(0.999, Math.max(0, -r.top / (r.height - innerHeight)));
+          s2set(Math.floor(p * s2imgs.length));
+          if (s2prog) s2prog.style.width = p * 100 + "%";
+        };
+        addEventListener("scroll", s2frame, { passive: true });
+        addEventListener("resize", s2frame);
+        s2frame();
+        var mob = document.getElementById("s2Mob");
+        if (mob) {
+          let mupd = function() {
+            var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+            [].forEach.call(track.children, function(c, i) {
+              var cc = c.offsetLeft - track.offsetLeft + c.offsetWidth / 2, dd = Math.abs(cc - mid);
+              if (dd < bd) {
+                bd = dd;
+                best = i;
+              }
+            });
+            [].forEach.call(dots.children, function(b, i) {
+              b.classList.toggle("on", i === best);
+            });
+          };
+          var head = stage2.querySelector(".pinhead");
+          if (head) mob.appendChild(head.cloneNode(true));
+          var track = document.createElement("div");
+          track.className = "s2m-track";
+          s2imgs.forEach(function(img, i) {
+            var card = document.createElement("article");
+            card.className = "s2m-card";
+            var ph = document.createElement("div");
+            ph.className = "s2m-ph";
+            var im = img.cloneNode(true);
+            im.className = "";
+            im.removeAttribute("data-i");
+            im.setAttribute("loading", "lazy");
+            var no = document.createElement("span");
+            no.className = "s2m-no";
+            no.textContent = String(i + 1).padStart(2, "0");
+            ph.appendChild(im);
+            ph.appendChild(no);
+            var body = document.createElement("div");
+            body.className = "s2m-body";
+            body.innerHTML = s2texts[i].innerHTML;
+            card.appendChild(ph);
+            card.appendChild(body);
+            track.appendChild(card);
+          });
+          mob.appendChild(track);
+          var dots = document.createElement("div");
+          dots.className = "s2m-dots";
+          s2imgs.forEach(function(_, i) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.textContent = String(i + 1);
+            var h = s2texts[i].querySelector("h3");
+            b.setAttribute("aria-label", h ? h.textContent : String(i + 1));
+            b.onclick = function() {
+              var c = track.children[i];
+              track.scrollTo({ left: c.offsetLeft - track.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: "smooth" });
+            };
+            dots.appendChild(b);
+          });
+          mob.appendChild(dots);
+          var mt = null;
+          track.addEventListener("scroll", function() {
+            clearTimeout(mt);
+            mt = setTimeout(mupd, 60);
+          }, { passive: true });
+          mupd();
+        }
+      }
+      var heroBg = document.getElementById("heroBg"), truckBg = document.getElementById("truckBg"), stage = document.getElementById("stage"), legs = [].slice.call(LCDH.querySelectorAll(".leg"));
+      var expCard = document.getElementById("exp"), mx = 0, my = 0, boxes = [].slice.call(LCDH.querySelectorAll(".mbox"));
+      var TF = boxes.map(function(B) {
+        return parseFloat(B.dataset.t) || 0.05;
+      });
+      var lastOpen = 0, RX = -7, RY = 30, SC = 1;
+      if (expCard) {
+        expCard.parentNode.addEventListener("mousemove", function(e) {
+          var r = expCard.getBoundingClientRect();
+          mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+          my = ((e.clientY - r.top) / r.height - 0.5) * 2;
+          tilt();
+        });
+        expCard.parentNode.addEventListener("mouseleave", function() {
+          mx = 0;
+          my = 0;
+          tilt();
+        });
+      }
+      function tilt() {
+        if (!expCard) return;
+        expCard.style.transform = "scale(" + SC.toFixed(3) + ") rotateX(" + (RX - my * 4) + "deg) rotateY(" + (RY + mx * 7) + "deg)";
+      }
+      function explode(open) {
+        lastOpen = open;
+        if (!expCard || !boxes.length) return;
+        var n = boxes.length, W = expCard.clientWidth || 600;
+        var pw = Math.min(W * 0.42, 460), ph = pw / 1.55;
+        var th = TF.map(function(f) {
+          return Math.max(3, f * pw);
+        });
+        var tot = th.reduce(function(x, y) {
+          return x + y;
+        }, 0);
+        var gap = pw * 0.58;
+        var acc = 0;
+        boxes.forEach(function(B, i) {
+          var z = tot / 2 - acc - th[i] / 2 + ((n - 1) / 2 - i) * gap * open;
+          acc += th[i];
+          B.style.setProperty("--pw", pw.toFixed(1) + "px");
+          B.style.setProperty("--ph", ph.toFixed(1) + "px");
+          B.style.setProperty("--t", th[i].toFixed(1) + "px");
+          B.style.transform = "translateZ(" + z.toFixed(1) + "px)";
+          var h = B.querySelector(".hot");
+          if (h) h.style.transform = "translate(-50%,-50%) translateZ(" + (th[i] / 2 + 14).toFixed(1) + "px)";
+        });
+        SC = 1.34 - 0.34 * open;
+        tilt();
+        var gs = LCDH.querySelector(".mgs");
+        if (gs) {
+          gs.style.width = 30 + 46 * open + "%";
+          gs.style.opacity = String(0.55 + 0.45 * open);
+        }
+        expCard.classList.toggle("open", open > 0.35);
+        var pl = LCDH.querySelector(".pinlab");
+        if (pl) pl.style.opacity = String(1 - Math.min(1, open * 1.6));
+      }
+      tilt();
+      var MATMQ = matchMedia("(max-width:900px)"), matToggle = document.getElementById("matToggle"), matOpen = 0, matIO = null, matT = null;
+      var matProg = document.getElementById("matProg");
+      function setMat(o) {
+        if (matOpen === o) return;
+        matOpen = o;
+        explode(o);
+        if (matToggle) {
+          matToggle.classList.toggle("on", o > 0.5);
+          matToggle.textContent = o > 0.5 ? "Zlo\u017Ei\u0165 materi\xE1l" : "Rozlo\u017Ei\u0165 materi\xE1l";
+        }
+      }
+      if (matToggle) {
+        matToggle.addEventListener("click", function() {
+          clearTimeout(matT);
+          setMat(matOpen > 0.5 ? 0 : 1);
+        });
+      }
+      function matAuto() {
+        if (matIO) {
+          matIO.disconnect();
+          matIO = null;
+        }
+        clearTimeout(matT);
+        if (!MATMQ.matches || !expCard || !("IntersectionObserver" in window)) return;
+        matIO = new IntersectionObserver(function(entries) {
+          entries.forEach(function(en) {
+            clearTimeout(matT);
+            if (en.isIntersecting) matT = setTimeout(function() {
+              setMat(1);
+            }, 500);
+            else setMat(0);
+          });
+        }, { threshold: 0.45 });
+        matIO.observe(expCard);
+      }
+      matAuto();
+      MATMQ.addEventListener("change", function() {
+        matOpen = 0;
+        explode(0);
+        if (matToggle) {
+          matToggle.classList.remove("on");
+          matToggle.textContent = "Rozlo\u017Ei\u0165 materi\xE1l";
+        }
+        matAuto();
+      });
+      addEventListener("resize", function() {
+        explode(lastOpen);
+      });
+      explode(0);
+      var ticking = false;
+      function frame() {
+        ticking = false;
+        var vh = innerHeight;
+        if (heroBg && innerWidth > 760) {
+          var hr = heroBg.parentNode.getBoundingClientRect();
+          heroBg.style.transform = "translate3d(0," + -hr.top * 0.16 + "px,0)";
+        }
+        if (truckBg) {
+          var tr = truckBg.parentNode.getBoundingClientRect();
+          if (tr.bottom > 0 && tr.top < vh) truckBg.style.transform = "translate3d(0," + (vh / 2 - (tr.top + tr.height / 2)) * 0.09 + "px,0)";
+        }
+        if (stage && expCard && !MATMQ.matches) {
+          var r = stage.getBoundingClientRect();
+          var p = Math.min(1, Math.max(0, -r.top / (r.height - vh)));
+          var o = p < 0.22 ? p / 0.22 : p < 0.86 ? 1 : Math.max(0, 1 - (p - 0.86) / 0.14);
+          o = o < 0 ? 0 : o > 1 ? 1 : o;
+          o = o * o * (3 - 2 * o);
+          explode(o);
+          if (matProg) matProg.style.width = Math.round(o * 100) + "%";
+        }
+      }
+      function onScroll() {
+        if (!ticking && !RM) {
+          ticking = true;
+          requestAnimationFrame(frame);
+        }
+      }
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+      frame();
+    })();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
   }
 })();
 
