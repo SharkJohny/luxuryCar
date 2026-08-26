@@ -38383,6 +38383,482 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
   }
 })();
 
+// assets/js/lcdRz-markup.js
+var LCDRZ_MARKUP = '<div id="lcd-rz">\n<header class="hdr">\n  <div class="in">\n    <button class="burg" id="burg" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>\n    <a class="lang" href="https://www.luxurycardesign.cz/" aria-label="Jazyk: sloven\u010Dina \u2014 prepn\xFA\u0165 na \u010De\u0161tinu">\n        <svg viewBox="0 0 27 18" aria-hidden="true">\n          <rect width="27" height="6" y="0" fill="#fff"/><rect width="27" height="6" y="6" fill="#0b4ea2"/><rect width="27" height="6" y="12" fill="#ee1c25"/>\n          <path d="M4.6 3.2h9.8v6.1c0 3.6-3 5.5-4.9 6.4-1.9-.9-4.9-2.8-4.9-6.4z" fill="#fff"/>\n          <path d="M5.8 4.4h7.4v4.9c0 2.9-2.4 4.4-3.7 5.1-1.3-.7-3.7-2.2-3.7-5.1z" fill="#ee1c25"/>\n          <path d="M5.8 11.1c1.2-1.5 2.5-1.5 3.7 0 1.2-1.5 2.5-1.5 3.7 0v-1.8c0 2.9-2.4 4.4-3.7 5.1-1.3-.7-3.7-2.2-3.7-5.1z" fill="#0b4ea2"/>\n          <path d="M8.8 5.1h1.4v7.2H8.8z" fill="#fff"/>\n          <path d="M7.1 6.6h4.8v1.2H7.1z" fill="#fff"/>\n          <path d="M6.2 8.9h6.6v1.2H6.2z" fill="#fff"/>\n        </svg>\n      </a>\n    <a class="logo" href="/" aria-label="Luxury Car Design"><img width="300" height="217" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/logo.png" alt="Luxury Car Design"></a>\n    <div class="side">\n      <a class="kont" href="/kontakty/">Kontakt</a>\n      <a class="cart" href="/kosik/" aria-label="Ko\u0161\xEDk">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8h15l-1.1 10.2a2 2 0 01-2 1.8H7.6a2 2 0 01-2-1.8z"/><path d="M8.8 8V6.4a3.2 3.2 0 016.4 0V8"/></svg>\n      </a>\n    </div>\n  </div>\n</header>\n\n<div class="mega-ovl" id="megaOvl"></div>\n<nav class="mega" id="mega" aria-label="Hlavn\xE9 menu">\n  <div class="m-x" id="megaX">&times;</div>\n  <div class="lc">\n    <div class="lc-t"><b>Vyberte si luxusn\xE9</b><span>autokoberce na mieru</span></div>\n    <div class="lc-orn"><i></i></div>\n\n    <div class="lc-sek"><span>Pre osobn\xE9 aut\xE1</span></div>\n    <a class="lc-hero" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/">\n      <div class="lc-skl">\n        <div class="lc-dl"><img width="520" height="520" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set1.jpg" alt=""><div class="lc-lbl">Koberce pod sedadl\xE1</div></div>\n        <div class="lc-plus">+</div>\n        <div class="lc-dl"><img width="520" height="520" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set2.jpg" alt=""><div class="lc-lbl">Roho\u017E do kufra</div></div>\n        <div class="lc-plus">+</div>\n        <div class="lc-dl"><img width="520" height="520" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/set3.jpg" alt=""><div class="lc-lbl">Box do kufra</div></div>\n      </div>\n      <div class="lc-spodok">\n        <div class="lc-k">Vytvorte si vlastn\xFD set so z\u013Eavou</div>\n        <div class="lc-s">Vyberte si rozlo\u017Eenie a farbu materi\xE1lu, bud\xFA u\u0161it\xE9 na mieru V\xE1\u0161ho auta.</div>\n        <span class="lc-btn">Vytvori\u0165 vlastn\xFD set</span>\n      </div>\n    </a>\n\n    <div class="lc-sek"><span>Alebo si vyberte konkr\xE9tny produkt</span></div>\n    <div class="lc-typy">\n      <a class="lc-typ" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-diamond-line/"><img width="560" height="350" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-jed.jpg" alt=""><div class="lc-in"><div class="lc-n">Jednovrstvov\xE9 autokoberce</div></div></a>\n      <a class="lc-typ" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/"><img width="560" height="350" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-dvoj.jpg" alt=""><div class="lc-in"><div class="lc-n">Dvojvrstvov\xE9 autokoberce</div></div></a>\n    </div>\n\n    <div class="lc-sek"><span>Do kufra</span></div>\n    <div class="lc-g3">\n      <a class="lc-card" href="https://www.luxurycardesign.sk/luxusny-koberced-do-kufra-dragonskin-klasik/"><img width="420" height="315" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-k1.jpg" alt="">\n        <div class="lc-b"><div class="lc-nm">Autokoberce do kufra klasik</div><div class="lc-hr"></div><div class="lc-vars">Diamond &middot; Stripe &middot; Hexa</div></div></a>\n      <a class="lc-card" href="https://www.luxurycardesign.sk/luxusny-koberced-do-kufra-dragonskin-premium/"><img width="420" height="315" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-k2.jpg" alt="">\n        <div class="lc-b"><div class="lc-nm">Autokoberce do kufra premium</div><div class="lc-hr"></div><div class="lc-vars">Diamond &middot; Stripe &middot; Hexa</div></div></a>\n      <a class="lc-card" href="https://www.luxurycardesign.sk/luxusny-boxi-do-kufra/"><img width="420" height="315" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-k3.jpg" alt="">\n        <div class="lc-b"><div class="lc-nm">Boxy do kufra</div><div class="lc-hr"></div><div class="lc-vars">Diamond</div></div></a>\n    </div>\n\n    <div class="lc-sek"><span>Pre kami\xF3ny, dod\xE1vky a n\xE1kladn\xE9 aut\xE1</span></div>\n    <a class="lc-truck" href="https://www.luxurycardesign.sk/luxusne-autokoberce-truck/">\n      <img width="760" height="428" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/m-truck.jpg" alt="">\n      <div class="lc-ov"><div class="lc-k">M\xE1te kami\xF3n alebo dod\xE1vku?</div><div class="lc-s">Pon\xFAkame autokoberce na mieru aj pre Va\u0161e pracovn\xE9 auto.</div><span class="lc-btn">Nakonfigurova\u0165 koberce na mieru</span></div>\n    </a>\n\n    <div class="lc-sek"><span>Nie ste si ist\xED farbou?</span></div>\n    <a class="lc-vz" href="https://www.luxurycardesign.sk/vzorkovnik-dragonskin---objednavka-vzoriek/"><div class="lc-vzin">\n      <div class="lc-vzeb">Vzorkovn\xEDk Dragonskin</div>\n      <div class="lc-fan">\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw1.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw2.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw3.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw4.jpg)"></i>\n        <i style="background-image:url(https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/sw5.jpg)"></i>\n      </div>\n      <h3>Neviete, ak\xFA farbu?</h3>\n      <p>Po\u0161leme v\xE1m vzorky na adresu \u2014 farbu aj \u0161trukt\xFAru<br>si pozriete priamo vo svojom aute.</p>\n      <span class="lc-btn">Objedna\u0165 vzorky</span>\n    </div></a>\n  </div>\n</nav>\n\n<main id="hlavne">\n\n<!-- ================= HLAVICKA ROZCESTNIKA ================= -->\n<section class="rz">\n  <div class="bg"><img width="1800" height="577" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/hero.jpg" alt=""></div>\n  <div class="in">\n    <div class="orn"><i></i><span>Krok 2 z 3</span><i></i></div>\n    <h1>Vyberte si koberce pre<em>Audi A6 Avant</em></h1>\n\n    <div class="plate">\n      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13"/><path d="M3 13h18v4a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H6v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-4z"/><circle cx="7" cy="15.5" r=".7" fill="currentColor"/><circle cx="17" cy="15.5" r=".7" fill="currentColor"/></svg></span>\n      <span class="v"><i>Audi</i><i>A6 Avant (C7)</i><i>2011 \u2013 2018</i><i>Kombi</i></span>\n      <button type="button" class="ch" id="rzChange">Zmeni\u0165</button>\n    </div>\n\n    <div class="rzsteps">\n      <div class="done"><b>&#10003;</b>Vozidlo</div><s></s>\n      <div class="on"><b>2</b>Typ kobercov</div><s></s>\n      <div><b>3</b>Farba a pre\u0161\xEDvanie</div>\n    </div>\n  </div>\n</section>\n\n<!-- ================= KONFIGURATOR (na vyziadanie) ================= -->\n<section class="konf rz-konf" id="konf" hidden>\n  <div class="card on" id="konfCard">\n    <div class="eyebrow">Konfigur\xE1tor</div>\n    <h2 style="margin-top:12px">In\xE9 vozidlo?</h2>\n    <p class="konf-lede">Vyberte zna\u010Dku a model. Uk\xE1\u017Eeme V\xE1m set, ktor\xFD sadne na milimeter \u2014 aj s cenou.</p>\n    <div class="tabs" id="tabs">\n      <span class="pill"></span>\n      <button class="tab on" data-i="0" type="button">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13"/><path d="M3 13h18v4a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H6v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-4z"/><circle cx="7" cy="15.5" r=".7" fill="currentColor"/><circle cx="17" cy="15.5" r=".7" fill="currentColor"/></svg>\n        Osobn\xE9 vozidl\xE1</button>\n      <button class="tab" data-i="1" type="button">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10v9H2z"/><path d="M12 10h4.2l2.8 3.2V16H12z"/><circle cx="6" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/></svg>\n        Kami\xF3ny a dod\xE1vky</button>\n    </div>\n    <div class="fields" id="fields">\n      <div class="field" data-err="Vyberte zna\u010Dku vozidla."><label>Zna\u010Dka</label><div class="fake" data-a="Zna\u010Dka" data-b="Zna\u010Dka">Zna\u010Dka</div><span class="ferr"></span></div>\n      <div class="field" data-err="Vyberte model." data-err-b="Vyberte model / rad."><label data-a="Model" data-b="Model / rad">Model</label><div class="fake" data-a="Model" data-b="Model">Model</div><span class="ferr"></span></div>\n      <div class="field hide" data-err="Vyberte rok v\xFDroby." data-err-b="Vyberte typ prevodovky."><label data-a="Rok v\xFDroby" data-b="Typ prevodovky">Rok v\xFDroby</label><div class="fake" data-a="Rok v\xFDroby" data-b="Typ prevodovky">Rok v\xFDroby</div><span class="ferr"></span></div>\n      <div class="field hide" data-err="Vyberte typ karos\xE9rie." data-err-b="Zvo\u013Ete po\u010Det z\xE1suviek."><label data-a="Typ karos\xE9rie" data-b="Po\u010Det z\xE1suviek (\u0161upl\xEDkov)">Typ karos\xE9rie</label><div class="fake" data-a="Typ karos\xE9rie" data-b="Po\u010Det z\xE1suviek (\u0161upl\xEDkov)">Typ karos\xE9rie</div><span class="ferr"></span></div>\n      <div class="field go"><a class="btn go" href="#vyber" data-href-a="#vyber" data-href-b="https://www.luxurycardesign.sk/luxusne-autokoberce-truck/" data-a="Zvoli\u0165 model" data-b="Zvoli\u0165 model">Zvoli\u0165 model</a></div>\n    </div>\n    <p class="konf-note" id="konfNote">\u0160abl\xF3ny m\xE1me pre viac ne\u017E 1000 modelov osobn\xFDch \xE1ut.</p>\n  </div>\n</section>\n\n<!-- ================= VYBER ================= -->\n<section class="pick" id="vyber"><div class="wrap">\n  <div class="duowrap">\n  <div class="duo">\n\n    <article class="opt top rv">\n      <span class="top-badge">Najpred\xE1vanej\u0161ie</span>\n      <div class="ph">\n        <img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/dvoj.jpg" alt="Dvojvrstvov\xE9 autokoberce">\n        <span class="on-ph">\n          <span class="t">Dvojvrstvov\xE9</span>\n          <span class="s">Pre\u0161\xEDvan\xE1 vrstva + odn\xEDmate\u013En\xE1 vrchn\xE1</span>\n        </span>\n      </div>\n      <div class="body">\n        <ul class="why">\n          <li class="sirka">Celoro\u010Dne \u2014 jar, leto, jese\u0148, zima</li>\n          <li>Vol\xED ho 95 % z\xE1kazn\xEDkov</li>\n          <li>Na ka\u017Edodenn\xE9 pou\u017E\xEDvanie</li>\n          <li>Druh\xE1 odn\xEDmate\u013En\xE1 vrstva</li>\n          <li>Druh\xFA vrstvu aj vapkou</li>\n          <li class="sirka">30 farieb prvej, 16 druhej vrstvy</li>\n        </ul>\n        <div class="vzory">\n          <a href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/"><img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/dvoj.jpg" alt="" loading="lazy"><span class="t">Diamond Line</span></a>\n          <a href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-stripe-line/"><img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/dstr.jpg" alt="" loading="lazy"><span class="t">Stripe Line</span></a>\n          <a href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-hexa-line/"><img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/dhex.jpg" alt="" loading="lazy"><span class="t">Hexa Line</span></a>\n        </div>\n        <div class="go">\n          <a class="btn" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-elite-diamond-line/">Vybra\u0165 dvojvrstvov\xE9</a>\n          <p class="tip">Vzor si zvol\xEDte v \u010Fal\u0161om kroku</p>\n        </div>\n      </div>\n    </article>\n\n    <article class="opt rv">\n      <div class="ph">\n        <img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/jd-sq.jpg" alt="Jednovrstvov\xE9 autokoberce">\n        <span class="on-ph">\n          <span class="t">Jednovrstvov\xE9</span>\n          <span class="s">Jedna pre\u0161\xEDvan\xE1 vrstva</span>\n        </span>\n      </div>\n      <div class="body">\n        <ul class="why">\n          <li class="sirka">Sez\xF3nne \u2014 jar, leto, jese\u0148</li>\n          <li>Ni\u017E\u0161ia vstupn\xE1 cena</li>\n          <li>Na ob\u010Dasn\xE9 pou\u017E\xEDvanie</li>\n          <li>Jedna pre\u0161\xEDvan\xE1 vrstva</li>\n          <li>Vzh\u013Ead pravej ko\u017Ee</li>\n          <li class="sirka">30 farieb prvej vrstvy</li>\n        </ul>\n        <div class="vzory">\n          <a href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-diamond-line/"><img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/jd-sq.jpg" alt="" loading="lazy"><span class="t">Diamond Line</span></a>\n          <a href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-stripe-line/"><img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/js-sq.jpg" alt="" loading="lazy"><span class="t">Stripe Line</span></a>\n          <a href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-hexa-line/"><img width="760" height="760" decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-rz/jh-sq.jpg" alt="" loading="lazy"><span class="t">Hexa Line</span></a>\n        </div>\n        <div class="go">\n          <a class="btn ghost" href="https://www.luxurycardesign.sk/luxusne-autokoberce-dragonskin-diamond-line/">Vybra\u0165 jednovrstvov\xE9</a>\n          <p class="tip">Vzor si zvol\xEDte v \u010Fal\u0161om kroku</p>\n        </div>\n      </div>\n    </article>\n\n  </div>\n\n  <div class="duodots" id="duoDots" aria-hidden="true"><span class="on"></span><span></span></div>\n  <p class="duoswipe">Potiahnite prstom</p>\n\n  <div class="duocoach" id="duoCoach" aria-hidden="true">\n    <span class="dc-panel">\n    <span class="dc-anim" aria-hidden="true">\n      <span class="dc-arrow"><i class="l"></i><i class="l"></i><b></b><i class="r"></i><i class="r"></i></span>\n      <span class="dc-hand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11.5V6.6a1.4 1.4 0 0 1 2.8 0v4.9"/><path d="M11.8 11.5V5.6a1.4 1.4 0 0 1 2.8 0v5.9"/><path d="M14.6 11.5V7.8a1.4 1.4 0 0 1 2.8 0v7.4a5 5 0 0 1-5 5h-1.6a4 4 0 0 1-3.1-1.5l-2.4-3.1a1.5 1.5 0 0 1 2.3-1.9l1.4 1.5"/></svg></span>\n    </span>\n    <span class="dc-txt">Potiahnite do\u013Eava alebo doprava<b>a vyberte si typ kobercov</b></span>\n    <span class="dc-tap">Dvojvrstvov\xE9 &middot; Jednovrstvov\xE9</span>\n    </span>\n  </div>\n  </div>\n\n</div></section>\n\n</main>\n</div>\n';
+
+// assets/js/lcdRz.js
+(function() {
+  if (window.__LCD_RZ_INIT__) return;
+  window.__LCD_RZ_INIT__ = true;
+  function lcdrzAdoptujSelector(root) {
+    var pokusy = 0;
+    var t = setInterval(function() {
+      pokusy++;
+      var ms = document.querySelector("body.lcdrz-on #content-wrapper .model-selector") || document.querySelector("body.lcdrz-on .model-selector");
+      if (!ms) {
+        if (pokusy > 40) clearInterval(t);
+        return;
+      }
+      clearInterval(t);
+      if (root.contains(ms)) return;
+      var karta = root.querySelector("#konfCard");
+      if (!karta) return;
+      var stareMiesto = ms.closest("section") && !root.contains(ms.closest("section")) ? ms.closest("section") : ms.parentElement;
+      [".tabs", "#fields"].forEach(function(s) {
+        var e = karta.querySelector(s);
+        if (e) e.style.display = "none";
+      });
+      var slot = document.createElement("div");
+      slot.className = "lcdrz-konf-slot";
+      karta.appendChild(slot);
+      slot.appendChild(ms);
+      var pozn = karta.querySelector(".konf-note");
+      if (pozn) karta.appendChild(pozn);
+      if (stareMiesto && stareMiesto !== ms) stareMiesto.style.display = "none";
+    }, 250);
+  }
+  function lcdrzHlavicka(root) {
+    var v = null;
+    try {
+      var ss = window.sessionStorage;
+      v = {
+        znacka: ss.getItem("Brand"),
+        model: ss.getItem("Model"),
+        rok: ss.getItem("Year"),
+        typ: ss.getItem("carType")
+      };
+    } catch (e) {
+      v = null;
+    }
+    var h1 = root.querySelector("h1");
+    var plate = root.querySelector(".plate");
+    var kroky = root.querySelector(".rzsteps");
+    var orn = root.querySelector(".orn span");
+    if (v && v.znacka && v.model && v.rok && v.typ) {
+      var em = h1 ? h1.querySelector("em") : null;
+      if (em) em.textContent = v.znacka + " " + v.model;
+      var pol = plate ? plate.querySelectorAll(".v i") : [];
+      var hod = [v.znacka, v.model, v.rok, v.typ];
+      for (var i = 0; i < pol.length && i < 4; i++) pol[i].textContent = hod[i];
+      return;
+    }
+    if (h1) h1.textContent = "Vyberte si koberce pre svoje vozidlo";
+    if (plate) plate.style.display = "none";
+    if (orn) orn.textContent = "Krok 1 z 2";
+    if (kroky) kroky.innerHTML = '<div class="on"><b>1</b>Typ kobercov</div><s></s><div><b>2</b>Farba a pre\u0161\xEDvanie</div>';
+    var kf = root.querySelector("#konf");
+    if (kf) kf.removeAttribute("hidden");
+  }
+  function boot() {
+    if (location.hostname.indexOf("luxurycardesign.sk") === -1) return;
+    if (!document.body) return;
+    if (!document.body.classList.contains("in-rozcestnik")) return;
+    if (!document.body.classList.contains("type-page")) return;
+    if (document.body.classList.contains("in-index")) return;
+    if (document.getElementById("lcd-home")) return;
+    if (document.getElementById("lcd-rz")) return;
+    var rzHost = document.querySelector(".overall-wrapper") || document.body;
+    var rzKotva = rzHost.querySelector(":scope > #content-wrapper, :scope > .content-wrapper.container") || rzHost.querySelector(":scope > #footer") || null;
+    var rzWrap = document.createElement("div");
+    rzWrap.innerHTML = LCDRZ_MARKUP;
+    var rzRoot = rzWrap.firstElementChild;
+    if (!rzRoot) return;
+    rzHost.insertBefore(rzRoot, rzKotva);
+    var rzSt = document.createElement("style");
+    rzSt.id = "lcdrz-gate";
+    rzSt.textContent = "body.lcdrz-on #content-wrapper,body.lcdrz-on .content-wrapper.container,body.lcdrz-on #header,body.lcdrz-on .top-navigation-bar,body.lcdrz-on .lcd-reviews-widget{display:none !important}body.lcdrz-on #footer{margin-top:0 !important}#lcd-rz .lcdrz-konf-slot{margin-top:16px;text-align:left}#lcd-rz .lcdrz-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
+    document.head.appendChild(rzSt);
+    document.body.classList.add("lcdrz-on");
+    lcdrzHlavicka(rzRoot);
+    lcdrzAdoptujSelector(rzRoot);
+    var LCDRZ = document.getElementById("lcd-rz");
+    function lcdrzSmoothAnchor(e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1);
+      if (!id) return;
+      var t = document.getElementById(id);
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    LCDRZ.addEventListener("click", lcdrzSmoothAnchor);
+    (function() {
+      try {
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      } catch (e) {
+      }
+      if (!matchMedia("(max-width:900px)").matches) return;
+      var w = LCDRZ.querySelector(".duowrap");
+      if (!w) return;
+      function usad() {
+        var r = w.getBoundingClientRect(), max = document.documentElement.scrollHeight - innerHeight, ciel = Math.max(0, Math.min(Math.round(scrollY + r.bottom - innerHeight + 12), max));
+        if (Math.abs(ciel - scrollY) > 1) {
+          try {
+            scrollTo({ top: ciel, left: 0, behavior: "instant" });
+          } catch (e) {
+            var b = document.documentElement.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = "auto";
+            scrollTo(0, ciel);
+            document.documentElement.style.scrollBehavior = b;
+          }
+        }
+      }
+      usad();
+      var volny = true;
+      ["touchstart", "wheel", "keydown", "pointerdown"].forEach(function(ev) {
+        addEventListener(ev, function() {
+          volny = false;
+        }, { passive: true, once: true });
+      });
+      addEventListener("load", function() {
+        if (volny) usad();
+      });
+      addEventListener("resize", function() {
+        if (volny) usad();
+      });
+    })();
+    (function() {
+      var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var bg = document.getElementById("burg"), mega = document.getElementById("mega"), ovl = document.getElementById("megaOvl"), mx = document.getElementById("megaX");
+      function megaSet(o) {
+        if (!mega) return;
+        mega.classList.toggle("open", o);
+        ovl.classList.toggle("open", o);
+        bg.setAttribute("aria-expanded", o ? "true" : "false");
+        document.body.style.overflow = o && innerWidth <= 760 ? "hidden" : "";
+      }
+      if (bg) bg.addEventListener("click", function() {
+        megaSet(!mega.classList.contains("open"));
+      });
+      if (ovl) ovl.addEventListener("click", function() {
+        megaSet(false);
+      });
+      if (mx) mx.addEventListener("click", function() {
+        megaSet(false);
+      });
+      addEventListener("keydown", function(e) {
+        if (e.key === "Escape") megaSet(false);
+      });
+      if ("IntersectionObserver" in window && !RM) {
+        var io = new IntersectionObserver(function(en) {
+          en.forEach(function(e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("on");
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -5% 0px" });
+        [].forEach.call(LCDRZ.querySelectorAll(".rv"), function(el) {
+          io.observe(el);
+        });
+      } else {
+        [].forEach.call(LCDRZ.querySelectorAll(".rv"), function(el) {
+          el.classList.add("on");
+        });
+      }
+      var fieldsEl = document.getElementById("fields"), konfNote = document.getElementById("konfNote");
+      var FS = fieldsEl ? [].slice.call(fieldsEl.querySelectorAll(".field:not(.go)")) : [], goBtn = fieldsEl ? fieldsEl.querySelector(".btn.go") : null, mode = "a";
+      var BASEN = { a: 4, b: 2 }, BASE = 4;
+      var SAMPLE = {
+        a: ["Audi", "A6 Avant (C7)", "2011 \u2013 2018", "Kombi"],
+        b: ["MAN (TIR)", "TGX 2018-2020", "Automatick\xE1", "2 z\xE1suvky"]
+      };
+      var EXTRA = { a: 0, b: 2 };
+      var NOTE = {
+        a: "\u0160abl\xF3ny m\xE1me pre viac ne\u017E 1000 modelov osobn\xFDch \xE1ut.",
+        b: "\u0164aha\u010De aj dod\xE1vky \u2014 po\u010Det krokov z\xE1vis\xED od vozidla."
+      };
+      function showErr(f) {
+        var msg = f.dataset[mode === "b" && f.dataset.errB ? "errB" : "err"] || "Toto pole je potrebn\xE9 vyplni\u0165.";
+        var e = f.querySelector(".ferr");
+        if (e) e.textContent = msg;
+        f.classList.remove("err");
+        void f.offsetWidth;
+        f.classList.add("err");
+      }
+      function konfReset() {
+        BASE = BASEN[mode];
+        if (goBtn) {
+          var h = mode === "b" ? goBtn.dataset.hrefB : goBtn.dataset.hrefA;
+          if (h) goBtn.setAttribute("href", h);
+        }
+        FS.forEach(function(f, i) {
+          f.classList.remove("done", "err", "pop");
+          f.classList.toggle("hide", i >= BASE);
+          var fk = f.querySelector(".fake");
+          if (fk) fk.textContent = fk.dataset[mode] || fk.textContent;
+          var lb = f.querySelector("label");
+          if (lb && lb.dataset[mode]) lb.textContent = lb.dataset[mode];
+        });
+        if (konfNote) konfNote.textContent = NOTE[mode];
+      }
+      function revealExtras() {
+        for (var i = BASE; i < FS.length; i++) {
+          var on = i < BASE + (EXTRA[mode] || 0);
+          if (on && FS[i].classList.contains("hide")) {
+            FS[i].classList.remove("hide");
+            FS[i].classList.add("pop");
+          } else if (!on) {
+            FS[i].classList.add("hide");
+            FS[i].classList.remove("done", "err");
+          }
+        }
+      }
+      FS.forEach(function(f, i) {
+        var fk = f.querySelector(".fake");
+        if (!fk) return;
+        fk.addEventListener("click", function() {
+          f.classList.add("done");
+          f.classList.remove("err");
+          fk.textContent = SAMPLE[mode][i] || fk.textContent;
+          if (i === BASE - 1) revealExtras();
+        });
+      });
+      if (goBtn) goBtn.addEventListener("click", function(e) {
+        var miss = FS.filter(function(f) {
+          return !f.classList.contains("hide") && !f.classList.contains("done");
+        });
+        if (!miss.length) return;
+        e.preventDefault();
+        miss.forEach(showErr);
+        miss[0].scrollIntoView({ block: "center", behavior: "smooth" });
+      });
+      if (FS.length) konfReset();
+      var tabs = document.getElementById("tabs");
+      if (tabs) tabs.addEventListener("click", function(e) {
+        var b = e.target.closest(".tab");
+        if (!b) return;
+        tabs.querySelectorAll(".tab").forEach(function(t) {
+          t.classList.toggle("on", t === b);
+        });
+        var truck = b.dataset.i === "1";
+        tabs.classList.toggle("two", truck);
+        mode = truck ? "b" : "a";
+        LCDRZ.querySelectorAll("#fields [data-a]").forEach(function(el) {
+          el.textContent = truck ? el.dataset.b : el.dataset.a;
+        });
+        konfReset();
+      });
+      (function() {
+        var duo = LCDRZ.querySelector(".duo"), dots = document.getElementById("duoDots");
+        if (!duo || !dots) return;
+        var karty = [].slice.call(duo.children), bodky = [].slice.call(dots.children);
+        function mobil() {
+          return matchMedia("(max-width:900px)").matches;
+        }
+        var zaciatok = Date.now();
+        function naZaciatok() {
+          if (mobil() && duo.scrollLeft) duo.scrollLeft = 0;
+        }
+        naZaciatok();
+        requestAnimationFrame(naZaciatok);
+        addEventListener("load", naZaciatok);
+        function aktualna() {
+          var r = duo.getBoundingClientRect(), c = r.left + r.width / 2, best = 0, bd = 1e9;
+          karty.forEach(function(el, i) {
+            var b = el.getBoundingClientRect(), d = Math.abs(b.left + b.width / 2 - c);
+            if (d < bd) {
+              bd = d;
+              best = i;
+            }
+          });
+          return best;
+        }
+        function sync() {
+          var i = aktualna();
+          bodky.forEach(function(b, k) {
+            b.classList.toggle("on", k === i);
+          });
+        }
+        function posun(x, potom) {
+          duo.style.scrollSnapType = "none";
+          duo.scrollTo({ left: x, behavior: "smooth" });
+          setTimeout(function() {
+            duo.style.scrollSnapType = "";
+            if (potom) potom();
+          }, 520);
+        }
+        var t = null, vlastny = false, hral = false;
+        duo.addEventListener("scroll", function() {
+          if (!vlastny && duo.scrollLeft > 30 && Date.now() - zaciatok > 800) {
+            zavriNapovedu();
+            prestan();
+          }
+          clearTimeout(t);
+          t = setTimeout(sync, 80);
+        }, { passive: true });
+        bodky.forEach(function(b, i) {
+          b.addEventListener("click", function() {
+            var r = duo.getBoundingClientRect(), k = karty[i].getBoundingClientRect(), pad = parseFloat(getComputedStyle(duo).paddingLeft) || 0;
+            posun(duo.scrollLeft + (k.left - r.left) - pad);
+          });
+        });
+        var pohol = false, tikanie = null, zavrete = false, coach = document.getElementById("duoCoach"), pokoj = matchMedia("(prefers-reduced-motion: reduce)");
+        function pohniPasom() {
+          if (pohol || hral || !mobil() || duo.scrollLeft > 4 || pokoj.matches) return;
+          hral = true;
+          vlastny = true;
+          duo.style.scrollSnapType = "none";
+          var zac = null, trvanie = 1500, kam = 72;
+          function krok(ts) {
+            if (zac === null) zac = ts;
+            var t2 = Math.min(1, (ts - zac) / trvanie);
+            duo.scrollLeft = kam * Math.sin(Math.PI * t2);
+            if (t2 < 1) {
+              requestAnimationFrame(krok);
+              return;
+            }
+            duo.scrollLeft = 0;
+            duo.style.scrollSnapType = "";
+            setTimeout(function() {
+              vlastny = false;
+              hral = false;
+            }, 260);
+          }
+          requestAnimationFrame(krok);
+        }
+        function spusti() {
+          if (pohol || tikanie) return;
+          setTimeout(pohniPasom, 500);
+          tikanie = setInterval(pohniPasom, 4e3);
+        }
+        function zavriNapovedu() {
+          if (zavrete) return;
+          zavrete = true;
+          clearTimeout(odpocet);
+          if (coach) {
+            coach.classList.add("pryc");
+            coach.classList.remove("on");
+            setTimeout(function() {
+              coach.style.display = "none";
+            }, 560);
+          }
+          spusti();
+        }
+        var xod = null, yod = null;
+        duo.addEventListener("touchstart", function(e) {
+          var t2 = e.touches && e.touches[0];
+          xod = t2 ? t2.clientX : null;
+          yod = t2 ? t2.clientY : null;
+        }, { passive: true });
+        duo.addEventListener("touchmove", function(e) {
+          var t2 = e.touches && e.touches[0];
+          if (xod === null || !t2) return;
+          var dx = Math.abs(t2.clientX - xod), dy = Math.abs(t2.clientY - yod);
+          if (dx > 40 && dx > dy * 1.5) {
+            zavriNapovedu();
+            prestan();
+          }
+        }, { passive: true });
+        duo.addEventListener("touchend", function() {
+          xod = null;
+          yod = null;
+        }, { passive: true });
+        duo.addEventListener("wheel", function(e) {
+          if (Math.abs(e.deltaX) > 30 && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            zavriNapovedu();
+            prestan();
+          }
+        }, { passive: true });
+        function zastav() {
+          if (tikanie) {
+            clearInterval(tikanie);
+            tikanie = null;
+          }
+        }
+        function prestan() {
+          pohol = true;
+          zastav();
+        }
+        duo.addEventListener("keydown", prestan, { passive: true });
+        var samozavret = null;
+        function dostVidno() {
+          var r = duo.getBoundingClientRect(), vid = Math.min(r.bottom, innerHeight) - Math.max(r.top, 0);
+          return vid >= Math.min(300, r.height * 0.5);
+        }
+        var panel = coach ? coach.querySelector(".dc-panel") : null;
+        var obal = duo.closest(".duowrap"), hero = LCDRZ.querySelector("section.rz");
+        function polohaPanela() {
+          if (!panel) return;
+          if (coach && obal) {
+            var o = obal.getBoundingClientRect(), ban = LCDRZ.querySelector("section.rz"), hl = LCDRZ.querySelector(".hdr"), vrch = Math.max(
+              ban ? ban.getBoundingClientRect().bottom : 0,
+              hl ? hl.getBoundingClientRect().bottom : 0
+            );
+            coach.style.top = Math.round(vrch - o.top) + "px";
+            var podObalom = document.documentElement.scrollHeight - (scrollY + o.bottom);
+            coach.style.bottom = Math.round(-podObalom) + "px";
+          }
+          var r = duo.getBoundingClientRect(), hore = Math.max(r.top, 0), dole = Math.min(r.bottom, innerHeight);
+          if (dole <= hore) return;
+          panel.style.top = Math.round((hore + dole) / 2 - r.top) + "px";
+        }
+        var odpocet = null;
+        function prehodnot() {
+          if (zavrete || !coach || !mobil()) return;
+          if (dostVidno()) {
+            polohaPanela();
+            if (!coach.classList.contains("on")) {
+              coach.classList.add("on");
+              clearTimeout(odpocet);
+              odpocet = setTimeout(zavriNapovedu, 5e3);
+            }
+            spusti();
+          } else {
+            coach.classList.remove("on");
+            clearTimeout(odpocet);
+            odpocet = null;
+            zastav();
+          }
+        }
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(
+            function() {
+              prehodnot();
+            },
+            { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
+          ).observe(duo);
+        }
+        var lcdrzRafPending = false;
+        function lcdrzRafPrehodnot() {
+          if (lcdrzRafPending) return;
+          lcdrzRafPending = true;
+          requestAnimationFrame(function() {
+            lcdrzRafPending = false;
+            prehodnot();
+          });
+        }
+        addEventListener("scroll", lcdrzRafPrehodnot, { passive: true });
+        addEventListener("resize", prehodnot);
+        setTimeout(prehodnot, 300);
+        if (!coach || !mobil()) {
+          zavrete = true;
+          spusti();
+        }
+        sync();
+      })();
+      var ch = document.getElementById("rzChange"), kf = document.getElementById("konf");
+      if (ch && kf) ch.addEventListener("click", function() {
+        var open = !kf.hasAttribute("hidden");
+        if (open) {
+          kf.setAttribute("hidden", "");
+          ch.textContent = "Zmeni\u0165";
+        } else {
+          kf.removeAttribute("hidden");
+          ch.textContent = "Skry\u0165";
+          kf.scrollIntoView({ block: "start", behavior: "smooth" });
+        }
+      });
+    })();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+
 // assets/js/main.js
 var setupData;
 $.getJSON(optionData.downloadData, function(data) {
