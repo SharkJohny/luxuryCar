@@ -37315,7 +37315,7 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
       lcdhHost.insertBefore(lcdhRoot, lcdhKotva);
       var lcdhSt = document.createElement("style");
       lcdhSt.id = "lcdh-gate";
-      lcdhSt.textContent = "body.lcdh-on .content-wrapper.homepage-box,body.lcdh-on .content-wrapper.container,body.lcdh-on .lcd-reviews-widget,body.lcdh-on #header,body.lcdh-on .top-navigation-bar{display:none !important}#lcd-home .lcdh-konf-slot{margin-top:16px;text-align:left}#lcd-home .lcdh-konf-slot .model-selector > h2,#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
+      lcdhSt.textContent = "body.lcdh-on .content-wrapper.homepage-box,body.lcdh-on .content-wrapper.container,body.lcdh-on .lcd-reviews-widget,body.lcdh-on #header,body.lcdh-on .top-navigation-bar{display:none !important}body.lcdh-on #footer{margin-top:0 !important}#lcd-home .lcdh-konf-slot{margin-top:16px;text-align:left}#lcd-home .lcdh-konf-slot .model-selector > h2,#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
       document.head.appendChild(lcdhSt);
       document.body.classList.add("lcdh-on");
       try {
