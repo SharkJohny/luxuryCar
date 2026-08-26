@@ -9614,8 +9614,15 @@ section#model-selector {
 }
 #lcd-home .ref-cap {font-size:12.5px;padding:30px 12px 12px
 }
+#lcd-home .ref-v:after {background:linear-gradient(0deg,rgba(8,6,4,.62),rgba(8,6,4,0) 42%)
+}
 @media(max-width:820px) {
   #lcd-home .deck.refs {perspective:1000px
+  }
+}
+/* dotykove zariadenia: transition sa bije s per-frame coverflow -> trhany swipe */
+@media(hover:none) {
+  #lcd-home .deck.refs>.ref, #lcd-home .vids>.vid {transition:none
   }
 }
 #lcd-home [id]{scroll-margin-top:102px}
