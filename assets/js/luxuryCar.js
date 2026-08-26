@@ -44929,12 +44929,30 @@ function lcdhLenisRaf(t) {
     requestAnimationFrame(lcdhLenisRaf);
   }
 }
+function lcdhLenisChce() {
+  if (lcdhLenisMQ.matches) return "pc";
+  var b = document.body;
+  if (b && matchMedia("(hover:none)").matches && (b.classList.contains("in-index") || b.classList.contains("in-rozcestnik"))) return "dotyk";
+  return null;
+}
 function lcdhLenisSync() {
-  if (lcdhLenisMQ.matches && !lcdhLenis) {
-    lcdhLenis = new Lenis({ lerp: 0.12 });
+  var rezim = lcdhLenisChce();
+  if (rezim && !lcdhLenis) {
+    lcdhLenis = rezim === "dotyk" ? new Lenis({ lerp: 0.1, syncTouch: true, syncTouchLerp: 0.08 }) : new Lenis({ lerp: 0.12 });
     lcdhLenis.on("scroll", ScrollTrigger2.update);
     requestAnimationFrame(lcdhLenisRaf);
-  } else if (!lcdhLenisMQ.matches && lcdhLenis) {
+    var lcdhLenisVyn = function() {
+      [].forEach.call(
+        document.querySelectorAll(".deck,.vids,#revs,.duo,.modl-selector-wrap"),
+        function(el) {
+          el.setAttribute("data-lenis-prevent", "");
+        }
+      );
+    };
+    lcdhLenisVyn();
+    setTimeout(lcdhLenisVyn, 1500);
+    setTimeout(lcdhLenisVyn, 4e3);
+  } else if (!rezim && lcdhLenis) {
     lcdhLenis.destroy();
     lcdhLenis = null;
   }

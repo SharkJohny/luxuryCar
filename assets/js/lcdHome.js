@@ -8,12 +8,31 @@ gsap.registerPlugin(ScrollTrigger);
 var lcdhLenisMQ = matchMedia("(min-width:1025px) and (hover:hover) and (pointer:fine)");
 var lcdhLenis = null;
 function lcdhLenisRaf(t){ if (lcdhLenis) { lcdhLenis.raf(t); requestAnimationFrame(lcdhLenisRaf); } }
+function lcdhLenisChce(){
+  if (lcdhLenisMQ.matches) return "pc";
+  /* telefon/tablet: len HP a rozcestnik (Michal 2026-08-27 - "smooth aj na telefone");
+     kosik/pokladna/produkty ostavaju na nativnom scrolle */
+  var b = document.body;
+  if (b && matchMedia("(hover:none)").matches &&
+      (b.classList.contains("in-index") || b.classList.contains("in-rozcestnik"))) return "dotyk";
+  return null;
+}
 function lcdhLenisSync(){
-  if (lcdhLenisMQ.matches && !lcdhLenis) {
-    lcdhLenis = new Lenis({ lerp: 0.12 });
+  var rezim = lcdhLenisChce();
+  if (rezim && !lcdhLenis) {
+    lcdhLenis = rezim === "dotyk"
+      ? new Lenis({ lerp: 0.1, syncTouch: true, syncTouchLerp: 0.08 })
+      : new Lenis({ lerp: 0.12 });
     lcdhLenis.on("scroll", ScrollTrigger.update);
     requestAnimationFrame(lcdhLenisRaf);
-  } else if (!lcdhLenisMQ.matches && lcdhLenis) { lcdhLenis.destroy(); lcdhLenis = null; }
+    /* vodorovne pasy nechat nativne - inak by sa swipe bil s Lenisom.
+       Markup vklada az boot, preto sa vynimky nastavuju aj s odstupom. */
+    var lcdhLenisVyn = function () {
+      [].forEach.call(document.querySelectorAll(".deck,.vids,#revs,.duo,.modl-selector-wrap"),
+        function (el) { el.setAttribute("data-lenis-prevent", ""); });
+    };
+    lcdhLenisVyn(); setTimeout(lcdhLenisVyn, 1500); setTimeout(lcdhLenisVyn, 4000);
+  } else if (!rezim && lcdhLenis) { lcdhLenis.destroy(); lcdhLenis = null; }
 }
 lcdhLenisSync();
 lcdhLenisMQ.addEventListener("change", lcdhLenisSync);
