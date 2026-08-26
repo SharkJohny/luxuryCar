@@ -581,6 +581,11 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     faq.appendChild(d);
   });
 
+  /* prefetch velkych fotiek nizsie na stranke - nech nenabiehaju na ocach */
+  addEventListener('load',function lcdhPrefetch(){
+    setTimeout(function(){ ['https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/truck.jpg'].forEach(function(u){ var im=new Image(); im.src=u; }); },1200);
+  });
+
   /* --- reveal --- */
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
