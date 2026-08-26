@@ -12,6 +12,7 @@ import { initLivePrice } from "./functions/livePrice.js";
 import { initContactForm } from "./components/contactForm.js";
 import "./seo-runtime.js"; // SEO Fáza A — runtime inject (JSON-LD, hreflang, H1, etc.)
 import "./configurator-enhance.js"; // Konfigurátor — best-seller badge na možnostiach
+import "./lcdHome.js"; // Nova uvodna stranka (lcd-home)
 import { mergeTruckOrderSummaryIntoNote } from "./truck-konfigurator/order-summary.mjs";
 import {
   TRUCK_BRANDS,
