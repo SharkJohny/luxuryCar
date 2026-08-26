@@ -1895,7 +1895,7 @@
   }
   #lcd-rz .duo::-webkit-scrollbar {display:none
   }
-  #lcd-rz .duo>.opt {flex:0 0 86%;min-width:0;scroll-snap-align:start;margin:0
+  #lcd-rz .duo>.opt {flex:0 0 86%;flex-basis:min(84%,335px);min-width:0;scroll-snap-align:start;margin:0
   }
 }
 #lcd-rz .duodots {display:none;justify-content:center;align-items:center;gap:9px;margin:22px 0 0
