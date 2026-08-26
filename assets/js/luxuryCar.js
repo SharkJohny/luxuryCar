@@ -37765,7 +37765,8 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
             el.classList.toggle("mid", MOB.matches && i === m);
             var v = el.querySelector("video");
             if (!v) return;
-            onScreen ? play(v) : v.pause();
+            var chce = onScreen && (!MOB.matches || i === m);
+            chce ? play(v) : v.pause();
           });
         }
         function center(i) {

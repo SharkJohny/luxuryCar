@@ -405,7 +405,9 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         el.classList.toggle('mid', MOB.matches && i===m);
         var v=el.querySelector('video'); if(!v) return;
         /* hraju vsetky viditelne dlazdice — aj tie po krajoch */
-        onScreen ? play(v) : v.pause();
+        /* PC: hraju vsetky viditelne; telefon: LEN stredna (6 dekoderov drhlo swipe) */
+        var chce = onScreen && (!MOB.matches || i===m);
+        chce ? play(v) : v.pause();
       });
     }
     /* stred zacina na slovenskej recenzii */
