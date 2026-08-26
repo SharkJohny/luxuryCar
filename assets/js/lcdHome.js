@@ -1,3 +1,4 @@
+import { LCDH_MARKUP } from "./lcdHome-markup.js";
 /* lcdHome.js - GENEROVANE extract-lcd-home.py, RUCNE NEEDITUJ.
    Zdroj: hp-tpl.html
    Obal riesi to, ze povodny <script> v navrhu bezal az ZA markupom.
@@ -5,8 +6,58 @@
 (function () {
   if (window.__LCD_HOME_INIT__) return;
   window.__LCD_HOME_INIT__ = true;
+
+  /* zivy konfigurator (cars.js) sa ADOPTUJE do karty navrhu - logika sa nemeni */
+  function lcdhAdoptujSelector(root) {
+    var pokusy = 0;
+    var t = setInterval(function () {
+      pokusy++;
+      var ms = document.querySelector("body.lcdh-on .overall-wrapper > section .model-selector, .model-selector");
+      if (!ms) { if (pokusy > 40) clearInterval(t); return; }
+      clearInterval(t);
+      if (root.contains(ms)) return;
+      var karta = root.querySelector("#konfCard");
+      if (!karta) return;
+      var stareMiesto = ms.closest("section") && !root.contains(ms.closest("section"))
+                        ? ms.closest("section") : ms.parentElement;
+      [".tabs", "#fields", ".konf-note"].forEach(function (s) {
+        var e = karta.querySelector(s);
+        if (e) e.style.display = "none";
+      });
+      var slot = document.createElement("div");
+      slot.className = "lcdh-konf-slot";
+      karta.appendChild(slot);
+      slot.appendChild(ms);
+      if (stareMiesto && stareMiesto !== ms) stareMiesto.style.display = "none";
+    }, 250);
+  }
   function boot() {
-    if (!document.getElementById("lcd-home")) return;
+    /* len SK web - ceska faza ma vlastne preklady a ide zvlast */
+    if (location.hostname.indexOf("luxurycardesign.sk") === -1) return;
+    /* len titulna stranka (Shoptet: body.in-index) */
+    if (!document.body || !document.body.classList.contains("in-index")) return;
+    if (!document.getElementById("lcd-home")) {
+      var lcdhHost  = document.querySelector(".overall-wrapper") || document.body;
+      var lcdhKotva = lcdhHost.querySelector(".content-wrapper.homepage-box, .content-wrapper.container")
+                      || document.getElementById("footer");
+      var lcdhWrap = document.createElement("div");
+      lcdhWrap.innerHTML = LCDH_MARKUP;
+      var lcdhRoot = lcdhWrap.firstElementChild;
+      if (!lcdhRoot) return;
+      lcdhHost.insertBefore(lcdhRoot, lcdhKotva);
+      /* skryt povodny obsah titulky - uzko cielene, len pod body.lcdh-on */
+      var lcdhSt = document.createElement("style");
+      lcdhSt.id = "lcdh-gate";
+      lcdhSt.textContent =
+        "body.lcdh-on .content-wrapper.homepage-box," +
+        "body.lcdh-on .content-wrapper.container," +
+        "body.lcdh-on .lcd-reviews-widget{display:none !important}" +
+        "#lcd-home .lcdh-konf-slot{margin-top:18px;text-align:left}" +
+        "#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
+      document.head.appendChild(lcdhSt);
+      document.body.classList.add("lcdh-on");
+      lcdhAdoptujSelector(lcdhRoot);
+    }
     var LCDH = document.getElementById("lcd-home");
     /* smooth scroll na vnutrostrankove kotvy (nahrada za html{scroll-behavior}) */
     function lcdhSmoothAnchor(e) {
