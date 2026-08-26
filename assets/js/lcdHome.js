@@ -53,6 +53,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         "body.lcdh-on .content-wrapper.container," +
         "body.lcdh-on .lcd-reviews-widget{display:none !important}" +
         "#lcd-home .lcdh-konf-slot{margin-top:18px;text-align:left}" +
+        "#lcd-home .lcdh-konf-slot .model-selector > h2," +
+        "#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}" +
         "#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
       document.head.appendChild(lcdhSt);
       document.body.classList.add("lcdh-on");
