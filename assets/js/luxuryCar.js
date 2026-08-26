@@ -37329,12 +37329,14 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
               b.className = "vid";
               b.setAttribute("data-yt", r[0]);
               var im = document.createElement("img");
-              im.loading = "lazy";
               im.alt = "";
-              im.src = "https://i.ytimg.com/vi/" + r[0] + "/oar2.jpg";
+              im.decoding = "async";
+              im.setAttribute("data-src", "https://i.ytimg.com/vi/" + r[0] + "/oar2.jpg");
               im.onerror = function() {
                 this.onerror = null;
-                this.src = "https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg";
+                var hq = "https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg";
+                this.setAttribute("data-src", hq);
+                this.src = hq;
               };
               var pl = document.createElement("span");
               pl.className = "play";
@@ -37348,6 +37350,27 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
             });
             lcdhVids.innerHTML = "";
             lcdhVids.appendChild(lcdhFrag);
+            try {
+              var lcdhIO = new IntersectionObserver(function(es) {
+                es.forEach(function(e) {
+                  var im2 = e.target.firstElementChild;
+                  if (!im2 || im2.tagName !== "IMG") return;
+                  if (e.isIntersecting) {
+                    if (!im2.getAttribute("src")) im2.src = im2.getAttribute("data-src");
+                  } else if (im2.getAttribute("src")) {
+                    im2.removeAttribute("src");
+                  }
+                });
+              }, { root: lcdhVids, rootMargin: "0px 1200px 0px 1200px", threshold: 0 });
+              [].forEach.call(lcdhVids.children, function(b2) {
+                lcdhIO.observe(b2);
+              });
+            } catch (eIO) {
+              [].forEach.call(lcdhVids.children, function(b2, i2) {
+                var im3 = b2.firstElementChild;
+                if (i2 < 30 && im3) im3.src = im3.getAttribute("data-src");
+              });
+            }
           }
         }
       } catch (e) {

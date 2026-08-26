@@ -73,9 +73,15 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
               var b = document.createElement("button");
               b.type = "button"; b.className = "vid"; b.setAttribute("data-yt", r[0]);
               var im = document.createElement("img");
-              im.loading = "lazy"; im.alt = "";
-              im.src = "https://i.ytimg.com/vi/" + r[0] + "/oar2.jpg";
-              im.onerror = function(){ this.onerror=null; this.src="https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg"; };
+              im.alt = ""; im.decoding = "async";
+              /* src sa NEnastavuje hned - 497 dekodovanych thumbnailov zabijalo iOS Safari
+                 (native lazy je v horizontalnom pase nanic: vsetky su v rovnakej vyske) */
+              im.setAttribute("data-src", "https://i.ytimg.com/vi/" + r[0] + "/oar2.jpg");
+              im.onerror = function(){
+                this.onerror = null;
+                var hq = "https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg";
+                this.setAttribute("data-src", hq); this.src = hq;
+              };
               var pl = document.createElement("span"); pl.className = "play";
               var cp = document.createElement("span"); cp.className = "cap"; cp.textContent = r[1];
               b.appendChild(im); b.appendChild(pl); b.appendChild(cp);
@@ -83,6 +89,26 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
             });
             lcdhVids.innerHTML = "";
             lcdhVids.appendChild(lcdhFrag);
+            /* okno: nacitavaj len okolie viditelneho vyseku pasu, daleke uvolni z pamate */
+            try {
+              var lcdhIO = new IntersectionObserver(function (es) {
+                es.forEach(function (e) {
+                  var im2 = e.target.firstElementChild;
+                  if (!im2 || im2.tagName !== "IMG") return;
+                  if (e.isIntersecting) {
+                    if (!im2.getAttribute("src")) im2.src = im2.getAttribute("data-src");
+                  } else if (im2.getAttribute("src")) {
+                    im2.removeAttribute("src");
+                  }
+                });
+              }, { root: lcdhVids, rootMargin: "0px 1200px 0px 1200px", threshold: 0 });
+              [].forEach.call(lcdhVids.children, function (b2) { lcdhIO.observe(b2); });
+            } catch (eIO) {
+              [].forEach.call(lcdhVids.children, function (b2, i2) {
+                var im3 = b2.firstElementChild;
+                if (i2 < 30 && im3) im3.src = im3.getAttribute("data-src");
+              });
+            }
           }
         }
       } catch (e) {}
