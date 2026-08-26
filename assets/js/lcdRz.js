@@ -130,6 +130,27 @@ import { LCDRZ_MARKUP } from "./lcdRz-markup.js";
     /* hlavicka podla zvoleneho vozidla + adopcia ziveho konfiguratora */
     lcdrzHlavicka(rzRoot);
     lcdrzAdoptujSelector(rzRoot);
+
+    /* vychodiskove zobrazenie (Michal 2026-08-27): stranka sa otvori na neviditelnej
+       ciare NAD bunkami vyberu - ako prve vidno fotky a celu bunku. Len pri cerstvom
+       otvoreni hore (scrollY < 60), nech sa nebije s navratom spat v prehliadaci. */
+    if (window.scrollY < 60) {
+      var rzUser = false;
+      ["wheel", "touchstart", "keydown"].forEach(function (t) {
+        addEventListener(t, function () { rzUser = true; }, { passive: true, once: true });
+      });
+      var rzNastav = function () {
+        var pick = rzRoot.querySelector("#vyber, .pick");
+        if (!pick) return;
+        var hdrEl = rzRoot.querySelector(".hdr");
+        var hdrV = hdrEl ? hdrEl.getBoundingClientRect().height : 0;
+        var y = pick.getBoundingClientRect().top + window.scrollY - hdrV - 14;
+        if (y > 40) window.scrollTo(0, y);
+      };
+      requestAnimationFrame(rzNastav);
+      /* adopcia konfiguratora (poll ~250ms) posunie bunky - po ustaleni doladit */
+      setTimeout(function () { if (!rzUser) rzNastav(); }, 900);
+    }
     var LCDRZ = document.getElementById("lcd-rz");
     /* smooth scroll na vnutrostrankove kotvy (nahrada za html{scroll-behavior}) */
     function lcdrzSmoothAnchor(e) {
