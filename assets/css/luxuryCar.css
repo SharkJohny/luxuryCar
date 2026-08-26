@@ -9573,4 +9573,14 @@ section#model-selector {
   }
 }
 #lcd-home [id]{scroll-margin-top:102px}
+/* ===== LCD-HOME ARMOR - kontra na temove section{padding:0!important} na mobile ===== */
+#lcd-home .chapter{padding:clamp(56px,9vw,130px) var(--pad) !important}
+#lcd-home .konf{margin-top:-72px !important;padding:0 var(--pad) !important}
+#lcd-home .trustbar{padding-top:clamp(20px,2.6vw,34px) !important;padding-bottom:clamp(20px,2.6vw,34px) !important}
+#lcd-home .mat{padding-bottom:clamp(26px,4vw,54px) !important}
+#lcd-home .faqsec{padding-top:clamp(52px,7vw,104px) !important}
+#lcd-home .end{padding:clamp(66px,9vw,140px) var(--pad) !important}
+@media(max-width:900px){#lcd-home .konf{margin-top:-40px !important}}
+@media(max-width:760px){#lcd-home .konf{margin-top:26px !important}}
+@media(max-width:760px){#lcd-home .chapter{padding-top:64px !important;padding-bottom:64px !important}}
 /* ===== LCD-HOME END ===== */
