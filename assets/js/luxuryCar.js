@@ -37312,7 +37312,17 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
       lcdhWrap.innerHTML = LCDH_MARKUP;
       var lcdhRoot = lcdhWrap.firstElementChild;
       if (!lcdhRoot) return;
+      lcdhRoot.style.opacity = "0";
+      lcdhRoot.style.transition = "opacity .38s ease";
       lcdhHost.insertBefore(lcdhRoot, lcdhKotva);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          lcdhRoot.style.opacity = "1";
+        });
+      });
+      setTimeout(function() {
+        lcdhRoot.style.opacity = "1";
+      }, 900);
       var lcdhSt = document.createElement("style");
       lcdhSt.id = "lcdh-gate";
       lcdhSt.textContent = "body.lcdh-on .content-wrapper.homepage-box,body.lcdh-on .content-wrapper.container,body.lcdh-on .lcd-reviews-widget,body.lcdh-on #header,body.lcdh-on .top-navigation-bar{display:none !important}body.lcdh-on #footer{margin-top:0 !important}#lcd-home .lcdh-konf-slot{margin-top:16px;text-align:left}#lcd-home .lcdh-konf-slot .model-selector > h2,#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";

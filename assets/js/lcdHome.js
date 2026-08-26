@@ -47,7 +47,12 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       lcdhWrap.innerHTML = LCDH_MARKUP;
       var lcdhRoot = lcdhWrap.firstElementChild;
       if (!lcdhRoot) return;
+      /* plynuly nastup na PC: kratky fade-in namiesto tvrdeho skoku */
+      lcdhRoot.style.opacity = "0";
+      lcdhRoot.style.transition = "opacity .38s ease";
       lcdhHost.insertBefore(lcdhRoot, lcdhKotva);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { lcdhRoot.style.opacity = "1"; }); });
+      setTimeout(function () { lcdhRoot.style.opacity = "1"; }, 900);
       /* skryt povodny obsah titulky - uzko cielene, len pod body.lcdh-on */
       var lcdhSt = document.createElement("style");
       lcdhSt.id = "lcdh-gate";

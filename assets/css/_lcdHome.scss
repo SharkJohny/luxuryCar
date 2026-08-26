@@ -558,7 +558,8 @@
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
   animation:lcdh-sheen 3.6s ease-in-out 1.2s infinite
 }
-@keyframes lcdh-sheen {0%{left:-45%}55%{left:120%}100%{left:120%}
+/* animuje sa transform (GPU), nie left - left robil na PC reflow kazdy frame = sekany lesk */
+@keyframes lcdh-sheen {0%{transform:translateX(0)}55%{transform:translateX(434%)}100%{transform:translateX(434%)}
 }
 @media(prefers-reduced-motion:reduce) {
   #lcd-home .btn:before, #lcd-home .pc .tag:after {animation:none;display:none
@@ -1917,9 +1918,14 @@
   letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
   box-shadow:0 10px 26px rgba(31,115,80,.34),inset 0 1px 0 rgba(255,255,255,.22)}
 @media(min-width:761px){
-  #lcd-home .lcdh-konf-slot .modl-selector-wrap{display:grid;grid-template-columns:repeat(4,1fr) auto;
-    gap:16px;align-items:end}
-  #lcd-home .lcdh-konf-slot .btn.choice-Model{margin:0;padding:0 26px;white-space:nowrap}
-  #lcd-home .lcdh-konf-slot .lcd-vehicle-switch{max-width:520px}
+  /* navrh na PC: rad 1 = Znacka/Model/Rok, rad 2 = Typ + zelene CTA cez zvysok */
+  #lcd-home .lcdh-konf-slot .modl-selector-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:16px 18px;align-items:end}
+  #lcd-home .lcdh-konf-slot .surcharge-list.type-selector{grid-column:1}
+  #lcd-home .lcdh-konf-slot .btn.choice-Model{grid-column:2 / -1;margin:0;padding:0 26px;white-space:nowrap}
+  /* prepinac ako velky posuvnik na celu sirku karty */
+  #lcd-home .lcdh-konf-slot .lcd-vehicle-switch{max-width:none;margin-bottom:22px}
+  #lcd-home .lcdh-konf-slot .lcd-vehicle-switch__tab{padding:14px 10px;font-size:12px;gap:9px}
+  #lcd-home .lcdh-konf-slot .lcd-vehicle-switch__tab svg{width:19px;height:19px}
 }
 /* ===== LCD-HOME END ===== */
