@@ -11838,13 +11838,13 @@ section#model-selector {
 }
 /* ---------- TELEFON: cela karta sa musi zmestit na jednu obrazovku ---------- */
 @media(max-width:900px) {
-  #lcd-rz .opt .ph img {aspect-ratio:2/1
+  #lcd-rz .opt .ph img {aspect-ratio:4/3
   }
   #lcd-rz .opt .body {padding:14px 13px 14px;gap:12px
   }
   #lcd-rz .opt .why {gap:7px
   }
-  #lcd-rz .vzory img {aspect-ratio:5/4
+  #lcd-rz .vzory img {aspect-ratio:1/1
   }
   #lcd-rz .vzory .t {padding:6px 2px 7px
   }
