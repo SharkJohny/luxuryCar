@@ -391,7 +391,7 @@
 #lcd-home .hero {position:relative;display:flex;align-items:flex-end;overflow:hidden;background:var(--deep);isolation:isolate;
   aspect-ratio:3920/1560;min-height:440px;max-height:78svh
 }
-#lcd-home .hero .bg {position:absolute;inset:-6% 0 -6%;z-index:0;will-change:transform
+#lcd-home .hero .bg {position:absolute;inset:0;z-index:0
 }
 #lcd-home .hero .bg img {width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.05)
 }
@@ -959,7 +959,7 @@
 }
 #lcd-home .mat .lede {color:var(--mute)
 }
-#lcd-home .stage {height:140vh;position:relative
+#lcd-home .stage {height:118vh;position:relative
 }
 #lcd-home .pinhead {grid-column:1/-1
 }
@@ -1881,6 +1881,12 @@
 #lcd-home button{line-height:normal}
 #lcd-home .revhead .stars{display:block;gap:normal;font-size:inherit;line-height:inherit}
 #lcd-home .row > *:not(.btn){padding-left:0 !important;padding-right:0 !important}
+@media(min-width:900px){#lcd-home .chapter{padding-top:clamp(44px,5.4vw,84px) !important;padding-bottom:clamp(44px,5.4vw,84px) !important}}
+@media(min-width:900px){#lcd-home section.chapter.after-dark{padding-top:clamp(52px,6.2vw,96px) !important}}
+@media(min-width:900px){#lcd-home .truck .in{padding-top:clamp(44px,5.2vw,84px) !important;padding-bottom:clamp(44px,5.2vw,84px) !important}}
+@media(min-width:900px){#lcd-home .end{padding-top:clamp(44px,5.6vw,92px) !important;padding-bottom:clamp(44px,5.6vw,92px) !important}}
+@media(min-width:900px){#lcd-home .faqsec{padding-top:clamp(36px,4.6vw,72px) !important}}
+@media(min-width:900px){#lcd-home .hero .in{padding-bottom:clamp(32px,5vw,68px) !important}}
 /* ===== LCDH BRIDGE - adoptovany konfigurator v style navrhu ===== */
 #lcd-home .lcdh-konf-slot .lcd-vehicle-switch{display:flex;gap:5px;background:#eceae5;
   border:1px solid #d9d4c6;border-radius:999px;padding:5px;margin:2px 0 18px}
@@ -1918,11 +1924,12 @@
   letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
   box-shadow:0 10px 26px rgba(31,115,80,.34),inset 0 1px 0 rgba(255,255,255,.22)}
 @media(min-width:761px){
-  /* navrh na PC: rad 1 = Znacka/Model/Rok, rad 2 = Typ + zelene CTA cez zvysok */
-  #lcd-home .lcdh-konf-slot .modl-selector-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;
-    gap:16px 18px;align-items:end}
-  #lcd-home .lcdh-konf-slot .surcharge-list.type-selector{grid-column:1}
-  #lcd-home .lcdh-konf-slot .btn.choice-Model{grid-column:2 / -1;margin:0;padding:0 26px;white-space:nowrap}
+  /* PC (Michal): 4 bunky vedla seba (Znacka/Model/Rok/Typ), tlacidlo dole na celu sirku;
+     kamionove extra polia sa zalamuju a CENTRUJU (flex), tlacidlo nemeni poziciu */
+  #lcd-home .lcdh-konf-slot .modl-selector-wrap{display:flex;flex-wrap:wrap;justify-content:center;
+    align-items:flex-end;gap:16px 18px}
+  #lcd-home .lcdh-konf-slot .modl-selector-wrap .surcharge-list{flex:0 1 calc(25% - 14px);min-width:170px}
+  #lcd-home .lcdh-konf-slot .btn.choice-Model{flex:0 0 100%;margin:6px 0 0;padding:0 26px;white-space:nowrap}
   /* prepinac ako velky posuvnik na celu sirku karty */
   #lcd-home .lcdh-konf-slot .lcd-vehicle-switch{max-width:none;margin-bottom:22px}
   #lcd-home .lcdh-konf-slot .lcd-vehicle-switch__tab{padding:14px 10px;font-size:12px;gap:9px}

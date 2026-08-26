@@ -62,7 +62,10 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         "body.lcdh-on .lcd-reviews-widget," +
         "body.lcdh-on #header," +
         "body.lcdh-on .top-navigation-bar{display:none !important}" +
-        "body.lcdh-on #footer{margin-top:0 !important}" +
+        "body.lcdh-on #footer{margin-top:-1px !important}" +
+        /* overflow:hidden na wrapperi zabijal position:sticky; clip oreze rovnako,
+           ale nevytvara scroll container */
+        "body.lcdh-on .overall-wrapper{overflow:clip}" +
         "#lcd-home .lcdh-konf-slot{margin-top:16px;text-align:left}" +
         "#lcd-home .lcdh-konf-slot .model-selector > h2," +
         "#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}" +
@@ -83,10 +86,14 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
               /* src sa NEnastavuje hned - 497 dekodovanych thumbnailov zabijalo iOS Safari
                  (native lazy je v horizontalnom pase nanic: vsetky su v rovnakej vyske) */
               im.setAttribute("data-src", "https://i.ytimg.com/vi/" + r[0] + "/oar2.jpg");
+              /* fallback retaz: oar2 -> frame0 (realny prvy zaber) -> hqdefault */
               im.onerror = function(){
-                this.onerror = null;
-                var hq = "https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg";
-                this.setAttribute("data-src", hq); this.src = hq;
+                var krok = +(this.getAttribute("data-fb") || 0) + 1;
+                this.setAttribute("data-fb", krok);
+                var u = krok === 1 ? "https://i.ytimg.com/vi/" + r[0] + "/frame0.jpg"
+                      : krok === 2 ? "https://i.ytimg.com/vi/" + r[0] + "/hqdefault.jpg" : null;
+                if (!u) { this.onerror = null; return; }
+                this.setAttribute("data-src", u); this.src = u;
               };
               var pl = document.createElement("span"); pl.className = "play";
               var cp = document.createElement("span"); cp.className = "cap"; cp.textContent = r[1];
@@ -224,8 +231,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
   var vids=document.getElementById('vids');
   if(vids){
     var vstep=function(){var c=vids.querySelector('.vid');return c?c.getBoundingClientRect().width+16:220};
-    document.getElementById('vidPrev').onclick=function(){vids.scrollBy({left:-vstep()*2,behavior:'smooth'})};
-    document.getElementById('vidNext').onclick=function(){vids.scrollBy({left:vstep()*2,behavior:'smooth'})};
+    document.getElementById('vidPrev').onclick=function(){vids.scrollBy({left:-vstep(),behavior:'smooth'})};
+    document.getElementById('vidNext').onclick=function(){vids.scrollBy({left:vstep(),behavior:'smooth'})};
   }
   /* coverflow: stredna karta vpredu, bocne miznu do 'strechy' */
   function lcdhCoverflow(cont, sel){
@@ -334,7 +341,14 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     var ba=document.getElementById('ba'), top=document.getElementById('baTop'),
         line=document.getElementById('baLine'), h=document.getElementById('baH');
     if(!ba) return;
-    var pos=50, drag=false;
+    var pos=50, drag=false, ciel=null, lerpT=null;
+    function lerpBez(){
+      if(ciel===null){ lerpT=null; return; }
+      var d=ciel-pos;
+      if(Math.abs(d)<0.15){ set(ciel,true); ciel=null; lerpT=null; return; }
+      set(pos+d*0.09,true);
+      lerpT=requestAnimationFrame(lerpBez);
+    }
     function set(v,mark){
       pos=Math.max(0,Math.min(100,v));
       top.style.clipPath='inset(0 '+(100-pos).toFixed(2)+'% 0 0)';
@@ -354,10 +368,11 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     });
     /* mysou staci prejst — netreba drzat tlacidlo; dotykom sa taha */
     ba.addEventListener('pointermove',function(e){
-      if(drag || e.pointerType==='mouse'){ ease(false); set(xTo(e),true); }
+      if(drag){ ease(false); ciel=null; set(xTo(e),true); return; }
+      if(e.pointerType==='mouse'){ ease(false); ciel=xTo(e); if(!lerpT) lerpBez(); }
     });
     ba.addEventListener('pointerleave',function(e){
-      if(e.pointerType==='mouse' && !drag){ ease(true); set(50,true); setTimeout(function(){ease(false)},500); }
+      if(e.pointerType==='mouse' && !drag){ ciel=null; ease(true); set(50,true); setTimeout(function(){ease(false)},500); }
     });
     ['pointerup','pointercancel'].forEach(function(t){
       ba.addEventListener(t,function(e){ drag=false; try{ba.releasePointerCapture(e.pointerId)}catch(_){} });
@@ -375,12 +390,12 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       var done=false;
       var io=new IntersectionObserver(function(en){
         if(!en[0].isIntersecting||done) return; done=true; io.disconnect();
-        var steps=[[70,420],[32,760],[50,1120]];
+        var steps=[[68,600],[36,1750],[50,2950]];
         steps.forEach(function(st){ setTimeout(function(){ if(!ba.classList.contains('moved')){
-          top.style.transition='clip-path .55s cubic-bezier(.2,.7,.2,1)';
-          line.style.transition=h.style.transition='left .55s cubic-bezier(.2,.7,.2,1)';
+          top.style.transition='clip-path .95s cubic-bezier(.25,.6,.25,1)';
+          line.style.transition=h.style.transition='left .95s cubic-bezier(.25,.6,.25,1)';
           set(st[0],false);
-          setTimeout(function(){ top.style.transition=line.style.transition=h.style.transition='' },600);
+          setTimeout(function(){ top.style.transition=line.style.transition=h.style.transition='' },1000);
         }},st[1]); });
       },{threshold:0.45});
       io.observe(ba);
@@ -441,8 +456,18 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     var cs=getComputedStyle(track), gap=parseFloat(cs.columnGap||cs.gap)||0;
     function w(el){ return el.getBoundingClientRect().width+gap }
     function room(){ return track.scrollWidth-track.clientWidth-track.scrollLeft }
+    var busy=false, spi=false;
     function fix(){
+      /* fix() meni scrollLeft -> scroll event -> fix() ... busy + spi lomia slucku,
+         ktora inak tocila layout merania donekonecna (4 s reflow z 5 s idle na PC) */
+      if(busy||spi) return;
       if(track.scrollWidth-track.clientWidth<12) return;
+      /* prikratky pas: obe strany chcu doplnat naraz -> oscilacia. Radsej spat. */
+      if(track.scrollWidth - track.clientWidth < w(track.firstElementChild)*5){
+        spi=true; setTimeout(function(){spi=false},3000); return;
+      }
+      busy=true;
+      var pred=track.scrollLeft;
       /* prichytavanie na chvilu vypneme, inak prehliadac posun vrati spat */
       var snap=track.style.scrollSnapType;
       track.style.scrollSnapType='none';
@@ -459,15 +484,14 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         track.appendChild(first);
         track.scrollLeft-=fw;
       }
-      requestAnimationFrame(function(){ track.style.scrollSnapType=snap||'' });
+      /* bez pokroku = pas sa nevie pohnut (clamp/snap) - 2 s spanku, nech sa netoci naprazdno */
+      if(Math.abs(track.scrollLeft-pred)<1){ spi=true; setTimeout(function(){spi=false},2000); }
+      requestAnimationFrame(function(){ track.style.scrollSnapType=snap||''; busy=false });
     }
     var t=null;
     function later(ms){ clearTimeout(t); t=setTimeout(fix,ms) }
-    track.addEventListener('scroll',function(){
-      /* ak uz pas dosiel na doraz, zrovnaj to hned — inak by sa uzivatel zasekol na konci */
-      var edge=w(track.firstElementChild)*0.4;
-      if(track.scrollLeft<edge||room()<edge) fix(); else later(90);
-    },{passive:true});
+    /* handler NESMIE citat layout - kazde citanie pri scrolle je forced reflow */
+    track.addEventListener('scroll',function(){ if(!busy) later(120); },{passive:true});
     if('onscrollend' in window) track.addEventListener('scrollend',function(){ fix() });
     addEventListener('resize',function(){ later(220) });
     requestAnimationFrame(function(){ fix(); requestAnimationFrame(fix) });
@@ -596,12 +620,20 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
   /* prefetch velkych fotiek nizsie na stranke - nech nenabiehaju na ocach */
   addEventListener('load',function lcdhPrefetch(){
     setTimeout(function(){ ['https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/truck.jpg'].forEach(function(u){ var im=new Image(); im.src=u; }); },1200);
+    /* pred-dekodovanie kariet deckov: velke JPG dekodovane pri prvom vykresleni
+       robili zaseknuty frame presne pocas reveal animacie */
+    setTimeout(function(){
+      if(!matchMedia('(hover:hover)').matches) return;
+      [].forEach.call(LCDH.querySelectorAll('#lcd-home .deck img, #lcd-home .pc img, #lcd-home .mat img'),function(im){
+        if(im.decode) im.decode().catch(function(){});
+      });
+    },1600);
   });
 
   /* --- reveal --- */
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
-  },{rootMargin:'0px 0px -12% 0px',threshold:.12});
+  },{rootMargin:'0px 0px -6% 0px',threshold:.08});
   LCDH.querySelectorAll('.rv,.pc,.cmpc').forEach(function(e){io.observe(e)});
 
   /* --- konfigurator karta --- */
@@ -807,7 +839,7 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     ticking=false;
     var vh=innerHeight;
     if(heroBg&&innerWidth>760){ var hr=heroBg.parentNode.getBoundingClientRect();
-      heroBg.style.transform='translate3d(0,'+(-hr.top*0.16)+'px,0)'; }
+      /* hero sa pri scrolle nehybe (Michal 2026-08-26) */ }
     if(truckBg){ var tr=truckBg.parentNode.getBoundingClientRect();
       if(tr.bottom>0&&tr.top<vh) truckBg.style.transform='translate3d(0,'+((vh/2-(tr.top+tr.height/2))*0.09)+'px,0)'; }
     if(stage&&expCard&&!MATMQ.matches){
