@@ -1821,6 +1821,31 @@
   #lcd-home .stat {padding:28px 22px
   }
 }
+/* ===== MODUL 04 v tvare modulu 07 (dlazdice 9:16 + coverflow, video preview hra) ===== */
+#lcd-home .deck.refs {align-items:flex-start;gap:clamp(12px,1.6vw,18px)
+}
+#lcd-home .refs>.ref, #lcd-home .refs>.ref.mid {flex:0 0 clamp(180px,22%,230px);scroll-snap-align:start;transform:none;opacity:1;margin:0
+}
+#lcd-home .ref-v {aspect-ratio:9/16;border-radius:18px;overflow:hidden;border:1px solid var(--line)
+}
+#lcd-home .ref-v:before {display:none
+}
+#lcd-home .ref-badge {display:none
+}
+#lcd-home .refs>.ref:not(.mid) .ref-play {opacity:1
+}
+#lcd-home .ref-play {width:54px;height:54px;background:rgba(255,255,255,.94);border:0
+}
+#lcd-home .ref-play:after {border-left:15px solid #17130a;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px
+}
+#lcd-home .ref-v:hover .ref-play:after {border-left-color:#17130a
+}
+#lcd-home .ref-cap {font-size:12.5px;padding:30px 12px 12px
+}
+@media(max-width:820px) {
+  #lcd-home .deck.refs {perspective:1000px
+  }
+}
 #lcd-home [id]{scroll-margin-top:102px}
 /* ===== LCD-HOME ARMOR - kontra na temove section{padding:0!important} na mobile ===== */
 #lcd-home section{padding:0 !important;margin:0 !important}
