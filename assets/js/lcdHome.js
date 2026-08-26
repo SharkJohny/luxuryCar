@@ -57,7 +57,7 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         "body.lcdh-on .lcd-reviews-widget," +
         "body.lcdh-on #header," +
         "body.lcdh-on .top-navigation-bar{display:none !important}" +
-        "#lcd-home .lcdh-konf-slot{margin-top:18px;text-align:left}" +
+        "#lcd-home .lcdh-konf-slot{margin-top:16px;text-align:left}" +
         "#lcd-home .lcdh-konf-slot .model-selector > h2," +
         "#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}" +
         "#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
