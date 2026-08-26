@@ -37511,6 +37511,7 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
       }
       function lcdhCoverflow(cont, sel) {
         if (!cont) return;
+        var plain2d = cont.classList.contains("refs") && matchMedia("(hover:none)").matches;
         var ticking2 = false;
         function upd() {
           ticking2 = false;
@@ -37528,7 +37529,7 @@ var LCDH_MARKUP = '<div id="lcd-home">\n\n<header class="hdr">\n  <div class="in
             }
             var d = Math.max(-1, Math.min(1, (c - mid) / (r.width * 1.15)));
             var a = Math.abs(d);
-            el.style.transform = "rotateY(" + -d * 16 + "deg) translateZ(" + -a * 95 + "px) scale(" + (1 - a * 0.1) + ")";
+            el.style.transform = plain2d ? "scale(" + (1 - a * 0.14) + ") translateY(" + Math.round(a * 8) + "px)" : "rotateY(" + -d * 16 + "deg) translateZ(" + -a * 95 + "px) scale(" + (1 - a * 0.1) + ")";
             el.style.zIndex = String(100 - Math.round(a * 40));
           });
         }

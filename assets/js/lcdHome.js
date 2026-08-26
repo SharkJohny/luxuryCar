@@ -225,6 +225,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
   /* coverflow: stredna karta vpredu, bocne miznu do 'strechy' */
   function lcdhCoverflow(cont, sel){
     if(!cont) return;
+    /* iOS nevykresli <video> pod 3D transformaciou -> refs na dotyku len 2D */
+    var plain2d = cont.classList.contains('refs') && matchMedia('(hover:none)').matches;
     var ticking=false;
     function upd(){
       ticking=false;
@@ -239,7 +241,9 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         }
         var d=Math.max(-1, Math.min(1,(c-mid)/(r.width*1.15)));
         var a=Math.abs(d);
-        el.style.transform='rotateY('+(-d*16)+'deg) translateZ('+(-a*95)+'px) scale('+(1-a*0.10)+')';
+        el.style.transform = plain2d
+          ? 'scale('+(1-a*0.14)+') translateY('+Math.round(a*8)+'px)'
+          : 'rotateY('+(-d*16)+'deg) translateZ('+(-a*95)+'px) scale('+(1-a*0.10)+')';
         el.style.zIndex=String(100-Math.round(a*40));
       });
     }

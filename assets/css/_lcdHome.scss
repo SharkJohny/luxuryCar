@@ -1848,9 +1848,12 @@
   #lcd-home .deck.refs {perspective:1000px
   }
 }
-/* dotykove zariadenia: transition sa bije s per-frame coverflow -> trhany swipe */
+/* dotykove zariadenia: transition sa bije s per-frame coverflow -> trhany swipe;
+   a <video> pod 3D transformaciou iOS nevykresli (cierne dlazdice) -> refs bez perspektivy */
 @media(hover:none) {
   #lcd-home .deck.refs>.ref, #lcd-home .vids>.vid {transition:none
+  }
+  #lcd-home .deck.refs {perspective:none
   }
 }
 #lcd-home [id]{scroll-margin-top:102px}
