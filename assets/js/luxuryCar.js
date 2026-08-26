@@ -44929,16 +44929,10 @@ function lcdhLenisRaf(t) {
     requestAnimationFrame(lcdhLenisRaf);
   }
 }
-function lcdhLenisChce() {
-  if (lcdhLenisMQ.matches) return "pc";
-  var b = document.body;
-  if (b && matchMedia("(hover:none)").matches && (b.classList.contains("in-index") || b.classList.contains("in-rozcestnik"))) return "dotyk";
-  return null;
-}
 function lcdhLenisSync() {
-  var rezim = lcdhLenisChce();
+  var rezim = lcdhLenisMQ.matches ? "pc" : null;
   if (rezim && !lcdhLenis) {
-    lcdhLenis = rezim === "dotyk" ? new Lenis({ lerp: 0.1, syncTouch: true, syncTouchLerp: 0.08 }) : new Lenis({ lerp: 0.12 });
+    lcdhLenis = new Lenis({ lerp: 0.12 });
     lcdhLenis.on("scroll", ScrollTrigger2.update);
     requestAnimationFrame(lcdhLenisRaf);
     var lcdhLenisVyn = function() {

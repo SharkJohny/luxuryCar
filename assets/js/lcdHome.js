@@ -8,21 +8,11 @@ gsap.registerPlugin(ScrollTrigger);
 var lcdhLenisMQ = matchMedia("(min-width:1025px) and (hover:hover) and (pointer:fine)");
 var lcdhLenis = null;
 function lcdhLenisRaf(t){ if (lcdhLenis) { lcdhLenis.raf(t); requestAnimationFrame(lcdhLenisRaf); } }
-function lcdhLenisChce(){
-  if (lcdhLenisMQ.matches) return "pc";
-  /* telefon/tablet: len HP a rozcestnik (Michal 2026-08-27 - "smooth aj na telefone");
-     kosik/pokladna/produkty ostavaju na nativnom scrolle */
-  var b = document.body;
-  if (b && matchMedia("(hover:none)").matches &&
-      (b.classList.contains("in-index") || b.classList.contains("in-rozcestnik"))) return "dotyk";
-  return null;
-}
 function lcdhLenisSync(){
-  var rezim = lcdhLenisChce();
+  /* LEN desktop - Michal 2026-08-27: "Lenis nechaj len na pc nie na telefone" */
+  var rezim = lcdhLenisMQ.matches ? "pc" : null;
   if (rezim && !lcdhLenis) {
-    lcdhLenis = rezim === "dotyk"
-      ? new Lenis({ lerp: 0.1, syncTouch: true, syncTouchLerp: 0.08 })
-      : new Lenis({ lerp: 0.12 });
+    lcdhLenis = new Lenis({ lerp: 0.12 });
     lcdhLenis.on("scroll", ScrollTrigger.update);
     requestAnimationFrame(lcdhLenisRaf);
     /* vodorovne pasy nechat nativne - inak by sa swipe bil s Lenisom.
