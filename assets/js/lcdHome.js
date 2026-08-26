@@ -51,7 +51,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       lcdhSt.textContent =
         "body.lcdh-on .content-wrapper.homepage-box," +
         "body.lcdh-on .content-wrapper.container," +
-        "body.lcdh-on .lcd-reviews-widget{display:none !important}" +
+        "body.lcdh-on .lcd-reviews-widget," +
+        "body.lcdh-on #header{display:none !important}" +
         "#lcd-home .lcdh-konf-slot{margin-top:18px;text-align:left}" +
         "#lcd-home .lcdh-konf-slot .model-selector > h2," +
         "#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}" +
@@ -433,7 +434,15 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     });
     konfReset();
   });
-  /* menu navrhu sa nenasadzuje - blok odstraneny post-extract-fix */
+  var bg=document.getElementById('burg'), mega=document.getElementById('mega'),
+      ovl=document.getElementById('megaOvl'), mx=document.getElementById('megaX');
+  function megaSet(o){mega.classList.toggle('open',o);ovl.classList.toggle('open',o);
+    bg.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':''}
+  if(bg) bg.addEventListener('click',function(){megaSet(!mega.classList.contains('open'))});
+  if(ovl) ovl.addEventListener('click',function(){megaSet(false)});
+  if(mx) mx.addEventListener('click',function(){megaSet(false)});
+  mega.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){megaSet(false)})});
+  LCDH.querySelectorAll('.hdr nav a').forEach(function(a){a.addEventListener('click',function(){LCDH.querySelector('.hdr').classList.remove('open')})});
   var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* --- FAQ zoznam (existujuce otazky z webu) --- */
