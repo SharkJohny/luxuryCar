@@ -202,9 +202,14 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
     function upd(){
       ticking=false;
       var mid=cont.getBoundingClientRect().left + cont.clientWidth/2;
+      var cw=cont.clientWidth;
       [].forEach.call(cont.querySelectorAll(sel),function(el){
         var r=el.getBoundingClientRect();
         var c=r.left + r.width/2;
+        if(c < mid-cw || c > mid+cw){
+          if(el.style.transform){ el.style.transform=''; el.style.zIndex=''; }
+          return;
+        }
         var d=Math.max(-1, Math.min(1,(c-mid)/(r.width*1.15)));
         var a=Math.abs(d);
         el.style.transform='rotateY('+(-d*16)+'deg) translateZ('+(-a*95)+'px) scale('+(1-a*0.10)+')';
@@ -233,8 +238,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       if(!loop||!oneW) return;
       /* obsah je identicky, takze skok o jednu sadu je nevideitelny;
          stredne pasmo je [1.5w, 2.5w] z celkovych 5 sad */
-      while(d.scrollLeft < oneW*1.5) d.scrollLeft += oneW;
-      while(d.scrollLeft > oneW*2.5) d.scrollLeft -= oneW;
+      while(d.scrollLeft < oneW*2.5) d.scrollLeft += oneW;
+      while(d.scrollLeft > oneW*4.5) d.scrollLeft -= oneW;
     }
     /* iOS: scrollLeft sa pocas momentum nedodrzi -> normalizuj az v uplnom pokoji */
     var idleT=null, lastX=-1;
@@ -255,7 +260,7 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
       if(noloop) return;
       if(n && !loop){
         var pre=document.createDocumentFragment(), post=document.createDocumentFragment();
-        for(var kk=0;kk<2;kk++){
+        for(var kk=0;kk<3;kk++){
           orig.forEach(function(el){
             [pre,post].forEach(function(frag){
               var c=el.cloneNode(true);
@@ -266,13 +271,19 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
           });
         }
         d.appendChild(post); d.insertBefore(pre, d.firstChild);
-        loop=true; d.scrollLeft=oneW*2;
+        loop=true; d.scrollLeft=oneW*3;
       } else if(!n && loop){
         [].slice.call(d.querySelectorAll('[data-clone]')).forEach(function(e){e.remove()});
         loop=false; d.scrollLeft=0;
       } else if(loop){ normalize(); }
     }
-    d.addEventListener('scroll',function(){ clearTimeout(t); t=setTimeout(idleWatch,80) },{passive:true});
+    d.addEventListener('scroll',function(){
+      if(loop&&oneW){
+        var max=d.scrollWidth-d.clientWidth;
+        if(d.scrollLeft<oneW*0.7 || d.scrollLeft>max-oneW*0.7) normalize();
+      }
+      clearTimeout(t); t=setTimeout(idleWatch,80)
+    },{passive:true});
     if(b.length){
       b[0].onclick=function(){ normalize(); d.scrollBy({left:-step(),behavior:'smooth'}) };
       b[1].onclick=function(){ normalize(); d.scrollBy({left:step(),behavior:'smooth'}) };

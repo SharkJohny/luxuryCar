@@ -8317,6 +8317,13 @@ section#model-selector {
 }
 #lcd-home .btn.go:hover {box-shadow:0 16px 36px rgba(31,115,80,.44),inset 0 1px 0 rgba(255,255,255,.26)
 }
+#lcd-home .btn.zeleny {background:linear-gradient(100deg,#1d6b4a,#2f9c68 42%,#1f7350);color:#fff;
+  box-shadow:0 10px 26px rgba(31,115,80,.34),inset 0 1px 0 rgba(255,255,255,.22)
+}
+#lcd-home .btn.zeleny:hover {box-shadow:0 16px 36px rgba(31,115,80,.44),inset 0 1px 0 rgba(255,255,255,.26)
+}
+#lcd-home .bigcta.zeleny i {color:rgba(255,255,255,.82)
+}
 #lcd-home .btn.go:before {content:"";position:absolute;top:0;bottom:0;width:38%;left:-45%;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
   animation:lcdh-sheen 3.6s ease-in-out 1.2s infinite
@@ -8371,7 +8378,9 @@ section#model-selector {
 }
 #lcd-home .deck.refs, #lcd-home .vids {perspective:1000px
 }
-#lcd-home .deck.refs>.ref, #lcd-home .vids>.vid {transition:transform .18s ease-out;will-change:transform
+#lcd-home .deck.refs>.ref {transition:transform .18s ease-out;will-change:transform
+}
+#lcd-home .vids>.vid {transition:transform .18s ease-out;content-visibility:auto;contain-intrinsic-size:210px 430px
 }
 #lcd-home .deck>.pc {scroll-snap-align:start;flex:0 0 clamp(228px,23.5%,292px)
 }
@@ -9599,9 +9608,11 @@ section#model-selector {
 #lcd-home .pf-cta{padding:0 30px !important}
 @media(max-width:640px){#lcd-home .pf-cta{padding:0 20px !important}}
 #lcd-home .mat-toggle{padding:13px 24px !important}
+#lcd-home .btn.bigcta{padding:clamp(18px,2.2vw,24px) clamp(30px,5vw,64px) !important}
+#lcd-home .btn.zeleny{background:linear-gradient(100deg,#1d6b4a,#2f9c68 42%,#1f7350) !important;color:#fff !important}
 #lcd-home button{line-height:normal}
 #lcd-home .revhead .stars{display:block;gap:normal;font-size:inherit;line-height:inherit}
-#lcd-home .row > *{padding-left:0 !important;padding-right:0 !important}
+#lcd-home .row > *:not(.btn){padding-left:0 !important;padding-right:0 !important}
 /* ===== LCDH BRIDGE - adoptovany konfigurator v style navrhu ===== */
 #lcd-home .lcdh-konf-slot .lcd-vehicle-switch{display:flex;gap:5px;background:#eceae5;
   border:1px solid #d9d4c6;border-radius:999px;padding:5px;margin:2px 0 18px}
