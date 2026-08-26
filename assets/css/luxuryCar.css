@@ -9605,7 +9605,8 @@ section#model-selector {
 #lcd-home .lcdh-konf-slot .modl-selector-wrap::before,
 #lcd-home .lcdh-konf-slot .modl-selector-wrap::after{display:none !important;content:none !important}
 #lcd-home .lcdh-konf-slot .modl-selector-wrap .surcharge-list{margin:0;padding:0;width:100%}
-#lcd-home .lcdh-konf-slot .surcharge-list::before{display:block;font-family:var(--disp);
+#lcd-home .lcdh-konf-slot .surcharge-list{text-align:left}
+#lcd-home .lcdh-konf-slot .surcharge-list::before{display:block;text-align:left;font-family:var(--disp);
   font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:#3d3728;margin:0 0 7px;content:""}
 #lcd-home .lcdh-konf-slot .surcharge-list.brands::before{content:"Značka"}

@@ -54,7 +54,8 @@ import { LCDH_MARKUP } from "./lcdHome-markup.js";
         "body.lcdh-on .content-wrapper.homepage-box," +
         "body.lcdh-on .content-wrapper.container," +
         "body.lcdh-on .lcd-reviews-widget," +
-        "body.lcdh-on #header{display:none !important}" +
+        "body.lcdh-on #header," +
+        "body.lcdh-on .top-navigation-bar{display:none !important}" +
         "#lcd-home .lcdh-konf-slot{margin-top:18px;text-align:left}" +
         "#lcd-home .lcdh-konf-slot .model-selector > h2," +
         "#lcd-home .lcdh-konf-slot .model-selector > .prefix{display:none}" +
