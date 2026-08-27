@@ -1,16 +1,17 @@
 /* GENEROVANE gen-lcdhdr-bundle.py - globalna dizajnova hlavicka pre cely SK e-shop.
    HP (in-index) a rozcestnik (in-rozcestnik) maju hlavicku vo vlastnom bloku - tam sa nevklada. */
-import { LCDHDR_MARKUP } from "./lcdHdr-markup.js";
+import { LCDHDR_MARKUP, LCDHDR_MARKUP_CZ } from "./lcdHdr-markup.js";
 
 function lcdhdrBoot() {
-  if (location.hostname.indexOf("luxurycardesign.sk") === -1) return;
+  var lcdhdrCZ = location.hostname.indexOf("luxurycardesign.cz") !== -1;
+  if (location.hostname.indexOf("luxurycardesign.sk") === -1 && !lcdhdrCZ) return;
   var b = document.body;
   if (!b || b.classList.contains("in-index") || b.classList.contains("in-rozcestnik")) return;
   if (document.getElementById("lcd-hdr")) return;
   var host = document.querySelector(".overall-wrapper") || b;
   var root = document.createElement("div");
   root.id = "lcd-hdr";
-  root.innerHTML = LCDHDR_MARKUP;
+  root.innerHTML = lcdhdrCZ ? LCDHDR_MARKUP_CZ : LCDHDR_MARKUP;
   host.insertBefore(root, host.firstChild);
   var st = document.createElement("style");
   st.id = "lcdhdr-gate";

@@ -1,4 +1,4 @@
-import { LCDRZ_MARKUP } from "./lcdRz-markup.js";
+import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
 /* lcdRz.js - GENEROVANE extract-lcd-rz.py, RUCNE NEEDITUJ.
    Zdroj: rz-tpl.html
    Obal riesi to, ze povodne <script> bloky v navrhu bezali az ZA markupom.
@@ -84,7 +84,8 @@ import { LCDRZ_MARKUP } from "./lcdRz-markup.js";
     /* stranka bez rozcestnika -> nic sa nedeje */
     /* ---- BRANA (kniha A.2) ---- */
     /* len SK web - ceska faza ma vlastne preklady a ide zvlast */
-    if (location.hostname.indexOf("luxurycardesign.sk") === -1) return;
+    var lcdrzCZ = location.hostname.indexOf("luxurycardesign.cz") !== -1;
+    if (location.hostname.indexOf("luxurycardesign.sk") === -1 && !lcdrzCZ) return;
     /* len /rozcestnik/ (Shoptet: body.in-rozcestnik) a len ako STRANKA, nie kategoria/produkt */
     if (!document.body) return;
     if (!document.body.classList.contains("in-rozcestnik")) return;
@@ -102,7 +103,7 @@ import { LCDRZ_MARKUP } from "./lcdRz-markup.js";
                   || rzHost.querySelector(":scope > #footer")
                   || null;
     var rzWrap = document.createElement("div");
-    rzWrap.innerHTML = LCDRZ_MARKUP;
+    rzWrap.innerHTML = lcdrzCZ ? LCDRZ_MARKUP_CZ : LCDRZ_MARKUP;
     var rzRoot = rzWrap.firstElementChild;
     if (!rzRoot) return;
     rzHost.insertBefore(rzRoot, rzKotva);

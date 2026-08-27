@@ -1,5 +1,5 @@
-import { LCDH_REELS } from "./lcdHome-reels.js";
-import { LCDH_MARKUP } from "./lcdHome-markup.js";
+import { LCDH_REELS, LCDH_REELS_CZ } from "./lcdHome-reels.js";
+import { LCDH_MARKUP, LCDH_MARKUP_CZ } from "./lcdHome-markup.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -63,7 +63,8 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
   }
   function boot() {
     /* len SK web - ceska faza ma vlastne preklady a ide zvlast */
-    if (location.hostname.indexOf("luxurycardesign.sk") === -1) return;
+    var lcdhCZ = location.hostname.indexOf("luxurycardesign.cz") !== -1;
+    if (location.hostname.indexOf("luxurycardesign.sk") === -1 && !lcdhCZ) return;
     /* len titulna stranka (Shoptet: body.in-index) */
     if (!document.body || !document.body.classList.contains("in-index")) return;
     if (!document.getElementById("lcd-home")) {
@@ -71,7 +72,7 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
       var lcdhKotva = lcdhHost.querySelector(".content-wrapper.homepage-box, .content-wrapper.container")
                       || document.getElementById("footer");
       var lcdhWrap = document.createElement("div");
-      lcdhWrap.innerHTML = LCDH_MARKUP;
+      lcdhWrap.innerHTML = lcdhCZ ? LCDH_MARKUP_CZ : LCDH_MARKUP;
       var lcdhRoot = lcdhWrap.firstElementChild;
       if (!lcdhRoot) return;
       /* plynuly nastup na PC: kratky fade-in namiesto tvrdeho skoku */
@@ -101,11 +102,13 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
       document.body.classList.add("lcdh-on");
       /* modul 07: VSETKY SK reels z kanala (nahradza staticke dlazdice) */
       try {
-        if (typeof LCDH_REELS !== "undefined" && LCDH_REELS.length) {
+        var lcdhReels = lcdhCZ && typeof LCDH_REELS_CZ !== "undefined" && LCDH_REELS_CZ.length
+                        ? LCDH_REELS_CZ : (typeof LCDH_REELS !== "undefined" ? LCDH_REELS : []);
+        if (lcdhReels.length) {
           var lcdhVids = lcdhRoot.querySelector("#vids");
           if (lcdhVids) {
             var lcdhFrag = document.createDocumentFragment();
-            LCDH_REELS.forEach(function (r) {
+            lcdhReels.forEach(function (r) {
               var b = document.createElement("button");
               b.type = "button"; b.className = "vid"; b.setAttribute("data-yt", r[0]);
               var im = document.createElement("img");
