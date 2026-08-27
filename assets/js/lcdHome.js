@@ -87,30 +87,59 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
     }, 250);
   }
   /* Zmaze zvysky starej titulky. Idempotentne — da sa volat opakovane.
-     CHRANENE su bloky, na ktorych stoji Shoptet (hlavicka, kosik, prihlasenie,
-     paticka) a hlavne konfigurator: blok, ktory este drzi .model-selector,
-     sa nemaze za ziadnych okolnosti. */
+
+     !! POUCENIE Z 27. 8. 2026 (commit 69ad97c -> revert c312341) !!
+     Prve riesenie maazalo tieto bloky hned po vlozeni noveho dizajnu a ROZBILO
+     konfigurator na oboch weboch. Dovod: main.js/initModelSelect() vklada
+     konfigurator RELATIVNE k staremu obsahu —
+       $(section).insertAfter(".in-index .content-wrapper.container:eq(1)")
+     — a bezi az v callbacku $.getJSON(), teda dlho po boote. Ked kotva zmizne
+     skor, jQuery nema kam vlozit a konfigurator nevznikne vobec (0 <select>).
+     Staticka kontrola to neodhali: v HTML ziadna taka zavislost nie je vidno.
+
+     Preto sa NEMAZE NIC, kym nie je konfigurator adoptovany v novom dizajne.
+     Ked sa adopcia nestane, necha sa stranka tak — radsej pomalsia nez rozbita. */
   function lcdhUpracStaruHP() {
     var wrap = document.querySelector(".overall-wrapper");
     if (!wrap || !document.getElementById("lcd-home")) return 0;
+    /* tvrda poistka: bez adoptovaneho konfiguratora sa nemaze nic */
+    if (!document.querySelector("#lcd-home .lcdh-konf-slot .model-selector")) return 0;
     var CHRANENE_ID = ["header", "content-wrapper", "model-selector", "footer", "lcd-home"];
     var CHRANENE_TR = ["user-action", "top-navigation-bar"];
     var n = 0;
     [].slice.call(wrap.children).forEach(function (el) {
       if (el.id && CHRANENE_ID.indexOf(el.id) !== -1) return;
       if (CHRANENE_TR.some(function (c) { return el.classList.contains(c); })) return;
-      if (el.querySelector(".model-selector")) return;   /* konfigurator sa nesmie stratit */
-      if (el.querySelector("script")) return;
+      /* cokolvek, co este moze byt zive alebo sluzit ako kotva pre iny skript */
+      if (el.querySelector(".model-selector, select, form, script, iframe")) return;
       if (!el.classList.contains("content-wrapper") &&
           !el.classList.contains("lcd-reviews-widget")) return;
       el.remove(); n++;
     });
-    /* lcd-reviews.js si hostitela vyrobi sam kdekolvek — zmaz aj taky */
     [].forEach.call(document.querySelectorAll(".lcd-reviews-widget"), function (el) {
       if (el.closest("#lcd-home")) return;
+      if (el.querySelector("select, form, script, iframe")) return;
       el.remove(); n++;
     });
     return n;
+  }
+
+  /* Caka na adopciu konfiguratora a az potom uprace. Po adopcii este chvilu pocka —
+     v tom istom $.getJSON callbacku bezia aj googleReviews() a lcdVideos(),
+     ktore takisto vkladaju do stareho obsahu. */
+  function lcdhCakajAUprac() {
+    var pokusy = 0;
+    var t = setInterval(function () {
+      pokusy++;
+      if (document.querySelector("#lcd-home .lcdh-konf-slot .model-selector")) {
+        clearInterval(t);
+        setTimeout(lcdhUpracStaruHP, 1500);
+        setTimeout(lcdhUpracStaruHP, 4000);
+        setTimeout(lcdhUpracStaruHP, 9000);
+        return;
+      }
+      if (pokusy > 100) clearInterval(t);   /* 25 s a koniec — radsej neupratovat */
+    }, 250);
   }
 
   function boot() {
@@ -159,8 +188,7 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
          stiahol 96 fotiek, ktore nikto nikdy neuvidi.
          Bezi hned po vlozeni noveho dizajnu, teda skor nez lcd-reviews.js stihne
          svoj DOMContentLoaded — vdaka tomu sa tie fotky vobec nezacnu stahovat. */
-      lcdhUpracStaruHP();
-      [800, 2500, 5000].forEach(function (ms) { setTimeout(lcdhUpracStaruHP, ms); });
+      lcdhCakajAUprac();
       /* modul 07: VSETKY SK reels z kanala (nahradza staticke dlazdice) */
       try {
         var lcdhReels = lcdhCZ && typeof LCDH_REELS_CZ !== "undefined" && LCDH_REELS_CZ.length
