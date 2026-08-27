@@ -21,9 +21,12 @@ var LCDLANG_CZ =
   '<rect width="27" height="9" y="9" fill="#d7141a"/>' +
   '<path d="M0 0l13.5 9L0 18z" fill="#11457e"/>';
 
+/* Michal 2026-08-28: "problem pri zobrazovani jazyka nieje viditelny, stacia
+   vlajky a skratky" — v ponuke je preto len vlajka + SK / CZ, cely nazov
+   ostava iba v aria-label pre citacky. */
 var LCDLANG_JAZYKY = [
-  { kod: "sk", nazov: "Slovenčina", url: "https://www.luxurycardesign.sk/", vlajka: LCDLANG_SK },
-  { kod: "cz", nazov: "Čeština",    url: "https://www.luxurycardesign.cz/", vlajka: LCDLANG_CZ }
+  { kod: "sk", skratka: "SK", nazov: "Slovenčina", url: "https://www.luxurycardesign.sk/", vlajka: LCDLANG_SK },
+  { kod: "cz", skratka: "CZ", nazov: "Čeština",    url: "https://www.luxurycardesign.cz/", vlajka: LCDLANG_CZ }
 ];
 
 function lcdlangSvg(vnutro) {
@@ -60,7 +63,9 @@ function lcdlangUprav(a) {
     p.href = j.url;
     p.setAttribute("role", "menuitem");
     if (j.kod === aktualny) p.setAttribute("aria-current", "true");
-    p.innerHTML = lcdlangSvg(j.vlajka) + "<span>" + j.nazov + "</span>";
+    p.setAttribute("aria-label", j.nazov);
+    p.title = j.nazov;
+    p.innerHTML = lcdlangSvg(j.vlajka) + '<span class="lcdlang-t">' + j.skratka + "</span>";
     menu.appendChild(p);
   });
   obal.appendChild(menu);

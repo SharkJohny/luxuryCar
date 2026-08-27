@@ -9741,12 +9741,13 @@ section#model-selector {
 #lcd-home .hero,#lcd-rz .hero{width:100% !important}
 .lcdlang{position:relative;display:inline-flex}
 .lcdlang > a.lang{cursor:pointer}
-.lcdlang-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);z-index:60;min-width:186px;padding:6px;border-radius:12px;background:#14110c;border:1px solid rgba(196,155,49,.42);box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.lcdlang-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);z-index:60;min-width:112px;padding:6px;border-radius:12px;background:#14110c;border:1px solid rgba(196,155,49,.42);box-shadow:0 18px 44px rgba(0,0,0,.5)}
 .lcdlang-menu[hidden]{display:none}
-.lcdlang-p{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#ded5c0;text-decoration:none;font-size:14px;line-height:1.2;white-space:nowrap}
+.lcdlang-p{display:flex !important;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#ded5c0 !important;text-decoration:none;font-size:14px !important;line-height:1.2;white-space:nowrap;text-indent:0 !important}
 .lcdlang-p svg{width:24px;height:16px;border-radius:2px;flex:0 0 auto;display:block}
-.lcdlang-p:hover,.lcdlang-p:focus{background:rgba(196,155,49,.16);color:#fff}
-.lcdlang-p.je-aktivny{color:#c49b31;font-weight:600}
+.lcdlang-p .lcdlang-t{display:inline-block !important;visibility:visible !important;opacity:1 !important;position:static !important;width:auto !important;height:auto !important;max-width:none !important;max-height:none !important;overflow:visible !important;clip:auto !important;clip-path:none !important;text-indent:0 !important;font-family:inherit !important;font-size:14px !important;font-weight:700 !important;line-height:1.2 !important;letter-spacing:.1em;color:inherit !important;-webkit-text-fill-color:currentColor !important;text-transform:uppercase}
+.lcdlang-p:hover,.lcdlang-p:focus{background:rgba(196,155,49,.16);color:#fff !important}
+.lcdlang-p.je-aktivny{color:#c49b31 !important;font-weight:600}
 
 /* --- kamiony: vycentrovanie poli + tlacidlo cez cely riadok (2026-08-27) --- */
 @media(min-width:761px){#lcd-home .lcdh-konf-slot .lcd-truck-wrap:not([hidden]),#lcd-rz .lcdh-konf-slot .lcd-truck-wrap:not([hidden]){display:flex !important;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:16px 18px;width:100% !important;max-width:none !important;margin-left:auto !important;margin-right:auto !important}#lcd-home .lcdh-konf-slot .lcd-truck-wrap > .surcharge-list,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap > .surcharge-list{flex:0 1 calc(25% - 14px);min-width:230px;max-width:none}#lcd-home .lcdh-konf-slot .lcd-truck-wrap > .btn.choice-Model,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap > .btn.choice-Model{flex:0 0 100%;max-width:none;width:100%}}
