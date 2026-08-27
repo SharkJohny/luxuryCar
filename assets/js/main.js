@@ -15,7 +15,6 @@ import "./configurator-enhance.js"; // Konfigurátor — best-seller badge na mo
 import "./lcdHome.js";
 import "./lcdHdr.js"; // Nova uvodna stranka (lcd-home)
 import "./lcdRz.js"; // Novy rozcestnik (lcd-rz)
-import "./lcdLang.js"; // Prepinac jazyka vo vlajke (ponuka namiesto okamziteho prepnutia)
 import { mergeTruckOrderSummaryIntoNote } from "./truck-konfigurator/order-summary.mjs";
 import {
   TRUCK_BRANDS,

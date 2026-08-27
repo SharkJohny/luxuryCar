@@ -86,33 +86,6 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
       if (stareMiesto && stareMiesto !== ms) stareMiesto.style.display = "none";
     }, 250);
   }
-  /* Zmaze zvysky starej titulky. Idempotentne — da sa volat opakovane.
-     CHRANENE su bloky, na ktorych stoji Shoptet (hlavicka, kosik, prihlasenie,
-     paticka) a hlavne konfigurator: blok, ktory este drzi .model-selector,
-     sa nemaze za ziadnych okolnosti. */
-  function lcdhUpracStaruHP() {
-    var wrap = document.querySelector(".overall-wrapper");
-    if (!wrap || !document.getElementById("lcd-home")) return 0;
-    var CHRANENE_ID = ["header", "content-wrapper", "model-selector", "footer", "lcd-home"];
-    var CHRANENE_TR = ["user-action", "top-navigation-bar"];
-    var n = 0;
-    [].slice.call(wrap.children).forEach(function (el) {
-      if (el.id && CHRANENE_ID.indexOf(el.id) !== -1) return;
-      if (CHRANENE_TR.some(function (c) { return el.classList.contains(c); })) return;
-      if (el.querySelector(".model-selector")) return;   /* konfigurator sa nesmie stratit */
-      if (el.querySelector("script")) return;
-      if (!el.classList.contains("content-wrapper") &&
-          !el.classList.contains("lcd-reviews-widget")) return;
-      el.remove(); n++;
-    });
-    /* lcd-reviews.js si hostitela vyrobi sam kdekolvek — zmaz aj taky */
-    [].forEach.call(document.querySelectorAll(".lcd-reviews-widget"), function (el) {
-      if (el.closest("#lcd-home")) return;
-      el.remove(); n++;
-    });
-    return n;
-  }
-
   function boot() {
     /* len SK web - ceska faza ma vlastne preklady a ide zvlast */
     var lcdhCZ = location.hostname.indexOf("luxurycardesign.cz") !== -1;
@@ -152,15 +125,6 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
         "#lcd-home .lcdh-konf-slot .model-selector{margin:0;max-width:none;width:100%}";
       document.head.appendChild(lcdhSt);
       document.body.classList.add("lcdh-on");
-      /* Stara homepage ostavala v DOM len skryta cez display:none — prehliadac ju aj
-         tak cely cas stavia a stahuje jej obrazky. Michal 2026-08-27: "sprav to aby
-         bola iba jedna homepage". Merane na live pred zmenou: 9 616 prvkov, z toho
-         4 658 stara HP; widget recenzii (stavia ho lcd-reviews.js az za behu) sam
-         stiahol 96 fotiek, ktore nikto nikdy neuvidi.
-         Bezi hned po vlozeni noveho dizajnu, teda skor nez lcd-reviews.js stihne
-         svoj DOMContentLoaded — vdaka tomu sa tie fotky vobec nezacnu stahovat. */
-      lcdhUpracStaruHP();
-      [800, 2500, 5000].forEach(function (ms) { setTimeout(lcdhUpracStaruHP, ms); });
       /* modul 07: VSETKY SK reels z kanala (nahradza staticke dlazdice) */
       try {
         var lcdhReels = lcdhCZ && typeof LCDH_REELS_CZ !== "undefined" && LCDH_REELS_CZ.length
