@@ -723,7 +723,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       <h2>Autokoberce do <em>kami\xF3nov a dod\xE1vok</em></h2>
       <p class="lede">Kab\xEDna je Va\u0161a druh\xE1 kancel\xE1ria. Do kami\xF3nov a dod\xE1vok preto pon\xFAkame vlastn\xE9 druhy odoln\xFDch materi\xE1lov \u2014 navrhnut\xE9 na ka\u017Edodenn\xE9 pou\u017E\xEDvanie.</p>
       <div class="row">
-        <a class="btn zeleny" href="/luxusne-autokoberce-truck/">Zvoli\u0165 model vozidla</a>
+        <a class="btn zeleny" href="/luxusne-autokoberce-truck/">Zvoli\u0165 model kami\xF3na/dod\xE1vky</a>
       </div>
       <div class="tspecs">
         <div><b>\u0164aha\u010De</b>Scania \xB7 Volvo \xB7 DAF \xB7 MAN a \u010Fal\u0161ie</div>
@@ -741,7 +741,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
         <li>N\xE1\u0161ivka alebo logo \u2014 aj s v\xFDberom farby</li>
         <li>Dodanie do 14 \u2013 18 dn\xED</li>
       </ul>
-      <a class="btn ghost" style="color:#fff;border-color:rgba(230,200,119,.45);margin-top:18px" href="/luxusne-autokoberce-truck/">Pozrie\u0165 cenu pre moje auto</a>
+      <a class="btn ghost" style="color:#fff;border-color:rgba(230,200,119,.45);margin-top:18px" href="/luxusne-autokoberce-truck/">Pozrie\u0165 cenu kami\xF3na/dod\xE1vky</a>
     </aside>
   </div>
 </section>
@@ -1452,7 +1452,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       <h2>Autokoberce do <em>kamion\u016F a dod\xE1vek</em></h2>
       <p class="lede">Kabina je Va\u0161e druh\xE1 kancel\xE1\u0159. Do kamion\u016F a dod\xE1vek proto nab\xEDz\xEDme vlastn\xED druhy odoln\xFDch materi\xE1l\u016F \u2014 navr\u017Een\xE9 na ka\u017Edodenn\xED pou\u017E\xEDv\xE1n\xED.</p>
       <div class="row">
-        <a class="btn zeleny" href="/luxusni-autokoberce-truck/">Zvolit model vozidla</a>
+        <a class="btn zeleny" href="/luxusni-autokoberce-truck/">Zvolit model kamionu/dod\xE1vky</a>
       </div>
       <div class="tspecs">
         <div><b>Taha\u010De</b>Scania \xB7 Volvo \xB7 DAF \xB7 MAN a dal\u0161\xED</div>
@@ -1470,7 +1470,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
         <li>N\xE1\u0161ivka nebo logo \u2014 i s v\xFDb\u011Brem barvy</li>
         <li>Dod\xE1n\xED do 14\u201318 dn\xED</li>
       </ul>
-      <a class="btn ghost" style="color:#fff;border-color:rgba(230,200,119,.45);margin-top:18px" href="/luxusni-autokoberce-truck/">Pod\xEDvat se na cenu pro m\xE9 auto</a>
+      <a class="btn ghost" style="color:#fff;border-color:rgba(230,200,119,.45);margin-top:18px" href="/luxusni-autokoberce-truck/">Pod\xEDvat se na cenu kamionu/dod\xE1vky</a>
     </aside>
   </div>
 </section>
