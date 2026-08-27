@@ -9736,6 +9736,17 @@ section#model-selector {
 @media(min-width:901px){#lcd-home .stage{height:240vh !important}}
 #lcd-home video,#lcd-rz video{border:0 !important;border-radius:0 !important}
 #footer #signature{display:none !important}
+
+/* --- opravy 2026-08-27 vecer: hero na plnu sirku + prepinac jazyka --- */
+#lcd-home .hero,#lcd-rz .hero{width:100% !important}
+.lcdlang{position:relative;display:inline-flex}
+.lcdlang > a.lang{cursor:pointer}
+.lcdlang-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);z-index:60;min-width:186px;padding:6px;border-radius:12px;background:#14110c;border:1px solid rgba(196,155,49,.42);box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.lcdlang-menu[hidden]{display:none}
+.lcdlang-p{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#ded5c0;text-decoration:none;font-size:14px;line-height:1.2;white-space:nowrap}
+.lcdlang-p svg{width:24px;height:16px;border-radius:2px;flex:0 0 auto;display:block}
+.lcdlang-p:hover,.lcdlang-p:focus{background:rgba(196,155,49,.16);color:#fff}
+.lcdlang-p.je-aktivny{color:#c49b31;font-weight:600}
 /* ===== LCD-HOME END ===== */
 
 /* ===== LCD-RZ START - generovane extract-lcd-rz.py, needituj rucne ===== */
