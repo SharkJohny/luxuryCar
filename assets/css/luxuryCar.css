@@ -9749,7 +9749,7 @@ section#model-selector {
 .lcdlang-p.je-aktivny{color:#c49b31;font-weight:600}
 
 /* --- kamiony: vycentrovanie poli + tlacidlo cez cely riadok (2026-08-27) --- */
-@media(min-width:761px){#lcd-home .lcdh-konf-slot .lcd-truck-wrap,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap{display:flex !important;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:16px 18px}#lcd-home .lcdh-konf-slot .lcd-truck-wrap > .surcharge-list,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap > .surcharge-list{flex:0 1 308px;min-width:230px;max-width:308px}#lcd-home .lcdh-konf-slot .lcd-truck-wrap > .btn.choice-Model,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap > .btn.choice-Model{flex:0 0 100%;max-width:none;width:100%}}
+@media(min-width:761px){#lcd-home .lcdh-konf-slot .lcd-truck-wrap:not([hidden]),#lcd-rz .lcdh-konf-slot .lcd-truck-wrap:not([hidden]){display:flex !important;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:16px 18px}#lcd-home .lcdh-konf-slot .lcd-truck-wrap > .surcharge-list,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap > .surcharge-list{flex:0 1 308px;min-width:230px;max-width:308px}#lcd-home .lcdh-konf-slot .lcd-truck-wrap > .btn.choice-Model,#lcd-rz .lcdh-konf-slot .lcd-truck-wrap > .btn.choice-Model{flex:0 0 100%;max-width:none;width:100%}}
 /* ===== LCD-HOME END ===== */
 
 /* ===== LCD-RZ START - generovane extract-lcd-rz.py, needituj rucne ===== */
