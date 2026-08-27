@@ -46208,6 +46208,117 @@ var LCDRZ_MARKUP_CZ = '<div id="lcd-rz">\n<header class="hdr">\n  <div class="in
       if (stareMiesto && stareMiesto !== ms) stareMiesto.style.display = "none";
     }, 250);
   }
+  var LCDRZ_SEL = [
+    ".surcharge-list.brands.dm-selector select",
+    ".surcharge-list.models.dm-selector select",
+    ".surcharge-list.years.dm-selector select",
+    ".surcharge-list.type-selector select"
+  ];
+  function lcdrzRealne(root) {
+    return LCDRZ_SEL.map(function(s) {
+      return root.querySelector(s) || document.querySelector(s);
+    });
+  }
+  function lcdrzPrepisPlate(root) {
+    var sel = lcdrzRealne(root);
+    var pol = root.querySelectorAll(".plate .v i");
+    for (var i = 0; i < pol.length && i < 4; i++) {
+      if (pol[i].querySelector("select")) continue;
+      var s = sel[i];
+      if (s && s.selectedIndex >= 0 && s.options[s.selectedIndex])
+        pol[i].textContent = s.options[s.selectedIndex].text;
+    }
+  }
+  function lcdrzUloz(root) {
+    var btn = root.querySelector(".btn.choice-Model") || document.querySelector(".btn.choice-Model");
+    if (btn) btn.click();
+    setTimeout(function() {
+      lcdrzHlavicka(root);
+      lcdrzPrepisPlate(root);
+    }, 500);
+  }
+  function lcdrzInline(root) {
+    var v = root.querySelector(".plate .v");
+    if (!v) return;
+    var pol = v.querySelectorAll("i");
+    [].forEach.call(pol, function(el, idx) {
+      el.setAttribute("role", "button");
+      el.setAttribute("tabindex", "0");
+      el.addEventListener("click", function() {
+        lcdrzOtvor(root, el, idx);
+      });
+      el.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          lcdrzOtvor(root, el, idx);
+        }
+      });
+    });
+    var btn = root.querySelector(".btn.choice-Model") || document.querySelector(".btn.choice-Model");
+    if (btn) btn.addEventListener("click", function() {
+      setTimeout(function() {
+        lcdrzHlavicka(root);
+        lcdrzPrepisPlate(root);
+      }, 500);
+    });
+  }
+  function lcdrzOtvor(root, el, idx) {
+    if (el.querySelector("select")) return;
+    var realny = lcdrzRealne(root)[idx];
+    if (!realny || realny.options.length < 2) return;
+    var povodny = el.textContent;
+    var s = document.createElement("select");
+    s.className = "rz-inline";
+    for (var i = 0; i < realny.options.length; i++) {
+      var o = document.createElement("option");
+      o.value = realny.options[i].value;
+      o.textContent = realny.options[i].text;
+      s.appendChild(o);
+    }
+    s.selectedIndex = realny.selectedIndex;
+    el.textContent = "";
+    el.classList.add("rz-akt");
+    el.appendChild(s);
+    s.focus();
+    if (s.showPicker) {
+      try {
+        s.showPicker();
+      } catch (e) {
+      }
+    }
+    function zavri(text) {
+      el.classList.remove("rz-akt");
+      el.textContent = text;
+    }
+    s.addEventListener("change", function() {
+      realny.value = s.value;
+      realny.dispatchEvent(new Event("change", { bubbles: true }));
+      zavri(s.options[s.selectedIndex].text);
+      setTimeout(function() {
+        lcdrzPrepisPlate(root);
+        var sel = lcdrzRealne(root);
+        var kompletne = sel.every(function(x) {
+          return x && x.selectedIndex > 0;
+        });
+        if (kompletne) lcdrzUloz(root);
+      }, 700);
+    });
+    s.addEventListener("blur", function() {
+      setTimeout(function() {
+        if (el.contains(s)) zavri(povodny);
+      }, 150);
+    });
+  }
+  function lcdrzKlikatelnaKarta(root) {
+    [].forEach.call(root.querySelectorAll(".opt"), function(karta) {
+      var hlavny = karta.querySelector(".go a.btn, .go a");
+      if (!hlavny) return;
+      karta.addEventListener("click", function(e) {
+        if (e.target.closest("a, button, select, input")) return;
+        hlavny.click();
+      });
+    });
+  }
   function lcdrzHlavicka(root) {
     var v = null;
     try {
@@ -46263,6 +46374,10 @@ var LCDRZ_MARKUP_CZ = '<div id="lcd-rz">\n<header class="hdr">\n  <div class="in
     document.body.classList.add("lcdrz-on");
     lcdrzHlavicka(rzRoot);
     lcdrzAdoptujSelector(rzRoot);
+    lcdrzKlikatelnaKarta(rzRoot);
+    setTimeout(function() {
+      lcdrzInline(rzRoot);
+    }, 1200);
     if (window.scrollY < 60) {
       var rzUser = false;
       ["wheel", "touchstart", "keydown"].forEach(function(t) {

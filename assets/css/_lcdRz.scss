@@ -2161,6 +2161,36 @@
   #lcd-rz .vzory .t {font-size:9.5px;letter-spacing:.01em
   }
 }
+/* ===== RZ-UPRAVY 2026-08-27 (Michal): inline zmena v hlavicke, klikatelna karta, zelene CTA ===== */
+/* 1. segmenty v hlavicke sa daju klikat a menit priamo tam */
+#lcd-rz .plate .v i {cursor:pointer;position:relative;padding:2px 6px;border-radius:7px;
+  border:1px dashed rgba(230,200,119,.45);transition:background .18s,border-color .18s
+}
+#lcd-rz .plate .v i:hover {background:rgba(230,200,119,.14);border-color:var(--gold-hi)
+}
+#lcd-rz .plate .v i.rz-akt {background:rgba(230,200,119,.2);border-style:solid
+}
+#lcd-rz .plate .v select.rz-inline {font:inherit;color:inherit;background:#17130a;border:1px solid var(--gold-hi);
+  border-radius:7px;padding:3px 8px;max-width:min(52vw,240px)
+}
+#lcd-rz .plate .hint {display:block;width:100%;margin-top:6px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(230,200,119,.75)
+}
+/* 2. cela karta vyberu je klikatelna */
+#lcd-rz .opt {cursor:pointer
+}
+#lcd-rz .opt:hover {box-shadow:0 22px 52px rgba(20,15,5,.20)
+}
+#lcd-rz .opt .vzory a, #lcd-rz .opt .go a {cursor:pointer
+}
+/* 3. hlavne CTA v karte: zelene so zlatym lemom */
+#lcd-rz .opt .go .btn {background:linear-gradient(100deg,#1d6b4a,#2f9c68 42%,#1f7350);color:#fff;
+  border:1px solid var(--gold-hi);
+  box-shadow:0 10px 26px rgba(31,115,80,.34),inset 0 1px 0 rgba(255,255,255,.22)
+}
+#lcd-rz .opt .go .btn:hover {background:linear-gradient(100deg,#227954,#35ad74 42%,#238057);
+  box-shadow:0 16px 36px rgba(31,115,80,.44)
+}
 #lcd-rz [id]{scroll-margin-top:130px}
 /* ===== LCD-RZ ARMOR - kontra na temove section{padding:0!important} na mobile ===== */
 #lcd-rz section{padding:0 !important;margin:0 !important}

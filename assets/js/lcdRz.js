@@ -43,6 +43,110 @@ import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
     }, 250);
   }
 
+  /* ---- Michal 2026-08-27 ----
+     1) Segmenty v hlavicke (znacka/model/rok/typ) sa daju klikat a menit PRIAMO tam.
+        Nedotykame sa cars.js: len nastavime hodnotu jeho selectu a posleme 'change',
+        aby si dopocital nasledujuce zoznamy tak, ako keby to klikol clovek.
+     2) Po kliknuti na "Zvolit model" sa hlavicka obnovi (predtym ostavala stara).
+     3) Cela karta vyberu je klikatelna, nielen tlacidlo. */
+  var LCDRZ_SEL = [".surcharge-list.brands.dm-selector select",
+                   ".surcharge-list.models.dm-selector select",
+                   ".surcharge-list.years.dm-selector select",
+                   ".surcharge-list.type-selector select"];
+
+  function lcdrzRealne(root) {
+    return LCDRZ_SEL.map(function (s) { return root.querySelector(s) || document.querySelector(s); });
+  }
+
+  function lcdrzPrepisPlate(root) {
+    var sel = lcdrzRealne(root);
+    var pol = root.querySelectorAll(".plate .v i");
+    for (var i = 0; i < pol.length && i < 4; i++) {
+      if (pol[i].querySelector("select")) continue;      /* prave sa edituje */
+      var s = sel[i];
+      /* aj ked je vybrany placeholder (index 0) - navstevnik ma vidiet, co mu chyba */
+      if (s && s.selectedIndex >= 0 && s.options[s.selectedIndex])
+        pol[i].textContent = s.options[s.selectedIndex].text;
+    }
+  }
+
+  function lcdrzUloz(root) {
+    var btn = root.querySelector(".btn.choice-Model") || document.querySelector(".btn.choice-Model");
+    if (btn) btn.click();
+    setTimeout(function () { lcdrzHlavicka(root); lcdrzPrepisPlate(root); }, 500);
+  }
+
+  function lcdrzInline(root) {
+    var v = root.querySelector(".plate .v");
+    if (!v) return;
+    var pol = v.querySelectorAll("i");
+    [].forEach.call(pol, function (el, idx) {
+      el.setAttribute("role", "button");
+      el.setAttribute("tabindex", "0");
+      el.addEventListener("click", function () { lcdrzOtvor(root, el, idx); });
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); lcdrzOtvor(root, el, idx); }
+      });
+    });
+    /* akykolvek klik na povodne tlacidlo konfiguratora tiez obnovi hlavicku */
+    var btn = root.querySelector(".btn.choice-Model") || document.querySelector(".btn.choice-Model");
+    if (btn) btn.addEventListener("click", function () {
+      setTimeout(function () { lcdrzHlavicka(root); lcdrzPrepisPlate(root); }, 500);
+    });
+  }
+
+  function lcdrzOtvor(root, el, idx) {
+    if (el.querySelector("select")) return;
+    var realny = lcdrzRealne(root)[idx];
+    if (!realny || realny.options.length < 2) return;     /* zoznam este nie je naplneny */
+    var povodny = el.textContent;
+    var s = document.createElement("select");
+    s.className = "rz-inline";
+    for (var i = 0; i < realny.options.length; i++) {
+      var o = document.createElement("option");
+      o.value = realny.options[i].value;
+      o.textContent = realny.options[i].text;
+      s.appendChild(o);
+    }
+    s.selectedIndex = realny.selectedIndex;
+    el.textContent = "";
+    el.classList.add("rz-akt");
+    el.appendChild(s);
+    s.focus();
+    if (s.showPicker) { try { s.showPicker(); } catch (e) {} }
+
+    function zavri(text) {
+      el.classList.remove("rz-akt");
+      el.textContent = text;
+    }
+    s.addEventListener("change", function () {
+      realny.value = s.value;
+      realny.dispatchEvent(new Event("change", { bubbles: true }));
+      zavri(s.options[s.selectedIndex].text);
+      /* cars.js dopocita nasledujuce zoznamy - pockame a az potom ulozime */
+      setTimeout(function () {
+        lcdrzPrepisPlate(root);
+        var sel = lcdrzRealne(root);
+        var kompletne = sel.every(function (x) { return x && x.selectedIndex > 0; });
+        if (kompletne) lcdrzUloz(root);
+      }, 700);
+    });
+    s.addEventListener("blur", function () {
+      setTimeout(function () { if (el.contains(s)) zavri(povodny); }, 150);
+    });
+  }
+
+  function lcdrzKlikatelnaKarta(root) {
+    [].forEach.call(root.querySelectorAll(".opt"), function (karta) {
+      var hlavny = karta.querySelector(".go a.btn, .go a");
+      if (!hlavny) return;
+      karta.addEventListener("click", function (e) {
+        if (e.target.closest("a, button, select, input")) return;  /* vlastne odkazy nechame */
+        hlavny.click();
+      });
+    });
+  }
+
   /* Hlavicka navrhu sa plni zo sessionStorage, ktory zapisuje saveModel() (main.js:614).
      Kniha A.6, alternativa 1: ak chyba co i len jeden zo styroch klucov, degradujeme
      na genericky tvar. NIKDY sa nevypisuje null a NIKDY sa neredirectuje - stranka je
@@ -131,6 +235,8 @@ import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
     /* hlavicka podla zvoleneho vozidla + adopcia ziveho konfiguratora */
     lcdrzHlavicka(rzRoot);
     lcdrzAdoptujSelector(rzRoot);
+    lcdrzKlikatelnaKarta(rzRoot);
+    setTimeout(function () { lcdrzInline(rzRoot); }, 1200);
 
     /* vychodiskove zobrazenie (Michal 2026-08-27): stranka sa otvori na neviditelnej
        ciare NAD bunkami vyberu - ako prve vidno fotky a celu bunku. Len pri cerstvom
