@@ -635,9 +635,17 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
               b:['MAN (TIR)','TGX 2018-2020','Automatická','2 zásuvky']};
   /* kolko doplnkovych poli si dane vozidlo vyziada — na webe to urcuje katalog */
   var EXTRA={a:0, b:2};
-  var NOTE={a:'Šablóny máme pre viac než 1000 modelov osobných áut.',
-            b:'Ťahače aj dodávky — Scania, Volvo, DAF, MAN, Sprinter, Transit, Crafter a ďalšie. '
-              +'Počet krokov závisí od vozidla — ukážeme len tie, ktoré sú preň potrebné.'};
+  /* Poznamka pod konfiguratorom. Bola natvrdo po slovensky a prepisala aj spravne
+     prelozeny text z ceskeho markupu — Michal to nasiel 2026-08-27 na .cz.
+     Text pre kamiony hovori aj to, kam sa navstevnik po kliku dostane
+     (main.js riadok 596: window.location.href = TRUCK_PRODUCT_URLS[...]). */
+  var NOTE = location.hostname.indexOf('luxurycardesign.cz') !== -1
+    ? {a:'Šablony máme pro více než 1000 modelů osobních aut.',
+       b:'Tahače i dodávky — Scania, Volvo, DAF, MAN, Sprinter, Transit, Crafter a další. '
+         +'Po zvolení modelu vás přeneseme na stránku s koberci pro kamiony.'}
+    : {a:'Šablóny máme pre viac než 1000 modelov osobných áut.',
+       b:'Ťahače aj dodávky — Scania, Volvo, DAF, MAN, Sprinter, Transit, Crafter a ďalšie. '
+         +'Po zvolení modelu vás prenesieme na stránku s kobercami pre kamióny.'};
 
   function clearErr(f){ f.classList.remove('err'); }
   function showErr(f){
@@ -711,21 +719,40 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
   LCDH.querySelectorAll('.hdr nav a').forEach(function(a){a.addEventListener('click',function(){LCDH.querySelector('.hdr').classList.remove('open')})});
   var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- FAQ zoznam (existujuce otazky z webu) --- */
-  var Q = [
+  /* --- FAQ zoznam ---
+     Bol natvrdo po slovensky, takze cely FAQ sa na .cz zobrazoval po slovensky.
+     Michal 2026-08-27: "prejdi cele faq a najdi ci tam nenajdes este nejake nezhody". */
+  var Q_SK = [
     ["Ako si môžem objednať?","Vyberte model vozidla v konfigurátore, zvoľte prevedenie a farbu. Zvyšok vybavíme my."],
     ["Budú tieto koberce pasovať do môjho auta?","Áno. Šijú sa podľa hotových šablón pre konkrétny model, rok a typ karosérie — preto sadnú na milimeter."],
-    ["Videli ste podobne vyzerajúce koberce online. Prečo práve Luxury Car Design?","Rozdiel je v materiáli, presnosti a uchytení — pozrite si sekciu Porovnanie vyššie."],
-    ["Ponúkate koberčeky pre moje auto? Čo ak moje auto nie je v zozname?","Máme viac než 1000 modelov. Ak Váš chýba, ozvite sa — šablónu vieme doskenovať."],
+    /* bolo "Videli ste..." — jedina otazka v hlase obchodu, zvysok je v hlase zakaznika */
+    ["Videl som podobne vyzerajúce koberce online. Prečo práve Luxury Car Design?","Rozdiel je v materiáli, presnosti a uchytení — pozrite si sekciu Porovnanie vyššie."],
+    /* bolo "šablónu vieme doskenovať" — o skenovani sa v zakaznickom texte nepise */
+    ["Ponúkate koberčeky pre moje auto? Čo ak moje auto nie je v zozname?","Máme viac než 1000 modelov. Ak váš chýba, ozvite sa — šablónu preň doplníme."],
     ["Z čoho sú luxusné autokoberce vyrobené?","Navrchu je prémiová ekokoža, na spodku protišmyková vrstva. Materiál je nepremokavý, tlmí hluk a nekrúti sa."],
     ["Ako sa koberce uchytávajú?","Na spodnej strane koberca sú našité suché zipsy. V balení nájdete obojstrannú lepiacu pásku so suchým zipsom a klipy na uchytenie pod plastové časti."],
     ["Ako sa luxusné koberce čistia?","Stačí ich vybrať, utrieť vlhkou handrou a nechať uschnúť. Žehliť netreba."],
-    ["Sú rohože do každého počasia?","Áno. Materiál je nepremokavý — voda, sneh aj blato ostanú na koberci a nedostanú sa do čalúnenia. Po zime stačí koberec vybrať a opláchnuť."],
+    ["Sú rohože do každého počasia?","Áno. Materiál je nepremokavý — voda, sneh aj blato ostanú na koberci a nedostanú sa do čalúnenia. Na celoročné používanie sú ideálne dvojvrstvové: vrchnú vrstvu jednoducho vyberiete, opláchnete a vrátite späť."],
     ["Koľko stojí poštovné?","Poštovné a podmienky dopravy nájdete v košíku pri dokončení objednávky."],
     ["Sú dostupné aj špeciálne prešívania alebo farby?","Áno, farbu materiálu aj prešívania si zvolíte v konfigurátore."],
     ["Čo robiť, ak koberce nesedia alebo ak je balík poškodený?","Napíšte nám — reagujeme do hodiny a vyriešime to."],
-    ["Aká je záruka na koberce?","Koberce sú navrhnuté tak, aby vydržali počas celej životnosti vozidla."]
+    ["Aká je záruka na koberce?","Koberce sú navrhnuté tak, aby vydržali počas celej životnosti vozidla. Záruku máte 2 roky ako súkromná osoba a 1 rok pri nákupe na firmu."]
   ];
+  var Q_CZ = [
+    ["Jak si mohu objednat?","Vyberte model vozidla v konfigurátoru, zvolte provedení a barvu. Zbytek vyřídíme my."],
+    ["Budou tyto koberce pasovat do mého auta?","Ano. Šijí se podle hotových šablon pro konkrétní model, rok a typ karoserie — proto sednou na milimetr."],
+    ["Viděl jsem podobně vypadající koberce online. Proč právě Luxury Car Design?","Rozdíl je v materiálu, přesnosti a uchycení — podívejte se na sekci Porovnání výše."],
+    ["Nabízíte koberečky pro moje auto? Co když moje auto není v seznamu?","Máme více než 1000 modelů. Pokud váš chybí, ozvěte se — šablonu pro něj doplníme."],
+    ["Z čeho jsou luxusní autokoberce vyrobené?","Navrchu je prémiová ekokůže, na spodku protiskluzová vrstva. Materiál je nepromokavý, tlumí hluk a nekroutí se."],
+    ["Jak se koberce uchycují?","Na spodní straně koberce jsou našité suché zipy. V balení najdete oboustrannou lepicí pásku se suchým zipem a klipy na uchycení pod plastové části."],
+    ["Jak se luxusní koberce čistí?","Stačí je vyjmout, otřít vlhkým hadrem a nechat uschnout. Žehlit netřeba."],
+    ["Jsou rohože do každého počasí?","Ano. Materiál je nepromokavý — voda, sníh i bláto zůstanou na koberci a nedostanou se do čalounění. Na celoroční používání jsou ideální dvouvrstvé: vrchní vrstvu jednoduše vyjmete, opláchnete a vrátíte zpět."],
+    ["Kolik stojí poštovné?","Poštovné a podmínky dopravy najdete v košíku při dokončení objednávky."],
+    ["Jsou dostupné i speciální prošívání nebo barvy?","Ano, barvu materiálu i prošívání si zvolíte v konfigurátoru."],
+    ["Co dělat, když koberce nesedí nebo je balík poškozený?","Napište nám — reagujeme do hodiny a vyřešíme to."],
+    ["Jaká je záruka na koberce?","Koberce jsou navržené tak, aby vydržely po celou životnost vozidla. Záruku máte 2 roky jako soukromá osoba a 1 rok při nákupu na firmu."]
+  ];
+  var Q = location.hostname.indexOf('luxurycardesign.cz') !== -1 ? Q_CZ : Q_SK;
   var faq=document.getElementById('faq');
   Q.forEach(function(q,i){
     var d=document.createElement('details');
