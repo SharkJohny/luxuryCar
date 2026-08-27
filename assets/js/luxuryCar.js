@@ -1209,7 +1209,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       <div class="pinhead">
         <div class="rule"><span class="n">09 \u2014 Materi\xE1l</span></div>
         <h2>Materi\xE1l, ktor\xFD dr\u017E\xED tvar aj po rokoch</h2>
-        <p class="lede">Nepremokav\xFD, ne\u0161m\xFDka sa a tlm\xED hluk z cesty. Navrchu pr\xE9miov\xE1 ekoko\u017Ea, na spodku proti\u0161mykov\xE1 vrstva. Rolujte a pozrite si rez.</p>
+        <p class="lede">Nepremokav\xFD, ne\u0161m\xFDka sa a tlm\xED hluk z cesty. Navrchu pr\xE9miov\xE1 ekoko\u017Ea, na spodku proti\u0161mykov\xE1 vrstva. Rolujte a pozrite si prierez.</p>
       </div>
       <div class="pintop">
         <span class="chip">Nepremokav\xFD</span>
@@ -1220,7 +1220,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       </div>
       <div class="pinmain">
       <div id="matWrap">
-        <div class="matmark">DragonSkin<i>Rez materi\xE1lom</i></div>
+        <div class="matmark">DragonSkin<i>Prierez materi\xE1lom</i></div>
         <div class="mgs"></div>
         <div class="exp" id="exp">
           <div class="mbox" data-l="0" data-t="0.0656" style="--t:16px;--cf:rgb(50,51,63);--cb:rgb(28,28,35);--cl1:rgb(60,60,72);--cl2:rgb(37,38,47);--cr:rgb(29,30,37);--ct1:rgb(83,84,97);--ct2:rgb(55,56,67);--cbt:rgb(24,24,30)">
@@ -1254,7 +1254,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
             <button class="hot" data-l="4" style="left:12%;top:81%" aria-label="Vrstva 5">5</button>
           </div>
         </div>
-        <div class="matline"><span>Zv\xE4\u010D\u0161en\xFD rez materi\xE1lom</span></div>
+        <div class="matline"><span>Zv\xE4\u010D\u0161en\xFD prierez materi\xE1lom</span></div>
         <div class="mat-hint">Rolujte a materi\xE1l sa rozlo\u017E\xED</div>
         <button class="mat-toggle" id="matToggle" type="button">Rozlo\u017Ei\u0165 materi\xE1l</button>
       </div>
@@ -1936,7 +1936,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       <div class="pinhead">
         <div class="rule"><span class="n">09 \u2014 Materi\xE1l</span></div>
         <h2>Materi\xE1l, kter\xFD dr\u017E\xED tvar i po letech</h2>
-        <p class="lede">Nepromokav\xFD, neklou\u017Ee se a tlum\xED hluk z cesty. Navrchu pr\xE9miov\xE1 ekok\u016F\u017Ee, na spodku protiskluzov\xE1 vrstva. Rolujte a prohl\xE9dn\u011Bte si \u0159ez.</p>
+        <p class="lede">Nepromokav\xFD, neklou\u017Ee se a tlum\xED hluk z cesty. Navrchu pr\xE9miov\xE1 ekok\u016F\u017Ee, na spodku protiskluzov\xE1 vrstva. Rolujte a prohl\xE9dn\u011Bte si pr\u016F\u0159ez.</p>
       </div>
       <div class="pintop">
         <span class="chip">Nepromokav\xFD</span>
@@ -1947,7 +1947,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       </div>
       <div class="pinmain">
       <div id="matWrap">
-        <div class="matmark">DragonSkin<i>\u0158ez materi\xE1lem</i></div>
+        <div class="matmark">DragonSkin<i>Pr\u016F\u0159ez materi\xE1lem</i></div>
         <div class="mgs"></div>
         <div class="exp" id="exp">
           <div class="mbox" data-l="0" data-t="0.0656" style="--t:16px;--cf:rgb(50,51,63);--cb:rgb(28,28,35);--cl1:rgb(60,60,72);--cl2:rgb(37,38,47);--cr:rgb(29,30,37);--ct1:rgb(83,84,97);--ct2:rgb(55,56,67);--cbt:rgb(24,24,30)">
@@ -1981,7 +1981,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
             <button class="hot" data-l="4" style="left:12%;top:81%" aria-label="Vrstva 5">5</button>
           </div>
         </div>
-        <div class="matline"><span>Zv\u011Bt\u0161en\xFD \u0159ez materi\xE1lem</span></div>
+        <div class="matline"><span>Zv\u011Bt\u0161en\xFD pr\u016F\u0159ez materi\xE1lem</span></div>
         <div class="mat-hint">Rolujte a materi\xE1l se rozlo\u017E\xED</div>
         <button class="mat-toggle" id="matToggle" type="button">Rozlo\u017Eit materi\xE1l</button>
       </div>
