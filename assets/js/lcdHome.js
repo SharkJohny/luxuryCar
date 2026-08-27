@@ -15,11 +15,36 @@ function lcdhLenisSync(){
     lcdhLenis = new Lenis({ lerp: 0.12 });
     lcdhLenis.on("scroll", ScrollTrigger.update);
     requestAnimationFrame(lcdhLenisRaf);
-    /* vodorovne pasy nechat nativne - inak by sa swipe bil s Lenisom.
-       Markup vklada az boot, preto sa vynimky nastavuju aj s odstupom. */
+    /* Lenis si vysku stranky odmeria pri starte. Markup, reels aj obrazky pribudaju
+       az potom -> limit ostane nespravny (merane 2026-08-27 na live: +293 px) a stranka
+       sa da doscrollovat "za koniec", co sposobuje trhanie a preblikavanie cudzieho obsahu.
+       Preto prepocet po kazdej zmene vysky. */
+    var lcdhPrepocetT = null;
+    var lcdhPrepocet = function () {
+      clearTimeout(lcdhPrepocetT);
+      lcdhPrepocetT = setTimeout(function () { if (lcdhLenis) lcdhLenis.resize(); }, 120);
+    };
+    if (window.ResizeObserver) {
+      var lcdhRO = new ResizeObserver(lcdhPrepocet);
+      lcdhRO.observe(document.documentElement);
+      var lcdhROCiel = function () {
+        var h = document.getElementById("lcd-home") || document.getElementById("lcd-rz");
+        if (h) lcdhRO.observe(h);
+      };
+      lcdhROCiel(); setTimeout(lcdhROCiel, 1500);
+    }
+    addEventListener("load", lcdhPrepocet);
+    [400, 1500, 3000, 6000].forEach(function (ms) { setTimeout(lcdhPrepocet, ms); });
+    /* Vodorovne pasy: koliesko NADOL musi patrit Lenisu, inak nativny scroll bojuje
+       s Lenisom a stranka sa tahá spat (Michal 2026-08-27: modul 04 "nechce ma pustit
+       par scrolov dole"). Nativne ostava len vodorovne gesto a dotyk. */
     var lcdhLenisVyn = function () {
       [].forEach.call(document.querySelectorAll(".deck,.vids,#revs,.duo,.modl-selector-wrap"),
-        function (el) { el.setAttribute("data-lenis-prevent", ""); });
+        function (el) {
+          el.removeAttribute("data-lenis-prevent");
+          el.setAttribute("data-lenis-prevent-horizontal", "");
+          el.setAttribute("data-lenis-prevent-touch", "");
+        });
     };
     lcdhLenisVyn(); setTimeout(lcdhLenisVyn, 1500); setTimeout(lcdhLenisVyn, 4000);
   } else if (!rezim && lcdhLenis) { lcdhLenis.destroy(); lcdhLenis = null; }

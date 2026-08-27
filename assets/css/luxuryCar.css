@@ -9731,6 +9731,11 @@ section#model-selector {
   #lcd-home .lcdh-konf-slot .lcd-vehicle-switch__tab{padding:14px 10px;font-size:12px;gap:9px}
   #lcd-home .lcdh-konf-slot .lcd-vehicle-switch__tab svg{width:19px;height:19px}
 }
+
+/* --- opravy 2026-08-27 (Lenis/modul09/oramovanie/podpis) --- */
+@media(min-width:901px){#lcd-home .stage{height:240vh !important}}
+#lcd-home video,#lcd-rz video{border:0 !important;border-radius:0 !important}
+#footer #signature{display:none !important}
 /* ===== LCD-HOME END ===== */
 
 /* ===== LCD-RZ START - generovane extract-lcd-rz.py, needituj rucne ===== */
