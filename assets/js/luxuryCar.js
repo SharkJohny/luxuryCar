@@ -1146,7 +1146,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       <div class="pinmain">
       <div class="s2-media">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f01.jpg" alt="" data-i="0" class="on" width="760" height="950">
-        <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f02.jpg" alt="" data-i="1" width="760" height="950">
+        <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f02.jpg?v=2" alt="" data-i="1" width="760" height="950">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f03.jpg" alt="" data-i="2" width="760" height="950">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f04.jpg" alt="" data-i="3" width="760" height="950">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f05.jpg" alt="" data-i="4" width="760" height="950">
@@ -1873,7 +1873,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
       <div class="pinmain">
       <div class="s2-media">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f01.jpg" alt="" data-i="0" class="on" width="760" height="950">
-        <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f02.jpg" alt="" data-i="1" width="760" height="950">
+        <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f02.jpg?v=2" alt="" data-i="1" width="760" height="950">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f03.jpg" alt="" data-i="2" width="760" height="950">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f04.jpg" alt="" data-i="3" width="760" height="950">
         <img decoding="async" src="https://cdn.myshoptet.com/usr/shoptet.jankucera.work/user/documents/eshopy/luxuryCar/assets/img/lcd-home/f05.jpg" alt="" data-i="4" width="760" height="950">
