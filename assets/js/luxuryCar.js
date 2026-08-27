@@ -827,7 +827,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
         <li><span class="ic">\u2713</span><span><b>Materi\xE1l</b>Bez z\xE1pachu, prvotriedna ekoko\u017Ea, rozpoznate\u013En\xE1 hr\xFAbkou a m\xE4kkos\u0165ou</span></li>
         <li><span class="ic">\u2713</span><span><b>Uchytenie</b>Tesn\xE9 uchytenie, \u017Eiadny pohyb po\u010Das jazdy</span></li>
         <li><span class="ic">\u2713</span><span><b>Trvanlivos\u0165</b>Roky pou\u017E\xEDvania bez praskl\xEDn a deform\xE1cie</span></li>
-        <li><span class="ic">\u2713</span><span><b>Zips a klipy</b>Zipsy na\u0161it\xE9 na spodnej strane, v balen\xED p\xE1ska so zipsom aj klipy</span></li>
+        <li><span class="ic">\u2713</span><span><b>Zips a klipy</b>Such\xE9 zipsy na\u0161it\xE9 na spodnej strane, v balen\xED p\xE1ska so such\xFDm zipsom aj klipy</span></li>
         <li><span class="ic">\u2713</span><span><b>Skenovanie vozidla</b>Viac ako 200 min\xFAt na jeden model</span></li>
       </ul>
     </div>
@@ -1555,7 +1555,7 @@ ${t} .gv-faq-a-inner { padding: 0 18px 16px; font-size: 13px; color: #6a6058; li
         <li><span class="ic">\u2713</span><span><b>Materi\xE1l</b>Bez z\xE1pachu, prvot\u0159\xEDdn\xED ekok\u016F\u017Ee, rozpoznateln\xE1 tlou\u0161\u0165kou a m\u011Bkkost\xED</span></li>
         <li><span class="ic">\u2713</span><span><b>Uchycen\xED</b>T\u011Bsn\xE9 uchycen\xED, \u017E\xE1dn\xFD pohyb b\u011Bhem j\xEDzdy</span></li>
         <li><span class="ic">\u2713</span><span><b>Odolnost</b>Roky pou\u017E\xEDv\xE1n\xED bez prasklin a deformace</span></li>
-        <li><span class="ic">\u2713</span><span><b>Zip a klipy</b>Zipy v\u0161it\xE9 na spodn\xED stran\u011B, v balen\xED p\xE1ska se zipem i klipy</span></li>
+        <li><span class="ic">\u2713</span><span><b>Zip a klipy</b>Such\xE9 zipy na\u0161it\xE9 na spodn\xED stran\u011B, v balen\xED p\xE1ska se such\xFDm zipem i klipy</span></li>
         <li><span class="ic">\u2713</span><span><b>Skenov\xE1n\xED vozidla</b>V\xEDce ne\u017E 200 minut na jeden model</span></li>
       </ul>
     </div>
