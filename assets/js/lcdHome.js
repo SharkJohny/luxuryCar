@@ -647,6 +647,26 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
        b:'Ťahače aj dodávky — Scania, Volvo, DAF, MAN, Sprinter, Transit, Crafter a ďalšie. '
          +'Po zvolení modelu vás prenesieme na stránku s kobercami pre kamióny.'};
 
+  /* Prepinac vozidiel (.lcd-vehicle-switch__tab) patri adoptovanemu konfiguratoru
+     a s vnutornym 'mode' navrhu nie je prepojeny — poznamka preto ostavala v rezime
+     osobnych aut aj po prepnuti na kamiony. Synchronizujeme ju podla toho, ktory
+     obal je prave viditelny. */
+  function lcdhSyncPoznamku() {
+    var n = document.getElementById('konfNote');
+    if (!n) return;
+    var truck = document.querySelector('.lcdh-konf-slot .lcd-truck-wrap');
+    var jeKamion = !!(truck && truck.getBoundingClientRect().width > 0);
+    var t = jeKamion ? NOTE.b : NOTE.a;
+    if (n.textContent !== t) n.textContent = t;
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.closest && e.target.closest('.lcd-vehicle-switch__tab')) {
+      setTimeout(lcdhSyncPoznamku, 350);
+      setTimeout(lcdhSyncPoznamku, 1200);
+    }
+  });
+  [1500, 4000].forEach(function (ms) { setTimeout(lcdhSyncPoznamku, ms); });
+
   function clearErr(f){ f.classList.remove('err'); }
   function showErr(f){
     var msg=f.dataset[mode==='b'&&f.dataset.errB?'errB':'err']||'Toto pole je potrebné vyplniť.';
