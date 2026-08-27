@@ -70,6 +70,22 @@ import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
     }
   }
 
+  /* Popisky prepinaca karty vyberu. Boli natvrdo po slovensky, takze na .cz
+     sa po prvom prepnuti zmenili na slovenske. */
+  function lcdrzPopis(kluc) {
+    var cz = location.hostname.indexOf("luxurycardesign.cz") !== -1;
+    if (kluc === "zmenit") return cz ? "Změnit" : "Zmeniť";
+    return cz ? "Skrýt" : "Skryť";
+  }
+
+  /* Zavrie kartu "Iné vozidlo?" a vrati prepinac do stavu "Zmenit". */
+  function lcdrzZavriKonf(root) {
+    var kf = (root && root.querySelector("#konf")) || document.getElementById("konf");
+    var ch = document.getElementById("rzChange");
+    if (kf && !kf.hasAttribute("hidden")) kf.setAttribute("hidden", "");
+    if (ch) ch.textContent = lcdrzPopis("zmenit");
+  }
+
   function lcdrzUloz(root) {
     var btn = root.querySelector(".btn.choice-Model") || document.querySelector(".btn.choice-Model");
     if (btn) btn.click();
@@ -88,10 +104,13 @@ import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); lcdrzOtvor(root, el, idx); }
       });
     });
-    /* akykolvek klik na povodne tlacidlo konfiguratora tiez obnovi hlavicku */
+    /* akykolvek klik na povodne tlacidlo konfiguratora tiez obnovi hlavicku
+       a zavrie kartu vyberu — Michal 2026-08-27: "ked zmenim model auta a dam
+       zvolit tak chcem aby ten modul s vyberom zmyzol a ostalo len to co je hore" */
     var btn = root.querySelector(".btn.choice-Model") || document.querySelector(".btn.choice-Model");
     if (btn) btn.addEventListener("click", function () {
-      setTimeout(function () { lcdrzHlavicka(root); lcdrzPrepisPlate(root); }, 500);
+      lcdrzZavriKonf(root);
+      setTimeout(function () { lcdrzHlavicka(root); lcdrzPrepisPlate(root); lcdrzZavriKonf(root); }, 500);
     });
   }
 
@@ -566,8 +585,8 @@ import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
   var ch=document.getElementById('rzChange'), kf=document.getElementById('konf');
   if(ch&&kf) ch.addEventListener('click',function(){
     var open = !kf.hasAttribute('hidden');
-    if(open){ kf.setAttribute('hidden',''); ch.textContent='Zmeniť'; }
-    else { kf.removeAttribute('hidden'); ch.textContent='Skryť';
+    if(open){ kf.setAttribute('hidden',''); ch.textContent=lcdrzPopis('zmenit'); }
+    else { kf.removeAttribute('hidden'); ch.textContent=lcdrzPopis('skryt');
            kf.scrollIntoView({block:'start',behavior:'smooth'}); }
   });
 })();
