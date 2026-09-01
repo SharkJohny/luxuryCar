@@ -1699,9 +1699,15 @@ function changeThumbnails() {
  */
 function isTruckConfiguratorPage() {
   try {
-    if (/\/test-truck(\/|$)/i.test(window.location.pathname)) return true;
+    const cesta = window.location.pathname || "";
+    if (/\/test-truck(\/|$)/i.test(cesta)) return true;
+    // Michal 2026-09-01 premenoval produkt z "truck" na "kamiony" — H1 uz
+    // slovo truck neobsahuje a konfigurator prestal nabiehat. Berieme oboje.
+    if (/autokoberce-(truck|kamiony)(\/|$)/i.test(cesta)) return true;
     const h1 = document.querySelector("h1");
-    if (h1 && /\btruck\b/i.test(h1.textContent || "")) return true;
+    const nadpis = h1 ? h1.textContent || "" : "";
+    if (/\btruck\b/i.test(nadpis)) return true;
+    if (/kami[oó]n/i.test(nadpis)) return true;
     return false;
   } catch (e) {
     return false;
