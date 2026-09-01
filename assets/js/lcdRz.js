@@ -333,7 +333,9 @@ import { LCDRZ_MARKUP, LCDRZ_MARKUP_CZ } from "./lcdRz-markup.js";
   function megaSet(o){ if(!mega) return;
     mega.classList.toggle('open',o); ovl.classList.toggle('open',o);
     bg.setAttribute('aria-expanded', o?'true':'false');
-    document.body.style.overflow = o && innerWidth<=760 ? 'hidden' : ''; }
+    document.body.style.overflow = o && innerWidth<=760 ? 'hidden' : '';
+    /* Lenis inak zoberie koliesko sebe a menu sa neposunie (len PC) */
+    mega.setAttribute('data-lenis-prevent',''); }
   if(bg) bg.addEventListener('click',function(){ megaSet(!mega.classList.contains('open')) });
   if(ovl) ovl.addEventListener('click',function(){ megaSet(false) });
   if(mx) mx.addEventListener('click',function(){ megaSet(false) });

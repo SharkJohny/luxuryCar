@@ -731,7 +731,9 @@ window.__lcdhLenis = function(){ return lcdhLenis; };
   var bg=document.getElementById('burg'), mega=document.getElementById('mega'),
       ovl=document.getElementById('megaOvl'), mx=document.getElementById('megaX');
   function megaSet(o){mega.classList.toggle('open',o);ovl.classList.toggle('open',o);
-    bg.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':''}
+    bg.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':'';
+    /* Lenis inak zoberie koliesko sebe a menu sa neposunie (len PC) */
+    mega.setAttribute('data-lenis-prevent','');}
   if(bg) bg.addEventListener('click',function(){megaSet(!mega.classList.contains('open'))});
   if(ovl) ovl.addEventListener('click',function(){megaSet(false)});
   if(mx) mx.addEventListener('click',function(){megaSet(false)});
